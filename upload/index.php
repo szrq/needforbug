@@ -3,13 +3,13 @@
    Needforbug 主页入口文件($)*/
 
 /** 是否需要安装 */
-if(!is_file('data/Install.lock.php')){
+if(!file_exists('data/Install.lock.php')){
 	header("location:install/index.php");
 }
 
-//error_reporting(E_ERROR|E_PARSE|E_STRICT);
-error_reporting(E_ALL);
-define('NEEDFORBUG_DEBUG',TRUE);
+error_reporting(E_ERROR|E_PARSE|E_STRICT);
+//error_reporting(E_ALL);
+//define('NEEDFORBUG_DEBUG',TRUE);
 
 /** Defined the version of needforbug */
 define('NEEDFORBUG_SERVER_VERSION','1.0');
@@ -25,7 +25,7 @@ if(isset($_GET['app'])){
 	if(!empty($_SERVER['PATH_INFO'])){
 		$arrPathinfos=explode('/',trim($_SERVER['PATH_INFO'],'/'));
 
-		if(isset($arrPathinfos[0]) && $arrPathinfos[0]=='app'){
+		if(isset($arrPathinfos[1]) && $arrPathinfos[0]=='app'){
 			$sAppName=$arrPathinfos[1];
 		}else{
 			$sAppName='home';
@@ -54,11 +54,11 @@ define('__THEMES__','app/'.APP_NAME.'/Theme');
 define('APP_RUNTIME_LOCK',NEEDFORBUG_PATH.'/source/protected/~Runtime.inc.lock');
 
 /** 加载框架编译版本 */
-define('STRIP_RUNTIME_SPACE',false);
+//define('STRIP_RUNTIME_SPACE',false);
 define('DYHB_THIN',true);
 
 /** 去掉模板空格 */
-//define('TMPL_STRIP_SPACE',true);
+define('TMPL_STRIP_SPACE',true);
 
 /** 载入框架 */
 require(NEEDFORBUG_PATH.'/source/include/DoYouHaoBaby/~DoYouHaoBaby.php');
