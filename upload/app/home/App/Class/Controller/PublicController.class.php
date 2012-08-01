@@ -7,8 +7,6 @@
 class PublicController extends InitController{
 
 	public function index(){
-//G::dump($_COOKIE);
-
 		Core_Extend::loadCache('link');
 
 		$this->assign('arrLinkDatas',$GLOBALS['_cache_']['link']);
@@ -31,6 +29,7 @@ class PublicController extends InitController{
 		}
 
 		$this->assign('nDisplaySeccode',$GLOBALS['_option_']['seccode_login_status']);
+		$this->assign('nRememberTime',$GLOBALS['_option_']['remember_time']);
 		
 		$this->display('login');
 	}
