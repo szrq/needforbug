@@ -6609,7 +6609,7 @@ class ModelBehaviorRbac extends ModelBehavior{
 		}
 		$sAuthKey=md5($GLOBALS['_commonConfig_']['DYHB_AUTH_KEY'].$_SERVER['HTTP_USER_AGENT']);
 		$sAuthData=Dyhb::cookie($GLOBALS['_commonConfig_']['RBAC_DATA_PREFIX'].'auth');
-		list($nUserId,$sPassword)=$sAuthData?explode("\t",G::authCode($sAuthData,true,NULL,$this->_arrSettings['rbac_login_life'])):array('','');G::dump($nUserId);
+		list($nUserId,$sPassword)=$sAuthData?explode("\t",G::authCode($sAuthData,true,NULL,$this->_arrSettings['rbac_login_life'])):array('','');
 		$sHash=G::addslashes(Dyhb::cookie($GLOBALS['_commonConfig_']['RBAC_DATA_PREFIX'].'hash'));
 		$nUserId=intval($nUserId);
 		$sPassword=G::addslashes($sPassword);
@@ -6635,9 +6635,9 @@ class ModelBehaviorRbac extends ModelBehavior{
 				}
 			}else{
 				$arrUserInformation=array();
-				$arrSessionData=SessionModel::F('session_hash=?',$sHash)->asArray()->query();
+				$arrSessionData=SessionModel::F('session_hash=?',$sHash)->asArray()->query();G::dump($arrSessionData);echo 'x';
 				if(!empty($arrSessionData['user_id'])){
-					$bSessionExists=true;
+					$bSessionExists=true;echo 'y';
 					$this->updateSession($arrSessionData['session_hash'],$nUserId,$sAuthKey,true);
 				}else{
 					if(!G::isImplementedTo(($arrSessionData=SessionModel::F('session_hash=?',$sHash)->asArray()->query()),'IModel')){
