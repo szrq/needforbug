@@ -1,0 +1,38 @@
+<!--<include file="header" />-->
+
+		<ul class="breadcrumb">
+			<li><a href="<!--{:__APP__}-->">主页</a> <span class="divider">/</span></li>
+			<li>短消息</li>
+		</ul>
+
+		<!--<include file="pm_menu" />-->
+
+		<div class="row">
+			<div class="span12">
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th colspan="2"><i class="icon-envelope"></i> 发送给 <a href="<!--{:Dyhb::U('home://my/user?id='.$oPm->pm_msgtoid)}-->" target="_blank"><!--{:UserModel::getUsernameById($oPm->pm_msgtoid)}--></a></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr id="pm_<!--{$oPm:pm_id}-->" class="pmlist-even">
+							<td width="60px">
+								<a href="<!--{:Dyhb::U('home://my/user?id='.$oPm->pm_msgfromid)}-->" target="_blank"><img src="<!--{:Core_Extend::avatar( $oPm->pm_msgfromid,'small' )}-->" class="thumbnail" />
+								</a>
+							</td>
+							<td>
+								<!--{if $oPm['pm_subject']}--><h5><!--{$oPm['pm_subject']}--></h5><!--{/if}-->
+								<p class="pm-cite"><a href="<!--{:Dyhb::U('home://my/user?id='.$oPm->pm_msgfromid)}-->" target="_blank"><!--{$oPm:pm_msgfrom}--></a> &nbsp;<em><!--{$oPm:create_dateline|Core_Extend+timeFormat}--></em></p>
+								<p class="pm-summary"><!--{$oPm:pm_message|Pm_Extend+ubb}--></p>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2"><i class="icon-share-alt"></i> <a href="<!--{:Dyhb::U('home://pm/index?type=my')}-->">已发消息</a></td>
+						<tr>
+					</tbody>
+				</table>
+			</div>
+		</div><!--/row-->
+
+<!--<include file="footer" />-->

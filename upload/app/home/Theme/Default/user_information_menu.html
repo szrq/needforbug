@@ -1,0 +1,19 @@
+		<div class="row">
+			<div class="span12">
+				<ul class="nav nav-tabs">
+					<li <!--{if ACTION_NAME==='base'}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://user/base')}-->">基本信息</a></li>
+					<li <!--{if MODULE_NAME==='my' && ACTION_NAME==='rating'}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://my/rating')}-->">积分</a></li>
+					<li <!--{if in_array(ACTION_NAME,array('avatar','avatar_upload'))}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://user/avatar')}-->">修改头像</a></li>
+					<li <!--{if ACTION_NAME==='password'}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://user/password')}-->">修改密码</a></li>
+					<li <!--{if ACTION_NAME==='promotion'}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://user/promotion')}-->">访问推广</a></li>
+					<li class="dropdown <!--{if ACTION_NAME==='tag'}-->active<!--{/if}-->">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);">更多<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li><a href="<!--{:Dyhb::U('home://user/tag')}-->">用户标签</a></li>
+							<li class="divider"></li>
+							<li><a href="<!--{:Dyhb::U('home://stat/userlist')}-->">用户列表</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>

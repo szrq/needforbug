@@ -1,0 +1,172 @@
+<!--<include file="header" />-->
+
+<!--{script}-->
+function deleteMyPm(id){
+	needforbugConfirm(D.L('确实要永久删除选择项吗？','__COMMON_LANG__@Admin/Common_Js'),function(){
+		Dyhb.AjaxSend(D.U('home://pm/del_my_one_pm?id='+id),'','',completeDelete);
+	});
+}
+
+function deletePm(id,userid){
+	needforbugConfirm(D.L('确实要永久删除选择项吗？','__COMMON_LANG__@Admin/Common_Js'),function(){
+		Dyhb.AjaxSend(D.U('home://pm/del_one_pm?id='+id+'&uid='+userid),'','',completeDelete);
+	});
+}
+
+function completeDelete(data,status){
+	if(status==1){
+		window.location.reload();
+	}
+}
+
+function deletePms(){
+	needforbugConfirm(D.L('确实要永久删除选择项吗？','__COMMON_LANG__@Admin/Common_Js'),function(){
+		document.getElementById('pmform').submit();
+	});
+
+	return false;
+}
+
+function readPms(){
+	document.getElementById('pmform').submit();
+
+	return false;
+}
+
+function deleteMyPms(){
+	needforbugConfirm(D.L('确实要永久删除选择项吗？','__COMMON_LANG__@Admin/Common_Js'),function(){
+		document.getElementById('pmform').submit();
+	});
+
+	return false;
+}
+<!--{/script}-->
+
+		<ul class="breadcrumb">
+			<li><a href="<!--{:__APP__}-->">主页</a> <span class="divider">/</span></li>
+			<li>短消息</li>
+		</ul>
+
+		<!--<include file="pm_menu" />-->
+
+		<div class="row">
+			<div class="span12">
+				<form method="post" id="pmform" action="<!--{if in_array($sType,array('system','systemnew'))}--><!--{:Dyhb::U('home://pm/readselect')}--><!--{elseif $sType=='my'}--><!--{:Dyhb::U('home://pm/delmyselect')}--><!--{d*else}--><!--{:Dyhb::U('home://pm/delselect')}--><!--{/if}-->" class="form-inline">
+					<div id="checkList">
+						<!--{if !in_array($sType,array('system','my','systemnew'))}-->
+						<div style="margin: 5px 50px 0px 0px;">
+							<span class="right">
+								<label class="checkbox">
+									<input type="checkbox" id="chkall" name="chkall" onclick="checkAll('checkList')"> 全选
+								</label>
+								<span class="pipe">|</span>
+								<span class="label label-warning"><a href="javascript:void(0);" onclick="deletePms();return false;">删除</a></span>
+							</span>
+							
+							<!--{$sPageNavbar}-->
+						</div>
+						<!--{/if}-->
+
+						<!--{if in_array($sType,array('system','systemnew'))}-->
+						<div style="margin: 5px 50px 0px 0px;">
+							<span class="right">
+								<label class="checkbox">
+									<input type="checkbox" id="chkall" name="chkall" onclick="checkAll('checkList')"> 全选
+								</label>
+								<span class="pipe">|</span>
+								<span class="label label-success"><a href="javascript:void(0);" onclick="readPms();return false;">标为已读</a></span>
+							</span>
+						</div>
+						<!--{/if}-->
+
+						<!--{if $sType=='my'}-->
+						<div style="margin: 5px 50px 0px 0px;">
+							<span class="right">
+								<label class="checkbox">
+									<input type="checkbox" id="chkall" name="chkall" onclick="checkAll('checkList')"> 全选
+								</label>
+								<span class="pipe">|</span>
+								<span class="label label-warning"><a href="javascript:void(0);" onclick="deleteMyPms();return false;">删除</a></span>
+							</span>
+						</div>
+						<!--{/if}-->
+						
+						<!--{if is_array($arrPmLists)}-->
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th colspan="2"><i class="icon-envelope"></i> 短消息</th>
+								</tr>
+							</thead>
+							<tbody>
+								<!--<foreach for=arrPmLists value=oPm>-->
+								<!--{~$sEven=$key%2==0?'pmlist-even':'pmlist-odd'}-->
+								<!--{if $oPm['pm_type']=='user'}-->
+								<tr id="pm_<!--{$oPm:pm_id}-->" class="<!--{$sEven}-->">
+									<td width="60px">
+										<a href="<!--{:Dyhb::U('home://my/user?id='.$oPm->pm_msgfromid)}-->" target="_blank">
+											<img src="<!--{:Core_Extend::avatar($oPm->pm_msgfromid,'small')}-->" class="thumbnail" />
+										</a>
+									</td>
+									<td>
+										<!--{if $oPm['pm_subject']}-->
+										<a href="<!--{:Dyhb::U('home://pm/show?id='.$oPm->pm_id.($sType=='my'?'&muid':'&uid=').$oPm->pm_msgfromid)}-->"><h5><!--{$oPm['pm_subject']}--></h5></a>
+										<!--{/if}-->
+										<p class="pm-cite"><a href="<!--{:Dyhb::U('home://my/user?id='.$oPm->pm_msgfromid)}-->" target="_blank"><!--{$oPm:pm_msgfrom}--></a>
+										<!--{if $sType=='my'}-->
+										&nbsp;<i class="icon-arrow-right"></i>&nbsp;<a href="<!--{:Dyhb::U('home://my/user?id='.$oPm->pm_msgtoid)}-->" target="_blank"><!--{:UserModel::getUsernameById($oPm->pm_msgtoid)}--></a>
+										<!--{/if}-->
+										&nbsp;<em><!--{$oPm:create_dateline|Core_Extend+timeFormat}--></em>
+										<!--{if $sType!='my' && $oPm:pm_isread==0}-->
+										&nbsp;<img src="<!--{:__PUBLIC__}-->/images/common/notice_newpm.gif" title="未读短消息"/>
+										<!--{/if}-->
+										<!--{if $sType=='my' && $oPm['pm_status']==0}-->
+										&nbsp;<i class="icon-remove-circle"></i>已删
+										<!--{/if}-->
+										</p>
+										<p class="pm-summary">
+											<!--{$oPm:pm_message|G+subString=0,$GLOBALS['_cache_']['home_option']['pm_list_substring_num']|Pm_Extend+ubb}-->
+										</p>
+										<p class="pm-more"><a href="<!--{:Dyhb::U('home://pm/show?id='.$oPm->pm_id.($sType=='my'?'&muid=':'&uid=').$oPm->pm_msgfromid)}-->">查看消息</a>
+											<!--{if $sType!='my'}-->
+											<span class="pipe">|</span><a href="<!--{:Dyhb::U('home://pm/pmnew?pmid='.$oPm->pm_id.'&uid='.$oPm->pm_msgfromid)}-->">回复</a><!--{/if}-->
+										</p>
+									</td>
+									<td><!--{if $sType!='my'}--><p><a href="javascript:void(0);" id="pmd_<!--{$oPm:pm_id}-->" onclick="deletePm('<!--{$oPm['pm_id']}-->','<!--{$oPm['pm_msgfromid']}-->');return false;" title="删除">删除</a></p><!--{d*else}--><p><a href="javascript:void(0);" id="pmd_<!--{$oPm:pm_id}-->" onclick="deleteMyPm('<!--{$oPm['pm_id']}-->');return false;" title="删除">删除</a></p>
+										<!--{/if}-->
+										<p><input name="pmid[]" type="checkbox" value="<!--{$oPm:pm_id}-->" /></p>
+									</td>
+								</tr>
+								<!--{d*else}-->
+								<tr id="pm_<!--{$oPm:pm_id}-->" class="<!--{$sEven}-->">
+									<td width="10px"><img src="<!--{:__PUBLIC__}-->/images/common/pm.gif" /></td>
+									<td>
+										<!--{if $oPm['pm_subject']}--><a href="<!--{:Dyhb::U('home://pm/show?id='.$oPm->pm_id)}-->"><h5><!--{$oPm['pm_subject']}--></h5></a><!--{/if}-->
+										<p class="pm-cite"><a href="<!--{:Dyhb::U('home://my/user?id='.$oPm->pm_msgfromid)}-->" target="_blank"><!--{$oPm:pm_msgfrom}--></a> 发布&nbsp;<em><!--{$oPm:create_dateline|Core_Extend+timeFormat}--></em><!--{if !in_array($oPm['pm_id'],$arrReadPms)}-->&nbsp;<img src="<!--{:__PUBLIC__}-->/images/common/notice_newpm.gif" title="未读短消息"/><!--{/if}--></p>
+										<p class="pm-summary">
+										<!--{$oPm:pm_message|G+subString=0,$GLOBALS['_cache_']['home_option']['pm_list_substring_num']|Pm_Extend+ubb}-->
+										</p>
+										<p class="pm-more"><a href="<!--{:Dyhb::U('home://pm/show?id='.$oPm->pm_id)}-->">查看消息</a></p>
+									</td>
+									<!--{if in_array($sType,array('system','systemnew')) && !in_array($oPm['pm_id'],$arrReadPms)}--><td>
+										<p><input name="pmid[]" type="checkbox" value="<!--{$oPm:pm_id}-->" /></p>
+									</td>
+									<!--{d*else}-->
+									<td></td>
+									<!--{/if}-->
+								</tr>
+								<!--{/if}-->
+								<!--</foreach>-->
+							</tbody>
+						</table>
+						<!--{d*else}-->
+						没有发现短消息
+						<!--{/if}-->
+					</div>
+				</form>
+
+				<!--{$sPageNavbar}-->
+			</div>
+		</div><!--/row-->
+
+<!--<include file="footer" />-->

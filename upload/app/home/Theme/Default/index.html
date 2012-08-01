@@ -1,0 +1,153 @@
+<!--<include file="header" />-->
+
+<!--{script}-->
+function login_handle(data,status){
+	if(status==1){
+		window.location=data.url;
+	}
+}
+
+function rememberme(close){
+	var sStyle='block';
+	if(close==1){
+		sStyle='none';
+	}
+
+	document.getElementById('remember_time').style.display=sStyle;
+}
+<!--{/script}-->
+	
+		<ul class="breadcrumb">
+			<li>主页</li>
+		</ul>
+		
+		<div class="hero-unit">
+			<h1><!--{$GLOBALS['_option_']['site_name']}--></h1>
+			<p><!--{$GLOBALS['_option_']['site_description']}--></p>
+			<p><!--{if $GLOBALS['___login___']===false}-->
+				<a class="btn btn-success btn-large" href="<!--{:Dyhb::U('home://public/register')}-->">加入我们</a>
+				<!--{d*else}-->
+				<a class="btn btn-success btn-large" href="<!--{:Dyhb::U('home://user/index')}-->"><!--{$GLOBALS['___login___']['user_name']}--> 我的地盘</a>
+				<!--{/if}-->
+			</p>
+		</div>
+
+		<div class="row">
+			<div class="span7">
+				<h3><!--{$GLOBALS['_option_']['site_name']}--> 新社区</h3>
+				<div class="alert alert-success" style="text-align:center;margin: 15px 0px;height87px;">
+					<img src="<!--{$sLogo}-->"/>
+				</div>
+				<blockquote><!--{$sHomeDescription}--></blockquote>
+			</div>
+
+			<div class="span5">
+				<!--{if $GLOBALS['___login___']===false}-->
+				<div class="well">
+					<h3>用户登录</h3>
+					<form class="form-horizontal" method='post' name="login_form" id="login_form">
+						<label><div id="result" class="none"></div></label>
+						<p><label for="user_name">用户名/E-mail</label>
+							<input class="span3" id="user_name" name="user_name" type="text" value="">
+						</p>
+						<p><label for="user_name">密码</label>
+							<input class="span3" id="user_password" name="user_password" type="password" value="">
+						</p>
+						<p><label class="checkbox">
+								<input id="remember_me" type="checkbox" name="remember_me" value="1" onclick="rememberme();"/>记住我
+								<span class="pipe">|</span>
+								<a href="<!--{:Dyhb::U('home://public/get_password')}-->" class="resetpassword-link">忘记密码?</a>
+							</label>
+						</p>
+						<div id="remember_time" class="none">
+							<label for="remember_time">COOKIE有效期 <span class="pipe">|</span> <a href="javascript:void(0);" onclick="rememberme(1);"><i class="icon-remove"></i>关闭</a></label>
+							<select name="remember_time">
+								<option value="0" <!--{if $nRememberTime==0}-->selected<!--{/if}-->>及时</option>
+								<option value="3600" <!--{if $nRememberTime==3600}-->selected<!--{/if}-->>一小时</option>
+								<option value="86400" <!--{if $nRememberTime==86400}-->selected<!--{/if}-->>一天</option>
+								<option value="604800" <!--{if $nRememberTime==604800}-->selected<!--{/if}-->>一星期</option>
+								<option value="2592000" <!--{if $nRememberTime==2592000}-->selected<!--{/if}-->>一月</option>
+								<option value="31536000" <!--{if $nRememberTime==31536000}-->selected<!--{/if}-->>一年</option>
+							</select>
+							<p class="help-block">
+								<i class=" icon-info-sign"></i> 注意在网吧等共同场所请不要记住我
+							</p>
+						</div>
+						<!--{if $nDisplaySeccode==1}-->
+						<label for="user_name">验证码</label>
+							<input class="input-small" name="seccode" id="seccode" type="text" value="">
+							<p class="help-block">
+								<span id="seccodeImage"><img style="cursor:pointer" onclick="updateSeccode()" src="<!--{:Dyhb::U('home://public/seccode')}-->" /></span>
+							</p>
+						<!--{/if}-->
+						<div class="space"></div>
+						<p><input type="hidden" name="ajax" value="1">
+							<button type="button" class="btn btn-success" onClick="Dyhb.AjaxSubmit('login_form','<!--{:Dyhb::U('home://public/check_login')}-->','result',login_handle);">登录</button>
+							<a href="<!--{:Dyhb::U('home://public/login')}-->">新用户注册</a>
+							<span class="pipe">|</span>
+							<a href="<!--{:Dyhb::U('home://public/clear')}-->">清除痕迹</a>
+						</p>
+					</form>
+				</div>
+				<!--{d*else}-->
+				<h3><!--{$GLOBALS['___login___']['user_name']}--> 我的地盘</h3>
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th width="40%"><i class="icon-camera"></i><a href="<!--{:Dyhb::U('home://user/avatar')}-->">修改头像</a></th>
+								<th width="60%"><i class="icon-info-sign"></i><a href="<!--{:Dyhb::U('home://user/index')}-->">个人中心</a></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td rowspan="4">
+									<a href="<!--{:Dyhb::U('home://user/avatar')}-->">
+									<img src="<!--{:Core_Extend::avatar($GLOBALS['___login___']['user_id'])}-->" class="thumbnail"/></a>
+								</td>
+								<td><i class="icon-cog"></i><a href="<!--{:Dyhb::U('home://user/base')}-->">修改资料</a></td>
+							</tr>
+							<tr>
+								<td><i class="icon-lock"></i><a href="<!--{:Dyhb::U('home://user/password')}-->">修改密码</a></td>
+							</tr>
+							<tr>
+								<td><i class="icon-tags"></i><a href="<!--{:Dyhb::U('home://user/tag')}-->">我的标签</a></td>
+							</tr>
+							<tr>
+								<td><i class="icon-off"></i><a href="<!--{:Dyhb::U('home://public/logout')}-->">注销</a></td>
+							</tr>
+						</tbody>
+					</table>
+				<!--{/if}-->
+			</div>
+		</div><!--/row-->
+
+		<!--{if $arrLinkDatas['link_content'] || $arrLinkDatas['link_text'] || $arrLinkDatas['link_logo']}-->
+		<div class="row">
+			<div class="span12">
+				<h3>友情衔接</h3>
+				<hr/>
+				<!--{if $arrLinkDatas['link_content']}-->
+				<div class="home-links">
+					<ul class="clear">
+						<!--{$arrLinkDatas['link_content']}-->
+					</ul>
+				</div>
+				<!--{/if}-->
+				<!--{if $arrLinkDatas['link_logo']}-->
+					<div class="home-img-link">
+						<!--{$arrLinkDatas['link_logo']}-->
+					</div>
+				<!--{/if}-->
+				<!--{if $arrLinkDatas['link_text']}-->
+				<hr/>
+				<div class="home-txt-link">
+					<ul class="clear">
+						<!--{$arrLinkDatas['link_text']}-->
+					</ul>
+				</div>
+				<!--{/if}-->
+			</div>
+		</div><!--/row-->
+		<!--{/if}-->
+
+<!--<include file="footer" />-->

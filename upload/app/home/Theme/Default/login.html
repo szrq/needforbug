@@ -1,0 +1,61 @@
+<!--<include file="header" />-->
+
+<!--{script}-->
+function login_handle(data,status){
+	if(status==1){
+		window.location=data.url;
+	}
+}
+<!--{/script}-->
+
+		<ul class="breadcrumb">
+			<li><a href="<!--{:__APP__}-->">主页</a> <span class="divider">/</span></li>
+			<li>用户登录</li>
+		</ul>
+		
+		<div class="row">
+			<div class="span7">
+				<form class="form-horizontal" method='post' name="login_form" id="login_form">
+					<fieldset>
+						<div class="control-group">
+							<div class="controls">
+								<div id="result" class="none"></div>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="user_name">用户名/E-mail</label>
+							<div class="controls">
+								<input class="input-xlarge" id="user_name" name="user_name" type="text" value="">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="user_name">密码</label>
+							<div class="controls">
+								<input class="input-xlarge" type="password" id="user_password" name="user_password" type="text" value="">
+							</div>
+						</div>
+						<!--{if $nDisplaySeccode==1}-->
+						<div class="control-group">
+							<label class="control-label" for="seccode">验证码</label>
+							<div class="controls">
+								<input class="input-small" name="seccode" id="seccode" type="text" value="">
+								<p class="help-block"><span id="seccodeImage"><img style="cursor:pointer" onclick="updateSeccode()" src="<!--{:Dyhb::U('home://public/seccode')}-->" /></span></p>
+							</div>
+						</div>
+						<!--{/if}-->
+						<div class="form-actions">
+							<input type="hidden" name="ajax" value="1">
+							<button type="button" class="btn btn-success" onClick="Dyhb.AjaxSubmit('login_form','<!--{:Dyhb::U('home://public/check_login')}-->','result',login_handle);">登录</button>
+							<a href="<!--{:__APP__}-->" class="btn">取消</a>
+							<a href="<!--{:Dyhb::U('home://public/clear')}-->">清除痕迹</a>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+			<div class="span5">
+				<h3>没有帐号？请立刻注册</h3>
+				<p><a href="<!--{:Dyhb::U('home://public/register')}-->" class="btn btn-success">用户注册</a></p>
+			</div>
+		</div><!--/row-->
+
+<!--<include file="footer" />-->

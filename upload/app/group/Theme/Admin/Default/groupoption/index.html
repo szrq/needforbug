@@ -1,0 +1,56 @@
+<!--<include file="public+header" />-->
+
+<!--{script}-->
+function option(){
+	$("#submit_button").attr("disabled", "disabled");
+	$("#submit_button").val( 'update...' );
+	$("#submit_button").attr("disabled", false);
+}
+<!--{/script}-->
+
+	<section class="secondary_bar">
+		<div class="breadcrumbs_container">
+			<article class="breadcrumbs"><a href="<!--{:Dyhb::U('public/fmain')}-->"><!--<lang package='Template/Default/Common'>-->主页<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a class="current"><!--<lang package='__APP_ADMIN_LANG__@Template/Groupoption'>-->群组配置<!--</lang>--></a></article>
+		</div>
+	</section>
+
+	<section id="main" class="column">
+		<article class="module width_full">
+			<header><h3 class="tabs_involved"><!--<lang package='__APP_ADMIN_LANG__@Template/Groupoption'>-->群组配置<!--</lang>--></h3>
+				<ul class="tabs">
+					<li><a href="<!--{:Admin_Extend::base(array('controller'=>'group'))}-->"><!--<lang package='__APP_ADMIN_LANG__@Template/Group'>-->群组列表<!--</lang>--></a></li>
+					<li><a href="<!--{:Admin_Extend::base(array('controller'=>'groupcategory'))}-->"><!--<lang package='__APP_ADMIN_LANG__@Template/Groupcategory'>-->群组分类列表<!--</lang>--></a></li>
+					<li><a href="<!--{:Admin_Extend::base(array('controller'=>'grouptopiccategory'))}-->"><!--<lang package='__APP_ADMIN_LANG__@Template/Grouptopiccategory'>-->帖子分类列表<!--</lang>--></a></li>
+					<li class="active"><a href="<!--{:Admin_Extend::base()}-->"><!--<lang package='Template/Default/Common'>-->应用入口<!--</lang>--></a></li>
+					<li><a href="<!--{:Dyhb::U('app/index')}-->"><!--<lang package='Template/Default/App'>-->应用列表<!--</lang>--></a></li>
+				</ul>
+			</header>
+			<form action="<!--{:Dyhb::U('app/config?id='.$nId.'&action=update_option')}-->" method="post" onsubmit="return option();">
+				<div class="module_content">
+					<fieldset>
+						<label for="close_site"><!--<lang package='__APP_ADMIN_LANG__@Template/Groupoption'>-->审核新群组<!--</lang>--></label>
+						<input type="radio" id="group_isaudit" name="options[group_isaudit]" value="1" <!--{if $arrOptions['group_isaudit']==1}-->checked="checked"<!--{/if}-->/><!--<lang package='Template/Default/Common'>-->是<!--</lang>-->
+						<input type="radio" id="" name="options[group_isaudit]" value="0" <!--{if $arrOptions['group_isaudit']==0}-->checked="checked"<!--{/if}--> /><!--<lang package='Template/Default/Common'>-->否<!--</lang>-->
+						<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Groupoption'>-->管理员建立群组时不需要审核<!--</lang>--></div>
+					</fieldset>
+					<fieldset>
+						<label for="group_icon_uploadfile_maxsize"><!--<lang package='__APP_ADMIN_LANG__@Template/Groupoption'>-->群组图标最大上传限制(B)<!--</lang>--> (<!--<lang package='__APP_ADMIN_LANG__@Template/Groupoption'>-->当前最大上传尺寸<!--</lang>--> <!--{:G::changeFileSize($nUploadSize)}-->)</label>
+						<input type="text" name="options[group_icon_uploadfile_maxsize]" id="group_icon_uploadfile_maxsize" size="60" value="<!--{$arrOptions['group_icon_uploadfile_maxsize']}-->"/>
+						<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Groupoption'>-->系统最大附件上传大小，单位为B，-1表示不限制<!--</lang>--> <br/>
+							<!--<lang package='__APP_ADMIN_LANG__@Template/Groupoption'>-->服务器最大上传值<!--</lang>--> <!--{$nUploadMaxFilesize}--> (<!--{$nUploadMaxFilesize*1048576}-->B) <!--<lang package='__APP_ADMIN_LANG__@Template/Groupoption'>-->请注意最好不要超过这个值，否则不会有任何效果<!--</lang>-->
+						</div>
+					</fieldset>
+				</div>
+				<footer>
+					<div class="submit_link">
+						<input id="submit_button" type="submit" class="alt_btn" value="<!--<lang package='Template/Default/Common'>-->发布<!--</lang>-->" />
+						<input type="reset" value="<!--<lang package='Template/Default/Common'>-->重置<!--</lang>-->" />
+					</div>
+				</footer>
+			</form>
+		</article>
+
+		<div class="spacer"></div>
+	</section>
+
+<!--<include file="public+footer">-->

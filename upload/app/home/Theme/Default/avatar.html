@@ -1,0 +1,65 @@
+<!--<include file="header" />-->
+
+		<ul class="breadcrumb">
+			<li><a href="<!--{:__APP__}-->">主页</a> <span class="divider">/</span></li>
+			<li><a href="<!--{:Dyhb::U('home://user/base')}-->">用户资料</a> <span class="divider">/</span></li>
+			<li>修改头像</li>
+		</ul>
+
+		<!--<include file="user_information_menu" />-->
+
+		<div class="row">
+			<div class="span12">
+				<h3>当前头像</h3>
+				<table class="table table-bordered" style="width:95%;">
+					<thead>
+						<tr>
+							<th>头像类型</th>
+							<th>头像预览</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>高清原始头像</td>
+							<td><a href="<!--{$arrAvatarInfo['origin']}-->" target="_blank">点击查看</a></td>
+						</tr>
+						<tr>
+							<td>大头像 200*200</td>
+							<td><img src="<!--{$arrAvatarInfo['big']}-->"/></td>
+						</tr>
+						<tr>
+							<td>中等头像 120×120</td>
+							<td><img src="<!--{$arrAvatarInfo['middle']}-->"/></td>
+						</tr>
+						<tr>
+							<td>小头像 48×48</td>
+							<td><img src="<!--{$arrAvatarInfo['small']}-->"/></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="span12">
+				<h3>上传头像</h3>
+				<hr>
+				<form name="photo" enctype="multipart/form-data" action="<!--{:Dyhb::U('user/avatar_upload')}-->" method="post" name="uploadAdd" id="uploadAdd">
+					<fieldset>
+						<div class="control-group">
+							<label class="control-label" for="">高清原始头像 (最大上传尺寸 <!--{:G::changeFileSize($nUploadSize)}-->)</label>
+							<div class="controls">
+								<input class="input-xlarge" type="file" name="image" size="30"/>
+								<p class="help-block">值得注意的是头像文件太大将无法上传成功</p>
+							</div>
+						</div>
+						<div class="form-actions">
+							<button type="submit" class="btn btn-success">上传头像</button>
+							<a href="<!--{:__APP__}-->" class="btn">取消</a>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+
+<!--<include file="footer" />-->

@@ -1,0 +1,31 @@
+<!--<include file="header" />-->
+
+		<ul class="breadcrumb">
+			<li><a href="<!--{:__APP__}-->">主页</a> <span class="divider">/</span></li>
+			<li><!--{$oHomehelp['homehelp_title']}--></li>
+		</ul>
+		
+		<div class="row">
+			<div class="span2">
+				<ul class="nav nav-list">
+					<li class="nav-header">帮助信息</li>
+					<li <!--{if !$oHomehelp['homehelpcategory_id']}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://public/help')}-->">所有帮助</a></li>
+					<!--<foreach for=arrHomehelpcategorys value=oHomehelpcategory>-->
+					<li <!--{if $oHomehelp['homehelpcategory_id']==$oHomehelpcategory['homehelpcategory_id']}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://public/help?cid='.$oHomehelpcategory['homehelpcategory_id'])}-->"><!--{$oHomehelpcategory['homehelpcategory_name']}--></a></li>
+					<!--</foreach>-->
+				</ul>
+			</div>
+
+			<div class="span10">
+				<h3><!--{$oHomehelp['homehelp_title']}--></h3>
+				<div class="homehelp_title" style="margin:5px auto 10px auto;"><a href="<!--{:Dyhb::U('home://my/user?id='.$oHomehelp['user_id'])}-->"><!--{$oHomehelp['homehelp_username']}--></a> 发表于 <span class="label label-success"><!--{$oHomehelp['create_dateline']|Core_Extend+timeFormat}--></span> 已被阅读 <span class="label label-success"><!--{$oHomehelp['homehelp_viewnum']}--></span> 次</div>
+				<!--{$sContent}-->
+				<!--{if !empty($oHomehelp['update_dateline'])}-->
+				<div class="alert alert-success" style="margin-top:20px;">
+				本文最后由 <a href="<!--{:Dyhb::U('home://my/user?id='.$oHomehelp['homehelp_updateuserid'])}-->"><!--{$oHomehelp['homehelp_updateusername']}--></a> 于 <!--{$oHomehelp['update_dateline']|Core_Extend+timeFormat}--> 更新
+				</div>
+				<!--{/if}-->
+			</div>
+		</div><!--/row-->
+
+<!--<include file="footer" />-->

@@ -1,0 +1,40 @@
+<!--<include file="header" />-->
+
+		<ul class="breadcrumb">
+			<li><a href="<!--{:__APP__}-->">主页</a> <span class="divider">/</span></li>
+			<li><a href="<!--{:Dyhb::U('home://user/base')}-->">用户资料</a> <span class="divider">/</span></li>
+			<li>访问推广</li>
+		</ul>
+
+		<!--<include file="user_information_menu" />-->
+
+		<div class="row">
+			<div class="span12">
+				<p>如果您的朋友通过下面链接访问站点，您将获得积分奖励 <span class="label label-success">金币+1&nbsp;</span></p>
+				<p>如果您的朋友不但访问并且注册成为会员，您将再获得积分奖励 <span class="label label-success">金币+2&nbsp;</span></p>
+				<table class="table">
+					<thead>
+						<tr>
+							<th colspan="2">方式一</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>推广链接</td>
+							<td>
+								<input type="text" class="input-xlarge" value="<!--{$sUserName}-->邀请您访问<!--{$sSiteName}--> @ <!--{$sSiteUrl}-->/?fromuid=<!--{$nUserId}-->" size="50" />
+								<button type="button" class="btn btn-success btn-small" onclick="copy('<!--{$sUserName}-->邀请您访问<!--{$sSiteName}-->'+'\n'+'<!--{$sSiteUrl}-->/?fromuid=<!--{$nUserId}-->','推广链接复制成功');" type="submit"><em>复制</em></button>
+							</td>
+						</tr>
+						<tr>
+							<th colspan="2">方式二</th>
+						</tr>
+						<tr>
+							<td colspan="2">你可以可以访问网站其他应用推出的类似服务来推广，推广成功后也可以获得积分奖励 &nbsp;<i class="icon-home"></i> <a href="<!--{:__APP__}-->">去首页看看&raquo;</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div><!--/row-->
+
+<!--<include file="footer" />-->

@@ -1,0 +1,51 @@
+<!--<include file="header" />-->
+
+		<ul class="breadcrumb">
+			<li><a href="<!--{:__APP__}-->">主页</a> <span class="divider">/</span></li>
+			<li>社区广场</li>
+		</ul>
+		
+		<!--<include file="stat_menu" />-->
+
+		<div class="row">
+			<div class="span12">
+				<div class="alert alert-success">
+					<button class="close" data-dismiss="alert">&times;</button>
+					这里为整个站点的概况，它可以帮助你了解我们
+				</div>
+
+				<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th colspan="2">会员统计</th>
+						</tr>
+					</thead>
+					<tr>
+						<td width="36%">注册会员</td>
+						<td width="64%"><span class="badge badge-success"><a href="<!--{:Dyhb::U('home://stat/userlist')}-->"><!--{$arrSite['user']}--></a></span></td>
+					</tr>
+					<tr>
+						<td>管理成员</td>
+						<td><span class="badge"><!--{$arrSite['adminuser']}--></span></td>
+					</tr>
+					<tr>
+						<td>新会员</td>
+						<td><span class="badge"><!--{$arrSite['newuser']}--></span></td>
+					</tr>
+				</table>
+
+				<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th colspan="2">站点统计</th>
+						</tr>
+					</thead>
+					<tr>
+						<td width="36%">应用数量</td>
+						<td width="64%"><span class="badge"><!--{$arrSite['app']}--></span></td>
+					</tr>
+				</table>
+			</div>
+		</div><!--/row-->
+
+<!--<include file="footer" />-->

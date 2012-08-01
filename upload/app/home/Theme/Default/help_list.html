@@ -1,0 +1,44 @@
+<!--<include file="header" />-->
+
+		<ul class="breadcrumb">
+			<li><a href="<!--{:__APP__}-->">主页</a> <span class="divider">/</span></li>
+			<li>帮助信息</li>
+		</ul>
+		
+		<div class="row">
+			<div class="span2">
+				<ul class="nav nav-list">
+					<li class="nav-header">帮助信息</li>
+					<li <!--{if !$nCid}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://public/help')}-->">所有帮助</a></li>
+					<!--<foreach for=arrHomehelpcategorys value=oHomehelpcategory>-->
+					<li <!--{if $nCid==$oHomehelpcategory['homehelpcategory_id']}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://public/help?cid='.$oHomehelpcategory['homehelpcategory_id'])}-->"><!--{$oHomehelpcategory['homehelpcategory_name']}--></a>
+					</li>
+					<!--</foreach>-->
+				</ul>
+			</div>
+
+			<div class="span10">
+				<!--{if is_array($arrHomehelps)}-->
+				<table class="table">
+					<thead>
+						<tr>
+							<th>帮助标题</th>
+							<th>添加时间</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!--<foreach for=arrHomehelps value=oHomehelp>-->
+						<tr>
+							<td>[<!--{if $oHomehelp['homehelpcategory_id']}--><a href="<!--{:Dyhb::U('home://public/help?cid='.$oHomehelp['homehelpcategory_id'])}-->"><!--{$oHomehelp:homehelpcategory:homehelpcategory_name}--></a><!--{d*else}-->未分类<!--{/if}-->]<a href="<!--{:Dyhb::U('home://public/show_help?id='.$oHomehelp['homehelp_id'])}-->"><!--{$oHomehelp:homehelp_title}--></a></td>
+							<td><!--{$oHomehelp:create_dateline|Core_Extend+timeFormat}--></td>
+						</tr>
+						<!--</foreach>-->
+					</tbody>
+				</table>
+				<!--{/if}-->
+				
+				<!--{$sPageNavbar}-->
+			</div>
+		</div><!--/row-->
+
+<!--<include file="footer" />-->

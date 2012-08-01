@@ -1,0 +1,66 @@
+<!--<include file="header" />-->
+
+<script src="<!--{:__PUBLIC__}-->/js/jquery/jcrop/jquery.Jcrop.min.js"></script>
+<script src="<!--{:__PUBLIC__}-->/js/common/jcrop.js"></script>
+
+		<ul class="breadcrumb">
+			<li><a href="<!--{:__APP__}-->">主页</a> <span class="divider">/</span></li>
+			<li><a href="<!--{:Dyhb::U('home://user/base')}-->">用户资料</a> <span class="divider">/</span></li>
+			<li><a href="<!--{:Dyhb::U('home://user/avatar')}-->">修改头像</a> <span class="divider">/</span></li>
+			<li>裁剪头像</li>
+		</ul>
+		
+		<!--<include file="user_information_menu" />-->
+		
+		<div class="row">
+			<div class="span12">
+				<h3>临时头像</h3>
+				<hr/>
+				<table class="table table-bordered" style="width:95%;">
+					<thead>
+						<tr>
+							<th>头像类型</th>
+							<th>头像预览</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>临时头像</td>
+							<td><img src="<!--{:__ROOT__}-->/data/avatar/<!--{$arrPhotoInfo['savename']}-->" id="cropbox"/></td>
+						</tr>
+						<tr>
+							<td>裁剪预览</td>
+							<td><div class="preview" style="width:100px;height:100px;overflow:hidden;">
+									<img src="<!--{:__ROOT__}-->/data/avatar/<!--{$arrPhotoInfo['savename']}-->" id="preview" alt="Preview" />
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<form action="<!--{:Dyhb::U('user/save_crop')}-->" method="post" onsubmit="return checkCoords();" id="coords" class="coords well form-inline">
+					<fieldset>
+						<div class="control-group">
+							<label class="control-label" for="">头像参数</label>
+							<div class="controls">
+								<input type="hidden" id="x" name="x" />
+								<input type="hidden" id="y" name="y" />
+									X1 <input type="text" size="4" id="x1" name="x1" style="width:25px;" />
+									Y1 <input type="text" size="4" id="y1" name="y1" style="width:25px;" />
+									X2 <input type="text" size="4" id="x2" name="x2" style="width:25px;" />
+									Y2 <input type="text" size="4" id="y2" name="y2" style="width:25px;" />
+									W <input type="text" size="4" id="w" name="w" style="width:25px;" />
+									H <input type="text" size="4" id="h" name="h" style="width:25px;" />
+							</div>
+						</div>
+						<div class="form-actions">
+							<input type="hidden" name="temp_image" value="<!--{$arrPhotoInfo['savename']}-->" />
+							<button type="submit" class="btn btn-success">裁剪图像</button>
+							<a href="<!--{:__APP__}-->" class="btn">取消</a>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+
+<!--<include file="footer" />-->

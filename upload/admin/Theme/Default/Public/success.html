@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=7" />
+<!--<load file="<!--{:__TMPLPUB__}-->/Css/style.css" />-->
+</head>
+<body>
+	<section id="main" class="column">
+		<h4 class="<!--{if $__Status__}-->alert_success<!--{d*else}-->alert_error<!--{/if}-->"><!--{$__MessageTitle__}--></h4>
+		<article class="module width_full">
+			<header><h3><!--{$__MessageTitle__}--></h3></header>
+				<div class="module_content">
+					<!--<if condition="isset( $__Message__ ) AND !empty( $__Message__ )" >-->
+						<p><img src="<!--{$__InfobigImg__}-->"/></p>
+						<!--{$__Message__}-->
+					<!--</if>-->
+					<!--<if condition="isset( $__ErrorMessage__ ) AND !empty( $__ErrorMessage__ )" >-->
+						<p><img src="<!--{$__ErrorbigImg__}-->"/></p>
+						<!--{$__ErrorMessage__}-->
+					<!--</if>-->
+					<div id="__Loader__"><img src="<!--{$__LoadingImg__}-->"/></div></p>
+					<p class="marginbot" id="__JumpUrl__">
+						<!--<if condition="isset( $__CloseWindow__ ) AND !empty( $__CloseWindow__ )" >-->
+						<span class="red" id="__Seconds__"><!--{$__WaitSecond__}--></span> <!--<lang package='__COMMON_LANG__@Template/Message'>-->系统即将自动关闭<!--</lang>--><!--<lang package='__COMMON_LANG__@Template/Message'>-->如果不想等待,直接点击<!--</lang>--> <a href="<!--{$__JumpUrl__}-->" class="lightlink"><!--<lang package='__COMMON_LANG__@Template/Message'>-->这里<!--</lang>--></a> <!--<lang package='__COMMON_LANG__@Template/Message'>-->关闭<!--</lang>-->
+						<!--</if>-->
+						<!--<if condition="!isset( $__CloseWindow__ ) OR empty( $__CloseWindow__ )" >-->
+							<span class="red" id="__Seconds__"><!--{$__WaitSecond__}--></span> <!--<lang package='__COMMON_LANG__@Template/Message'>-->系统即将自动跳转<!--</lang>--><!--<lang package='__COMMON_LANG__@Template/Message'>-->如果不想等待,直接点击<!--</lang>--> <a href="<!--{$__JumpUrl__}-->" class="lightlink"><!--<lang package='__COMMON_LANG__@Template/Message'>-->这里<!--</lang>--></a> <!--<lang package='__COMMON_LANG__@Template/Message'>-->跳转<!--</lang>-->
+						<!--</if>-->
+					</p>
+				</div>
+		</article>
+		<div class="spacer"></div>
+	</section>
+	<!--{$__JavaScript__}-->
+
+</body>
+</html>

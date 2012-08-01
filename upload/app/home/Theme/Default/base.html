@@ -1,0 +1,293 @@
+<!--<include file="header" />-->
+
+<!--{:Core_Extend::editorInclude()}-->
+
+<!--{script}-->
+<!--{if $sDo=='info'}-->
+$(function(){
+	editor=loadEditorThin('user_remark');
+	editor2=loadEditorThin('user_sign');
+	editor3=loadEditorThin('userprofile_bio');
+	editor4=loadEditorThin('userprofile_interest');
+});
+<!--{/if}-->
+
+function update(){
+	$("#submit_button").attr("disabled","disabled");
+	$("#submit_button").val('update...');
+	<!--{if $sDo=='info'}-->
+	$('#user_remark').val(editor.html());
+	$('#user_sign').val(editor2.html());
+	$('#userprofile_bio').val(editor3.html());
+	$('#userprofile_interest').val(editor4.html());
+	<!--{/if}-->
+	Dyhb.AjaxSubmit('informationUpd','<!--{:Dyhb::U('user/change_info')}-->','',function(data,status){ 
+		$("#submit_button").attr("disabled",false);
+		$("#submit_button").val("更新");
+	});
+}
+<!--{/script}-->
+
+		<ul class="breadcrumb">
+			<li><a href="<!--{:__APP__}-->">主页</a> <span class="divider">/</span></li>
+			<li><a href="<!--{:Dyhb::U('home://user/base')}-->">用户资料</a> <span class="divider">/</span></li>
+			<li>基本信息</li>
+		</ul>
+
+		<!--<include file="user_information_menu" />-->
+		
+		<div class="row">
+			<div class="span9">
+				<ul class="nav nav-pills">
+					<!--<foreach for=arrInfoMenus key=sInfoMenuKey value=sInfoMenu>-->
+					<li <!--{if (!$sDo && !$sInfoMenuKey) || $sDo==$sInfoMenuKey}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://user/base'.(!empty($sInfoMenuKey)?'?do='.$sInfoMenuKey:''))}-->"><!--{$sInfoMenu}--></a></li>
+					<!--</foreach>-->
+				</ul>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="span12">
+				<form method="post" id="informationUpd" name="informationUpd">
+					<fieldset>
+						<div class="control-group">
+							<label class="control-label" for="user_name">用户名 <!--{$oUserInfo:user_name}--></label>
+						</div>
+						<!--{if !$sDo}-->
+						<!--<foreach for=arrBases value=sBase>-->
+						<!--{if array_key_exists($sBase,$arrUserprofilesettingDatas)}-->
+						<!--{if $sBase=='userprofile_gender'}-->
+						<div class="control-group">
+							<label class="control-label" for="userprofile_gender"><!--{$arrUserprofilesettingDatas['userprofile_gender']['userprofilesetting_title']}--></label>
+							<div class="controls">
+								<select id="userprofile_gender" name="userprofile_gender">
+									<option value="0" <!--{if !$oUserInfo->userprofile->userprofile_gender}-->selected="selected"<!--{/if}-->>保密</option>
+									<option value="1" <!--{if $oUserInfo->userprofile->userprofile_gender==1}-->selected="selected"<!--{/if}-->>男</option>
+									<option value="2" <!--{if $oUserInfo->userprofile->userprofile_gender==2}-->selected="selected"<!--{/if}-->>女</option>
+								</select>
+							</div>
+						</div>
+						<!--{elseif $sBase=='userprofile_birthday'}-->
+						<div class="control-group">
+							<label class="control-label" for="userprofile_birthday"><!--{$arrUserprofilesettingDatas['userprofile_birthday']['userprofilesetting_title']}--></label>
+							<div class="controls">
+								<select name="userprofile_birthyear" id="userprofile_birthyear" style="width:80px;" onchange="showYearmonthday('userprofile_birthday','userprofile_birthmonth','userprofile_birthyear');">
+									<option value="" <!--{if !$oUserInfo->userprofile->userprofile_birthyear}-->selected="selected"<!--{/if}-->>年</option>
+									<!--<for start='0' end='100' var='nBirthyear'>-->
+									<!--{~$nTheNowYear=$nNowYear-$nBirthyear}-->
+									<option value="<!--{$nTheNowYear}-->" <!--{if $oUserInfo->userprofile->userprofile_birthyear==$nTheNowYear}-->selected="selected"<!--{/if}-->><!--{$nTheNowYear}--></option>
+									<!--</for>-->
+								</select>&nbsp;&nbsp;
+								<select name="userprofile_birthmonth" id="userprofile_birthmonth" style="width:60px;" onchange="showYearmonthday('userprofile_birthday','userprofile_birthmonth','userprofile_birthyear');">
+									<option value="" <!--{if !$oUserInfo->userprofile->userprofile_birthmonth}-->selected="selected"<!--{/if}-->>月</option>
+									<!--<for start='1' end='12' var='nBirthmonth'>-->
+									<option value="<!--{$nBirthmonth}-->" <!--{if $oUserInfo->userprofile->userprofile_birthmonth==$nBirthmonth}-->selected="selected"<!--{/if}-->><!--{$nBirthmonth}--></option>
+									<!--</for>-->
+								</select>&nbsp;&nbsp;
+								<select name="userprofile_birthday" id="userprofile_birthday" style="width:60px;">
+									<option value="" <!--{if !$oUserInfo->userprofile->userprofile_birthday}-->selected="selected"<!--{/if}-->>日</option>
+									<!--<for start='1' end='$nNowDays' var='nBirthday'>-->
+									<option value="<!--{$nBirthday}-->" <!--{if $oUserInfo->userprofile->userprofile_birthday==$nBirthday}-->selected="selected"<!--{/if}-->><!--{$nBirthday}--></option>
+									<!--</for>-->
+								</select>
+							</div>
+						</div>
+						<!--{elseif $sBase=='userprofile_birthcity'}-->
+						<div class="control-group">
+							<label class="control-label" for="userprofile_birthcity"><!--{$arrUserprofilesettingDatas['userprofile_birthcity']['userprofilesetting_title']}--></label>
+							<div class="controls">
+								<!--{$sDirthDistrict}-->
+							</div>
+						</div>
+						<!--{elseif $sBase=='userprofile_residecity'}-->
+						<div class="control-group">
+							<label class="control-label" for="userprofile_residecity"><!--{$arrUserprofilesettingDatas['userprofile_residecity']['userprofilesetting_title']}--></label>
+							<div class="controls">
+								<!--{$sResideDistrict}-->
+							</div>
+						</div>
+						<!--{elseif $sBase=='userprofile_bloodtype'}-->
+						<div class="control-group">
+							<label class="control-label" for="userprofile_bloodtype"><!--{$arrUserprofilesettingDatas['userprofile_bloodtype']['userprofilesetting_title']}--></label>
+							<div class="controls">
+								<select name="userprofile_bloodtype">
+									<option value="A" <!--{if $oUserInfo->userprofile->userprofile_bloodtype=='A'}-->selected="selected"<!--{/if}-->>A</option>
+									<option value="B" <!--{if $oUserInfo->userprofile->userprofile_bloodtype=='B'}-->selected="selected"<!--{/if}-->>B</option>
+									<option value="AB" <!--{if $oUserInfo->userprofile->userprofile_bloodtype=='AB'}-->selected="selected"<!--{/if}-->>AB</option>
+									<option value="O" <!--{if $oUserInfo->userprofile->userprofile_bloodtype=='O'}-->selected="selected"<!--{/if}-->>O</option><option value="其它">其它</option>
+								</select>
+							</div>
+						</div>
+						<!--{d*else}-->
+						<div class="control-group">
+							<label class="control-label" for="<!--{$sBase}-->"><!--{$arrUserprofilesettingDatas[$sBase]['userprofilesetting_title']}--></label>
+							<div class="controls">
+								<input class="input-xlarge" type="text" name="<!--{$sBase}-->" id="<!--{$sBase}-->" size="40" value="<!--{$oUserInfo:userprofile:$sBase}-->" />
+							</div>
+						</div>
+						<!--{/if}-->
+						<!--{/if}-->
+						<!--</foreach>-->
+
+						<!--<for start='1' end='8' var='nCustomFieldId'>-->
+						<!--{~$sCustomField='userprofile_field'.$nCustomFieldId}-->
+						<!--{if array_key_exists($sCustomField,$arrUserprofilesettingDatas)}-->
+						<div class="control-group">
+							<label class="control-label" for="<!--{$sCustomField}-->"><!--{$arrUserprofilesettingDatas[$sCustomField]['userprofilesetting_title']}--></label>
+							<div class="controls">
+								<input class="input-xlarge" type="text" name="<!--{$sCustomField}-->" id="<!--{$sCustomField}-->" size="40" value="<!--{$oUserInfo:userprofile:$sCustomField}-->" />
+							</div>
+						</div>
+						<!--{/if}-->
+						<!--</for>-->
+						<!--{elseif $sDo=='contact'}-->
+						<!--<foreach for=arrContacts value=sContact>-->
+						<!--{if array_key_exists($sContact,$arrUserprofilesettingDatas)}-->
+						<div class="control-group">
+							<label class="control-label" for="<!--{$sContact}-->"><!--{$arrUserprofilesettingDatas[$sContact]['userprofilesetting_title']}--></label>
+							<div class="controls">
+								<input class="input-xlarge" type="text" name="<!--{$sContact}-->" id="<!--{$sContact}-->" size="40" value="<!--{$oUserInfo:userprofile:$sContact}-->" />
+							</div>
+						</div>
+						<!--{/if}-->
+						<!--</foreach>-->
+						<div class="control-group">
+							<label class="control-label" for="user_email">Email</label>
+							<div class="controls">
+								<!--{$oUserInfo:user_email}-->&nbsp;(<a href="<!--{:Dyhb::U('home://user/base?do=info')}-->">修改</a>)
+							</div>
+						</div>
+						<!--{elseif $sDo=='edu'}-->
+						<!--<foreach for=arrEdus value=sEdu>-->
+						<!--{if array_key_exists($sEdu,$arrUserprofilesettingDatas)}-->
+						<!--{if $sEdu=='userprofile_nowschool'}-->
+						<div class="control-group">
+							<label class="control-label" for="userprofile_nowschool"><!--{$arrUserprofilesettingDatas['userprofile_nowschool']['userprofilesetting_title']}--></label>
+							<div class="controls">
+								<select name="userprofile_nowschool">
+									<option value="博士" <!--{if $oUserInfo->userprofile->userprofile_nowschool=='博士'}-->selected="selected"<!--{/if}-->>博士</option>
+									<option value="硕士" <!--{if $oUserInfo->userprofile->userprofile_nowschool=='硕士'}-->selected="selected"<!--{/if}-->>硕士</option>
+									<option value="本科" <!--{if $oUserInfo->userprofile->userprofile_nowschool=='本科'}-->selected="selected"<!--{/if}-->>本科</option>
+									<option value="专科" <!--{if $oUserInfo->userprofile->userprofile_nowschool=='专科'}-->selected="selected"<!--{/if}-->>专科</option>
+									<option value="高中" <!--{if $oUserInfo->userprofile->userprofile_nowschool=='高中'}-->selected="selected"<!--{/if}-->>高中</option>
+									<option value="初中" <!--{if $oUserInfo->userprofile->userprofile_nowschool=='初中'}-->selected="selected"<!--{/if}-->>初中</option>
+									<option value="小学" <!--{if $oUserInfo->userprofile->userprofile_nowschool=='小学'}-->selected="selected"<!--{/if}-->>小学</option>
+									<option value="幼儿班" <!--{if $oUserInfo->userprofile->userprofile_nowschool=='幼儿班'}-->selected="selected"<!--{/if}-->>幼儿班</option>
+									<option value="其它" <!--{if $oUserInfo->userprofile->userprofile_nowschool=='其它'}-->selected="selected"<!--{/if}-->>其它</option>
+									<option value="工作" <!--{if $oUserInfo->userprofile->userprofile_nowschool=='工作'}-->selected="selected"<!--{/if}-->>工作</option>
+								</select>
+							</div>
+						</div>
+						<!--{elseif $sEdu=='userprofile_education'}-->
+						<div class="control-group">
+							<label class="control-label" for="userprofile_education"><!--{$arrUserprofilesettingDatas['userprofile_education']['userprofilesetting_title']}--></label>
+							<div class="controls">
+								<select name="userprofile_education">
+									<option value="博士" <!--{if $oUserInfo->userprofile->userprofile_education=='博士'}-->selected="selected"<!--{/if}-->>博士</option>
+									<option value="硕士" <!--{if $oUserInfo->userprofile->userprofile_education=='硕士'}-->selected="selected"<!--{/if}-->>硕士</option>
+									<option value="本科" <!--{if $oUserInfo->userprofile->userprofile_education=='本科'}-->selected="selected"<!--{/if}-->>本科</option>
+									<option value="专科" <!--{if $oUserInfo->userprofile->userprofile_education=='专科'}-->selected="selected"<!--{/if}-->>专科</option>
+									<option value="中学" <!--{if $oUserInfo->userprofile->userprofile_education=='中学'}-->selected="selected"<!--{/if}-->>中学</option>
+									<option value="小学" <!--{if $oUserInfo->userprofile->userprofile_education=='小学'}-->selected="selected"<!--{/if}-->>小学</option>
+									<option value="其它" <!--{if $oUserInfo->userprofile->userprofile_education=='其它'}-->selected="selected"<!--{/if}-->>其它</option>
+								</select>
+							</div>
+						</div>
+						<!--{d*else}-->
+						<div class="control-group">
+							<label class="control-label" for="<!--{$sEdu}-->"><!--{$arrUserprofilesettingDatas[$sEdu]['userprofilesetting_title']}--></label>
+							<div class="controls">
+								<input class="input-xlarge" type="text" name="<!--{$sEdu}-->" id="<!--{$sEdu}-->" size="40" value="<!--{$oUserInfo:userprofile:$sEdu}-->" />
+							</div>
+						</div>
+						<!--{/if}-->
+						<!--{/if}-->
+						<!--</foreach>-->
+						<!--{elseif $sDo=='work'}-->
+						<!--<foreach for=arrWorks value=sWork>-->
+						<!--{if array_key_exists($sWork,$arrUserprofilesettingDatas)}-->
+						<div class="control-group">
+							<label class="control-label" for="<!--{$sWork}-->"><!--{$arrUserprofilesettingDatas[$sWork]['userprofilesetting_title']}--></label>
+							<div class="controls">
+								<input class="input-xlarge" type="text" name="<!--{$sWork}-->" id="<!--{$sWork}-->" size="40" value="<!--{$oUserInfo:userprofile:$sWork}-->" />
+							</div>
+						</div>
+						<!--{/if}-->
+						<!--</foreach>-->
+						<!--{elseif $sDo=='info'}-->
+						<!--<foreach for=arrInfos value=sInfo>-->
+						<!--{if array_key_exists($sInfo,$arrUserprofilesettingDatas)}-->
+						<!--{if $sInfo=='userprofile_idcardtype'}-->
+						<div class="control-group">
+							<label class="control-label" for="userprofile_idcardtype"><!--{$arrUserprofilesettingDatas['userprofile_idcardtype']['userprofilesetting_title']}--></label>
+							<div class="controls">
+								<select name="userprofile_idcardtype">
+									<option value="身份证" <!--{if $oUserInfo->userprofile->userprofile_idcardtype=='身份证'}-->selected="selected"<!--{/if}-->>身份证</option>
+									<option value="护照" <!--{if $oUserInfo->userprofile->userprofile_idcardtype=='护照'}-->selected="selected"<!--{/if}-->>护照</option>
+									<option value="驾驶证" <!--{if $oUserInfo->userprofile->userprofile_idcardtype=='驾驶证'}-->selected="selected"<!--{/if}-->>驾驶证</option>
+								</select>
+							</div>
+						</div>
+						<!--{elseif in_array($sInfo,array('userprofile_bio','userprofile_interest'))}-->
+						<div class="control-group">
+							<label class="control-label" for="<!--{$sInfo}-->"><!--{$arrUserprofilesettingDatas[$sInfo]['userprofilesetting_title']}--></label>
+							<div class="controls">
+								<textarea class="input-xlarge" name="<!--{$sInfo}-->" id="<!--{$sInfo}-->" rows="5" style="width:400px;"><!--{$oUserInfo:userprofile:$sInfo}--></textarea>
+							</div>
+						</div>
+						<!--{d*else}-->
+						<div class="control-group">
+							<label class="control-label" for="<!--{$sInfo}-->"><!--{$arrUserprofilesettingDatas[$sInfo]['userprofilesetting_title']}--></label>
+							<div class="controls">
+								<input class="input-xlarge" type="text" name="<!--{$sInfo}-->" id="<!--{$sInfo}-->" size="40" value="<!--{$oUserInfo:userprofile:$sInfo}-->" />
+							</div>
+						</div>
+						<!--{/if}-->
+						<!--{/if}-->
+						<!--</foreach>-->
+						<div class="control-group">
+							<label class="control-label" for="user_nikename">昵称</label>
+							<div class="controls">
+								<input class="input-xlarge" type="text" name="user_nikename" id="user_nikename" size="40" value="<!--{$oUserInfo:user_nikename}-->" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="user_email">Email</label>
+							<div class="controls">
+								<input class="input-xlarge" type="text" name="user_email" id="user_email" size="40" value="<!--{$oUserInfo:user_email}-->" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="user_remark">用户备注</label>
+							<div class="controls">
+								<textarea class="input-xlarge" name="user_remark" id="user_remark" rows="5" style="width:400px;"><!--{$oUserInfo:user_remark}--></textarea>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="user_sign">用户签名</label>
+							<div class="controls">
+								<textarea class="input-xlarge" name="user_sign" id="user_sign" rows="5" style="width:400px;"><!--{$oUserInfo:user_sign}--></textarea>
+							</div>
+						</div>
+						<!--{/if}-->
+						<!--{if $nDisplaySeccode==1}-->
+						<div class="control-group">
+							<label class="control-label" for="seccode">验证码</label>
+							<div class="controls">
+								<input class="input-small" name="seccode" id="seccode" type="text" value="">
+								<p class="help-block"><span id="seccodeImage"><img style="cursor:pointer" onclick="updateSeccode()" src="<!--{:Dyhb::U('home://public/seccode')}-->" /></span></p>
+							</div>
+						</div>
+						<!--{/if}-->
+						<div class="form-actions">
+							<input type="hidden" name="ajax" value="1">
+							<input type="hidden" name="user_id" value="<!--{$oUserInfo:user_id}-->">
+							<button id="submit_button" onclick="update()" type="button" class="btn btn-success">更新</button>
+							<a href="<!--{:__APP__}-->" class="btn">取消</a>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div><!--/row-->
+
+<!--<include file="footer" />-->

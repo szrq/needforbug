@@ -1,0 +1,101 @@
+<!--<include file="header" />-->
+
+<!--{script}-->
+function findUser(){
+	if(!$('#key').val()){
+		needforbugAlert(D.L('用户关键字不能为空','AppJs'),'',3);
+		return false;
+	}else{
+		return true;
+	}
+}
+
+function addFriend(userid){
+	Dyhb.AjaxSend('<!--{:Dyhb::U('friend/add')}-->','ajax=1&uid='+userid,'',function(data,status){
+		if(status==1){
+			window.location.reload();
+		}
+	});
+}
+
+function deleteFriend(friendid,fan){
+	needforbugConfirm(D.L('确实要永久删除选择项吗？','__COMMON_LANG__@Admin/Common_Js'),function(){
+		Dyhb.AjaxSend(D.U('home://friend/delete?friendid='+friendid+(fan=='1'?'&fan=1':'')),'','',function(data,status){
+			if(status==1){
+				window.location.reload();
+			}
+		});
+	});
+}
+<!--{/script}-->
+
+
+		<ul class="breadcrumb">
+			<li><a href="<!--{:__APP__}-->">主页</a> <span class="divider">/</span></li>
+			<li>社区广场 <span class="divider">/</span></li>
+			<li><a href="<!--{:Dyhb::U('home://friend/index')}-->">我的好友</a></li>
+		</ul>
+		
+		<!--<include file="stat_menu" />-->
+		
+		<div class="row">
+			<div class="span12">
+				<form class="well form-search" action="<!--{:Dyhb::U('home://stat/userlist')}-->" method="get" onsubmit="return findUser();">
+					<input type="text" class="input-medium search-query" name="key" id="key">
+					<button type="submit" class="btn"><i class="icon-search"></i> 查找会员</button>
+				</form>
+
+				<!--{if $sKey}-->
+				<div class="alert alert-info">
+					你搜索的关键字为 <a href="<!--{:Dyhb::U('home://stat/userlist?key='.$sKey)}-->"><strong><span class="label label-success"><!--{$sKey}--></span></strong></a>，你可以查看 <a href="<!--{:Dyhb::U('home://stat/userlist')}-->">会员列表</a>
+				</div>
+				<!--{/if}-->
+
+				<!--{if is_array($arrUsers)}-->
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th colspan="2"><a href="<!--{:Core_Extend::sortBy('user_name')}-->" <!--{:Core_Extend::sortField('user_name')}-->>用户名</a></th>
+							<th><a href="<!--{:Core_Extend::sortBy('user_id')}-->" <!--{:Core_Extend::sortField('user_id')}-->>UID</a></th>
+							<th>性别</th>
+							<th><a href="<!--{:Core_Extend::sortBy('create_dateline')}-->" <!--{:Core_Extend::sortField('create_dateline')}-->>注册日期</a></th>
+							<th><a href="<!--{:Core_Extend::sortBy('user_lastlogintime')}-->" <!--{:Core_Extend::sortField('user_lastlogintime')}-->>上次访问</a></th>
+							<th><a href="<!--{:Core_Extend::sortBy('user_logincount')}-->" <!--{:Core_Extend::sortField('user_logincount')}-->>登陆次数</a></th>
+							<th><a href="<!--{:Core_Extend::sortBy('user_status')}-->" <!--{:Core_Extend::sortField('user_status')}-->>状态</a></th>
+						</tr>
+					</thead>
+					<tbody>
+						<!--<foreach for=arrUsers value=oUser>-->
+						<tr>
+							<td><a href="<!--{:Dyhb::U('home://my/user?id='.$oUser['user_id'])}-->"><img src="<!--{:Core_Extend::avatar( $oUser['user_id'],'small' )}-->" class="thumbnail" /></a></td>
+							<td><a href="<!--{:Dyhb::U('home://my/user?id='.$oUser['user_id'])}-->"><!--{$oUser:user_name}--></a><!--{if $oUser['user_nikename']}--> <!--{$oUser['user_nikename']}--><!--{/if}-->
+								<!--{if $GLOBALS['___login___']!==false}--><br/>
+								<!--{~$nAlreadyFriendId=Core_Extend::isAlreadyFriend($oUser['user_id'])}-->
+								<!--{if $nAlreadyFriendId==1}--><span class="label label-warning"><a href="javascript:void(0);" onclick="deleteFriend('<!--{$oUser['user_id']}-->','0');return false;">取消关注</a></span>
+								<!--{elseif $nAlreadyFriendId==2}--><span class="label">你自己</span>
+								<!--{elseif $nAlreadyFriendId==3}--><span class="label" >你粉丝</span><p style="margin-top:10px;"><span class="label label-success"><a href="javascript:void(0);" onclick="addFriend('<!--{$oUser:user_id}-->');return false;">关注</a></span> <span class="label label-warning"><a href="javascript:void(0);" onclick="deleteFriend('<!--{$oUser['user_id']}-->','1');return false;">移除粉丝</a></span></p>
+								<!--{elseif $nAlreadyFriendId==4}--><span class="label" >相互关注</span><p style="margin-top:10px;"><span class="label label-warning"><a href="javascript:void(0);" onclick="deleteFriend('<!--{$oUser['user_id']}-->','0');return false;">取消关注</a></span> <span class="label label-warning"><a href="javascript:void(0);" onclick="deleteFriend('<!--{$oUser['user_id']}-->','1');return false;">移除粉丝</a></span></p>
+								<!--{d*else}--><span class="label label-success"><a href="javascript:void(0);" onclick="addFriend('<!--{$oUser:user_id}-->');return false;">关注</a></span>
+								<!--{/if}-->
+								<p style="margin-top:5px;"><a href="<!--{:Dyhb::U('home://pm/pmnew?uid='.$oUser->user_id)}-->">发送短消息</a></p>
+								<!--{/if}-->
+							</td>
+							<td><!--{$oUser:user_id}--></td>
+							<td><!--{:Profile_Extend::getGender($oUser->userprofile->userprofile_gender)}--></td>
+							<td><!--{$oUser:create_dateline|Core_Extend+timeFormat}--></td>
+							<td><!--{if $oUser['user_lastlogintime']}--><!--{$oUser:user_lastlogintime|Core_Extend+timeFormat}--><!--{d*else}-->注册访问<!--{/if}--></td>
+							<td><span class="badge badge-label-info"><!--{$oUser:user_logincount}--></span></td>
+							<td><!--{if $oUser['user_status']}--><i class="icon-ok"></i><!--{d*else}--><i class="icon-remove"></i><!--{/if}--></td>
+						</tr>
+						<!--</foreach>-->
+					</tbody>
+				</table>
+				<!--{d*else}-->
+				暂时没有发现任何会员
+				<!--{/if}-->
+				
+				<!--{$sPageNavbar}-->
+			</div>
+		</div><!--/row-->
+
+<!--<include file="footer" />-->

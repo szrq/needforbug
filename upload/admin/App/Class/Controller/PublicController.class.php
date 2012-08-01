@@ -1,0 +1,228 @@
+<?php
+/* [NeedForBug!] (C)Dianniu From 2010.
+   Public控制器($)*/
+
+!defined('DYHB_PATH') && exit;
+
+class PublicController extends InitController{
+
+	public function is_login(){
+		if($GLOBALS['___login___']===false){
+			UserModel::M()->clearThisCookie();// 清理COOKIE
+			$this->assign('__JumpUrl__',Dyhb::U('public/login'));
+			$this->E(Dyhb::L('你没有登录','Controller/Public'));
+		}
+	}
+
+	public function fmain(){
+		$this->is_login();
+
+		// 系统统计信息
+		Core_Extend::loadCache('site');
+		$arrStaticInfo=array(
+			array(Dyhb::L('用户数量','Controller/Public'),$GLOBALS['_cache_']['site']['user'],Dyhb::U('user/index')),
+			array(Dyhb::L('应用数量','Controller/Public'),$GLOBALS['_cache_']['site']['app'],Dyhb::U('app/index')),
+		);
+		$this->assign('arrStaticInfo',$arrStaticInfo);
+
+		// 服务器信息监测
+		$oDb=Db::RUN();
+		$arrInfo=array(
+			Dyhb::L('操作系统','Controller/Public')=>PHP_OS,
+			Dyhb::L('运行环境','Controller/Public')=>$_SERVER["SERVER_SOFTWARE"],
+			Dyhb::L('PHP运行方式','Controller/Public')=>php_sapi_name(),
+			Dyhb::L('数据库类型','Controller/Public')=>$GLOBALS['_commonConfig_']['DB_TYPE'],
+			Dyhb::L('数据库版本','Controller/Public')=>$oDb->getConnect()->getVersion(),
+			Dyhb::L('上传附件限制','Controller/Public')=>ini_get('upload_max_filesize'),
+			Dyhb::L('执行时间限制','Controller/Public')=>ini_get('max_execution_time').' Secconds',
+			Dyhb::L('服务器时间','Controller/Public')=>date('Y-n-j H:i:s'),
+			Dyhb::L('北京时间','Controller/Public')=>gmdate('Y-n-j H:i:s',time()+8*3600),
+			Dyhb::L('服务器域名/IP','Controller/Public')=>$_SERVER['SERVER_NAME'].' [ '.gethostbyname($_SERVER['SERVER_NAME']).' ]',
+			Dyhb::L('剩余空间','Controller/Public')=>round((@disk_free_space(".")/(1024*1024)),2).'M',
+			'register_globals'=>get_cfg_var("register_globals")=="1"?"ON":"OFF",
+			'magic_quotes_gpc'=>(1===get_magic_quotes_gpc())?'YES':'NO',
+			'magic_quotes_runtime'=>(1===get_magic_quotes_runtime())?'YES':'NO',
+		);
+		$this->assign('arrInfo',$arrInfo);
+
+		// 系统文件权限检查
+		$arrTestDirs=array(
+			'/config/Config.inc.php',
+			'/data/*',
+			'/data/upload/*',
+			'/data/avatar/*',
+			'/data/backup/*',
+		);
+		$this->assign('arrTestDirs',$arrTestDirs);
+
+		// 程序信息
+		$arrVersionInfo=array(
+			'Needforbug '.Dyhb::L('程序版本','Controller/Public')=>"Needforbug " .NEEDFORBUG_SERVER_VERSION. "  Release ".
+			NEEDFORBUG_SERVER_RELEASE." <a href=\"http://doyouhaobaby.net\" target=\"_blank\">".
+			Dyhb::L('查看最新版本','Controller/Public')."</a>&nbsp;"."<a href=\"http://doyouhaobaby.net\" target=\"_blank\">".
+			Dyhb::L('专业支持与服务','Controller/Public')."</a>",'DoYouHaoBaby'.Dyhb::L('版本','Controller/Public')=>DYHB_VERSION.
+			' [ <a href="http://bbs.doyouhaobaby.net" target="_blank">'.Dyhb::L('查看最新版本','Controller/Public').'</a> ] &nbsp;'.
+			Dyhb::L('DoYouHaoBaby 是一款性能卓越的PHP 开发框架','Controller/Public'),
+		);
+		$this->assign('arrVersionInfo',$arrVersionInfo);
+
+		// 版权信息
+		if(file_exists(NEEDFORBUG_PATH."/ucontent/language/admin/".LANG_NAME."/LICENSE.txt")){
+			$sCopyTxt=nl2br(file_get_contents(NEEDFORBUG_PATH."/ucontent/language/admin/".LANG_NAME."/LICENSE.txt"));
+		}else{
+			$sCopyTxt=nl2br(file_get_contents(NEEDFORBUG_PATH."/ucontent/admin/LICENSE.txt"));
+		}
+		$this->assign('sCopyTxt',$sCopyTxt);
+
+		$this->display();
+	}
+
+	public function login(){
+		$arrUserData=$GLOBALS['___login___'];
+
+		if($arrUserData!==false){
+			UserModel::M()->replaceSession($arrUserData['session_hash'],$arrUserData['user_id'],isset($arrUserData['session_auth_key'])?$arrUserData['session_auth_key']:'');
+			UserModel::M()->logout();
+		}
+		UserModel::M()->clearThisCookie();
+
+		$this->display();
+	}
+
+	public function fheader(){
+		$this->is_login();
+
+		$arrUserData=$GLOBALS['___login___'];
+		$sUserName=isset($arrUserData['user_nikename']) && $arrUserData['user_nikename']?$arrUserData['user_nikename']:$arrUserData['user_name'];
+		$arrMenuList=UserModel::M()->getTopMenuList();
+		$this->assign('sUserName',$sUserName);
+		$this->assign('arrListMenu',$arrMenuList);
+
+		$this->display();
+	}
+
+	public function index($sModel=null,$bDisplay=true){
+		$this->is_login();
+		G::urlGoto(__APP__);
+	}
+
+	public function fdrag(){
+		$this->display();
+	}
+
+	public function ffooter(){
+		$arrMenuList=UserModel::M()->getTopMenuList();
+		$this->assign('arrListMenu',$arrMenuList);
+		$this->display();
+	}
+
+	public function check_login(){
+		$this->check_seccode(true);
+		$sUserName=G::getGpc('user_name','P');
+		$sPassword=G::getGpc('user_password','P');
+
+		if(empty($sUserName)){
+			$this->E(Dyhb::L('帐号或者E-mail不能为空','Controller/Public'));
+		}elseif(empty($sPassword)){
+			$this->E(Dyhb::L('密码不能为空','Controller/Public'));
+		}
+
+		Check::RUN();
+		if(Check::C($sUserName,'email')){
+			$bEmail=true;
+			unset($_POST['user_name']);
+		}else{
+			$bEmail=false;
+		}
+
+		$oUserModel=Dyhb::instance('UserModel');
+		$oUserModel->checkLogin($sUserName,$sPassword,$bEmail);
+		if($oUserModel->isError()){
+			$this->E($oUserModel->getErrorMessage());
+		}else{
+			$sUrl=Dyhb::U('index/index');
+			$this->A(array('url'=>$sUrl),Dyhb::L('Hello %s,你成功登录','Controller/Public',null,$sUserName),1);
+		}
+	}
+
+	public function password(){
+		$this->is_login();
+
+		$arrUserData=$GLOBALS['___login___'];
+		$this->assign('nUserId',$arrUserData['user_id']);
+
+		$this->display();
+	}
+
+	public function change_pass(){
+		$this->is_login();
+
+		$this->check_seccode(true);
+
+		$sPassword=G::getGpc('user_password','P');
+		$sNewPassword=G::getGpc('new_password','P');
+		$sOldPassword=G::getGpc('old_password','P');
+
+		$oUserModel=Dyhb::instance('UserModel');
+		$oUserModel->changePassword($sPassword,$sNewPassword,$sOldPassword);
+		if($oUserModel->isError()){
+			$this->E($oUserModel->getErrorMessage());
+		}else{
+			$this->S(Dyhb::L('密码修改成功，你需要重新登录','Controller/Public'));
+		}
+	}
+
+	public function information(){
+		$this->is_login();
+
+		$arrUserData=$GLOBALS['___login___'];
+		$oUserInfo=UserModel::F()->getByuser_id($arrUserData['user_id']);
+		$this->assign('oUserInfo',$oUserInfo);
+
+		$this->display();
+	}
+
+	public function change_info(){
+		$this->is_login();
+
+		$this->check_seccode(true);
+
+		$nUserId=G::getGpc('user_id','P');
+		$oUser=UserModel::F('user_id=?',$nUserId)->query();
+		$oUser->save(0,'update');
+		if($oUser->isError()){
+			$this->E($oUser->getErrorMessage());
+		}else{
+			$this->S(Dyhb::L('修改用户资料成功','Controller/Public'));
+		}
+	}
+
+	public function logout(){
+		if(UserModel::M()->isLogin()){
+			$arrUserData=$GLOBALS['___login___'];
+			UserModel::M()->replaceSession($arrUserData['session_hash'],$arrUserData['user_id'],$arrUserData['session_auth_key']);
+			UserModel::M()->logout();
+			$this->assign("__JumpUrl__",Dyhb::U('public/login'));
+			$this->S(Dyhb::L('登出成功','Controller/Public'));
+		}else{
+			$this->E(Dyhb::L('已经登出','Controller/Public'));
+		}
+	}
+
+	public function fmenu(){
+		$this->is_login();
+
+		$sTag=G::getGpc('tag');
+		$arrMenuList=UserModel::M()->getMenuList();
+		
+		if($sTag===null){
+			$sTag='';
+		}
+
+		$this->assign('sMenuTag',$sTag);
+		$this->assign('arrMenuList',$arrMenuList);
+
+		$this->display();
+	}
+
+}

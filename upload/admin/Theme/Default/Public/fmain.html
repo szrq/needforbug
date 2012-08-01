@@ -1,0 +1,175 @@
+<!--<include file="public+header">-->
+
+	<section class="secondary_bar">
+		<div class="breadcrumbs_container">
+			<article class="breadcrumbs"><a href="<!--{:Dyhb::U('public/fmain')}-->"><!--<lang package='Template/Default/Common'>-->主页<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a class="current"><!--<lang package='Template/Default/Public'>-->系统信息<!--</lang>--></a></article>
+		</div>
+	</section>
+
+	<section id="main" class="column">
+		<h4 class="alert_info"><!--<lang package='Template/Default/Public'>-->欢迎使用本软件，祝你愉快每一天！<!--</lang>--></h4>
+		<article class="module width_full">
+			<header><h3><!--<lang package='Template/Default/Public'>-->系统服务器消息<!--</lang>--></h3></header>
+			<div class="module_content">
+				<p><!--<lang package='Template/Default/Public'>-->在反映您遇到的问题时可能需要提供服务器的一些信息，服务器信息对系统而言非常重要，请勿随便提供给他人。<!--</lang>--></p>
+				<table class="tablesorter" cellspacing="0"> 
+					<thead>
+						<tr>
+							<th><!--<lang package='Template/Default/Public'>-->系统名字<!--</lang>--></th> 
+							<th><!--<lang package='Template/Default/Public'>-->当前值<!--</lang>--></th> 
+						</tr>
+					</thead>
+					<tbody>
+						<!--<foreach for=arrInfo>-->
+						<tr>
+							<td><!--{$key}--></td> 
+							<td><!--{$value}--></td> 
+						</tr>
+						<!--</foreach>-->
+					</tbody>
+				</table>
+			</div>
+		</article>
+
+		<article class="module width_full">
+			<header><h3><!--{$GLOBALS['_option_']['needforbug_program_name']}--> <!--<lang package='Template/Default/Public'>-->目录权限<!--</lang>--></h3></header>
+			<div class="module_content">
+				<p><!--{$GLOBALS['_option_']['needforbug_program_name']}--> <!--<lang package='Template/Default/Public'>-->站点运行必须设置的相关目录权限，请确保设置正确<!--</lang>--></p>
+				<table class="tablesorter" cellspacing="0"> 
+					<thead>
+						<tr>
+							<th><!--<lang package='Template/Default/Public'>-->目录或者文件<!--</lang>--></th>
+							<th><!--<lang package='Template/Default/Public'>-->读取权限<!--</lang>--></th>
+							<th><!--<lang package='Template/Default/Public'>-->写入权限<!--</lang>--></th>
+						</tr>
+					</thead>
+					<tbody>
+					<!--<foreach for=arrTestDirs value=sTestDir>-->
+					<tr>
+						<td><!--{$sTestDir}--></td>
+						<!--<php>-->
+						$sFullPath=NEEDFORBUG_PATH.'/'.str_replace('/*','',$sTestDir);
+						$sRsta=(is_readable($sFullPath)?'<font color=green>[√]'.Dyhb::L('读','Template/Default/Public').'</font>':'<font color=red>[×]'.Dyhb::L('读','Template/Default/Public' ).'</font>');
+						$sWsta=((is_file($sFullPath)?is_writeable($sFullPath):Admin_Extend::testWrite($sFullPath))?'<font color=green>[√]'.Dyhb::L('写','Template/Default/Public').'</font>':'<font color=red>[×]'.Dyhb::L('写','Template/Default/Public').'</font>');
+						<!--</php>-->
+						<td><!--{$sRsta}--></td>
+						<td><!--{$sWsta}--></td>
+					</tr>
+					<!--</foreach>-->
+					</tbody>
+				</table>
+			</div>
+		</article>
+
+		<article class="module width_full">
+			<header><h3><!--{$GLOBALS['_option_']['needforbug_program_name']}--> <!--<lang package='Template/Default/Public'>-->统计信息<!--</lang>--></h3></header>
+			<div class="module_content">
+				<p><!--{$GLOBALS['_option_']['needforbug_program_name']}--> <!--<lang package='Template/Default/Public'>-->运行相关信息，便于对整个站点的数据做到心中有数。<!--</lang>--></p>
+				<table class="tablesorter" cellspacing="0"> 
+					<thead>
+						<tr>
+							<th><!--<lang package='Template/Default/Public'>-->系统名字<!--</lang>--></th>
+							<th><!--<lang package='Template/Default/Public'>-->当前值<!--</lang>--></th>
+						</tr>
+					</thead>
+					<tbody>
+						<!--<foreach for=arrStaticInfo >-->
+						<tr>
+							<td><!--{if isset( $value[2] )}--><a href="<!--{$value[2]}-->"><!--{$value[0]}--></a><!--{d*else}--><!--{$value[0]}--><!--{/if}--></td>
+							<td><!--{$value[1]}--></td>
+						</tr>
+						<!--</foreach>-->
+					</tbody>
+				</table>
+			</div>
+		</article>
+
+		<article class="module width_full">
+			<header><h3><!--<lang package='Template/Default/Public'>-->程序版本信息<!--</lang>--></h3></header>
+			<div class="module_content">
+				<p><!--<lang package='Template/Default/Public'>-->记录当前使用的软件版本，这个方便大家查看你的程序是否为最新版本，以及本软件开发相关贡献者荣誉榜。<!--</lang>--></p>
+				<table class="tablesorter" cellspacing="0">
+					<thead>
+						<tr>
+							<th><!--<lang package='Template/Default/Public'>-->版本名字<!--</lang>--></th> 
+							<th><!--<lang package='Template/Default/Public'>-->当前值<!--</lang>--></th> 
+						</tr>
+					</thead>
+					<tbody>
+						<!--<foreach for=arrVersionInfo >-->
+						<tr>
+							<td><!--{$key}--></td>
+							<td><!--{$value}--></td>
+						</tr>
+						<!--</foreach>-->
+					</tbody>
+				</table>
+
+				<table class="tablesorter" cellspacing="0"> 
+					<thead> 
+						<tr> 
+							<th><!--<lang package='Template/Default/Public'>-->负责项目板块<!--</lang>--></th> 
+							<th><!--{$GLOBALS['_option_']['needforbug_program_name']}--> <!--<lang package='Template/Default/Public'>-->开发精英团队<!--</lang>--></th> 
+						</tr> 
+					</thead> 
+					<tbody> 
+						<tr>
+							<td><!--<lang package='Template/Default/Public'>-->版权所有<!--</lang>--></td>
+							<td><a href="<!--{$GLOBALS['_option_']['needforbug_program_url']}-->" target="_blank"><!--{$GLOBALS['_option_']['needforbug_program_name']}--></a></td>
+						</tr>
+						<tr>
+							<td><!--<lang package='Template/Default/Public'>-->创始人<!--</lang>--></td>
+							<td>刘祥敏(小牛哥Dyhb)</td>
+						</tr>
+						<tr>
+							<td><!--<lang package='Template/Default/Public'>-->开发与支持团队<!--</lang>--></td>
+							<td>马明录、韦永明</td>
+						</tr>
+						<tr>
+							<td><!--<lang package='Template/Default/Public'>-->界面与用户体验团队<!--</lang>--></td>
+							<td>钟晓琴</td>
+						</tr>
+						<tr>
+							<td><!--<lang package='Template/Default/Public'>-->应用APP贡献者<!--</lang>--></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td><!--<lang package='Template/Default/Public'>-->插件贡献者<!--</lang>--></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td><!--<lang package='Template/Default/Public'>-->主题贡献者<!--</lang>--></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td><!--<lang package='Template/Default/Public'>-->感谢贡献者<!--</lang>--></td>
+							<td></td>
+						</tr>
+					</tbody> 
+				</table>
+			</div>
+		</article>
+
+		<article class="module width_full">
+			<header><h3><!--<lang package='Template/Default/Public'>-->程序版权信息<!--</lang>--></h3></header>
+			<div class="module_content">
+				<p><!--<lang package='Template/Default/Public'>-->在使用本软件前，请仔细阅读版权许可协议。<!--</lang>--></p>
+				<table class="tablesorter" cellspacing="0"> 
+					<thead> 
+						<tr> 
+							<th colspan="2"><!--<lang package='Template/Default/Public'>-->版权信息<!--</lang>--></th> 
+						</tr> 
+					</thead> 
+					<tbody> 
+						<tr style="background:none;" >
+							<td colspan=2><div style="height: 100px; width: 100%; overflow:auto;"><!--{$sCopyTxt}--></div></td>
+						</tr>
+					</tbody> 
+				</table>
+			</div>
+		</article>
+
+		<div class="spacer"></div>
+	</section>
+
+<!--<include file="public+footer">-->

@@ -1,0 +1,193 @@
+<!--<include file="header" />-->
+
+<!--{script}-->
+$(function(){
+	$('.thumbnails').tooltip({
+		selector: "a[rel=tooltip]"
+	})
+});
+<!--{/script}-->
+
+		<ul class="breadcrumb">
+			<li><a href="<!--{:__APP__}-->">主页</a> <span class="divider">/</span></li>
+			<li><a href="<!--{:Dyhb::U('home://my/user?id='.$nId)}-->"><!--{$oUserInfo:user_name}--></a> <span class="divider">/</span></li>
+			<li>个人空间</li>
+		</ul>
+		
+		<!--<include file="my_menu" />-->
+		
+		<div class="row">
+			<div class="span8">
+				<ul class="nav nav-pills">
+					<!--<foreach for=arrInfoMenus key=sInfoMenuKey value=sInfoMenu>-->
+					<li <!--{if (!$sDo && !$sInfoMenuKey) || $sDo==$sInfoMenuKey}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://my/user?id='.$nId.(!empty($sInfoMenuKey)?'&do='.$sInfoMenuKey:''))}-->"><!--{$sInfoMenu}--></a></li>
+					<!--</foreach>-->
+				</ul>
+
+				<table class="table">
+					<thead>
+						<tr>
+							<th>用户名</th>
+							<th><!--{$oUserInfo:user_name}--></th>
+						</tr>
+					</thead>
+					<tbody>
+						<!--{if !$sDo}-->
+						<!--<foreach for=arrBases value=sBase>-->
+						<!--{if array_key_exists($sBase,$arrUserprofilesettingDatas)}-->
+						<tr>
+							<td><!--{$arrUserprofilesettingDatas[$sBase]['userprofilesetting_title']}--></td>
+							<td>
+							<!--{if $sBase=='userprofile_gender'}-->
+							<!--{:Profile_Extend::getGender($oUserInfo->userprofile->userprofile_gender)}-->
+							<!--{elseif $sBase=='userprofile_birthday'}-->
+							<!--{$oUserInfo->userprofile->userprofile_birthyear}-->年<!--{$oUserInfo->userprofile->userprofile_birthmonth}-->月<!--{$oUserInfo->userprofile->userprofile_birthday}-->日
+							<!--{elseif $sBase=='userprofile_birthcity'}-->
+							<!--{$sDirthDistrict}-->
+							<!--{elseif $sBase=='userprofile_residecity'}-->
+							<!--{$sResideDistrict}-->
+							<!--{d*else}-->
+							<!--{$oUserInfo:userprofile:$sBase}-->
+							<!--{/if}-->
+							</td>
+						</tr>
+						<!--{/if}-->
+						<!--</foreach>-->
+						
+						<!--<for start='1' end='8' var='nCustomFieldId'>-->
+						<!--{~$sCustomField='userprofile_field'.$nCustomFieldId}-->
+						<!--{if array_key_exists($sCustomField,$arrUserprofilesettingDatas)}-->
+						<tr>
+							<td><!--{$arrUserprofilesettingDatas[$sCustomField]['userprofilesetting_title']}--></td>
+							<td><!--{$oUserInfo:userprofile:$sCustomField}--></td>
+						<tr/>
+						<!--{/if}-->
+						<!--</for>-->
+						<!--{elseif $sDo=='contact'}-->
+						<!--<foreach for=arrContacts value=sContact>-->
+						<!--{if array_key_exists($sContact,$arrUserprofilesettingDatas)}-->
+						<tr>
+							<td><!--{$arrUserprofilesettingDatas[$sContact]['userprofilesetting_title']}--></td>
+							<td><!--{$oUserInfo:userprofile:$sContact}--></td>
+						<tr/>
+						<!--{/if}-->
+						<!--</foreach>-->
+						<tr>
+							<td>Email</td>
+							<td><!--{$oUserInfo:user_email}--></td>
+						<tr/>
+						<!--{elseif $sDo=='edu'}-->
+						<!--<foreach for=arrEdus value=sEdu>-->
+						<!--{if array_key_exists($sEdu,$arrUserprofilesettingDatas)}-->
+						<tr>
+							<td><!--{$arrUserprofilesettingDatas[$sEdu]['userprofilesetting_title']}--></td>
+							<td><!--{$oUserInfo:userprofile:$sEdu}--></td>
+						<tr/>
+						<!--{/if}-->
+						<!--</foreach>-->
+						<!--{elseif $sDo=='work'}-->
+						<!--<foreach for=arrWorks value=sWork>-->
+						<!--{if array_key_exists($sWork,$arrUserprofilesettingDatas)}-->
+						<tr>
+							<td><!--{$arrUserprofilesettingDatas[$sWork]['userprofilesetting_title']}--></td>
+							<td><!--{$oUserInfo:userprofile:$sWork}--></td>
+						<tr/>
+						<!--{/if}-->
+						<!--</foreach>-->
+						<!--{elseif $sDo=='info'}-->
+						<!--<foreach for=arrInfos value=sInfo>-->
+						<!--{if array_key_exists($sInfo,$arrUserprofilesettingDatas)}-->
+						<tr>
+							<td><!--{$arrUserprofilesettingDatas[$sInfo]['userprofilesetting_title']}--></td>
+							<td><!--{$oUserInfo:userprofile:$sInfo}--></td>
+						<tr/>
+						<!--{/if}-->
+						<!--</foreach>-->
+						<tr>
+							<td>昵称</td>
+							<td><!--{$oUserInfo:user_nikename}--></td>
+						<tr/>
+						<tr>
+							<td>Email</td>
+							<td><!--{$oUserInfo:user_email}--></td>
+						<tr/>
+						<tr>
+							<td>用户备注</td>
+							<td><!--{$oUserInfo:user_remark}--></td>
+						<tr/>
+						<tr>
+							<td>用户签名</td>
+							<td><!--{$oUserInfo:user_sign}--></td>
+						<tr/>
+						<!--{/if}-->
+					</tbody>
+				</table>
+			</div>
+
+			<div class="span4">
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<td style="text-align:center;">
+								<a href="<!--{:Dyhb::U('home://my/avatar?id='.$nId)}-->"><img src="<!--{:Core_Extend::avatar( $nId,'small' )}-->" class="thumbnail"/></a>
+							</td>
+							<td>
+								<label class="control-label" for="email-input"><i class="icon-retweet"></i> 与用户 Email 交流</label>
+								<div class="input-prepend">
+									<span class="add-on"><i class="icon-envelope"></i></span><input style="width:140px;" id="email-input" type="text" value="<!--{$oUserInfo:user_email}-->">
+								</div>
+							</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td colspan="2"><a href="<!--{:Dyhb::U('my/user?id='.$oUserInfo['user_id'])}-->"><!--{$oUserInfo:user_name}-->@<!--{$oUserInfo:user_id}--></a></td>
+						</tr>
+						<tr>
+							<td colspan="2"><i class="icon-info-sign"></i> 性别 <!--{:Profile_Extend::getGender($oUserInfo->userprofile->userprofile_gender)}--></td>
+						</tr>
+						<tr>
+							<td colspan="2"><i class="icon-user"></i> <!--{$oUserInfo:create_dateline|Core_Extend+timeFormat}-->注册</td>
+						</tr>
+						<tr>
+							<td colspan="2"><i class="icon-heart"></i> 等级 <a href="<!--{:Dyhb::U('home://my/rating')}-->">下士</a></td>
+						</tr>
+						<tr>
+							<td colspan="2"><i class="icon-star"></i> 积分 <span class="badge badge-success"><a href="#">292</a></span>
+							金币 <span class="badge badge-success"><a href="#">116</a></span></td>
+						</tr>
+					</tbody>
+				</table>
+
+				<div style="padding:5px;">
+					<a class="btn" href="#"><i class="icon-user"></i> 关注+1</a>
+					<a href="<!--{:Dyhb::U('pm/pmnew?uid='.$oUserInfo['user_id'])}-->" rel="nofollow" class="btn"><i class="icon-envelope"></i> 发消息</a>
+				</div>
+
+				<div style="padding:5px;">
+					<h5><i class="icon-pencil"></i> 签名</h5>
+					<!--{if $oUserInfo:user_sign}--><!--{$oUserInfo:user_sign}--><!--{d*else}-->该用户暂时没有设置签名<!--{/if}-->
+				</div>
+
+				<div style="padding:5px;">
+					<h4>他关注的用户</h4>
+					<p><!--{if is_array($arrFriends)}-->
+					<ul class="thumbnails">
+						<!--<foreach for=arrFriends value=oFriend>-->
+						<li class="span1">
+							<div class="thumbnail">
+								<a href="<!--{:Dyhb::U('home://my/user?id='.$oFriend['friend_friendid'])}-->"><img src="<!--{:Core_Extend::avatar( $oFriend['friend_friendid'],'small' )}-->" title="好友 <!--{$oFriend['friend_friendusername']}-->" alt="好友 <!--{$oFriend['friend_friendusername']}-->"></a>
+								<a rel="tooltip" title="好友 <!--{$oFriend['friend_friendusername']}-->" href="<!--{:Dyhb::U('home://my/user?id='.$oFriend['friend_friendid'])}-->"><h5 style="text-align:center;"><!--{:G::subString(UserModel::getUsernameById($oFriend['friend_friendid']),0,6)}--></h5></a>
+							</div>
+						</li>
+						<!--</foreach>-->
+					</ul>
+					<!--{d*else}-->
+					他尚未关注任何人
+					<!--{/if}-->
+					</p>
+				</div>
+			</div>
+		</div><!--/row-->
+
+<!--<include file="footer" />-->

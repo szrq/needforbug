@@ -1,0 +1,43 @@
+<!--<include file="header" />-->
+	
+		<ul class="breadcrumb">
+			<li><a href="<!--{:__APP__}-->">主页</a> <span class="divider">/</span></li>
+			<li>用户等级</li>
+		</ul>
+		
+		<!--<include file="user_information_menu" />-->
+		
+		<div class="row">
+			<div class="span9">
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th width="50px">等级ID</th>
+							<th>等级名字</th>
+							<th>等级积分</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!--<foreach for=arrRatings value=oRating>-->
+						<tr>
+							<td><!--{$oRating['rating_id']}--></td>
+							<td><!--{$oRating['rating_name']}--><!--{if $oRating['rating_nikename']}--> <!--{$oRating['rating_nikename']}--><!--{/if}--></td>
+							<td><span class="badge"><!--{$oRating['rating_creditstart']}--></span> - <span class="badge badge-success"><!--{$oRating['rating_creditend']}--></span></td>
+						</tr>
+					</tbody>
+					<!--</foreach>-->
+				</table>
+			</div>
+
+			<div class="span3">
+				<h4>等级分组</h4>
+				<p><ul class="nav nav-tabs nav-stacked">
+					<li <!--{if empty($nId)}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://my/rating')}-->">全部</a></li>
+					<!--<foreach for=arrRatinggroups value=oRatinggroup>-->
+					<li <!--{if $nId==$oRatinggroup['ratinggroup_id']}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://my/rating?id='.$oRatinggroup['ratinggroup_id'])}-->"><!--{$oRatinggroup['ratinggroup_title']}-->&nbsp;(<!--{$oRatinggroup['ratinggroup_name']}-->)</a></li>
+					<!--</foreach>-->
+				</ul></p>
+			</div>
+		</div><!--row-->
+
+<!--<include file="footer" />-->

@@ -1,0 +1,46 @@
+<!--<include file="public+header" />-->
+
+<!--{script}-->
+function option(){
+	$("#submit_button").attr("disabled", "disabled");
+	$("#submit_button").val( 'update...' );
+	$("#submit_button").attr("disabled", false);
+}
+<!--{/script}-->
+
+	<section class="secondary_bar">
+		<div class="breadcrumbs_container">
+			<article class="breadcrumbs"><a href="<!--{:Dyhb::U('public/fmain')}-->"><!--<lang package='Template/Default/Common'>-->主页<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a class="current"><!--<lang package='Template/Default/Styleoption'>-->全局设置<!--</lang>--></a></article>
+		</div>
+	</section>
+
+	<section id="main" class="column">
+		<article class="module width_full">
+			<header><h3 class="tabs_involved"><!--<lang package='Template/Default/Styleoption'>-->全局设置<!--</lang>--></h3>
+				<ul class="tabs">
+					<li class="active"><a href="<!--{:Dyhb::U('styleoption/index')}-->"><!--<lang package='Template/Default/Styleoption'>-->全局设置<!--</lang>--></a></li>
+				</ul>
+			</header>
+			<form action="<!--{:Dyhb::U('styleoption/update_option')}-->" method="post" onsubmit="return option();">
+				<div class="module_content">
+					<fieldset>
+						<label for="site_logo"><!--<lang package='Template/Default/Styleoption'>-->网站Logo<!--</lang>--></label>
+						<input type="text" name="options[site_logo]" id="site_logo" size="60" value="<!--{$arrOptions['site_logo']}-->"/>
+						<div class="description"><!--<lang package='Template/Default/Styleoption'>-->如果不填，则为系统默认Logo，地址为Public/images/common/logo.png<!--</lang>-->
+						<br/><img src="<!--{$sLogo}-->"/>
+						</div>
+					</fieldset>
+				</div>
+				<footer>
+					<div class="submit_link">
+						<input id="submit_button" type="submit" class="alt_btn" value="<!--<lang package='Template/Default/Common'>-->发布<!--</lang>-->" />
+						<input type="reset" value="<!--<lang package='Template/Default/Common'>-->重置<!--</lang>-->" />
+					</div>
+				</footer>
+			</form>
+		</article>
+
+		<div class="spacer"></div>
+	</section>
+
+<!--<include file="public+footer">-->

@@ -1,0 +1,20 @@
+/*
+File Name: login.css
+File Type: 必须
+Description: 登录样式
+*/
+
+/**===============================
+           基本样式
+================================*/
+html,body{background: #77BACE;}
+
+/**===============================
+           登录框
+================================*/
+.login-body a{color:#fff;}
+.login-body a:hover{color:#fff;text-decoration:underline;}
+#login{width:380px;margin:7em auto;}
+#login #result{margin:0 0 16px 8px;border-width:1px;border-style:solid;padding:12px;-moz-border-radius:3px;-khtml-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;}
+#login #seccodeImage{ color:blue;padding:5px;font-weight:bold;}
+#login #seccodeMessage{ color:gray;padding:5px;font-weight:bold;}
