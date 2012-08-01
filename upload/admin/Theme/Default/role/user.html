@@ -34,10 +34,25 @@ function saveAccess(){
 			<div class="module_content">
 				<ul>
 					<li><!--<lang package='Template/Default/Role'>-->用户授权给用户进行授权<!--</lang>--></li>
+					<li><!--<lang package='Template/Default/Role'>-->用户太多不好查找，在这里进行用户名搜索<!--</lang>--></li>
 				</ul>
 			</div>
 		</article>
 
+		<article class="module width_full">
+			<header><h3 class="tabs_involved"><!--<lang package='Template/Default/Role'>-->用户搜索<!--</lang>--></h3>
+			</header>
+			<div class="module_content">
+				<form method='get' action="<!--{:Dyhb::U( 'role/user' )}-->" class="quick_search">
+					<p><input type="hidden" name="c" value="<!--{:MODULE_NAME}-->"/>
+						<input type="hidden" name="a" value="<!--{:ACTION_NAME}-->"/>
+						<input class="left" type="text" name="user_name" title="<!--<lang package='Template/Default/Role'>-->用户名<!--</lang>-->">
+						<input type="submit" id="" value="<!--<lang package='Template/Default/Common'>-->查询<!--</lang>-->" onclick="" class="alt_btn">
+					</p>
+				</form>
+			</div>
+		</article>
+		
 		<article class="module width_full">
 			<header><h3 class="tabs_involved"><!--<lang package='Template/Default/Role'>-->用户授权<!--</lang>--></h3>
 				<ul class="tabs">
@@ -63,6 +78,7 @@ function saveAccess(){
 						<div class="description"><!--<lang package='Template/Default/Role'>-->系统组列表，下拉选择<!--</lang>--></div>
 					</fieldset>
 					<fieldset>
+						<!--{if !empty($arrUserList)}-->
 						<label for="groupUserId"><!--<lang package='Template/Default/Role'>-->用户<!--</lang>--></label>
 							<select id="groupUserId" name="groupUserId[]" multiple="multiple" size="15" style="width: 200px; height: 200px">
 							<!--<foreach for=arrUserList>-->
@@ -70,7 +86,12 @@ function saveAccess(){
 							<!--</foreach>-->
 						</select>
 						<div class="description"><!--<lang package='Template/Default/Role'>-->选中组的用户列表<!--</lang>--></div>
+						<!--{d*else}-->
+						<label><span><a href="<!--{:Dyhb::U('role/user')}-->"><!--<lang package='Template/Default/Role'>-->查看所有用户列表<!--</lang>--></a></span></label>
+						<div class="description"><!--<lang package='Template/Default/Role'>-->暂时没有发现任何用户，如果是搜索查询，请换个关键字试试<!--</lang>--></div>
+						<!--{/if}-->
 					</fieldset>
+					
 					<fieldset style="padding:10px;">
 						<!--{$sPageNavbar}-->
 					</fieldset>

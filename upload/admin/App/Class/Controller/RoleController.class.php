@@ -318,14 +318,19 @@ class RoleController extends InitController{
 	}
 
 	public function user(){
-		$nTotalRecord=UserModel::F()->all()->getCounts('user_id');
+		$arrWhere=array();
+		$arrWhere['user_name']=array('like','%'.G::getGpc('user_name').'%');
+
+		$nTotalRecord=UserModel::F()->where($arrWhere)->all()->getCounts('user_id');
 
 		$nEverynum=$GLOBALS['_option_']['admin_list_num'];
 		$oPage=Page::RUN($nTotalRecord,$nEverynum,G::getGpc('page','G'));
 		$sPageNavbar=$oPage->P();
 		$this->assign('sPageNavbar',$sPageNavbar);
 
-		$arrList=UserModel::F()->setColumns('user_id,user_name,user_nikename')->asArray()->all()->limit($oPage->returnPageStart(),$nEverynum)->query();
+		$arrList=UserModel::F()->setColumns('user_id,user_name,user_nikename')->asArray()->where($arrWhere)->all()->limit($oPage->returnPageStart(),$nEverynum)->query();
+		
+		$arrUserList=array();
 		foreach($arrList as $arrVo){
 			$arrUserList[$arrVo['user_id']]=$arrVo['user_name'].' '.$arrVo['user_nikename'];
 		}
