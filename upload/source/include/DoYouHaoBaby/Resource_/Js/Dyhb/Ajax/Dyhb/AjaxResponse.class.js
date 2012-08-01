@@ -1,4 +1,17 @@
 /**
+ * ajax返回消息表格容器
+ */
+Dyhb.Ajax.Dyhb.AjaxResponseTable=function(sInfo,sImages){
+	var sContent='<table width="100%" height="100%" border="1" align="left" valign="middle" cellpadding="0" cellspacing="0"><tr>';
+	if(sImages){
+		sContent+='<td width="20px" valign="middle">'+sImages+'</td>';
+	}
+	sContent+='<td valign="middle">'+sInfo+'</span></td></tr></table>';
+
+	return sContent;
+};
+
+/**
  * ajax消息显示
  *
  * @param oRequest xmlHttp对象
@@ -56,15 +69,15 @@ Dyhb.Ajax.Dyhb.AjaxResponse=function(oRequest,sTarget,Response){
 
 		if(Dyhb.Ajax.Dyhb.Status==1){
 			if(''!=Dyhb.Ajax.Dyhb.Image[1]){
-				sTarget.innerHTML='<img src="'+Dyhb.Ajax.Dyhb.Image[1]+'" class="'+sOldTarget+'Success" border="0" alt="success..." align="absmiddle"> <span style="color:blue"><ul class="'+sOldTarget+'List">'+Dyhb.Ajax.Dyhb.Info+'</ul></span>';
+				sTarget.innerHTML=Dyhb.Ajax.Dyhb.AjaxResponseTable('<span style="color:blue">'+Dyhb.Ajax.Dyhb.Info+'</span>','<img src="'+Dyhb.Ajax.Dyhb.Image[1]+'" class="'+sOldTarget+'Success" border="0" alt="success..." align="absmiddle">');
 			}else{
-				sTarget.innerHTML='<span style="color:blue"><ul class="'+sOldTarget+'List">'+Dyhb.Ajax.Dyhb.Info+'</ul></span>';
+				sTarget.innerHTML=Dyhb.Ajax.Dyhb.AjaxResponseTable('<span style="color:blue">'+Dyhb.Ajax.Dyhb.Info+'</span>');
 			}
 		}else{
 			if(''!=Dyhb.Ajax.Dyhb.Image[2]){
-				sTarget.innerHTML='<img src="'+Dyhb.Ajax.Dyhb.Image[2]+'" class="'+sOldTarget+'Error" border="0" alt="error..." align="absmiddle"> <span style="color:red"><ul class="'+sOldTarget+'List">'+Dyhb.Ajax.Dyhb.Info+'</ul></span>';
+				sTarget.innerHTML=Dyhb.Ajax.Dyhb.AjaxResponseTable('<span style="color:red">'+Dyhb.Ajax.Dyhb.Info+'</span>','<img src="'+Dyhb.Ajax.Dyhb.Image[2]+'" class="'+sOldTarget+'Error" border="0" alt="error..." align="absmiddle">');
 			}else{
-				sTarget.innerHTML='<span style="color:red"><ul class="'+sOldTarget+'List">'+Dyhb.Ajax.Dyhb.Info+'</ul></span>';
+				sTarget.innerHTML=Dyhb.Ajax.Dyhb.AjaxResponseTable('<span style="color:red">'+Dyhb.Ajax.Dyhb.Info+'</span>');
 			}
 		}
 	}

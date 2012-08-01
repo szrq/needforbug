@@ -19,7 +19,7 @@ function setHomepage(sURL){
 		document.body.setHomePage(sURL);
 	}else{
 		needforbugAlert(D.L('非 IE 浏览器请手动将本站设为首页','__COMMON_LANG__@Js/Common_Js'),'',3);
-		doane();
+		return false;
 	}
 }
 

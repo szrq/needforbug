@@ -654,12 +654,13 @@ class Model implements IModel,IModelCallback,ArrayAccess{
 
 		$arrError=$oMeta->check($this->_arrProp,$arrCheckProps,$sMode);
 		if(!empty($arrError)){
-			$sErrorMessage='';
+			$sErrorMessage='<ul class="DyhbModelList">';
 			foreach($arrError as $sField=>$arrValue){
 				foreach($arrValue as $sK=>$sV){
 					$sErrorMessage.='<li>'.$sV.'</li>';
 				}
 			}
+			$sErrorMessage.='</ul>';
 			$this->setErrorMessage($sErrorMessage);
 			return false;
 		}

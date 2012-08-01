@@ -203,7 +203,11 @@ fieldset textarea:focus {outline: none;border: 1px solid #77BACE;-webkit-box-sha
 #main h4.alert_success {display: block;width: 95%;margin: 20px 3% 0 3%;margin-top: 20px;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;background: #E2F6C5 url(../Images/icn_alert_success.png) no-repeat;background-position: 10px 10px;border: 1px solid #79C20D;color: #32510F;padding: 10px 0;text-indent: 40px;font-size: 14px;}
 
 /* AJAX消息 */
-.DyhbAjaxResult{border:2px ridge #000; background-color:#eee;line-height:10px;position:fixed;top:30px;right:30px;padding:10px 20px;}
+.DyhbAjaxResult{border:2px ridge #000; background-color:#eee;line-height:10px;position:fixed;padding:15px 50px;top:50%;margin-top:-100px;right:50%;margin-right:-100px; max-width:200px;width: expression(this.width>200?"200":true);z-index: 1050;overflow: auto; background-color: #ffffff;border: 5px solid #999; border: 5px solid rgba(0, 0, 0, 0.2);*border: 5px solid #999;-webkit-border-radius: 6px;-moz-border-radius: 6px;  border-radius: 6px;-webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);-moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);-webkit-background-clip: padding-box; -moz-background-clip: padding-box;background-clip: padding-box;}
+* html div.DyhbAjaxResult{position:absolute; right:16px;}
+.DyhbAjaxResult img{float:left;padding-top:10px;width:auto;}
+.DyhbAjaxResult ul li{list-style:none;line-height:20px;}
+.DyhbAjaxResult span{ padding-top:15px; }
 
 /**===============================
            分页条
