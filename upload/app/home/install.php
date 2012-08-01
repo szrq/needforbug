@@ -1,18 +1,18 @@
 <?php
 /* [NeedForBug!] (C)Dianniu From 2010.
-   Ö÷Ò³³õÊ¼»¯°²×°³ÌÐò($)*/
+   ä¸»é¡µåˆå§‹åŒ–å®‰è£…ç¨‹åº($)*/
 
 !defined('DYHB_PATH') && exit;
 
 /**
-// ÕâÀï½öÎªÐèÒªÊý¾Ý¿â»òÕßÆäËü³õÊ¼»¯Êý¾ÝËùÊ¹ÓÃ
-// Èç¹ûÓ¦ÓÃ²»ÐèÒª³õÊ¼»¯Ò»Ð©Êý¾Ý£¬Äã¿ÉÒÔÉ¾³ý±¾ÎÄ¼þ
+// è¿™é‡Œä»…ä¸ºéœ€è¦æ•°æ®åº“æˆ–è€…å…¶å®ƒåˆå§‹åŒ–æ•°æ®æ‰€ä½¿ç”¨
+// å¦‚æžœåº”ç”¨ä¸éœ€è¦åˆå§‹åŒ–ä¸€äº›æ•°æ®ï¼Œä½ å¯ä»¥åˆ é™¤æœ¬æ–‡ä»¶
 $sSql=<<<EOF
 
 DROP TABLE IF EXISTS {NEEDFORBUG}hello;
 CREATE TABLE {NEEDFORBUG}hello (
-  `test_id` int(10) NOT NULL auto_increment COMMENT '²âÊÔID',
-  `test_value` varchar(50) character set utf8 NOT NULL COMMENT '²âÊÔÐ§¹û',
+  `test_id` int(10) NOT NULL auto_increment COMMENT 'æµ‹è¯•ID',
+  `test_value` varchar(50) character set utf8 NOT NULL COMMENT 'æµ‹è¯•æ•ˆæžœ',
   PRIMARY KEY  (`test_id`)
 ) TYPE=MyISAM;
 
