@@ -2,7 +2,7 @@
  * ajax返回消息表格容器
  */
 Dyhb.Ajax.Dyhb.MessageTable=function(sInfo,sImages){
-	var sContent='<table width="100%" height="100%" border="1" align="left" valign="middle" cellpadding="0" cellspacing="0"><tr>';
+	var sContent='<table width="100%" height="100%" border="0" align="left" valign="middle" cellpadding="0" cellspacing="0"><tr>';
 	if(sImages){
 		sContent+='<td width="20px" valign="middle">'+sImages+'</td>';
 	}
