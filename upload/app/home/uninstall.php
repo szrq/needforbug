@@ -1,12 +1,12 @@
 <?php
 /* [NeedForBug!] (C)Dianniu From 2010.
-   涓婚〉鍗歌浇娓呯悊绋嬪簭($)*/
+   主页卸载清理程序($)*/
 
 !defined('DYHB_PATH') && exit;
 
 /**
-// 鏈▼搴忕敤浜庡嵏杞藉畬搴旂敤鍚庣殑娓呯悊宸ヤ綔
-// 濡傛灉搴旂敤涓嶉渶瑕佹竻鐞嗘暟鎹紝浣犲彲浠ュ垹闄ゆ湰鏂囦欢
+// 本程序用于卸载完应用后的清理工作
+// 如果应用不需要清理数据，你可以删除本文件
 $sSql=<<<EOF
 
 DROP TABLE IF EXISTS {NEEDFORBUG}hello;

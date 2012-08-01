@@ -1,6 +1,6 @@
 <?php
 /* [NeedForBug!] (C)Dianniu From 2010.
-   ç¾¤ç»„å¸è½½æ¸…ç†ç¨‹åº($)*/
+   Èº×éÐ¶ÔØÇåÀí³ÌÐò($)*/
 
 !defined('DYHB_PATH') && exit;
 
