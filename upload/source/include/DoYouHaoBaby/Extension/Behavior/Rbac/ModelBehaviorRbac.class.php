@@ -161,27 +161,22 @@ class ModelBehaviorRbac extends ModelBehavior{
 					)
 					->asArray()
 					->query();
-			}else{
-				$oSelect=SessionModel::F('session_hash=?',$sHash);
-				$arrUserInformation=$oSelect->asArray()->query();
-			}
 
-			if($arrUserInformation){
-				$bSessionExists=TRUE;
-				if(!empty($arrUserInformation['user_id'])){
-					$oSessionDbExpression=new DbExpression('['.$GLOBALS['_commonConfig_']['DB_PREFIX'].$sUserModel.'.user_id]');
-					$arrUserInformation=array_merge( $arrUserInformation,UserModel::F()
-						->setColumns($this->_arrSettings['rbac_data_props'])
-						->joinLeft($GLOBALS['_commonConfig_']['DB_PREFIX'].'session','user_id,session_hash,session_auth_key',array('user_id'=>$oSessionDbExpression))
-						->where('['.$GLOBALS['_commonConfig_']['DB_PREFIX'].$sUserModel.'.user_id]=? AND user_status > 0', intval($arrUserInformation['user_id']))
-						->asArray()
-						->query());
-					$nUserId=$arrUserInformation['user_id'];
+				if($arrUserInformation['user_id'] && $arrUserInformation['session_hash']){
+					$bSessionExists=TRUE;
 				}
 			}else{
-				if(!G::isImplementedTo(($arrUserInformation=SessionModel::F('session_hash=?',$sHash)->asArray()->query()),'IModel')){
-					$this->clearThisCookie();
-					$bSessionExists=TRUE;
+				$arrUserInformation=array();
+
+				$arrSessionData=SessionModel::F('session_hash=?',$sHash)->asArray()->query();
+				if(!empty($arrSessionData['user_id'])){
+					$bSessionExists=true;
+					$this->updateSession($arrSessionData['session_hash'],$nUserId,$sAuthKey,true);
+				}else{
+					if(!G::isImplementedTo(($arrSessionData=SessionModel::F('session_hash=?',$sHash)->asArray()->query()),'IModel')){
+						$this->clearThisCookie();
+						$bSessionExists=TRUE;
+					}
 				}
 			}
 		}
@@ -193,7 +188,7 @@ class ModelBehaviorRbac extends ModelBehavior{
 				}
 			}
 			$arrUserInformation['session_hash']=G::randString(6);
-			UserModel::M()->updateSession($arrUserInformation['session_hash'],$nUserId,$sAuthKey);
+			$this->updateSession($arrUserInformation['session_hash'],$nUserId,$sAuthKey);
 		}
 
 		$sHash=isset($arrUserInformation['session_hash'])?$arrUserInformation['session_hash']:$sHash;// hash
@@ -481,14 +476,16 @@ class ModelBehaviorRbac extends ModelBehavior{
 		);
 	}
 
-	public function updateSession($sHash,$nUserId,$sAuthKey){
-		$oSession=SessionModel::F('user_id=?',$nUserId)->getOne();
-		if(!empty($oSession['session_hash'])){
+	public function updateSession($sHash,$nUserId,$sAuthKey,$bChangeUserid=false){
+		if($bChangeUserid===true){
+			$oSession=SessionModel::F('session_hash=?',$sHash)->getOne();
+		}else{
 			$oSession=SessionModel::F('user_id=?',$nUserId)->getOne();
+		}
+
+		if(!empty($oSession['session_hash'])){
 			$oSession->session_hash=$sHash;
-			if($nUserId){
-				$oSession->user_id=$nUserId;
-			}
+			$oSession->user_id=$nUserId;
 			$oSession->save(0,'update');
 		}else{
 			$this->replaceSession($sHash,$nUserId,$sAuthKey,TRUE);// 写入Session数据
