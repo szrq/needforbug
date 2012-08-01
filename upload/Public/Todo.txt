@@ -36,10 +36,6 @@
 
 导航检查 Nav.class.php
 
-上传文件太大，竟然没有提示信息
-
-group_icon.gif调整到gounp应用
-
 消息框位于浏览器中心
 
 .result ajax消息框大小设置

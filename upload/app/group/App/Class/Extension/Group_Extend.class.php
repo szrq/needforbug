@@ -11,7 +11,7 @@ class Group_Extend{
 			$sImgname=__ROOT__.'/data/upload/group/'.$sImgname;
 			return $sImgname;
 		}else{
-			return __PUBLIC__.'/images/common/group_icon.gif';
+			return __APPPUB__.'/Js/Images/common/group_icon.gif';
 		}
 	}
 	
