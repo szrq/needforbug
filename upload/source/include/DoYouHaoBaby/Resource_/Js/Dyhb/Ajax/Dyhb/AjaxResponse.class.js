@@ -41,7 +41,7 @@ Dyhb.Ajax.Dyhb.AjaxResponse=function(oRequest,sTarget,Response){
 	}else{
 		if(Response==undefined){/* 需要在客户端定义ajaxReturn方法 */
 			try{(AjaxBack).apply(this,[Dyhb.Ajax.Dyhb.Data,Dyhb.Ajax.Dyhb.Status,Dyhb.Ajax.Dyhb.Info,Dyhb.Ajax.Dyhb.Type]);}
-			catch(e){} 
+			catch(e){}
 		}else{
 			try{(Response).apply(this,[Dyhb.Ajax.Dyhb.Data,Dyhb.Ajax.Dyhb.Status,Dyhb.Ajax.Dyhb.Info,Dyhb.Ajax.Dyhb.Type]);}
 			catch(e){}
@@ -50,20 +50,21 @@ Dyhb.Ajax.Dyhb.AjaxResponse=function(oRequest,sTarget,Response){
 
 	/* 显示提示信息 */
 	if(Dyhb.Ajax.Dyhb.ShowTip && Dyhb.Ajax.Dyhb.Info!=undefined && Dyhb.Ajax.Dyhb.Info!=''){
+		var sOldTarget=sTarget;
 		sTarget=document.getElementById(sTarget);
 		sTarget.style.display="block";
 
 		if(Dyhb.Ajax.Dyhb.Status==1){
-			if('' !=Dyhb.Ajax.Dyhb.Image[1]){
-				sTarget.innerHTML='<img src="'+Dyhb.Ajax.Dyhb.Image[1]+'"  border="0" alt="success..." align="absmiddle"> <span style="color:blue">'+Dyhb.Ajax.Dyhb.Info+'</span>';
+			if(''!=Dyhb.Ajax.Dyhb.Image[1]){
+				sTarget.innerHTML='<img src="'+Dyhb.Ajax.Dyhb.Image[1]+'" class="'+sOldTarget+'Success" border="0" alt="success..." align="absmiddle"> <span style="color:blue"><ul class="'+sOldTarget+'List">'+Dyhb.Ajax.Dyhb.Info+'</ul></span>';
 			}else{
-				sTarget.innerHTML='<span style="color:blue">'+Dyhb.Ajax.Dyhb.Info+'</span>';
+				sTarget.innerHTML='<span style="color:blue"><ul class="'+sOldTarget+'List">'+Dyhb.Ajax.Dyhb.Info+'</ul></span>';
 			}
 		}else{
-			if('' !=Dyhb.Ajax.Dyhb.Image[2]){
-				sTarget.innerHTML='<img src="'+Dyhb.Ajax.Dyhb.Image[2]+'"  border="0" alt="error..." align="absmiddle"> <span style="color:red">'+Dyhb.Ajax.Dyhb.Info+'</span>';
+			if(''!=Dyhb.Ajax.Dyhb.Image[2]){
+				sTarget.innerHTML='<img src="'+Dyhb.Ajax.Dyhb.Image[2]+'" class="'+sOldTarget+'Error" border="0" alt="error..." align="absmiddle"> <span style="color:red"><ul class="'+sOldTarget+'List">'+Dyhb.Ajax.Dyhb.Info+'</ul></span>';
 			}else{
-				sTarget.innerHTML='<span style="color:red">'+Dyhb.Ajax.Dyhb.Info+'</span>';
+				sTarget.innerHTML='<span style="color:red"><ul class="'+sOldTarget+'List">'+Dyhb.Ajax.Dyhb.Info+'</ul></span>';
 			}
 		}
 	}

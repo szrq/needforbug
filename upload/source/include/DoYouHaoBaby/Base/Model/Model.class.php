@@ -656,11 +656,9 @@ class Model implements IModel,IModelCallback,ArrayAccess{
 		if(!empty($arrError)){
 			$sErrorMessage='';
 			foreach($arrError as $sField=>$arrValue){
-				$sItemErrorMessage='';
 				foreach($arrValue as $sK=>$sV){
-					$sItemErrorMessage.=Dyhb::L('类型(%s)，消息 (%s)','__DYHB__@Dyhb',null,$sK,$sV).'<br/>';
+					$sErrorMessage.='<li>'.$sV.'</li>';
 				}
-				$sErrorMessage.=Dyhb::L('字段%s的错误信息如下：%s','__DYHB__@Dyhb',null,$sField,$sItemErrorMessage).'<br/>';
 			}
 			$this->setErrorMessage($sErrorMessage);
 			return false;
