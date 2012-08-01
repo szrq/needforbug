@@ -14,6 +14,9 @@
 				<div class="alert fade in">
 					<button type="button" class="close" data-dismiss="alert">&times;</button>
 					该用户还没有上传头像，头像为系统默认头像
+					<!--{if $GLOBALS['___login___']!==false}-->
+					<a href="<!--{:Dyhb::U('home://user/avatar')}-->">立刻上传你的专属头像</a>
+					<!--{/if}-->
 				</div>
 				<!--{/if}-->
 				<h3>当前头像</h3>
@@ -31,15 +34,15 @@
 						</tr>
 						<tr>
 							<td>大头像 200*200</td>
-							<td><img src="<!--{$arrAvatarInfo['big']}-->"/></td>
+							<td><img src="<!--{$arrAvatarInfo['big']}-->" class="thumbnail" /></td>
 						</tr>
 						<tr>
 							<td>中等头像 120×120</td>
-							<td><img src="<!--{$arrAvatarInfo['middle']}-->"/></td>
+							<td><img src="<!--{$arrAvatarInfo['middle']}-->" class="thumbnail" /></td>
 						</tr>
 						<tr>
 							<td>小头像 48×48</td>
-							<td><img src="<!--{$arrAvatarInfo['small']}-->"/></td>
+							<td><img src="<!--{$arrAvatarInfo['small']}-->" class="thumbnail" /></td>
 						</tr>
 					</tbody>
 				</table>
