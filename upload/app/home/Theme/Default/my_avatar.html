@@ -10,6 +10,12 @@
 		
 		<div class="row">
 			<div class="span12">
+				<!--{if !$arrAvatarInfo['exist']}-->
+				<div class="alert fade in">
+					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					该用户还没有上传头像，头像为系统默认头像
+				</div>
+				<!--{/if}-->
 				<h3>当前头像</h3>
 				<table class="table table-bordered" style="width:95%;">
 					<thead>
