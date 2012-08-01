@@ -1,4 +1,18 @@
 /**
+ * ajax返回消息表格容器
+ */
+Dyhb.Ajax.Dyhb.MessageTable=function(sInfo,sImages){
+	var sContent='<table width="100%" height="100%" border="1" align="left" valign="middle" cellpadding="0" cellspacing="0"><tr>';
+	if(sImages){
+		sContent+='<td width="20px" valign="middle">'+sImages+'</td>';
+	}
+	sContent+='<td valign="middle">'+sInfo+'</span></td></tr></table>';
+
+	return sContent;
+};
+
+
+/**
  * DoYouHaoBaby Framework专用Ajax格式
  *
  * @param string sTarget 消息DIV ID
@@ -10,9 +24,9 @@ Dyhb.Ajax.Dyhb.Loading=function(sTarget,sTips){
 		sTraget.style.display="block";
 
 		if(''!=Dyhb.Ajax.Dyhb.Image[0]){
-			sTraget.innerHTML='<IMG SRC="'+Dyhb.Ajax.Dyhb.Image[0]+'"  BORDER="0" ALT="loading..." align="absmiddle"> '+sTips;
+			sTarget.innerHTML=Dyhb.Ajax.Dyhb.MessageTable('<span>'+sTips+'</span>','<img src="'+Dyhb.Ajax.Dyhb.Image[0]+'" border="0" alt="loading..." align="absmiddle">');
 		}else{
-			sTraget.innerHTML=sTips;
+			sTarget.innerHTML=Dyhb.Ajax.Dyhb.MessageTable('<span>'+sTips+'</span>');
 		}
 	}
 };

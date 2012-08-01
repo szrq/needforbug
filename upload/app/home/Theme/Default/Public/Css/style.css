@@ -86,11 +86,9 @@ table hr{width:100%;height:1px;border:none;border-top:1px dashed #cccccc;}
 /**===============================
            消息样式
 ================================*/
-/* 登录结果 */
-#result{width:80%;border-width:1px;border-style:solid;padding:10px;-moz-border-radius:3px;-khtml-border-radius:3px;-webkit-border-radius:3px;border-radius:3px;}
-
-/* AJAX消息 */
-.DyhbAjaxResult{border:2px ridge #000; background-color:#eee;line-height:10px;position:fixed;padding:15px 50px;top:50%;margin-top:-100px;left:50%;margin-left:-100px; z-index: 1050;overflow: auto; background-color: #ffffff;border: 5px solid #999; border: 5px solid rgba(0, 0, 0, 0.2);*border: 5px solid #999;-webkit-border-radius: 6px;-moz-border-radius: 6px;  border-radius: 6px;-webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);-moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);-webkit-background-clip: padding-box; -moz-background-clip: padding-box;background-clip: padding-box;}
+/* AJAX消息 && 内页结果效果 */
+#result,.DyhbAjaxResult{border:2px ridge #000; background-color:#eee;line-height:10px;padding:15px 50px;overflow: auto; background-color: #ffffff;border: 5px solid #999; border: 5px solid rgba(0, 0, 0, 0.2);*border: 5px solid #999;-webkit-border-radius: 6px;-moz-border-radius: 6px;  border-radius: 6px;-webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);-moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);-webkit-background-clip: padding-box; -moz-background-clip: padding-box;background-clip: padding-box;}
+.DyhbAjaxResult{position:fixed;top:50%;margin-top:-100px;left:50%;margin-left:-100px; z-index: 1050;}
 * html div.DyhbAjaxResult{position:absolute; right:16px;}
 
 .doing-box{}
