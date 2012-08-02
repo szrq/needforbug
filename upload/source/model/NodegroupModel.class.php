@@ -17,6 +17,7 @@ class NodegroupModel extends CommonModel{
 				'nodegroup_name'=>array(
 					array('require',Dyhb::L('组名不能为空','__COMMON_LANG__@Model/Nodegroup')),
 					array('english',Dyhb::L('组名只能为英文字符','__COMMON_LANG__@Model/Nodegroup')),
+					array('max_length',50,Dyhb::L('组名最大长度为50个字符','__COMMON_LANG__@Model/Nodegroup')),
 					array('nodegroupName',Dyhb::L('组名已经存在','__COMMON_LANG__@Model/Nodegroup'),'condition'=>'must','extend'=>'callback'),
 				),
 				'nodegroup_title'=>array(

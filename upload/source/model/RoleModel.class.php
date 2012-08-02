@@ -17,7 +17,8 @@ class RoleModel extends CommonModel{
 			'check'=>array(
 				'role_name'=>array(
 					array('require',Dyhb::L('角色名不能为空','__COMMON_LANG__@Model/Role')),
-					array('uniqueRoleName',Dyhb::L('组名已经存在','__COMMON_LANG__@Model/Role'),'condition'=>'must','extend'=>'callback'),
+					array('max_length',50,Dyhb::L('角色名最大长度为50个字符','__COMMON_LANG__@Model/Role')),
+					array('uniqueRoleName',Dyhb::L('角色名已经存在','__COMMON_LANG__@Model/Role'),'condition'=>'must','extend'=>'callback'),
 				),
 				'role_parentid'=>array(
 					array('uniqueRoleParentId',Dyhb::L('上级组不能为自己','__COMMON_LANG__@Model/Role'),'condition'=>'must','extend'=>'callback'),
