@@ -73,7 +73,7 @@ class NodegroupController extends InitController{
 	}
 
 	public function is_system_nodegroup($nId){
-		if($nId<=7){
+		if($nId<=8){
 			return true;
 		}
 
