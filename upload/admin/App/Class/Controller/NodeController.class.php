@@ -208,7 +208,7 @@ class NodeController extends InitController{
 	}
 
 	public function is_system_node($nId){
-		if($nId<=27){
+		if($nId<=28){
 			return true;
 		}
 
