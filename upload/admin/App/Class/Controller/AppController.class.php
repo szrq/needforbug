@@ -7,6 +7,8 @@
 class AppController extends InitController{
 	
 	public function AInsertObject_($oModel){
+		$oModel->filterAppindentifier();
+
 		$oModel->safeInput();
 	}
 

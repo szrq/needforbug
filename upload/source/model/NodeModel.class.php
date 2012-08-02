@@ -16,8 +16,8 @@ class NodeModel extends CommonModel{
 			'attr_protected'=>'node_id',
 			'check'=>array(
 				'node_name'=>array(
-					array('require',Dyhb::L('应用名不能为空','__COMMON_LANG__@Model/Node')),
-					array('nodeName',Dyhb::L('应用名已经存在','__COMMON_LANG__@Model/Node'),'condition'=>'must','extend'=>'callback'),
+					array('require',Dyhb::L('节点名不能为空','__COMMON_LANG__@Model/Node')),
+					array('nodeName',Dyhb::L('节点名已经存在','__COMMON_LANG__@Model/Node'),'condition'=>'must','extend'=>'callback'),
 				),
 				'node_title'=>array(
 					array('require',Dyhb::L('显示名不能为空','__COMMON_LANG__@Model/Node')),

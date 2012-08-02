@@ -36,7 +36,7 @@ return array(
 'a8080f989da0b07dc4fe047de94b1d6c'=>"是否启用菜单，启用菜单才能够使用",
 'c2ae9619a9e1b5c22c0ad7a98fdd3f3a'=>"头部导航",
 'eaa1285eb336c6a479ba3102bd6711a2'=>"底部导航",
-'e964f32ebfe3fd22acc0acd974464f93'=>"唯一标识符",
+'ef9f551cbd85857452b53a9d05eff94a'=>"唯一识别符",
 )
 
 ?>
