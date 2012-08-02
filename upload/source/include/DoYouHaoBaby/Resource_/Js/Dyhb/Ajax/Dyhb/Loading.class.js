@@ -20,8 +20,8 @@ Dyhb.Ajax.Dyhb.MessageTable=function(sInfo,sImages){
  */
 Dyhb.Ajax.Dyhb.Loading=function(sTarget,sTips){
 	if(sTarget){
-		sTraget=document.getElementById(sTarget);
-		sTraget.style.display="block";
+		sTarget=document.getElementById(sTarget);
+		sTarget.style.display="block";
 
 		if(''!=Dyhb.Ajax.Dyhb.Image[0]){
 			sTarget.innerHTML=Dyhb.Ajax.Dyhb.MessageTable('<span>'+sTips+'</span>','<img src="'+Dyhb.Ajax.Dyhb.Image[0]+'" border="0" alt="loading..." align="absmiddle">');
