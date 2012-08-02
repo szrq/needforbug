@@ -16,6 +16,7 @@ class RatinggroupModel extends CommonModel{
 			'check'=>array(
 				'rating_name'=>array(
 					array('require',Dyhb::L('组名不能为空','__COMMON_LANG__@Model/Ratinggroup')),
+					array('english',Dyhb::L('组名只能为英文字符','__COMMON_LANG__@Model/Ratinggroup')),
 					array('ratinggroupName',Dyhb::L('组名已经存在','__COMMON_LANG__@Model/Ratinggroup'),'condition'=>'must','extend'=>'callback'),
 				),
 				'ratinggroup_title'=>array(

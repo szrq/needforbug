@@ -17,6 +17,7 @@ class NodeModel extends CommonModel{
 			'check'=>array(
 				'node_name'=>array(
 					array('require',Dyhb::L('节点名不能为空','__COMMON_LANG__@Model/Node')),
+					array('english',Dyhb::L('节点名只能为英文字符','__COMMON_LANG__@Model/Node')),
 					array('nodeName',Dyhb::L('节点名已经存在','__COMMON_LANG__@Model/Node'),'condition'=>'must','extend'=>'callback'),
 				),
 				'node_title'=>array(

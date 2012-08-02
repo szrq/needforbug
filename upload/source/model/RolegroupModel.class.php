@@ -16,7 +16,7 @@ class RolegroupModel extends CommonModel{
 			'check'=>array(
 				'rolegroup_name'=>array(
 					array('require',Dyhb::L('组名不能为空','__COMMON_LANG__@Model/Rolegroup')),
-					array('number_underline_english',Dyhb::L('组名只能是由数字，下划线，字母组成','__COMMON_LANG__@Model/Rolegroup')),
+					array('english',Dyhb::L('组名只能为英文字符','__COMMON_LANG__@Model/Rolegroup')),
 					array('rolegroupName',Dyhb::L('组名已经存在','__COMMON_LANG__@Model/Rolegroup'),'condition'=>'must','extend'=>'callback'),
 				),
 				'rolegroup_title'=>array(
