@@ -11,7 +11,7 @@ function add(){
 	Dyhb.AjaxSubmit('nodegroupAdd','<!--{:Dyhb::U('nodegroup/insert')}-->','',complete);
 }
 
-function update()
+function update(){
 	$("#submit_button").attr("disabled","disabled");
 	$("#submit_button").val( 'update...');
 	Dyhb.AjaxSubmit('nodegroupAdd','<!--{:Dyhb::U('nodegroup/update')}-->','',function(){ 
