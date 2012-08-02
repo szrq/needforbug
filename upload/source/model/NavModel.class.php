@@ -14,6 +14,10 @@ class NavModel extends CommonModel{
 			),
 			'attr_protected'=>'nav_id',
 			'check'=>array(
+				'nav_name'=>array(
+					array('require',Dyhb::L('导航条名字不能为空','__COMMON_LANG__@Model/Nav')),
+					array('max_length',32,Dyhb::L('导航条名字最大长度为32','__COMMON_LANG__@Model/Nav'))
+				),
 			),
 		);
 	}
@@ -25,6 +29,10 @@ class NavModel extends CommonModel{
 
 	static function M(){
 		return ModelMeta::instance(__CLASS__);
+	}
+
+	public function customIdentifier(){
+		$this->nav_identifier='custom_'.G::randString(6);
 	}
 
 	public function safeInput(){

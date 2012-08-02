@@ -23,5 +23,3 @@
 禁用或者回复是否调转到原来的地址
 
 应用设计检测App.class.php
-
-导航检查 Nav.class.php

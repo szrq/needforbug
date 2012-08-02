@@ -37,6 +37,7 @@ class NavController extends InitController{
 
 	public function AInsertObject_($oModel){
 		$oModel->nav_type=1;
+		$oModel->customIdentifier();
 
 		$oModel->safeInput();
 	}
