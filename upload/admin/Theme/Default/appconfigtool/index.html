@@ -3,15 +3,24 @@
 <!--{script}-->
 function viewGlobaldefaultconfig(){
 	$("#ajaxGlobaldefaultconfig").css('display','block');
-	var html = $.ajax({
+	var sHtml = $.ajax({
 		url: "<!--{:Dyhb::U('appconfigtool/default_config')}-->",
 		async: false
 	}).responseText;
-	$("#ajaxGlobaldefaultconfig").html(html);
+	$("#ajaxGlobaldefaultconfig").html(sHtml);
 }
 
 function closeGlobaldefaultconfig(){
 	$("#ajaxGlobaldefaultconfig").css('display','none');
+}
+
+function viewAppconfig(sApp,type){
+	var sHtml = $.ajax({
+		url: D.U('appconfigtool/app_config?app='+sApp+(type==1?'&type=file':'')),
+		async: false
+	}).responseText;
+
+	needforbugAlert(sHtml,sApp+'  '+(type==1?'<!--<lang package='Template/Default/Appconfigtool'>-->配置文件<!--</lang>-->':'<!--<lang package='Template/Default/Appconfigtool'>-->缓存文件<!--</lang>-->'));
 }
 <!--{/script}-->
 
@@ -62,7 +71,7 @@ function closeGlobaldefaultconfig(){
 											<!--<foreach for=arrAppGlobalconfigs >-->
 											<tr style="background:none;" >
 												<td><!--{$key}--></td>
-												<td><!--{$value}--></td>
+												<td><!--{$TheController->filter_value($value)}--></td>
 											</tr>
 											<!--</foreach>-->
 										</tbody>
@@ -76,6 +85,45 @@ function closeGlobaldefaultconfig(){
 					<img src="<!--{:__TMPLPUB__}-->/Images/ajaxloading.gif"></img>
 					<span><!--<lang package='Template/Default/Appconfigtool'>-->全局惯性配置数据加载中<!--</lang>-->...</span>
 				</p>
+			</div>
+		</article>
+
+		<article class="module width_full">
+			<header><h3><!--<lang package='Template/Default/Appconfigtool'>-->系统所有应用配置值<!--</lang>--></h3></header>
+			<div class="module_content">
+				<ul>
+					<li><!--<lang package='Template/Default/Appconfigtool'>-->注意配置文件删除后，下次访问的时候将会重建<!--</lang>--></li>
+				</ul>
+				<table class="tablesorter" cellspacing="0">
+					<thead>
+						<tr>
+							<th width="50px">&nbsp;</th>
+							<th><!--<lang package='Template/Default/Appconfigtool'>-->应用名<!--</lang>--></th>
+							<th><!--<lang package='Template/Default/Appconfigtool'>-->应用配置文件<!--</lang>--></th>
+							<th width="150px"><!--<lang package='Template/Default/Appconfigtool'>-->应用配置数据值<!--</lang>--></th>
+							<th><!--<lang package='Template/Default/Common'>-->操作<!--</lang>--></th>
+						</tr>
+					</thead>
+					<tbody>
+						<!--<foreach for=arrLists value=oList >-->
+						<tr>
+							<td><img src="<!--{$oList['logo']}-->" /></td>
+							<td><!--{$oList['app_name']}--><br/><!--{$oList['app_identifier']}--></td>
+							<td><!--<lang package='Template/Default/Appconfigtool'>-->配置文件<!--</lang>--> <!--{$oList['config_file']}--><br/>
+								<!--<lang package='Template/Default/Appconfigtool'>-->缓存文件<!--</lang>--> <!--{$oList['config_cache_file']}-->
+							</td>
+							<td><a href="javascript:void(0);" onclick="viewAppconfig('<!--{$oList['app_identifier']}-->','1')"><!--<lang package='Template/Default/Appconfigtool'>-->查看文件<!--</lang>--></a> | <a href="javascript:void(0);" onclick="viewAppconfig('<!--{$oList['app_identifier']}-->')"><!--<lang package='Template/Default/Appconfigtool'>-->查看结果<!--</lang>--></a></td>
+							<td><a><!--<lang package='Template/Default/Common'>-->删除<!--</lang>--></a></td>
+						</tr>
+						<!--</foreach>-->
+					</tbody>
+				</table>
+			</div>
+		</article>
+
+		<article class="module width_full">
+			<div class="module_content">
+				<!--{$sPageNavbar}-->
 			</div>
 		</article>
 

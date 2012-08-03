@@ -43,7 +43,7 @@
 							<td><img height="40" align="left" width="40" style="margin: 0pt 5px 0pt 30px;" src="<!--{:Core_Extend::appLogo($value['app_identifier'])}-->"/>
 								<!--{$value:app_name}--><br/>
 								<span><!--{$value:app_identifier}--></span><br/>
-								<a onclick="showDiv('app-<!--{$key}-->')" href="javascript:;"><!--<lang package='Template/Default/App'>-->介绍<!--</lang>--></a><br/>
+								<a onclick="showDiv('app-<!--{$key}-->')" href="javascript:void(0);"><!--<lang package='Template/Default/App'>-->介绍<!--</lang>--></a><br/>
 								<div style="display: none; margin: 5px 5px 0pt 75px;" id="app-<!--{$key}-->"><!--{$value['app_description']}--> <br/><!--<lang package='Template/Default/App'>-->作者<!--</lang>-->:
 								<!--{if $value['app_authorurl']}-->
 								<a href="<!--{$value['app_authorurl']}-->"><!--{$value:app_author}--></a>

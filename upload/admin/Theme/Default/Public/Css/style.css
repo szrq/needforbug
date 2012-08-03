@@ -130,6 +130,7 @@ section#main {width: 100%;min-height: 500px;float: left;margin-top: -2px;}
 .tablesorter .data_even {background-color:#f9f9f9;}
 .tablesorter .data_tr {background-color: #f5f5f5;border:1px solid #dddddd;}
 .tablebackground{border:1px solid #e0e0e0;background:#efefef;padding:5px;}
+.tablesorter tr .warning{ padding: 8px 35px 8px 14px;margin-bottom: 18px;color: #c09853; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5); background-color: #fcf8e3;border: 1px solid #fbeed5; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px;}
 
  /* 操作条 */
 .row-actions a,.row-actions  span{color:#f5fafe;}

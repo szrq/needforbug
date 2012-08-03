@@ -82,12 +82,11 @@ class InitController extends Controller{
 		$nEverynum=$GLOBALS['_option_']['admin_list_num'];
 		$oPage=Page::RUN($nTotalRecord,$nEverynum,G::getGpc('page','G'));
 		$oPage->setParameter($sParameter);
-		$sPageNavbar=$oPage->P();
 
-		$oList=array();
-		eval('$oList='.ucfirst($sName).'Model::F()->where($arrMap)->all()->order($sOrder.\' \'.$sSortBy)->limit($oPage->returnPageStart(),$nEverynum)->query();');
-		$this->assign('sPageNavbar',$sPageNavbar);
-		$this->assign('oList',$oList);
+		$arrLists=array();
+		eval('$arrLists='.ucfirst($sName).'Model::F()->where($arrMap)->all()->order($sOrder.\' \'.$sSortBy)->limit($oPage->returnPageStart(),$nEverynum)->query();');
+		$this->assign('sPageNavbar',$oPage->P());
+		$this->assign('oList',$arrLists);
 	}
 
 	public function input_change_ajax($sName=null){
