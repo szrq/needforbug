@@ -15,12 +15,6 @@ $(function(){
 	editor=loadEditorThin('homefresh_message');
 });
 
-function login_handle(data,status){
-	if(status==1){
-		window.location='<!--{:__APP__}-->';
-	}
-}
-
 function addHomefresh(){
 	$('#homefresh_message').val(editor.html());
 	if($('#homefresh_message').val()==''){
