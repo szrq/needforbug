@@ -129,6 +129,7 @@ section#main {width: 100%;min-height: 500px;float: left;margin-top: -2px;}
 .tablesorter .data_odd {background-color:#fff;}
 .tablesorter .data_even {background-color:#f9f9f9;}
 .tablesorter .data_tr {background-color: #f5f5f5;border:1px solid #dddddd;}
+.tablebackground{border:1px solid #e0e0e0;background:#efefef;padding:5px;}
 
  /* 操作条 */
 .row-actions a,.row-actions  span{color:#f5fafe;}

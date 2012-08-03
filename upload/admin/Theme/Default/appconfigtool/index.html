@@ -1,0 +1,85 @@
+<!--<include file="public+header">-->
+
+<!--{script}-->
+function viewGlobaldefaultconfig(){
+	$("#ajaxGlobaldefaultconfig").css('display','block');
+	var html = $.ajax({
+		url: "<!--{:Dyhb::U('appconfigtool/default_config')}-->",
+		async: false
+	}).responseText;
+	$("#ajaxGlobaldefaultconfig").html(html);
+}
+
+function closeGlobaldefaultconfig(){
+	$("#ajaxGlobaldefaultconfig").css('display','none');
+}
+<!--{/script}-->
+
+	<section class="secondary_bar">
+		<div class="breadcrumbs_container">
+			<article class="breadcrumbs"><a href="<!--{:Dyhb::U('public/fmain')}-->"><!--<lang package='Template/Default/Common'>-->主页<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a class="current"><!--<lang package='Template/Default/Appconfigtool'>-->应用配置<!--</lang>--></a></article>
+		</div>
+	</section>
+
+	<section id="main" class="column">
+		<article class="module width_full">
+			<header><h3><!--<lang package='Template/Default/Common'>-->操作提示<!--</lang>--></h3></header>
+			<div class="module_content">
+				<ul>
+					<li><!--<lang package='Template/Default/Appconfigtool'>-->Needforbug采用DoYouHaoBaby框架开发，通过改变框架的配置可以实现很多功能<!--</lang>--></li>
+					<li><!--<lang package='Template/Default/Appconfigtool'>-->这里将会向你展示完善的整个系统的配置数据，让你心中有数<!--</lang>--></li>
+				</ul>
+			</div>
+		</article>
+		
+		<article class="module width_full">
+			<header><h3><!--<lang package='Template/Default/Appconfigtool'>-->当前全局应用配置<!--</lang>--></h3></header>
+			<div class="module_content">
+				<p><!--<lang package='Template/Default/Appconfigtool'>-->全局应用配置中存放着数据库连接等系统核心配置，所有应用中的配置都会加载它<!--</lang>-->&nbsp;<!--{$sAppGlobalconfigFile}--></p>
+				<p><!--<lang package='Template/Default/Appconfigtool'>-->全局配置数据最初由安装程序根据全局惯性配置加上一些初始化数据生成<!--</lang>--> <!--{$sAppGlobaldefaultconfigFile}--> <a href="javascript:viewGlobaldefaultconfig();" onclick="viewGlobaldefaultconfig();"><!--<lang package='Template/Default/Public'>-->查看全局惯性配置<!--</lang>--></a></p>
+				<table class="tablesorter" cellspacing="0"> 
+					<thead>
+						<tr>
+							<th width="50%"><!--<lang package='Template/Default/Appconfigtool'>-->配置文件信息<!--</lang>--></th>
+							<th width="50%"><!--<lang package='Template/Default/Appconfigtool'>-->配置文件数据值<!--</lang>--></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr style="background:none;" >
+							<td>
+								<div style="height: 200px; width: 100%; overflow:auto;"><!--{$sAppGlobalconfig}--></div>
+							</td>
+							<td>
+								<div style="height: 200px; width: 100%; overflow:auto;">
+									<table class="tablesorter" cellspacing="0">
+										<thead>
+											<tr>
+												<th><!--<lang package='Template/Default/Appconfigtool'>-->配置项<!--</lang>--></th>
+												<th><!--<lang package='Template/Default/Appconfigtool'>-->配置值<!--</lang>--></th>
+											</tr>
+										</thead>
+										<tbody>
+											<!--<foreach for=arrAppGlobalconfigs >-->
+											<tr style="background:none;" >
+												<td><!--{$key}--></td>
+												<td><!--{$value}--></td>
+											</tr>
+											<!--</foreach>-->
+										</tbody>
+									</table>
+								</div>
+							</td>
+						</tr>
+					</tbody> 
+				</table>
+				<p class="none" id="ajaxGlobaldefaultconfig">
+					<img src="<!--{:__TMPLPUB__}-->/Images/ajaxloading.gif"></img>
+					<span><!--<lang package='Template/Default/Appconfigtool'>-->全局惯性配置数据加载中<!--</lang>-->...</span>
+				</p>
+			</div>
+		</article>
+
+		<div class="spacer"></div>
+	</section>
+
+<!--<include file="public+footer">-->
