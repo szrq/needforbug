@@ -87,6 +87,18 @@ function showDiv(id){
 	}catch(e){}
 }
 
+function resizeUp(obj){
+	var newheight=parseInt(document.getElementById(obj).style.height,10)+50;
+	document.getElementById(obj).style.height=newheight+'px';
+}
+
+function resizeDown(obj){
+	var newheight=parseInt(document.getElementById(obj).style.height,10)-50;
+	if(newheight>0){
+		document.getElementById(obj).style.height=newheight+'px';
+	}
+}
+
 function updateSeccode(){
 	if(document.getElementById("seccodeImage").innerHTML==''){
 		document.getElementById('seccodeImage').style.display='block';
@@ -163,18 +175,32 @@ function loadEditorThin(name){
 }
 
 /** 对话框 */
-function needforbugAlert(sContent,sTitle,nTime){
+function needforbugAlert(sContent,sTitle,nTime,ok,cancel){
 	if(!sTitle){
 		sTitle=D.L('提示信息','__COMMON_LANG__@Js/Common_Js');
 	}
 
+	if(!ok){
+		ok=function(){
+			return true;
+		}
+	}
+	
+	if(!cancel){
+		cancel=function(){
+			return true;
+		}
+	}
+
 	var oDialog=$.dialog({
+		fixed:true,
+		lock:true,
 		title:sTitle,
 		content: sContent,
 		okValue: D.L('确定','__COMMON_LANG__@Js/Common_Js'),
-		ok: function(){
-			return true;
-		}
+		ok: ok,
+		cancelValue: D.L('取消','__COMMON_LANG__@Js/Common_Js'),
+		cancel: cancel
 	});
 
 	if(nTime){
@@ -189,6 +215,12 @@ function needforbugConfirm(sContent,ok,cancel,sTitle,nTime){
 		sTitle=D.L('提示信息','__COMMON_LANG__@Js/Common_Js');
 	}
 
+	if(!ok){
+		ok=function(){
+			return true;
+		}
+	}
+	
 	if(!cancel){
 		cancel=function(){
 			return true;

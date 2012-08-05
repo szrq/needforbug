@@ -60,9 +60,10 @@ class PublicController extends InitController{
 			'Needforbug '.Dyhb::L('程序版本','Controller/Public')=>"Needforbug " .NEEDFORBUG_SERVER_VERSION. "  Release ".
 			NEEDFORBUG_SERVER_RELEASE." <a href=\"http://doyouhaobaby.net\" target=\"_blank\">".
 			Dyhb::L('查看最新版本','Controller/Public')."</a>&nbsp;"."<a href=\"http://doyouhaobaby.net\" target=\"_blank\">".
-			Dyhb::L('专业支持与服务','Controller/Public')."</a>",'DoYouHaoBaby'.Dyhb::L('版本','Controller/Public')=>DYHB_VERSION.
+			Dyhb::L('专业支持与服务','Controller/Public')."</a>",
+			'DoYouHaoBaby'.Dyhb::L('版本','Controller/Public')=>DYHB_VERSION.
 			' [ <a href="http://bbs.doyouhaobaby.net" target="_blank">'.Dyhb::L('查看最新版本','Controller/Public').'</a> ] &nbsp;'.
-			Dyhb::L('DoYouHaoBaby 是一款性能卓越的PHP 开发框架','Controller/Public'),
+			Dyhb::L('DoYouHaoBaby 是一款性能卓越的PHP 开发框架','Controller/Public').' <img src="'.__FRAMEWORK__.'/dyhb-powered.png" />',
 		);
 		$this->assign('arrVersionInfo',$arrVersionInfo);
 

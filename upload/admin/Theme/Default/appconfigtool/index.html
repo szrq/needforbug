@@ -22,6 +22,44 @@ function viewAppconfig(sApp,type){
 
 	needforbugAlert(sHtml,sApp+'  '+(type==1?'<!--<lang package='Template/Default/Appconfigtool'>-->配置文件<!--</lang>-->':'<!--<lang package='Template/Default/Appconfigtool'>-->缓存文件<!--</lang>-->'));
 }
+
+function deleteAppconfig(sApp){
+	window.location.href=D.U('appconfigtool/delete_appconfig?app='+sApp);
+}
+
+function deleteAppconfigs(){
+	document.getElementById('configList').submit();
+}
+
+var oEditAppconfig='';
+
+function editAppconfig(sApp){
+	var sHtml = $.ajax({
+		url: D.U('appconfigtool/edit_appconfig?app='+sApp),
+		async: false
+	}).responseText;
+	oEditAppconfig=needforbugAlert(sHtml,'<!--<lang package='Template/Default/Appconfigtool'>-->编辑应用配置<!--</lang>-->'+'  '+sApp,'',saveAppconfig,cancelAppconfig);
+}
+
+function saveAppconfig(){
+	Dyhb.AjaxSubmit('appconfigAdd','<!--{:Dyhb::U('appconfigtool/save_appconfig')}-->','',function(data,status,info){
+		if(status==1){
+			oEditAppconfig.close();
+		}else{
+			needforbugAlert(info);
+		}
+		return true;
+	});
+	return false;
+}
+
+function cancelAppconfig(){
+	needforbugConfirm('<!--<lang package='Template/Default/Appconfigtool'>-->你确定放弃修改配置文件？<!--</lang>-->',function(){
+		oEditAppconfig.close();
+		return true;
+	});
+	return false;
+}
 <!--{/script}-->
 
 	<section class="secondary_bar">
@@ -44,8 +82,10 @@ function viewAppconfig(sApp,type){
 		<article class="module width_full">
 			<header><h3><!--<lang package='Template/Default/Appconfigtool'>-->当前全局应用配置<!--</lang>--></h3></header>
 			<div class="module_content">
-				<p><!--<lang package='Template/Default/Appconfigtool'>-->全局应用配置中存放着数据库连接等系统核心配置，所有应用中的配置都会加载它<!--</lang>-->&nbsp;<!--{$sAppGlobalconfigFile}--></p>
-				<p><!--<lang package='Template/Default/Appconfigtool'>-->全局配置数据最初由安装程序根据全局惯性配置加上一些初始化数据生成<!--</lang>--> <!--{$sAppGlobaldefaultconfigFile}--> <a href="javascript:viewGlobaldefaultconfig();" onclick="viewGlobaldefaultconfig();"><!--<lang package='Template/Default/Public'>-->查看全局惯性配置<!--</lang>--></a></p>
+				<ul>
+					<li><!--<lang package='Template/Default/Appconfigtool'>-->全局应用配置中存放着数据库连接等系统核心配置，所有应用中的配置都会加载它<!--</lang>-->&nbsp;<!--{$sAppGlobalconfigFile}--></li>
+					<li><!--<lang package='Template/Default/Appconfigtool'>-->全局配置数据最初由安装程序根据全局惯性配置加上一些初始化数据生成<!--</lang>--> <!--{$sAppGlobaldefaultconfigFile}--> <br/> <a href="javascript:viewGlobaldefaultconfig();" onclick="viewGlobaldefaultconfig();"><!--<lang package='Template/Default/Public'>-->查看全局惯性配置<!--</lang>--></a></li>
+				</ul>
 				<table class="tablesorter" cellspacing="0"> 
 					<thead>
 						<tr>
@@ -89,41 +129,71 @@ function viewAppconfig(sApp,type){
 		</article>
 
 		<article class="module width_full">
+			<div class="module_content">
+				<div class="operate" >
+					<input type="button" name="delete" value="<!--<lang package='Template/Default/Common'>-->删除<!--</lang>-->" onclick="deleteAppconfigs()" class="alt_btn">
+				</div>
+			</div>
+		</article>
+
+		<article class="module width_full">
 			<header><h3><!--<lang package='Template/Default/Appconfigtool'>-->系统所有应用配置值<!--</lang>--></h3></header>
 			<div class="module_content">
 				<ul>
-					<li><!--<lang package='Template/Default/Appconfigtool'>-->注意配置文件删除后，下次访问的时候将会重建<!--</lang>--></li>
+					<li><!--<lang package='Template/Default/Appconfigtool'>-->注意配置缓存文件删除后，下次访问的时候将会重建<!--</lang>--></li>
+					<li><!--<lang package='Template/Default/Appconfigtool'>-->文件后面有一个删除图标的表示该文件已经不存在<!--</lang>--></li>
+					<li><!--<lang package='Template/Default/Appconfigtool'>-->注意admin应用配置在执行删除后，看起来没有删除是因为admin应用一直处于运行中会自动创建<!--</lang>--></li>
 				</ul>
-				<table class="tablesorter" cellspacing="0">
-					<thead>
-						<tr>
-							<th width="50px">&nbsp;</th>
-							<th><!--<lang package='Template/Default/Appconfigtool'>-->应用名<!--</lang>--></th>
-							<th><!--<lang package='Template/Default/Appconfigtool'>-->应用配置文件<!--</lang>--></th>
-							<th width="150px"><!--<lang package='Template/Default/Appconfigtool'>-->应用配置数据值<!--</lang>--></th>
-							<th><!--<lang package='Template/Default/Common'>-->操作<!--</lang>--></th>
-						</tr>
-					</thead>
-					<tbody>
-						<!--<foreach for=arrLists value=oList >-->
-						<tr>
-							<td><img src="<!--{$oList['logo']}-->" /></td>
-							<td><!--{$oList['app_name']}--><br/><!--{$oList['app_identifier']}--></td>
-							<td><!--<lang package='Template/Default/Appconfigtool'>-->配置文件<!--</lang>--> <!--{$oList['config_file']}--><br/>
-								<!--<lang package='Template/Default/Appconfigtool'>-->缓存文件<!--</lang>--> <!--{$oList['config_cache_file']}-->
-							</td>
-							<td><a href="javascript:void(0);" onclick="viewAppconfig('<!--{$oList['app_identifier']}-->','1')"><!--<lang package='Template/Default/Appconfigtool'>-->查看文件<!--</lang>--></a> | <a href="javascript:void(0);" onclick="viewAppconfig('<!--{$oList['app_identifier']}-->')"><!--<lang package='Template/Default/Appconfigtool'>-->查看结果<!--</lang>--></a></td>
-							<td><a><!--<lang package='Template/Default/Common'>-->删除<!--</lang>--></a></td>
-						</tr>
-						<!--</foreach>-->
-					</tbody>
-				</table>
+				<a name="apps"></a>
+				<form action="<!--{:Dyhb::U('appconfigtool/delete_appconfigs')}-->" method="post" id="configList" name="configList" >
+					<table class="tablesorter" cellspacing="0" id="checkList">
+						<thead>
+							<tr>
+								<th width="20px"><input type="checkbox" onclick="checkAll('checkList')"></th> 
+								<th width="50px">&nbsp;</th>
+								<th><!--<lang package='Template/Default/Appconfigtool'>-->应用名<!--</lang>--></th>
+								<th><!--<lang package='Template/Default/Appconfigtool'>-->应用配置文件<!--</lang>--></th>
+								<th width="150px"><!--<lang package='Template/Default/Appconfigtool'>-->应用配置数据值<!--</lang>--></th>
+								<th><!--<lang package='Template/Default/Common'>-->操作<!--</lang>--></th>
+							</tr>
+						</thead>
+						<tbody>
+							<!--<foreach for=arrLists value=oList >-->
+							<tr <!--{if $oList['app_identifier']=='admin'}-->class="warning" style="background-color: #fcf8e3;border: 1px solid #fbeed5; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px;"<!--{/if}-->>
+								<td><input type="checkbox" name="key[]" value="<!--{$oList['app_identifier']}-->" <!--{if $oList['config_cache_file_exist']===false}-->disabled="true"<!--{/if}-->></td>
+								<td><img src="<!--{$oList['logo']}-->" /></td>
+								<td><!--{$oList['app_name']}--><br/><!--{$oList['app_identifier']}--></td>
+								<td><p><!--<lang package='Template/Default/Appconfigtool'>-->配置文件<!--</lang>--> <!--{$oList['config_file']}--><!--{if $oList['config_file_exist']===false}--><img src="<!--{:__TMPLPUB__}-->/Images/no.gif"/><!--{/if}--><br/>
+								<a href="javascript:void(0);" onclick="editAppconfig('<!--{$oList['app_identifier']}-->')" title="<!--<lang package='Template/Default/Appconfigtool'>-->编辑应用配置文件<!--</lang>-->"><!--<lang package='Template/Default/Appconfigtool'>-->编辑配置<!--</lang>--></a>
+								</p>
+									<p><!--<lang package='Template/Default/Appconfigtool'>-->缓存文件<!--</lang>--> <!--{$oList['config_cache_file']}--><!--{if $oList['config_cache_file_exist']===false}--><img src="<!--{:__TMPLPUB__}-->/Images/no.gif"/><!--{/if}--></p>
+								</td>
+								<td><a href="javascript:void(0);" onclick="viewAppconfig('<!--{$oList['app_identifier']}-->','1')"><!--<lang package='Template/Default/Appconfigtool'>-->查看文件<!--</lang>--></a> | <a href="javascript:void(0);" onclick="viewAppconfig('<!--{$oList['app_identifier']}-->')"><!--<lang package='Template/Default/Appconfigtool'>-->查看结果<!--</lang>--></a></td>
+								<td><!--{if $oList['config_cache_file_exist']}-->
+									<a href="javascript:void(0);" onclick="deleteAppconfig('<!--{$oList['app_identifier']}-->')"><!--<lang package='Template/Default/Appconfigtool'>-->删除缓存<!--</lang>--></a>
+									<!--{d*else}-->
+									<!--<lang package='Template/Default/Appconfigtool'>-->已删除<!--</lang>-->
+									<!--{/if}-->
+								</td>
+							</tr>
+							<!--</foreach>-->
+						</tbody>
+					</table>
+				</form>
 			</div>
 		</article>
 
 		<article class="module width_full">
 			<div class="module_content">
 				<!--{$sPageNavbar}-->
+			</div>
+		</article>
+
+		<article class="module width_full">
+			<div class="module_content">
+				<div class="operate" >
+					<input type="button" name="delete" value="<!--<lang package='Template/Default/Common'>-->删除<!--</lang>-->" onclick="deleteAppconfigs()" class="alt_btn">
+				</div>
 			</div>
 		</article>
 
