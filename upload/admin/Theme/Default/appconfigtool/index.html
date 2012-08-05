@@ -1,6 +1,36 @@
 <!--<include file="public+header">-->
 
 <!--{script}-->
+var oEditAppconfig='';
+
+function editGlobalconfig(){
+	var sHtml = $.ajax({
+		url: D.U('appconfigtool/edit_globalconfig'),
+		async: false
+	}).responseText;
+	oEditGlobalconfig=needforbugAlert(sHtml,'<!--<lang package='Template/Default/Appconfigtool'>-->编辑全局配置<!--</lang>-->','',saveGlobalconfig,cancelGlobalconfig);
+}
+
+function saveGlobalconfig(){
+	Dyhb.AjaxSubmit('globalconfigAdd','<!--{:Dyhb::U('appconfigtool/save_globalconfig')}-->','',function(data,status,info){
+		if(status==1){
+			oEditGlobalconfig.close();
+		}else{
+			needforbugAlert(info);
+		}
+		return true;
+	});
+	return false;
+}
+
+function cancelGlobalconfig(){
+	needforbugConfirm('<!--<lang package='Template/Default/Appconfigtool'>-->你确定放弃修改配置文件？<!--</lang>-->',function(){
+		oEditGlobalconfig.close();
+		return true;
+	});
+	return false;
+}
+
 function viewGlobaldefaultconfig(){
 	$("#ajaxGlobaldefaultconfig").css('display','block');
 	var sHtml = $.ajax({
@@ -82,9 +112,10 @@ function cancelAppconfig(){
 		<article class="module width_full">
 			<header><h3><!--<lang package='Template/Default/Appconfigtool'>-->当前全局应用配置<!--</lang>--></h3></header>
 			<div class="module_content">
+				<a name="changeappconfig"></a>
 				<ul>
-					<li><!--<lang package='Template/Default/Appconfigtool'>-->全局应用配置中存放着数据库连接等系统核心配置，所有应用中的配置都会加载它<!--</lang>-->&nbsp;<!--{$sAppGlobalconfigFile}--></li>
-					<li><!--<lang package='Template/Default/Appconfigtool'>-->全局配置数据最初由安装程序根据全局惯性配置加上一些初始化数据生成<!--</lang>--> <!--{$sAppGlobaldefaultconfigFile}--> <br/> <a href="javascript:viewGlobaldefaultconfig();" onclick="viewGlobaldefaultconfig();"><!--<lang package='Template/Default/Public'>-->查看全局惯性配置<!--</lang>--></a></li>
+					<li><!--<lang package='Template/Default/Appconfigtool'>-->全局应用配置中存放着数据库连接等系统核心配置，所有应用中的配置都会加载它<!--</lang>-->&nbsp;<!--{$sAppGlobalconfigFile}--> <br/> <a href="javascript:void(0);" onclick="editGlobalconfig();"><!--<lang package='Template/Default/Appconfigtool'>-->修改全局配置<!--</lang>--></a></li>
+					<li><!--<lang package='Template/Default/Appconfigtool'>-->全局配置数据最初由安装程序根据全局惯性配置加上一些初始化数据生成<!--</lang>--> <!--{$sAppGlobaldefaultconfigFile}--> <br/> <a href="javascript:void(0);" onclick="viewGlobaldefaultconfig();"><!--<lang package='Template/Default/Appconfigtool'>-->查看全局惯性配置<!--</lang>--></a></li>
 				</ul>
 				<table class="tablesorter" cellspacing="0"> 
 					<thead>

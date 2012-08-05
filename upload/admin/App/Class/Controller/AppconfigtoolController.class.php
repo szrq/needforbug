@@ -204,6 +204,45 @@ class AppconfigtoolController extends InitController{
 		$this->S(Dyhb::L('应用 %s 配置文件修改成功','Controller/Appconfigtool',null,$sApp));
 	}
 
+	public function edit_globalconfig(){
+		$sAppGlobalconfigFile=NEEDFORBUG_PATH.'/config/Config.inc.php';
+		if(!is_file($sAppGlobalconfigFile)){
+			$this->error_message(Dyhb::L('框架全局配置文件 %s 不存在','Controller/Appconfigtool',null,$sAppGlobalconfigFile));
+		}
+
+		$sAppGlobalconfig=file_get_contents($sAppGlobalconfigFile);
+
+		$this->assign('sAppGlobalconfig',$sAppGlobalconfig);
+		$this->assign('sAppGlobalconfigFile',str_replace(G::tidyPath(NEEDFORBUG_PATH),'{NEEDFORBUG_PATH}',G::tidyPath($sAppGlobalconfigFile)));
+
+		$this->display();
+	}
+
+	public function save_globalconfig(){
+		$sData=G::getGpc('data','P');
+
+		$sAppGlobalconfigFile=NEEDFORBUG_PATH.'/config/Config.inc.php';
+		if(!@file_put_contents($sAppGlobalconfigFile,$sData)){
+			$this->E(Dyhb::L('全局配置文件 %s 不可写','Controller/Appconfigtool',null,$sAppGlobalconfigFile));
+		}
+
+		$arrSaveDatas=array();
+
+		$arrWhere=array();
+		$arrWhere['app_active']=1;
+		$arrApps=AppModel::F()->where($arrWhere)->all()->query();
+		foreach($arrApps as $oApp){
+			$arrSaveDatas[]=$oApp['app_identifier'];
+		}
+		$arrSaveDatas[]='admin';
+
+		foreach($arrSaveDatas as $sApp){
+			$this->delete_appconfig($sApp,false);
+		}
+
+		$this->S(Dyhb::L('全局配置文件 %s 修改成功','Controller/Appconfigtool',null,$sAppGlobalconfigFile));
+	}
+
 	public function get_configfile($sApp){
 		if($sApp!='admin'){
 			$oApp=AppModel::F('app_identifier=? AND app_active=1',$sApp)->getOne();
