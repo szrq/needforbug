@@ -469,4 +469,27 @@ class Core_Extend{
 NEEDFORBUG;
 	}
 
+	static public function deleteAppconfig($sApp=null){
+		if(is_null($sApp)){
+			$arrSaveDatas=array();
+
+			$arrWhere=array();
+			$arrWhere['app_active']=1;
+			$arrApps=AppModel::F()->where($arrWhere)->all()->query();
+			foreach($arrApps as $oApp){
+				$arrSaveDatas[]=$oApp['app_identifier'];
+			}
+			$arrSaveDatas[]='admin';
+
+			foreach($arrSaveDatas as $sTheApp){
+				self::deleteAppconfig($sTheApp);
+			}
+		}else{
+			$sAppConfigcachefile=NEEDFORBUG_PATH.'/data/~runtime/'.$sApp.'/Config.php';
+			@unlink($sAppConfigcachefile);
+		}
+
+		return true;
+	}
+
 }

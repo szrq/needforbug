@@ -5,7 +5,7 @@
 !defined('DYHB_PATH') && exit;
 
 return array(
-	// 数据库相关
+	// ���ݿ����
 	'DB_PASSWORD'=>'123456',
 	'DB_PREFIX'=>'needforbug_',
 	'DB_NAME'=>'needforbug',
@@ -13,10 +13,10 @@ return array(
 	'DB_CACHE'=>TRUE,
 	'DB_CACHE_TIME'=>86400000000,
 
-	// 系统调试
+	// ϵͳ����
 	'APP_DEBUG'=>TRUE,
 
-	// 重要前缀
+	// ��Ҫǰ׺
 	'RBAC_DATA_PREFIX'=>'rbac_data_prefix_needforbug_',
 	'COOKIE_PREFIX'=>'needforbug_',
 
@@ -41,9 +41,12 @@ return array(
 	'GUEST_AUTH_ID'=>0,
 	'RBAC_ERROR_PAGE'=>'',
 
-	// 开启注释版模板标签风格
+	// ʱ��
+	'TIME_ZONE'=>'Asia/Shanghai',
+	
+	// ����ע�Ͱ�ģ���ǩ���
 	'TEMPLATE_TAG_NOTE'=>true,
 
-	// 开发者中心
-	'APP_DEVELOP'=>0,// 是否开启后台应用设计，仅应用开发者设置为1
+	// ����������
+	'APP_DEVELOP'=>0,// �Ƿ�����̨Ӧ����ƣ���Ӧ�ÿ���������Ϊ1
 );

@@ -26,4 +26,28 @@ class DateoptionController extends OptionController{
 		$this->display();
 	}
 
+	public function update_option(){
+		if($_POST['options']['timeoffset']!=$GLOBALS['_option_']['timeoffset']){
+			$sAppGlobaldefaultconfigFile=NEEDFORBUG_PATH.'/config/Config.inc.php';
+			if(!is_file($sAppGlobaldefaultconfigFile)){
+				$this->E(Dyhb::L('框架全局惯性配置文件 %s 不存在','Controller/Appconfigtool',null,$sAppGlobaldefaultconfigFile));
+			}
+
+			$arrConfig=(array)(include $sAppGlobaldefaultconfigFile);
+			$arrConfig['TIME_ZONE']=$_POST['options']['timeoffset'];
+
+			if(!file_put_contents($sAppGlobaldefaultconfigFile,
+				"<?php\n /* DoYouHaoBaby Framework Config File,Do not to modify this file! */ \n return ".
+				var_export($arrConfig,true).
+				"\n?>")
+			){
+				$this->E(sprintf('File %s Do not have permission.',$sAppGlobaldefaultconfigFile));
+			}
+
+			Core_Extend::deleteAppconfig();
+		}
+
+		parent::update_option();
+	}
+
 }
