@@ -315,6 +315,8 @@ class InitController extends Controller{
 			$sId=G::getGpc('id');
 		}
 
+		$nPage=$this->get_referer_page();
+
 		if(!empty($sId)){
 			$oModelMeta=null;
 			eval('$oModelMeta='.ucfirst($sModel).'Model::M();');
@@ -325,9 +327,9 @@ class InitController extends Controller{
 				$this->E($oModelMeta->getErrorMessage());
 			}else{
 				if($bApp===false){
-					$this->assign('__JumpUrl__',Dyhb::U($sModel.'/index'));
+					$this->assign('__JumpUrl__',Dyhb::U($sModel.'/index'.($nPage?'?page='.$nPage:'')));
 				}else{
-					$this->assign('__JumpUrl__',Admin_Extend::base(array('controller'=>$sModel)));
+					$this->assign('__JumpUrl__',$nPage?Admin_Extend::base(array('controller'=>$sModel,'page'=>$nPage)):Admin_Extend::base(array('controller'=>$sModel)));
 				}
 				
 				if($nStatus){
@@ -422,6 +424,19 @@ class InitController extends Controller{
 		if($bSubmit===false){
 			$this->S(Dyhb::L('验证码正确','Controller/Common'));
 		}
+	}
+
+	public function get_referer_page(){
+		$nPage=0;
+
+		if(!empty($_SERVER['HTTP_REFERER'])){
+			parse_str(parse_url($_SERVER['HTTP_REFERER'],PHP_URL_QUERY),$arrUrldata);
+			if(isset($arrUrldata['page']) && !empty($arrUrldata['page'])){
+				$nPage=$arrUrldata['page'];
+			}
+		}
+
+		return $nPage;
 	}
 
 }
