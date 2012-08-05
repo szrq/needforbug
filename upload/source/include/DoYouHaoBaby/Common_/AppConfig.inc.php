@@ -32,7 +32,8 @@ if(!is_dir(APP_RUNTIME_PATH)){
 if(!file_put_contents(APP_RUNTIME_PATH.'/Config.php',
 	"<?php\n /* DoYouHaoBaby Framework Config File,Do not to modify this file! */ \n return ".
 	var_export($arrConfig,true).
-	"\n?>")){
+	"\n?>")
+	){
 		E(sprintf('Dir %s Do not have permission.',APP_RUNTIME_PATH));
 }
 
