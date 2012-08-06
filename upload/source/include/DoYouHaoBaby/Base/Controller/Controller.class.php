@@ -110,15 +110,28 @@ class Controller{
 		}
 
 		// 消息图片
-		$sLoaderImg=file_exists(TEMPLATE_PATH.'/Public/Images/loader.gif')?__TMPL__.'/Public/Images/loader.gif':
-			__THEME__.'/Default/Public/Images/loader.gif';
-		$sInfobigImg=file_exists(TEMPLATE_PATH.'/Public/Images/info_big.gif')?__TMPL__.'/Public/Images/info_big.gif':
-			__THEME__.'/Default/Public/Images/info_big.gif';
-		$sErrorbigImg=file_exists(TEMPLATE_PATH.'/Public/Images/error_big.gif')?__TMPL__.'/Public/Images/error_big.gif':
-			__THEME__.'/Default/Public/Images/error_big.gif';
-		$this->assign('__LoadingImg__',$sLoaderImg);
-		$this->assign('__InfobigImg__',$sInfobigImg);
-		$this->assign('__ErrorbigImg__',$sErrorbigImg);
+		if(defined('__MESSAGE_IMG_PATH__')){
+			$arrMessageImg=array(
+				'loader'=>__MESSAGE_IMG_PATH__.'loader.gif',
+				'infobig'=>__MESSAGE_IMG_PATH__.'info_big.gif',
+				'errorbig'=>__MESSAGE_IMG_PATH__.'error_big.gif'
+			);
+		}else{
+			$arrMessageImg=array(
+				'loader'=>'Public/Images/loader.gif',
+				'infobig'=>'Public/Images/info_big.gif',
+				'errorbig'=>'Public/Images/error_big.gif'
+			);
+
+			foreach($arrMessageImg as $sKey=>$sMessageImg){
+				$arrMessageImg[$sKey]=file_exists(TEMPLATE_PATH.'/'.$arrMessageImg[$sKey])?
+				__TMPL__.'/'.$arrMessageImg[$sKey]:__THEME__.'/Default/'.$arrMessageImg[$sKey];
+			}
+		}
+
+		$this->assign('__LoadingImg__',$arrMessageImg['loader']);
+		$this->assign('__InfobigImg__',$arrMessageImg['infobig']);
+		$this->assign('__ErrorbigImg__',$arrMessageImg['errorbig']);
 
 		// 状态
 		$this->assign('__Status__',$nStatus);
