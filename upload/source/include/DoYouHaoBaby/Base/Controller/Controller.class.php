@@ -112,9 +112,9 @@ class Controller{
 		// 消息图片
 		if(defined('__MESSAGE_IMG_PATH__')){
 			$arrMessageImg=array(
-				'loader'=>__MESSAGE_IMG_PATH__.'loader.gif',
-				'infobig'=>__MESSAGE_IMG_PATH__.'info_big.gif',
-				'errorbig'=>__MESSAGE_IMG_PATH__.'error_big.gif'
+				'loader'=>__MESSAGE_IMG_PATH__.'/loader.gif',
+				'infobig'=>__MESSAGE_IMG_PATH__.'/info_big.gif',
+				'errorbig'=>__MESSAGE_IMG_PATH__.'/error_big.gif'
 			);
 		}else{
 			$arrMessageImg=array(
@@ -123,9 +123,9 @@ class Controller{
 				'errorbig'=>'Public/Images/error_big.gif'
 			);
 
+			$bExists=file_exists(TEMPLATE_PATH.'/Public/Images/loader.gif')?true:false;
 			foreach($arrMessageImg as $sKey=>$sMessageImg){
-				$arrMessageImg[$sKey]=file_exists(TEMPLATE_PATH.'/'.$arrMessageImg[$sKey])?
-				__TMPL__.'/'.$arrMessageImg[$sKey]:__THEME__.'/Default/'.$arrMessageImg[$sKey];
+				$arrMessageImg[$sKey]=$bExists===true?__TMPL__.'/'.$arrMessageImg[$sKey]:__THEME__.'/Default/'.$arrMessageImg[$sKey];
 			}
 		}
 
