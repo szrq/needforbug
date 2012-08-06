@@ -492,4 +492,40 @@ NEEDFORBUG;
 		return true;
 	}
 
+	static public function template($sTemplate,$sApp=null,$sTheme=null){
+		if(empty($sTheme)){
+			$sTemplate=TEMPLATE_NAME.'/'.$sTemplate;
+		}else{
+			$sTemplate=$sTheme.'/'.$sTemplate;
+		}
+
+		if(!empty($sApp)){
+			$sTemplatePath=NEEDFORBUG_PATH.'/app/'.$sApp.'/Theme';
+		}else{
+			$sTemplatePath=NEEDFORBUG_PATH.'/ucontent/theme';
+		}
+
+		$sUrl=$sTemplatePath.'/'.$sTemplate.'.html';
+
+		if(is_file($sUrl)){
+			return $sUrl;
+		}
+
+		if(defined('DOYOUHAOBABY_TEMPLATE_BASE') && empty($sTheme) && ucfirst(DOYOUHAOBABY_TEMPLATE_BASE)!==TEMPLATE_NAME){// 依赖模板 兼容性分析
+			$sUrlTry=str_replace('heme/'.TEMPLATE_NAME.'/','heme/'.ucfirst(DOYOUHAOBABY_TEMPLATE_BASE).'/',$sUrl);
+			if(is_file($sUrlTry)){
+				return $sUrlTry;
+			}
+		}
+
+		if(empty($sTheme) && 'Default'!==TEMPLATE_NAME){// Default模板 兼容性分析
+			$sUrlTry=str_replace('heme/'.TEMPLATE_NAME.'/','heme/Default/',$sUrl);
+			if(is_file($sUrlTry)){
+				return $sUrlTry;
+			}
+		}
+
+		Dyhb::E(sprintf('Template File %s is not exist',$sUrl));
+	}
+
 }

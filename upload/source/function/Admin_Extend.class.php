@@ -107,14 +107,14 @@ class Admin_Extend{
 		}
 	}
 
-	static public function template($sGroup,$sTemplate,$sTheme=null){
+	static public function template($sApp,$sTemplate,$sTheme=null){
 		if(empty($sTheme)){
 			$sTemplate=TEMPLATE_NAME.'/'.$sTemplate;
 		}else{
 			$sTemplate=$sTheme.'/'.$sTemplate;
 		}
 
-		$sUrl=NEEDFORBUG_PATH.'/app/'.$sGroup.'/Theme/Admin/'.$sTemplate.'.html';
+		$sUrl=NEEDFORBUG_PATH.'/app/'.$sApp.'/Theme/Admin/'.$sTemplate.'.html';
 
 		if(is_file($sUrl)){
 			return $sUrl;
