@@ -38,13 +38,13 @@ class App{
 		$oUrl=new Url();
 		$oUrl->parseUrl();
 
-		// 载入项目初始化文件
-		require(APP_PATH.'/App/DoYouHaoBaby.php');
-
 		// 检查语言包和模板以及定义系统常量
 		self::checkTemplate();
 		self::checkLanguage();
  		self::constantDefine();
+		
+		// 载入项目初始化文件
+		require(APP_PATH.'/App/DoYouHaoBaby.php');
 
 		// 开启静态缓存
 		if($GLOBALS['_commonConfig_']['HTML_CACHE_ON']){
