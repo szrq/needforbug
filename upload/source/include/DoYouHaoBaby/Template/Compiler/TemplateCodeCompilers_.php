@@ -765,7 +765,7 @@ class TemplateCodeCompiler_include extends TemplateCodeCompilerBase{
 		$sContent=str_replace(G::tidyPath(DYHB_PATH),'DYHB_PATH.\'',G::tidyPath($sContent));
 		$sContent=str_replace(G::tidyPath(TEMPLATE_PATH),'TEMPLATE_PATH.\'',G::tidyPath($sContent));
 		$sContent=rtrim($sContent,'\'');
-		$sContent=strpos($sContent,'$')===0?$sContent:$sContent.'\'';
+		$sContent=strpos($sContent,'$')===0 || strpos($sContent,'(')?$sContent:$sContent.'\'';
 
 		if(strpos($sContent,':\\') || strpos($sContent,'/')===0){
 			$sContent='\''.$sContent;
@@ -781,7 +781,9 @@ class TemplateCodeCompiler_include extends TemplateCodeCompilerBase{
 	public function parseContent($sTmplPublicName){
 		$arrTemplateInfo=array();
 
-		if(''==$sTmplPublicName){// 如果模板文件名为空 按照默认规则定位
+		if(strpos($sTmplPublicName,'(')){// 函数直接返回数据
+			return $sTmplPublicName;
+		}elseif(''==$sTmplPublicName){// 如果模板文件名为空 按照默认规则定位
 			$arrTemplateInfo=array('file'=>MODULE_NAME.$GLOBALS['_commonConfig_']['TMPL_MODULE_ACTION_DEPR'].ACTION_NAME.$GLOBALS['_commonConfig_']['TEMPLATE_SUFFIX']);
 		}else if(!strpos($sTmplPublicName,':\\') && strpos($sTmplPublicName,'/')!==0 &&
 			substr($sTmplPublicName,0,1)!='$' && !is_file($sTmplPublicName)

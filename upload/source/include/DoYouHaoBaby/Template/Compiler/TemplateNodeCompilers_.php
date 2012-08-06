@@ -720,7 +720,7 @@ class TemplateNodeCompiler_tpl_include_sub extends TemplateNodeCompilerBase{
 		$sFilename=str_replace(G::tidyPath(DYHB_PATH),'DYHB_PATH.\'',G::tidyPath($sFilename));
 		$sFilename=str_replace(G::tidyPath(TEMPLATE_PATH),'TEMPLATE_PATH.\'',G::tidyPath($sFilename));
 		$sFilename=rtrim($sFilename,'\'');
-		$sFilename=strpos($sFilename,'$')===0?$sFilename:$sFilename.'\'';
+		$sFilename=strpos($sFilename,'$')===0 || strpos($sFilename,'(')?$sFilename:$sFilename.'\'';
 		
 		if(strpos($sFilename,':\\') || strpos($sFilename,'/')===0){
 			$sFilename='\''.$sFilename;
@@ -737,7 +737,9 @@ class TemplateNodeCompiler_tpl_include_sub extends TemplateNodeCompilerBase{
 	public function parseCondition($sTmplPublicName){
 		$arrTemplateInfo=array();
 
-		if(''==$sTmplPublicName){// 如果模板文件名为空 按照默认规则定位
+		if(strpos($sTmplPublicName,'(')){// 静态方法直接返回数据
+			return $sTmplPublicName;
+		}elseif(''==$sTmplPublicName){// 如果模板文件名为空 按照默认规则定位
 			$arrTemplateInfo=array('file'=>MODULE_NAME2.$GLOBALS['_commonConfig_']['TMPL_MODULE_ACTION_DEPR'].ACTION_NAME.$GLOBALS['_commonConfig_']['TEMPLATE_SUFFIX']);
 		}else if(!strpos($sTmplPublicName,':\\') && strpos($sTmplPublicName,'/')!==0 &&
 			substr($sTmplPublicName,0,1)!='$' && !is_file($sTmplPublicName)
@@ -789,7 +791,7 @@ class TemplateNodeCompiler_tpl_include extends TemplateNodeCompiler_tpl_include_
 		$sFilename=str_replace(G::tidyPath(DYHB_PATH),'DYHB_PATH.\'',G::tidyPath($sFilename));
 		$sFilename=str_replace(G::tidyPath(TEMPLATE_PATH),'TEMPLATE_PATH.\'',G::tidyPath($sFilename));
 		$sFilename=rtrim($sFilename,'\'');
-		$sFilename=strpos($sFilename,'$')===0?$sFilename:$sFilename.'\'';
+		$sFilename=strpos($sFilename,'$')===0 || strpos($sFilename,'(')?$sFilename:$sFilename.'\'';
 		
 		if(strpos($sFilename,':\\') || strpos($sFilename,'/')===0){
 			$sFilename='\''.$sFilename;
