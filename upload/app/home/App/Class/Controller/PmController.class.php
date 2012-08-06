@@ -59,7 +59,7 @@ class PmController extends InitController{
 		$this->assign('nDisplaySeccode',$GLOBALS['_option_']['pmsend_seccode']);
 		$this->assign('sType','pmnew');
 		
-		$this->display('pmnew');
+		$this->display('pm+new');
 	}
 	
 	public function sendpm(){
@@ -210,7 +210,7 @@ class PmController extends InitController{
 		$this->assign('arrReadPms',$arrReadPms);
 		$this->assign('sType',($sType?$sType:'user'));
 
-		$this->display('pm');
+		$this->display('pm+index');
 	}
 
 	public function del_one_pm($nId='',$nUserId='',$nFromId=''){
@@ -351,7 +351,7 @@ class PmController extends InitController{
 			$this->assign('arrReadPms',$arrReadPms);
 			$this->assign('oPm',$oOnePm);
 			$this->assign('sType','system');
-			$this->display('singlesystempm');
+			$this->display('pm+singlesystem');
 			
 			exit();
 		}
@@ -368,7 +368,7 @@ class PmController extends InitController{
 			
 			$this->assign('oPm',$oOnePm);
 			$this->assign('sType','my');
-			$this->display('singlemypm');
+			$this->display('pm+singlemy');
 
 			exit();
 		}
@@ -440,12 +440,12 @@ class PmController extends InitController{
 			$this->assign('sVersion',NEEDFORBUG_SERVER_VERSION." Release ".NEEDFORBUG_SERVER_RELEASE);
 			$this->assign('sBlogName',$GLOBALS['_option_']['site_name']);
 			$this->assign('sBlogUrl',$GLOBALS['_option_']['site_url']);
-			$this->display('pmarchive');
+			$this->display('pm+archive');
 			
 			exit;
 		}
 		
-		$this->display('singleuserpm');
+		$this->display('pm+message');
 	}
 	
 	public function truncatepm(){

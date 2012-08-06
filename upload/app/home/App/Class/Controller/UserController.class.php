@@ -64,7 +64,7 @@ class UserController extends InitController{
 		$this->assign('sPageNavbar',$oPage->P('pagination','li','active'));
 		$this->assign('nDisplaySeccode',$GLOBALS['_option_']['seccode_publish_status']);
 		
-		$this->display('home');
+		$this->display('user+index');
 	}
 
 	public function add_homefresh(){
@@ -154,7 +154,7 @@ class UserController extends InitController{
 		$this->assign('arrInfoMenus',$arrInfoMenus);
 		$this->assign('nDisplaySeccode',$GLOBALS['_option_']['seccode_changeinformation_status']);
 
-		$this->display('base');
+		$this->display('user+base');
 	}
 
 	public function change_info(){
@@ -194,7 +194,7 @@ class UserController extends InitController{
 		$this->assign('arrAvatarInfo',$arrAvatarInfo);
 		$this->assign('nUploadSize',Core_Extend::getUploadSize($arrOptionData['avatar_uploadfile_maxsize']));
 		
-		$this->display('avatar');
+		$this->display('user+avatar');
 	}
 
 	public function avatar_upload(){
@@ -217,7 +217,7 @@ class UserController extends InitController{
 
 		$this->assign('arrPhotoInfo',reset($arrPhotoInfo));
 
-		$this->display('avatar_upload');
+		$this->display('user+avatarupload');
 	}
 
 	public function save_crop(){
@@ -239,7 +239,7 @@ class UserController extends InitController{
 		$this->assign('nUserId',$arrUserData['user_id']);
 		$this->assign('nDisplaySeccode',$GLOBALS['_option_']['seccode_changepassword_status']);
 
-		$this->display('password');
+		$this->display('user+password');
 	}
 
 	public function change_pass(){
@@ -264,7 +264,7 @@ class UserController extends InitController{
 		$oUser=UserModel::F()->getByuser_id($GLOBALS['___login___']['user_id']);
 
 		$this->assign('oUser',$oUser);
-		$this->display('user_tag');
+		$this->display('user+tag');
 	}
 
 	public function add_hometag(){
@@ -299,7 +299,7 @@ class UserController extends InitController{
 		$this->assign('sSiteName',$GLOBALS['_option_']['site_name']);
 		$this->assign('sSiteUrl',$GLOBALS['_option_']['site_url']);
 
-		$this->display('user_promotion');
+		$this->display('user+promotion');
 	}
 
 }

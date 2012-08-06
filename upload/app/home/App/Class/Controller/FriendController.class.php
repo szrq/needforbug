@@ -45,7 +45,7 @@ class FriendController extends InitController{
 		$this->assign('sType',$sType);
 		$this->assign('sKey',$sKey);
 		
-		$this->display('friend');
+		$this->display('friend+index');
 	}
 	
 	public function add(){

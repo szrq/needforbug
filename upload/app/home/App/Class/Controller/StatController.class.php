@@ -11,7 +11,7 @@ class StatController extends InitController{
 
 		$this->assign('arrSite',$GLOBALS['_cache_']['site']);
 
-		$this->display('stat_base');
+		$this->display('sta+base');
 	}
 	
 	public function userlist(){
@@ -39,7 +39,7 @@ class StatController extends InitController{
 		$this->assign('sPageNavbar',$oPage->P('pagination','li','active'));
 		$this->assign('sKey',$sKey);
 		
-		$this->display('stat_userlist');
+		$this->display('stat+userlist');
 	}
 	
 }

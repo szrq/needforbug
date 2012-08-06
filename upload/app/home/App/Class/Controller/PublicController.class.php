@@ -19,7 +19,7 @@ class PublicController extends InitController{
 		$this->assign('nDisplaySeccode',$GLOBALS['_option_']['seccode_login_status']);
 		$this->assign('nRememberTime',$GLOBALS['_option_']['remember_time']);
 
-		$this->display('index');
+		$this->display('public+index');
 	}
 	
 	public function login(){
@@ -31,7 +31,7 @@ class PublicController extends InitController{
 		$this->assign('nDisplaySeccode',$GLOBALS['_option_']['seccode_login_status']);
 		$this->assign('nRememberTime',$GLOBALS['_option_']['remember_time']);
 		
-		$this->display('login');
+		$this->display('public+login');
 	}
 	
 	public function register(){
@@ -46,7 +46,7 @@ class PublicController extends InitController{
 
 		$this->assign('nDisplaySeccode',$GLOBALS['_option_']['seccode_register_status']);
 
-		$this->display('register');
+		$this->display('public+register');
 	}
 	
 	public function check_user(){
@@ -231,7 +231,7 @@ class PublicController extends InitController{
 		$arrHomesites=HomesiteModel::F()->getAll();
 		$this->assign('arrHomesites',$arrHomesites);
 
-		$this->display('site');
+		$this->display('public+site');
 	}
 	
 	public function site(){
@@ -281,7 +281,7 @@ class PublicController extends InitController{
 
 		$this->homehelpcategory_();
 
-		$this->display('help_list');
+		$this->display('public+helplist');
 	}
 
 	public function show_help(){
@@ -307,7 +307,7 @@ class PublicController extends InitController{
 				$this->E($oHomehelp->getErrorMessage());
 			}
 			
-			$this->display('show_help');
+			$this->display('public+showhelp');
 		}else{
 			$this->E(Dyhb::L('你指定的帮助不存在','Controller/Public'));
 		}

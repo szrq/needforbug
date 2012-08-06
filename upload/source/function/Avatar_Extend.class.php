@@ -24,10 +24,12 @@ class Avatar_Extend{
 	}
 
 	static public function saveCrop(){
-		$sSrc=G::getGpc('temp_image','P');
+		$sSrc=G::getGpc('temp_image');
 		$sSrc=NEEDFORBUG_PATH.'/data/avatar/'.$sSrc;
 		$arrPhotoInfo=@getimagesize($sSrc);
+
 		if(function_exists('imagecreatetruecolor') && function_exists('imagecopyresampled')){
+			$sImageCreateFromFunc='';
 			switch($arrPhotoInfo['mime']){
 				case 'image/jpeg':
 					$sImageCreateFromFunc=function_exists('imagecreatefromjpeg')? 'imagecreatefromjpeg':'';

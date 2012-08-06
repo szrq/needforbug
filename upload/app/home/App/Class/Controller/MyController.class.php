@@ -58,7 +58,7 @@ class MyController extends InitController{
 
 		$this->assign('arrInfoMenus',$arrInfoMenus);
 
-		$this->display('my_user');
+		$this->display('my+user');
 	}
 
 	public function rating(){
@@ -89,7 +89,7 @@ class MyController extends InitController{
 		$this->assign('arrRatings',$arrRatings);
 		$this->assign('arrRatinggroups',$arrRatinggroups);
 
-		$this->display('my_rating');
+		$this->display('my+rating');
 	}
 
 	public function avatar(){
@@ -111,7 +111,7 @@ class MyController extends InitController{
 		$this->assign('arrAvatarInfo',$arrAvatarInfo);
 		$this->assign('nId',$nId);
 
-		$this->display('my_avatar');
+		$this->display('my+avatar');
 	}
 
 }
