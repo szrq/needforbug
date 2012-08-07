@@ -194,4 +194,5 @@ class UserModel extends CommonModel{
 		
 		return $oUser[$sField];
 	}
+
 }

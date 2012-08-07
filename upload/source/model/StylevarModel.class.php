@@ -4,7 +4,7 @@
 
 !defined('DYHB_PATH') && exit;
 
-class StyleModel extends CommonModel{
+class StylevarModel extends CommonModel{
 
 	static public function init__(){
 		return array(
@@ -23,11 +23,28 @@ class StyleModel extends CommonModel{
 
 	public function saveStylevarData($arrStylevariableData,$nStyleId){
 		foreach($arrStylevariableData as $sKey=>$sValue){
-			$oTryStylevar=StylevarModel::F('stylevar_id=? AND stype_id=?',,)->getOne();
+			$oTryStylevar=self::F('style_variable=? AND style_id=?',$sKey,$nStyleId)->getOne();
 			if(!empty($oTryStylevar['stylevar_id'])){
-				
+				$oTryStylevar->style_substitute=$sValue;
+				$oTryStylevar->save(0,'update');
+
+				if($oTryStylevar->isError()){
+					$this->setErrorMessage($oTryStylevar->getErrorMessage());
+				}
+			}else{
+				$oStylevar=new self();
+				$oStylevar->style_id=$nStyleId;
+				$oStylevar->style_variable=$sKey;
+				$oStylevar->style_substitute=$sValue;
+				$oStylevar->save(0);
+
+				if($oStylevar->isError()){
+					$this->setErrorMessage($oStylevar->getErrorMessage());
+				}
 			}
 		}
+
+		return true;
 	}
 
 }

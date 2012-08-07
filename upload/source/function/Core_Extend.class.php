@@ -528,4 +528,46 @@ NEEDFORBUG;
 		Dyhb::E(sprintf('Template File %s is not exist',$sUrl));
 	}
 
+	static public function getStylePreview($Style,$sType='',$bAdmin=false){
+		if(!is_object($Style)){
+			$Style=StyleModel::F('style_id=?',$Style)->getOne();
+		}
+		
+		if(empty($Style['style_id'])){
+			return self::getNoneimg();
+		}
+
+		$oTheme=ThemeModel::F('theme_id=?',$Style['template_id'])->getOne();
+		if(empty($oTheme['theme_id'])){
+			return self::getNoneimg();
+		}
+
+		if($bAdmin===false){
+			$sPreviewPath='ucontent';
+		}else{
+			$sPreviewPath='admin';
+		}
+
+		if($sType=='large'){
+			$sPreview='needforbug_preview_large';
+		}elseif($sType=='mini'){
+			$sPreview='needforbug_preview_mini';
+		}else{
+			$sPreview='needforbug_preview';
+		}
+
+		foreach(array('png','gif','jpg','jpeg') as $sExt){
+			if(file_exists(NEEDFORBUG_PATH.'/'.$sPreviewPath.'/'.$oTheme['theme_directory']."/{$sPreview}.{$sExt}")){
+				return __ROOT__.'/'.$sPreviewPath.'/'.$oTheme['theme_directory']."/{$sPreview}.{$sExt}";
+				continue;
+			}
+		}
+
+		return self::getNoneimg();
+	}
+
+	static public function getNoneimg(){
+		return __PUBLIC__.'/images/common/none.gif';
+	}
+
 }

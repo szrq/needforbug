@@ -51,11 +51,15 @@ class Style{
 			
 			$sPreview=$sPreviewMini=$sPreviewLarge='';
 
-			foreach(array('png','gif','jpg','jpeg') as $sExt){
-				foreach($arrPreviews as $sKey=>$sType){
+			foreach($arrPreviews as $sKey=>$sType){
+				foreach(array('png','gif','jpg','jpeg') as $sExt){
 					if(file_exists("{$sStylesheet}/needforbug_preview{$sType}.{$sExt}")){
 						$arrPreviews[$sKey]="needforbug_preview{$sKey}.{$sExt}";
 					}
+				}
+
+				if(empty($arrPreviews[$sKey])){
+					$arrPreviews[$sKey]=self::getNoneimg();
 				}
 			}
 

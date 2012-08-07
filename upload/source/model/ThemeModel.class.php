@@ -51,4 +51,14 @@ class ThemeModel extends CommonModel{
 		return $nThemeId;
 	}
 
+	static public function getThemenameById($nThemeId,$sField='theme_name'){
+		$oTheme=ThemeModel::F('theme_id=?',$nThemeId)->query();
+
+		if(empty($oTheme['theme_id'])){
+			return Dyhb::L('模板套系不存在','__COMMON_LANG__@Model/Theme');
+		}
+		
+		return $oTheme[$sField];
+	}
+
 }

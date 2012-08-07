@@ -8,11 +8,6 @@ class StyleController extends InitController{
 
 	public $_sCurrentStyle='';
 
-	public function index($sName=null,$bDisplay=true){
-		$this->assign('sPageNavbar','test');
-		$this->display();
-	}
-
 	public function install(){
 		$this->_sCurrentStyle=$GLOBALS['_option_']['front_theme_name'];
 		$this->show_Styles(NEEDFORBUG_PATH.'/ucontent/theme');
@@ -84,6 +79,8 @@ class StyleController extends InitController{
 		if($oStylevar->isError()){
 			$this->E($oStylevar->getErrorMessage());
 		}
+
+		$this->S(Dyhb::L('主题 %s 安装成功','Controller/Style',null,$sStyle));
 	}
 	
 	protected function show_Styles($sStylePath){
