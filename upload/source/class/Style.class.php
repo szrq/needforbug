@@ -30,7 +30,7 @@ class Style{
 				continue;
 			}
 
-			$arrStyleData=$this->getStyleData($sStylePath);G::dump($arrStyleData);
+			$arrStyleData=$this->getStyleData($sStylePath);
 			if($arrStyleData===false){
 				$arrBrokenStyles[]=array('Name'=>$sStyleDir,'Path'=>str_replace(G::tidyPath(NEEDFORBUG_PATH),'{APP_PATH}',G::tidyPath($sStylePath)),'Description'=>'主题样式表已经损坏');
 				continue;
@@ -100,13 +100,13 @@ class Style{
 	
 	public function getStyleData($sStylePath){
 		$arrDefaultHeaders=array(
-			'Name'=>'Theme Name',
-			'URI'=>'Theme URI',
+			'Name'=>'Style Name',
+			'URI'=>'Style URI',
 			'Description'=>'Description',
 			'Author'=>'Author',
 			'AuthorURI'=>'Author URI',
 			'Version'=>'Version',
-			'Style'=>'Theme',
+			'Style'=>'Style',
 			'Status'=>'Status',
 			'Tags'=>'Tags'
 		);

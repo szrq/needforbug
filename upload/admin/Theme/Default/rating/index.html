@@ -61,20 +61,20 @@ function changeRatinggroup(oObj,id){
 				</ul>
 			</header>
 			<div class="module_content">
-				<table class="tablesorter" cellspacing="0" id="checkList"> 
-					<thead> 
-						<tr> 
-						<th><input type="checkbox" onclick="checkAll('checkList')"></th> 
-						<th><a href="javascript:sortBy('rating_id','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('rating_id')}-->><!--<lang package='Template/Default/Common'>-->编号<!--</lang>--></a></th> 
+				<table class="tablesorter" cellspacing="0" id="checkList">
+					<thead>
+						<tr>
+							<th><input type="checkbox" onclick="checkAll('checkList')"></th> 
+							<th><a href="javascript:sortBy('rating_id','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('rating_id')}-->><!--<lang package='Template/Default/Common'>-->编号<!--</lang>--></a></th> 
 							<th><a href="javascript:sortBy('rating_name','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('rating_name')}-->><!--<lang package='Template/Default/Rating'>-->角色名<!--</lang>--></a></th>
 							<th><a href="javascript:sortBy('rating_nikename','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('rating_nikename')}-->><!--<lang package='Template/Default/Rating'>-->角色昵称<!--</lang>--></a></th>
 							<th><a href="javascript:sortBy('ratinggroup_id','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('ratinggroup_id')}-->><!--<lang package='Template/Default/Rating'>-->角色分组<!--</lang>--></a></th>
 							<th><a href="javascript:sortBy('ratinggroup_id','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('ratinggroup_id')}-->><!--<lang package='Template/Default/Rating'>-->开始积分<!--</lang>--></a></th>
 							<th><a href="javascript:sortBy('ratinggroup_id','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('ratinggroup_id')}-->><!--<lang package='Template/Default/Rating'>-->结束积分<!--</lang>--></a></th>
 							<th><!--<lang package='Template/Default/Common'>-->操作<!--</lang>--></th>
-						</tr> 
-					</thead> 
-					<tbody> 
+						</tr>
+					</thead>
+					<tbody>
 						<!--<foreach for=oList>-->
 						<tr>
 							<td><input type="checkbox" name="key" value="<!--{$value:rating_id}-->"></td>
@@ -92,7 +92,7 @@ function changeRatinggroup(oObj,id){
 							<td><a href="javascript:edit('<!--{$value:rating_id}-->')"><input type="image" src="<!--{:__TMPLPUB__}-->/Images/icn_edit.png" title="<!--<lang package='Template/Default/Common'>-->编辑<!--</lang>-->"></a></td>
 						</tr>
 						<!--</foreach>-->
-					</tbody> 
+					</tbody>
 				</table>
 			</div>
 		</article>

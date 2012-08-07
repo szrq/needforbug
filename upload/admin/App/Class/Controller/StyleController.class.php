@@ -14,10 +14,8 @@ class StyleController extends InitController{
 	}
 
 	public function install(){
-		$this->_sCurrentTheme=$GLOBALS['_option_']['front_theme_name'];
+		$this->_sCurrentStyle=$GLOBALS['_option_']['front_theme_name'];
 		$this->show_Styles(NEEDFORBUG_PATH.'/ucontent/theme');
-
-		$this->assign('bIsAdmin',false);
 
 		$this->display();
 	}
@@ -44,12 +42,12 @@ class StyleController extends InitController{
 		}else{
 			$this->assign('arrCurrentStyle',$arrOkStyles[$this->_sCurrentStyle]);
 		}
-G::dump($arrOkStyles);
+
 		$this->assign('arrOkStyles',$arrOkStyles);
 		$this->assign('arrBrokenStyles',$arrBrokenStyles);
 		$this->assign('nOkStyleNums',count($arrOkStyles));
 		$this->assign('nBrokenStyleNums',count($arrBrokenStyles));
-		$this->assign('nOkStyleRowNums',ceil(count($arrOkStyles)/3));
+		$this->assign('nOkStyleRowNums',ceil(count($arrOkStyles)/2));
 	}
 
 	protected function get_Styles($sDir){

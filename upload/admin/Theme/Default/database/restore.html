@@ -94,18 +94,18 @@ function rowClick(obj){
 			<header><h3><!--<lang package='Template/Default/Database'>-->备份文件列表<!--</lang>--></h3></header>
 			<form action="<!--{:Dyhb::U('database/remove')}-->" method="post" id="sqlList" name="sqlList" >
 				<div class="module_content">
-					<table class="tablesorter" cellspacing="0" id="checkList"> 
-						<thead> 
-							<tr> 
+					<table class="tablesorter" cellspacing="0" id="checkList">
+						<thead>
+							<tr>
 								<th width="5px"><input onclick="checkAll('checkList')" type="checkbox"></th>
 								<th><!--<lang package='Template/Default/Database'>-->文件名<!--</lang>--></th>
 								<th><!--<lang package='Template/Default/Database'>-->时间<!--</lang>--></th>
 								<th><!--<lang package='Template/Default/Database'>-->大小<!--</lang>--></th>
 								<th><!--<lang package='Template/Default/Database'>-->卷<!--</lang>--></th>
 								<th><!--<lang package='Template/Default/Common'>-->操作<!--</lang>--></th>
-							</tr> 
-						</thead> 
-						<tbody> 
+							</tr>
+						</thead>
+						<tbody>
 							<!--<foreach for=arrList>-->
 							<tr <!--{if $value['mark']==2}-->style="display:none;"<!--{/if}-->>
 								<td><input type="checkbox" name="file[]" value="<!--{$value['name']}-->" /></td>

@@ -16,7 +16,7 @@ function update(){
 	$("#submit_button").val( 'update...' );
 	Dyhb.AjaxSubmit('appAdd','<!--{:Dyhb::U('app/update')}-->','',function(){
 		$("#submit_button").attr("disabled", false);
-		$("#submit_button").val( '<!--<lang package='Template/Default/Common'>-->更新<!--</lang>-->' ); 
+		$("#submit_button").val( '<!--<lang package='Template/Default/Common'>-->更新<!--</lang>-->' );
 	});
 }
 

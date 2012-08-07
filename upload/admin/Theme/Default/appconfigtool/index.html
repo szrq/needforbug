@@ -117,7 +117,7 @@ function cancelAppconfig(){
 					<li><!--<lang package='Template/Default/Appconfigtool'>-->全局应用配置中存放着数据库连接等系统核心配置，所有应用中的配置都会加载它<!--</lang>-->&nbsp;<!--{$sAppGlobalconfigFile}--> <br/> <a href="javascript:void(0);" onclick="editGlobalconfig();"><!--<lang package='Template/Default/Appconfigtool'>-->修改全局配置<!--</lang>--></a></li>
 					<li><!--<lang package='Template/Default/Appconfigtool'>-->全局配置数据最初由安装程序根据全局惯性配置加上一些初始化数据生成<!--</lang>--> <!--{$sAppGlobaldefaultconfigFile}--> <br/> <a href="javascript:void(0);" onclick="viewGlobaldefaultconfig();"><!--<lang package='Template/Default/Appconfigtool'>-->查看全局惯性配置<!--</lang>--></a></li>
 				</ul>
-				<table class="tablesorter" cellspacing="0"> 
+				<table class="tablesorter" cellspacing="0">
 					<thead>
 						<tr>
 							<th width="50%"><!--<lang package='Template/Default/Appconfigtool'>-->配置文件信息<!--</lang>--></th>
@@ -140,7 +140,7 @@ function cancelAppconfig(){
 										</thead>
 										<tbody>
 											<!--<foreach for=arrAppGlobalconfigs >-->
-											<tr style="background:none;" >
+											<tr style="background:none;">
 												<td><!--{$key}--></td>
 												<td><!--{$TheController->filter_value($value)}--></td>
 											</tr>
@@ -150,7 +150,7 @@ function cancelAppconfig(){
 								</div>
 							</td>
 						</tr>
-					</tbody> 
+					</tbody>
 				</table>
 				<p class="none" id="ajaxGlobaldefaultconfig">
 					<img src="<!--{:__TMPLPUB__}-->/Images/ajaxloading.gif"></img>
@@ -180,7 +180,7 @@ function cancelAppconfig(){
 					<table class="tablesorter" cellspacing="0" id="checkList">
 						<thead>
 							<tr>
-								<th width="20px"><input type="checkbox" onclick="checkAll('checkList')"></th> 
+								<th width="20px"><input type="checkbox" onclick="checkAll('checkList')"></th>
 								<th width="50px">&nbsp;</th>
 								<th><!--<lang package='Template/Default/Appconfigtool'>-->应用名<!--</lang>--></th>
 								<th><!--<lang package='Template/Default/Appconfigtool'>-->应用配置文件<!--</lang>--></th>

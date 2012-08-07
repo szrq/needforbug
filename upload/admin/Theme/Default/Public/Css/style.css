@@ -1,7 +1,7 @@
 /*
-Theme Name: 时尚清新
+Theme Name: 默认主题
 Theme URI: http://doyouhaobaby.net/
-Description: 这是由Needforbug 的系统自带模板，清新亮丽，适合Needforbug-1.0。
+Description: 这是由Needforbug 的系统自带模板
 Author: Dianniu team
 Author URI: http://doyouhaobaby.net
 Version: 1.0
@@ -181,6 +181,8 @@ fieldset textarea:focus {outline: none;border: 1px solid #77BACE;-webkit-box-sha
 .submit_link {float: right;margin-right: 3%;padding: 5px 0;}
 .submit_link select {width: 150px;border: 1px solid #bbb;height: 20px;color: #666666;}
 .description {color:#b8b6b6;padding:1px 5px 0px 9px;line-height:20px;}
+a.big-button:link{font-size:14px;font-weight:bold;background:url(../Images/big_button.png) no-repeat center center;padding:13px 35px;line-height:20px;}
+a.big-button:hover{text-decoration:none;color:#000;}
 
 /* 表单布局 */
 #main .module_content h1 {color: #333333;text-transform: none;text-shadow: 0 1px 0 #fff;font-size: 22px;margin: 8px 0px;}

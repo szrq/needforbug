@@ -58,18 +58,18 @@
 				</ul>
 			</header>
 			<div class="module_content">
-				<table class="tablesorter" cellspacing="0" id="checkList"> 
-					<thead> 
-						<tr> 
-							<th><input type="checkbox" onclick="checkAll('checkList')"></th> 
-							<th><a href="javascript:sortBy('badword_id','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('badword_id')}-->><!--<lang package='Template/Default/Common'>-->编号<!--</lang>--></a></th> 
+				<table class="tablesorter" cellspacing="0" id="checkList">
+					<thead>
+						<tr>
+							<th><input type="checkbox" onclick="checkAll('checkList')"></th>
+							<th><a href="javascript:sortBy('badword_id','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('badword_id')}-->><!--<lang package='Template/Default/Common'>-->编号<!--</lang>--></a></th>
 							<th><a href="javascript:sortBy('badword_find','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('badword_find')}-->><!--<lang package='Template/Default/Badword'>-->不良词语名字<!--</lang>--></a></th>
 							<th>&nbsp;</th>
 							<th><a href="javascript:sortBy('badword_replacement','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('badword_replacement')}-->><!--<lang package='Template/Default/Badword'>-->替换词语名字<!--</lang>--></a></th>
 							<th><a href="javascript:sortBy('badword_admin','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('badword_admin')}-->><!--<lang package='Template/Default/Badword'>-->操作人<!--</lang>--></a></th>
-						</tr> 
-					</thead> 
-					<tbody> 
+						</tr>
+					</thead>
+					<tbody>
 						<!--<foreach for=oList>-->
 						<tr>
 							<td><input type="checkbox" name="key" value="<!--{$value:badword_id}-->"></td>
@@ -84,7 +84,7 @@
 							<td><!--{$value:badword_admin}--></td>
 						</tr>
 						<!--</foreach>-->
-					</tbody> 
+					</tbody>
 				</table>
 			</div>
 		</article>

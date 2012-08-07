@@ -35,18 +35,18 @@
 			<header><h3 class="tabs_involved"><!--<lang package='Template/Default/Userprofilesetting'>-->用户栏目列表<!--</lang>--></h3>
 			</header>
 			<div class="module_content">
-				<table class="tablesorter" cellspacing="0" id="checkList"> 
-					<thead> 
-						<tr> 
+				<table class="tablesorter" cellspacing="0" id="checkList">
+					<thead>
+						<tr>
 							<th><input type="checkbox" onclick="checkAll('checkList')"></th> 
 							<th><a href="javascript:sortBy('userprofilesetting_id','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('userprofilesetting_id')}-->><!--<lang package='Template/Default/Userprofilesetting'>-->栏目名称<!--</lang>--></a></th> 
 							<th><a href="javascript:sortBy('userprofilesetting_title','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('userprofilesetting_title')}-->><!--<lang package='Template/Default/Userprofilesetting'>-->栏目标题<!--</lang>--></a></th> 
 							<th><a href="javascript:sortBy('userprofilesetting_sort','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('userprofilesetting_sort')}-->><!--<lang package='Template/Default/Userprofilesetting'>-->序号<!--</lang>--></a></th>
 							<th><a href="javascript:sortBy('userprofilesetting_status','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('userprofilesetting_status')}-->><!--<lang package='Template/Default/Userprofilesetting'>-->状态<!--</lang>--></a></th>
 							<th><!--<lang package='Template/Default/Common'>-->操作<!--</lang>--></th>
-						</tr> 
+						</tr>
 					</thead>
-					<tbody> 
+					<tbody>
 						<!--<foreach for=oList>-->
 						<tr>
 							<td><input type="checkbox" name="key" value="<!--{$value:userprofilesetting_id}-->" <!--{if $value['userprofilesetting_id']<=70}-->disabled="disabled"<!--{/if}-->></td>
@@ -71,7 +71,7 @@
 							</td>
 						</tr>
 						<!--</foreach>-->
-					</tbody> 
+					</tbody>
 				</table>
 			</div>
 		</article>

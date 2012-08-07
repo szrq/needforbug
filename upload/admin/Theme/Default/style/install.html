@@ -1,0 +1,114 @@
+<!--<include file="public+header" />-->
+
+<!--<load file="<!--{:__TMPLPUB__}-->/Css/theme.css" />-->
+
+	<section class="secondary_bar">
+		<div class="breadcrumbs_container">
+			<article class="breadcrumbs"><a href="<!--{:Dyhb::U('public/fmain')}-->"><!--<lang package='Template/Default/Common'>-->主页<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a class="current"><!--<lang package='Template/Default/Style'>-->当前可安装主题列表<!--</lang>--></a></article>
+		</div>
+	</section>
+
+	<section id="main" class="column">
+
+		<article class="module width_full">
+			<header><h3><!--<lang package='Template/Default/Common'>-->操作提示<!--</lang>--></h3></header>
+			<div class="module_content">
+				<ul>
+					<li><!--<lang package='Template/Default/Style'>-->在这里你可以安装新的主题<!--</lang>--></li>
+					<li><!--<lang package='Template/Default/Style'>-->主题样式损坏将无法安装<!--</lang>--></li>
+				</ul>
+			</div>
+		</article>
+		
+		<article class="module width_full">
+			<div class="module_content">
+				<!--{$sPageNavbar}-->
+			</div>
+		</article>
+		
+		<article class="module width_full">
+			<header><h3 class="tabs_involved"><!--<lang package='Template/Default/Style'>-->当前可安装主题列表<!--</lang>-->(<span><!--{$nOkStyleNums}--></span>)</h3>
+				<ul class="tabs">
+					<li class="active"><a href="<!--{:Dyhb::U('style/index')}-->"><!--<lang package='Template/Default/Style'>-->已安装主题列表<!--</lang>--></a></li>
+				</ul>
+			</header>
+			<div class="module_content">
+				<!--{~$nRow=0}-->
+				<table class="tablesorter" cellspacing="0" id="checkList"> 
+					<thead>
+						<tr>
+							<th colspan="2"><!--<lang package='Template/Default/Style'>-->可用主题详情<!--</lang>--></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<!--<volist name="arrOkStyles" id="arrOkStyle" mod="2">-->
+							<!--<eq name="mod" value="1">-->
+							<!--{~$nRow++}-->
+						</tr>
+						<tr>
+							<!--</eq>-->
+							<td class="<!--<eq name="nRow" value="1">-->style_top<!--</eq>--> <!--<eq name="nRow" value="$nOkStyleRowNums">-->style_bottom<!--</eq>--> <!--<eq name="mod" value="1">-->style_left<!--<elseif condition="$mod eq 0" />-->style_right<!--</eq>-->">
+								<a href="javascript:void(0);">
+									<img src="<!--{:__ROOT__}-->/ucontent/Theme/<!--{$arrOkStyle['Style']}-->/<!--{$arrOkStyle['preview']}-->" alt="<!--{$arrOkStyle['Name']}--> - <!--{$arrOkStyle['Title']}-->" />
+								</a>
+								<h4><!--{$arrOkStyle['Name']}--></h4>
+								<p class="style-description"><!--{$arrOkStyle['Description']}--></p>
+								<p class="style-install"><a class="big-button" href=""/><!--<lang package='Template/Default/Style'>-->安装新主题<!--</lang>--></a></p>
+								<p class="style-author"><!--<lang package='Template/Default/Style'>-->作者<!--</lang>--> <!--{if !empty( $arrOkStyle['Author URI'])}--><!--{$arrOkStyle['Author']}--><!--{d*else}--><!--{$arrOkStyle['Author Name']}--><!--{/if}--></p>
+								<p class="style-dir"><!--<lang package='Template/Default/Style'>-->该主题的所有文件存放在<!--</lang>--> <!--{$arrOkStyle['Style Dir']}--></p>
+								<!--{if !empty( $arrOkStyle['Tags'] )}-->
+								<p class="style-tag"><!--<lang package='Template/Default/Style'>-->标签<!--</lang>--> <!--{$arrOkStyle['Tags']|implode=',',**}--></p>
+								<!--{/if}-->
+								<div class="bottom-hr"> </div>
+							</td>
+							<!--</volist>-->
+							<!--{if $nOkStyleNums%2>0}-->
+							<td class="style_right style_bottom"></td>
+							<!--{/if}-->
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</article>
+
+		<article class="module width_full">
+			<div class="module_content">
+				<!--{$sPageNavbar}-->
+			</div>
+		</article>
+
+		<!--{if !empty($arrBrokenStyles)}-->
+		<article class="module width_full">
+			<header><h3 class="tabs_involved"><!--<lang package='Template/Default/Style'>-->本页已损坏主题列表<!--</lang>-->(<span><!--{$nBrokenStyleNums}--></span>)</h3>
+			</header>
+			<div class="module_content">
+				<ul>
+					<li><!--<lang package='Template/Default/Style'>-->下列主题没有安装完全,样式表不存在或者损坏<!--</lang>--></li>
+				</ul>
+				<table class="tablesorter" cellspacing="0" id="checkList"> 
+					<thead>
+						<tr>
+							<th><!--<lang package='Template/Default/Style'>-->名称<!--</lang>--></th>
+							<th><!--<lang package='Template/Default/Style'>-->样式表路径<!--</lang>--></th>
+							<th><!--<lang package='Template/Default/Style'>-->描述<!--</lang>--></th>
+						</tr>
+					</thead>
+					<tbody>
+						<!--<foreach for=arrBrokenStyles value=arrBrokenStyle>-->
+						<tr>
+							<td><!--{$arrBrokenStyle['Name']}--></td>
+							<td><!--{$arrBrokenStyle['Path']}--></td>
+							<td><!--{$arrBrokenStyle['Description']}--></td>
+						</tr>
+						<!--</foreach>-->
+					</tbody>
+				</table>
+			</div>
+		</article>
+		<!--{/if}-->
+
+		<div class="spacer"></div>
+	</section>
+
+<!--<include file="public+footer">-->
