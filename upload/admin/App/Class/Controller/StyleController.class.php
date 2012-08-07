@@ -20,6 +20,72 @@ class StyleController extends InitController{
 		$this->display();
 	}
 
+	public function get_style_url($arrStyle,$sType='preview'){
+		return __ROOT__.'/ucontent/theme/'.$arrStyle['Style'].'/'.$arrStyle[$sType];
+	}
+
+	public function install_new(){
+		$sStyle=ucfirst(strtolower(trim(G::getGpc('style','G'))));
+
+		if(empty($sStyle)){
+			$this->E(Dyhb::L('你没有指定要安装的主题','Controller/Style'));
+		}
+
+		$sThemeXml=NEEDFORBUG_PATH.'/ucontent/theme/'.$sStyle.'/needforbug_style_'.strtolower($sStyle).'.xml';
+		if(!is_file($sThemeXml)){
+			$this->E(Dyhb::L('你要安装的主题 %s 的样式表不存在','Controller/Style',null,$sThemeXml));
+		}
+
+		$arrStyleData=Xml::xmlUnserialize(file_get_contents($sThemeXml));
+		if(empty($arrStyleData)){
+			$this->E(Dyhb::L('你要安装的主题 %s 的样式表可能已经损坏，系统无法读取其数据','Controller/Style',null,$sThemeXml));
+		}else{
+			$arrStyleData=$arrStyleData['root']['data'];
+		}
+
+		// 写入模板数据
+		$nThemeId=isset($arrStyleData['template_id'])?intval($arrStyleData['template_id']):0;
+		$arrSaveThemeData=array(
+			'theme_name'=>$arrStyleData['template_name'],
+			'theme_dirname'=>$arrStyleData['template_dirname'],
+			'theme_directory'=>$arrStyleData['directory'],
+			'theme_copyright'=>$arrStyleData['copyright'],
+		);
+		
+		$oTheme=Dyhb::instance('ThemeModel');
+		$nThemeId=$oTheme->saveThemeData($arrSaveThemeData,$nThemeId);
+
+		if($oTheme->isError()){
+			$this->E($oTheme->getErrorMessage());
+		}
+
+		// 写入主题数据
+		$nStyleId=isset($arrStyleData['style_id'])?intval($arrStyleData['style_id']):0;
+		$arrSaveStyleData=array(
+			'style_name'=>$arrStyleData['name'],
+			'style_status'=>isset($arrStyleData['status'])?intval($arrStyleData['status']):0,
+			'template_id'=>$nThemeId,
+			'style_extend'=>$arrStyleData['style_extend'],
+		);
+
+		$oStyle=Dyhb::instance('StyleModel');
+		$nStyleId=$oStyle->saveStyleData($arrSaveStyleData,$nThemeId,$nStyleId);
+
+		if($oStyle->isError()){
+			$this->E($oStyle->getErrorMessage());
+		}
+
+		// 写入主题变量数据
+		$arrSaveStylevariableData=$arrStyleData['style'];
+
+		$oStylevar=Dyhb::instance('StylevarModel');
+		$oStylevar->saveStylevarData($arrSaveStylevariableData,$nStyleId);
+
+		if($oStylevar->isError()){
+			$this->E($oStylevar->getErrorMessage());
+		}
+	}
+	
 	protected function show_Styles($sStylePath){
 		$arrStyles=$this->get_styles($sStylePath);
 

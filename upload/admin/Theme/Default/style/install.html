@@ -49,12 +49,12 @@
 						<tr>
 							<!--</eq>-->
 							<td class="<!--<eq name="nRow" value="1">-->style_top<!--</eq>--> <!--<eq name="nRow" value="$nOkStyleRowNums">-->style_bottom<!--</eq>--> <!--<eq name="mod" value="1">-->style_left<!--<elseif condition="$mod eq 0" />-->style_right<!--</eq>-->">
-								<a href="javascript:void(0);">
-									<img src="<!--{:__ROOT__}-->/ucontent/Theme/<!--{$arrOkStyle['Style']}-->/<!--{$arrOkStyle['preview']}-->" alt="<!--{$arrOkStyle['Name']}--> - <!--{$arrOkStyle['Title']}-->" />
+								<a href="<!--{$TheController->get_style_url($arrOkStyle,'preview_large')}-->" target="_blank" title="<!--<lang package='Template/Default/Style'>-->查看主题预览大图<!--</lang>-->">
+									<img src="<!--{$TheController->get_style_url($arrOkStyle)}-->" alt="<!--{$arrOkStyle['Name']}--> - <!--{$arrOkStyle['Title']}-->" />
 								</a>
 								<h4><!--{$arrOkStyle['Name']}--></h4>
 								<p class="style-description"><!--{$arrOkStyle['Description']}--></p>
-								<p class="style-install"><a class="big-button" href=""/><!--<lang package='Template/Default/Style'>-->安装新主题<!--</lang>--></a></p>
+								<p class="style-install"><a class="big-button" href="<!--{:Dyhb::U('style/install_new?style='.strtolower($arrOkStyle['Style']))}-->"/><!--<lang package='Template/Default/Style'>-->安装新主题<!--</lang>--></a></p>
 								<p class="style-author"><!--<lang package='Template/Default/Style'>-->作者<!--</lang>--> <!--{if !empty( $arrOkStyle['Author URI'])}--><!--{$arrOkStyle['Author']}--><!--{d*else}--><!--{$arrOkStyle['Author Name']}--><!--{/if}--></p>
 								<p class="style-dir"><!--<lang package='Template/Default/Style'>-->该主题的所有文件存放在<!--</lang>--> <!--{$arrOkStyle['Style Dir']}--></p>
 								<!--{if !empty( $arrOkStyle['Tags'] )}-->

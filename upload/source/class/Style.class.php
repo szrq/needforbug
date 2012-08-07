@@ -83,7 +83,7 @@ class Style{
 				'Status'=>$arrStyleData['Status'],
 				'preview'=>$arrPreviews[''],
 				'preview_mini'=>$arrPreviews['_mini'],
-				'preview_larget'=>$arrPreviews['_large'],
+				'preview_large'=>$arrPreviews['_large'],
 				'Tags'=>$arrStyleData['Tags'],
 				'Style Root'=>str_replace(G::tidyPath(NEEDFORBUG_PATH),'{NEEDFORBUG_PATH}',G::tidyPath(dirname($sStylesheet))),
 				'Style Root URI'=>str_replace(G::tidyPath(NEEDFORBUG_PATH),'{NEEDFORBUG_PATH}',G::tidyPath(dirname($sStylesheet))),

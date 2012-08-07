@@ -2,11 +2,16 @@
 <title><![CDATA[NeedForBug! Style]]></title>
 <version><![CDATA[1.0]]></version>
 <time><![CDATA[2012-08-06]]></time>
-<url><![CDATA[http://needforbug.doyouhaobaby.net]]></from>
+<url><![CDATA[http://needforbug.doyouhaobaby.net]]></url>
 <copyright><![CDATA[点牛]]></copyright>
 <data>
 	<name><![CDATA[默认主题]]></name>
-	<template_id><![CDATA[default]]></template_id>
+	<template_id><![CDATA[1]]></template_id>
+	<template_name>默认模板套系</template_name>
+	<template_dirname><![CDATA[default]]></template_dirname>
+	<status><![CDATA[0]]></status>
+	<style_id><![CDATA[1]]></style_id>
+	<style_extend><![CDATA[t1	t2	t3	t4	t5|]]></style_extend>
 	<doyouhaobaby_template_base><![CDATA[default]]></doyouhaobaby_template_base>
 	<directory><![CDATA[Theme/Default]]></directory>
 	<copyright><![CDATA[点牛（成都）]]></copyright>
@@ -52,46 +57,30 @@
 		<interleave_color><![CDATA[#DEDEDE]]></interleave_color>
 		<noticetext_color><![CDATA[#FF3300]]></noticetext_color>
 		<noticetext_border_color><![CDATA[]]></noticetext_border_color>
-		<menu_bg_color>
-			<color><![CDATA[#f2f2f2]]></color>
-			<img><![CDATA[]]></img>
-			<extra><![CDATA[repeat-x]]></extra>
-		</menu_bg_color>
-		<header_bg_color>
-			<color><![CDATA[#27b]]></color>
-			<img><![CDATA[blognamebg.jpg]]></img>
-			<extra><![CDATA[repeat-x]]></extra>
-		</header_bg_color>
-		<side_bg_color>
-			<color><![CDATA[#FFFFFF]]></color>
-			<img><![CDATA[]]></img>
-			<extra><![CDATA[repeat-x]]></extra>
-		</side_bg_color>
-		<bg_color>
-			<color><![CDATA[#FFFFFF]]></color>
-			<img><![CDATA[]]></img>
-			<extra><![CDATA[repeat-x]]></extra>
-		</bg_color>
-		<drop_menu_bg_color>
-			<color><![CDATA[#CCCCCC]]></color>
-			<img><![CDATA[]]></img>
-			<extra><![CDATA[repeat-x]]></extra>
-		</drop_menu_bg_color>
-		<footer_bg_color>
-			<color><![CDATA[#1A6BE6]]></color>
-			<img><![CDATA[footer_bg.gif]]></img>
-			<extra><![CDATA[repeat-x]]></extra>
-		</footer_bg_color>
-		<float_bg_color>
-			<color><![CDATA[#FFFFFF]]></color>
-			<img><![CDATA[]]></img>
-			<extra><![CDATA[]]></extra>
-		</float_bg_color>
-		<float_mask_bg_color>
-			<color><![CDATA[#1ABDE6]]></color>
-			<img><![CDATA[]]></img>
-			<extra><![CDATA[]]></extra>
-		</float_mask_bg_color>
+		<menu_bg_color><![CDATA[#f2f2f2]]></menu_bg_color>
+		<menu_bg_img><![CDATA[]]></menu_bg_img>
+		<menu_bg_extra><![CDATA[repeat-x]]></menu_bg_extra>
+		<header_bg_color><![CDATA[#27b]]></header_bg_color>
+		<header_bg_img><![CDATA[blognamebg.jpg]]></header_bg_img>
+		<header_bg_extra><![CDATA[repeat-x]]></header_bg_extra>
+		<side_bg_color><![CDATA[#FFFFFF]]></side_bg_color>
+		<side_bg_img><![CDATA[]]></side_bg_img>
+		<side_bg_extra><![CDATA[repeat-x]]></side_bg_extra>
+		<bg_color><![CDATA[#FFFFFF]]></bg_color>
+		<bg_img><![CDATA[]]></bg_img>
+		<bg_extra><![CDATA[repeat-x]]></bg_extra>
+		<drop_menu_bg_color><![CDATA[#CCCCCC]]></drop_menu_bg_color>
+		<drop_menu_bg_img><![CDATA[]]></drop_menu_bg_img>
+		<drop_menu_bg_extra><![CDATA[repeat-x]]></drop_menu_bg_extra>
+		<footer_bg_color><![CDATA[#1A6BE6]]></footer_bg_color>
+		<footer_bg_img><![CDATA[footer_bg.gif]]></footer_bg_img>
+		<footer_bg_extra><![CDATA[repeat-x]]></footer_bg_extra>
+		<float_bg_color><![CDATA[#FFFFFF]]></float_bg_color>
+		<float_bg_img><![CDATA[]]></float_bg_img>
+		<float_bg_extra><![CDATA[]]></float_bg_extra>
+		<float_mask_bg_color><![CDATA[#1ABDE6]]></float_mask_bg_color>
+		<float_mask_bg_img><![CDATA[]]></float_mask_bg_img>
+		<float_mask_bg_extra><![CDATA[]]></float_mask_bg_extra>
 	</style>
 	<version><![CDATA[For NeedForBug-1.0]]></version>
 </data>
