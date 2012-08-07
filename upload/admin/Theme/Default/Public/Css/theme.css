@@ -9,9 +9,9 @@ Description: 主题样式
 ================================*/
 .style-description{color:#b8b6b6;line-height:20px;}
 .style-install{margin:30px 0px;}
-.style-author{color:#fb5903;}
-.style-dir{line-height:20px;color:#1562e9;}
-.style-tag{color:#38a9dd;}
+.style-author{}
+.style-dir{line-height:20px;}
+.style-tag{}
 .style_top{border-top:10px solid #1562e9;}
 .style_right{border-right:8px solid #38a9dd;}
 .style_left{border-left:6px solid #a60af4;}
