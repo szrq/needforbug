@@ -11,7 +11,7 @@ class StatController extends InitController{
 
 		$this->assign('arrSite',$GLOBALS['_cache_']['site']);
 
-		$this->display('sta+base');
+		$this->display('stat+base');
 	}
 	
 	public function userlist(){
