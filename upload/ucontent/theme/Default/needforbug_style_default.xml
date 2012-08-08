@@ -6,9 +6,9 @@
 <copyright><![CDATA[点牛]]></copyright>
 <data>
 	<name><![CDATA[默认主题]]></name>
-	<template_id><![CDATA[1]]></template_id>
-	<template_name>默认模板套系</template_name>
-	<template_dirname><![CDATA[default]]></template_dirname>
+	<theme_id><![CDATA[1]]></template_id>
+	<theme_name>默认模板套系</template_name>
+	<theme_dirname><![CDATA[default]]></template_dirname>
 	<status><![CDATA[0]]></status>
 	<style_id><![CDATA[1]]></style_id>
 	<style_extend><![CDATA[t1	t2	t3	t4	t5|]]></style_extend>

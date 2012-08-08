@@ -41,8 +41,8 @@ class StyleController extends InitController{
 		// 写入模板数据
 		$nThemeId=isset($arrStyleData['template_id'])?intval($arrStyleData['template_id']):0;
 		$arrSaveThemeData=array(
-			'theme_name'=>$arrStyleData['template_name'],
-			'theme_dirname'=>$arrStyleData['template_dirname'],
+			'theme_name'=>$arrStyleData['theme_name'],
+			'theme_dirname'=>$arrStyleData['theme_dirname'],
 			'theme_directory'=>$arrStyleData['directory'],
 			'theme_copyright'=>$arrStyleData['copyright'],
 		);
@@ -81,6 +81,38 @@ class StyleController extends InitController{
 		}
 
 		$this->S(Dyhb::L('主题 %s 安装成功','Controller/Style',null,$sStyle));
+	}
+
+	public function bEdit_(){
+		$arrThemes=ThemeModel::F()->getAll();
+		
+		$arrStylevars=StylevarModel::F('style_id=?',intval(G::getGpc('id','G')))->getAll();
+		$arrCustomStylevar=$arrSystemStylevar=array();
+
+		$arrCurtomStylevarList=(array)(include NEEDFORBUG_PATH.'/Source/Common/Style.php');
+		foreach($arrStylevars as $oStylevar){
+			if(!in_array(strtolower($oStylevar['style_variable']),$arrCurtomStylevarList)){
+				$arrCustomStylevar[$oStylevar['style_variable']]=$oStylevar['style_substitute'];
+			}else{
+				$arrSystemStylevar[$oStylevar['style_variable']]=$oStylevar['style_substitute'];
+			}
+		}
+
+		$this->assign('arrThemes',$arrThemes);
+		$this->assign('arrCustomStylevar',$arrCustomStylevar);
+		$this->assign('arrSystemStylevar',$arrSystemStylevar);
+	}
+
+	public function AEditObject_($oModel){
+		if(!empty($oModel->style_id)){
+			$this->assign('oValue',$oModel);
+			$this->assign('nId',$oModel['style_id']);
+				
+			$this->display('style+diy');
+			exit();
+		}else{
+			$this->E(Dyhb::L('数据库中并不存在该项，或许它已经被删除','Controller/Common'));
+		}
 	}
 	
 	protected function show_Styles($sStylePath){
