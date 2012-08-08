@@ -537,7 +537,7 @@ NEEDFORBUG;
 			return self::getNoneimg();
 		}
 
-		$oTheme=ThemeModel::F('theme_id=?',$Style['template_id'])->getOne();
+		$oTheme=ThemeModel::F('theme_id=?',$Style['theme_id'])->getOne();
 		if(empty($oTheme['theme_id'])){
 			return self::getNoneimg();
 		}

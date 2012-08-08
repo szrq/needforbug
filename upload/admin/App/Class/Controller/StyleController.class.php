@@ -59,7 +59,7 @@ class StyleController extends InitController{
 		$arrSaveStyleData=array(
 			'style_name'=>$arrStyleData['name'],
 			'style_status'=>isset($arrStyleData['status'])?intval($arrStyleData['status']):0,
-			'template_id'=>$nThemeId,
+			'theme_id'=>$nThemeId,
 			'style_extend'=>$arrStyleData['style_extend'],
 		);
 
