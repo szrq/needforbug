@@ -126,6 +126,18 @@ class StyleController extends InitController{
 			$this->E(Dyhb::L('数据库中并不存在该项，或许它已经被删除','Controller/Common'));
 		}
 	}
+
+	public function diy_save(){
+		G::dump($_POST);
+
+		$nStyleId=intval(G::getGpc('id','P'));
+		if(!empty($nStyleId)){
+			//$oStyle=StyleModel::F('style_id=?',)
+		}else{
+			$this->E(Dyhb::L('操作项不存在','Controller/Common'));
+		}
+		echo 'Hello world!';
+	}
 	
 	protected function show_Styles($sStylePath){
 		$arrStyles=$this->get_styles($sStylePath);
