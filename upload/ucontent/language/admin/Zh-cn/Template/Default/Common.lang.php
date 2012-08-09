@@ -53,6 +53,7 @@ return array(
 '342f6c18e789ae379a4b7f5c2eaed404'=>"应用入口",
 'efe5253eb174708351ab72c12f59bddd'=>"系统变量替换: {site_name} 网站标题,{site_description} 网站描述,{site_url} 站点信息,{time} 当前时间,{user_name} 登录用户,{user_nikename} 登录用户昵称,{admin_email} 系统管理员邮箱",
 'e366ccf1556c0672dcecba135ed5472e'=>"设置",
+'ee7b27c0eeedad1838be051a3755d368'=>"删？",
 )
 
 ?>

@@ -98,21 +98,25 @@ class StyleController extends InitController{
 			}
 		}
 
-		$sImgdir='';
-		if(!empty($arrSystemStylevar['style_img_dir'])){
-			$sImgdir=$arrSystemStylevar['style_img_dir'];
-		}elseif(!empty($arrSystemStylevar['img_dir'])){
+		// 系统图片目录变量
+		$sImgdir=$sStyleimgdir='';
+		if(!empty($arrSystemStylevar['img_dir'])){
 			$sImgdir=$arrSystemStylevar['img_dir'];
 		}else{
 			$sImgdir='theme/Default/Public/Images';
 		}
-		
-		$sImgdir=__ROOT__.'/ucontent/'.$sImgdir;
+
+		if(!empty($arrSystemStylevar['style_img_dir'])){
+			$sStyleimgdir=$arrSystemStylevar['style_img_dir'];
+		}else{
+			$sStyleimgdir=$sImgdir;
+		}
 
 		$this->assign('arrThemes',$arrThemes);
 		$this->assign('arrCustomStylevar',$arrCustomStylevar);
 		$this->assign('arrSystemStylevar',$arrSystemStylevar);
 		$this->assign('sImgdir',$sImgdir);
+		$this->assign('sStyleimgdir',$sStyleimgdir);
 	}
 
 	public function AEditObject_($oModel){
@@ -120,7 +124,56 @@ class StyleController extends InitController{
 			$this->assign('oValue',$oModel);
 			$this->assign('nId',$oModel['style_id']);
 
-			$this->display('style+diy');
+			
+			// 读取扩展配色
+			$arrExtendstyle=$arrDefaultextendstyle=array();
+
+			$oTheme=ThemeModel::F('theme_id=?',$oModel['theme_id'])->getOne();
+			if(!empty($oTheme['theme_id'])){
+				$sStyleExtendDir=NEEDFORBUG_PATH.'/ucontent/'.$oTheme['theme_directory'].'/Public/Style';
+				if(is_dir($sStyleExtendDir)){
+					$arrStyleDirs=G::listDir($sStyleExtendDir);
+
+					$arrDefaultextendstyle[]=array('',Dyhb::L('默认','Controller/Style'));
+					
+					foreach($arrStyleDirs as $sStyleDir){
+						$sExtendStylefile=$sStyleExtendDir.'/'.$sStyleDir.'/style.css';
+
+						if(file_exists($sExtendStylefile)){
+							$sContent=file_get_contents($sExtendStylefile);
+
+							if(preg_match('/\[name\](.+?)\[\/name\]/i',$sContent,$arrResult1) && 
+								preg_match('/\[iconbgcolor](.+?)\[\/iconbgcolor]/i',$sContent,$arrResult2))
+							{
+								$arrExtendstyle[]=array($sStyleDir,'<em style="background:'.$arrResult2[1].'">&nbsp;&nbsp;&nbsp;&nbsp;</em> '.$arrResult1[1]);
+								$arrDefaultextendstyle[]=array($sStyleDir,$arrResult1[1]);
+							}
+						}
+					}
+				}
+			}
+
+			$arrStyleExtendOption=explode('|',$oModel->style_extend);
+
+			if(empty($arrStyleExtendOption[1])){
+				$sStyleExtendcolor='';
+			}else{
+				$sStyleExtendcolor=$arrStyleExtendOption[1];
+			}
+
+			$arrStyleExtendcolors=explode("\t",$arrStyleExtendOption[0]);
+
+			$this->assign('arrExtendstyle',$arrExtendstyle);
+			$this->assign('arrDefaultextendstyle',$arrDefaultextendstyle);
+			$this->assign('sStyleExtendcolor',$sStyleExtendcolor);
+			$this->assign('arrStyleExtendcolors',$arrStyleExtendcolors);
+
+			$nAdv=intval(G::getGpc('adv','G'));
+			if($nAdv==1){
+				$this->display('style+adv_diy');
+			}else{
+				$this->display('style+diy');
+			}
 			exit();
 		}else{
 			$this->E(Dyhb::L('数据库中并不存在该项，或许它已经被删除','Controller/Common'));
@@ -128,15 +181,55 @@ class StyleController extends InitController{
 	}
 
 	public function diy_save(){
-		G::dump($_POST);
-
-		$nStyleId=intval(G::getGpc('id','P'));
+		$nStyleId=intval(G::getGpc('style_id','P'));
 		if(!empty($nStyleId)){
-			//$oStyle=StyleModel::F('style_id=?',)
+			$oStyle=StyleModel::F('style_id=?',$nStyleId)->getOne();
+			if(!empty($oStyle['style_id'])){
+				$oStyle->style_name=trim(G::getGpc('name_new','P'));
+				$oStyle->theme_id=intval(G::getGpc('theme_id_new','P'));
+				
+				$arrStyleextend=G::getGpc('style_extend_new','P');
+				$sDefaultExtendstyle=trim(G::getGpc('default_extend_style_new','P'));
+				if(!in_array($sDefaultExtendstyle,$arrStyleextend)){
+					$arrStyleextend[]=$sDefaultExtendstyle;
+				}
+
+				$sStyleExtend=implode("\t",$arrStyleextend).'|'.$sDefaultExtendstyle;
+				$oStyle->style_extend=trim($sStyleExtend);
+
+				$oStyle->save(0,'update');
+
+				if($oStyle->isError()){
+					$this->E($oStyle->getErrorMessage());
+				}
+
+				// 新增
+				$sVariableNew=strtolower(trim(G::getGpc('variable_new','P')));
+				$sSubstituteNew=strtolower(trim(G::getGpc('substitute_new','P')));
+				if(trim(G::getGpc('variable_new','P')) && G::getGpc('substitute_new','P')){
+					// 判断是否存在
+
+					$oNewStylevar=new StylevarModel::F();
+					$oNewStylevar->stylevar_variable=strtolower(trim(G::getGpc('variable_new','P')));
+					$oNewStylevar->stylevar_substitute=trim(G::getGpc('substitute_new','P'));
+				}
+				
+				$arrStylevars=G::getGpc('stylevar','P');
+
+				$oStylevar=Dyhb::instance('StylevarModel');
+				$oStylevar->saveStylevarData($arrStylevars,$oStyle['style_id']);
+
+				if($oStylevar->isError()){
+					$this->E($oStylevar->getErrorMessage());
+				}
+
+				$this->S(Dyhb::L('主题 %s 更新成功','Controller/Style',null,$oStyle['style_name']));
+			}else{
+				$this->E(Dyhb::L('数据库中并不存在该项，或许它已经被删除','Controller/Common'));
+			}
 		}else{
 			$this->E(Dyhb::L('操作项不存在','Controller/Common'));
 		}
-		echo 'Hello world!';
 	}
 	
 	protected function show_Styles($sStylePath){

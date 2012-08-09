@@ -124,7 +124,7 @@ function getImgByid(id){
 
 	<section class="secondary_bar">
 		<div class="breadcrumbs_container">
-			<article class="breadcrumbs"><a href="<!--{:Dyhb::U('public/fmain')}-->"><!--<lang package='Template/Default/Common'>-->主页<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a class="current"><!--<lang package='Template/Default/Style'>-->主题DIY<!--</lang>-->(<!--<lang package='Template/Default/Style'>-->简单模式<!--</lang>-->)</a></article>
+			<article class="breadcrumbs"><a href="<!--{:Dyhb::U('public/fmain')}-->"><!--<lang package='Template/Default/Common'>-->主页<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a class="current"><!--<lang package='Template/Default/Style'>-->主题DIY<!--</lang>-->(<!--<lang package='Template/Default/Style'>-->高级模式<!--</lang>-->)</a></article>
 		</div>
 	</section>
 
@@ -155,31 +155,13 @@ function getImgByid(id){
 						<div class="description"><!--<lang package='Template/Default/Style'>-->识别界面风格的标志，请勿使用空格或特殊符号<!--</lang>--></div>
 					</fieldset>
 					<fieldset>
-						<label for="theme_id_new"><!--<lang package='Template/Default/Style'>-->匹配模板<!--</lang>--></label>
+						<label for="themeidnew"><!--<lang package='Template/Default/Style'>-->匹配模板<!--</lang>--></label>
 						<select name="theme_id_new" id="theme_id_new" >
 							<!--<foreach for=arrThemes value=oTheme>-->
 							<option value="<!--{$oTheme['theme_id']}-->" <!--{if $oTheme['theme_id']==$oValue['theme_id']}-->selected="selected"<!--{/if}-->><!--{$oTheme['theme_name']}-->@<!--{$oTheme['theme_id']}--></option>
 							<!--</foreach>-->
 						</select>
 						<div class="description"><!--<lang package='Template/Default/Style'>-->与本套界面风格相匹配的模板名称<!--</lang>--></div>
-					</fieldset>
-					<fieldset>
-						<label for="style_extend_new"><!--<lang package='Template/Default/Style'>-->扩展配色<!--</lang>--></label>
-						<p style="padding:5px;">
-							<!--<foreach for=arrExtendstyle value=arrValue>-->
-							<input type="checkbox" id="style_extend_new" name="style_extend_new[]" value="<!--{$arrValue[0]}-->" <!--{if in_array($arrValue[0],$arrStyleExtendcolors)}-->checked<!--{/if}-->>&nbsp;<!--{$arrValue[1]}-->
-							<!--</foreach>-->
-						</p>
-						<div class="description"><!--<lang package='Template/Default/Style'>-->扩展配色可以让同一个主题展现绚丽多姿的一面<!--</lang>--></div>
-					</fieldset>
-					<fieldset>
-						<label for="name_new"><!--<lang package='Template/Default/Style'>-->默认配色<!--</lang>--></label>
-						<select name="default_extend_style_new" id="default_extend_style_new">
-							<!--<foreach for=arrDefaultextendstyle value=arrValue>-->
-							<option value="<!--{$arrValue[0]}-->" <!--{if $arrValue[0]==$sStyleExtendcolor}-->selected="selected"<!--{/if}-->><!--{$arrValue[1]}--></option>
-							<!--</foreach>-->
-						</select>
-						<div class="description"><!--<lang package='Template/Default/Style'>-->请根据你的站点来选择适合你自己的配色<!--</lang>--></div>
 					</fieldset>
 					<fieldset>
 						<label for="img_dir"><!--<lang package='Template/Default/Style'>-->界面基础图片目录<!--</lang>-->{IMG_DIR}</label>
@@ -223,7 +205,7 @@ function getImgByid(id){
 																</div>
 															</div>
 															<div id="sp_wrap" style="margin: 10px 15px 10px 15px;border: 0px solid #000;background:#fff;padding:5px;">
-																<div id="sp_content" style="width:100%;">
+																<div id="sp_content" style=""">
 																	<div id="sp_backcolor" style="background: #eeeeee;">
 																		<p id="sp_tabletext" style="padding:5px;margin: 0pt; line-height: 1.6em; color: #333333; font-family: Verdana,Helvetica,Arial,sans-serif; font-size: 12px;">
 																			<a id="sp_link" href="<!--{$GLOBALS['_option_']['needforbug_program_url']}-->" target="_blank" style="color:#037c1d;"><!--{$GLOBALS['_option_']['needforbug_program_name']}--></a> <!--<lang package='Template/Default/Style'>-->APP应用程序开发框架<!--</lang>--><span id="sp_midtext" style="color: #333333;">（<!--<lang package='Template/Default/Style'>-->简称<!--</lang>--> <strong id="sp_notice" style="color: #f89406;"><!--{$GLOBALS['_option_']['needforbug_program_name']}--></strong>）</span><!--<lang package='Template/Default/Style'>-->是一个采用 PHP 和 MySQL构建的应用程序开发管理器，程序采用DoYouHaoBaby框架开发。<!--</lang>-->
@@ -231,11 +213,11 @@ function getImgByid(id){
 																	</div>
 																	<div id="sp_line" style="margin: 5px 0 0 0; height: 2px; background: #eeeeee; line-height: 2px; overflow: hidden;"></div>
 																	<p id="sp_smalltext" style="padding: 5px 0 20px 0; text-align: right; color: #999999; font-size: 0.83em;">---- Dianniu.NET</p>
-																	<table cellpadding="0" cellspacing="0" border="0" width="100%" style="padding:0;">
+																	<table cellpadding="0" cellspacing="0" border="0">
 																		<tbody>
 																			<tr>
-																				<td width="90%" style="padding:5px;background:#f5f5f5;">
-																					<table cellpadding="0" cellspacing="0" width="100%" style="padding:0;">
+																				<td>
+																					<table class="tablesorter" cellpadding="0" cellspacing="0">
 																						<tbody>
 																							<tr>
 																								<td width="100"><!--<lang package='Template/Default/Style'>-->间隔线颜色<!--</lang>--></td>
@@ -298,7 +280,7 @@ function getImgByid(id){
 																								</td>
 																							</tr>
 																							<tr>
-																								<td style="color: #d2d2d2;" id="spt_noticetext_border" width="100"><!--<lang package='Template/Default/Style'>-->提示信息边框颜色<!--</lang>--></td>
+																								<td style="color: #eeeeee;" id="spt_noticetext_border" width="100"><!--<lang package='Template/Default/Style'>-->提示信息边框颜色<!--</lang>--></td>
 																								<td><input type="text" id='noticetext_border_color' name="stylevar[noticetext_border_color]" value="<!--{$arrSystemStylevar['noticetext_border_color']}-->" size="10" style="color:<!--{$arrSystemStylevar['noticetext_border_color']}-->">
 																									<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="noticetext_border_color"/>
 																								</td>
@@ -429,44 +411,12 @@ function getImgByid(id){
 							</tr>
 						</tbody>
 					</table>
-					<table width="100%" class="tablesorter" cellpadding="0" cellspacing="0" id="checkList">
-						<thead>
-							<th colspan="2"><!--<lang package='Template/Default/Style'>-->自定义模板变量<!--</lang>--><th>
-						</thead>
-						<tbody>
-							<tr>
-								<td colspan="3">
-									<ul>
-										<li><!--<lang package='Template/Default/Style'>-->选中复选框将会删除该条记录，请一定要看清楚<!--</lang>--></li>
-										<li><!--<lang package='Template/Default/Style'>-->新增变量名一定不要和已有重复，否则无法添加成功<!--</lang>--></li>
-									</ul>
-								</td>
-							</tr>
-							<tr>
-								<td width="15%"><input type="checkbox" onclick="checkAll('checkList')"><!--<lang package='Template/Default/Common'>-->删？<!--</lang>--></td>
-								<td width="30%"><strong><!--<lang package='Template/Default/Style'>-->变量<!--</lang>--></strong></td>
-								<td width="55%"><strong><!--<lang package='Template/Default/Style'>-->替换内容<!--</lang>--></strong></td>
-							</tr>
-							<!--<foreach for=arrCustomStylevar value=oCustomstylevar>-->
-							<tr>
-								<td><input type="checkbox" name="key[]" value="<!--{$oCustomstylevar['stylevar_id']}-->"></td>
-								<td width="30%">{<!--{$oCustomstylevar['style_variable']|strtoupper}-->}</td>
-								<td width="70%"><textarea style="height: 45px" cols="50" rows="2" name="stylevar[<!--{$oCustomstylevar['stylevar_variable']}-->]" id="customstylevar"/><!--{$oCustomstylevar['stylevar_substitute']}--></textarea></td>
-							</tr>
-							<!--</foreach>-->
-							<tr>
-								<td><!--<lang package='Template/Default/Common'>-->新增<!--</lang>--></td>
-								<td width="30%"><input type="text" name="variable_new" id="variable_new" size="10" value=""/></td>
-								<td width="70%"><textarea style="height: 45px" cols="50" rows="2" name="substitute_new" id="substitute_new"/></textarea></td>
-							</tr>
-						</tbody>
-					</table>
 				</div>
 				<footer>
 					<div class="submit_link">
 						<input type="hidden" name="style_id" value="<!--{$oValue['style_id']}-->">
 						<input type="submit" id="submit_button" value="<!--<lang package='Template/Default/Common'>-->发布<!--</lang>-->" class="alt_btn">
-						<input type="button" onclick="location.href='<!--{:Dyhb::U( 'style/edit?id='.$oValue['style_id'].'&adv=1' )}-->'" class="alt_btn" value="<!--<lang package='Template/Default/Style'>-->切换到高级模式<!--</lang>-->" />
+						<input type="button" onclick="location.href='<!--{:Dyhb::U( 'style/edit?id='.$oValue['style_id'] )}-->'" class="alt_btn" value="<!--<lang package='Template/Default/Style'>-->切换到简单模式<!--</lang>-->" />
 					</div>
 				</footer>
 			</article>

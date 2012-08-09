@@ -23,6 +23,8 @@ class StylevarModel extends CommonModel{
 
 	public function saveStylevarData($arrStylevariableData,$nStyleId){
 		foreach($arrStylevariableData as $sKey=>$sValue){
+			$sKey=strtolower($sKey);
+
 			$oTryStylevar=self::F('style_variable=? AND style_id=?',$sKey,$nStyleId)->getOne();
 			if(!empty($oTryStylevar['stylevar_id'])){
 				$oTryStylevar->style_substitute=$sValue;
