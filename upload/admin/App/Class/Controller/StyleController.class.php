@@ -91,10 +91,10 @@ class StyleController extends InitController{
 
 		$arrCurtomStylevarList=(array)(include NEEDFORBUG_PATH.'/Source/Common/Style.php');
 		foreach($arrStylevars as $oStylevar){
-			if(!in_array(strtolower($oStylevar['style_variable']),$arrCurtomStylevarList)){
-				$arrCustomStylevar[$oStylevar['style_variable']]=$oStylevar['style_substitute'];
+			if(!in_array(strtolower($oStylevar['stylevar_variable']),$arrCurtomStylevarList)){
+				$arrCustomStylevar[$oStylevar['stylevar_variable']]=$oStylevar['stylevar_substitute'];
 			}else{
-				$arrSystemStylevar[$oStylevar['style_variable']]=$oStylevar['style_substitute'];
+				$arrSystemStylevar[$oStylevar['stylevar_variable']]=$oStylevar['stylevar_substitute'];
 			}
 		}
 
@@ -106,8 +106,8 @@ class StyleController extends InitController{
 			$sImgdir='theme/Default/Public/Images';
 		}
 
-		if(!empty($arrSystemStylevar['style_img_dir'])){
-			$sStyleimgdir=$arrSystemStylevar['style_img_dir'];
+		if(!empty($arrSystemStylevar['stylevar_img_dir'])){
+			$sStyleimgdir=$arrSystemStylevar['stylevar_img_dir'];
 		}else{
 			$sStyleimgdir=$sImgdir;
 		}
@@ -209,9 +209,14 @@ class StyleController extends InitController{
 				if(trim(G::getGpc('variable_new','P')) && G::getGpc('substitute_new','P')){
 					// 判断是否存在
 
-					$oNewStylevar=new StylevarModel::F();
+					$oNewStylevar=new StylevarModel();
 					$oNewStylevar->stylevar_variable=strtolower(trim(G::getGpc('variable_new','P')));
 					$oNewStylevar->stylevar_substitute=trim(G::getGpc('substitute_new','P'));
+					$oNewStylevar->save(0);
+
+					if($oNewStylevar->isError()){
+						$this->E($oNewStylevar->getErrorMessage());
+					}
 				}
 				
 				$arrStylevars=G::getGpc('stylevar','P');

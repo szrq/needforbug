@@ -447,11 +447,11 @@ function getImgByid(id){
 								<td width="30%"><strong><!--<lang package='Template/Default/Style'>-->变量<!--</lang>--></strong></td>
 								<td width="55%"><strong><!--<lang package='Template/Default/Style'>-->替换内容<!--</lang>--></strong></td>
 							</tr>
-							<!--<foreach for=arrCustomStylevar value=oCustomstylevar>-->
+							<!--<foreach for=arrCustomStylevar key=sCustomstylevarkey value=sCustomstylevar>-->
 							<tr>
-								<td><input type="checkbox" name="key[]" value="<!--{$oCustomstylevar['stylevar_id']}-->"></td>
-								<td width="30%">{<!--{$oCustomstylevar['style_variable']|strtoupper}-->}</td>
-								<td width="70%"><textarea style="height: 45px" cols="50" rows="2" name="stylevar[<!--{$oCustomstylevar['stylevar_variable']}-->]" id="customstylevar"/><!--{$oCustomstylevar['stylevar_substitute']}--></textarea></td>
+								<td><input type="checkbox" name="key[]" value="<!--{$sCustomstylevarkey}-->"></td>
+								<td width="30%">{<!--{$sCustomstylevarkey|strtoupper}-->}</td>
+								<td width="70%"><textarea style="height: 45px" cols="50" rows="2" name="stylevar[<!--{$sCustomstylevarkey}-->]" id="customstylevar"/><!--{$sCustomstylevar}--></textarea></td>
 							</tr>
 							<!--</foreach>-->
 							<tr>
