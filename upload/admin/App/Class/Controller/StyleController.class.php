@@ -98,16 +98,28 @@ class StyleController extends InitController{
 			}
 		}
 
+		$sImgdir='';
+		if(!empty($arrSystemStylevar['style_img_dir'])){
+			$sImgdir=$arrSystemStylevar['style_img_dir'];
+		}elseif(!empty($arrSystemStylevar['img_dir'])){
+			$sImgdir=$arrSystemStylevar['img_dir'];
+		}else{
+			$sImgdir='theme/Default/Public/Images';
+		}
+		
+		$sImgdir=__ROOT__.'/ucontent/'.$sImgdir;
+
 		$this->assign('arrThemes',$arrThemes);
 		$this->assign('arrCustomStylevar',$arrCustomStylevar);
 		$this->assign('arrSystemStylevar',$arrSystemStylevar);
+		$this->assign('sImgdir',$sImgdir);
 	}
 
 	public function AEditObject_($oModel){
 		if(!empty($oModel->style_id)){
 			$this->assign('oValue',$oModel);
 			$this->assign('nId',$oModel['style_id']);
-				
+
 			$this->display('style+diy');
 			exit();
 		}else{

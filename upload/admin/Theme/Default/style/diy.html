@@ -48,7 +48,7 @@ $(function(){
 		}
 
 		if(id=='header_bg_color'){
-			$("#sp_header").css({"backgroundColor":color,"background-image":"none"});
+			$("#sp_header").css({"background":color+' url('+getImgByid('header_bg_img')+') '+$("#header_bg_extra").val()});
 		}
 
 		if(id=='header_border_color'){
@@ -64,7 +64,7 @@ $(function(){
 		}
 
 		if(id=='menu_bg_color'){
-			$("#sp_menuitem a").css({"backgroundColor":color,"background-image":"none"});
+			$("#sp_menuitem a").css({"background":color+' url('+getImgByid('menu_bg_img')+') '+$("#menu_bg_extra").val()});
 		}
 
 		if(id=='menu_text_color'){
@@ -80,11 +80,11 @@ $(function(){
 		}
 
 		if(id=='bg_color'){
-			$("#style_preview").css({"backgroundColor":color,"background-image":"none"});
+			$("#style_preview").css({"background":color+' url('+getImgByid('bg_img')+') '+$("#bg_extra").val()});
 		}
 
 		if(id=='side_bg_color'){
-			$("#sp_sidebar").css({"backgroundColor":color,"background-image":"none"});
+			$("#sp_sidebar").css({"background":color+' url('+getImgByid('side_bg_img')+') '+$("#side_bg_extra").val()});
 		}
 
 		if(id=='wrap_table_bg'){
@@ -100,6 +100,21 @@ $(function(){
 		}
 	});
 });
+
+var sImgdir='<!--{$sImgdir}-->';
+
+function imgdirUpdate(){
+	sImgdir='<!--{:__ROOT__}-->/ucontent/'+($('#style_img_dir').val()?$('#style_img_dir').val():($('#img_dir').val()?$('#img_dir').val():'theme/Default/Public/Images'));
+}
+
+function checkHttp(sUrl){
+	return sUrl.substr(0,7).toLowerCase()=="http://"?true:false;
+}
+
+function getImgByid(id){
+	var oId=document.getElementById(id);
+	return oId.value?(checkHttp(oId.value)?oId.value:sImgdir+'/'+oId.value):'<!--{:__PUBLIC__}-->/images/common/none.gif';
+}
 <!--{/script}-->
 
 	<section class="secondary_bar">
@@ -119,258 +134,280 @@ $(function(){
 			</div>
 		</article>
 		
-		<article class="module width_full">
-			<header><h3 class="tabs_involved"><!--<lang package='Template/Default/Style'>-->编辑界面方案<!--</lang>--> - <!--{$oValue['style_name']}--></h3>
-				<ul class="tabs">
-					<li class="active"><a href="<!--{:Dyhb::U('style/index')}-->"><!--<lang package='Template/Default/Style'>-->已安装主题列表<!--</lang>--></a></li>
-				</ul>
-			</header>
-			<div class="module_content">
-				<fieldset>
-					<label for="name_new"><!--<lang package='Template/Default/Style'>-->界面方案名称<!--</lang>--></label>
-					<input type="text" name="name_new" id="name_new" size="40" value="<!--{$oValue['style_name']}-->"/>
-					<div class="description"><!--<lang package='Template/Default/Style'>-->识别界面风格的标志，请勿使用空格或特殊符号<!--</lang>--></div>
-				</fieldset>
-				<fieldset>
-					<label for="themeidnew"><!--<lang package='Template/Default/Style'>-->匹配模板<!--</lang>--></label>
-					<select name="theme_id_new" id="theme_id_new" >
-						<!--<foreach for=arrThemes value=oTheme>-->
-						<option value="<!--{$oTheme['theme_id']}-->" <!--{if $oTheme['theme_id']==$oValue['theme_id']}-->selected="selected"<!--{/if}-->><!--{$oTheme['theme_name']}-->@<!--{$oTheme['theme_id']}--></option>
-						<!--</foreach>-->
-					</select>
-					<div class="description"><!--<lang package='Template/Default/Style'>-->与本套界面风格相匹配的模板名称<!--</lang>--></div>
-				</fieldset>
-				<fieldset>
-					<label for="img_dir"><!--<lang package='Template/Default/Style'>-->界面基础图片目录<!--</lang>-->{IMG_DIR}</label>
-					<input type="text" name="stylevar[img_dir]" id="img_dir" size="40" value="<!--{$arrSystemStylevar['img_dir']}-->"/>
-					<div class="description"><!--<lang package='Template/Default/Style'>-->主题基础图片存放的目录，留空表示使用“theme/Default/Public/Images”目录为基础图片目录<!--</lang>--></div>
-				</fieldset>
-				<fieldset>
-					<label for="style_img_dir"><!--<lang package='Template/Default/Style'>-->扩展图片目录<!--</lang>-->{STYLE_IMG_DIR}</label>
-					<input type="text" name="stylevar[style_img_dir]" id="style_img_dir" size="40" value="<!--{$arrSystemStylevar['style_img_dir']}-->"/>
-					<div class="description"><!--<lang package='Template/Default/Style'>-->主题扩展图片存放的目录，留空表示无扩展图片目录<!--</lang>--></div>
-				</fieldset>
-				<table id="previewbody" cellpadding="0" cellspacing="0" width="100%">
-					<tbody>
-						<tr>
-							<td style="border: medium none;" valign="top" width="450px">
-								<div id="style_preview" style="background:#fff url(<!--{:__ROOT__}-->/ucontent/theme/Default/Public/Images/bg.png);width:450px;">
-									<div id="sp_header" style="background: #fff url(<!--{:__ROOT__}-->/ucontent/theme/Default/Public/Images/header_bg.png) repeat-x scroll 0 100%;">
-										<img id="sp_logo" style="margin-bottom:20px;" src="<!--{:__PUBLIC__}-->/images/common/logo.png" width="250px">
-										<div id="sp_umenu">
-											admin | <lang package='Template/Default/Style'>退出</lang>
-										</div>
-										<div id="sp_menu">
-											<ul>
-												<li id="sp_menucurrent" class="current"><span><a href="javascript:void(0);"><lang package='Template/Default/Style'>当前</lang></a></span></li>
-												<li id="sp_menuitem"><span><a href="javascript:void(0);"><lang package='Template/Default/Style'>导航</lang></a></span></li>
-											</ul>
-										</div>
+		<form action="<!--{:Dyhb::U('style/diy_save')}-->" method="post" id="styleDiy" name="styleDiy">
+			<article class="module width_full">
+				<header><h3 class="tabs_involved"><!--<lang package='Template/Default/Style'>-->编辑界面方案<!--</lang>--> - <!--{$oValue['style_name']}--></h3>
+					<ul class="tabs">
+						<li class="active"><a href="<!--{:Dyhb::U('style/index')}-->"><!--<lang package='Template/Default/Style'>-->已安装主题列表<!--</lang>--></a></li>
+					</ul>
+				</header>
+				<div class="module_content">
+					<fieldset>
+						<label for="name_new"><!--<lang package='Template/Default/Style'>-->界面方案名称<!--</lang>--></label>
+						<input type="text" name="name_new" id="name_new" size="40" value="<!--{$oValue['style_name']}-->"/>
+						<div class="description"><!--<lang package='Template/Default/Style'>-->识别界面风格的标志，请勿使用空格或特殊符号<!--</lang>--></div>
+					</fieldset>
+					<fieldset>
+						<label for="themeidnew"><!--<lang package='Template/Default/Style'>-->匹配模板<!--</lang>--></label>
+						<select name="theme_id_new" id="theme_id_new" >
+							<!--<foreach for=arrThemes value=oTheme>-->
+							<option value="<!--{$oTheme['theme_id']}-->" <!--{if $oTheme['theme_id']==$oValue['theme_id']}-->selected="selected"<!--{/if}-->><!--{$oTheme['theme_name']}-->@<!--{$oTheme['theme_id']}--></option>
+							<!--</foreach>-->
+						</select>
+						<div class="description"><!--<lang package='Template/Default/Style'>-->与本套界面风格相匹配的模板名称<!--</lang>--></div>
+					</fieldset>
+					<fieldset>
+						<label for="img_dir"><!--<lang package='Template/Default/Style'>-->界面基础图片目录<!--</lang>-->{IMG_DIR}</label>
+						<input type="text" name="stylevar[img_dir]" id="img_dir" size="40" value="<!--{$arrSystemStylevar['img_dir']}-->" onblur="imgdirUpdate();"/>
+						<div class="description"><!--<lang package='Template/Default/Style'>-->主题基础图片存放的目录，留空表示使用“theme/Default/Public/Images”目录为基础图片目录<!--</lang>--></div>
+					</fieldset>
+					<fieldset>
+						<label for="style_img_dir"><!--<lang package='Template/Default/Style'>-->扩展图片目录<!--</lang>-->{STYLE_IMG_DIR}</label>
+						<input type="text" name="stylevar[style_img_dir]" id="style_img_dir" size="40" value="<!--{$arrSystemStylevar['style_img_dir']}-->" onblur="imgdirUpdate();"/>
+						<div class="description"><!--<lang package='Template/Default/Style'>-->主题扩展图片存放的目录，留空表示无扩展图片目录<!--</lang>--></div>
+					</fieldset>
+					<table width="100%" class="tablesorter" cellpadding="0" cellspacing="0">
+						<thead>
+							<th colspan="2"><!--<lang package='Template/Default/Style'>-->可视化设置<!--</lang>--><th>
+						</thead>
+						<tbody>
+							<tr>
+								<td width="55%">
+									<div style="height: 700px; width: 100%; overflow:auto;">
+										<table id="previewbody" cellpadding="0" cellspacing="0" width="100%">
+											<tbody>
+												<tr>
+													<td style="border: medium none;" valign="top">
+														<div id="style_preview" style="background:#fff url(<!--{:__ROOT__}-->/ucontent/theme/Default/Public/Images/bg.png);">
+															<div id="sp_header" style="background: #fff url(<!--{:__ROOT__}-->/ucontent/theme/Default/Public/Images/header_bg.png) repeat-x scroll 0 100%;">
+																<img id="sp_logo" style="margin-bottom:20px;" src="<!--{:__PUBLIC__}-->/images/common/logo.png">
+																<div id="sp_umenu">
+																	admin | <!--<lang package='Template/Default/Style'>-->退出<!--</lang>-->
+																</div>
+																<div id="sp_menu">
+																	<ul>
+																		<li id="sp_menucurrent" class="current"><span><a href="javascript:void(0);"><!--<lang package='Template/Default/Style'>-->当前<!--</lang>--></a></span></li>
+																		<li id="sp_menuitem"><span><a href="javascript:void(0);"><!--<lang package='Template/Default/Style'>-->导航<!--</lang>--></a></span></li>
+																	</ul>
+																</div>
+															</div>
+															<div id="sp_wrap" style="margin: 10px 15px 10px 15px;border: 0px solid #000;background:#fff;padding:5px;">
+																<div id="sp_content" style=""">
+																	<div id="sp_backcolor" style="background: #eeeeee;">
+																		<p id="sp_tabletext" style="padding:5px;margin: 0pt; line-height: 1.6em; color: #333333; font-family: Verdana,Helvetica,Arial,sans-serif; font-size: 12px;">
+																			<a id="sp_link" href="<!--{$GLOBALS['_option_']['needforbug_program_url']}-->" target="_blank" style="color:#037c1d;"><!--{$GLOBALS['_option_']['needforbug_program_name']}--></a> <!--<lang package='Template/Default/Style'>-->APP应用程序开发框架<!--</lang>--><span id="sp_midtext" style="color: #333333;">（<!--<lang package='Template/Default/Style'>-->简称<!--</lang>--> <strong id="sp_notice" style="color: #f89406;"><!--{$GLOBALS['_option_']['needforbug_program_name']}--></strong>）</span><!--<lang package='Template/Default/Style'>-->是一个采用 PHP 和 MySQL构建的应用程序开发管理器，程序采用DoYouHaoBaby框架开发。<!--</lang>-->
+																		</p>
+																	</div>
+																	<div id="sp_line" style="margin: 5px 0 0 0; height: 2px; background: #eeeeee; line-height: 2px; overflow: hidden;"></div>
+																	<p id="sp_smalltext" style="padding: 5px 0 20px 0; text-align: right; color: #999999; font-size: 0.83em;">---- Dianniu.NET</p>
+																	<table cellpadding="0" cellspacing="0" border="0">
+																		<tbody>
+																			<tr>
+																				<td>
+																					<table class="tablesorter" cellpadding="0" cellspacing="0">
+																						<tbody>
+																							<tr>
+																								<td width="100"><!--<lang package='Template/Default/Style'>-->间隔线颜色<!--</lang>--></td>
+																								<td><input type="text" id='interval_line_color' name="stylevar[interval_line_color]" value="<!--{$arrSystemStylevar['interval_line_color']}-->" size="10" style="color:<!--{$arrSystemStylevar['interval_line_color']}-->">
+																								<img f="color-img" data-target="interval_line_color" src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0'/>
+																								</td>
+																							</tr>
+																							<tr>
+																								<td width="100"><!--<lang package='Template/Default/Style'>-->常用背景色<!--</lang>--></td>
+																								<td><input type="text" id='common_background_color' name="stylevar[common_background_color]" value="<!--{$arrSystemStylevar['common_background_color']}-->" size="10" style="color:<!--{$arrSystemStylevar['common_background_color']}-->">
+																									<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="common_background_color"/>
+																								</td>
+																							</tr>
+																							<tr>
+																								<td width="100"><!--<lang package='Template/Default/Style'>-->正常字体，字号<!--</lang>--></td>
+																								<td><input type="text" id="normal_font" name="stylevar[normal_font]" value="<!--{$arrSystemStylevar['normal_font']}-->" size="15" onblur="document.getElementById('sp_tabletext').style.fontFamily=this.value">
+																									<input type="text" id="normal_fontsize" name="stylevar[normal_fontsize]" value="<!--{$arrSystemStylevar['normal_fontsize']}-->" size="5" onblur="document.getElementById('sp_tabletext').style.fontSize=this.value">
+																								</td>
+																							</tr>
+																							<tr>
+																								<td width="100"><!--<lang package='Template/Default/Style'>-->小号字体，字号<!--</lang>--></td>
+																								<td><input type="text" id="small_font" name="stylevar[small_font]" value="<!--{$arrSystemStylevar['small_font']}-->" size="15" onblur="document.getElementById('sp_smalltext').style.fontFamily=this.value">
+																									<input type="text" id="small_fontsize" name="stylevar[small_fontsize]" value="<!--{$arrSystemStylevar['small_fontsize']}-->" size="5" onblur="document.getElementById('sp_smalltext').style.fontSize = this.value">
+																								</td>
+																							</tr>
+																							<tr>
+																								<td style="color: #333333;" id="spt_tabletext" width="100"><!--<lang package='Template/Default/Style'>-->普通文本色<!--</lang>--></td>
+																								<td><input type="text" id='normal_color' name="stylevar[normal_color]" value="<!--{$arrSystemStylevar['normal_color']}-->" size="10" style="color:<!--{$arrSystemStylevar['normal_color']}-->">
+																									<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="normal_color"/>
+																								</td>
+																							</tr>
+																							<tr>
+																								<td style="color: #535353;" id="spt_midtext" width="100"><!--<lang package='Template/Default/Style'>-->中等文本色<!--</lang>--></td>
+																								<td><input type="text" id='medium_textcolor' name="stylevar[medium_textcolor]" value="<!--{$arrSystemStylevar['medium_textcolor']}-->" size="10" style='color:<!--{$arrSystemStylevar['medium_textcolor']}-->'>
+																									<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="medium_textcolor" />
+																								</td>
+																							</tr>
+																							<tr>
+																								<td style="color: #999999;" id="spt_lighttext" width="100"><!--<lang package='Template/Default/Style'>-->浅色文字色<!--</lang>--></td>
+																								<td><input type="text" id='light_textcolor' name="stylevar[light_textcolor]" value="<!--{$arrSystemStylevar['light_textcolor']}-->" size="10" style="color:<!--{$arrSystemStylevar['light_textcolor']}-->">
+																									<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="light_textcolor"/>
+																								</td>
+																							</tr>
+																							<tr>
+																								<td style="color: #037c1d;" id="spt_link" width="100"><!--<lang package='Template/Default/Style'>-->链接文字色<!--</lang>--></td>
+																								<td><input type="text" id='link_color' name="stylevar[link_color]" value="<!--{$arrSystemStylevar['link_color']}-->" size="10" style="color:<!--{$arrSystemStylevar['link_color']}-->">
+																									<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="link_color"/>
+																								</td>
+																							</tr>
+																							<tr>
+																								<td style="color: #037c1d;" id="spt_highlightlink" width="100"><!--<lang package='Template/Default/Style'>-->链接高亮色<!--</lang>--></td>
+																								<td><input type="text" id='highlightlink_color' name="stylevar[highlightlink_color]" value="<!--{$arrSystemStylevar['highlightlink_color']}-->" size="10" style="color:<!--{$arrSystemStylevar['highlightlink_color']}-->">
+																									<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="highlightlink_color"/>
+																								</td>
+																							</tr>
+																							<tr>
+																								<td style="color: #f89406;" id="spt_noticetext" width="100"><!--<lang package='Template/Default/Style'>-->提示文字色<!--</lang>--></td>
+																								<td><input type="text" id='noticetext_color' name="stylevar[noticetext_color]" value="<!--{$arrSystemStylevar['noticetext_color']}-->" size="10" style="color:<!--{$arrSystemStylevar['noticetext_color']}-->">
+																									<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="noticetext_color"/>
+																								</td>
+																							</tr>
+																							<tr>
+																								<td style="color: #eeeeee;" id="spt_noticetext_border" width="100"><!--<lang package='Template/Default/Style'>-->提示信息边框颜色<!--</lang>--></td>
+																								<td><input type="text" id='noticetext_border_color' name="stylevar[noticetext_border_color]" value="<!--{$arrSystemStylevar['noticetext_border_color']}-->" size="10" style="color:<!--{$arrSystemStylevar['noticetext_border_color']}-->">
+																									<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="noticetext_border_color"/>
+																								</td>
+																							</tr>
+																						</tbody>
+																					</table>
+																				</td>
+																				<td valign="top" width="10%" id="sp_sidebar" style="background:#f5f5f5;border-left:1px solid #e9e9e9"> </td>
+																			</tr>
+																		</tbody>
+																	</table>
+																</div>
+															</div>
+															<div id="sp_footer" style="margin: 0pt auto 20px; text-align: center;"><!--<lang package='Template/Default/Style'>-->版权及页脚信息<!--</lang>--></div>
+														</div>
+													</td>
+												</tr>
+											</body>
+										</table>
 									</div>
-									<div id="sp_wrap" style="margin: 10px 15px 10px 15px;border: 0px solid #000;background:#fff;padding:5px;">
-										<div id="sp_content" style="width:100%; w\idth: 100%;">
-											<div id="sp_backcolor" style="background: #eeeeee;">
-												<p id="sp_tabletext" style="padding:5px;margin: 0pt; line-height: 1.6em; color: #333333; font-family: Verdana,Helvetica,Arial,sans-serif; font-size: 12px;">
-													<a id="sp_link" href="<!--{$GLOBALS['_option_']['needforbug_program_url']}-->" target="_blank" style="color:#037c1d;"><!--{$GLOBALS['_option_']['needforbug_program_name']}--></a> <lang package='Template/Default/Style'>APP应用程序开发框架</lang><span id="sp_midtext" style="color: #333333;">（<lang package='Template/Default/Style'>简称</lang> <strong id="sp_notice" style="color: #f89406;"><!--{$GLOBALS['_option_']['needforbug_program_name']}--></strong>）</span><lang package='Template/Default/Style'>是一个采用 PHP 和 MySQL构建的应用程序开发管理器，程序采用DoYouHaoBaby框架开发。</lang>
-												</p>
-											</div>
-											<div id="sp_line" style="margin: 5px 0 0 0; height: 2px; background: #eeeeee; line-height: 2px; overflow: hidden;"></div>
-											<p id="sp_smalltext" style="padding: 5px 0 20px 0; text-align: right; color: #999999; font-size: 0.83em;">---- Dianniu.Net</p>
-											<table cellpadding="0" cellspacing="0" border="0" width="100%">
-												<tbody>
-													<tr>
-														<td>
-															<table class="tablesorter" cellpadding="0" cellspacing="0">
-																<tbody>
-																	<tr>
-																		<td width="100"><lang package='Template/Default/Style'>间隔线颜色</lang></td>
-																		<td><input type="text" id='interval_line_color' name="stylevar[interval_line_color]" value="<!--{$arrSystemStylevar['interval_line_color']}-->" size="10" style="color:<!--{$arrSystemStylevar['interval_line_color']}-->">
-																		<img f="color-img" data-target="interval_line_color" src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0'/>
-																		</td>
-																	</tr>
-																	<tr>
-																		<td width="100"><lang package='Template/Default/Style'>常用背景色</lang></td>
-																		<td><input type="text" id='common_background_color' name="stylevar[common_background_color]" value="<!--{$arrSystemStylevar['common_background_color']}-->" size="10" style="color:<!--{$arrSystemStylevar['common_background_color']}-->">
-																			<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="common_background_color"/>
-																		</td>
-																	</tr>
-																	<tr>
-																		<td width="100"><lang package='Template/Default/Style'>正常字体，字号</lang></td>
-																		<td><input type="text" id="normal_font" name="stylevar[normal_font]" value="<!--{$arrSystemStylevar['normal_font']}-->" size="15" onblur="document.getElementById('sp_tabletext').style.fontFamily=this.value">
-																			<input type="text" id="normal_fontsize" name="stylevar[normal_fontsize]" value="<!--{$arrSystemStylevar['normal_fontsize']}-->" size="5" onblur="document.getElementById('sp_tabletext').style.fontSize=this.value">
-																		</td>
-																	</tr>
-																	<tr>
-																		<td width="100"><lang package='Template/Default/Style'>小号字体，字号</lang></td>
-																		<td><input type="text" id="small_font" name="stylevar[small_font]" value="<!--{$arrSystemStylevar['small_font']}-->" size="15" onblur="document.getElementById('sp_smalltext').style.fontFamily=this.value">
-																			<input type="text" id="small_fontsize" name="stylevar[small_fontsize]" value="<!--{$arrSystemStylevar['small_fontsize']}-->" size="5" onblur="document.getElementById('sp_smalltext').style.fontSize = this.value">
-																		</td>
-																	</tr>
-																	<tr>
-																		<td style="color: #333333;" id="spt_tabletext" width="100"><lang package='Template/Default/Style'>普通文本色</lang></td>
-																		<td><input type="text" id='normal_color' name="stylevar[normal_color]" value="<!--{$arrSystemStylevar['normal_color']}-->" size="10" style="color:<!--{$arrSystemStylevar['normal_color']}-->">
-																			<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="normal_color"/>
-																		</td>
-																	</tr>
-																	<tr>
-																		<td style="color: #535353;" id="spt_midtext" width="100"><lang package='Template/Default/Style'>中等文本色</lang></td>
-																		<td><input type="text" id='medium_textcolor' name="stylevar[medium_textcolor]" value="<!--{$arrSystemStylevar['medium_textcolor']}-->" size="10" style='color:<!--{$arrSystemStylevar['medium_textcolor']}-->'>
-																			<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="medium_textcolor" />
-																		</td>
-																	</tr>
-																	<tr>
-																		<td style="color: #999999;" id="spt_lighttext" width="100"><lang package='Template/Default/Style'>浅色文字色</lang></td>
-																		<td><input type="text" id='light_textcolor' name="stylevar[light_textcolor]" value="<!--{$arrSystemStylevar['light_textcolor']}-->" size="10" style="color:<!--{$arrSystemStylevar['light_textcolor']}-->">
-																			<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="light_textcolor"/>
-																		</td>
-																	</tr>
-																	<tr>
-																		<td style="color: #037c1d;" id="spt_link" width="100"><lang package='Template/Default/Style'>链接文字色</lang></td>
-																		<td><input type="text" id='link_color' name="stylevar[link_color]" value="<!--{$arrSystemStylevar['link_color']}-->" size="10" style="color:<!--{$arrSystemStylevar['link_color']}-->">
-																			<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="link_color"/>
-																		</td>
-																	</tr>
-																	<tr>
-																		<td style="color: #037c1d;" id="spt_highlightlink" width="100"><lang package='Template/Default/Style'>链接高亮色</lang></td>
-																		<td><input type="text" id='highlightlink_color' name="stylevar[highlightlink_color]" value="<!--{$arrSystemStylevar['highlightlink_color']}-->" size="10" style="color:<!--{$arrSystemStylevar['highlightlink_color']}-->">
-																			<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="highlightlink_color"/>
-																		</td>
-																	</tr>
-																	<tr>
-																		<td style="color: #f89406;" id="spt_noticetext" width="100"><lang package='Template/Default/Style'>提示文字色</lang></td>
-																		<td><input type="text" id='noticetext_color' name="stylevar[noticetext_color]" value="<!--{$arrSystemStylevar['noticetext_color']}-->" size="10" style="color:<!--{$arrSystemStylevar['noticetext_color']}-->">
-																			<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="noticetext_color"/>
-																		</td>
-																	</tr>
-																	<tr>
-																		<td style="color: #eeeeee;" id="spt_noticetext_border" width="100"><lang package='Template/Default/Style'>提示信息边框颜色</lang></td>
-																		<td><input type="text" id='noticetext_border_color' name="stylevar[noticetext_border_color]" value="<!--{$arrSystemStylevar['noticetext_border_color']}-->" size="10" style="color:<!--{$arrSystemStylevar['noticetext_border_color']}-->">
-																			<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="noticetext_border_color"/>
-																		</td>
-																	</tr>
-																</tbody>
-															</table>
-														</td>
-														<td valign="top" width="10%" id="sp_sidebar" style="background:#f5f5f5;border-left:1px solid #e9e9e9"> </td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
+								</td>
+								<td width="45%">
+									<div style="height: 700px; width: 100%; overflow:auto;">
+										<fieldset>
+											<label for="logo"><!--<lang package='Template/Default/Style'>-->网站Logo<!--</lang>--></label>
+											<input type="text" name="stylevar[logo]" id="logo" size="40" value="<!--{$arrSystemStylevar['logo']}-->" onblur="document.getElementById('sp_logo').src=getImgByid('logo');"/>
+										</fieldset>
+										<fieldset>
+											<label for="header_bg_color"><!--<lang package='Template/Default/Style'>-->页头背景<!--</lang>--></label>
+											<p><input class="left" type="text" name="stylevar[header_bg_color]" id="header_bg_color" size="8" value="<!--{$arrSystemStylevar['header_bg_color']}-->"/>
+												<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="header_bg_color"/>
+											</p>
+											<p><input class="left" type="text" name="stylevar[header_bg_img]" id="header_bg_img" size="8" value="<!--{$arrSystemStylevar['header_bg_img']}-->" style="width:100px" onblur="document.getElementById('sp_header').style.background=$('#header_bg_color').val()+' url('+getImgByid('header_bg_img')+') '+$('#header_bg_extra').val();" />
+												<input type="text" name="stylevar[header_bg_extra]" id="header_bg_extra" size="8" value="<!--{$arrSystemStylevar['header_bg_extra']}-->" style="width:100px" onblur="document.getElementById('sp_header').style.background=$('#header_bg_color').val()+' url('+getImgByid('header_bg_img')+') '+$('#header_bg_extra').val();"/>
+											</p>
+										</fieldset>
+										<fieldset>
+											<label for="header_border_color"><!--<lang package='Template/Default/Style'>-->页头分割线<!--</lang>--></label>
+											<p><input class="left" type="text" name="stylevar[header_border_color]" id="header_border_color" size="40" value="<!--{$arrSystemStylevar['header_border_color']}-->"/>
+												<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="header_border_color"/>
+											</p>
+											<p><input type="text" name="stylevar[header_border_width]" id="header_border_width" size="8" value="<!--{$arrSystemStylevar['header_border_width']}-->" onblur="document.getElementById('sp_header').style.borderBottom=this.value+' solid '+document.getElementById('header_border_color').value"/>
+											</p>
+										</fieldset>
+										<fieldset>
+											<label for="header_text_color"><!--<lang package='Template/Default/Style'>-->页头文字色<!--</lang>--></label>
+											<p><input class="left" type="text" name="stylevar[header_text_color]" id="header_text_color" size="40" value="<!--{$arrSystemStylevar['header_text_color']}-->"/>
+												<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="header_text_color"/>
+											</p>
+										</fieldset>
+										<fieldset>
+											<label for="menu_border_color"><!--<lang package='Template/Default/Style'>-->菜单边框色<!--</lang>--></label>
+											<p><input class="left" type="text" name="stylevar[menu_border_color]" id="menu_border_color" size="40" value="<!--{$arrSystemStylevar['menu_border_color']}-->"/>
+												<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="menu_border_color"/>
+											</p>
+										</fieldset>
+										<fieldset>
+											<label for="menu_bg_color"><!--<lang package='Template/Default/Style'>-->菜单背景色<!--</lang>--></label>
+											<p><input class="left" type="text" name="stylevar[menu_bg_color]" id="menu_bg_color" size="8" value="<!--{$arrSystemStylevar['menu_bg_color']}-->"/>
+												<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="menu_bg_color"/>
+											</p>
+											<p><input class="left" type="text" name="stylevar[menu_bg_img]" id="menu_bg_img" size="8" value="<!--{$arrSystemStylevar['menu_bg_img']}-->" style="width:100px" onblur='$("#sp_menuitem a").css({"background":$("#menu_bg_color").val()+" url("+getImgByid("menu_bg_img")+") "+$("#menu_bg_extra").val()});'/>
+												<input type="text" name="stylevar[menu_bg_extra]" id="menu_bg_extra" size="8" value="<!--{$arrSystemStylevar['menu_bg_extra']}-->" style="width:100px" onblur='$("#sp_menuitem a").css({"background":$("#menu_bg_color").val()+" url("+getImgByid("menu_bg_img")+") "+$("#menu_bg_extra").val()});'/>
+											</p>
+										</fieldset>
+										<fieldset>
+											<label for="menu_text_color"><!--<lang package='Template/Default/Style'>-->菜单文字色<!--</lang>--></label>
+											<p><input class="left" type="text" name="stylevar[menu_text_color]" id="menu_text_color" size="40" value="<!--{$arrSystemStylevar['menu_text_color']}-->"/>
+												<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="menu_text_color"/>
+											</p>
+										</fieldset>
+										<fieldset>
+											<label for="menu_hover_bg_color"><!--<lang package='Template/Default/Style'>-->菜单高亮背景色<!--</lang>--></label>
+											<p><input class="left" type="text" name="stylevar[menu_hover_bg_color]" id="menu_hover_bg_color" size="40" value="<!--{$arrSystemStylevar['menu_hover_bg_color']}-->"/>
+												<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="menu_hover_bg_color"/>
+											</p>
+										</fieldset>
+										<fieldset>
+											<label for="menu_hover_text_color"><!--<lang package='Template/Default/Style'>-->菜单高亮文字色<!--</lang>--></label>
+											<p><input class="left" type="text" name="stylevar[menu_hover_text_color]" id="menu_hover_text_color" size="40" value="<!--{$arrSystemStylevar['menu_hover_text_color']}-->"/>
+												<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="menu_hover_text_color"/>
+											</p>
+										</fieldset>
+										<fieldset>
+											<label for="bg_color"><!--<lang package='Template/Default/Style'>-->页面背景<!--</lang>--></label>
+											<p><input class="left" type="text" name="stylevar[bg_color]" id="bg_color" size="8" value="<!--{$arrSystemStylevar['bg_color']}-->"/>
+												<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="bg_color"/>
+											</p>
+											<p><input class="left" type="text" name="stylevar[bg_img]" id="bg_img" size="8" value="<!--{$arrSystemStylevar['bg_img']}-->" style="width:100px" onblur="document.getElementById('style_preview').style.background=$('#bg_color').val()+' url('+getImgByid('bg_img')+') '+$('#bg_extra').val();"/>
+												<input type="text" name="stylevar[bg_extra]" id="bg_extra" size="8" value="<!--{$arrSystemStylevar['bg_extra']}-->" style="width:100px" onblur="document.getElementById('style_preview').style.background=$('#bg_color').val()+' url('+getImgByid('bg_img')+') '+$('#bg_extra').val();"/>
+											</p>
+										</fieldset>
+										<fieldset>
+											<label for="side_bg_color"><!--<lang package='Template/Default/Style'>-->侧边背景<!--</lang>--></label>
+											<p><input class="left" type="text" name="stylevar[side_bg_color]" id="side_bg_color" size="8" value="<!--{$arrSystemStylevar['side_bg_color']}-->"/>
+												<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="side_bg_color"/>
+											</p>
+											<p><input class="left" type="text" name="stylevar[side_bg_img]" id="side_bg_img" size="8" value="<!--{$arrSystemStylevar['side_bg_img']}-->" style="width:100px" onblur="document.getElementById('sp_sidebar').style.background=$('#side_bg_color').val()+' url('+getImgByid('side_bg_img')+') '+$('#side_bg_extra').val();"/>
+												<input type="text" name="stylevar[side_bg_extra]" id="side_bg_extra" size="8" value="<!--{$arrSystemStylevar['side_bg_extra']}-->" style="width:100px" onblur="document.getElementById('sp_sidebar').style.background=$('#side_bg_color').val()+' url('+getImgByid('side_bg_img')+') '+$('#side_bg_extra').val();"/>
+											</p>
+										</fieldset>
+										<fieldset>
+											<label for="wrap_table_width"><!--<lang package='Template/Default/Style'>-->主体表格宽度<!--</lang>--></label>
+											<input class="left" type="text" name="stylevar[wrap_table_width]" id="wrap_table_width" size="8" value="<!--{$arrSystemStylevar['wrap_table_width']}-->"/>
+										</fieldset>
+										<fieldset>
+											<label for="wrap_table_bg"><!--<lang package='Template/Default/Style'>-->主体表格背景色<!--</lang>--></label>
+											<p><input class="left" type="text" name="stylevar[wrap_table_bg]" id="wrap_table_bg" size="40" value="<!--{$arrSystemStylevar['wrap_table_bg']}-->"/>
+												<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="wrap_table_bg"/>
+											</p>
+										</fieldset>
+										<fieldset>
+											<label for="header_border_color"><!--<lang package='Template/Default/Style'>-->主体表格边框<!--</lang>--></label>
+											<p><input class="left" type="text" name="stylevar[wrap_border_color]" id="wrap_border_color" size="40" value="<!--{$arrSystemStylevar['wrap_border_color']}-->"/>
+												<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="wrap_border_color"/>
+											</p>
+											<p><input type="text" name="stylevar[wrap_border_width]" id="wrap_border_width" size="8" value="<!--{$arrSystemStylevar['wrap_border_width']}-->" onblur="document.getElementById('sp_wrap').style.border=this.value+' solid '+document.getElementById('wrap_border_color').value"/>
+											</p>
+										</fieldset>
+										<fieldset>
+											<label for="footer_text_color"><!--<lang package='Template/Default/Style'>-->页脚文字色<!--</lang>--></label>
+											<p><input class="left" type="text" name="stylevar[footer_text_color]" id="footer_text_color" size="40" value="<!--{$arrSystemStylevar['footer_text_color']}-->"/>
+												<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="footer_text_color"/>
+											</p>
+										</fieldset>
 									</div>
-									<div id="sp_footer" style="margin: 0pt auto 20px; text-align: center;"><lang package='Template/Default/Style'>版权及页脚信息</lang></div>
-								</div>
-							</td>
-							<td valign="top" width="325px">
-								<div class="" style="width:325px;">
-									<fieldset>
-										<label for="logo"><!--<lang package='Template/Default/Style'>-->网站Logo<!--</lang>--></label>
-										<input type="text" name="stylevar[logo]" id="logo" size="40" value="<!--{$arrSystemStylevar['logo']}-->"/>
-									</fieldset>
-									<fieldset>
-										<label for="header_bg_color"><!--<lang package='Template/Default/Style'>-->页头背景<!--</lang>--></label>
-										<p><input class="left" type="text" name="stylevar[header_bg_color]" id="header_bg_color" size="8" value="<!--{$arrSystemStylevar['header_bg_color']}-->"/>
-											<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="header_bg_color"/>
-										</p>
-										<p><input class="left" type="text" name="stylevar[header_bg_img]" id="header_bg_img" size="8" value="<!--{$arrSystemStylevar['header_bg_img']}-->" style="width:100px"/>
-											<input type="text" name="stylevar[header_bg_extra]" id="header_bg_extra" size="8" value="<!--{$arrSystemStylevar['header_bg_extra']}-->" style="width:100px"/>
-										</p>
-									</fieldset>
-									<fieldset>
-										<label for="header_border_color"><!--<lang package='Template/Default/Style'>-->页头分割线<!--</lang>--></label>
-										<p><input class="left" type="text" name="stylevar[header_border_color]" id="header_border_color" size="40" value="<!--{$arrSystemStylevar['header_border_color']}-->"/>
-											<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="header_border_color"/>
-										</p>
-										<p><input type="text" name="stylevar[header_border_width]" id="header_border_width" size="8" value="<!--{$arrSystemStylevar['header_border_width']}-->"/>
-										</p>
-									</fieldset>
-									<fieldset>
-										<label for="header_text_color"><!--<lang package='Template/Default/Style'>-->页头文字色<!--</lang>--></label>
-										<p><input class="left" type="text" name="stylevar[header_text_color]" id="header_text_color" size="40" value="<!--{$arrSystemStylevar['header_text_color']}-->"/>
-											<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="header_text_color"/>
-										</p>
-									</fieldset>
-									<fieldset>
-										<label for="menu_border_color"><!--<lang package='Template/Default/Style'>-->菜单边框色<!--</lang>--></label>
-										<p><input class="left" type="text" name="stylevar[menu_border_color]" id="menu_border_color" size="40" value="<!--{$arrSystemStylevar['menu_border_color']}-->"/>
-											<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="menu_border_color"/>
-										</p>
-									</fieldset>
-									<fieldset>
-										<label for="menu_bg_color"><!--<lang package='Template/Default/Style'>-->菜单背景色<!--</lang>--></label>
-										<p><input class="left" type="text" name="stylevar[menu_bg_color]" id="menu_bg_color" size="8" value="<!--{$arrSystemStylevar['menu_bg_color']}-->"/>
-											<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="menu_bg_color"/>
-										</p>
-										<p><input class="left" type="text" name="stylevar[menu_bg_img]" id="menu_bg_img" size="8" value="<!--{$arrSystemStylevar['menu_bg_img']}-->" style="width:100px"/>
-											<input type="text" name="stylevar[menu_bg_extra]" id="menu_bg_extra" size="8" value="<!--{$arrSystemStylevar['menu_bg_extra']}-->" style="width:100px"/>
-										</p>
-									</fieldset>
-									<fieldset>
-										<label for="menu_text_color"><!--<lang package='Template/Default/Style'>-->菜单文字色<!--</lang>--></label>
-										<p><input class="left" type="text" name="stylevar[menu_text_color]" id="menu_text_color" size="40" value="<!--{$arrSystemStylevar['menu_text_color']}-->"/>
-											<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="menu_text_color"/>
-										</p>
-									</fieldset>
-									<fieldset>
-										<label for="menu_hover_bg_color"><!--<lang package='Template/Default/Style'>-->菜单高亮背景色<!--</lang>--></label>
-										<p><input class="left" type="text" name="stylevar[menu_hover_bg_color]" id="menu_hover_bg_color" size="40" value="<!--{$arrSystemStylevar['menu_hover_bg_color']}-->"/>
-											<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="menu_hover_bg_color"/>
-										</p>
-									</fieldset>
-									<fieldset>
-										<label for="menu_hover_text_color"><!--<lang package='Template/Default/Style'>-->菜单高亮文字色<!--</lang>--></label>
-										<p><input class="left" type="text" name="stylevar[menu_hover_text_color]" id="menu_hover_text_color" size="40" value="<!--{$arrSystemStylevar['menu_hover_text_color']}-->"/>
-											<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="menu_hover_text_color"/>
-										</p>
-									</fieldset>
-									<fieldset>
-										<label for="bg_color"><!--<lang package='Template/Default/Style'>-->页面背景<!--</lang>--></label>
-										<p><input class="left" type="text" name="stylevar[bg_color]" id="bg_color" size="8" value="<!--{$arrSystemStylevar['bg_color']}-->"/>
-											<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="bg_color"/>
-										</p>
-										<p><input class="left" type="text" name="stylevar[bg_img]" id="bg_img" size="8" value="<!--{$arrSystemStylevar['bg_img']}-->" style="width:100px"/>
-											<input type="text" name="stylevar[bg_extra]" id="bg_extra" size="8" value="<!--{$arrSystemStylevar['bg_extra']}-->" style="width:100px"/>
-										</p>
-									</fieldset>
-									<fieldset>
-										<label for="side_bg_color"><!--<lang package='Template/Default/Style'>-->侧边背景<!--</lang>--></label>
-										<p><input class="left" type="text" name="stylevar[side_bg_color]" id="side_bg_color" size="8" value="<!--{$arrSystemStylevar['side_bg_color']}-->"/>
-											<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="side_bg_color"/>
-										</p>
-										<p><input class="left" type="text" name="stylevar[side_bg_img]" id="side_bg_img" size="8" value="<!--{$arrSystemStylevar['side_bg_img']}-->" style="width:100px"/>
-											<input type="text" name="stylevar[side_bg_extra]" id="side_bg_extra" size="8" value="<!--{$arrSystemStylevar['side_bg_extra']}-->" style="width:100px"/>
-										</p>
-									</fieldset>
-									<fieldset>
-										<label for="wrap_table_width"><!--<lang package='Template/Default/Style'>-->主体表格宽度<!--</lang>--></label>
-										<input class="left" type="text" name="stylevar[wrap_table_width]" id="wrap_table_width" size="8" value="<!--{$arrSystemStylevar['wrap_table_width']}-->"/>
-									</fieldset>
-									<fieldset>
-										<label for="wrap_table_bg"><!--<lang package='Template/Default/Style'>-->主体表格背景色<!--</lang>--></label>
-										<p><input class="left" type="text" name="stylevar[wrap_table_bg]" id="wrap_table_bg" size="40" value="<!--{$arrSystemStylevar['wrap_table_bg']}-->"/>
-											<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="wrap_table_bg"/>
-										</p>
-									</fieldset>
-									<fieldset>
-										<label for="header_border_color"><!--<lang package='Template/Default/Style'>-->主体表格边框<!--</lang>--></label>
-										<p><input class="left" type="text" name="stylevar[wrap_border_color]" id="wrap_border_color" size="40" value="<!--{$arrSystemStylevar['wrap_border_color']}-->"/>
-											<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="wrap_border_color"/>
-										</p>
-										<p><input type="text" name="stylevar[wrap_border_width]" id="wrap_border_width" size="8" value="<!--{$arrSystemStylevar['wrap_border_width']}-->"/>
-										</p>
-									</fieldset>
-									<fieldset>
-										<label for="footer_text_color"><!--<lang package='Template/Default/Style'>-->页脚文字色<!--</lang>--></label>
-										<p><input class="left" type="text" name="stylevar[footer_text_color]" id="footer_text_color" size="40" value="<!--{$arrSystemStylevar['footer_text_color']}-->"/>
-											<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="footer_text_color"/>
-										</p>
-									</fieldset>
-								</div>
-							</td>
-						</tr>
-					</body>
-				</table>
-			</div>
-		</article>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<footer>
+					<div class="submit_link">
+						<input type="hidden" name="style_id" value="<!--{$oValue['style_id']}-->">
+						<input type="submit" id="submit_button" value="<!--<lang package='Template/Default/Common'>-->发布<!--</lang>-->" class="alt_btn">
+						<input type="button" onclick="location.href='<!--{:Dyhb::U( 'style/edit?id='.$oValue['style_id'].'&adv=1' )}-->'" class="alt_btn" value="<!--<lang package='Template/Default/Style'>-->切换到高级模式<!--</lang>-->" />
+					</div>
+				</footer>
+			</article>
+		</form>
 
 		<div class="spacer"></div>
 	</section>

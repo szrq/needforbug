@@ -24,7 +24,7 @@ Description: 主题样式
 #style_preview p,#style_preview ul,#style_preview li{margin: 0; padding: 0; list-style: none; }
 #sp_header{position: relative; padding: 20px 10px 30px 10px; border-bottom: 1px solid #dfdfdf;}
 #sp_umenu{position: absolute; right: 10px; top: 10px; color: #333333;}
-#sp_menu {position: relative;background: #52a452;font-weight: bold;line-height: 25px;width:550px;}
+#sp_menu {position: relative;background: #52a452;font-weight: bold;line-height: 25px;}
 #sp_menu ul{margin: 0;padding: 0;list-style-type: none;}
 #sp_menu li{float:left;border-right: 1px solid #378C32; border-left:1px solid #378C32;}
 #sp_menu a:visited,#sp_menu a:link {display:block;padding: 5px 30px;text-decoration: none;color: #fff;background:#52a452;}
