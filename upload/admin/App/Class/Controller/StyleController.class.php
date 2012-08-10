@@ -231,9 +231,9 @@ class StyleController extends InitController{
 							unset($arrStylevars[$sKey]);
 						}
 					}
+
+					StylevarModel::M()->deleteWhere($arrWhere);
 				}
-				
-				StylevarModel::M()->deleteWhere($arrWhere);
 
 				// 新增
 				$sVariableNew=strtolower(trim(G::getGpc('variable_new','P')));
@@ -268,6 +268,12 @@ class StyleController extends InitController{
 		}else{
 			$this->E(Dyhb::L('操作项不存在','Controller/Common'));
 		}
+	}
+
+	public function preview(){
+		$nId=intval(G::getGpc('id','G'));
+
+		$this->display();
 	}
 	
 	protected function show_Styles($sStylePath){
