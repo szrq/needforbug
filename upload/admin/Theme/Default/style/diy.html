@@ -113,7 +113,13 @@ function imgdirUpdate(){
 }
 
 function checkHttp(sUrl){
-	return sUrl.substr(0,7).toLowerCase()=="http://"?true:false;
+		re=/^http:\/\//i;
+		var arrMatches=re.exec(sUrl);
+		if(arrMatches==null) {
+			return false;
+		}else{
+			return true;
+		}
 }
 
 function getImgByid(id){

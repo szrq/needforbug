@@ -180,6 +180,20 @@ class StyleController extends InitController{
 		}
 	}
 
+	public function get_img($sImg,$sStyleimgdir){
+		return $sImg?($this->check_http($sImg)?$sImg:__ROOT__.'/ucontent/'.$sStyleimgdir.'/'.$sImg):__PUBLIC__.'/images/common/none.gif';
+	}
+
+	protected function check_http($sUrl){
+		$sRe='|^http://|';
+
+		if(preg_match($sRe,$sUrl)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 	public function diy_save(){
 		$nStyleId=intval(G::getGpc('style_id','P'));
 		if(!empty($nStyleId)){
@@ -203,24 +217,43 @@ class StyleController extends InitController{
 					$this->E($oStyle->getErrorMessage());
 				}
 
-				// 新增
-				$sVariableNew=strtolower(trim(G::getGpc('variable_new','P')));
-				$sSubstituteNew=strtolower(trim(G::getGpc('substitute_new','P')));
-				if(trim(G::getGpc('variable_new','P')) && G::getGpc('substitute_new','P')){
-					// 判断是否存在
+				$arrStylevars=G::getGpc('stylevar','P');
 
-					$oNewStylevar=new StylevarModel();
-					$oNewStylevar->stylevar_variable=strtolower(trim(G::getGpc('variable_new','P')));
-					$oNewStylevar->stylevar_substitute=trim(G::getGpc('substitute_new','P'));
-					$oNewStylevar->save(0);
+				// 删除
+				$arrKeys=G::getGpc('key','P');
+				$arrWhere=array();
+				$arrWhere['style_id']=$oStyle['style_id'];
 
-					if($oNewStylevar->isError()){
-						$this->E($oNewStylevar->getErrorMessage());
+				if(!empty($arrKeys)){
+					$arrWhere['stylevar_variable']=array('in',$arrKeys);
+					foreach($arrKeys as $sKey){
+						if(isset($arrStylevars[$sKey])){
+							unset($arrStylevars[$sKey]);
+						}
 					}
 				}
 				
-				$arrStylevars=G::getGpc('stylevar','P');
+				StylevarModel::M()->deleteWhere($arrWhere);
 
+				// 新增
+				$sVariableNew=strtolower(trim(G::getGpc('variable_new','P')));
+				$sSubstituteNew=strtolower(trim(G::getGpc('substitute_new','P')));
+				if($sVariableNew){
+					// 判断是否存在
+					$arrExistsStylevar=array_keys($arrStylevars);
+					if(!in_array($sVariableNew,$arrExistsStylevar)){
+						$oNewStylevar=new StylevarModel();
+						$oNewStylevar->stylevar_variable=$sVariableNew;
+						$oNewStylevar->stylevar_substitute=$sSubstituteNew;
+						$oNewStylevar->save(0);
+
+						if($oNewStylevar->isError()){
+							$this->E($oNewStylevar->getErrorMessage());
+						}
+					}
+				}
+
+				// 更新当前主题变量
 				$oStylevar=Dyhb::instance('StylevarModel');
 				$oStylevar->saveStylevarData($arrStylevars,$oStyle['style_id']);
 

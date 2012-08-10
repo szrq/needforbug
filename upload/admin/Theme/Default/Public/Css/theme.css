@@ -30,3 +30,5 @@ Description: 主题样式
 #sp_menu a:visited,#sp_menu a:link {display:block;padding: 5px 30px;text-decoration: none;color: #fff;background:#52a452;}
 #sp_menu a:hover,#sp_menu .current a {color: #fff;background:#378C32;}
 #sp_wrap th,#sp_wrap td{border: 0;}
+#sp_imgdir,#sp_styleimgdir{color:#999;font-weight:bold;}
+#sp_frame{width:100%;height:300px;}

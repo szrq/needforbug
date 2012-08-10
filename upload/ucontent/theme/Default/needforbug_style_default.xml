@@ -6,9 +6,9 @@
 <copyright><![CDATA[点牛]]></copyright>
 <data>
 	<name><![CDATA[默认主题]]></name>
-	<theme_id><![CDATA[1]]></template_id>
-	<theme_name>默认模板套系</template_name>
-	<theme_dirname><![CDATA[default]]></template_dirname>
+	<theme_id><![CDATA[1]]></theme_id>
+	<theme_name>默认模板套系</theme_name>
+	<theme_dirname><![CDATA[default]]></theme_dirname>
 	<status><![CDATA[0]]></status>
 	<style_id><![CDATA[1]]></style_id>
 	<style_extend><![CDATA[t1	t2	t3	t4	t5|]]></style_extend>
@@ -38,8 +38,8 @@
 		<wrap_table_bg><![CDATA[#22DD48]]></wrap_table_bg>
 		<wrap_border_width><![CDATA[2px]]></wrap_border_width>
 		<wrap_border_color><![CDATA[#1AE66B]]></wrap_border_color>
-		<msg_fontsize><![CDATA[14px]]></msg_fontsize>
-		<msg_big_size><![CDATA[16px]]></msg_big_size>
+		<content_fontsize><![CDATA[14px]]></content_fontsize>
+		<content_big_size><![CDATA[16px]]></content_big_size>
 		<content_width><![CDATA[600px]]></content_width>
 		<content_separate_color><![CDATA[#0997F7]]></content_separate_color>
 		<menu_border_color><![CDATA[#eee]]></menu_border_color>
