@@ -163,7 +163,7 @@ class DbConnectMysql extends DbConnect{
 		}
 
 		$this->_arrHConnect=array();// 重设所有数据库连接
-		if(is_array($this->_arrHReadConnect)&& !empty($this->_arrHReadConnect)){
+		if(is_array($this->_arrHReadConnect) && !empty($this->_arrHReadConnect)){
 			$this->_arrHConnect=array_merge($this->_arrHReadConnect);
 		}
 		$this->_arrHConnect[]=$this->_hWriteConnect;
