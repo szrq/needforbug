@@ -87,13 +87,6 @@ function imgUpdate(id,imgid){
 	</section>
 
 	<section id="main" class="column">
-
-		<article class="module width_full">
-			<header><h3><!--<lang package='Template/Default/Common'>-->主题预览<!--</lang>--></h3></header>
-			<div class="module_content">
-				<iframe id="sp_frame" frameborder="0" src="<!--{:Dyhb::U('style/preview?id='.$oValue['style_id'])}-->"></iframe>
-			</div>
-		</article>
 		
 		<article class="module width_full">
 			<header><h3><!--<lang package='Template/Default/Common'>-->操作提示<!--</lang>--></h3></header>
@@ -103,6 +96,13 @@ function imgUpdate(id,imgid){
 					<li><!--<lang package='Template/Default/Style'>-->注意，DIY中如果添加外部图片作为背景，外部图片必须以http://开头，否则将无法正确显示<!--</lang>--></li>
 					<li><!--<lang package='Template/Default/Style'>-->注意，DIY中的界面基础图片目录和扩展图片目录均相对于{NEEDFORBUG_PATH}/ucontent而言<!--</lang>--></li>
 				</ul>
+			</div>
+		</article>
+
+		<article class="module width_full">
+			<header><h3><!--<lang package='Template/Default/Common'>-->主题预览<!--</lang>--></h3></header>
+			<div class="module_content">
+				<iframe id="sp_frame" frameborder="0" src="<!--{:Dyhb::U('style/preview?id='.$oValue['style_id'])}-->"></iframe>
 			</div>
 		</article>
 		
