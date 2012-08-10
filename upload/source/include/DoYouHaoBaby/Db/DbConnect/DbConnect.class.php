@@ -942,7 +942,9 @@ abstract class DbConnect{
 				}
 
 				if(is_array($value)){
-					$value=array_unique($value);// where 条件分析器
+					if(G::oneImensionArray($value)){// where 条件分析器
+						$value=array_unique($value);
+					}
 					$arrValues=array();
 					foreach($value as $v){
 						if($v instanceof DbExpression){
