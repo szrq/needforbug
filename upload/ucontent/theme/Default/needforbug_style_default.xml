@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><root>
 <title><![CDATA[NeedForBug! Style]]></title>
 <version><![CDATA[1.0]]></version>
-<time><![CDATA[2012-08-06]]></time>
+<time><![CDATA[20120104]]></time>
 <url><![CDATA[http://needforbug.doyouhaobaby.net]]></url>
 <copyright><![CDATA[点牛]]></copyright>
 <data>
@@ -9,7 +9,7 @@
 	<theme_id><![CDATA[1]]></theme_id>
 	<theme_name>默认模板套系</theme_name>
 	<theme_dirname><![CDATA[default]]></theme_dirname>
-	<status><![CDATA[0]]></status>
+	<status><![CDATA[1]]></status>
 	<style_id><![CDATA[1]]></style_id>
 	<style_extend><![CDATA[t1	t2	t3	t4	t5|]]></style_extend>
 	<doyouhaobaby_template_base><![CDATA[default]]></doyouhaobaby_template_base>

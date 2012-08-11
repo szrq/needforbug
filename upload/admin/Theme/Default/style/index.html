@@ -15,6 +15,7 @@
 			<div class="module_content">
 				<ul>
 					<li><!--<lang package='Template/Default/Style'>-->在这里你可以看到当前已经安装的主题列表<!--</lang>--></li>
+					<li><!--<lang package='Template/Default/Style'>-->重置操作将会读取它对应的模板套系中的默认XML配置文件来恢复数据<!--</lang>--></li>
 				</ul>
 			</div>
 		</article>
@@ -57,7 +58,7 @@
 					<tbody>
 						<!--<foreach for=oList>-->
 						<tr>
-							<td><input type="checkbox" name="key" value="<!--{$value:style_id}-->"></td>
+							<td><input type="checkbox" name="key" value="<!--{$value:style_id}-->" <!--{if $value['style_id']==1}-->disabled="disabled"<!--{/if}-->></td>
 							<td><!--{$value:style_id}-->
 								<div class="row-actions">
 									<span class='edit'><a href="javascript:edit('<!--{$value:style_id}-->')"><!--<lang package='Template/Default/Common'>-->编辑<!--</lang>--></a>|</span>
@@ -73,9 +74,9 @@
 								<!--{d*else}--><a href="javascript:resume('<!--{$value:style_id}-->')"><input type="image" src="<!--{:__TMPLPUB__}-->/Images/icn_jump_back.png" title="<!--<lang package='Template/Default/Common'>-->恢复<!--</lang>-->"></a>
 								<!--{/if}-->&nbsp;<a href="javascript:edit('<!--{$value:style_id}-->')"><input type="image" src="<!--{:__TMPLPUB__}-->/Images/icn_edit.png" title="<!--<lang package='Template/Default/Common'>-->编辑<!--</lang>-->"></a>
 								&nbsp;<a href="<!--{:Dyhb::U('style/export?id='.$value['style_id'])}-->"><!--<lang package='Template/Default/Style'>-->导出<!--</lang>--></a>
-								&nbsp;<a href="javascript:edit('<!--{$value:style_id}-->')"><!--<lang package='Template/Default/Style'>-->复制<!--</lang>--></a>
-								&nbsp;<a href="javascript:edit('<!--{$value:style_id}-->')"><!--<lang package='Template/Default/Common'>-->重置<!--</lang>--></a>
-								&nbsp;<a href="javascript:edit('<!--{$value:style_id}-->')"><!--<lang package='Template/Default/Common'>-->删除<!--</lang>--></a>
+								&nbsp;<a href="<!--{:Dyhb::U('style/copy_style?id='.$value['style_id'])}-->"><!--<lang package='Template/Default/Style'>-->复制<!--</lang>--></a>
+								&nbsp;<a href="<!--{:Dyhb::U('style/reset_style?id='.$value['style_id'])}-->"><!--<lang package='Template/Default/Common'>-->重置<!--</lang>--></a>
+								&nbsp;<a href="javascript:foreverdel('<!--{$value:style_id}-->')"><!--<lang package='Template/Default/Common'>-->删除<!--</lang>--></a>
 							</td>
 						</tr>
 						<!--</foreach>-->

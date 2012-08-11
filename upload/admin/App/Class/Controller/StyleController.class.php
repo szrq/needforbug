@@ -28,12 +28,12 @@ class StyleController extends InitController{
 
 		$sThemeXml=NEEDFORBUG_PATH.'/ucontent/theme/'.$sStyle.'/needforbug_style_'.strtolower($sStyle).'.xml';
 		if(!is_file($sThemeXml)){
-			$this->E(Dyhb::L('你要安装的主题 %s 的样式表不存在','Controller/Style',null,$sThemeXml));
+			$this->E(Dyhb::L('你要安装的主题 %s 样式表不存在','Controller/Style',null,$sThemeXml));
 		}
 
 		$arrStyleData=Xml::xmlUnserialize(file_get_contents($sThemeXml));
 		if(empty($arrStyleData)){
-			$this->E(Dyhb::L('你要安装的主题 %s 的样式表可能已经损坏，系统无法读取其数据','Controller/Style',null,$sThemeXml));
+			$this->E(Dyhb::L('你要安装的主题 %s 样式表可能已经损坏，系统无法读取其数据','Controller/Style',null,$sThemeXml));
 		}else{
 			$arrStyleData=$arrStyleData['root']['data'];
 		}
@@ -222,10 +222,10 @@ class StyleController extends InitController{
 
 				// 删除
 				$arrKeys=G::getGpc('key','P');
-				$arrWhere=array();
-				$arrWhere['style_id']=$oStyle['style_id'];
 
 				if(!empty($arrKeys)){
+					$arrWhere=array();
+					$arrWhere['style_id']=$oStyle['style_id'];
 					$arrWhere['stylevar_variable']=array('in',$arrKeys);
 					foreach($arrKeys as $sKey){
 						if(isset($arrStylevars[$sKey])){
@@ -335,6 +335,153 @@ class StyleController extends InitController{
 				echo Xml::xmlSerialize($arrData);
 
 				exit;
+			}else{
+				$this->E(Dyhb::L('数据库中并不存在该项，或许它已经被删除','Controller/Common'));
+			}
+		}else{
+			$this->E(Dyhb::L('操作项不存在','Controller/Common'));
+		}
+	}
+
+	public function copy_style(){
+		$nStyleId=intval(G::getGpc('id','G'));
+
+		if(!empty($nStyleId)){
+			$oStyle=StyleModel::F('style_id=?',$nStyleId)->getOne();
+			if(!empty($oStyle['style_id'])){
+				$oTheme=ThemeModel::F('theme_id=?',$oStyle['theme_id'])->getOne();
+				if(empty($oTheme['theme_id'])){
+					$this->E(Dyhb::L('主题 %s 的模板不存在','Controller/Style',null,$oStyle['style_name']));
+				}
+
+				// 保存主题信息
+				$arrStyleData=$oStyle->toArray();
+				unset($arrStyleData['style_id']);
+				$arrStyleData['style_name']=$arrStyleData['style_name'].'_'.G::randString(6);
+
+				$oNewStyle=new StyleModel($arrStyleData);
+				$oNewStyle->save(0);
+
+				if($oNewStyle->isError()){
+					$this->E($oNewStyle->getErrorMessage());
+				}
+			
+				// 保存主题变量信息
+				$arrStylevarData=array();
+
+				$arrStylevars=StylevarModel::F('style_id=?',intval(G::getGpc('id','G')))->getAll();
+				foreach($arrStylevars as $oStylevar){
+					$arrStylevarData['style_id']=$oNewStyle['style_id'];
+					$arrStylevarData['stylevar_variable']=strtolower($oStylevar['stylevar_variable']);
+					$arrStylevarData['stylevar_substitute']=trim($oStylevar['stylevar_substitute']);
+
+					$oNewStylevar=new StylevarModel($arrStylevarData);
+					$oNewStylevar->save(0);
+
+					if($oNewStylevar->isError()){
+						$this->E($oNewStylevar->getErrorMessage());
+					}
+				}
+
+				$this->S(Dyhb::L('主题 %s 拷贝成功','Controller/Style',null,$oStyle['style_name']));
+			}else{
+				$this->E(Dyhb::L('数据库中并不存在该项，或许它已经被删除','Controller/Common'));
+			}
+		}else{
+			$this->E(Dyhb::L('操作项不存在','Controller/Common'));
+		}
+	}
+
+	public function bForeverdelete_(){
+		$sId=G::getGpc('id');
+
+		if(!empty($sId)){
+			$arrIds=explode(',',$sId);
+			if(in_array(1,$arrIds)){
+				$this->E(Dyhb::L('系统默认主题无法删除','Controller/Style'));
+			}
+		}
+	}
+
+	public function aForeverdelete($sId){
+		// 删除主题后清除它的变量
+		$arrIds=explode(',',$sId);
+		foreach($arrIds as $nId){
+			StylevarModel::M()->deleteWhere(array('style_id'=>$nId));
+		}
+	}
+
+	public function bForbid_(){
+		$sId=G::getGpc('id');
+
+		if(!empty($sId)){
+			$arrIds=explode(',',$sId);
+			if(in_array(1,$arrIds)){
+				$this->E(Dyhb::L('系统默认主题无法禁用','Controller/Style'));
+			}
+		}
+	}
+
+	public function reset_style(){
+		$nStyleId=intval(G::getGpc('id','G'));
+
+		if(!empty($nStyleId)){
+			$oStyle=StyleModel::F('style_id=?',$nStyleId)->getOne();
+			if(!empty($oStyle['style_id'])){
+				$oTheme=ThemeModel::F('theme_id=?',$oStyle['theme_id'])->getOne();
+				if(empty($oTheme['theme_id'])){
+					$this->E(Dyhb::L('主题 %s 的模板不存在','Controller/Style',null,$oStyle['style_name']));
+				}
+
+				$sThemeXml=NEEDFORBUG_PATH.'/ucontent/'.$oTheme['theme_directory'].'/needforbug_style_'.strtolower($oTheme['theme_dirname']).'.xml';
+				if(!is_file($sThemeXml)){
+					$this->E(Dyhb::L('你要安装的主题 %s 样式表不存在','Controller/Style',null,$sThemeXml));
+				}
+
+				$arrStyleData=Xml::xmlUnserialize(file_get_contents($sThemeXml));
+				if(empty($arrStyleData)){
+					$this->E(Dyhb::L('你要安装的主题 %s 样式表可能已经损坏，系统无法读取其数据','Controller/Style',null,$sThemeXml));
+				}else{
+					$arrStyleData=$arrStyleData['root']['data'];
+				}
+
+				// 更新扩展风格
+				$oStyle->style_extend=$arrStyleData['style_extend'];
+				$oStyle->save(0,'update');
+
+				if($oStyle->isError()){
+					$this->E($oStyle->getErrorMessage());
+				}
+
+				// 对比数据取得要删除的变量
+				$arrResetStylevarData=$arrStyleData['style'];
+				$arrResetStylevarkeyData=array_keys($arrResetStylevarData);
+				$arrStylevarData=$arrDeletevars=array();
+			
+				$arrStylevars=StylevarModel::F('style_id=?',$nStyleId)->getAll();
+				foreach($arrStylevars as $oStylevar){
+					$arrStylevarData[strtolower($oStylevar['stylevar_variable'])]=trim($oStylevar['stylevar_substitute']);
+					if(!in_array(strtolower($oStylevar['stylevar_variable']),$arrResetStylevarkeyData)){
+						$arrDeletevars[]=strtolower($oStylevar['stylevar_variable']);
+					}
+				}
+
+				if(!empty($arrDeletevars)){
+					$arrWhere=array();
+					$arrWhere['style_id']=$oStyle['style_id'];
+					$arrWhere['stylevar_variable']=array('in',$arrDeletevars);
+					StylevarModel::M()->deleteWhere($arrWhere);
+				}
+
+				// 更新变量 & 没有则写入新的变量
+				$oStylevar=Dyhb::instance('StylevarModel');
+				$oStylevar->saveStylevarData($arrResetStylevarData,$nStyleId);
+
+				if($oStylevar->isError()){
+					$this->E($oStylevar->getErrorMessage());
+				}
+				
+				$this->S(Dyhb::L('主题 %s 数据恢复成功','Controller/Style',null,$oStyle['style_name']));
 			}else{
 				$this->E(Dyhb::L('数据库中并不存在该项，或许它已经被删除','Controller/Common'));
 			}
