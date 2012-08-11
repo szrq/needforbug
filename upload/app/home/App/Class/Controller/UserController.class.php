@@ -263,7 +263,13 @@ class UserController extends InitController{
 	public function tag(){
 		$oUser=UserModel::F()->getByuser_id($GLOBALS['___login___']['user_id']);
 
+		$arrHometags=array();
+		$oTag=Dyhb::instance('HometagModel');
+		$arrHometags=$oTag->getTagsByUserid($oUser['user_id']);
+
 		$this->assign('oUser',$oUser);
+		$this->assign('arrHometags',$arrHometags);
+
 		$this->display('user+tag');
 	}
 

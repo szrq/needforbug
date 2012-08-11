@@ -4,14 +4,6 @@
 
 !defined('DYHB_PATH') && exit;
 
-/** 导入用户标签模型 */
-require_once(NEEDFORBUG_PATH.'/app/home/App/Class/Model/HometagModel.class.php');
-require_once(NEEDFORBUG_PATH.'/app/home/App/Class/Model/HometagindexModel.class.php');
-require_once(NEEDFORBUG_PATH.'/app/home/App/Class/Model/HomefreshModel.class.php');
-
-/** 定义应用的语言包 */
-define('__APP_ADMIN_LANG__',NEEDFORBUG_PATH.'/app/home/App/Lang/Admin');
-
 class UserController extends InitController{
 
 	public function filter_(&$arrMap){

@@ -22,10 +22,8 @@ class UserModel extends CommonModel{
 			'props'=>array(
 				'user_id'=>array('readonly'=>true),
 				'user_name'=>array('readonly'=>true),
-				'hometag'=>array('many_to_many'=>'HometagModel','mid_class'=>'HometagindexModel','mid_source_key'=>'user_id','mid_target_key'=>'hometag_id'),
 				'userprofile'=>array(Db::HAS_ONE=>'UserprofileModel','source_key'=>'user_id','target_key'=>'user_id'),
 				'usercount'=>array(Db::HAS_ONE=>'UsercountModel','source_key'=>'user_id','target_key'=>'user_id'),
-				'homefresh'=>array(Db::HAS_MANY=>'HomefreshModel','source_key'=>'user_id','target_key'=>'user_id'),
 			),
 
 			'attr_protected'=>'user_id',

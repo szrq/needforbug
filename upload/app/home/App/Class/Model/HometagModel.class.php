@@ -93,4 +93,21 @@ class HometagModel extends CommonModel{
 		}
 	}
 
+	public function getTagsByUserid($nUserid){
+		$arrTagIndexs=HometagindexModel::F('user_id=?',$nUserid)->getAll();
+
+		$arrTags=array();
+		if(is_array($arrTagIndexs)){
+			foreach($arrTagIndexs as $oTagIndex){
+				$arrTags[]=$this->getOneTag($oTagIndex['hometag_id']);
+			}
+		}
+		
+		return $arrTags;
+	}
+
+	public function getOneTag($nTagId){
+		return self::F('hometag_id=?',$nTagId)->getOne();
+	}
+
 }
