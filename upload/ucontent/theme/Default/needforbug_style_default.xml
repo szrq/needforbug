@@ -13,7 +13,7 @@
 	<style_id><![CDATA[1]]></style_id>
 	<style_extend><![CDATA[t1	t2	t3	t4	t5|]]></style_extend>
 	<doyouhaobaby_template_base><![CDATA[default]]></doyouhaobaby_template_base>
-	<directory><![CDATA[Theme/Default]]></directory>
+	<directory><![CDATA[theme/Default]]></directory>
 	<copyright><![CDATA[点牛（成都）]]></copyright>
 	<style>
 		<img_dir><![CDATA[]]></img_dir>

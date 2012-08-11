@@ -72,7 +72,7 @@
 								<a href="javascript:forbid('<!--{$value:style_id}-->')"><input type="image" src="<!--{:__TMPLPUB__}-->/Images/icn_trash.png" title="<!--<lang package='Template/Default/Common'>-->禁用<!--</lang>-->"></a>
 								<!--{d*else}--><a href="javascript:resume('<!--{$value:style_id}-->')"><input type="image" src="<!--{:__TMPLPUB__}-->/Images/icn_jump_back.png" title="<!--<lang package='Template/Default/Common'>-->恢复<!--</lang>-->"></a>
 								<!--{/if}-->&nbsp;<a href="javascript:edit('<!--{$value:style_id}-->')"><input type="image" src="<!--{:__TMPLPUB__}-->/Images/icn_edit.png" title="<!--<lang package='Template/Default/Common'>-->编辑<!--</lang>-->"></a>
-								&nbsp;<a href="javascript:edit('<!--{$value:style_id}-->')"><!--<lang package='Template/Default/Style'>-->导出<!--</lang>--></a>
+								&nbsp;<a href="<!--{:Dyhb::U('style/export?id='.$value['style_id'])}-->"><!--<lang package='Template/Default/Style'>-->导出<!--</lang>--></a>
 								&nbsp;<a href="javascript:edit('<!--{$value:style_id}-->')"><!--<lang package='Template/Default/Style'>-->复制<!--</lang>--></a>
 								&nbsp;<a href="javascript:edit('<!--{$value:style_id}-->')"><!--<lang package='Template/Default/Common'>-->重置<!--</lang>--></a>
 								&nbsp;<a href="javascript:edit('<!--{$value:style_id}-->')"><!--<lang package='Template/Default/Common'>-->删除<!--</lang>--></a>

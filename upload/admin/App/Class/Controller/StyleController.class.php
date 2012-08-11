@@ -196,6 +196,7 @@ class StyleController extends InitController{
 
 	public function diy_save(){
 		$nStyleId=intval(G::getGpc('style_id','P'));
+
 		if(!empty($nStyleId)){
 			$oStyle=StyleModel::F('style_id=?',$nStyleId)->getOne();
 			if(!empty($oStyle['style_id'])){
@@ -274,6 +275,72 @@ class StyleController extends InitController{
 		$nId=intval(G::getGpc('id','G'));
 
 		$this->display();
+	}
+
+	public function export(){
+		$nStyleId=intval(G::getGpc('id','G'));
+
+		if(!empty($nStyleId)){
+			$oStyle=StyleModel::F('style_id=?',$nStyleId)->getOne();
+			if(!empty($oStyle['style_id'])){
+				$oTheme=ThemeModel::F('theme_id=?',$oStyle['theme_id'])->getOne();
+				if(empty($oTheme['theme_id'])){
+					$this->E(Dyhb::L('主题 %s 的模板不存在','Controller/Style',null,$oStyle['style_name']));
+				}
+
+				$arrData=array();
+				
+				// 样式版权
+				$arrData['title']=$GLOBALS['_option_']['needforbug_program_name'].'! Style';
+				$arrData['version']=NEEDFORBUG_SERVER_VERSION;
+				$arrData['time']=NEEDFORBUG_SERVER_RELEASE;
+				$arrData['url']=$GLOBALS['_option_']['needforbug_program_url'];
+				$arrData['copyright']='(C)'.$GLOBALS['_option_']['needforbug_program_year'].' '.$GLOBALS['_option_']['needforbug_program_company'];
+
+				// 主题信息
+				$arrStylevarData=array();
+
+				$arrStylevars=StylevarModel::F('style_id=?',$oStyle['style_id'])->getAll();
+				foreach($arrStylevars as $oStylevar){
+					$arrStylevarData[strtolower($oStylevar['stylevar_variable'])]=trim($oStylevar['stylevar_substitute']);
+				}
+
+				$arrData['data']=array(
+					'name'=>htmlspecialchars($oStyle['style_name']),
+					'theme_id'=>intval($oStyle['theme_id']),
+					'theme_name'=>htmlspecialchars(trim($oTheme['theme_name'])),
+					'theme_dirname'=>strtolower(trim($oTheme['theme_dirname'])),
+					'status'=>intval($oStyle['style_status']),
+					'style_id'=>intval($oStyle['style_id']),
+					'style_extend'=>trim($oStyle['style_extend']),
+					'doyouhaobaby_template_base'=>strtolower($oTheme['theme_dirname']),
+					'directory'=>'theme/'.ucfirst($oTheme['theme_dirname']),
+					'copyright'=>htmlspecialchars(trim($oTheme['theme_copyright'])),
+					'data'=>array_reverse($arrStylevarData),
+					'version'=>'For '.$GLOBALS['_option_']['needforbug_program_name'].'-'.NEEDFORBUG_SERVER_VERSION,
+				);
+				
+				// 保存文件
+				$sPath='STYLE-needforbug_style_'.strtolower($oTheme['theme_dirname']).'_'.intval($oStyle['style_id']).'-'.date('Y_m_d_H_i_s',CURRENT_TIMESTAMP).'.xml';
+				
+				ob_end_clean();
+			
+				header('Content-Encoding: none');
+				header('Content-Type: '.(strpos($_SERVER['HTTP_USER_AGENT'],'MSIE')?'application/octetstream':'application/octet-stream'));
+				header('Content-Disposition: attachment; filename="'.$sPath.'"');
+				header('Pragma: no-cache');
+				header('Expires: 0');
+				
+				$arrData=G::stripslashes($arrData,true);
+				echo Xml::xmlSerialize($arrData);
+
+				exit;
+			}else{
+				$this->E(Dyhb::L('数据库中并不存在该项，或许它已经被删除','Controller/Common'));
+			}
+		}else{
+			$this->E(Dyhb::L('操作项不存在','Controller/Common'));
+		}
 	}
 	
 	protected function show_Styles($sStylePath){
