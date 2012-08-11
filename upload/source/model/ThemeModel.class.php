@@ -9,6 +9,20 @@ class ThemeModel extends CommonModel{
 	static public function init__(){
 		return array(
 			'table_name'=>'theme',
+			'check'=>array(
+				'theme_name'=>array(
+					array('require',Dyhb::L('模板名字不能为空','__COMMON_LANG__@Model/Theme')),
+					array('max_length',32,Dyhb::L('模板名字最大长度为32个字符','__COMMON_LANG__@Model/Theme')),
+				),
+				'theme_dirname'=>array(
+					array('require',Dyhb::L('模板目录不能为空','__COMMON_LANG__@Model/Theme')),
+					array('max_length',32,Dyhb::L('模板目录最大长度为32个字符','__COMMON_LANG__@Model/Theme')),
+				),
+				'theme_directory'=>array(
+					array('require',Dyhb::L('模板路径不能为空','__COMMON_LANG__@Model/Theme')),
+					array('max_length',250,Dyhb::L('模板路径最大长度为250个字符','__COMMON_LANG__@Model/Theme')),
+				),
+			),
 		);
 	}
 

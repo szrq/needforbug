@@ -9,6 +9,12 @@ class StyleModel extends CommonModel{
 	static public function init__(){
 		return array(
 			'table_name'=>'style',
+			'check'=>array(
+				'style_name'=>array(
+					array('require',Dyhb::L('主题名字不能为空','__COMMON_LANG__@Model/Style')),
+					array('max_length',32,Dyhb::L('主题名字最大长度为32个字符','__COMMON_LANG__@Model/Style')),
+				),
+			),
 		);
 	}
 

@@ -335,7 +335,7 @@ function getImgByid(id){
 										</fieldset>
 										<fieldset>
 											<label for="header_bg_color"><!--<lang package='Template/Default/Style'>-->页头背景<!--</lang>--></label>
-											<p><input class="left" type="text" name="stylevar[header_bg_color]" id="header_bg_color" size="8" value="<!--{$arrSystemStylevar['header_bg_color']}-->"/>
+											<p><input class="left" type="text" name="stylevar[header_bg_color]" id="header_bg_color" size="8" value="<!--{$arrSystemStylevar['header_bg_color']}-->" style="color:<!--{$arrSystemStylevar['header_bg_color']}-->"/>
 												<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="header_bg_color"/>
 											</p>
 											<p><input class="left" type="text" name="stylevar[header_bg_img]" id="header_bg_img" size="8" value="<!--{$arrSystemStylevar['header_bg_img']}-->" style="width:100px" onblur="document.getElementById('sp_header').style.background=$('#header_bg_color').val()+' url('+getImgByid('header_bg_img')+') '+$('#header_bg_extra').val();" />
@@ -344,7 +344,7 @@ function getImgByid(id){
 										</fieldset>
 										<fieldset>
 											<label for="header_border_color"><!--<lang package='Template/Default/Style'>-->页头分割线<!--</lang>--></label>
-											<p><input class="left" type="text" name="stylevar[header_border_color]" id="header_border_color" size="40" value="<!--{$arrSystemStylevar['header_border_color']}-->"/>
+											<p><input class="left" type="text" name="stylevar[header_border_color]" id="header_border_color" size="40" value="<!--{$arrSystemStylevar['header_border_color']}-->" style="color:<!--{$arrSystemStylevar['header_border_color']}-->"/>
 												<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="header_border_color"/>
 											</p>
 											<p><input type="text" name="stylevar[header_border_width]" id="header_border_width" size="8" value="<!--{$arrSystemStylevar['header_border_width']}-->" onblur="document.getElementById('sp_header').style.borderBottom=this.value+' solid '+document.getElementById('header_border_color').value"/>
@@ -352,19 +352,19 @@ function getImgByid(id){
 										</fieldset>
 										<fieldset>
 											<label for="header_text_color"><!--<lang package='Template/Default/Style'>-->页头文字色<!--</lang>--></label>
-											<p><input class="left" type="text" name="stylevar[header_text_color]" id="header_text_color" size="40" value="<!--{$arrSystemStylevar['header_text_color']}-->"/>
+											<p><input class="left" type="text" name="stylevar[header_text_color]" id="header_text_color" size="40" value="<!--{$arrSystemStylevar['header_text_color']}-->" style="color:<!--{$arrSystemStylevar['header_text_color']}-->"/>
 												<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="header_text_color"/>
 											</p>
 										</fieldset>
 										<fieldset>
 											<label for="menu_border_color"><!--<lang package='Template/Default/Style'>-->菜单边框色<!--</lang>--></label>
-											<p><input class="left" type="text" name="stylevar[menu_border_color]" id="menu_border_color" size="40" value="<!--{$arrSystemStylevar['menu_border_color']}-->"/>
+											<p><input class="left" type="text" name="stylevar[menu_border_color]" id="menu_border_color" size="40" value="<!--{$arrSystemStylevar['menu_border_color']}-->" style="color:<!--{$arrSystemStylevar['menu_border_color']}-->"/>
 												<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="menu_border_color"/>
 											</p>
 										</fieldset>
 										<fieldset>
 											<label for="menu_bg_color"><!--<lang package='Template/Default/Style'>-->菜单背景色<!--</lang>--></label>
-											<p><input class="left" type="text" name="stylevar[menu_bg_color]" id="menu_bg_color" size="8" value="<!--{$arrSystemStylevar['menu_bg_color']}-->"/>
+											<p><input class="left" type="text" name="stylevar[menu_bg_color]" id="menu_bg_color" size="8" value="<!--{$arrSystemStylevar['menu_bg_color']}-->" style="color:<!--{$arrSystemStylevar['menu_bg_color']}-->"/>
 												<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="menu_bg_color"/>
 											</p>
 											<p><input class="left" type="text" name="stylevar[menu_bg_img]" id="menu_bg_img" size="8" value="<!--{$arrSystemStylevar['menu_bg_img']}-->" style="width:100px" onblur='$("#sp_menuitem a").css({"background":$("#menu_bg_color").val()+" url("+getImgByid("menu_bg_img")+") "+$("#menu_bg_extra").val()});'/>
@@ -373,25 +373,25 @@ function getImgByid(id){
 										</fieldset>
 										<fieldset>
 											<label for="menu_text_color"><!--<lang package='Template/Default/Style'>-->菜单文字色<!--</lang>--></label>
-											<p><input class="left" type="text" name="stylevar[menu_text_color]" id="menu_text_color" size="40" value="<!--{$arrSystemStylevar['menu_text_color']}-->"/>
+											<p><input class="left" type="text" name="stylevar[menu_text_color]" id="menu_text_color" size="40" value="<!--{$arrSystemStylevar['menu_text_color']}-->" style="color:<!--{$arrSystemStylevar['menu_text_color']}-->"/>
 												<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="menu_text_color"/>
 											</p>
 										</fieldset>
 										<fieldset>
 											<label for="menu_hover_bg_color"><!--<lang package='Template/Default/Style'>-->菜单高亮背景色<!--</lang>--></label>
-											<p><input class="left" type="text" name="stylevar[menu_hover_bg_color]" id="menu_hover_bg_color" size="40" value="<!--{$arrSystemStylevar['menu_hover_bg_color']}-->"/>
+											<p><input class="left" type="text" name="stylevar[menu_hover_bg_color]" id="menu_hover_bg_color" size="40" value="<!--{$arrSystemStylevar['menu_hover_bg_color']}-->" style="color:<!--{$arrSystemStylevar['menu_hover_bg_color']}-->"/>
 												<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="menu_hover_bg_color"/>
 											</p>
 										</fieldset>
 										<fieldset>
 											<label for="menu_hover_text_color"><!--<lang package='Template/Default/Style'>-->菜单高亮文字色<!--</lang>--></label>
-											<p><input class="left" type="text" name="stylevar[menu_hover_text_color]" id="menu_hover_text_color" size="40" value="<!--{$arrSystemStylevar['menu_hover_text_color']}-->"/>
+											<p><input class="left" type="text" name="stylevar[menu_hover_text_color]" id="menu_hover_text_color" size="40" value="<!--{$arrSystemStylevar['menu_hover_text_color']}-->" style="color:<!--{$arrSystemStylevar['menu_hover_text_color']}-->"/>
 												<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="menu_hover_text_color"/>
 											</p>
 										</fieldset>
 										<fieldset>
 											<label for="bg_color"><!--<lang package='Template/Default/Style'>-->页面背景<!--</lang>--></label>
-											<p><input class="left" type="text" name="stylevar[bg_color]" id="bg_color" size="8" value="<!--{$arrSystemStylevar['bg_color']}-->"/>
+											<p><input class="left" type="text" name="stylevar[bg_color]" id="bg_color" size="8" value="<!--{$arrSystemStylevar['bg_color']}-->" style="color:<!--{$arrSystemStylevar['bg_color']}-->"/>
 												<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="bg_color"/>
 											</p>
 											<p><input class="left" type="text" name="stylevar[bg_img]" id="bg_img" size="8" value="<!--{$arrSystemStylevar['bg_img']}-->" style="width:100px" onblur="document.getElementById('style_preview').style.background=$('#bg_color').val()+' url('+getImgByid('bg_img')+') '+$('#bg_extra').val();"/>
@@ -400,7 +400,7 @@ function getImgByid(id){
 										</fieldset>
 										<fieldset>
 											<label for="side_bg_color"><!--<lang package='Template/Default/Style'>-->侧边背景<!--</lang>--></label>
-											<p><input class="left" type="text" name="stylevar[side_bg_color]" id="side_bg_color" size="8" value="<!--{$arrSystemStylevar['side_bg_color']}-->"/>
+											<p><input class="left" type="text" name="stylevar[side_bg_color]" id="side_bg_color" size="8" value="<!--{$arrSystemStylevar['side_bg_color']}-->" style="color:<!--{$arrSystemStylevar['side_bg_color']}-->"/>
 												<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="side_bg_color"/>
 											</p>
 											<p><input class="left" type="text" name="stylevar[side_bg_img]" id="side_bg_img" size="8" value="<!--{$arrSystemStylevar['side_bg_img']}-->" style="width:100px" onblur="document.getElementById('sp_sidebar').style.background=$('#side_bg_color').val()+' url('+getImgByid('side_bg_img')+') '+$('#side_bg_extra').val();"/>
@@ -413,13 +413,13 @@ function getImgByid(id){
 										</fieldset>
 										<fieldset>
 											<label for="wrap_table_bg"><!--<lang package='Template/Default/Style'>-->主体表格背景色<!--</lang>--></label>
-											<p><input class="left" type="text" name="stylevar[wrap_table_bg]" id="wrap_table_bg" size="40" value="<!--{$arrSystemStylevar['wrap_table_bg']}-->"/>
+											<p><input class="left" type="text" name="stylevar[wrap_table_bg]" id="wrap_table_bg" size="40" value="<!--{$arrSystemStylevar['wrap_table_bg']}-->" style="color:<!--{$arrSystemStylevar['wrap_table_bg']}-->"/>
 												<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="wrap_table_bg"/>
 											</p>
 										</fieldset>
 										<fieldset>
 											<label for="header_border_color"><!--<lang package='Template/Default/Style'>-->主体表格边框<!--</lang>--></label>
-											<p><input class="left" type="text" name="stylevar[wrap_border_color]" id="wrap_border_color" size="40" value="<!--{$arrSystemStylevar['wrap_border_color']}-->"/>
+											<p><input class="left" type="text" name="stylevar[wrap_border_color]" id="wrap_border_color" size="40" value="<!--{$arrSystemStylevar['wrap_border_color']}-->" style="color:<!--{$arrSystemStylevar['wrap_border_color']}-->"/>
 												<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="wrap_border_color"/>
 											</p>
 											<p><input type="text" name="stylevar[wrap_border_width]" id="wrap_border_width" size="8" value="<!--{$arrSystemStylevar['wrap_border_width']}-->" onblur="document.getElementById('sp_wrap').style.border=this.value+' solid '+document.getElementById('wrap_border_color').value"/>
@@ -427,7 +427,7 @@ function getImgByid(id){
 										</fieldset>
 										<fieldset>
 											<label for="footer_text_color"><!--<lang package='Template/Default/Style'>-->页脚文字色<!--</lang>--></label>
-											<p><input class="left" type="text" name="stylevar[footer_text_color]" id="footer_text_color" size="40" value="<!--{$arrSystemStylevar['footer_text_color']}-->"/>
+											<p><input class="left" type="text" name="stylevar[footer_text_color]" id="footer_text_color" size="40" value="<!--{$arrSystemStylevar['footer_text_color']}-->" style="color:<!--{$arrSystemStylevar['footer_text_color']}-->"/>
 												<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="footer_text_color"/>
 											</p>
 										</fieldset>

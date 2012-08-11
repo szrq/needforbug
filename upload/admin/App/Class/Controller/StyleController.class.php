@@ -371,16 +371,14 @@ class StyleController extends InitController{
 
 				$arrStylevars=StylevarModel::F('style_id=?',intval(G::getGpc('id','G')))->getAll();
 				foreach($arrStylevars as $oStylevar){
-					$arrStylevarData['style_id']=$oNewStyle['style_id'];
-					$arrStylevarData['stylevar_variable']=strtolower($oStylevar['stylevar_variable']);
-					$arrStylevarData['stylevar_substitute']=trim($oStylevar['stylevar_substitute']);
+					$arrStylevarData[strtolower($oStylevar['stylevar_variable'])]=trim($oStylevar['stylevar_substitute']);
+				}
 
-					$oNewStylevar=new StylevarModel($arrStylevarData);
-					$oNewStylevar->save(0);
+				$oStylevar=Dyhb::instance('StylevarModel');
+				$oStylevar->saveStylevarData($arrStylevarData,$oNewStyle['style_id']);
 
-					if($oNewStylevar->isError()){
-						$this->E($oNewStylevar->getErrorMessage());
-					}
+				if($oStylevar->isError()){
+					$this->E($oStylevar->getErrorMessage());
 				}
 
 				$this->S(Dyhb::L('主题 %s 拷贝成功','Controller/Style',null,$oStyle['style_name']));
@@ -488,6 +486,40 @@ class StyleController extends InitController{
 		}else{
 			$this->E(Dyhb::L('操作项不存在','Controller/Common'));
 		}
+	}
+
+	public function insert($sModel=null,$nId=null){
+		// 创建新的主题
+		$arrNewStyle=array(
+			'style_name'=>trim(G::getGpc('style_name','G')),
+			'style_status'=>0,
+			'theme_id'=>1,
+			'style_extend'=>'',
+		);
+
+		$oStyle=new StyleModel($arrNewStyle);
+		$oStyle->save(0);
+
+		if($oStyle->isError()){
+			$this->E($oStyle->getErrorMessage());
+		}
+
+		// 初始化其主题变量
+		$arrStyleData=array();
+
+		$arrCurtomStylevarList=(array)(include NEEDFORBUG_PATH.'/Source/Common/Style.php');
+		foreach($arrCurtomStylevarList as $sCustomStylevar){
+			$arrStyleData[$sCustomStylevar]='';
+		}
+
+		$oStylevar=Dyhb::instance('StylevarModel');
+		$oStylevar->saveStylevarData($arrStyleData,$oStyle['style_id']);
+
+		if($oStylevar->isError()){
+			$this->E($oStylevar->getErrorMessage());
+		}
+
+		$this->S(Dyhb::L('新主题 %s 创建成功','Controller/Style',null,$arrNewStyle['style_name']));
 	}
 	
 	protected function show_Styles($sStylePath){
