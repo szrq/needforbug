@@ -226,4 +226,22 @@ class PublicController extends InitController{
 		$this->display();
 	}
 
+	public function program_update(){
+		// 待做
+
+		$this->display();
+	}
+
+	public function profile(){
+		$arrUserData=$GLOBALS['___login___'];
+		$sUserName=isset($arrUserData['user_nikename']) && $arrUserData['user_nikename']?$arrUserData['user_nikename']:$arrUserData['user_name'];
+		$this->assign('sUserName',$sUserName);
+
+		$this->display();
+	}
+
+	public function custommenu(){
+		echo 'Hello world!';
+	}
+
 }

@@ -33,7 +33,13 @@
 			<!--[if IE 7]><!--><!--<![endif]-->
 			<!--[if lte IE 6]><table cellspacing="0"><tr><td><![endif]-->
 			<ul>
-				<li style="display:none;">&nbsp;</li> 
+				<li style="display:none;">&nbsp;</li>
+				<!--<if condition="!G+getGpc('title') || G+getGpc('title') eq Dyhb+L('首页','Template/Default/Common')">-->
+				<li class=''><a onClick="refreshmainframe('<!--{:Dyhb::U('public/fmain')}-->');currentClass(0);return false;" href="<!--{:Dyhb::U('public/fmain')}-->"><!--<lang package='Template/Default/Common'>-->管理中心主页<!--</lang>--></a></li>
+				<li class=''><a onClick="refreshmainframe('<!--{:Dyhb::U('public/program_update')}-->');currentClass(1);return false;" href="<!--{:Dyhb::U('public/program_update')}-->"><!--<lang package='Template/Default/Common'>-->程序升级<!--</lang>--></a></li>
+				<li class=''><a onClick="refreshmainframe('<!--{:Dyhb::U('public/profile')}-->');currentClass(2);return false;" href="<!--{:Dyhb::U('public/profile')}-->"><!--<lang package='Template/Default/Common'>-->个人中心<!--</lang>--></a></li>
+				<li class=''><a onClick="refreshmainframe('<!--{:Dyhb::U('public/custommenu')}-->');currentClass(3);return false;" href="<!--{:Dyhb::U('public/custommenu')}-->"><!--<lang package='Template/Default/Common'>-->常用操作管理<!--</lang>--></a></li>
+				<!--</if>-->
 				<!--<assign name='nIndex' value="0" />-->
 				<!--<foreach for=arrMenuList >-->
 				<!--<php>-->

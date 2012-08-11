@@ -9,29 +9,6 @@
 	<section id="main" class="column">
 		<h4 class="alert_info"><!--<lang package='Template/Default/Public'>-->欢迎使用本软件，祝你愉快每一天！<!--</lang>--></h4>
 		<article class="module width_full">
-			<header><h3><!--<lang package='Template/Default/Public'>-->系统服务器消息<!--</lang>--></h3></header>
-			<div class="module_content">
-				<p><!--<lang package='Template/Default/Public'>-->在反映您遇到的问题时可能需要提供服务器的一些信息，服务器信息对系统而言非常重要，请勿随便提供给他人。<!--</lang>--></p>
-				<table class="tablesorter" cellspacing="0">
-					<thead>
-						<tr>
-							<th><!--<lang package='Template/Default/Public'>-->系统名字<!--</lang>--></th> 
-							<th><!--<lang package='Template/Default/Public'>-->当前值<!--</lang>--></th> 
-						</tr>
-					</thead>
-					<tbody>
-						<!--<foreach for=arrInfo>-->
-						<tr>
-							<td><!--{$key}--></td> 
-							<td><!--{$value}--></td> 
-						</tr>
-						<!--</foreach>-->
-					</tbody>
-				</table>
-			</div>
-		</article>
-
-		<article class="module width_full">
 			<header><h3><!--{$GLOBALS['_option_']['needforbug_program_name']}--> <!--<lang package='Template/Default/Public'>-->目录权限<!--</lang>--></h3></header>
 			<div class="module_content">
 				<p><!--{$GLOBALS['_option_']['needforbug_program_name']}--> <!--<lang package='Template/Default/Public'>-->站点运行必须设置的相关目录权限，请确保设置正确<!--</lang>--></p>
@@ -56,6 +33,29 @@
 						<td><!--{$sWsta}--></td>
 					</tr>
 					<!--</foreach>-->
+					</tbody>
+				</table>
+			</div>
+		</article>
+		
+		<article class="module width_full">
+			<header><h3><!--<lang package='Template/Default/Public'>-->系统服务器消息<!--</lang>--></h3></header>
+			<div class="module_content">
+				<p><!--<lang package='Template/Default/Public'>-->在反映您遇到的问题时可能需要提供服务器的一些信息，服务器信息对系统而言非常重要，请勿随便提供给他人。<!--</lang>--></p>
+				<table class="tablesorter" cellspacing="0">
+					<thead>
+						<tr>
+							<th><!--<lang package='Template/Default/Public'>-->系统名字<!--</lang>--></th> 
+							<th><!--<lang package='Template/Default/Public'>-->当前值<!--</lang>--></th> 
+						</tr>
+					</thead>
+					<tbody>
+						<!--<foreach for=arrInfo>-->
+						<tr>
+							<td><!--{$key}--></td> 
+							<td><!--{$value}--></td> 
+						</tr>
+						<!--</foreach>-->
 					</tbody>
 				</table>
 			</div>
