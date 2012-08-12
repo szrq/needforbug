@@ -7,12 +7,73 @@
 class StyleController extends InitController{
 
 	public $_sCurrentStyle='';
+	public $_arrBrokenStyles=array();
+	public $_arrOkStyles=array();
+	public $_nOkStyleNums=0;
+	public $_nBrokenStyleNums=0;
+
+	public function bIndex_(){
+		$arrThemes=G::listDir(NEEDFORBUG_PATH.'/ucontent/theme');
+				
+		$nAlreadyInstalledNums=0;
+		if(!empty($arrThemes)){
+			foreach($arrThemes as $sStyle){
+				if($this->theme_already_installed(strtolower($sStyle))){
+					$nAlreadyInstalledNums++;
+				}
+			}
+		}
+
+		$nNewNum=count($arrThemes)-$nAlreadyInstalledNums;
+
+		$this->assign('nNewinstalledNum',$nNewNum);
+	}
 
 	public function install(){
 		$this->_sCurrentStyle=$GLOBALS['_option_']['front_theme_name'];
 		$this->show_Styles(NEEDFORBUG_PATH.'/ucontent/theme');
+		
+		$nAlreadyInstalledNums=0;
+		if(!empty($this->_arrOkStyles)){
+			foreach($this->_arrOkStyles as $arrOkStyle){
+				if($this->theme_already_installed(strtolower($arrOkStyle['Style']))){
+					$nAlreadyInstalledNums++;
+				}
+			}
+		}
+
+		$this->assign('nAlreadyInstalledNums',$nAlreadyInstalledNums);
 
 		$this->display();
+	}
+
+	public function get_xml_num($sStyle,$bReturnNum=true){
+		$arrXmlFiles=glob(NEEDFORBUG_PATH.'/ucontent/theme/'.ucfirst($sStyle).'/*.xml');
+
+		if(!in_array(NEEDFORBUG_PATH.'/ucontent/theme/'.ucfirst($sStyle).'/needforbug_style_'.strtolower($sStyle).'.xml',$arrXmlFiles)){
+			return false;
+		}
+
+		if($bReturnNum===true){
+			return count($arrXmlFiles);
+		}else{
+			return $arrXmlFiles;
+		}
+	}
+
+	public function theme_already_installed($sTheme){
+		$sTheme=strtolower(trim($sTheme));
+
+		if(empty($sTheme)){
+			return false;
+		}
+
+		$oTheme=ThemeModel::F('theme_dirname=?',$sTheme)->getOne();
+		if(!empty($oTheme['theme_id'])){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	public function get_style_url($arrStyle,$sType='preview'){
@@ -26,7 +87,27 @@ class StyleController extends InitController{
 			$this->E(Dyhb::L('你没有指定要安装的主题','Controller/Style'));
 		}
 
-		$sThemeXml=NEEDFORBUG_PATH.'/ucontent/theme/'.$sStyle.'/needforbug_style_'.strtolower($sStyle).'.xml';
+		if($this->theme_already_installed(strtolower($sStyle))){
+			$this->E(Dyhb::L('你安装的主题已经安装过了','Controller/Style'));
+		}
+
+		$arrXmlFiles=$this->get_xml_num($sStyle,false);
+		if($arrXmlFiles===false){
+			$this->E(Dyhb::L('你要安装的主题 %s 的默认样式表不存在','Controller/Style',null,$sStyle));
+		}
+
+		foreach($arrXmlFiles as $sXmlFile){
+			if(!is_file($sXmlFile)){
+				$this->E(Dyhb::L('你要安装的主题 %s 样式表不存在','Controller/Style',null,$sXmlFile));
+			}
+
+			$this->install_a_new($sXmlFile,strtolower($sStyle));
+		}
+
+		$this->S(Dyhb::L('主题 %s 安装成功','Controller/Style',null,$sStyle));
+	}
+
+	public function install_a_new($sThemeXml,$sStyle){
 		if(!is_file($sThemeXml)){
 			$this->E(Dyhb::L('你要安装的主题 %s 样式表不存在','Controller/Style',null,$sThemeXml));
 		}
@@ -48,14 +129,14 @@ class StyleController extends InitController{
 		);
 		
 		$oTheme=Dyhb::instance('ThemeModel');
-		$nThemeId=$oTheme->saveThemeData($arrSaveThemeData,$nThemeId);
+		$nThemeId=$oTheme->saveThemeData($arrSaveThemeData,$nThemeId,$sStyle);
 
 		if($oTheme->isError()){
 			$this->E($oTheme->getErrorMessage());
 		}
 
 		// 写入主题数据
-		$nStyleId=isset($arrStyleData['style_id'])?intval($arrStyleData['style_id']):0;
+		$nStyleId=0;
 		$arrSaveStyleData=array(
 			'style_name'=>$arrStyleData['name'],
 			'style_status'=>isset($arrStyleData['status'])?intval($arrStyleData['status']):0,
@@ -79,8 +160,6 @@ class StyleController extends InitController{
 		if($oStylevar->isError()){
 			$this->E($oStylevar->getErrorMessage());
 		}
-
-		$this->S(Dyhb::L('主题 %s 安装成功','Controller/Style',null,$sStyle));
 	}
 
 	public function bEdit_(){
@@ -536,8 +615,8 @@ class StyleController extends InitController{
 		$oStyle=Dyhb::instance('Style');
 		$oStyle->getStyles($arrStyles);
 
-		$arrOkStyles=$oStyle->_arrOkStyles;
-		$arrBrokenStyles=$oStyle->_arrBrokenStyles;
+		$this->_arrOkStyles=$arrOkStyles=$oStyle->_arrOkStyles;
+		$this->_arrBrokenStyles=$arrBrokenStyles=$oStyle->_arrBrokenStyles;
 
 		if($bCurrentStyleIn===false){
 			unset($arrOkStyles[$this->_sCurrentStyle]);
@@ -547,8 +626,8 @@ class StyleController extends InitController{
 
 		$this->assign('arrOkStyles',$arrOkStyles);
 		$this->assign('arrBrokenStyles',$arrBrokenStyles);
-		$this->assign('nOkStyleNums',count($arrOkStyles));
-		$this->assign('nBrokenStyleNums',count($arrBrokenStyles));
+		$this->assign('nOkStyleNums',$this->_nOkStyleNums=count($arrOkStyles));
+		$this->assign('nBrokenStyleNums',$this->_nBrokenStyleNums=count($arrBrokenStyles));
 		$this->assign('nOkStyleRowNums',ceil(count($arrOkStyles)/2));
 	}
 

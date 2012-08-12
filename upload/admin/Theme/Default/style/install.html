@@ -27,7 +27,7 @@
 		</article>
 		
 		<article class="module width_full">
-			<header><h3 class="tabs_involved"><!--<lang package='Template/Default/Style'>-->当前可安装主题列表<!--</lang>-->(<span><!--{$nOkStyleNums}--></span>)</h3>
+			<header><h3 class="tabs_involved"><!--<lang package='Template/Default/Style'>-->当前可安装主题列表<!--</lang>-->(<span><!--{$nOkStyleNums-$nAlreadyInstalledNums}--></span>)</h3>
 				<ul class="tabs">
 					<li class="active"><a href="<!--{:Dyhb::U('style/index')}-->"><!--<lang package='Template/Default/Style'>-->已安装主题列表<!--</lang>--></a></li>
 				</ul>
@@ -54,7 +54,17 @@
 								</a>
 								<h4><!--{$arrOkStyle['Name']}--></h4>
 								<p class="style-description"><!--{$arrOkStyle['Description']}--></p>
-								<p class="style-install"><a class="big-button" href="<!--{:Dyhb::U('style/install_new?style='.strtolower($arrOkStyle['Style']))}-->"/><!--<lang package='Template/Default/Style'>-->安装新主题<!--</lang>--></a></p>
+								<p class="style-install">
+									<!--{if $TheController->theme_already_installed($arrOkStyle['Style'])}-->
+										<span class="theme_gray_warning"><!--<lang package='Template/Default/Style'>-->模板已经安装过了<!--</lang>--></span>
+									<!--{d*else}-->
+										<!--{if $TheController->get_xml_num($arrOkStyle['Style'])===false}-->
+										<span class="theme_warning"><!--<lang package='Template/Default/Style'>-->主题默认风格配置文件不存在<!--</lang>--></span>
+										<!--{d*else}-->
+										<a class="big-button" href="<!--{:Dyhb::U('style/install_new?style='.strtolower($arrOkStyle['Style']))}-->" title="<!--<lang package='Template/Default/Style'>-->新主题数量为<!--</lang>--><!--{$TheController->get_xml_num($arrOkStyle['Style'])}-->"/><!--<lang package='Template/Default/Style'>-->安装新主题<!--</lang>-->(<!--{$TheController->get_xml_num($arrOkStyle['Style'])}-->)</a>
+										<!--{/if}-->
+									<!--{/if}-->
+								</p>
 								<p class="style-author"><!--<lang package='Template/Default/Style'>-->作者<!--</lang>--> <!--{if !empty( $arrOkStyle['Author URI'])}--><!--{$arrOkStyle['Author']}--><!--{d*else}--><!--{$arrOkStyle['Author Name']}--><!--{/if}--></p>
 								<p class="style-dir"><!--<lang package='Template/Default/Style'>-->该主题的所有文件存放在<!--</lang>--> <!--{$arrOkStyle['Style Dir']}--></p>
 								<!--{if !empty( $arrOkStyle['Tags'] )}-->

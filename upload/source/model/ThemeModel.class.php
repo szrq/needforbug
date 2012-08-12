@@ -40,6 +40,7 @@ class ThemeModel extends CommonModel{
 
 		if(!empty($nThemeId)){
 			$oTryTheme=ThemeModel::F('theme_id=?',$nThemeId)->getOne();
+
 			if(!empty($oTryTheme['theme_id'])){
 				$bThemeExists=true;
 				$oTryTheme->changeProp($arrThemeData);
