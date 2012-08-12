@@ -81,7 +81,7 @@ class Template{
 		
 		$arrValue=explode('/',str_replace(array(str_replace('\\','/',TEMPLATE_PATH.'/'),str_replace('\\','/',DYHB_PATH.'/'),str_replace('\\','/',getcwd().'/')),array(''),$sTemplatePath));
 
-		if($GLOBALS['_commonConfig_']['TMPL_MODULE_ACTION_DEPR']=='/'){
+		if($GLOBALS['_commonConfig_']['TMPL_MODULE_ACTION_DEPR']=='/' && count($arrValue)>1){
 			array_shift($arrValue);
 		}
 		
