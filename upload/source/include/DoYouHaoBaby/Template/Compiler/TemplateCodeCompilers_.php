@@ -40,7 +40,7 @@ class TemplateCodeCompiler_while extends TemplateCodeCompilerBase{
 
 	public function compile(TemplateObj $oObj){
 		$sContent=$oObj->getContent();
-		$sCompiled=TemplateRevertParser::encode('<'."?php while({$sContent}): ".'?>');
+		$sCompiled=TemplateRevertParser::encode('<'."?php while({$sContent}):".'?>');
 		$oObj->setCompiled($sCompiled);
 		$oObj->setCompiler(null);
 
@@ -93,7 +93,7 @@ class TemplateCodeCompiler_variable extends TemplateCodeCompilerBase{
 							$sName='$'.$arrVars[0].'->'.$arrVars[1].($this->arrayHandler($arrVars,2));
 							break;
 						default:  // 自动判断数组或对象 支持多维
-							$sName='is_array($'.$arrVars[0].') ? $'.$arrVars[0].'[\''.$arrVars[1].'\']'.($this->arrayHandler($arrVars)).' : $'.$arrVars[0].'->'.$arrVars[1].($this->arrayHandler($arrVars,2));
+							$sName='is_array($'.$arrVars[0].')?$'.$arrVars[0].'[\''.$arrVars[1].'\']'.($this->arrayHandler($arrVars)).' :$'.$arrVars[0].'->'.$arrVars[1].($this->arrayHandler($arrVars,2));
 							break;
 					}
 				}else{
@@ -113,7 +113,7 @@ class TemplateCodeCompiler_variable extends TemplateCodeCompilerBase{
 			$sName=$this->parseVarFunction($sName,$arrVar);// 传入变量名,和函数参数继续解析,这里的变量名是上面的判断设置的值
 		}
 
-		$sCode=!empty($sName)?"<?php echo({$sName}); ?>":'';
+		$sCode=!empty($sName)?"<?php echo({$sName});?>":'';
 
 		return $sCode;
 	}
@@ -168,14 +168,14 @@ class TemplateCodeCompiler_variable extends TemplateCodeCompilerBase{
 			}
 
 			$arrArgs[0]=trim($arrArgs[0]);
-			$arrArgs[0]=str_replace('+' ,'::',$arrArgs[0]);
+			$arrArgs[0]=str_replace('+','::',$arrArgs[0]);
 			if(isset($arrArgs[1])){
 				$arrArgs[1]=str_replace('->',':',$arrArgs[1]);
 			}
 
 			switch(strtolower($arrArgs[0])) {
 				case 'default':// 特殊模板函数
-					$sName='('.$sName.') ? ('.$sName.') : '.$arrArgs[1];
+					$sName='('.$sName.')?('.$sName.'):'.$arrArgs[1];
 					break;
 				default:// 通用模板函数
 					if(!in_array($arrArgs[0],$arrNot)){
@@ -208,7 +208,7 @@ class TemplateCodeCompiler_script extends TemplateCodeCompilerBase{
 
 	public function compile(TemplateObj $oObj){
 		$sContent=$oObj->getContent();
-		$sCompiled=TemplateRevertParser::encode('<'."?php {$sContent}; ?".'>');
+		$sCompiled=TemplateRevertParser::encode('<'."?php {$sContent};?".'>');
 		$oObj->setCompiled($sCompiled);
 		$oObj->setCompiler(null);
 
@@ -285,7 +285,7 @@ class TemplateCodeCompiler_if extends TemplateCodeCompilerBase{
 	public function compile(TemplateObj $oObj){
 		$sContent=$oObj->getContent();
 		$sContent=$this->parseContent($sContent);
-		$sCompiled=TemplateRevertParser::encode('<'."?php {$sContent} :?".'>');
+		$sCompiled=TemplateRevertParser::encode('<'."?php {$sContent}:?".'>');
 		$oObj->setCompiled($sCompiled);
 		$oObj->setCompiler(null);
 
@@ -311,7 +311,7 @@ class TemplateCodeCompiler_if extends TemplateCodeCompilerBase{
 		}
 
 		if($bObj){
-			$sStr='is_array('.$arrArgs[0].')'.' ? '.join(' ',$arrParam).' : '.join(' ',$arrParamTwo);
+			$sStr='is_array('.$arrArgs[0].')'.'?'.join(' ',$arrParam).':'.join(' ',$arrParamTwo);
 		}else{
 			$sStr=join(' ',$arrParam);
 		}
@@ -334,7 +334,7 @@ class TemplateCodeCompiler_foreach extends TemplateCodeCompilerBase{
 	public function compile(TemplateObj $oObj){
 		$sContent=$oObj->getContent();
 		$sContent=$this->parseContent($sContent);
-		$sCompiled=TemplateRevertParser::encode('<'."?php {$sContent}: ".'?>');
+		$sCompiled=TemplateRevertParser::encode('<'."?php {$sContent}:".'?>');
 		$oObj->setCompiled($sCompiled);
 		$oObj->setCompiler(null);
 
@@ -355,7 +355,7 @@ class TemplateCodeCompiler_foreach extends TemplateCodeCompilerBase{
 				Dyhb::E(Dyhb::L('foreach,list的参数错误。','__DYHB__@Dyhb'));
 			}
 			
-			return "if(is_array(\${$arrArray[0]})) : foreach(\${$arrArray[0]} as $sResult) ";
+			return "if(is_array(\${$arrArray[0]})):foreach(\${$arrArray[0]} as $sResult)";
 		}
 	}
 
@@ -372,7 +372,7 @@ class TemplateCodeCompiler_for extends TemplateCodeCompilerBase{
 
 	public function compile(TemplateObj $oObj){
 		$sContent=$oObj->getContent();
-		$sCompiled=TemplateRevertParser::encode('<'."?php for({$sContent}): ".'?>');
+		$sCompiled=TemplateRevertParser::encode('<'."?php for({$sContent}):".'?>');
 		$oObj->setCompiled($sCompiled);
 		$oObj->setCompiler(null);
 
@@ -403,25 +403,25 @@ class TemplateCodeCompiler_endtag extends TemplateCodeCompilerBase{
 		// do while 处理
 		if(trim(substr($sContent,0,7))=='dowhile'){
 			$sContent=trim(substr($sContent,7));
-			$sContent="<?php }while({$sContent}); ?>";
+			$sContent="<?php }while({$sContent});?>";
 		}
 
 		switch($sContent){
 			case 'list':
 			case 'foreach':
-				$sContent='<?php endforeach; endif; ?>';
+				$sContent='<?php endforeach;endif;?>';
 				break;
 			case 'd*for':
-				$sContent='<?php endfor; ?>';
+				$sContent='<?php endfor;?>';
 				break;
 			case 'while':
-				$sContent='<?php endwhile; ?>';
+				$sContent='<?php endwhile;?>';
 				break;
 			case 'script':
 				$sContent='</script>';
 				break;
 			case 'if':
-				$sContent='<?php endif; ?>';
+				$sContent='<?php endif;?>';
 				break;
 			case 'style':
 				$sContent='</style>';
@@ -444,7 +444,7 @@ class TemplateCodeCompiler_elseif extends TemplateCodeCompilerBase{
 	public function compile(TemplateObj $oObj){
 		$sContent=$oObj->getContent();
 		$sContent=$this->parseContent($sContent);
-		$sCompiled=TemplateRevertParser::encode('<'."?php {$sContent} :?".'>');
+		$sCompiled=TemplateRevertParser::encode('<'."?php {$sContent}:?".'>');
 		$oObj->setCompiled($sCompiled);
 		$oObj->setCompiler(null);
 
@@ -470,7 +470,7 @@ class TemplateCodeCompiler_elseif extends TemplateCodeCompilerBase{
 		}
 
 		if($bObj){
-			$sStr='is_array('.$arrArgs[0].')'.' ? '.join(' ',$arrParam).' : '.join(' ',$arrParamTwo);
+			$sStr='is_array('.$arrArgs[0].')'.'?'.join(' ',$arrParam).' : '.join(' ',$arrParamTwo);
 		}else{
 			$sStr=join(' ',$arrParam);
 		}
@@ -491,7 +491,7 @@ TemplateCodeCompiler_elseif::regToCompiler();
 class TemplateCodeCompiler_else extends TemplateCodeCompilerBase{
 
 	public function compile(TemplateObj $oObj){
-		$sCompiled=TemplateRevertParser::encode('<'."?php else: ?".'>');
+		$sCompiled=TemplateRevertParser::encode('<'."?php else:?".'>');
 		$oObj->setCompiled($sCompiled);
 		$oObj->setCompiler(null);
 
@@ -528,7 +528,7 @@ TemplateCodeCompiler_echo::regToCompiler();
 class TemplateCodeCompiler_do_while extends TemplateCodeCompilerBase{
 
 	public function compile(TemplateObj $oObj){
-		$sCompiled=TemplateRevertParser::encode('<'."?php do{ ".'?>');
+		$sCompiled=TemplateRevertParser::encode('<'."?php do{".'?>');
 		$oObj->setCompiled($sCompiled);
 		$oObj->setCompiler(null);
 
@@ -587,7 +587,7 @@ class TemplateCodeCompiler_session extends TemplateCodeCompilerBase{
 		$sContent=$oObj->getContent();
 		$arrVars=explode('.',$sContent);
 		$sContent=$this->arrayHandler($arrVars,1,0);
-		$sCompiled=TemplateRevertParser::encode('<'."?php echo(\$_SESSION{$sContent}); ".'?>');
+		$sCompiled=TemplateRevertParser::encode('<'."?php echo(\$_SESSION{$sContent});".'?>');
 		$oObj->setCompiled($sCompiled);
 		$oObj->setCompiler(null);
 
@@ -606,7 +606,7 @@ class TemplateCodeCompiler_print extends TemplateCodeCompilerBase{
 
 	public function compile(TemplateObj $oObj){
 		$sContent=$oObj->getContent();
-		$sCompiled=TemplateRevertParser::encode('<'."?php print({$sContent}); ?".'>');
+		$sCompiled=TemplateRevertParser::encode('<'."?php print({$sContent});?".'>');
 		$oObj->setCompiled($sCompiled);
 		$oObj->setCompiler(null);
 
@@ -627,7 +627,7 @@ class TemplateCodeCompiler_post extends TemplateCodeCompilerBase{
 		$sContent=$oObj->getContent();
 		$arrVars=explode('.',$sContent);
 		$sContent=$this->arrayHandler($arrVars,1,0);
-		$sCompiled=TemplateRevertParser::encode('<'."?php echo(\$_POST{$sContent}); ".'?>');
+		$sCompiled=TemplateRevertParser::encode('<'."?php echo(\$_POST{$sContent});".'?>');
 		$oObj->setCompiled($sCompiled);
 		$oObj->setCompiler(null);
 
@@ -707,7 +707,7 @@ class TemplateCodeCompiler_lang extends TemplateCodeCompilerBase{
 
 	public function compile(TemplateObj $oObj){
 		$sContent=addcslashes(stripslashes(trim($oObj->getContent())),'"');
-		$sCompiled=TemplateRevertParser::encode('<'."?php echo(Dyhb::L('{$sContent}')); ".'?>');
+		$sCompiled=TemplateRevertParser::encode('<'."?php echo(Dyhb::L('{$sContent}'));".'?>');
 		$oObj->setCompiled($sCompiled);
 		$oObj->setCompiler(null);
 
@@ -737,14 +737,16 @@ class TemplateCodeCompiler_isset extends TemplateCodeCompilerBase{
 		$nStart=strpos($sContent,'(');// 为了兼容isset ()的括号出现空格的写法,获取位置
 		$nEnd=strpos($sContent,')');
 		$bIsEcho=strrchr(trim($sContent),"**");// 获取尾部**，**表示不输出,如果存在则删除
-		if($bIsEcho) {$sContent= substr(trim($sContent),0,strlen(trim($sContent))-2);}
+		if($bIsEcho){
+			$sContent= substr(trim($sContent),0,strlen(trim($sContent))-2);
+		}
 		$sVar=trim(substr($sContent,$nStart+1,$nEnd-$nStart-1));// 获取变量和条件
 		$sCondition=trim(substr ($sContent,$nEnd+1));
 
 		if($bIsEcho){
-			return "<?php $sVar=isset({$sVar}) ? {$sCondition};?>";
+			return "<?php $sVar=isset({$sVar})?{$sCondition};?>";
 		}else{
-			return "<?php echo(isset({$sVar}) ? {$sCondition});?>";
+			return "<?php echo(isset({$sVar})?{$sCondition});?>";
 		}
 	}
 
@@ -771,7 +773,7 @@ class TemplateCodeCompiler_include extends TemplateCodeCompilerBase{
 			$sContent='\''.$sContent;
 		}
 
-		$sCompiled="<?php \$this->includeChildTemplate(".$sContent.") ;?>";
+		$sCompiled="<?php \$this->includeChildTemplate(".$sContent.");?>";
 		$oObj->setCompiled($sCompiled);
 		$oObj->setCompiler(null);
 
@@ -825,7 +827,7 @@ class TemplateCodeCompiler_get extends TemplateCodeCompilerBase{
 		$sContent=$oObj->getContent();
 		$arrVars=explode('.',$sContent);
 		$sContent=$this->arrayHandler($arrVars,1,0);
-		$sCompiled=TemplateRevertParser::encode('<'."?php echo(\$_GET{$sContent}); ".'?>');
+		$sCompiled=TemplateRevertParser::encode('<'."?php echo(\$_GET{$sContent});".'?>');
 		$oObj->setCompiled($sCompiled);
 		$oObj->setCompiler(null);
 
@@ -845,7 +847,7 @@ class TemplateCodeCompiler_cookie extends TemplateCodeCompilerBase{
 		$sContent=$oObj->getContent();
 		$arrVars=explode('.',$sContent);
 		$sContent=$this->arrayHandler($arrVars,1,0);
-		$sCompiled=TemplateRevertParser::encode('<'."?php echo(\$_COOKIE{$sContent}); ".'?>');
+		$sCompiled=TemplateRevertParser::encode('<'."?php echo(\$_COOKIE{$sContent});".'?>');
 		$oObj->setCompiled($sCompiled);
 		$oObj->setCompiler(null);
 
@@ -863,7 +865,7 @@ class TemplateCodeCompiler_constant extends TemplateCodeCompilerBase{
 
 	public function compile(TemplateObj $oObj){
 		$sContent=$oObj->getContent();
-		$sCompiled=TemplateRevertParser::encode('<'."?php echo({$sContent}); ".'?>');
+		$sCompiled=TemplateRevertParser::encode('<'."?php echo({$sContent});".'?>');
 		$oObj->setCompiled($sCompiled);
 		$oObj->setCompiler(null);
 
@@ -881,7 +883,7 @@ class TemplateCodeCompiler_config extends TemplateCodeCompilerBase{
 
 	public function compile(TemplateObj $oObj){
 		$sContent=$oObj->getContent();
-		$sCompiled=TemplateRevertParser::encode('<'."?php echo(Dyhb::C('{$sContent}')); ".'?>');
+		$sCompiled=TemplateRevertParser::encode('<'."?php echo(Dyhb::C('{$sContent}'));".'?>');
 		$oObj->setCompiled($sCompiled);
 		$oObj->setCompiler(null);
 
@@ -899,7 +901,7 @@ class TemplateCodeCompiler_before_increase_not_echo extends TemplateCodeCompiler
 
 	public function compile(TemplateObj $oObj){
 		$sContent=$oObj->getContent() ;
-		$sCompiled=TemplateRevertParser::encode('<'."?php ++{$sContent}; ?".'>');
+		$sCompiled=TemplateRevertParser::encode('<'."?php ++{$sContent};?".'>');
 		$oObj->setCompiled($sCompiled);
 		$oObj->setCompiler(null);
 
@@ -916,7 +918,7 @@ class TemplateCodeCompiler_before_increase extends TemplateCodeCompilerBase{
 
 	public function compile(TemplateObj $oObj){
 		$sContent=$oObj->getContent();
-		$sCompiled=TemplateRevertParser::encode('<'."?php echo(++{$sContent}); ?".'>');
+		$sCompiled=TemplateRevertParser::encode('<'."?php echo(++{$sContent});?".'>');
 		$oObj->setCompiled($sCompiled);
 		$oObj->setCompiler(null);
 
@@ -934,7 +936,7 @@ class TemplateCodeCompiler_before_decrease_not_echo extends TemplateCodeCompiler
 
 	public function compile(TemplateObj $oObj){
 		$sContent=$oObj->getContent();
-		$sCompiled=TemplateRevertParser::encode('<'."?php --{$sContent}; ?".'>');
+		$sCompiled=TemplateRevertParser::encode('<'."?php --{$sContent};?".'>');
 		$oObj->setCompiled($sCompiled);
 		$oObj->setCompiler(null);
 
@@ -952,7 +954,7 @@ class TemplateCodeCompiler_before_decrease extends TemplateCodeCompilerBase{
 
 	public function compile(TemplateObj $oObj){
 		$sContent=$oObj->getContent();
-		$sCompiled=TemplateRevertParser::encode('<'."?php echo(--{$sContent}); ?".'>');
+		$sCompiled=TemplateRevertParser::encode('<'."?php echo(--{$sContent});?".'>');
 		$oObj->setCompiled($sCompiled);
 		$oObj->setCompiler(null);
 
@@ -970,7 +972,7 @@ class TemplateCodeCompiler_after_increase_not_echo extends TemplateCodeCompilerB
 
 	public function compile(TemplateObj $oObj){
 		$sContent=$oObj->getContent();
-		$sCompiled=TemplateRevertParser::encode('<'."?php  {$sContent}++; ?".'>');
+		$sCompiled=TemplateRevertParser::encode('<'."?php  {$sContent}++;?".'>');
 		$oObj->setCompiled($sCompiled);
 		$oObj->setCompiler(null);
 
@@ -988,7 +990,7 @@ class TemplateCodeCompiler_after_increase extends TemplateCodeCompilerBase{
 
 	public function compile(TemplateObj $oObj){
 		$sContent=$oObj->getContent();
-		$sCompiled=TemplateRevertParser::encode('<'."?php echo({$sContent}++); ?".'>');
+		$sCompiled=TemplateRevertParser::encode('<'."?php echo({$sContent}++);?".'>');
 		$oObj->setCompiled($sCompiled);
 		$oObj->setCompiler(null);
 
@@ -1006,7 +1008,7 @@ class TemplateCodeCompiler_after_decrease_not_echo extends TemplateCodeCompilerB
 
 	public function compile(TemplateObj $oObj){
 		$sContent=$oObj->getContent();
-		$sCompiled=TemplateRevertParser::encode('<'."?php {$sContent}--; ?".'>');
+		$sCompiled=TemplateRevertParser::encode('<'."?php {$sContent}--;?".'>');
 		$oObj->setCompiled($sCompiled);
 		$oObj->setCompiler(null);
 
@@ -1024,7 +1026,7 @@ class TemplateCodeCompiler_after_decrease extends TemplateCodeCompilerBase{
 
 	public function compile(TemplateObj $oObj){
 		$sContent=$oObj->getContent();
-		$sCompiled=TemplateRevertParser::encode('<'."?php echo({$sContent}--); ?".'>');
+		$sCompiled=TemplateRevertParser::encode('<'."?php echo({$sContent}--);?".'>');
 		$oObj->setCompiled($sCompiled);
 		$oObj->setCompiler(null);
 

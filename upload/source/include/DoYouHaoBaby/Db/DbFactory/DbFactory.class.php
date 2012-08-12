@@ -4,7 +4,7 @@
 
 !defined('DYHB_PATH') && exit;
 
-abstract class DbFactory {
+abstract class DbFactory{
 
 	abstract public function createConnect();
 

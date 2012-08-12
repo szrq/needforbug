@@ -76,7 +76,7 @@ abstract class TemplateNodeCompilerBase{
 					$sContent='$'.$arrVars[0].'->'.$arrVars[1].($this->arrayHandler($arrVars,2));
 					break;
 				default:// 自动判断数组或对象 支持多维
-					$sContent='is_array($'.$arrVars[0].')? $'.$arrVars[0].'[\''.$arrVars[1].'\']'.($this->arrayHandler($arrVars)).' : $'.$arrVars[0].'->' .$arrVars[1].($this->arrayHandler($arrVars,2));
+					$sContent='is_array($'.$arrVars[0].')?$'.$arrVars[0].'[\''.$arrVars[1].'\']'.($this->arrayHandler($arrVars)).':$'.$arrVars[0].'->' .$arrVars[1].($this->arrayHandler($arrVars,2));
 					break;
 			}
 		}elseif(strpos($sContent,':')){
@@ -108,7 +108,7 @@ abstract class TemplateNodeCompilerBase{
 			}
 		}elseif($nLen===2){
 			if(strtoupper($arrVars[1])=='NOW' or strtoupper($arrVars[1])=='TIME'){// 时间
-				$sCode="date('Y-m-d H:i:s', time())";
+				$sCode="date('Y-m-d H:i:s',time())";
 			}elseif(strtoupper($arrVars[1])=='VERSION' || strtoupper($arrVars[1])=='DYHB_VERSION'){
 				$sCode='DYHB_VERSION';
 			}elseif(strtoupper($arrVars[1])=='LEFTTAG' || strtoupper($arrVars[1])=='LEFT'){
@@ -344,7 +344,7 @@ class TemplateNodeCompiler_tpl_compare extends TemplateNodeCompilerBase{
 			$sValue='"'.$sValue.'"';
 		}
 
-		$sParseStr='<?php if(('.$sName.')'.$sType.' '.$sValue.'): ?>'.$sContent.'<?php endif; ?>';
+		$sParseStr='<?php if(('.$sName.')'.$sType.''.$sValue.'):?>'.$sContent.'<?php endif;?>';
 
 		return $sParseStr;
 	}
@@ -366,7 +366,7 @@ class TemplateNodeCompiler_tpl_else extends TemplateNodeCompilerBase{
 
 	public function compile(TemplateObj $oObj){
 		$this->checkNode($oObj);
-		$oObj->setCompiled("<?php else: ?>");
+		$oObj->setCompiled("<?php else:?>");
 	}
 
 	static public function regToCompiler(){
@@ -393,7 +393,7 @@ class TemplateNodeCompiler_tpl_elseif extends TemplateNodeCompilerBase{
 		$sCondition=$this->parseCondition($sCondition);
 		$sCondition=str_replace(':','->',$sCondition);
 		$sCondition=str_replace('+','::',$sCondition);
-		$oObj->setCompiled("<?php elseif({$sCondition}): ?>");
+		$oObj->setCompiled("<?php elseif({$sCondition}):?>");
 	}
 
 	static public function regToCompiler(){
@@ -494,10 +494,10 @@ class TemplateNodeCompiler_tpl_foreach extends TemplateNodeCompilerBase{
 
 		// 编译
 		$sCompiled="<?php \${$sIndex}=1;?>
-<?php if(is_array(\${$sFor})): foreach(\${$sFor} as \${$sKey}=>\${$sValue}): ?>
+<?php if(is_array(\${$sFor})):foreach(\${$sFor} as \${$sKey}=>\${$sValue}):?>
 {$sBody}
 <?php \${$sIndex}++;?>
-<?php endforeach;endif; ?>";
+<?php endforeach;endif;?>";
 		$oObj->setCompiled($sCompiled);
 
 		return $sCompiled;
@@ -601,8 +601,8 @@ class TemplateNodeCompiler_tpl_import extends TemplateNodeCompilerBase{
 				$sName='isset('.$sName.')';
 			}
 
-			$sParseStr.='<?php if('.$sName.'): ?>';
-			$sEndStr='<?php endif; ?>';
+			$sParseStr.='<?php if('.$sName.'):?>';
+			$sEndStr='<?php endif;?>';
 		}
 
 		if($sTitle===null || $sTitle==''){// title判断
@@ -623,13 +623,13 @@ class TemplateNodeCompiler_tpl_import extends TemplateNodeCompilerBase{
 						$sParseStr.='<script type="text/javascript" src="'.$sVal.'"></script>';
 						break;
 					case 'css':
-						$sParseStr.='<link rel="stylesheet" type="text/css" href="'.$sVal.'" />';
+						$sParseStr.='<link rel="stylesheet" type="text/css" href="'.$sVal.'"/>';
 						break;
 					case 'img':
 						$sParseStr.='<img src="'.$sVal.'" title="'.$sTitle.'"/>';
 						break;
 					case 'php':
-						$sParseStr.='<?php require_once("'.$sVal.'"); ?>';
+						$sParseStr.='<?php require_once("'.$sVal.'");?>';
 						break;
 				}
 			}
@@ -797,7 +797,7 @@ class TemplateNodeCompiler_tpl_include extends TemplateNodeCompiler_tpl_include_
 			$sFilename='\''.$sFilename;
 		}
 
-		$sCompiled="<?php \$this->includeChildTemplate({$sFilename}); ?>";
+		$sCompiled="<?php \$this->includeChildTemplate({$sFilename});?>";
 		$oObj->setCompiled($sCompiled);
 
 		return $sCompiled;
@@ -846,7 +846,7 @@ class TemplateNodeCompiler_tpl_lang extends TemplateNodeCompilerBase{
 
 		$oBody= $oObj->getBody();// 句子
 		$sSentence=addcslashes(stripslashes(trim($oBody->getCompiled())),'"');
-		$sCompiled="<?php print Dyhb::L(\"{$sSentence}\",{$sPackage},{$sLange}{$sArgs}); ?>";
+		$sCompiled="<?php print Dyhb::L(\"{$sSentence}\",{$sPackage},{$sLange}{$sArgs});?>";
 		$oObj->setCompiled($sCompiled);
 
 		return $sCompiled;
@@ -946,9 +946,9 @@ class TemplateNodeCompiler_tpl_loop extends TemplateNodeCompilerBase{
 		$oBody=$oObj->getBody();// 循环体
 		$sBody=$oBody->getCompiled();
 		$sCompiled="<?php {$sStartVarName}={$sStart};{$sEndVarName}={$sEnd};
-for(\${$sVar}={$sStartVarName};\${$sVar}{$sComparison}{$sEndVarName};\${$sVar}{$sIncreaseDecrease}{$sStep}): ?>
+for(\${$sVar}={$sStartVarName};\${$sVar}{$sComparison}{$sEndVarName};\${$sVar}{$sIncreaseDecrease}{$sStep}):?>
 {$sBody}
-<?php endfor; ?>";
+<?php endfor;?>";
 
 		$oObj->setCompiled($sCompiled);
 
@@ -1045,23 +1045,23 @@ class TemplateNodeCompiler_tpl_volist extends TemplateNodeCompilerBase{
 		}
 
 		$sName=$this->parseVar($sName);
-		$sCompiled='<?php if(is_array('.$sName.')): $'.$sI.'=0;';
+		$sCompiled='<?php if(is_array('.$sName.')):$'.$sI.'=0;';
 
 		if(''!=$nLength){
-			$sCompiled.=' $arrList=array_slice('.$sName.','.$nOffset.','.$nLength.');';
+			$sCompiled.='$arrList=array_slice('.$sName.','.$nOffset.','.$nLength.');';
 		}elseif(''!=$nOffset){
 			$sCompiled.='$arrList=array_slice('.$sName.','.$nOffset.');';
 		}else{
-			$sCompiled.=' $arrList='.$sName.';';
+			$sCompiled.='$arrList='.$sName.';';
 		}
 
-		$sCompiled.='if(count($arrList)==0): echo "'.$sEmpty.'";';
-		$sCompiled.='else: ';
-		$sCompiled.='foreach($arrList as $'.$sKey.'=>$'.$sId.'): ';
+		$sCompiled.='if(count($arrList)==0):echo"'.$sEmpty.'";';
+		$sCompiled.='else:';
+		$sCompiled.='foreach($arrList as $'.$sKey.'=>$'.$sId.'):';
 		$sCompiled.='++$'.$sI.';';
-		$sCompiled.='$mod=($'.$sI.' % '.$nMod.')?>';
+		$sCompiled.='$mod=($'.$sI.'%'.$nMod.')?>';
 		$sCompiled.=$sBody;
-		$sCompiled.='<?php endforeach; endif; else: echo "'.$sEmpty.'";endif; ?>';
+		$sCompiled.='<?php endforeach;endif;else:echo "'.$sEmpty.'";endif;?>';
 		$oObj->setCompiled($sCompiled);
 
 		return $sCompiled;
@@ -1094,7 +1094,7 @@ class TemplateNodeCompiler_tpl_while extends TemplateNodeCompilerBase{
 		$sCondition=$oAttribute->getAttribute('condition');// 循环条件
 		$sCondition=$this->parseCondition($sCondition);
 		$sBody=$oObj->getBody();// 循环体
-		$oObj->setCompiled("<?php while({$sCondition}): ?> {$sBody} <?php endwhile; ?>");
+		$oObj->setCompiled("<?php while({$sCondition}):?>{$sBody}<?php endwhile;?>");
 		$oObj->setCompiler(null);
 	}
 
@@ -1115,7 +1115,7 @@ class TemplateNodeCompiler_tpl_break extends TemplateNodeCompilerBase{
 
 	public function compile(TemplateObj $oObj){
 		$this->checkNode($oObj);
-		$oObj->setCompiled('<?php break; ?>');
+		$oObj->setCompiled('<?php break;?>');
 	}
 
 	static public function regToCompiler(){
@@ -1134,7 +1134,7 @@ class TemplateNodeCompiler_tpl_continue extends TemplateNodeCompilerBase{
 	}
 
 	public function compile(TemplateObj $oObj){
-		$oObj->setCompiled('<?php continue; ?>');
+		$oObj->setCompiled('<?php continue;?>');
 	}
 
 	static public function regToCompiler(){
@@ -1234,7 +1234,7 @@ class TemplateNodeCompiler_tpl_default extends TemplateNodeCompilerBase{
 	public function compile(TemplateObj $oObj){
 		$this->checkNode($oObj);
 
-		$sCompiled="<?php default: ?>";
+		$sCompiled="<?php default:?>";
 		$oObj->setCompiled($sCompiled);
 
 		return $sCompiled;
@@ -1267,7 +1267,7 @@ class TemplateNodeCompiler_tpl_defined extends TemplateNodeCompilerBase{
 		$sName=$oAttribute->getAttribute('name');// 比较条件
 		$oBody=$oObj->getBody();// 内容
 		$sBody=$oBody->getCompiled();
-		$sCompiled='<?php if(defined("'.$sName.'")): ?>'.$sBody.'<?php endif; ?>';// 获取内容
+		$sCompiled='<?php if(defined("'.$sName.'")):?>'.$sBody.'<?php endif;?>';// 获取内容
 		$oObj->setCompiled($sCompiled);
 
 		return $sCompiled;
@@ -1302,7 +1302,7 @@ class TemplateNodeCompiler_tpl_do extends TemplateNodeCompilerBase{
 		$sWhile=$this->parseCondition($sWhile);
 		$oBody=$oObj->getBody();// 循环体
 		$sBody=$oBody->getCompiled();
-		$oObj->setCompiled("<?php do{ ?>{$sBody}<?php }while({$sWhile});?>");
+		$oObj->setCompiled("<?php do{?>{$sBody}<?php }while({$sWhile});?>");
 		$oObj->setCompiler(null);
 	}
 
@@ -1401,7 +1401,7 @@ class TemplateNodeCompiler_tpl_empty extends TemplateNodeCompilerBase{
 		$sName=$oAttribute->getAttribute('name');// 比较条件
 		$oBody=$oObj->getBody();// 内容
 		$sBody=$oBody->getCompiled();
-		$sCompiled='<?php if(empty($'.$sName.')): ?>'.$sBody.'<?php endif; ?>';// 获取内容
+		$sCompiled='<?php if(empty($'.$sName.')):?>'.$sBody.'<?php endif;?>';// 获取内容
 		$oObj->setCompiled($sCompiled);
 
 		return $sCompiled;
@@ -1527,7 +1527,7 @@ class TemplateNodeCompiler_tpl_isset extends TemplateNodeCompilerBase{
 		$sName=$oAttribute->getAttribute('name');// 条件 表达式
 		$oBody=$oObj->getBody();// 条件 体
 		$sBody=$oBody->getCompiled();
-		$sCompiled='<?php if(isset($'.$sName.')): ?>'.$sBody.'<?php endif; ?>';
+		$sCompiled='<?php if(isset($'.$sName.')):?>'.$sBody.'<?php endif;?>';
 		$oObj->setCompiled($sCompiled);
 
 		return $sCompiled;
@@ -1701,7 +1701,7 @@ class TemplateNodeCompiler_tpl_notdefined extends TemplateNodeCompilerBase{
 		$sName=$oAttribute->getAttribute('name');// 比较条件
 		$oBody=$oObj->getBody();// 内容
 		$sBody=$oBody->getCompiled();
-		$sCompiled='<?php if(!defined("'.$sName.'")): ?>'.$sBody.'<?php endif; ?>';// 获取内容
+		$sCompiled='<?php if(!defined("'.$sName.'")):?>'.$sBody.'<?php endif;?>';// 获取内容
 		$oObj->setCompiled($sCompiled);
 
 		return $sCompiled;
@@ -1734,7 +1734,7 @@ class TemplateNodeCompiler_tpl_notempty extends TemplateNodeCompilerBase{
 		$sName=$oAttribute->getAttribute('name');// 比较条件
 		$oBody=$oObj->getBody();// 内容
 		$sBody=$oBody->getCompiled();
-		$sCompiled='<?php if(!empty($'.$sName.')): ?>'.$sBody.'<?php endif; ?>';// 获取内容
+		$sCompiled='<?php if(!empty($'.$sName.')):?>'.$sBody.'<?php endif;?>';// 获取内容
 		$oObj->setCompiled($sCompiled);
 
 		return $sCompiled;
@@ -1825,7 +1825,7 @@ class TemplateNodeCompiler_tpl_notisset extends TemplateNodeCompilerBase{
 		$sName=$oAttribute->getAttribute('name');// 条件 表达式
 		$oBody=$oObj->getBody();// 条件 体
 		$sBody=$oBody->getCompiled();
-		$sCompiled='<?php if(!isset($'.$sName.')): ?>'.$sBody.'<?php endif; ?>';
+		$sCompiled='<?php if(!isset($'.$sName.')):?>'.$sBody.'<?php endif;?>';
 		$oObj->setCompiled($sCompiled);
 
 		return $sCompiled;
@@ -1962,10 +1962,10 @@ class TemplateNodeCompiler_tpl_range extends TemplateNodeCompilerBase{
 
 		if('$'==substr($sValue,0,1)){
 			$sValue=$this->parseVar(substr($sValue,1));
-			$sParseStr='<?php if('.$sfun.'(('.$sName.'),is_array('.$sValue.')?'.$sValue.':explode(\',\','.$sValue.'))): ?>'.$sContent.'<?php endif; ?>';
+			$sParseStr='<?php if('.$sfun.'(('.$sName.'),is_array('.$sValue.')?'.$sValue.':explode(\',\','.$sValue.'))):?>'.$sContent.'<?php endif;?>';
 		}else{
 			$sValue='"'.$sValue.'"';
-			$sParseStr='<?php if('.$sfun.'(('.$sName.'),explode(\',\','.$sValue.'))): ?>'.$sContent.'<?php endif; ?>';
+			$sParseStr='<?php if('.$sfun.'(('.$sName.'),explode(\',\','.$sValue.'))):?>'.$sContent.'<?php endif;?>';
 		}
 
 		return $sParseStr;
@@ -2138,13 +2138,13 @@ class TemplateNodeCompiler_tpl_switch_case extends TemplateNodeCompilerBase{
 			$arrValues=explode('|',$sValue);
 			$sValue='';
 			foreach($arrValues as $sVal){
-				$sValue.='case "'.addslashes($sVal).'": ';
+				$sValue.='case "'.addslashes($sVal).'":';
 			}
 		}else{
-			$sValue='case "'.$sValue.'": ';
+			$sValue='case "'.$sValue.'":';
 		}
 
-		$sCompiled='<?php '.$sValue.' ?>'.$sBody;
+		$sCompiled='<?php '.$sValue.'?>'.$sBody;
 		$bIsBreak=$sBreak!==null?$sBreak:'';
 		if(''==$bIsBreak || $bIsBreak){
 			$sCompiled.='<?php break;?>';
