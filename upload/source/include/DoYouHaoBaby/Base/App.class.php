@@ -148,15 +148,16 @@ class App{
 			$sTemplateSet=ucfirst(strtolower($GLOBALS['_commonConfig_']['TPL_DIR']));
 		}elseif(isset($_GET['t'])){
 			$sTemplateSet=ucfirst(strtolower($_GET['t']));
-			if(!is_dir(APP_TEMPLATE_PATH.'/'.$sTemplateSet)){
-				$sTemplateSet=ucfirst(strtolower($GLOBALS['_commonConfig_']['TPL_DIR']));
-			}
 		}else{
 			if(Dyhb::cookie(APP_NAME.'_template')){
 				$sTemplateSet=Dyhb::cookie(APP_NAME.'_template');
 			}else{
 				$sTemplateSet=ucfirst(strtolower($GLOBALS['_commonConfig_']['TPL_DIR']));
 			}
+		}
+
+		if(!is_dir(APP_TEMPLATE_PATH.'/'.$sTemplateSet)){
+			$sTemplateSet=ucfirst(strtolower($GLOBALS['_commonConfig_']['TPL_DIR']));
 		}
 
 		Dyhb::cookie(APP_NAME.'_template',$sTemplateSet);
