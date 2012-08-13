@@ -12,6 +12,10 @@ class StyleController extends InitController{
 	public $_nOkStyleNums=0;
 	public $_nBrokenStyleNums=0;
 
+	public function filter_(&$arrMap){
+		$arrMap['style_name']=array('like',"%".G::getGpc('style_name')."%");
+	}
+
 	public function bIndex_(){
 		$arrThemes=G::listDir(NEEDFORBUG_PATH.'/ucontent/theme');
 				

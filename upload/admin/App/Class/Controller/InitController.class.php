@@ -98,10 +98,10 @@ class InitController extends Controller{
 
 		eval('$oModelMeta='.ucwords($sName).'Model::M();');
 		$sPk=reset($oModelMeta->_arrIdName);
-			$nInputAjaxId=G::getGpc('input_ajax_id');
-			$sInputAjaxField=G::getGpc('input_ajax_field');
-			$sInputAjaxVal=G::getGpc('input_ajax_val');
-			$arrData=array(
+		$nInputAjaxId=G::getGpc('input_ajax_id');
+		$sInputAjaxField=G::getGpc('input_ajax_field');
+		$sInputAjaxVal=G::getGpc('input_ajax_val');
+		$arrData=array(
 			$sPk=>$nInputAjaxId,
 			$sInputAjaxField=>$sInputAjaxVal,
 		);
