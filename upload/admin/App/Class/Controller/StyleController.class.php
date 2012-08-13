@@ -286,6 +286,9 @@ class StyleController extends InitController{
 				$oStyle->theme_id=intval(G::getGpc('theme_id_new','P'));
 				
 				$arrStyleextend=G::getGpc('style_extend_new','P');
+				if(!is_array($arrStyleextend)){
+					$arrStyleextend=array();
+				}
 				$sDefaultExtendstyle=trim(G::getGpc('default_extend_style_new','P'));
 				if(!in_array($sDefaultExtendstyle,$arrStyleextend)){
 					$arrStyleextend[]=$sDefaultExtendstyle;
