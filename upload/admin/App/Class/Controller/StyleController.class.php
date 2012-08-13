@@ -127,8 +127,7 @@ class StyleController extends InitController{
 		$nThemeId=isset($arrStyleData['template_id'])?intval($arrStyleData['template_id']):0;
 		$arrSaveThemeData=array(
 			'theme_name'=>$arrStyleData['theme_name'],
-			'theme_dirname'=>$arrStyleData['theme_dirname'],
-			'theme_directory'=>$arrStyleData['directory'],
+			'theme_dirname'=>ucfirst($arrStyleData['theme_dirname']),
 			'theme_copyright'=>$arrStyleData['copyright'],
 		);
 		
@@ -213,7 +212,7 @@ class StyleController extends InitController{
 
 			$oTheme=ThemeModel::F('theme_id=?',$oModel['theme_id'])->getOne();
 			if(!empty($oTheme['theme_id'])){
-				$sStyleExtendDir=NEEDFORBUG_PATH.'/ucontent/'.$oTheme['theme_directory'].'/Public/Style';
+				$sStyleExtendDir=NEEDFORBUG_PATH.'/ucontent/theme/'.ucfirst($oTheme['theme_dirname']).'/Public/Style';
 				if(is_dir($sStyleExtendDir)){
 					$arrStyleDirs=G::listDir($sStyleExtendDir);
 
@@ -514,7 +513,7 @@ class StyleController extends InitController{
 					$this->E(Dyhb::L('主题 %s 的模板不存在','Controller/Style',null,$oStyle['style_name']));
 				}
 
-				$sThemeXml=NEEDFORBUG_PATH.'/ucontent/'.$oTheme['theme_directory'].'/needforbug_style_'.strtolower($oTheme['theme_dirname']).'.xml';
+				$sThemeXml=NEEDFORBUG_PATH.'/ucontent/theme/'.ucfirst($oTheme['theme_dirname']).'/needforbug_style_'.strtolower($oTheme['theme_dirname']).'.xml';
 				if(!is_file($sThemeXml)){
 					$this->E(Dyhb::L('你要安装的主题 %s 样式表不存在','Controller/Style',null,$sThemeXml));
 				}

@@ -557,8 +557,8 @@ NEEDFORBUG;
 		}
 
 		foreach(array('png','gif','jpg','jpeg') as $sExt){
-			if(file_exists(NEEDFORBUG_PATH.'/'.$sPreviewPath.'/'.$oTheme['theme_directory']."/{$sPreview}.{$sExt}")){
-				return __ROOT__.'/'.$sPreviewPath.'/'.$oTheme['theme_directory']."/{$sPreview}.{$sExt}";
+			if(file_exists(NEEDFORBUG_PATH.'/'.$sPreviewPath.'/theme/'.ucfirst($oTheme['theme_dirname'])."/{$sPreview}.{$sExt}")){
+				return __ROOT__.'/'.$sPreviewPath.'/theme/'.ucfirst($oTheme['theme_dirname'])."/{$sPreview}.{$sExt}";
 				continue;
 			}
 		}

@@ -114,6 +114,10 @@ class InitController extends Controller{
 			$this->input_change_unique($sName);
 		}
 
+		if(method_exists($this,'BInput_change_ajax_data_')){
+			$arrData=call_user_func(array($this,'BInput_change_ajax_data_'),$arrData);
+		}
+
 		$oModelMeta->updateDbWhere($arrData);
 		if($oModelMeta->isError()){
 			$this->E($oModelMeta->getErrorMessage());

@@ -17,10 +17,7 @@ class ThemeModel extends CommonModel{
 				'theme_dirname'=>array(
 					array('require',Dyhb::L('模板目录不能为空','__COMMON_LANG__@Model/Theme')),
 					array('max_length',32,Dyhb::L('模板目录最大长度为32个字符','__COMMON_LANG__@Model/Theme')),
-				),
-				'theme_directory'=>array(
-					array('require',Dyhb::L('模板路径不能为空','__COMMON_LANG__@Model/Theme')),
-					array('max_length',250,Dyhb::L('模板路径最大长度为250个字符','__COMMON_LANG__@Model/Theme')),
+					array('english',Dyhb::L('模板目录只能为英文字符','__COMMON_LANG__@Model/Theme')),
 				),
 			),
 		);

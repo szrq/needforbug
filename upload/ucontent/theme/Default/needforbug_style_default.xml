@@ -8,12 +8,11 @@
 	<name><![CDATA[默认主题]]></name>
 	<theme_id><![CDATA[1]]></theme_id>
 	<theme_name>默认模板套系</theme_name>
-	<theme_dirname><![CDATA[default]]></theme_dirname>
+	<theme_dirname><![CDATA[Default]]></theme_dirname>
 	<status><![CDATA[1]]></status>
 	<style_id><![CDATA[1]]></style_id>
 	<style_extend><![CDATA[t1	t2	t3	t4	t5|]]></style_extend>
-	<doyouhaobaby_template_base><![CDATA[default]]></doyouhaobaby_template_base>
-	<directory><![CDATA[theme/Default]]></directory>
+	<doyouhaobaby_template_base><![CDATA[Default]]></doyouhaobaby_template_base>
 	<copyright><![CDATA[点牛（成都）]]></copyright>
 	<style>
 		<img_dir><![CDATA[]]></img_dir>

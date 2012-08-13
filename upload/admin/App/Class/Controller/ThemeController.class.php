@@ -10,10 +10,20 @@ class ThemeController extends InitController{
 		$arrMap['theme_name']=array('like',"%".G::getGpc('theme_name')."%");
 	}
 
-	public function bUpdate_(){
-		$sThemeDirectory=trim(G::getGpc('','P'));
-
-		if()
+	public function bUpdate_($sThemeDirname=''){
+		if(empty($sThemeDirname)){
+			$_POST['theme_dirname']=ucfirst($_POST['theme_dirname']);
+			$sThemeDirname=trim(G::getGpc('theme_dirname','P'));
+		}
+			
+		$sThemeDirname=NEEDFORBUG_PATH.'/ucontent/theme/'.$sThemeDirname;
+		if(!is_dir($sThemeDirname)){
+			$this->E(Dyhb::L('模板目录 %s 不存在','Controller/Theme',null,$sThemeDirname));
+		}
+	}
+	
+	public function bInsert_(){
+		$this->bUpdate_();
 	}
 
 	public function bForeverdelete_(){
@@ -35,12 +45,24 @@ class ThemeController extends InitController{
 		}
 	}
 
-	public function input_change_ajax($sName=null){
+	public function bInput_change_ajax_(){
 		$nInputAjaxId=G::getGpc('input_ajax_id');
 
 		if($this->is_system_theme($nInputAjaxId)){
 			$this->E(Dyhb::L('系统模板无法编辑','Controller/Theme'));
 		}
+
+		$sInputAjaxField=G::getGpc('input_ajax_field');
+		$sInputAjaxVal=G::getGpc('input_ajax_val');
+		if($sInputAjaxField=='theme_dirname'){
+			$this->bUpdate_($sInputAjaxVal);
+		}
+	}
+
+	public function BInput_change_ajax_data_($arrData){
+		$arrData['theme_dirname']=ucfirst($arrData['theme_dirname']);
+
+		return $arrData;
 	}
 
 	public function is_system_theme($nId){
@@ -50,5 +72,5 @@ class ThemeController extends InitController{
 
 		return false;
 	}
-
+	
 }

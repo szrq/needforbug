@@ -42,7 +42,7 @@
 							<th><input type="checkbox" onclick="checkAll('checkList')"></th> 
 							<th><a href="javascript:sortBy('theme_id','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('theme_id')}-->><!--<lang package='Template/Default/Common'>-->编号<!--</lang>--></a></th> 
 							<th><a href="javascript:sortBy('theme_name','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('theme_name')}-->><!--<lang package='Template/Default/Theme'>-->模板名字<!--</lang>--></a></th>
-							<th><a href="javascript:sortBy('theme_directory','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('theme_directory')}-->><!--<lang package='Template/Default/Theme'>-->模板目录<!--</lang>--></a></th>
+							<th><a href="javascript:sortBy('theme_dirname','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('theme_dirname')}-->><!--<lang package='Template/Default/Theme'>-->模板目录<!--</lang>--></a></th>
 							<th><a href="javascript:sortBy('theme_copyright','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('theme_copyright')}-->><!--<lang package='Template/Default/Theme'>-->模板版权<!--</lang>--></a></th>
 							<th><!--<lang package='Template/Default/Common'>-->操作<!--</lang>--></th>
 						</tr>
@@ -58,7 +58,7 @@
 								</div>
 							</td>
 							<td class="pointer" title="<!--<lang package='Template/Default/Common'>-->点击修改数据<!--</lang>-->" id="theme_name_<!--{$value:theme_id}-->" onClick="clickToInput('theme_name','<!--{$value:theme_id}-->')"><!--{$value:theme_name}--></td>
-							<td class="pointer" title="<!--<lang package='Template/Default/Common'>-->点击修改数据<!--</lang>-->" id="theme_directory_<!--{$value:theme_id}-->" onClick="clickToInput('theme_directory','<!--{$value:theme_id}-->')"><!--{$value:theme_directory}--></td>
+							<td class="pointer" title="<!--<lang package='Template/Default/Common'>-->点击修改数据<!--</lang>-->" id="theme_dirname_<!--{$value:theme_id}-->" onClick="clickToInput('theme_dirname','<!--{$value:theme_id}-->')"><!--{$value:theme_dirname}--></td>
 							<td><!--{$value:theme_copyright}--></td>
 							<td><a href="javascript:edit('<!--{$value:theme_id}-->')"><input type="image" src="<!--{:__TMPLPUB__}-->/Images/icn_edit.png" title="<!--<lang package='Template/Default/Common'>-->编辑<!--</lang>-->"></a></td>
 						</tr>
