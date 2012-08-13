@@ -63,7 +63,7 @@
 							</td>
 							<td><!--{$value:app_version}--></td>
 							<td><!--{if $value['app_isadmin']}-->
-									<!--{if $value['app_active']}-->
+									<!--{if $value['app_status']}-->
 									<a href="<!--{:Dyhb::U('app/config?id='.$value['app_id'])}-->"><!--<lang package='Template/Default/App'>-->管理入口<!--</lang>--></a>
 									<!--{d*else}-->
 									<!--<lang package='Template/Default/App'>-->应用尚未开启无法管理<!--</lang>-->
@@ -80,8 +80,8 @@
 									<!--<lang package='Template/Default/App'>-->该应用不需要设置菜单<!--</lang>-->
 								<!--{/if}-->
 							</td>
-							<td><img src="<!--{:__TMPLPUB__}-->/Images/<!--<if condition="$value:app_active eq 1" >-->yes<!--<else/>-->no<!--</if>-->.gif"/></td>
-							<td><!--{if $value['app_active']}-->
+							<td><img src="<!--{:__TMPLPUB__}-->/Images/<!--<if condition="$value:app_status eq 1" >-->yes<!--<else/>-->no<!--</if>-->.gif"/></td>
+							<td><!--{if $value['app_status']}-->
 								<a href="<!--{:Dyhb::U('app/disable?id='.$value['app_id'])}-->"><!--<lang package='Template/Default/App'>-->关闭<!--</lang>--></a>
 								<!--{d*else}-->
 								<a href="<!--{:Dyhb::U('app/enable?id='.$value['app_id'])}-->"><!--<lang package='Template/Default/App'>-->开启<!--</lang>--></a>

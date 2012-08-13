@@ -16,6 +16,8 @@ class InitController extends Controller{
 		Core_Extend::loadCache('home_option');
 
 		Core_Extend::loginInformation();
+
+		Core_Extend::initFront();
 	}
 	
 	public function is_login(){

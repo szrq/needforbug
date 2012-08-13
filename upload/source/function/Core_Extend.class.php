@@ -570,4 +570,71 @@ NEEDFORBUG;
 		return __PUBLIC__.'/images/common/none.gif';
 	}
 
+	static public function initFront(){
+		$sStyleCachepath=self::getCurstyleCachepath();
+		$arrMustFile=array('style.css','common.css','style.php');
+
+		foreach($arrMustFile as $sMustFile){
+			if(!is_file($sStyleCachepath.'/'.$sMustFile)){
+				if(!Dyhb::classExists('Cache_Extend')){
+					require_once(Core_Extend::includeFile('function/Cache_Extend'));
+				}
+				Cache_Extend::updateCache('style');
+			}
+		}
+
+		$GLOBALS['_style_']=(array)(include $sStyleCachepath.'/style.php');
+	}
+
+	static public function loadCss(){
+		$sStyleCachepath=self::getCurstyleCachepath();
+		$sStyleCacheurl=self::getCurstyleCacheurl();
+		
+		$sScriptCss='';
+		$sScriptCss="<link rel=\"stylesheet\" type=\"text/css\" href=\"".$sStyleCacheurl."/common.css?".$GLOBALS['_style_']['verhash']."\" />\n\t";
+		
+		if(!defined('CURSCRIPT')){
+			return $sScriptCss;
+		}
+
+		$sCurScriptcssPath=$sStyleCachepath.'/scriptstyle_'.APP_NAME.'_'.CURSCRIPT.'.css';
+		if(file_exists($sCurScriptcssPath)){
+			$sScriptCss.="<link rel=\"stylesheet\" type=\"text/css\" href=\"".$sStyleCacheurl."/scriptstyle_".APP_NAME.'_'.CURSCRIPT.".css?".$GLOBALS['_style_']['verhash']."\" />\n\t";
+			return $sScriptCss;
+		}
+
+		$sContent=$GLOBALS['_curscript_']='';
+		$sContent=file_get_contents($sStyleCachepath.'/style.css');
+		if(is_file($sStyleCachepath.'/'.APP_NAME.'_'.'style.css')){
+			$sContent.=file_get_contents($sStyleCachepath.'/'.APP_NAME.'_'.'style.css');
+		}
+		$sContent=preg_replace("/([\n\r\t]*)\[CURSCRIPT\s*=\s*(.+?)\]([\n\r]*)(.*?)([\n\r]*)\[\/CURSCRIPT\]([\n\r\t]*)/ies","Core_Extend::cssVarTags('\\2','\\4')",$sContent);
+
+		$sCssCurScripts=$GLOBALS['_curscript_'];
+		$sCssCurScripts=preg_replace(array('/\s*([,;:\{\}])\s*/','/[\t\n\r]/','/\/\*.+?\*\//'),array('\\1','',''),$sCssCurScripts);
+		if(!file_put_contents($sStyleCachepath.'/scriptstyle_'.APP_NAME.'_'.CURSCRIPT.'.css',$sCssCurScripts)){
+			Dyhb::E(Dyhb::L('无法写入缓存文件,请检查缓存目录 %s 的权限是否为0777','__COMMON_LANG__@Function/Cache_Extend',null,$sStyleCachepath));
+		}
+	}	
+	
+	static public function cssVarTags($sCurScript,$sContent){
+		$GLOBALS['_curscript_'].=in_array(APP_NAME.'::'.CURSCRIPT,Dyhb::normalize(explode(',',trim($sCurScript))))?$sContent:'';
+	}
+
+	static public function getCurstyleCachepath($nId=0){
+		if($nId==0){
+			$nId=intval($GLOBALS['_option_']['front_style_id']);
+		}
+
+		return NEEDFORBUG_PATH.'/data/~runtime/style_/'.$nId;
+	}
+
+	static public function getCurstyleCacheurl($nId=0){
+		if($nId==0){
+			$nId=intval($GLOBALS['_option_']['front_style_id']);
+		}
+
+		return __ROOT__."/data/~runtime/style_/".$nId;
+	}
+
 }

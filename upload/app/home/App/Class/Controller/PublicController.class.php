@@ -7,9 +7,7 @@
 class PublicController extends InitController{
 
 	public function index(){
-		require_once(NEEDFORBUG_PATH.'/source/function/Cache_Extend.class.php');
-		Cache_Extend::updateCacheStyle();
-
+		define('CURSCRIPT','index');
 
 		Core_Extend::loadCache('link');
 

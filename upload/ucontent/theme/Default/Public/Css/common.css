@@ -1,5 +1,5 @@
 /*
-File Name: oommon.css
+File Name: common.css
 File Type: 必需
 Description: 本主题基本css元素
 */
@@ -7,7 +7,7 @@ Description: 本主题基本css元素
 /**===============================
            基础
 ================================*/
-body{padding-top: 60px;padding-bottom: 40px;margin: 0px;padding: 0px;background: url("../Images/bg.png") repeat;}
+body{padding-top: 60px;padding-bottom: 40px;margin: 0px;padding: 0px;background: url("{IMG_DIR}/bg.png") repeat;}
 body,h1,h2,h3,h4,h5,h6,p,ul,ol,li,form,img,dl,dt,dd,table,th,td,fieldset,div,strong,label,em{border:0 none;}
 /*ul,ol,li{list-style:none;}*/
 .shadow{box-shadow: rgba(200,200,20);-webkit-box-shadow: rgba(200,200,20);-khtml-box-shadow: rgba(200,200,200,1) 0 2px 18px;}
@@ -57,7 +57,7 @@ table hr{width:100%;height:1px;border:none;border-top:1px dashed #cccccc;}
 /**===============================
            头部和头部菜单
 ================================*/
-#header{background: #fff url('../Images/header_bg.png'); }
+#header{background: #fff url('{IMG_DIR}/header_bg.png'); }
 /* 菜单 */
 #header a.brand {color:#fff;}
 #header .navbar-inner {color: #fff;background: #52a452;filter: none;}
@@ -87,46 +87,14 @@ table hr{width:100%;height:1px;border:none;border-top:1px dashed #cccccc;}
 * html div.DyhbAjaxResult{position:absolute; right:16px;}
 #result ul li,.DyhbAjaxResult ul li{list-style:none;line-height:20px;}
 
-.doing-box{}
-.doing-box .max-limit-doing{ margin:5px 70px 0px 0px; }
-
-/**===============================
-           友情衔接
-================================*/
-.home-links, .home-img-link, .home-txt-link { padding: 2px; }
-.home-links ul li { list-style:none;float: left; width: 49%; height: 50px; line-height: 1.4em; }
-.home-img-link a { margin-right: 8px; }
-.home-img-link img { margin: 1px 0; }
-.home-logo { float: left; padding-top: 2px; width: 100px; }
-.home-content { padding-right: 18px; height: 50px; }
-.home-content p { overflow: hidden; height: 17px; color: #999999; }
-.home-txt-link li { float: left; margin-right: 5px; width: 8em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
-/**===============================
-           主页头像
-================================*/
-.userinfo .user_name p{line-height:20px;margin:0;color:#507FA5;}
-.userinfo{padding:0 0 10px 10px;overflow:hidden;*zoom:1}
-.userinfo .userpic{width:50px;height:50px;float:left;position:relative;}
-.userinfo .userpic span {}
-.userinfo .userpic span img {border:#fff solid 1px;width:50px;height:50px}
-.userinfo .user_name{margin-left:70px}
-.userinfo .user_name a span,.userinfo .user_name a span{font-size:12px;margin:0;}
-.userinfo .user_name p a {}
-
 /**===============================
            列表排序
 ================================*/
-table thead th .order_desc { padding-right: 8px; background: url(../Images/order.gif) no-repeat 100% 50%; }
-table thead th .order_asc { padding-right: 8px; background: url(../Images/order_asc.gif) no-repeat 100% 50%; }
+table thead th .order_desc { padding-right: 8px; background: url({IMG_DIR}/order.gif) no-repeat 100% 50%; }
+table thead th .order_asc { padding-right: 8px; background: url({IMG_DIR}/order_asc.gif) no-repeat 100% 50%; }
 
 /**===============================
-           短消息
-================================*/
-.reply-pm-quote blockquote{color:#999999;}
-
-/**===============================
-           短消息
+           回到顶部
 ================================*/
 .back-to-top{display: none;width: 18px; line-height: 1.2;
  padding: 5px 0; background-color: #000; color: #fff;
@@ -135,6 +103,6 @@ table thead th .order_asc { padding-right: 8px; background: url(../Images/order_
 /**===============================
            底部
 ================================*/
-#footer{color: #7B7B7B;text-align: left;margin-top: 20px;margin:auto;padding: 25px 0px 10px 0px;background:#fff url('../Images/footer_bg.png');}
+#footer{color: #7B7B7B;text-align: left;margin-top: 20px;margin:auto;padding: 25px 0px 10px 0px;background:#fff url('{IMG_DIR}/footer_bg.png');}
 #footer a{color:#7B7B7B;}
-#footer a:hover{color:#fff;
+#footer a:hover{color:#fff;}

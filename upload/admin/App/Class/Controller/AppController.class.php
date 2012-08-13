@@ -28,7 +28,7 @@ class AppController extends InitController{
 				$this->E(Dyhb::L('你指定待设置的应用不存在','Controller/App'));
 			}
 			
-			if(!$arrAppModel['app_active']){
+			if(!$arrAppModel['app_status']){
 				$this->assign('__JumpUrl__',Dyhb::U('app/index'));
 				$this->E(Dyhb::L('你指定待设置的应用尚未启用','Controller/App'));
 			}
@@ -92,11 +92,11 @@ class AppController extends InitController{
 	}
 
 	public function disable(){
-		$this->change_status_('active',0,'app');
+		$this->change_status_('status',0,'app');
 	}
 
 	public function enable(){
-		$this->change_status_('active',1,'app');
+		$this->change_status_('status',1,'app');
 	}
 
 	public function export(){
@@ -111,7 +111,7 @@ class AppController extends InitController{
 				$this->E(Dyhb::L('你指定待设置的应用不存在','Controller/App'));
 			}
 			unset($arrApp['app_id']);
-			unset($arrApp['app_active']);
+			unset($arrApp['app_status']);
 
 			$arrAppData=array();
 			$arrAppData['title']='NeedForBug App';

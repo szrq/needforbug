@@ -82,7 +82,7 @@ class InstallappController extends InitController{
 		
 		$arrData=array();
 		foreach($arrAppData as $sKey=>$sVal){
-			if($sKey=='active'){
+			if($sKey=='status'){
 				$sVal=0;
 			}
 			$arrData['app_'.$sKey]=$sVal;

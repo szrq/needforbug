@@ -607,6 +607,16 @@ class StyleController extends InitController{
 
 		$this->S(Dyhb::L('新主题 %s 创建成功','Controller/Style',null,$arrNewStyle['style_name']));
 	}
+
+	public function update_css($bDisplay=true){
+		require_once(Core_Extend::includeFile('function/Cache_Extend'));
+		Cache_Extend::updateCache('style');
+
+		if($bDisplay===true){
+			$this->assign('__JumpUrl__',Dyhb::U('style/index'));
+			$this->S(Dyhb::L('CSS 缓存更新成功','Controller/Style'));
+		}
+	}
 	
 	protected function show_Styles($sStylePath){
 		$arrStyles=$this->get_styles($sStylePath);
