@@ -7,6 +7,10 @@
 class PublicController extends InitController{
 
 	public function index(){
+		require_once(NEEDFORBUG_PATH.'/source/function/Cache_Extend.class.php');
+		Cache_Extend::updateCacheStyle();
+
+
 		Core_Extend::loadCache('link');
 
 		$this->assign('arrLinkDatas',$GLOBALS['_cache_']['link']);

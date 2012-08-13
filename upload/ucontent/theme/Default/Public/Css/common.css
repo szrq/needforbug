@@ -1,15 +1,9 @@
 /*
-Style Name: 默认主题
-Style URI: http://doyouhaobaby.net/
-Description: 这是由Needforbug 的系统自带主题
-Author: Dianniu team
-Author URI: http://doyouhaobaby.net
-Version: 1.0
-License: BSD
-License URI: http://doyouhaobaby.net/page/license.html
-Tags: admin, light
+File Name: oommon.css
+File Type: 必需
+Description: 本主题基本css元素
 */
-{IMG_DIR}
+
 /**===============================
            基础
 ================================*/
@@ -144,108 +138,3 @@ table thead th .order_asc { padding-right: 8px; background: url(../Images/order_
 #footer{color: #7B7B7B;text-align: left;margin-top: 20px;margin:auto;padding: 25px 0px 10px 0px;background:#fff url('../Images/footer_bg.png');}
 #footer a{color:#7B7B7B;}
 #footer a:hover{color:#fff;
-
-/** 替换的CSS标记 */
-[SCRIPTCSS]
-
-/**===============================
-              标签列表
-================================*/
-[CURSCRIPT = home:index,thans]
-.tags-box{ padding:10px 0; }
-.tags-box span{  }
-.tags-box a{ line-height:40px; margin:0 15 0 0px; }
-[/CURSCRIPT]
-
-/**===============================
-             用户列表
-================================*/
-[CURSCRIPT = userlist]
-.users-box{ border:1px solid {SPECIAL_BG}; }
-[/CURSCRIPT]
-
-/**===============================
-             友情衔接
-================================*/
-[CURSCRIPT = link]
-#link-box{ padding:5px; }
-.link-header-url{ margin-bottom:20px; }
-.link-header-url .link-header-url-image{ height: 80px; width: 600px; overflow: auto;border:1px solid {SPECIAL_BORDER}; padding:5px 10px; }
-.link-header-url .link-header-url-text{ height: 50px; width: 600px; overflow: auto;border:1px solid {SPECIAL_BORDER}; padding:5px 10px; }
-.link-logo-box,.link-text-box {margin:20px 0 30px 10px;}
-.link-logo-box h4,.link-text-box h4{font-size: 13px;margin: 10px 0;padding-left: 5px;border-left: 5px solid {LINK_COLOR}; }
-.link-text-box li,.link-logo-box li{float: left;width: 150px;list-style: none;}
-.link-text-box li { height: 20px; }
-.link-logo-box li { height: 40px; }
-[/CURSCRIPT]
-
-/**===============================
-             引用列表
-================================*/
-[CURSCRIPT = trackbacklist]
-.trackback-item{padding:5px 10px 0px 10px;}
-.trackbac-item-even{background:{INTERLEAVE_COLOR};}
-.trackbac-item-odd{}
-.trackback-title {font-weight:700;margin-bottom:10px;}
-.trackback-content {display:block;width:650px;clear:both;line-height:20px;margin:5px 0 15px;}
-.trackback-date {color:#777;font-size:11px;padding-top:2px;text-align:right;margin-bottom:12px;padding-bottom:12px;border-bottom:1px dashed {SPECIAL_BORDER};}
-[/CURSCRIPT]
-
-/**===============================
-             微博
-================================*/
-[CURSCRIPT = taotaolist,singletao]
-#taotao-box .taotao-main-img{ border:1px {LINK_COLOR} solid; float:left;padding:0;}
-#taotao-box .taotao-main-img img{ border:1px #fff solid;display: block;}
-#taotao-box .right{ float:left; margin:0px 5px;}
-#taotao-box ul{ margin:5px 0px 3px 5px;  line-height:1.8;padding:0px;list-style:none;}
-#taotao-box ul .li{ margin:10px 0px;padding:20px 0px;border-bottom: #d5d5d5 1px solid;}
-#taotao-box ul li{margin:0px 0px; padding:0;}
-#taotao-box ul li .taotao-main-img{ margin-top:10px;}
-#taotao-box ul li .taotao-post-left{ float:left;font-size:14px; padding:0px;margin:0; padding:0px 0px 0px 8px;}
-#taotao-box ul li{ clear:both; padding:0px; margin:0px;}
-#taotao-box ul li .taotao-bottom {margin:3px 0;vertical-align:middle}
-#taotao-box ul li .taotao-bottom .taotao-time{ text-align:center; line-height:14px;margin:0;}
-#taotao-box ul li .taotao-bottom .taotao-reply{ text-align:right; }
-#taotao-box .taotao-time{ font-size:12px; color:#999999; float:left;}
-#taotao-box .taotao-mobile {color:green;}
-[/CURSCRIPT]
-
-
-/**===============================
-             短消息中心
-================================*/
-[CURSCRIPT = pmlist,singlepm]
-.pm_header{padding:6px;border:solid #E6E7E1;border-width:1px 0;}
-.pm_header #pm_search{float:right;}
-.pm_list li{position:relative;*margin-top:-2px;padding:10px 140px 10px 75px;min-height:48px;_height:48px;border-bottom:1px solid {SPECIAL_BORDER};}
-.pm_list li .avatar{position:absolute;left:5px;top:8px;}
-.pm_list .self .avatar{left:auto;right:75px;}
-.pm_list .cite{margin:-3px 0 5px;color:#999;}
-.pm_list .cite cite{margin-right:1em;color:#444;font-weight:700;}
-.pm_list .cite cite a{color:#444;}
-.more{margin-top:5px;}
-.more a,.ntc a,.pm_list .action a{color:{SPECIAL_BG};}
-.pm_list .action a{position:absolute;top:10px;right:15px;}
-.pm_list .action a.delete{display:block;width:12px;height:12px;background:url({STYLE_IMG_DIR}/close.gif) no-repeat 0 0;text-indent:-9999px;overflow:hidden;}
-.pm_list .action a.delete:hover{background-position:0 -12px;}
-.pm_list .action input{position:absolute;bottom:15px;right:13px;}
-.pm_list li.pm_date{padding:5px 0 5px 75px;min-height:0;border-bottom:none;}
-.pm_list li.pmlist-odd{ background:{INTERLEAVE_COLOR}; }
-#pm_list ul.onerror{padding:20px 0 0 95px;background-position:75px 22px;}
-#pmlist .summary a{color:{SPECIAL_BG};}
-.pmback{width:70px;padding-left:15px;w\idth:55px;}
-.newpm_notice{padding:5px 0 10px 20px;border-bottom:1px solid #E6E7E1;background:#f1f1f1;}
-.newpm_notice a{color:#09C;}
-.newpm_notice .back{float:left;display:inline;margin-left:-70px;padding-left:15px;}
-.quote{margin:10px 0;padding:0 0 0 20px;border:none;}
-.quote blockquote{margin:0;padding:0 20px 0 0;display:inline;line-height:1.6em;color:#999;text-decoration:none;}
-.blockall{margin-bottom:10px;padding:10px 0;background:#EBF2F8;text-align:center;color:#999;}
-.blockall a{color:#09C;font-size:1.17em;}.blacklist li a,.blacklist li strong{float:left;}
-.blacklist .remove{margin:4px 0 0 5px;width:12px;height:12px;line-height:100px;overflow:hidden;}
-.blacklist .hover .remove{background-position:100% 0;}
-.blacklist .remove:hover{background-position:100% -12px;}
-.allblocked{margin-bottom:10px;padding-bottom:10px;width:100% !important;border-bottom:1px solid #E6E7E1;}
-.allblocked a{margin-left:10px;color:#09C;}#buddies ul{width:400px;}
-#buddies li{float:left;width:8em;height:1.6em;overflow:hidden;white-space:nowrap;}
-[/CURSCRIPT]

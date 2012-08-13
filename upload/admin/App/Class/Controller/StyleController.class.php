@@ -34,7 +34,9 @@ class StyleController extends InitController{
 	}
 
 	public function install(){
-		$this->_sCurrentStyle=$GLOBALS['_option_']['front_theme_name'];
+		$oTheme=ThemeModel::F('theme_id=?',$GLOBALS['_option_']['front_style_id'])->getOne();
+		$this->_sCurrentStyle=ucfirst($oTheme['theme_dirname']);
+
 		$this->show_Styles(NEEDFORBUG_PATH.'/ucontent/theme');
 		
 		$nAlreadyInstalledNums=0;
@@ -206,7 +208,6 @@ class StyleController extends InitController{
 			$this->assign('oValue',$oModel);
 			$this->assign('nId',$oModel['style_id']);
 
-			
 			// 读取扩展配色
 			$arrExtendstyle=$arrDefaultextendstyle=array();
 

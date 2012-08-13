@@ -10,7 +10,19 @@ class Cache_Extend{
 		$arrUpdateList=empty($sCacheName)?array():(is_array($sCacheName)?$sCacheName:array($sCacheName));
 
 		if(!$arrUpdateList){
-			call_user_func('updateCache');
+			$arrUpdateMethod=array();
+
+			$arrAllMethod=get_class_methods('Cache_Extend');
+			foreach($arrAllMethod as $sMethod){
+				if(preg_match('|^updateCache(.+)|',$sMethod)){
+					$arrUpdateMethod[]=$sMethod;
+				}
+			}
+
+			foreach($arrUpdateMethod as $sUpdateMethod){
+				$Callback=array('Cache_Extend',$sUpdateMethod);
+				call_user_func($Callback);
+			}
 		}else{
 			foreach($arrUpdateList as $sCache){
 				$Callback=array('Cache_Extend','updateCache'.ucfirst($sCache));
@@ -310,6 +322,158 @@ class Cache_Extend{
 		}
 
 		Core_Extend::saveSyscache('creditrule',$arrData);
+	}
+
+	public static function updateCacheStyle(){
+		$arrData=array();
+
+		$arrStylevars=$arrStyledata=array();
+		$nDefaultStyleid=$GLOBALS['_option_']['front_style_id'];
+		foreach(StylevarModel::F()->getAll() as $oStylevar){
+			$arrStylevars[$oStylevar['style_id']][$oStylevar['stylevar_variable']]=$oStylevar['stylevar_substitute'];
+		}
+
+		foreach(StyleModel::F()->asArray()->getAll() as $arrStyle){
+			$oTheme=ThemeModel::F('theme_id=?',$arrStyle['theme_id'])->getOne();
+			$arrStyle['doyouhaobaby_template_base']=$oTheme['theme_dirname'];
+			$arrStyle=array_merge($arrStyle,$arrStylevars[$arrStyle['style_id']]);
+			
+			$arrDataNew=array();
+			$arrStyle['img_dir']=$arrStyle['img_dir']?$arrStyle['img_dir']:'theme/Default/Public/Images';
+			$arrStyle['style_img_dir']=$arrStyle['style_img_dir']?$arrStyle['style_img_dir']:$arrStyle['img_dir'];
+			$arrStyle['img_dir']=__ROOT__.'/ucontent/'.$arrStyle['img_dir'];
+			$arrStyle['style_img_dir']=__ROOT__.'/ucontent/'.$arrStyle['style_img_dir'];
+
+			foreach($arrStyle as $sKey=>$sStyle){
+				if($sKey!='menu_hover_bg_color' && substr($sKey,-8,8)=='bg_color'){
+					$sNewKey=substr($sKey,0,-8).'bg_code';
+					$arrDataNew[$sNewKey]=self::setCssBackground($arrStyle,substr($sKey,0,-6));
+				}
+			}
+
+			$arrStyle=array_merge($arrStyle,$arrDataNew);
+
+			$arrStyleIcons[$arrStyle['style_id']]=$arrStyle['menu_hover_bg_color'];
+			
+			if(strstr($arrStyle['logo'],',')){
+				$arrFlash=explode(",",$arrStyle['logo']);
+				$arrFlash[0]=trim($arrFlash[0]);
+				$arrFlash[0]=preg_match('/^http:\/\//i',$arrFlash[0])?$arrFlash[0]:$arrStyle['style_img_dir'].'/'.$arrFlash[0];
+				$arrStyle['logo_str']="<embed src=\"".$arrFlash[0]."\" width=\"".trim($arrFlash[1])."\" height=\"".trim($arrFlash[2])."\" type=\"application/x-shockwave-flash\" wmode=\"transparent\"></embed>";
+			}else{
+				$arrStyle['logo']=preg_match('/^http:\/\//i',$arrStyle['logo'])?$arrStyle['logo']:$arrStyle['style_img_dir'].'/'.$arrStyle['logo'];
+				$arrStyle['logo_str']="<img src=\"".$arrStyle['logo']."\" alt=\"".$GLOBALS['_option_']['site_name']."\" border=\"0\" />";
+			}
+
+			$nContentWidthInt=intval($arrStyle['content_width']);
+			$nContentWidthInt=$nContentWidthInt?$nContentWidthInt:600;
+			$nImageMaxWidth=$GLOBALS['_option_']['image_max_width'];
+			if(substr(trim($nContentWidthInt),-1,1)!='%'){
+				if(substr(trim($nImageMaxWidth),-1,1)!='%'){
+					$arrStyle['image_max_width']=$nImageMaxWidth>$nContentWidthInt?$nContentWidthInt:$nImageMaxWidth;
+				}else{
+					$arrStyle['image_max_width']=intval($nContentWidthInt*$nImageMaxWidth/100);
+				}
+			}else{
+				if(substr(trim($nImageMaxWidth),-1,1)!='%'){
+					$arrStyle['image_max_width']='%'.$nImageMaxWidth;
+				}else{
+					$arrStyle['image_max_width']=($nImageMaxWidth>$nContentWidthInt?$nContentWidthInt:$nImageMaxWidth).'%';
+				}
+			}
+
+			$arrStyle['verhash']=G::randString(6,null,true);
+			$arrStyles[intval($arrStyle['style_id'])]=$arrStyle;
+		}
+
+		foreach($arrStyles as $arrStyle){
+			$arrStyle['_style_icons_']=$arrStyleIcons;
+
+			$sStyleIdPath=NEEDFORBUG_PATH.'/data/~runtime/style_/'.intval($arrStyle['style_id']);
+			if(!is_dir($sStyleIdPath)&& !G::makeDir($sStyleIdPath)){
+				Dyhb::E(Dyhb::L('无法写入缓存文件,请检查缓存目录 %s 的权限是否为0777','__COMMON_LANG__@Function/Cache_Extend',null,$sStyleIdPath));
+			}
+			
+			self::writeToCache($sStyleIdPath.'/style.php',$arrStyle);
+			self::writetoCssCache($arrStyle,$sStyleIdPath);
+		}
+	}
+
+	public static function writeToCache($sStylePath,$arrStyle){
+		if(!file_put_contents($sStylePath,
+			"<?php\n /* NeedForBug Style File,Do not to modify this file! */ \n return ".
+				var_export($arrStyle,true).
+			"\n?>")
+		){
+			Dyhb::E(Dyhb::L('无法写入缓存文件,请检查缓存目录 %s 的权限是否为0777','__COMMON_LANG__@Function/Cache_Extend',null,$sStylePath));
+		}
+	}
+
+	public static function writetoCssCache($arrData=array(),$sStyleIdPath){
+		$sCssData='';
+
+		$arrCssfiles=array('style'=>array('style','style_append'),
+							'common'=>array('common','common_append'));
+
+		foreach($arrCssfiles as $sExtra=>$arrCssData){
+			foreach($arrCssData as $sCss){
+				foreach(array(ucfirst($arrData['doyouhaobaby_template_base']),'Default') as $sTheme){
+					$sCssfile=NEEDFORBUG_PATH.'/ucontent/theme/'.$sTheme.'/Public/Css/'.$sCss.'.css';
+					if(file_exists($sCssfile)){
+						continue;
+					}
+				}
+
+				if(file_exists($sCssfile)){
+					$sCssData.=file_get_contents($sCssfile);
+				}
+			}
+
+			$sCssData=@preg_replace("/\{([A-Z0-9_]+)\}/e",'\$arrData[strtolower(\'\1\')]',stripslashes($sCssData));
+			
+			$sCssData=preg_replace("/<\?.+?\?>\s*/",'',$sCssData);
+if(1>2){
+			$sCssData=preg_replace(array('/\s*([,;:\{\}])\s*/','/[\t\n\r]/','/\/\*.+?\*\//'),array('\\1','',''),$sCssData);
+
+}
+			if(file_put_contents($sStyleIdPath.'/'.$sExtra.'.css',$sCssData)){
+				/*$arrScriptCsss=Glob($sFileDir.'/scriptstyle_*.css');
+				foreach($arrScriptCsss as $sScriptCsss){
+					if(!unlink($sScriptCsss)){
+						exit(G::L('无法删除缓存文件,请检查缓存目录%s的权限是否为0777','app',null,$sFileDir));
+					}
+				}*/
+			}else{
+				Dyhb::E(Dyhb::L('无法写入缓存文件,请检查缓存目录 %s 的权限是否为0777','__COMMON_LANG__@Function/Cache_Extend',null,$sStyleIdPath));
+			}
+		}
+	}
+
+	public static function setCssBackground(&$arrStyle,$sKey){
+		$sCss=$sCodeValue='';
+
+		if(!empty($arrStyle[$sKey.'_color'])){
+			$sCss.=strtolower($arrStyle[$sKey.'_color']);
+			$sCodeValue=strtoupper($arrStyle[$sKey.'_color']);
+		}
+
+		if(!empty($arrStyle[$sKey.'_img'])){
+			if(preg_match('/^http:\/\//i',$arrStyle[$sKey.'_img'])){
+				$sCss.=' url("'.$arrStyle[$sKey.'_img'].'") ';
+			}else{
+				$sCss.=' url("'.$arrStyle['style_img_dir'].'/'.$arrStyle[$sKey.'_img'].'") ';
+			}
+		}
+
+		if(!empty($arrStyle[$sKey.'_extra'])){
+			$sCss.=' '.$arrStyle[$sKey.'_extra'];
+		}
+
+		$arrStyle[$sKey.'_color']=$sCodeValue;
+
+		$sCss=trim($sCss);
+
+		return $sCss?'background: '.$sCss:'';
 	}
 
 }
