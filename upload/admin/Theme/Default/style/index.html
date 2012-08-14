@@ -67,7 +67,7 @@
 							</td>
 							<td><img src="<!--{:Core_Extend::getStylePreview($value['style_id'],'mini')}-->" /></td>
 							<td class="pointer" title="<!--<lang package='Template/Default/Common'>-->点击修改数据<!--</lang>-->" id="style_name_<!--{$value:style_id}-->" onClick="clickToInput('style_name','<!--{$value:style_id}-->')"><!--{$value:style_name}--></td>
-							<td><!--{:ThemeModel::getThemenameById($value['theme_id'])}--></td>
+							<td><!--{:ThemeModel::getThemenameById($value['theme_id'])}-->@<!--{$value['theme_id']}--></td>
 							<td><img src="<!--{:__TMPLPUB__}-->/Images/<!--<if condition="$value:style_status eq 1" >-->yes<!--<else/>-->no<!--</if>-->.gif"/></td>
 							<td><!--{if $value:style_status==1}-->
 								<a href="javascript:forbid('<!--{$value:style_id}-->')"><input type="image" src="<!--{:__TMPLPUB__}-->/Images/icn_trash.png" title="<!--<lang package='Template/Default/Common'>-->禁用<!--</lang>-->"></a>

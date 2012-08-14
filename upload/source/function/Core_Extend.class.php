@@ -591,7 +591,11 @@ NEEDFORBUG;
 		$sStyleCacheurl=self::getCurstyleCacheurl();
 		
 		$sScriptCss='';
-		$sScriptCss="<link rel=\"stylesheet\" type=\"text/css\" href=\"".$sStyleCacheurl."/common.css?".$GLOBALS['_style_']['verhash']."\" />\n\t";
+		$sScriptCss='<link rel="stylesheet" type="text/css" href="'.$sStyleCacheurl.'/common.css?'.$GLOBALS['_style_']['verhash']."\" />\n\t";
+		
+		if(file_exists($sStyleCachepath.'/'.APP_NAME.'_common.css')){
+			$sScriptCss.='<link rel="stylesheet" type="text/css" href="'.$sStyleCacheurl.'/'.APP_NAME.'_common.css?'.$GLOBALS['_style_']['verhash']."\" />\n\t";
+		}
 		
 		if(!defined('CURSCRIPT')){
 			return $sScriptCss;
@@ -599,7 +603,7 @@ NEEDFORBUG;
 
 		$sCurScriptcssPath=$sStyleCachepath.'/scriptstyle_'.APP_NAME.'_'.CURSCRIPT.'.css';
 		if(file_exists($sCurScriptcssPath)){
-			$sScriptCss.="<link rel=\"stylesheet\" type=\"text/css\" href=\"".$sStyleCacheurl."/scriptstyle_".APP_NAME.'_'.CURSCRIPT.".css?".$GLOBALS['_style_']['verhash']."\" />\n\t";
+			$sScriptCss.='<link rel="stylesheet" type="text/css" href="'.$sStyleCacheurl.'/scriptstyle_'.APP_NAME.'_'.CURSCRIPT.'.css?'.$GLOBALS['_style_']['verhash']."\" />\n\t";
 			return $sScriptCss;
 		}
 

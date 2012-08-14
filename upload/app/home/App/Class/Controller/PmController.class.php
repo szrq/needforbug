@@ -6,6 +6,8 @@
 
 require_once(Core_Extend::includeFile('function/Pm_Extend'));
 
+define('CURSCRIPT','pm');
+
 class PmController extends InitController{
 
 	public function init__(){

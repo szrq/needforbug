@@ -13,7 +13,7 @@ body,h1,h2,h3,h4,h5,h6,p,ul,ol,li,form,img,dl,dt,dd,table,th,td,fieldset,div,str
 .shadow{box-shadow: rgba(200,200,20);-webkit-box-shadow: rgba(200,200,20);-khtml-box-shadow: rgba(200,200,200,1) 0 2px 18px;}
 .transition{transition: color .1s linear .1s;-moz-transition-property: color;-moz-transition-timing-function: ease-in;-moz-transition-duration: 1s;-moz-transition-delay: 0;-webkit-transition-property: color;-webkit-transition-timing-function: ease-in;-webkit-transition-duration: 1s;-webkit-transition-delay: 0;}
 body{background-position: top center;}
-a{color: #037c1d;}
+a{color: {LINK_COLOR};}
 a:hover {color: #037c1d;}
 hr{margin: 10px 0 10px;width:100%;}
 /* 竖直分割线 */
