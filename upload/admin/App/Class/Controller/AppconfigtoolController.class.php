@@ -21,7 +21,7 @@ class AppconfigtoolController extends InitController{
 		$this->assign('sAppGlobaldefaultconfigFile','{NEEDFORBUG_PATH}/config/ConfigDefault.inc.php');
 
 		$arrWhere=array();
-		$arrWhere['app_active']=1;
+		$arrWhere['app_status']=1;
 
 		$nTotalRecord=AppModel::F()->where($arrWhere)->all()->getCounts();
 

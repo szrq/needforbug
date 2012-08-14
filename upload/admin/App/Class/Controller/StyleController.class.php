@@ -31,6 +31,7 @@ class StyleController extends InitController{
 		$nNewNum=count($arrThemes)-$nAlreadyInstalledNums;
 
 		$this->assign('nNewinstalledNum',$nNewNum);
+		$this->assign('nCurrentStyleid',$GLOBALS['_option_']['front_style_id']);
 	}
 
 	public function install(){

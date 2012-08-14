@@ -16,6 +16,7 @@
 				<ul>
 					<li><!--<lang package='Template/Default/Style'>-->在这里你可以看到当前已经安装的主题列表<!--</lang>--></li>
 					<li><!--<lang package='Template/Default/Style'>-->重置操作将会读取它对应的模板套系中的默认XML配置文件来恢复数据<!--</lang>--></li>
+					<li><!--<lang package='Template/Default/Style'>-->预览图和行背景突出的是当前的设置的主题<!--</lang>--></li>
 				</ul>
 			</div>
 		</article>
@@ -58,7 +59,7 @@
 					</thead>
 					<tbody>
 						<!--<foreach for=oList>-->
-						<tr>
+						<tr <!--{if $value['style_id']==$nCurrentStyleid}-->class="warning" style="background-color: #fcf8e3;border: 1px solid #fbeed5; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px;"<!--{/if}-->>
 							<td><input type="checkbox" name="key" value="<!--{$value:style_id}-->" <!--{if $value['style_id']==1}-->disabled="disabled"<!--{/if}-->></td>
 							<td><!--{$value:style_id}-->
 								<div class="row-actions">
@@ -66,7 +67,7 @@
 									<span class='hide'><!--<if condition="$value:style_status eq 1" >--><a href="javascript:forbid('<!--{$value:style_id}-->')"><!--<lang package='Template/Default/Common'>-->禁用<!--</lang>--></a><!--<else/>--><a href="javascript:resume('<!--{$value:style_id}-->')"><!--<lang package='Template/Default/Common'>-->恢复<!--</lang>--></a><!--</if>--></span>
 								</div>
 							</td>
-							<td><img src="<!--{:Core_Extend::getStylePreview($value['style_id'],'mini')}-->" /></td>
+							<td><img src="<!--{:Core_Extend::getStylePreview($value['style_id'],$value['style_id']==$nCurrentStyleid?'':'mini')}-->" /></td>
 							<td class="pointer" title="<!--<lang package='Template/Default/Common'>-->点击修改数据<!--</lang>-->" id="style_name_<!--{$value:style_id}-->" onClick="clickToInput('style_name','<!--{$value:style_id}-->')"><!--{$value:style_name}--></td>
 							<td><!--{:ThemeModel::getThemenameById($value['theme_id'])}-->@<!--{$value['theme_id']}--></td>
 							<td><img src="<!--{:__TMPLPUB__}-->/Images/<!--<if condition="$value:style_status eq 1" >-->yes<!--<else/>-->no<!--</if>-->.gif"/></td>
