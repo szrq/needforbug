@@ -7,8 +7,6 @@
 class PublicController extends InitController{
 
 	public function index(){
-		define('CURSCRIPT','index');
-
 		Core_Extend::loadCache('link');
 
 		$this->assign('arrLinkDatas',$GLOBALS['_cache_']['link']);

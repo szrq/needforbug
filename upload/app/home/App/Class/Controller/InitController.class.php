@@ -17,7 +17,27 @@ class InitController extends Controller{
 
 		Core_Extend::loginInformation();
 
+		$this->defineCurscript();
+
 		Core_Extend::initFront();
+	}
+
+	public function defineCurscript(){
+		$arrModulecachelist=array(
+			'index'=>'public::index',
+			'pm'=>'pm',
+			'userhome'=>'user::index'
+		);
+
+		foreach($arrModulecachelist as $sKey=>$sCache){
+			if(strpos($sCache,'::') && MODULE_NAME.'::'.ACTION_NAME==$sCache){
+				define('CURSCRIPT',$sKey);
+				continue;
+			}elseif(MODULE_NAME===$sCache){
+				define('CURSCRIPT',$sKey);
+				continue;
+			}
+		}
 	}
 	
 	public function is_login(){

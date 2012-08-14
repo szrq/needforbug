@@ -13,8 +13,6 @@ class UserController extends InitController{
 	}
 	
 	public function index(){
-		define('CURSCRIPT','userhome');
-
 		$arrWhere=array();
 		
 		$sType=trim(G::getGpc('type','G'));

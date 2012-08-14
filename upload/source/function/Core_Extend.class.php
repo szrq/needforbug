@@ -584,6 +584,21 @@ NEEDFORBUG;
 		}
 
 		$GLOBALS['_style_']=(array)(include $sStyleCachepath.'/style.php');
+
+		if(defined('CURSCRIPT') && !file_exists($sStyleCachepath.'/scriptstyle_'.APP_NAME.'_'.CURSCRIPT.'.css')){
+			$sContent=$GLOBALS['_curscript_']='';
+			$sContent=file_get_contents($sStyleCachepath.'/style.css');
+			if(is_file($sStyleCachepath.'/'.APP_NAME.'_'.'style.css')){
+				$sContent.=file_get_contents($sStyleCachepath.'/'.APP_NAME.'_'.'style.css');
+			}
+			$sContent=preg_replace("/([\n\r\t]*)\[CURSCRIPT\s*=\s*(.+?)\]([\n\r]*)(.*?)([\n\r]*)\[\/CURSCRIPT\]([\n\r\t]*)/ies","Core_Extend::cssVarTags('\\2','\\4')",$sContent);
+
+			$sCssCurScripts=$GLOBALS['_curscript_'];
+			$sCssCurScripts=preg_replace(array('/\s*([,;:\{\}])\s*/','/[\t\n\r]/','/\/\*.+?\*\//'),array('\\1','',''),$sCssCurScripts);
+			if(!file_put_contents($sStyleCachepath.'/scriptstyle_'.APP_NAME.'_'.CURSCRIPT.'.css',$sCssCurScripts)){
+				Dyhb::E(Dyhb::L('无法写入缓存文件,请检查缓存目录 %s 的权限是否为0777','__COMMON_LANG__@Function/Cache_Extend',null,$sStyleCachepath));
+			}
+		}
 	}
 
 	static public function loadCss(){
@@ -600,25 +615,10 @@ NEEDFORBUG;
 		if(!defined('CURSCRIPT')){
 			return $sScriptCss;
 		}
-
-		$sCurScriptcssPath=$sStyleCachepath.'/scriptstyle_'.APP_NAME.'_'.CURSCRIPT.'.css';
-		if(file_exists($sCurScriptcssPath)){
-			$sScriptCss.='<link rel="stylesheet" type="text/css" href="'.$sStyleCacheurl.'/scriptstyle_'.APP_NAME.'_'.CURSCRIPT.'.css?'.$GLOBALS['_style_']['verhash']."\" />\n\t";
-			return $sScriptCss;
-		}
-
-		$sContent=$GLOBALS['_curscript_']='';
-		$sContent=file_get_contents($sStyleCachepath.'/style.css');
-		if(is_file($sStyleCachepath.'/'.APP_NAME.'_'.'style.css')){
-			$sContent.=file_get_contents($sStyleCachepath.'/'.APP_NAME.'_'.'style.css');
-		}
-		$sContent=preg_replace("/([\n\r\t]*)\[CURSCRIPT\s*=\s*(.+?)\]([\n\r]*)(.*?)([\n\r]*)\[\/CURSCRIPT\]([\n\r\t]*)/ies","Core_Extend::cssVarTags('\\2','\\4')",$sContent);
-
-		$sCssCurScripts=$GLOBALS['_curscript_'];
-		$sCssCurScripts=preg_replace(array('/\s*([,;:\{\}])\s*/','/[\t\n\r]/','/\/\*.+?\*\//'),array('\\1','',''),$sCssCurScripts);
-		if(!file_put_contents($sStyleCachepath.'/scriptstyle_'.APP_NAME.'_'.CURSCRIPT.'.css',$sCssCurScripts)){
-			Dyhb::E(Dyhb::L('无法写入缓存文件,请检查缓存目录 %s 的权限是否为0777','__COMMON_LANG__@Function/Cache_Extend',null,$sStyleCachepath));
-		}
+		
+		$sScriptCss.='<link rel="stylesheet" type="text/css" href="'.$sStyleCacheurl.'/scriptstyle_'.APP_NAME.'_'.CURSCRIPT.'.css?'.$GLOBALS['_style_']['verhash']."\" />\n\t";
+		
+		return $sScriptCss;
 	}	
 	
 	static public function cssVarTags($sCurScript,$sContent){

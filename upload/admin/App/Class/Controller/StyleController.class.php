@@ -210,6 +210,8 @@ class StyleController extends InitController{
 		if($oStylevar->isError()){
 			$this->E($oStylevar->getErrorMessage());
 		}
+
+		$this->update_css(false);
 	}
 
 	public function bEdit_(){
@@ -393,6 +395,8 @@ class StyleController extends InitController{
 					$this->E($oStylevar->getErrorMessage());
 				}
 
+				$this->update_css(false);
+
 				$this->S(Dyhb::L('主题 %s 更新成功','Controller/Style',null,$oStyle['style_name']));
 			}else{
 				$this->E(Dyhb::L('数据库中并不存在该项，或许它已经被删除','Controller/Common'));
@@ -512,6 +516,8 @@ class StyleController extends InitController{
 					$this->E($oStylevar->getErrorMessage());
 				}
 
+				$this->update_css(false);
+
 				$this->S(Dyhb::L('主题 %s 拷贝成功','Controller/Style',null,$oStyle['style_name']));
 			}else{
 				$this->E(Dyhb::L('数据库中并不存在该项，或许它已经被删除','Controller/Common'));
@@ -609,6 +615,8 @@ class StyleController extends InitController{
 				if($oStylevar->isError()){
 					$this->E($oStylevar->getErrorMessage());
 				}
+
+				$this->update_css(false);
 				
 				$this->S(Dyhb::L('主题 %s 数据恢复成功','Controller/Style',null,$oStyle['style_name']));
 			}else{
@@ -649,6 +657,8 @@ class StyleController extends InitController{
 		if($oStylevar->isError()){
 			$this->E($oStylevar->getErrorMessage());
 		}
+
+		$this->update_css(false);
 
 		$this->S(Dyhb::L('新主题 %s 创建成功','Controller/Style',null,$arrNewStyle['style_name']));
 	}
