@@ -83,7 +83,11 @@ class StyleController extends InitController{
 	}
 
 	public function get_style_url($arrStyle,$sType='preview'){
-		return __ROOT__.'/ucontent/theme/'.$arrStyle['Style'].'/'.$arrStyle[$sType];
+		if(file_exists(NEEDFORBUG_PATH.'/ucontent/theme/'.$arrStyle['Style'].'/'.$arrStyle[$sType])){
+			return __ROOT__.'/ucontent/theme/'.$arrStyle['Style'].'/'.$arrStyle[$sType];
+		}else{
+			return Core_Extend::getNoneimg();
+		}
 	}
 
 	public function install_new(){
@@ -616,6 +620,14 @@ class StyleController extends InitController{
 			$this->assign('__JumpUrl__',Dyhb::U('style/index'));
 			$this->S(Dyhb::L('CSS 缓存更新成功','Controller/Style'));
 		}
+	}
+
+	public function import(){
+		$this->display();
+	}
+
+	public function import_date(){
+		$this->E('Hello world!');
 	}
 	
 	protected function show_Styles($sStylePath){

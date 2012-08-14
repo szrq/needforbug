@@ -48,7 +48,7 @@
 						</tr>
 						<tr>
 							<!--</eq>-->
-							<td class="<!--<eq name="nRow" value="1">-->style_top<!--</eq>--> <!--<eq name="nRow" value="$nOkStyleRowNums">-->style_bottom<!--</eq>--> <!--<eq name="mod" value="1">-->style_left<!--<elseif condition="$mod eq 0" />-->style_right<!--</eq>-->">
+							<td width="50%" class="<!--<eq name="nRow" value="1">-->style_top<!--</eq>--> <!--<eq name="nRow" value="$nOkStyleRowNums">-->style_bottom<!--</eq>--> <!--<eq name="mod" value="1">-->style_left<!--<elseif condition="$mod eq 0" />-->style_right<!--</eq>-->">
 								<a href="<!--{$TheController->get_style_url($arrOkStyle,'preview_large')}-->" target="_blank" title="<!--<lang package='Template/Default/Style'>-->查看主题预览大图<!--</lang>-->">
 									<img src="<!--{$TheController->get_style_url($arrOkStyle)}-->" alt="<!--{$arrOkStyle['Name']}--> - <!--{$arrOkStyle['Title']}-->" />
 								</a>
@@ -74,7 +74,7 @@
 							</td>
 							<!--</volist>-->
 							<!--{if $nOkStyleNums%2>0}-->
-							<td class="style_right style_bottom"></td>
+							<td width="50%" class="style_right style_bottom"></td>
 							<!--{/if}-->
 						</tr>
 					</tbody>

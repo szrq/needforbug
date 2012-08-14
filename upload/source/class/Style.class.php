@@ -59,7 +59,7 @@ class Style{
 				}
 
 				if(empty($arrPreviews[$sKey])){
-					$arrPreviews[$sKey]=self::getNoneimg();
+					$arrPreviews[$sKey]=$this->getNoneimg($sKey);
 				}
 			}
 
@@ -154,6 +154,10 @@ class Style{
 		}
 
 		return $arrStyleData;
+	}
+
+	public function getNoneimg($sKey){
+		return "needforbug_preview{$sKey}.png";
 	}
 
 	public function cleanupHeadercomment($sValue){
