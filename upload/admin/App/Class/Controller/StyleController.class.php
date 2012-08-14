@@ -409,6 +409,13 @@ class StyleController extends InitController{
 	public function preview(){
 		$nId=intval(G::getGpc('id','G'));
 
+		if(!file_exists(NEEDFORBUG_PATH.'/data/~runtime/style_/'.$nId.'/common.css')){
+			$this->update_css(false);
+		}
+
+		$arrStyle=(array)(include NEEDFORBUG_PATH.'/data/~runtime/style_/'.$nId.'/style.php');
+		$this->assign('sStylepath',__ROOT__.'/data/~runtime/style_/'.$nId.'/common.css?'.$arrStyle['verhash']);
+
 		$this->display();
 	}
 
