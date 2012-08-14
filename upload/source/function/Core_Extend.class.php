@@ -641,4 +641,16 @@ NEEDFORBUG;
 		return __ROOT__."/data/~runtime/style_/".$nId;
 	}
 
+	static public function defineCurscript($arrModulecachelist){
+		foreach($arrModulecachelist as $sKey=>$sCache){
+			if(strpos($sCache,'::') && MODULE_NAME.'::'.ACTION_NAME==$sCache){
+				define('CURSCRIPT',$sKey);
+				continue;
+			}elseif(MODULE_NAME===$sCache){
+				define('CURSCRIPT',$sKey);
+				continue;
+			}
+		}
+	}
+
 }

@@ -29,15 +29,7 @@ class InitController extends Controller{
 			'userhome'=>'user::index'
 		);
 
-		foreach($arrModulecachelist as $sKey=>$sCache){
-			if(strpos($sCache,'::') && MODULE_NAME.'::'.ACTION_NAME==$sCache){
-				define('CURSCRIPT',$sKey);
-				continue;
-			}elseif(MODULE_NAME===$sCache){
-				define('CURSCRIPT',$sKey);
-				continue;
-			}
-		}
+		Core_Extend::defineCurscript($arrModulecachelist);
 	}
 	
 	public function is_login(){
