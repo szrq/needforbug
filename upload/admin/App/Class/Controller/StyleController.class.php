@@ -111,24 +111,65 @@ class StyleController extends InitController{
 				$this->E(Dyhb::L('你要安装的主题 %s 样式表不存在','Controller/Style',null,$sXmlFile));
 			}
 
-			$this->install_a_new($sXmlFile,strtolower($sStyle));
+			$this->install_a_new($sXmlFile);
 		}
 
 		$this->S(Dyhb::L('主题 %s 安装成功','Controller/Style',null,$sStyle));
 	}
 
-	public function install_a_new($sThemeXml,$sStyle){
-		if(!is_file($sThemeXml)){
-			$this->E(Dyhb::L('你要安装的主题 %s 样式表不存在','Controller/Style',null,$sThemeXml));
-		}
-
-		$arrStyleData=Xml::xmlUnserialize(file_get_contents($sThemeXml));
+	public function install_a_new($sThemeXml,$arrStyleData=array(),$bIgnoreversion=false){
 		if(empty($arrStyleData)){
-			$this->E(Dyhb::L('你要安装的主题 %s 样式表可能已经损坏，系统无法读取其数据','Controller/Style',null,$sThemeXml));
+			if(!is_file($sThemeXml)){
+				$this->E(Dyhb::L('你要安装的主题 %s 样式表不存在','Controller/Style',null,$sThemeXml));
+			}
+
+			$arrStyleData=Xml::xmlUnserialize(file_get_contents($sThemeXml));
+			if(empty($arrStyleData)){
+				$this->E(Dyhb::L('你要安装的主题 %s 样式表可能已经损坏，系统无法读取其数据','Controller/Style',null,$sThemeXml));
+			}
+		}
+		
+		if(!is_array($arrStyleData)){
+			$this->E(Dyhb::L('你要安装的主题 %s 样式表可能已经损坏，数据库不符合我们的要求','Controller/Style',null,$sThemeXml));
 		}else{
+			// 判断版本
+			if(!isset($arrStyleData['root']['version']) || empty($arrStyleData['root']['version'])){
+				$this->E(Dyhb::L('当前导入的主题配置文件版本号无法识别','Controller/Style'));
+			}else{
+				$nResult=strcmp($arrStyleData['root']['version'],NEEDFORBUG_SERVER_VERSION);
+				if($nResult>0){
+					$this->E(Dyhb::L('当前导入的主题配置文件版本号为较新版本，请下载新版本程序','Controller/Style').
+							'<br/>'.Dyhb::L('主题配置文件版本','Controller/Style').$arrStyleData['root']['version'].' '.Dyhb::L('主程序版本','Controller/Style').NEEDFORBUG_SERVER_VERSION
+						);
+				}elseif($bIgnoreversion===false && $nResult<0){
+					$this->E(Dyhb::L('当前导入的主题配置文件版本号为较旧版本，请导入新版本配置文件，或者选择允许导入旧版本','Controller/Style').
+							'<br/>'.Dyhb::L('主题配置文件版本','Controller/Style').$arrStyleData['root']['version'].' '.Dyhb::L('主程序版本','Controller/Style').NEEDFORBUG_SERVER_VERSION
+					);
+				}
+			}
+			
 			$arrStyleData=$arrStyleData['root']['data'];
 		}
-
+		
+		// 数据变量值验证（依靠默认的系统默认的主题变量来判断）
+		if(!isset($arrStyleData['style']) || empty($arrStyleData['style'])){
+			$this->E(Dyhb::L('程序无法正常读取到主题配置变量信息','Controller/Style'));
+		}
+		
+		$bNotExistsSomesystemvar=false;
+		$arrStylevarKeys=array_keys($arrStyleData['style']);
+		
+		$arrCurtomStylevarList=(array)(include NEEDFORBUG_PATH.'/Source/Common/Style.php');
+		foreach($arrCurtomStylevarList as $sCurtomStylevarList){
+			if(!in_array($sCurtomStylevarList,$arrStylevarKeys)){
+				if($bIgnoreversion===false){
+					$this->E(Dyhb::L('导入的配置文件变量数据不完整','Controller/Style'));
+				}else{
+					$arrStyleData['style'][$sCurtomStylevarList]='';
+				}
+			}
+		}
+		
 		// 写入模板数据
 		$nThemeId=isset($arrStyleData['template_id'])?intval($arrStyleData['template_id']):0;
 		$arrSaveThemeData=array(
@@ -138,7 +179,7 @@ class StyleController extends InitController{
 		);
 		
 		$oTheme=Dyhb::instance('ThemeModel');
-		$nThemeId=$oTheme->saveThemeData($arrSaveThemeData,$nThemeId,$sStyle);
+		$nThemeId=$oTheme->saveThemeData($arrSaveThemeData,$nThemeId);
 
 		if($oTheme->isError()){
 			$this->E($oTheme->getErrorMessage());
@@ -229,7 +270,7 @@ class StyleController extends InitController{
 						if(file_exists($sExtendStylefile)){
 							$sContent=file_get_contents($sExtendStylefile);
 
-							if(preg_match('/\[name\](.+?)\[\/name\]/i',$sContent,$arrResult1) && 
+							if(preg_match('/\[name\](.+?)\[\/name\]/i',$sContent,$arrResult1) &&
 								preg_match('/\[iconbgcolor](.+?)\[\/iconbgcolor]/i',$sContent,$arrResult2))
 							{
 								$arrExtendstyle[]=array($sStyleDir,'<em style="background:'.$arrResult2[1].'">&nbsp;&nbsp;&nbsp;&nbsp;</em> '.$arrResult1[1]);
@@ -623,11 +664,37 @@ class StyleController extends InitController{
 	}
 
 	public function import(){
+		$this->assign('nUploadMaxFilesize',ini_get('upload_max_filesize'));
+		$this->assign('nUploadSize',Core_Extend::getUploadSize(51200));
+
 		$this->display();
 	}
 
-	public function import_date(){
-		$this->E('Hello world!');
+	public function import_data(){
+		$sImporttype=trim(G::getGpc('importtype','P'));
+		$nIgnoreversion=G::getGpc('ignoreversion','P');
+
+		if($sImporttype=='file'){
+			if($_FILES['importfile']['error']==4){
+				$this->E(Dyhb::L('你没有上传任何配置文件','Controller/Style'));
+			}else{
+				$sData=file_get_contents($_FILES['importfile']['tmp_name']);
+				@unlink($_FILES['importfile']['tmp_name']);
+			}
+		}else{
+			$sData=trim(G::getGpc('importtxt','P'));
+		}
+		
+		$arrStyleData=Xml::xmlUnserialize($sData);
+		if(empty($arrStyleData) || !isset($arrStyleData['root'])){
+			$this->E(Dyhb::L('你要导入的主题样式表可能已经损坏，系统无法读取其数据','Controller/Style').
+					'<div style="height: 100px; width: 500px; overflow:auto;margin-top:10px;">'.nl2br($sData).'</div>'
+				);
+		}
+
+		$this->install_a_new('',$arrStyleData,($nIgnoreversion==1?true:false));
+
+		$this->S(Dyhb::L('导入主题样式成功','Controller/Style'));
 	}
 	
 	protected function show_Styles($sStylePath){

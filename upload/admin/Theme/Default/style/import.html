@@ -4,15 +4,7 @@
 function add(){
 	$("#submit_button").attr("disabled", "disabled");
 	$("#submit_button").val( 'add...' );
-	Dyhb.AjaxSubmit('styleAdd','<!--{:Dyhb::U('style/import_date')}-->','',complete);
-}
-
-function complete(data,status){
-	$("#submit_button").attr("disabled", false);
-	$("#submit_button").val( '<!--<lang package='Template/Default/Common'>-->发布<!--</lang>-->' );
-	if(status==1){
-		window.location.href="<!--{:Dyhb::U('style/index')}-->";
-	}
+	document.getElementById( 'styleImport').submit();
 }
 <!--{/script}-->
 
@@ -39,7 +31,7 @@ function complete(data,status){
 					<li class="active"><a href="<!--{:Dyhb::U('style/index')}-->"><!--<lang package='Template/Default/Style'>-->已安装主题列表<!--</lang>--></a></li>
 				</ul>
 			</header>
-			<form action="<!--{:Dyhb::U('style/insert')}-->" method="post" id="styleAdd">
+			<form action="<!--{:Dyhb::U('style/import_data')}-->" method="post" enctype="multipart/form-data" name="styleImport" id="styleImport">
 				<div class="module_content">
 					<fieldset>
 						<label for="importtype"><!--<lang package='Template/Default/Style'>-->请选择导入方式<!--</lang>--></label>
@@ -50,9 +42,10 @@ function complete(data,status){
 					</fieldset>
 					<div id="importfile">
 						<fieldset>
-							<label for="importfile"><!--<lang package='Template/Default/Style'>-->请上传数据文件<!--</lang>--></label>
+							<label for="importfile"><!--<lang package='Template/Default/Style'>-->请上传数据文件<!--</lang>-->(<!--<lang package='Template/Default/Style'>-->当前最大上传尺寸<!--</lang>--> <!--{:G::changeFileSize($nUploadSize)}-->)</label>
 							<input name="importfile" id="importfile" value="" type="file" />
-							<div class="description"><!--<lang package='Template/Default/Style'>-->这里将直接上传一个风格主题XML配置文件<!--</lang>-->
+							<div class="description"><!--<lang package='Template/Default/Style'>-->这里将直接上传一个风格主题XML配置文件<!--</lang>--><br/>
+						<!--<lang package='Template/Default/Style'>-->服务器最大上传值<!--</lang>--> <!--{$nUploadMaxFilesize}--> (<!--{$nUploadMaxFilesize*1048576}-->B) <!--<lang package='Template/Default/Style'>-->请注意最好不要超过这个值，否则不会有任何效果<!--</lang>-->
 							</div>
 						</fieldset>
 					</div>
@@ -72,8 +65,7 @@ function complete(data,status){
 				</div>
 				<footer>
 					<div class="submit_link">
-						<input type="hidden" name="ajax" value="1">
-						<input type="button" id="submit_button" onclick="add()" value="<!--<lang package='Template/Default/Common'>-->发布<!--</lang>-->" class="alt_btn">
+						<input type="submit" id="submit_button" onclick="add()" value="<!--<lang package='Template/Default/Common'>-->发布<!--</lang>-->" class="alt_btn">
 						<input type="reset" value="<!--<lang package='Template/Default/Common'>-->重置<!--</lang>-->">
 					</div>
 				</footer>

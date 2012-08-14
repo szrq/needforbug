@@ -16,8 +16,15 @@
 						<!--{$__Message__}-->
 					<!--</if>-->
 					<!--<if condition="isset( $__ErrorMessage__ ) AND !empty( $__ErrorMessage__ )" >-->
-						<p><img src="<!--{$__ErrorbigImg__}-->"/></p>
-						<!--{$__ErrorMessage__}-->
+						<p><table border="0" valign="middle" cellpadding="0" cellspacing="0">
+								<tbody>
+									<tr>
+										<td width="80px"><img src="<!--{$__ErrorbigImg__}-->"/></td>
+										<td><!--{$__ErrorMessage__}--></td>
+									</tr>
+								</tbody>
+							</table>
+						</p>
 					<!--</if>-->
 					<div id="__Loader__"><img src="<!--{$__LoadingImg__}-->"/></div></p>
 					<p class="marginbot" id="__JumpUrl__">

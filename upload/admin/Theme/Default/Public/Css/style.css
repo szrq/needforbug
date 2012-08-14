@@ -213,6 +213,7 @@ a.big-button:hover{text-decoration:none;color:#000;}
 #result{padding:5px 20px;border: 1px solid #999; border: 1px solid rgba(0, 0, 0, 0.2);*border: 1px solid #999;}
 .DyhbAjaxResult table{border:none;}
 #result ul li,.DyhbAjaxResult ul li{list-style:none;line-height:20px;}
+.DyhbModelList{list-style:none;}
 
 /**===============================
            分页条
