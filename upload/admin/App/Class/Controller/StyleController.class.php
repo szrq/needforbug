@@ -84,7 +84,7 @@ class StyleController extends InitController{
 
 				// 修改系统配置
 				$sTheme='Default';
-				$oTheme=ThemeModel::F('theme_id?',$oStyle['theme_id'])->getOne();
+				$oTheme=ThemeModel::F('theme_id=?',$oStyle['theme_id'])->getOne();
 				if(!empty($oTheme['theme_id'])){
 					$sTheme=ucfirst($oTheme['theme_dirname']);
 				}

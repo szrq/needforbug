@@ -11,4 +11,8 @@ $arrAppConfigs=array(
 	'TMPL_MODULE_ACTION_DEPR'=>'/',
 );
 
-return array_merge($arrAppConfigs,require(NEEDFORBUG_PATH.'/config/Config.inc.php'));
+$arrGlobalConfig=(array)require(NEEDFORBUG_PATH.'/config/Config.inc.php');
+$arrAppConfigs['TPL_DIR']=$arrGlobalConfig['FRONT_TPL_DIR'];
+unset($arrGlobalConfig['FRONT_TPL_DIR']);
+
+return array_merge($arrAppConfigs,$arrGlobalConfig);
