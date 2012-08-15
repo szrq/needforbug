@@ -40,7 +40,8 @@
 					<thead>
 						<tr>
 							<th><input type="checkbox" onclick="checkAll('checkList')"></th> 
-							<th><a href="javascript:sortBy('theme_id','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('theme_id')}-->><!--<lang package='Template/Default/Common'>-->编号<!--</lang>--></a></th> 
+							<th width="80px"><a href="javascript:sortBy('theme_id','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('theme_id')}-->><!--<lang package='Template/Default/Common'>-->编号<!--</lang>--></a></th> 
+							<th width="160px"> </th>
 							<th><a href="javascript:sortBy('theme_name','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('theme_name')}-->><!--<lang package='Template/Default/Theme'>-->模板名字<!--</lang>--></a></th>
 							<th><a href="javascript:sortBy('theme_dirname','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('theme_dirname')}-->><!--<lang package='Template/Default/Theme'>-->模板目录<!--</lang>--></a></th>
 							<th><a href="javascript:sortBy('theme_copyright','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('theme_copyright')}-->><!--<lang package='Template/Default/Theme'>-->模板版权<!--</lang>--></a></th>
@@ -56,6 +57,10 @@
 									<span class='edit'><a href="javascript:edit('<!--{$value:theme_id}-->')"><!--<lang package='Template/Default/Common'>-->编辑<!--</lang>--></a>|</span>
 									<span class='delete'><a href="javascript:foreverdel('<!--{$value:theme_id}-->');"><!--<lang package='Template/Default/Common'>-->删除<!--</lang>--></a></span>
 								</div>
+							</td>
+							<td><a href="<!--{:Core_Extend::getStylePreview('','large',false,$value['theme_dirname'])}-->" target="_blank">
+									<img src="<!--{:Core_Extend::getStylePreview('','mini',false,$value['theme_dirname'])}-->" style="border: 1px solid #ebf1f2;"/>
+								</a>
 							</td>
 							<td class="pointer" title="<!--<lang package='Template/Default/Common'>-->点击修改数据<!--</lang>-->" id="theme_name_<!--{$value:theme_id}-->" onClick="clickToInput('theme_name','<!--{$value:theme_id}-->')"><!--{$value:theme_name}--></td>
 							<td class="pointer" title="<!--<lang package='Template/Default/Common'>-->点击修改数据<!--</lang>-->" id="theme_dirname_<!--{$value:theme_id}-->" onClick="clickToInput('theme_dirname','<!--{$value:theme_id}-->')"><!--{$value:theme_dirname}--></td>

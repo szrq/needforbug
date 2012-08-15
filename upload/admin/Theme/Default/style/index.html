@@ -35,7 +35,9 @@
 					<tbody>
 						<tr>
 							<td rowspan="7" width="300px">
-								<img src="<!--{:Core_Extend::getStylePreview($oCurstyle['style_id'])}-->" />
+								<a href="<!--{:Core_Extend::getStylePreview($oCurstyle['style_id'],'large')}-->" target="_blank">
+									<img src="<!--{:Core_Extend::getStylePreview($oCurstyle['style_id'])}-->" style="border: 1px solid #ebf1f2;"/>
+								</a>
 							</td>
 						</tr>
 						<tr>
@@ -88,6 +90,7 @@
 				<ul class="tabs">
 					<li><a href="<!--{:Dyhb::U('style/import')}-->"><!--<lang package='Template/Default/Style'>-->导入<!--</lang>--></a></li>
 					<li class="active"><a href="<!--{:Dyhb::U('style/install')}-->"><!--<lang package='Template/Default/Style'>-->安装新主题<!--</lang>-->(<!--{$nNewinstalledNum}-->)</a></li>
+					<li><a href="<!--{:Dyhb::U('style/admin')}-->"><!--<lang package='Template/Default/Style'>-->后台主题<!--</lang>--></a></li>
 				</ul>
 			</header>
 			<div class="module_content">
@@ -113,7 +116,9 @@
 									<span class='hide'><!--<if condition="$value:style_status eq 1" >--><a href="javascript:forbid('<!--{$value:style_id}-->')"><!--<lang package='Template/Default/Common'>-->禁用<!--</lang>--></a><!--<else/>--><a href="javascript:resume('<!--{$value:style_id}-->')"><!--<lang package='Template/Default/Common'>-->恢复<!--</lang>--></a><!--</if>--></span>
 								</div>
 							</td>
-							<td><img src="<!--{:Core_Extend::getStylePreview($value['style_id'],'mini')}-->" />
+							<td><a href="<!--{:Core_Extend::getStylePreview($value['style_id'],'large')}-->" target="_blank">
+									<img src="<!--{:Core_Extend::getStylePreview($value['style_id'],'mini')}-->" style="border: 1px solid #ebf1f2;"/>
+								</a>
 								<div style="margin-top:15px;">
 									<!--{if $value['style_id']==$nCurrentStyleid}-->
 									<!--<lang package='Template/Default/Style'>-->主题已经启用<!--</lang>-->

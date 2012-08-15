@@ -421,7 +421,7 @@ class Core_Extend{
 		}
 
 		return $nReturnSize;
-	}	
+	}
 	
 	static public function aidencode($nId){
 		static $sSidAuth='';
@@ -469,7 +469,7 @@ class Core_Extend{
 NEEDFORBUG;
 	}
 
-	static public function deleteAppconfig($sApp=null){
+	static public function deleteAppconfig($sApp=null,$bCleanCookie=true){
 		if(is_null($sApp)){
 			$arrSaveDatas=array();
 
@@ -485,8 +485,15 @@ NEEDFORBUG;
 				self::deleteAppconfig($sTheApp);
 			}
 		}else{
+			$sApp=strtolower($sApp);
+
 			$sAppConfigcachefile=NEEDFORBUG_PATH.'/data/~runtime/'.$sApp.'/Config.php';
 			@unlink($sAppConfigcachefile);
+
+			if($bCleanCookie===true){
+				Dyhb::cookie($sApp.'_template',null,-1);
+				Dyhb::cookie($sApp.'_language',null,-1);
+			}
 		}
 
 		return true;
@@ -505,7 +512,7 @@ NEEDFORBUG;
 			$arrData[$Data]=$sValue;
 
 			$arrAppconfig=array_merge($arrAppconfig,$arrData);
-Dyhb::L('全局配置文件 %s 不可写','__COMMON_LANG__@Function/Core_Extend',null,5);
+
 			if(!file_put_contents($sAppGlobalconfigFile,
 				"<?php\n /* DoYouHaoBaby Framework Config File,Do not to modify this file! */ \n return ".
 				var_export($arrAppconfig,true).
@@ -554,24 +561,30 @@ Dyhb::L('全局配置文件 %s 不可写','__COMMON_LANG__@Function/Core_Extend'
 		Dyhb::E(sprintf('Template File %s is not exist',$sUrl));
 	}
 
-	static public function getStylePreview($Style,$sType='',$bAdmin=false){
-		if(!is_object($Style)){
-			$Style=StyleModel::F('style_id=?',$Style)->getOne();
-		}
-		
-		if(empty($Style['style_id'])){
-			return self::getNoneimg();
-		}
-
-		$oTheme=ThemeModel::F('theme_id=?',$Style['theme_id'])->getOne();
-		if(empty($oTheme['theme_id'])){
-			return self::getNoneimg();
+	static public function getStylePreview($Style,$sType='',$bAdmin=false,$sTemplate=''){
+		if(empty($sTemplate)){
+			if(!is_object($Style)){
+				$Style=StyleModel::F('style_id=?',$Style)->getOne();
+			}
+			
+			if(empty($Style['style_id'])){
+				return self::getNoneimg();
+			}
+	
+			$oTheme=ThemeModel::F('theme_id=?',$Style['theme_id'])->getOne();
+			if(empty($oTheme['theme_id'])){
+				return self::getNoneimg();
+			}
+			
+			$sTemplate=ucfirst($oTheme['theme_dirname']);
+		}else{
+			$sTemplate=ucfirst(strtolower($sTemplate));
 		}
 
 		if($bAdmin===false){
-			$sPreviewPath='ucontent';
+			$sPreviewPath='ucontent/theme';
 		}else{
-			$sPreviewPath='admin';
+			$sPreviewPath='admin/Theme';
 		}
 
 		if($sType=='large'){
@@ -583,8 +596,8 @@ Dyhb::L('全局配置文件 %s 不可写','__COMMON_LANG__@Function/Core_Extend'
 		}
 
 		foreach(array('png','gif','jpg','jpeg') as $sExt){
-			if(file_exists(NEEDFORBUG_PATH.'/'.$sPreviewPath.'/theme/'.ucfirst($oTheme['theme_dirname'])."/{$sPreview}.{$sExt}")){
-				return __ROOT__.'/'.$sPreviewPath.'/theme/'.ucfirst($oTheme['theme_dirname'])."/{$sPreview}.{$sExt}";
+			if(file_exists(NEEDFORBUG_PATH.'/'.$sPreviewPath.'/'.$sTemplate."/{$sPreview}.{$sExt}")){
+				return __ROOT__.'/'.$sPreviewPath.'/'.$sTemplate."/{$sPreview}.{$sExt}";
 				continue;
 			}
 		}
@@ -645,7 +658,7 @@ Dyhb::L('全局配置文件 %s 不可写','__COMMON_LANG__@Function/Core_Extend'
 		$sScriptCss.='<link rel="stylesheet" type="text/css" href="'.$sStyleCacheurl.'/scriptstyle_'.APP_NAME.'_'.CURSCRIPT.'.css?'.$GLOBALS['_style_']['verhash']."\" />\n\t";
 		
 		return $sScriptCss;
-	}	
+	}
 	
 	static public function cssVarTags($sCurScript,$sContent){
 		$GLOBALS['_curscript_'].=in_array(APP_NAME.'::'.CURSCRIPT,Dyhb::normalize(explode(',',trim($sCurScript))))?$sContent:'';

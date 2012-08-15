@@ -55,7 +55,7 @@ class StyleController extends InitController{
 
 				$this->update_css(false);
 
-				$this->S(Dyhb::L('当前主题被禁用,现在成功已经恢复','Controller/Common'));
+				$this->S(Dyhb::L('当前主题被禁用,现在成功已经恢复','Controller/Style'));
 			}else{
 				OptionModel::uploadOption('front_style_id',1);
 
@@ -63,7 +63,7 @@ class StyleController extends InitController{
 
 				$this->update_css(false);
 
-				$this->S(Dyhb::L('当前主题不存在,现在成功已经恢复到默认主题','Controller/Common'));
+				$this->S(Dyhb::L('当前主题不存在,现在成功已经恢复到默认主题','Controller/Style'));
 			}
 		}else{
 			$this->E(Dyhb::L('操作项不存在','Controller/Common'));
@@ -77,7 +77,7 @@ class StyleController extends InitController{
 			$oStyle=StyleModel::F('style_id=?',$nId)->getOne();
 			if(!empty($oStyle)){
 				if(!$oStyle->style_status){
-					$this->E(Dyhb::L('主题尚未开启，无法启用','Controller/Common'));
+					$this->E(Dyhb::L('主题尚未开启，无法启用','Controller/Style'));
 				}
 
 				OptionModel::uploadOption('front_style_id',$nId);
@@ -93,10 +93,26 @@ class StyleController extends InitController{
 
 				$this->update_css(false);
 
-				$this->S(Dyhb::L('启用主题成功','Controller/Common'));
+				$this->S(Dyhb::L('启用主题成功','Controller/Style'));
 			}else{
 				$this->E(Dyhb::L('数据库中并不存在该项，或许它已经被删除','Controller/Common'));
 			}
+		}else{
+			$this->E(Dyhb::L('操作项不存在','Controller/Common'));
+		}
+	}
+
+	public function set_admin_style(){
+		$sStyle=trim(G::getGpc('style','G'));
+
+		if(!empty($sStyle)){
+			$sStyle=ucfirst(strtolower($sStyle));
+
+			OptionModel::uploadOption('admin_theme_name',$sStyle);
+
+			Core_Extend::changeAppconfig('ADMIN_TPL_DIR',$sStyle);
+
+			$this->S(Dyhb::L('启用主题成功','Controller/Style'));
 		}else{
 			$this->E(Dyhb::L('操作项不存在','Controller/Common'));
 		}
@@ -135,6 +151,15 @@ class StyleController extends InitController{
 
 		$this->display();
 	}
+	
+	public function admin(){
+		$this->_sCurrentStyle=ucfirst(strtolower($GLOBALS['_option_']['admin_theme_name']));
+		$this->show_Styles(NEEDFORBUG_PATH.'/admin/Theme');
+		
+		$this->assign('sCurrentStyle',strtolower($this->_sCurrentStyle));
+
+		$this->display();
+	}
 
 	public function get_xml_num($sStyle,$bReturnNum=true){
 		$arrXmlFiles=glob(NEEDFORBUG_PATH.'/ucontent/theme/'.ucfirst($sStyle).'/*.xml');
@@ -162,14 +187,6 @@ class StyleController extends InitController{
 			return true;
 		}else{
 			return false;
-		}
-	}
-
-	public function get_style_url($arrStyle,$sType='preview'){
-		if(file_exists(NEEDFORBUG_PATH.'/ucontent/theme/'.$arrStyle['Style'].'/'.$arrStyle[$sType])){
-			return __ROOT__.'/ucontent/theme/'.$arrStyle['Style'].'/'.$arrStyle[$sType];
-		}else{
-			return Core_Extend::getNoneimg();
 		}
 	}
 
