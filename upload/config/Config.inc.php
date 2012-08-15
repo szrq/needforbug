@@ -32,6 +32,8 @@
   'RBAC_ERROR_PAGE' => '',
   'TIME_ZONE' => 'Asia/Shanghai',
   'TEMPLATE_TAG_NOTE' => true,
-  'APP_DEVELOP' => 0,
+  'APP_DEVELOP' => 1,
+  'FRONT_TPL_DIR' => 'Default',
+  'ADMIN_TPL_DIR' => 'Default',
 )
 ?>

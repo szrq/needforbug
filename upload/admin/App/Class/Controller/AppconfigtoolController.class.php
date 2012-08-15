@@ -148,7 +148,7 @@ class AppconfigtoolController extends InitController{
 		$sApp=trim(G::getGpc('app','G'));
 		
 		if($sApp!='admin'){
-			$oApp=AppModel::F('app_identifier=? AND app_active=1',$sApp)->getOne();
+			$oApp=AppModel::F('app_identifier=? AND app_status=1',$sApp)->getOne();
 			if(empty($oApp['app_id'])){
 				$this->error_message(Dyhb::L('应用 %s 不存在或者尚未开启','Controller/Appconfigtool',null,$sApp));
 			}
@@ -229,7 +229,7 @@ class AppconfigtoolController extends InitController{
 		$arrSaveDatas=array();
 
 		$arrWhere=array();
-		$arrWhere['app_active']=1;
+		$arrWhere['app_status']=1;
 		$arrApps=AppModel::F()->where($arrWhere)->all()->query();
 		foreach($arrApps as $oApp){
 			$arrSaveDatas[]=$oApp['app_identifier'];
@@ -245,7 +245,7 @@ class AppconfigtoolController extends InitController{
 
 	public function get_configfile($sApp){
 		if($sApp!='admin'){
-			$oApp=AppModel::F('app_identifier=? AND app_active=1',$sApp)->getOne();
+			$oApp=AppModel::F('app_identifier=? AND app_status=1',$sApp)->getOne();
 			if(empty($oApp['app_id'])){
 				$this->error_message(Dyhb::L('应用 %s 不存在或者尚未开启','Controller/Appconfigtool',null,$sApp));
 			}

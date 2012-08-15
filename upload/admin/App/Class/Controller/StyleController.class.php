@@ -31,10 +31,13 @@ class StyleController extends InitController{
 		$nNewNum=count($arrThemes)-$nAlreadyInstalledNums;
 
 		$oCurstyle=StyleModel::F('style_status=1 AND style_id=?',$GLOBALS['_option_']['front_style_id'])->getOne();
-
+		
+		$oCurstylevarMenuhoverbgcolor=StylevarModel::F('style_id=? AND stylevar_variable=?',$oCurstyle['style_id'],'menu_hover_bg_color')->getOne();
+		
 		$this->assign('nNewinstalledNum',$nNewNum);
 		$this->assign('nCurrentStyleid',$GLOBALS['_option_']['front_style_id']);
 		$this->assign('oCurstyle',$oCurstyle);
+		$this->assign('oCurstylevarMenuhoverbgcolor',$oCurstylevarMenuhoverbgcolor);
 	}
 
 	public function repaire(){
@@ -56,6 +59,8 @@ class StyleController extends InitController{
 			}else{
 				OptionModel::uploadOption('front_style_id',1);
 
+				Core_Extend::changeAppconfig('FRONT_TPL_DIR','Default');
+
 				$this->update_css(false);
 
 				$this->S(Dyhb::L('当前主题不存在,现在成功已经恢复到默认主题','Controller/Common'));
@@ -65,7 +70,45 @@ class StyleController extends InitController{
 		}
 	}
 
+	public function set_style(){
+		$nId=intval(G::getGpc('id','G'));
+
+		if(!empty($nId)){
+			$oStyle=StyleModel::F('style_id=?',$nId)->getOne();
+			if(!empty($oStyle)){
+				if(!$oStyle->style_status){
+					$this->E(Dyhb::L('主题尚未开启，无法启用','Controller/Common'));
+				}
+
+				OptionModel::uploadOption('front_style_id',$nId);
+
+				// 修改系统配置
+				$sTheme='Default';
+				$oTheme=ThemeModel::F('theme_id?',$oStyle['theme_id'])->getOne();
+				if(!empty($oTheme['theme_id'])){
+					$sTheme=ucfirst($oTheme['theme_dirname']);
+				}
+
+				Core_Extend::changeAppconfig('FRONT_TPL_DIR',$sTheme);
+
+				$this->update_css(false);
+
+				$this->S(Dyhb::L('启用主题成功','Controller/Common'));
+			}else{
+				$this->E(Dyhb::L('数据库中并不存在该项，或许它已经被删除','Controller/Common'));
+			}
+		}else{
+			$this->E(Dyhb::L('操作项不存在','Controller/Common'));
+		}
+	}
+
 	protected function aForbid(){
+		// 禁用一个主题
+		if($GLOBALS['_option_']['front_style_id']==G::getGpc('id','G')){
+			OptionModel::uploadOption('front_style_id',1);
+			Core_Extend::changeAppconfig('FRONT_TPL_DIR','Default');
+		}
+
 		$this->update_css(false);
 	}
 	
@@ -590,6 +633,12 @@ class StyleController extends InitController{
 		$arrIds=explode(',',$sId);
 		foreach($arrIds as $nId){
 			StylevarModel::M()->deleteWhere(array('style_id'=>$nId));
+
+			// 删除一个主题
+			if($GLOBALS['_option_']['front_style_id']==$nId){
+				OptionModel::uploadOption('front_style_id',1);
+				Core_Extend::changeAppconfig('FRONT_TPL_DIR','Default');
+			}
 		}
 	}
 

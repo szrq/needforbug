@@ -29,13 +29,22 @@
 				<table class="tablesorter" cellspacing="0" id="checkList">
 					<thead>
 						<tr>
-							<th colspan="2"><!--<lang package='Template/Default/Style'>-->主题名字<!--</lang>--> (<!--{$oCurstyle['style_name']}-->)</th>
+							<th colspan="2"><!--<lang package='Template/Default/Style'>-->当前主题预览<!--</lang>--></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td rowspan="5" width="300px">
+							<td rowspan="7" width="300px">
 								<img src="<!--{:Core_Extend::getStylePreview($oCurstyle['style_id'])}-->" />
+							</td>
+						</tr>
+						<tr>
+							<td><!--<lang package='Template/Default/Style'>-->主题名字<!--</lang>--> (<!--{$oCurstyle['style_name']}-->@<!--{$oCurstyle['style_id']}-->) | <!--{:ThemeModel::getThemenameById($oCurstyle['theme_id'])}-->@<!--{$oCurstyle['theme_id']}--></td>
+						</tr>
+						<tr>
+							<td>
+								<div style="background:<!--{$oCurstylevarMenuhoverbgcolor['stylevar_substitute']}-->;cursor:pointer;margin:5px;width:300px;height:50px;overflow:hidden;border: 1px solid #ccc" title="<!--<lang package='Template/Default/Style'>-->主题颜色属性<!--</lang>-->">
+								</div>
 							</td>
 						</tr>
 						<tr>
@@ -87,7 +96,7 @@
 						<tr>
 							<th width="10px"><input type="checkbox" onclick="checkAll('checkList')"></th>
 							<th width="90px"><a href="javascript:sortBy('style_id','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('style_id')}-->><!--<lang package='Template/Default/Common'>-->编号<!--</lang>--></a></th> 
-							<th width="100px"> </th>
+							<th width="200px"> </th>
 							<th><a href="javascript:sortBy('style_name','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('style_name')}-->><!--<lang package='Template/Default/Style'>-->主题名字<!--</lang>--></a></th>
 							<th><a href="javascript:sortBy('theme_id','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('template_id')}-->><!--<lang package='Template/Default/Style'>-->模板系<!--</lang>--></a></th>
 							<th><a href="javascript:sortBy('style_status','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('style_status')}-->><!--<lang package='Template/Default/Common'>-->状态<!--</lang>--></a></th>
@@ -104,7 +113,17 @@
 									<span class='hide'><!--<if condition="$value:style_status eq 1" >--><a href="javascript:forbid('<!--{$value:style_id}-->')"><!--<lang package='Template/Default/Common'>-->禁用<!--</lang>--></a><!--<else/>--><a href="javascript:resume('<!--{$value:style_id}-->')"><!--<lang package='Template/Default/Common'>-->恢复<!--</lang>--></a><!--</if>--></span>
 								</div>
 							</td>
-							<td><img src="<!--{:Core_Extend::getStylePreview($value['style_id'],$value['style_id']==$nCurrentStyleid?'':'mini')}-->" /></td>
+							<td><img src="<!--{:Core_Extend::getStylePreview($value['style_id'],'mini')}-->" />
+								<div style="margin-top:15px;">
+									<!--{if $value['style_id']==$nCurrentStyleid}-->
+									<!--<lang package='Template/Default/Style'>-->主题已经启用<!--</lang>-->
+									<!--{elseif !$value['style_status']}-->
+									<!--<lang package='Template/Default/Style'>-->主题尚未启用<!--</lang>-->
+									<!--{d*else}-->
+									<a class="big-button" href="<!--{:Dyhb::U('style/set_style?id='.$value['style_id'])}-->"><!--<lang package='Template/Default/Style'>-->启用此主题<!--</lang>--></a>
+									<!--{/if}-->
+								</div>
+							</td>
 							<td class="pointer" title="<!--<lang package='Template/Default/Common'>-->点击修改数据<!--</lang>-->" id="style_name_<!--{$value:style_id}-->" onClick="clickToInput('style_name','<!--{$value:style_id}-->')"><!--{$value:style_name}--></td>
 							<td><!--{:ThemeModel::getThemenameById($value['theme_id'])}-->@<!--{$value['theme_id']}--></td>
 							<td><img src="<!--{:__TMPLPUB__}-->/Images/<!--<if condition="$value:style_status eq 1" >-->yes<!--<else/>-->no<!--</if>-->.gif"/></td>

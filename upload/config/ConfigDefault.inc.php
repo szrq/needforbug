@@ -49,4 +49,8 @@ return array(
 
 	// 开发者中心
 	'APP_DEVELOP'=>0,// 是否开启后台应用设计，仅应用开发者设置为1
+
+	// 模板设置
+	'FRONT_TPL_DIR'=>'Default',
+	'ADMIN_TPL_DIR'=>'Default',
 );

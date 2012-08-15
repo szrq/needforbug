@@ -474,7 +474,7 @@ NEEDFORBUG;
 			$arrSaveDatas=array();
 
 			$arrWhere=array();
-			$arrWhere['app_active']=1;
+			$arrWhere['app_status']=1;
 			$arrApps=AppModel::F()->where($arrWhere)->all()->query();
 			foreach($arrApps as $oApp){
 				$arrSaveDatas[]=$oApp['app_identifier'];
@@ -490,6 +490,32 @@ NEEDFORBUG;
 		}
 
 		return true;
+	}
+
+	static public function changeAppconfig($Data,$sValue=''){
+		if(is_array($Data)){
+			foreach($Data as $sKey=>$sValue){
+				self::changeAppconfig($sKey,$sValue);
+			}
+		}else{
+			$sAppGlobalconfigFile=NEEDFORBUG_PATH.'/Config/Config.inc.php';
+			$arrAppconfig=(array)(include $sAppGlobalconfigFile);
+
+			$arrData=array();
+			$arrData[$Data]=$sValue;
+
+			$arrAppconfig=array_merge($arrAppconfig,$arrData);
+Dyhb::L('全局配置文件 %s 不可写','__COMMON_LANG__@Function/Core_Extend',null,5);
+			if(!file_put_contents($sAppGlobalconfigFile,
+				"<?php\n /* DoYouHaoBaby Framework Config File,Do not to modify this file! */ \n return ".
+				var_export($arrAppconfig,true).
+				"\n?>")
+			){
+				Dyhb::E(Dyhb::L('全局配置文件 %s 不可写','__COMMON_LANG__@Function/Core_Extend',null,$sAppGlobalconfigFile));
+			}
+
+			self::deleteAppconfig();
+		}
 	}
 
 	static public function template($sTemplate,$sApp=null,$sTheme=null){
