@@ -27,7 +27,7 @@ return array(
 	'TEMPLATE_NOT_ALLOWS_FUNC'=>'echo,exit',
 	'CACHE_LIFE_TIME'=>-1,
 	'THEME_SWITCH'=>TRUE,
-	'TPL_DIR'=>'default',
+	'TPL_DIR'=>'Default',
 	'PHP_OFF'=>FALSE,
 	'TEMPLATE_TAG_NOTE'=>FALSE,
 	'TEMPLATE_SUFFIX'=>'.html',

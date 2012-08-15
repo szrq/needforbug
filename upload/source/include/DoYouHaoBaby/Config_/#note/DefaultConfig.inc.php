@@ -22,7 +22,7 @@ return array(
 	'TEMPLATE_NOT_ALLOWS_FUNC'=>'echo,exit',// 系统不允许解析的函数-英文半角“,”隔开*
 	'CACHE_LIFE_TIME'=>-1,// 模板编译缓存时间,单位秒,-1表示永不过期
 	'THEME_SWITCH'=>TRUE,// 是否允许模板切换
-	'TPL_DIR'=>'default',// 模板默认主题
+	'TPL_DIR'=>'Default',// 模板默认主题
 	'PHP_OFF'=>FALSE,// 是否允许PHP代码
 	'TEMPLATE_TAG_NOTE'=>FALSE,// FALSE {if}X{/if}-<if>Y</if> | 注释版标签风格 TRUE <!--{if}-->X<!--{/if}-->-<!--<if>-->Y<!--</if>-->
 	'TEMPLATE_SUFFIX'=>'.html',// 模板后缀
