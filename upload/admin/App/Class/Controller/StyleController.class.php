@@ -30,8 +30,47 @@ class StyleController extends InitController{
 
 		$nNewNum=count($arrThemes)-$nAlreadyInstalledNums;
 
+		$oCurstyle=StyleModel::F('style_status=1 AND style_id=?',$GLOBALS['_option_']['front_style_id'])->getOne();
+
 		$this->assign('nNewinstalledNum',$nNewNum);
 		$this->assign('nCurrentStyleid',$GLOBALS['_option_']['front_style_id']);
+		$this->assign('oCurstyle',$oCurstyle);
+	}
+
+	public function repaire(){
+		$nId=intval(G::getGpc('id','G'));
+
+		if(!empty($nId)){
+			$oStyle=StyleModel::F('style_id=?',$nId)->getOne();
+			if(!empty($oStyle)){
+				$oStyle->style_status=1;
+				$oStyle->save(0,'update');
+
+				if($oStyle->isError()){
+					$this->E($oStyle->getErrorMessage());
+				}
+
+				$this->update_css(false);
+
+				$this->S(Dyhb::L('当前主题被禁用,现在成功已经恢复','Controller/Common'));
+			}else{
+				OptionModel::uploadOption('front_style_id',1);
+
+				$this->update_css(false);
+
+				$this->S(Dyhb::L('当前主题不存在,现在成功已经恢复到默认主题','Controller/Common'));
+			}
+		}else{
+			$this->E(Dyhb::L('操作项不存在','Controller/Common'));
+		}
+	}
+
+	protected function aForbid(){
+		$this->update_css(false);
+	}
+	
+	protected function aResume(){
+		$this->update_css(false);
 	}
 
 	public function install(){

@@ -20,6 +20,43 @@
 				</ul>
 			</div>
 		</article>
+
+		<article class="module width_full">
+			<header><h3 class="tabs_involved"><!--<lang package='Template/Default/Style'>-->当前安装的主题<!--</lang>--></h3>
+			</header>
+			<div class="module_content">
+				<!--{if !empty($oCurstyle['style_id'])}-->
+				<table class="tablesorter" cellspacing="0" id="checkList">
+					<thead>
+						<tr>
+							<th colspan="2"><!--<lang package='Template/Default/Style'>-->主题名字<!--</lang>--> (<!--{$oCurstyle['style_name']}-->)</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td rowspan="5" width="300px">
+								<img src="<!--{:Core_Extend::getStylePreview($oCurstyle['style_id'])}-->" />
+							</td>
+						</tr>
+						<tr>
+							<td><a href="<!--{:Dyhb::U('style/edit?id='.$oCurstyle['style_id'])}-->"><!--<lang package='Template/Default/Style'>-->主题DIY<!--</lang>--></a></td>
+						</tr>
+						<tr>
+							<td><a href="<!--{:Dyhb::U('style/export?id='.$oCurstyle['style_id'])}-->"><!--<lang package='Template/Default/Style'>-->导出<!--</lang>--></a></td>
+						</tr>
+						<tr>
+							<td><a href="<!--{:Dyhb::U('style/copy_style?id='.$oCurstyle['style_id'])}-->"><!--<lang package='Template/Default/Style'>-->复制<!--</lang>--></a></td>
+						</tr>
+						<tr>
+							<td><a href="<!--{:Dyhb::U('style/reset_style?id='.$oCurstyle['style_id'])}-->"><!--<lang package='Template/Default/Common'>-->重置<!--</lang>--></a></td>
+						</tr>
+					</tbody>
+				</table>
+				<!--{d*else}-->
+				<!--<lang package='Template/Default/Style'>-->当前主题被禁止或者不存在<!--</lang>--> <a href="<!--{:Dyhb::U('style/repaire?id='.$nCurrentStyleid)}-->"><!--<lang package='Template/Default/Style'>-->立刻修复<!--</lang>--></a>
+				<!--{/if}-->
+			</div>
+		</article>
 		
 		<article class="module width_full">
 			<div class="module_content">
@@ -63,7 +100,7 @@
 							<td><input type="checkbox" name="key" value="<!--{$value:style_id}-->" <!--{if $value['style_id']==1}-->disabled="disabled"<!--{/if}-->></td>
 							<td><!--{$value:style_id}-->
 								<div class="row-actions">
-									<span class='edit'><a href="javascript:edit('<!--{$value:style_id}-->')"><!--<lang package='Template/Default/Common'>-->编辑<!--</lang>--></a>|</span>
+									<span class='edit'><a href="javascript:edit('<!--{$value:style_id}-->')" title="<!--<lang package='Template/Default/Style'>-->主题DIY<!--</lang>-->"><!--<lang package='Template/Default/Common'>-->编辑<!--</lang>--></a>|</span>
 									<span class='hide'><!--<if condition="$value:style_status eq 1" >--><a href="javascript:forbid('<!--{$value:style_id}-->')"><!--<lang package='Template/Default/Common'>-->禁用<!--</lang>--></a><!--<else/>--><a href="javascript:resume('<!--{$value:style_id}-->')"><!--<lang package='Template/Default/Common'>-->恢复<!--</lang>--></a><!--</if>--></span>
 								</div>
 							</td>
@@ -74,7 +111,7 @@
 							<td><!--{if $value:style_status==1}-->
 								<a href="javascript:forbid('<!--{$value:style_id}-->')"><input type="image" src="<!--{:__TMPLPUB__}-->/Images/icn_trash.png" title="<!--<lang package='Template/Default/Common'>-->禁用<!--</lang>-->"></a>
 								<!--{d*else}--><a href="javascript:resume('<!--{$value:style_id}-->')"><input type="image" src="<!--{:__TMPLPUB__}-->/Images/icn_jump_back.png" title="<!--<lang package='Template/Default/Common'>-->恢复<!--</lang>-->"></a>
-								<!--{/if}-->&nbsp;<a href="javascript:edit('<!--{$value:style_id}-->')"><input type="image" src="<!--{:__TMPLPUB__}-->/Images/icn_edit.png" title="<!--<lang package='Template/Default/Common'>-->编辑<!--</lang>-->"></a>
+								<!--{/if}-->&nbsp;<a href="javascript:edit('<!--{$value:style_id}-->')"><input type="image" src="<!--{:__TMPLPUB__}-->/Images/icn_edit.png" title="<!--<lang package='Template/Default/Style'>-->主题DIY<!--</lang>-->"></a>
 								&nbsp;<a href="<!--{:Dyhb::U('style/export?id='.$value['style_id'])}-->"><!--<lang package='Template/Default/Style'>-->导出<!--</lang>--></a>
 								&nbsp;<a href="<!--{:Dyhb::U('style/copy_style?id='.$value['style_id'])}-->"><!--<lang package='Template/Default/Style'>-->复制<!--</lang>--></a>
 								&nbsp;<a href="<!--{:Dyhb::U('style/reset_style?id='.$value['style_id'])}-->"><!--<lang package='Template/Default/Common'>-->重置<!--</lang>--></a>
