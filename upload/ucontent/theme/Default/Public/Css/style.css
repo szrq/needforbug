@@ -28,7 +28,7 @@ Tags: admin, light
 .home-img-link img { margin: 1px 0; }
 .home-logo { float: left; padding-top: 2px; width: 100px; }
 .home-content { padding-right: 18px; height: 50px; }
-.home-content p { overflow: hidden; height: 17px; color: #999999; }
+.home-content p { overflow: hidden; height: 17px; color: {LIGHT_TEXTCOLOR}; }
 .home-txt-link li { float: left; margin-right: 5px; width: 8em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 [/CURSCRIPT]
 

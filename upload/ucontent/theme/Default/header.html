@@ -38,28 +38,29 @@
 	</ul>
 </div>
 
-<!--{style}-->
-#top_header{background:red;}
-#top_header a{color:red;}
-<!--{/style}-->
-
-<div id="top_header">
-	<div class="top_header_menu">
-		<div class="left">
-			<!--{~$arrHeaderNavs=$GLOBALS['_cache_']['nav']['header']}-->
-			<!--<foreach for=arrHeaderNavs value=arrHeaderNav>-->
-			<a <!--{$arrHeaderNav['style']}--> title="<!--{$arrHeaderNav['description']}-->" href="<!--{$arrHeaderNav['link']}-->" <!--{$arrHeaderNav['target']}-->>
-				<!--{$arrHeaderNav['title']}-->
-			</a>
-			<!--</foreach>-->
-		</div>
-		<div class="right">
-			<a href="javascript:void(0);" onclick="">切换到窄版</a>
+<div id="wrapper">
+	<div id="top_header">
+		<div class="container">
+			<div class="row">
+				<div class="span12">
+					<div class="top_header_menu">
+						<div class="left">
+							<!--{~$arrHeaderNavs=$GLOBALS['_cache_']['nav']['header']}-->
+							<!--<foreach for=arrHeaderNavs value=arrHeaderNav>-->
+							<a <!--{$arrHeaderNav['style']}--> title="<!--{$arrHeaderNav['description']}-->" href="<!--{$arrHeaderNav['link']}-->" <!--{$arrHeaderNav['target']}-->>
+								<!--{$arrHeaderNav['title']}-->
+							</a>
+							<!--</foreach>-->
+						</div>
+						<div class="right">
+							<a href="javascript:void(0);" onclick="">切换到窄版</a>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-</div>
 
-<div id="wrapper">
 	<div id="header">
 		<div class="container">
 			<div class="row">
