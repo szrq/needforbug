@@ -610,6 +610,7 @@ NEEDFORBUG;
 	}
 
 	static public function initFront(){
+		// 读取当前的主题样式
 		$sStyleCachepath=self::getCurstyleCachepath();
 		$arrMustFile=array('style.css','common.css','style.php');
 
@@ -638,6 +639,11 @@ NEEDFORBUG;
 				Dyhb::E(Dyhb::L('无法写入缓存文件,请检查缓存目录 %s 的权限是否为0777','__COMMON_LANG__@Function/Cache_Extend',null,$sStyleCachepath));
 			}
 		}
+
+		// 清除直接使用$_GET['t']带来的影响
+		if(isset($_GET['t'])){
+			Dyhb::cookie(APP_NAME.'_template',NULL,-1);
+		}
 	}
 
 	static public function loadCss(){
@@ -664,19 +670,25 @@ NEEDFORBUG;
 		$GLOBALS['_curscript_'].=in_array(APP_NAME.'::'.CURSCRIPT,Dyhb::normalize(explode(',',trim($sCurScript))))?$sContent:'';
 	}
 
-	static public function getCurstyleCachepath($nId=0){
+	static public function getStyleId($nId=0){
 		if($nId==0){
-			$nId=intval($GLOBALS['_option_']['front_style_id']);
+			if(Dyhb::cookie('style_id')){
+				$nId=Dyhb::cookie('style_id');
+			}else{
+				$nId=intval($GLOBALS['_option_']['front_style_id']);
+			}
 		}
 
+		return $nId;
+	}
+
+	static public function getCurstyleCachepath($nId=0){
+		$nId=self::getStyleId($nId);
 		return NEEDFORBUG_PATH.'/data/~runtime/style_/'.$nId;
 	}
 
 	static public function getCurstyleCacheurl($nId=0){
-		if($nId==0){
-			$nId=intval($GLOBALS['_option_']['front_style_id']);
-		}
-
+		$nId=self::getStyleId($nId);
 		return __ROOT__."/data/~runtime/style_/".$nId;
 	}
 

@@ -38,6 +38,51 @@ function refreshFrame(){
 				</ul>
 			</div>
 		</article>
+
+		<article class="module width_full">
+			<header><h3 class="tabs_involved"><!--<lang package='Template/Default/Style'>-->当前安装的主题<!--</lang>--></h3>
+			</header>
+			<div class="module_content">
+				<!--{if $sCurrentStyle!==false}-->
+				<table class="tablesorter" cellspacing="0">
+					<thead>
+						<tr>
+							<th colspan="2"><!--<lang package='Template/Default/Style'>-->当前主题预览<!--</lang>--></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td rowspan="7" width="300px">
+								<a href="<!--{:Core_Extend::getStylePreview('','large',true,strtolower($sCurrentStyle))}-->" target="_blank">
+									<img src="<!--{:Core_Extend::getStylePreview('','',true,strtolower($sCurrentStyle))}-->" style="border: 1px solid #ebf1f2;"/>
+								</a>
+							</td>
+						</tr>
+						<tr>
+							<td><!--<lang package='Template/Default/Style'>-->主题名字<!--</lang>--> (<!--{$arrCurrentStyle['Name']}-->@<!--{$sCurrentStyle}-->)</td>
+						</tr>
+						<tr>
+							<td><!--<lang package='Template/Default/Style'>-->作者<!--</lang>--> <!--{$arrCurrentStyle['Author']}--></td>
+						</tr>
+						<tr>
+							<td><!--<lang package='Template/Default/Style'>-->版本<!--</lang>--> <!--{$arrCurrentStyle['Version']}--></td>
+						</tr>
+						<tr>
+							<td><!--{$arrCurrentStyle['Description']}--></td>
+						</tr>
+						<tr>
+							<td><!--<lang package='Template/Default/Style'>-->模板路径<!--</lang>--> <!--{$arrCurrentStyle['Style Dir']}--></td>
+						</tr>
+						<tr>
+							<td><!--<lang package='Template/Default/Style'>-->标签<!--</lang>--> <!--{$arrCurrentStyle['Tags']|implode=',',**}--></td>
+						</tr>
+					</tbody>
+				</table>
+				<!--{d*else}-->
+				<!--<lang package='Template/Default/Style'>-->当前主题被禁止或者不存在<!--</lang>--> <a href="<!--{:Dyhb::U('style/repaire_admin')}-->"><!--<lang package='Template/Default/Style'>-->立刻修复<!--</lang>--></a>
+				<!--{/if}-->
+			</div>
+		</article>
 		
 		<article class="module width_full">
 			<div class="module_content">

@@ -111,11 +111,23 @@ class StyleController extends InitController{
 			OptionModel::uploadOption('admin_theme_name',$sStyle);
 
 			Core_Extend::changeAppconfig('ADMIN_TPL_DIR',$sStyle);
+			
+			Dyhb::cookie('admin_template',null,-1);
 
 			$this->S(Dyhb::L('启用主题成功','Controller/Style'));
 		}else{
 			$this->E(Dyhb::L('操作项不存在','Controller/Common'));
 		}
+	}
+
+	public function repaire_admin(){
+		OptionModel::uploadOption('admin_theme_name','Default');
+
+		Core_Extend::changeAppconfig('ADMIN_TPL_DIR','Default');
+
+		Dyhb::cookie('admin_template',null,-1);
+
+		$this->S(Dyhb::L('修复主题成功','Controller/Style'));
 	}
 
 	protected function aForbid(){
@@ -154,9 +166,31 @@ class StyleController extends InitController{
 	
 	public function admin(){
 		$this->_sCurrentStyle=ucfirst(strtolower($GLOBALS['_option_']['admin_theme_name']));
+		if(empty($this->_sCurrentStyle)){
+			$this->_sCurrentStyle='Default';
+		}
 		$this->show_Styles(NEEDFORBUG_PATH.'/admin/Theme');
 		
-		$this->assign('sCurrentStyle',strtolower($this->_sCurrentStyle));
+		if(!is_dir(NEEDFORBUG_PATH.'/ucontent/theme/'.$this->_sCurrentStyle)){
+			$this->assign('sCurrentStyle',false);
+		}else{
+			$arrStyles=array();
+			$arrStyles[]=NEEDFORBUG_PATH.'/ucontent/theme/'.$this->_sCurrentStyle;
+
+			require_once(Core_Extend::includeFile('class/Style'));
+
+			$oStyle=Dyhb::instance('Style');
+			$oStyle->getStyles($arrStyles);
+
+			$arrOkStyles=$oStyle->_arrOkStyles;
+		
+			if(!empty($arrOkStyles)){
+				$this->assign('sCurrentStyle',strtolower($this->_sCurrentStyle));
+				$this->assign('arrCurrentStyle',reset($arrOkStyles));
+			}else{
+				$this->assign('sCurrentStyle',false);
+			}
+		}
 
 		$this->display();
 	}
@@ -831,7 +865,9 @@ class StyleController extends InitController{
 			$bCurrentStyleIn=false;
 		}
 
-		require_once(Core_Extend::includeFile('class/Style'));
+		if(!Dyhb::classExists('Style')){
+			require_once(Core_Extend::includeFile('class/Style'));
+		}
 
 		$oStyle=Dyhb::instance('Style');
 		$oStyle->getStyles($arrStyles);

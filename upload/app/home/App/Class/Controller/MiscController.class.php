@@ -76,4 +76,38 @@ class MiscController extends InitController{
 		exit(json_encode($arrData));
 	}
 
+	public function style(){
+		$nStyleId=intval(G::getGpc('id','G'));
+		if(empty($nStyleId)){
+			$this->E('主题切换失败');
+		}
+
+		$oStyle=StyleModel::F('style_id=? AND style_status=1',$nStyleId)->getOne();
+		if(empty($oStyle['style_id'])){
+			$this->E('主题切换失败');
+		}
+
+		$oTheme=ThemeModel::F('theme_id=?',$oStyle['theme_id'])->getOne();
+		if(empty($oTheme['theme_id'])){
+			$this->E('主题切换失败');
+		}
+
+		$sThemeDir=NEEDFORBUG_PATH.'/ucontent/theme/'.ucfirst(strtolower($oTheme['theme_dirname']));
+		if(!is_dir($sThemeDir)){
+			$this->E('主题切换失败');
+		}
+
+		// 发送主题COOKIE
+		Dyhb::cookie('style_id',$nStyleId);
+
+		$arrApps=AppModel::F()->where(array('app_status'=>1))->all()->query();
+		if(is_array($arrApps)){
+			foreach($arrApps as $oApp){
+				Dyhb::cookie(strtolower($oApp['app_identifier']).'_template',ucfirst(strtolower($oApp['app_identifier'])));
+			}
+		}
+
+		$this->S('主题切换成功');
+	}
+
 }

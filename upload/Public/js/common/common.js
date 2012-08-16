@@ -357,3 +357,11 @@ function showYearmonthday(day,month,year){
 
 	oEl.value=sBirthday;
 }
+
+function setStyle(nStyle){
+	Dyhb.AjaxSend(D.U('home://misc/style?id='+nStyle),'ajax=1','',function(data,status){
+		if(status==1){
+			setTimeout("window.location.reload();",1000);
+		}
+	});
+}
