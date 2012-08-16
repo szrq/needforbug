@@ -28,7 +28,9 @@ class OptionController extends InitController{
 			$oOptionModel->save(0,'update');
 		}
 
-		require(NEEDFORBUG_PATH.'/source/function/Cache_Extend.class.php');
+		if(!Dyhb::classExists('Cache_Extend')){
+			require_once(Core_Extend::includeFile('function/Cache_Extend'));
+		}
 		Cache_Extend::updateCache('option');
 
 		$this->S(Dyhb::L('配置更新成功','Controller/Option'));

@@ -96,10 +96,10 @@
 			}
 		}
 
-		<!--{if G+getGpc('id','G')>0}-->
-		currentClass(<!--{:G::getGpc('id','G')}-->,false);
+		<!--{if G+getGpc('currentid','G')>0}-->
+		currentClass(<!--{:G::getGpc('currentid','G')}-->,<!--{if G+getGpc('notrefershmain','G')>0}-->false<!--{d*else}-->true<!--{/if}-->);
 		<!--{d*else}-->
-		currentClass(0,true);
+		currentClass(0,<!--{if G+getGpc('notrefershmain','G')>0}-->false<!--{d*else}-->true<!--{/if}-->);
 		<!--{/if}-->
 		<!--{/script}-->
 	</aside>

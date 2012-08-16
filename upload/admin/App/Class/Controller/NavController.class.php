@@ -43,7 +43,9 @@ class NavController extends InitController{
 	}
 
 	protected function aInsert($nId=null){
-		require_once(Core_Extend::includeFile('function/Cache_Extend'));
+		if(!Dyhb::classExists('Cache_Extend')){
+			require_once(Core_Extend::includeFile('function/Cache_Extend'));
+		}
 		Cache_Extend::updateCacheNav();
 	}
 
@@ -115,7 +117,7 @@ class NavController extends InitController{
 	public function nar_parent(){
 		$arrNavs=NavModel::F()->where(array('nav_parentid'=>0,'nav_location'=>0))->order('nav_sort DESC')->getAll();
 		
-		return $arrNavs; 
+		return $arrNavs;
 	}
 	
 }

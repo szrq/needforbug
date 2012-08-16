@@ -6,23 +6,19 @@
 function setAdminStyle(sStyle){
 	Dyhb.AjaxSend(D.U('style/set_admin_style?style='+sStyle),'ajax=1','',function(data,status){ 
 		if(status==1){
-			/*refreshFrame();*/
+			refreshFrame();
 		}
 	});
+
+	return false;
 }
 
 function refreshFrame(){
-	
-/*parent.frames.top.document.location=D.U( 'public/fmenu?tag=5&title='+encodeURIComponent('<!--<lang package='Template/Default/Style'>-->界面<!--</lang>-->')+'&id=2' );
-parent.frames.menu.document.location.reload();
-parent.frames.drag.document.location.reload();
-parent.frames.footer.document.location.reload();
-
-	/*parent.top.location=D.U( 'public/fheader?id=2' );
-	parent.menu.location=D.U( 'public/fmenu?tag=5&title='+encodeURIComponent('<!--<lang package='Template/Default/Style'>-->界面<!--</lang>-->')+'&id=2' );
+	parent.header.location=D.U( 'public/fheader?currentid=2' );
+	parent.menu.location=D.U( 'public/fmenu?tag=5&title='+encodeURIComponent('<!--<lang package='Template/Default/Style'>-->界面<!--</lang>-->')+'&currentid=2&notrefershmain=1' );
 	parent.drag.location=D.U( 'public/fdrag' );
-	parent.footer.location=D.U( 'public/ffooter' );*/
-	/*window.location.href=D.U( 'style/admin' );*/
+	parent.footer.location=D.U( 'public/ffooter' );
+	window.location.reload();
 }
 <!--{/script}-->
 
@@ -82,7 +78,7 @@ parent.frames.footer.document.location.reload();
 									<!--<lang package='Template/Default/Style'>-->主题已经启用<!--</lang>-->
 									<!--{d*else}-->
 									<a class="big-button" onclick="setAdminStyle('<!--{$arrOkStyle['Style']|strtolower}-->');return false;" href="javascript:void(0);" /><!--<lang package='Template/Default/Style'>-->启用此主题<!--</lang>--></a>
-									<!--{/if}--><a href="javascript:void(0);" onClick="setAdminStyle();parent.menu.location=D.U( 'public/fmenu?tag=2&title=设置' );return false;">设置</a>
+									<!--{/if}-->
 								</p>
 								<p class="style-author"><!--<lang package='Template/Default/Style'>-->作者<!--</lang>--> <!--{if !empty( $arrOkStyle['Author URI'])}--><!--{$arrOkStyle['Author']}--><!--{d*else}--><!--{$arrOkStyle['Author Name']}--><!--{/if}--></p>
 								<p class="style-dir"><!--<lang package='Template/Default/Style'>-->该主题的所有文件存放在<!--</lang>--> <!--{$arrOkStyle['Style Dir']}--></p>

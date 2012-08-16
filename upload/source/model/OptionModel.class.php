@@ -29,7 +29,9 @@ class OptionModel extends CommonModel{
 		$oOptionModel->option_value=$sOptionValue;
 		$oOptionModel->save(0,'update');
 
-		require(NEEDFORBUG_PATH.'/Source/Function/Cache_Extend.class.php');
+		if(!Dyhb::classExists('Cache_Extend')){
+			require_once(Core_Extend::includeFile('function/Cache_Extend'));
+		}
 		Cache_Extend::updateCache('option');
 	}
 
