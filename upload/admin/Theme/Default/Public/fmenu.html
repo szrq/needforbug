@@ -96,7 +96,11 @@
 			}
 		}
 
+		<!--{if G+getGpc('id','G')>0}-->
+		currentClass(<!--{:G::getGpc('id','G')}-->,false);
+		<!--{d*else}-->
 		currentClass(0,true);
+		<!--{/if}-->
 		<!--{/script}-->
 	</aside>
 

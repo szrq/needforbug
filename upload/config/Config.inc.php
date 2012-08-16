@@ -34,6 +34,6 @@
   'TEMPLATE_TAG_NOTE' => true,
   'APP_DEVELOP' => 1,
   'FRONT_TPL_DIR' => 'Default',
-  'ADMIN_TPL_DIR' => 'Default2',
+  'ADMIN_TPL_DIR' => 'Undefined',
 )
 ?>
