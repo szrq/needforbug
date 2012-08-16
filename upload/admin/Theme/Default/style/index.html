@@ -99,7 +99,7 @@
 						<tr>
 							<th width="10px"><input type="checkbox" onclick="checkAll('checkList')"></th>
 							<th width="90px"><a href="javascript:sortBy('style_id','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('style_id')}-->><!--<lang package='Template/Default/Common'>-->编号<!--</lang>--></a></th> 
-							<th width="200px"> </th>
+							<th width="130px"> </th>
 							<th><a href="javascript:sortBy('style_name','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('style_name')}-->><!--<lang package='Template/Default/Style'>-->主题名字<!--</lang>--></a></th>
 							<th><a href="javascript:sortBy('theme_id','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('template_id')}-->><!--<lang package='Template/Default/Style'>-->模板系<!--</lang>--></a></th>
 							<th><a href="javascript:sortBy('style_status','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('style_status')}-->><!--<lang package='Template/Default/Common'>-->状态<!--</lang>--></a></th>
@@ -108,7 +108,7 @@
 					</thead>
 					<tbody>
 						<!--<foreach for=oList>-->
-						<tr <!--{if $value['style_id']==$nCurrentStyleid}-->class="warning" style="background-color: #fcf8e3;border: 1px solid #fbeed5; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px;"<!--{/if}-->>
+						<tr <!--{if $value['style_id']==$nCurrentStyleid}-->class="warning"<!--{/if}-->>
 							<td><input type="checkbox" name="key" value="<!--{$value:style_id}-->" <!--{if $value['style_id']==1}-->disabled="disabled"<!--{/if}-->></td>
 							<td><!--{$value:style_id}-->
 								<div class="row-actions">
@@ -119,13 +119,13 @@
 							<td><a href="<!--{:Core_Extend::getStylePreview($value['style_id'],'large')}-->" target="_blank">
 									<img src="<!--{:Core_Extend::getStylePreview($value['style_id'],'mini')}-->" style="border: 1px solid #ebf1f2;"/>
 								</a>
-								<div style="margin-top:15px;">
+								<div style="margin-top:15px;text-align:center;">
 									<!--{if $value['style_id']==$nCurrentStyleid}-->
 									<!--<lang package='Template/Default/Style'>-->主题已经启用<!--</lang>-->
 									<!--{elseif !$value['style_status']}-->
 									<!--<lang package='Template/Default/Style'>-->主题尚未启用<!--</lang>-->
 									<!--{d*else}-->
-									<a class="big-button" href="<!--{:Dyhb::U('style/set_style?id='.$value['style_id'])}-->"><!--<lang package='Template/Default/Style'>-->启用此主题<!--</lang>--></a>
+									<a href="<!--{:Dyhb::U('style/set_style?id='.$value['style_id'])}-->"><!--<lang package='Template/Default/Style'>-->启用此主题<!--</lang>--></a>
 									<!--{/if}-->
 								</div>
 							</td>
