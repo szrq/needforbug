@@ -571,6 +571,41 @@ function imgUpdate(id,imgid){
 					</table>
 					<table width="100%" class="tablesorter" cellpadding="0" cellspacing="0">
 						<thead>
+							<th colspan="2"><!--<lang package='Template/Default/Style'>-->下拉菜单<!--</lang>--><th>
+						</thead>
+						<tbody>
+							<tr>
+								<td width="100%">
+									<fieldset>
+										<label for="drop_menu_border"><!--<lang package='Template/Default/Style'>-->下拉菜单边框色<!--</lang>-->{DROP_MENU_BORDER}</label>
+										<p><input class="left" type="text" name="stylevar[drop_menu_border]" id="drop_menu_border" size="40" value="<!--{$arrSystemStylevar['drop_menu_border']}-->" style="color:<!--{$arrSystemStylevar['drop_menu_border']}-->"/>
+											<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="drop_menu_border"/>
+										</p>
+										<div class="description"><!--<lang package='Template/Default/Style'>-->输入 16 进制颜色 #RRGGBB<!--</lang>--></div>
+									</fieldset>
+								</td>
+							</tr>
+							<tr>
+								<td width="100%">
+									<fieldset>
+										<label for="drop_menu_bg_color"><!--<lang package='Template/Default/Style'>-->下拉菜单背景色<!--</lang>-->{DROP_MENU_BG_COLOR},{DROP_MENU_BG_IMG},{DROP_MENU_BG_EXTRA},{DROP_MENU_BG_CODE}</label>
+										<p><input class="left" type="text" name="stylevar[drop_menu_bg_color]" id="drop_menu_bg_color" size="8" value="<!--{$arrSystemStylevar['drop_menu_bg_color']}-->" style="color:<!--{$arrSystemStylevar['drop_menu_bg_color']}-->"/>
+											<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="drop_menu_bg_color"/>
+										</p>
+										<div class="description"><!--<lang package='Template/Default/Style'>-->输入 16 进制颜色 #RRGGBB<!--</lang>--></div>
+										<p><input type="text" name="stylevar[drop_menu_bg_img]" id="drop_menu_bg_img" size="8" value="<!--{$arrSystemStylevar['drop_menu_bg_img']}-->" onblur="document.getElementById('sp_drop_menu_bg').style.background=$('#drop_menu_bg_color').val()+' url('+getImgByid('drop_menu_bg_img')+') '+$('#drop_menu_bg_extra').val();"/></p>
+										<div class="description"><!--<lang package='Template/Default/Style'>-->输入背景图片地址<!--</lang>--></div>
+										<p><input type="text" name="stylevar[drop_menu_bg_extra]" id="drop_menu_bg_extra" size="8" value="<!--{$arrSystemStylevar['drop_menu_bg_extra']}-->" onblur="document.getElementById('sp_drop_menu_bg').style.background=$('#float_drop_menu_color').val()+' url('+getImgByid('float_drop_menu_img')+') '+$('#float_drop_menu_extra').val();"/>
+										</p>
+										<div class="description"><!--<lang package='Template/Default/Style'>-->输入附加属性<!--</lang>--></div>
+										<div id="sp_drop_menu_bg" onclick="imgUpdate('sp_drop_menu_bg','drop_menu_bg_img')" style="background:<!--{$arrSystemStylevar['drop_menu_bg_color']}--> url(<!--{$TheController->get_img($arrSystemStylevar['drop_menu_bg_img'],$sStyleimgdir)}-->) <!--{$arrSystemStylevar['drop_menu_bg_extra']}-->;cursor:pointer;margin:10px;width:400px;height:50px;overflow:hidden;border: 1px solid #ccc"></div>
+									</fieldset>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<table width="100%" class="tablesorter" cellpadding="0" cellspacing="0">
+						<thead>
 							<th colspan="2"><!--<lang package='Template/Default/Style'>-->浮动窗口<!--</lang>--><th>
 						</thead>
 						<tbody>
@@ -645,41 +680,6 @@ function imgUpdate(id,imgid){
 											<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="input_bg"/>
 										</p>
 										<div class="description"><!--<lang package='Template/Default/Style'>-->输入 16 进制颜色 #RRGGBB<!--</lang>--></div>
-									</fieldset>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-					<table width="100%" class="tablesorter" cellpadding="0" cellspacing="0">
-						<thead>
-							<th colspan="2"><!--<lang package='Template/Default/Style'>-->下拉菜单<!--</lang>--><th>
-						</thead>
-						<tbody>
-							<tr>
-								<td width="100%">
-									<fieldset>
-										<label for="drop_menu_border"><!--<lang package='Template/Default/Style'>-->下拉菜单边框色<!--</lang>-->{DROP_MENU_BORDER}</label>
-										<p><input class="left" type="text" name="stylevar[drop_menu_border]" id="drop_menu_border" size="40" value="<!--{$arrSystemStylevar['drop_menu_border']}-->" style="color:<!--{$arrSystemStylevar['drop_menu_border']}-->"/>
-											<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="drop_menu_border"/>
-										</p>
-										<div class="description"><!--<lang package='Template/Default/Style'>-->输入 16 进制颜色 #RRGGBB<!--</lang>--></div>
-									</fieldset>
-								</td>
-							</tr>
-							<tr>
-								<td width="100%">
-									<fieldset>
-										<label for="drop_menu_bg_color"><!--<lang package='Template/Default/Style'>-->下拉菜单背景色<!--</lang>-->{DROP_MENU_BG_COLOR},{DROP_MENU_BG_IMG},{DROP_MENU_BG_EXTRA},{DROP_MENU_BG_CODE}</label>
-										<p><input class="left" type="text" name="stylevar[drop_menu_bg_color]" id="drop_menu_bg_color" size="8" value="<!--{$arrSystemStylevar['drop_menu_bg_color']}-->" style="color:<!--{$arrSystemStylevar['drop_menu_bg_color']}-->"/>
-											<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="drop_menu_bg_color"/>
-										</p>
-										<div class="description"><!--<lang package='Template/Default/Style'>-->输入 16 进制颜色 #RRGGBB<!--</lang>--></div>
-										<p><input type="text" name="stylevar[drop_menu_bg_img]" id="drop_menu_bg_img" size="8" value="<!--{$arrSystemStylevar['drop_menu_bg_img']}-->" onblur="document.getElementById('sp_drop_menu_bg').style.background=$('#drop_menu_bg_color').val()+' url('+getImgByid('drop_menu_bg_img')+') '+$('#drop_menu_bg_extra').val();"/></p>
-										<div class="description"><!--<lang package='Template/Default/Style'>-->输入背景图片地址<!--</lang>--></div>
-										<p><input type="text" name="stylevar[drop_menu_bg_extra]" id="drop_menu_bg_extra" size="8" value="<!--{$arrSystemStylevar['drop_menu_bg_extra']}-->" onblur="document.getElementById('sp_drop_menu_bg').style.background=$('#float_drop_menu_color').val()+' url('+getImgByid('float_drop_menu_img')+') '+$('#float_drop_menu_extra').val();"/>
-										</p>
-										<div class="description"><!--<lang package='Template/Default/Style'>-->输入附加属性<!--</lang>--></div>
-										<div id="sp_drop_menu_bg" onclick="imgUpdate('sp_drop_menu_bg','drop_menu_bg_img')" style="background:<!--{$arrSystemStylevar['drop_menu_bg_color']}--> url(<!--{$TheController->get_img($arrSystemStylevar['drop_menu_bg_img'],$sStyleimgdir)}-->) <!--{$arrSystemStylevar['drop_menu_bg_extra']}-->;cursor:pointer;margin:10px;width:400px;height:50px;overflow:hidden;border: 1px solid #ccc"></div>
 									</fieldset>
 								</td>
 							</tr>
