@@ -1,26 +1,9 @@
 <!--<include file="Core_Extend::template('header')" />-->
 
-<!--{:Core_Extend::editorInclude()}-->
-
 <!--{script}-->
-<!--{if $sDo=='info'}-->
-$(function(){
-	editor=loadEditorThin('user_remark');
-	editor2=loadEditorThin('user_sign');
-	editor3=loadEditorThin('userprofile_bio');
-	editor4=loadEditorThin('userprofile_interest');
-});
-<!--{/if}-->
-
 function update(){
 	$("#submit_button").attr("disabled","disabled");
 	$("#submit_button").val('update...');
-	<!--{if $sDo=='info'}-->
-	$('#user_remark').val(editor.html());
-	$('#user_sign').val(editor2.html());
-	$('#userprofile_bio').val(editor3.html());
-	$('#userprofile_interest').val(editor4.html());
-	<!--{/if}-->
 	Dyhb.AjaxSubmit('informationUpd','<!--{:Dyhb::U('user/change_info')}-->','',function(data,status){ 
 		$("#submit_button").attr("disabled",false);
 		$("#submit_button").val("更新");
@@ -255,12 +238,6 @@ function update(){
 							<label class="control-label" for="user_email">Email</label>
 							<div class="controls">
 								<input class="input-xlarge" type="text" name="user_email" id="user_email" size="40" value="<!--{$oUserInfo:user_email}-->" />
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="user_remark">用户备注</label>
-							<div class="controls">
-								<textarea class="input-xlarge" name="user_remark" id="user_remark" rows="5" style="width:400px;"><!--{$oUserInfo:user_remark}--></textarea>
 							</div>
 						</div>
 						<div class="control-group">

@@ -99,7 +99,7 @@ $(function(){
 						<!--{if array_key_exists($sInfo,$arrUserprofilesettingDatas)}-->
 						<tr>
 							<td><!--{$arrUserprofilesettingDatas[$sInfo]['userprofilesetting_title']}--></td>
-							<td><!--{$oUserInfo:userprofile:$sInfo}--></td>
+							<td><!--{if in_array($sInfo,array('userprofile_bio','userprofile_interest'))}--><!--{$oUserInfo:userprofile:$sInfo|Profile_Extend+formatUserinfo}--><!--{d*else}--><!--{$oUserInfo:userprofile:$sInfo}--><!--{/if}--></td>
 						<tr/>
 						<!--{/if}-->
 						<!--</foreach>-->
@@ -112,12 +112,8 @@ $(function(){
 							<td><!--{$oUserInfo:user_email}--></td>
 						<tr/>
 						<tr>
-							<td>用户备注</td>
-							<td><!--{$oUserInfo:user_remark}--></td>
-						<tr/>
-						<tr>
 							<td>用户签名</td>
-							<td><!--{$oUserInfo:user_sign}--></td>
+							<td><!--{$oUserInfo:user_sign|Profile_Extend+formatUserinfo}--></td>
 						<tr/>
 						<!--{/if}-->
 					</tbody>
@@ -166,7 +162,7 @@ $(function(){
 
 				<div style="padding:5px;">
 					<h5><i class="icon-pencil"></i> 签名</h5>
-					<!--{if $oUserInfo:user_sign}--><!--{$oUserInfo:user_sign}--><!--{d*else}-->该用户暂时没有设置签名<!--{/if}-->
+					<!--{if $oUserInfo:user_sign}--><!--{$oUserInfo:user_sign|Profile_Extend+formatUserinfo}--><!--{d*else}-->该用户暂时没有设置签名<!--{/if}-->
 				</div>
 
 				<div style="padding:5px;">

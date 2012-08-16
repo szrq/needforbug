@@ -1,19 +1,9 @@
 <!--<include file="public+header" />-->
 
-<!--{:Core_Extend::editorInclude()}-->
-
 <!--{script}-->
-$(function(){
-	editor=loadEditorThin('user_remark');
-	editor2=loadEditorThin('user_sign');
-});
-
 function update(){
 	$("#submit_button").attr("disabled","disabled");
 	$("#submit_button").val('update...');
-	$('#user_remark').val(editor.html());
-	$('#user_sign').val(editor2.html());
-
 	Dyhb.AjaxSubmit('informationUpd','<!--{:Dyhb::U('public/change_info')}-->','',function(data,status){ 
 		$("#submit_button").attr("disabled",false);
 		$("#submit_button").val("<!--<lang package='Template/Default/Common'>-->更新<!--</lang>-->");
@@ -46,10 +36,6 @@ function update(){
 					<fieldset><label for="user_email">Email</label>
 						<input type="text" name="user_email" id="user_email" size="40" value="<!--{$oUserInfo:user_email}-->" />
 						<div class="description"><!--<lang package='Template/Default/Public'>-->用户常用的电子邮件地址<!--</lang>--></div>
-					</fieldset>
-					<fieldset><label for="user_remark"><!--<lang package='Template/Default/Public'>-->备注<!--</lang>--></label>
-						<p style="padding-left:10px;"><textarea name="user_remark" id="user_remark" rows="5"><!--{$oUserInfo:user_remark}--></textarea></p>
-						<div class="description"><!--<lang package='Template/Default/Public'>-->用户更多的一些相关信息<!--</lang>--></div>
 					</fieldset>
 					<fieldset><label for="user_sign"><!--<lang package='Template/Default/Public'>-->用户签名<!--</lang>--></label>
 						<p style="padding-left:10px;"><textarea name="user_sign" id="user_sign" rows="5"><!--{$oUserInfo:user_sign}--></textarea></p>

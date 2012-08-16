@@ -22,7 +22,7 @@ a:hover {color: #333333;}
 .badge-success{background:#b94a48;}
 /* color */
 .nav-list > .active > a,.nav-list > .active > a:hover {background-color:#840000;}
-input:focus,textarea:focus {border-color: {INPUT_BORDER_DARK_COLOR};outline: 0;outline: thin dotted \9;}
+input:focus,textarea:focus {border-color: #BA350F;}
 .nav-pills > .active > a,.nav-pills > .active > a:hover {background-color: #840000;}
 .nav .dropdown-menu a:hover{background-color: #BA350F;}
 .nav .dropdown-menu li > a:hover,.nav .dropdown-menu .active > a,.dropdown-menu .active > a:hover {background-color: #BA350F;}

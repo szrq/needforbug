@@ -192,4 +192,8 @@ class Profile_Extend{
 		return array($arrBases,$arrContacts,$arrEdus,$arrWorks,$arrInfos);
 	}
 
+	public static function formatUserinfo($sInfo){
+		return nl2br(htmlspecialchars($sInfo));
+	}
+
 }
