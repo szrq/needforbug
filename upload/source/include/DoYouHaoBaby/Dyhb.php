@@ -34,7 +34,7 @@ class Dyhb{
 
 	static private $INSTANCES=array();
 	static private $OBJECTS=array();
-	static private $_arrClassRegex=array('/^(.+)\.class\.php$/i','/^(.+)\.interface\.php$/i');	
+	static private $_arrClassRegex=array('/^(.+)\.class\.php$/i','/^(.+)\.interface\.php$/i');
 	static private $_arrClassFilePat=array('%DirPath%/%ClassName%.class.php');
 	static private $_arrInterPat=array('%DirPath%/%ClassName%.interface.php');
 	static private $CLASS_PATH='Class.inc';

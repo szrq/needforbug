@@ -45,8 +45,7 @@ class InitController extends Controller{
 		eval('$arrField='.$sName.'::M()->_arrFieldToProp;');
 		$arrMap=array();
 		foreach($arrField as $sField=>$sProp){
-			if(isset($_REQUEST[$sField])&&
-				!empty($_REQUEST[$sField])){
+			if(isset($_REQUEST[$sField]) && !empty($_REQUEST[$sField])){
 				$arrMap[$sField]=$_REQUEST[$sField];
 			}
 		}
