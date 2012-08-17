@@ -22,7 +22,7 @@ define('DB_META_CACHED_PATH',NEEDFORBUG_PATH.'/data/~runtime/cache_');
 
 /** 项目语言包路径定义 */
 //define('APP_LANG_PATH',NEEDFORBUG_PATH.'/ucontent/language/'.APP_NAME);
-define('__COMMON_LANG__',NEEDFORBUG_PATH.'/ucontent/language/Common');
+define('__COMMON_LANG__',NEEDFORBUG_PATH.'/ucontent/language');
 
 /** 项目模板路径定义 */
 define('__STATICS__','admin/Static');
