@@ -74,7 +74,7 @@ class UserController extends InitController{
 
 		$sMessage=trim(G::cleanJs(G::getGpc('homefresh_message','P')));
 		if(empty($sMessage)){
-			$this->E('新鲜事内容不能为空');
+			$this->E(Dyhb::L('新鲜事内容不能为空','Controller/User'));
 		}
 		
 		$oHomefresh=new HomefreshModel();
@@ -101,7 +101,7 @@ class UserController extends InitController{
 				}
 			}
 			
-			$this->S('添加新鲜事成功');
+			$this->S(Dyhb::L('添加新鲜事成功','Controller/User'));
 		}
 	}
 
@@ -181,7 +181,7 @@ class UserController extends InitController{
 		if($oUser->isError()){
 			$this->E($oUser->getErrorMessage());
 		}else{
-			$this->S('修改用户资料成功');
+			$this->S(Dyhb::L('修改用户资料成功','Controller/User'));
 		}
 	}
 
@@ -199,12 +199,12 @@ class UserController extends InitController{
 
 	public function avatar_upload(){
 		if($_FILES['image']['error']==4){
-			$this->E('你没有选择任何文件');
+			$this->E(Dyhb::L('你没有选择任何文件','Controller/User'));
 			return;
 		}
 
 		if(!is_dir(dirname(NEEDFORBUG_PATH.'/data/avatar/temp')) && !G::makeDir(NEEDFORBUG_PATH.'/data/avatar/temp')){
-			$this->E(sprintf('上传目录%s不可写',NEEDFORBUG_PATH.'/data/avatar/temp'));
+			$this->E(Dyhb::L('上传目录 %s 不可写','Controller/User',null,NEEDFORBUG_PATH.'/data/avatar/temp'));
 		}
 
 		require_once(Core_Extend::includeFile('function/Avatar_Extend'));
@@ -224,12 +224,12 @@ class UserController extends InitController{
 		require_once(Core_Extend::includeFile('function/Avatar_Extend'));
 		$bResult=Avatar_Extend::saveCrop();
 		if($bResult===false){
-			$this->E('你的PHP 版本或者配置中不支持如下的函数 “imagecreatetruecolor”、“imagecopyresampled”等图像函数，所以创建不了头像');
+			$this->E(Dyhb::L('你的PHP 版本或者配置中不支持如下的函数 “imagecreatetruecolor”、“imagecopyresampled”等图像函数，所以创建不了头像','Controller/User'));
 		}
 
 		$this->assign('__JumpUrl__',Dyhb::U('user/avatar'));
 
-		$this->S('头像上传成功');
+		$this->S(Dyhb::L('头像上传成功','Controller/User'));
 	}
 
 	public function password(){
@@ -256,7 +256,7 @@ class UserController extends InitController{
 		if($oUserModel->isError()){
 			$this->E($oUserModel->getErrorMessage());
 		}else{
-			$this->S('密码修改成功，你需要重新登录');
+			$this->S(Dyhb::L('密码修改成功，你需要重新登录','Controller/User'));
 		}
 	}
 
@@ -284,7 +284,7 @@ class UserController extends InitController{
 			$this->E($oTag->getErrorMessage());
 		}
 
-		$this->S('添加用户标签成功');
+		$this->S(Dyhb::L('添加用户标签成功','Controller/User'));
 	}
 
 	public function delete_hometag(){
@@ -296,7 +296,7 @@ class UserController extends InitController{
 			$oHometag->destroy();
 		}
 
-		$this->S('删除用户标签成功');
+		$this->S(Dyhb::L('删除用户标签成功','Controller/User'));
 	}
 
 	public function promotion(){

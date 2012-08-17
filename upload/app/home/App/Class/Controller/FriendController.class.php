@@ -57,7 +57,7 @@ class FriendController extends InitController{
 		if($oFriendModel->isError()){
 			$this->E($oFriendModel->getErrorMessage());
 		}else{
-			$this->S('添加好友成功');
+			$this->S(Dyhb::L('添加好友成功','Controller/Friend'));
 		}
 	}
 	
@@ -71,7 +71,7 @@ class FriendController extends InitController{
 		if($oFriendModel->isError()){
 			$this->E($oFriendModel->getErrorMessage());
 		}else{
-			$this->S('删除好友成功');
+			$this->S(Dyhb::L('删除好友成功','Controller/Friend'));
 		}
 	}
 	
@@ -86,7 +86,7 @@ class FriendController extends InitController{
 		if($oFriendModel->isError()){
 			$this->E($oFriendModel->getErrorMessage());
 		}else{
-			$this->S('更新备注成功');
+			$this->S(Dyhb::L('更新备注成功','Controller/Friend'));
 		}
 	}
 	

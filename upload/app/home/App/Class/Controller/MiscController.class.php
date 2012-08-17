@@ -79,22 +79,22 @@ class MiscController extends InitController{
 	public function style(){
 		$nStyleId=intval(G::getGpc('id','G'));
 		if(empty($nStyleId)){
-			$this->E('主题切换失败');
+			$this->E(Dyhb::L('主题切换失败','Controller/Misc'));
 		}
 
 		$oStyle=StyleModel::F('style_id=? AND style_status=1',$nStyleId)->getOne();
 		if(empty($oStyle['style_id'])){
-			$this->E('主题切换失败');
+			$this->E(Dyhb::L('主题切换失败','Controller/Misc'));
 		}
 
 		$oTheme=ThemeModel::F('theme_id=?',$oStyle['theme_id'])->getOne();
 		if(empty($oTheme['theme_id'])){
-			$this->E('主题切换失败');
+			$this->E(Dyhb::L('主题切换失败','Controller/Misc'));
 		}
 
 		$sThemeDir=NEEDFORBUG_PATH.'/ucontent/theme/'.ucfirst(strtolower($oTheme['theme_dirname']));
 		if(!is_dir($sThemeDir)){
-			$this->E('主题切换失败');
+			$this->E(Dyhb::L('主题切换失败','Controller/Misc'));
 		}
 
 		// 发送主题COOKIE
@@ -107,7 +107,7 @@ class MiscController extends InitController{
 			}
 		}
 
-		$this->S('主题切换成功');
+		$this->S(Dyhb::L('主题切换成功','Controller/Misc'));
 	}
 
 }

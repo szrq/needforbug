@@ -20,7 +20,7 @@ class MyController extends InitController{
 		
 		$oUserInfo=UserModel::F()->getByuser_id($nId);
 		if(empty($oUserInfo['user_id'])){
-			$this->E('你指定的用户不存在');
+			$this->E(Dyhb::L('你指定的用户不存在','Controller/My'));
 		}else{
 			$this->assign('oUserInfo',$oUserInfo);
 		}
@@ -100,7 +100,7 @@ class MyController extends InitController{
 		
 		$oUserInfo=UserModel::F()->getByuser_id($nId);
 		if(empty($oUserInfo['user_id'])){
-			$this->E('你指定的用户不存在');
+			$this->E(Dyhb::L('你指定的用户不存在','Controller/My'));
 		}else{
 			$this->assign('oUserInfo',$oUserInfo);
 		}

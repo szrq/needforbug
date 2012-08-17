@@ -40,7 +40,7 @@ class InitController extends Controller{
 			Dyhb::cookie('needforbug_referer',__SELF__);
 			
 			$this->assign('__JumpUrl__',Dyhb::U('home://public/login'));
-			$this->E('你没有登录');
+			$this->E(Dyhb::L('你没有登录','Controller/Common'));
 		}
 	}
 
@@ -53,11 +53,11 @@ class InitController extends Controller{
 		$bResult=Core_Extend::checkSeccode($sSeccode);
 
 		if(!$bResult){
-			$this->E('你输入的验证码错误');
+			$this->E(Dyhb::L('你输入的验证码错误','Controller/Common'));
 		}
 
 		if($bSubmit===false){
-			$this->S('验证码正确');
+			$this->S(Dyhb::L('验证码正确','Controller/Common'));
 		}
 	}
 	

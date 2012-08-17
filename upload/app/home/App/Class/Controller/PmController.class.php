@@ -76,7 +76,7 @@ class PmController extends InitController{
 		$sPmSubject=trim(G::getGpc('pm_subject'));
 		
 		if(empty($sMessageto)){
-			$this->E('收件用户不能为空');
+			$this->E(Dyhb::L('收件用户不能为空','Controller/Pm'));
 		}
 		
 		$arrUsers=Core_Extend::segmentUsername($sMessageto);
@@ -88,7 +88,7 @@ class PmController extends InitController{
 			}
 				
 			if($sUser==$GLOBALS['___login___']['user_name']){
-				$this->E('收件用户中不能有自己');
+				$this->E(Dyhb::L('收件用户中不能有自己','Controller/Pm'));
 			}
 			
 			if(!preg_match("/[^\d-.,]/",$sUser)){
@@ -98,7 +98,7 @@ class PmController extends InitController{
 			}
 
 			if(empty($oTryUser['user_id'])){
-				$this->E(sprintf('用户%s不存在或者尚未审核通过',$sUser));
+				$this->E(Dyhb::L('用户 %s 不存在或者尚未审核通过','Controller/Pm',null,$sUser));
 			}
 
 			$arrUserInfo=$GLOBALS['___login___'];
@@ -116,12 +116,12 @@ class PmController extends InitController{
 			$arrData['jumpurl']=($GLOBALS['_commonConfig_']['URL_MODEL'] && $GLOBALS['_commonConfig_']['URL_MODEL']!=3?'?':'&').
 				'extra=new'.$arrData['pm_id'].'#pm-'.$arrData['pm_id'];
 
-			$this->A($arrData,'发送短消息成功',1);
+			$this->A($arrData,Dyhb::L('发送短消息成功','Controller/Pm'),1);
 		}else{
 			$arrData=$oLastPmModel->toArray();
 			$arrData['jumpurl']=Dyhb::U('home://pm/show?id='.$arrData['pm_id'].'&muid='.$arrData['pm_msgfromid']);
 			
-			$this->A($arrData,'发送短消息成功',1);
+			$this->A($arrData,Dyhb::L('发送短消息成功','Controller/Pm'),1);
 		}
 	}
 	
@@ -129,12 +129,12 @@ class PmController extends InitController{
 		$arrOptionData=$GLOBALS['_option_'];
 		
 		if($arrOptionData['pm_status']==0){
-			$this->E('短消息功能尚未开启');
+			$this->E(Dyhb::L('短消息功能尚未开启','Controller/Pm'));
 		}
 		
 		if($arrOptionData['pmsend_regdays']>0){
 			if(CURRENT_TIMESTAMP-$GLOBALS['___login___']['create_dateline']<86400*$arrOptionData['pmsend_regdays']){
-				$this->E(sprintf('只有注册时间超过%d天的用户才能够发送短消息',$arrOptionData['pmsend_regdays']));
+				$this->E(Dyhb::L('只有注册时间超过 %d 天的用户才能够发送短消息','Controller/Pm',null,$arrOptionData['pmsend_regdays']));
 			}
 		}
 		
@@ -144,7 +144,7 @@ class PmController extends InitController{
 			
 			$oPm=PmModel::F("pm_msgfromid=? AND {$nCurrentTimeStamp}-create_dateline<{$nPmSpace}",$GLOBALS['___login___']['user_id'])->query();
 			if(!empty($oPm['pm_id'])){
-				$this->E(sprintf('每%d秒你才能发送一次短消息',$nPmSpace));
+				$this->E(Dyhb::L('每 %d 秒你才能发送一次短消息','Controller/Pm',null,$nPmSpace));
 			}
 		}
 		
@@ -153,7 +153,7 @@ class PmController extends InitController{
 			
 			$nPms=PmModel::F("create_dateline<{$arrNowDate[1]} AND create_dateline>{$arrNowDate[0]} AND pm_msgfromid=?",$GLOBALS['___login___']['user_id'])->all()->getCounts();
 			if($nPms>$arrOptionData['pmlimit_oneday']){
-				$this->E(sprintf('一个用户每天最多只能发送%d条消息',$arrOptionData['pmlimit_oneday']));
+				$this->E(Dyhb::L('一个用户每天最多只能发送 %d 条消息','Controller/Pm',null,$arrOptionData['pmlimit_oneday']));
 			}
 		}
 	}
@@ -220,7 +220,7 @@ class PmController extends InitController{
 			$nId=G::getGpc('id');
 		}
 		if(empty($nId)){
-			$this->E('你没有指定要删除的短消息');
+			$this->E(Dyhb::L('你没有指定要删除的短消息','Controller/Pm'));
 		}
 		
 		if(empty($nUserId)){
@@ -233,7 +233,7 @@ class PmController extends InitController{
 		
 		$oPmModel=PmModel::F("pm_id=? AND pm_type='user' AND pm_msgtoid=? ".($nFromId!==0?'AND pm_msgfromid='.$nFromId:''),$nId,$nUserId)->query();
 		if(empty($oPmModel['pm_id'])){
-			$this->E('待删除的短消息不存在');
+			$this->E(Dyhb::L('待删除的短消息不存在','Controller/Pm'));
 		}
 		
 		$oPmModel->pm_status=0;
@@ -243,7 +243,7 @@ class PmController extends InitController{
 			$this->E($oPmModel->getErrorMessage());
 		}else{
 			if(empty($nOldId)){
-				$this->S('删除短消息成功');
+				$this->S(Dyhb::L('删除短消息成功','Controller/Pm'));
 			}
 		}
 	}
@@ -253,14 +253,14 @@ class PmController extends InitController{
 		$arrUserId=G::getGpc('uid','P');
 		
 		if(empty($arrPmIds)){
-			$this->E('你没有指定要删除的短消息');
+			$this->E(Dyhb::L('你没有指定要删除的短消息','Controller/Pm'));
 		}
 		
 		foreach($arrPmIds as $nPmId){
 			$this->del_one_pm($nPmId,$GLOBALS['___login___']['user_id'],0);
 		}
 		
-		$this->S('删除短消息成功');
+		$this->S(Dyhb::L('删除短消息成功','Controller/Pm'));
 	}
 
 	public function del_my_one_pm($nId='',$nUserId=''){
@@ -270,7 +270,7 @@ class PmController extends InitController{
 			$nId=G::getGpc('id');
 		}
 		if(empty($nId)){
-			$this->E('你没有指定要删除的短消息');
+			$this->E(Dyhb::L('你没有指定要删除的短消息','Controller/Pm'));
 		}
 		
 		if(empty($nUserId)){
@@ -279,7 +279,7 @@ class PmController extends InitController{
 		
 		$oPmModel=PmModel::F("pm_id=? AND pm_msgfromid=? AND pm_type='user' AND pm_status=1",$nId,$nUserId)->query();
 		if(empty($oPmModel['pm_id'])){
-			$this->E('待删除的短消息不存在');
+			$this->E(Dyhb::L('待删除的短消息不存在','Controller/Pm'));
 		}
 		
 		$oPmModel->pm_mystatus=0;
@@ -289,7 +289,7 @@ class PmController extends InitController{
 			$this->E($oPmModel->getErrorMessage());
 		}else{
 			if(empty($nOldId)){
-				$this->S('删除短消息成功');
+				$this->S(Dyhb::L('删除短消息成功','Controller/Pm'));
 			}
 		}
 	}
@@ -298,14 +298,14 @@ class PmController extends InitController{
 		$arrPmIds=G::getGpc('pmid','P');
 
 		if(empty($arrPmIds)){
-			$this->E('你没有指定要删除的短消息');
+			$this->E(Dyhb::L('你没有指定要删除的短消息','Controller/Pm'));
 		}
 		
 		foreach($arrPmIds as $nPmId){
 			$this->del_my_one_pm($nPmId,$GLOBALS['___login___']['user_id']);
 		}
 		
-		$this->S('删除短消息成功');
+		$this->S(Dyhb::L('删除短消息成功','Controller/Pm'));
 	}
 
 	public function readselect(){
@@ -313,7 +313,7 @@ class PmController extends InitController{
 		$arrUserId=G::getGpc('uid','P');
 		
 		if(empty($arrPmIds)){
-			$this->E('你没有指定要标记的短消息');
+			$this->E(Dyhb::L('你没有指定要标记的短消息','Controller/Pm'));
 		}
 		
 		foreach($arrPmIds as $nPmId){
@@ -324,7 +324,7 @@ class PmController extends InitController{
 			}
 		}
 		
-		$this->S('标记短消息已读成功');
+		$this->S(Dyhb::L('标记短消息已读成功','Controller/Pm'));
 	}
 
 	public function show(){
@@ -464,7 +464,7 @@ class PmController extends InitController{
 		$oDb->query($sSql);
 		
 		$this->assign('__JumpUrl__',Dyhb::U('home://pm/index?type=user'));
-		$this->S('短消息清空成功');
+		$this->S(Dyhb::L('短消息清空成功','Controller/Pm'));
 	}
 
 	protected function read_system_message_($nPmId){
