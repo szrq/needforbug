@@ -4,7 +4,7 @@
 
 !defined('DYHB_PATH') && exit;
 
-class IndexController extends Controller{
+class PublicController extends Controller{
 
 	public function index(){
 

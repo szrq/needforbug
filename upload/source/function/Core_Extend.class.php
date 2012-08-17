@@ -432,7 +432,6 @@ class Core_Extend{
 			CURRENT_TIMESTAMP),0,8).'|'.CURRENT_TIMESTAMP.'|'.$sSidAuth));
 	}
 
-
 	static public function updateCreditByAction($sAction,$nUserId=0,$arrExtraSql=array(),$nCoef=1,$nUpdate=1){
 		if($nUserId<1){
 			return false;
