@@ -7,7 +7,7 @@ Description: NeedForBug! Extend Stylecolor
 /**===============================
            重新定义基础
 ================================*/
-body { background: transparent url({IMG_DIR}/../Style/t2/bgimg.jpg) no-repeat 50% 0; }
+body { background:#FFF url({IMG_DIR}/../Style/t2/bgimg.jpg) no-repeat 50% 0; }
 a{color: #429296;}
 a:hover {color: #429296;}
 
