@@ -64,7 +64,7 @@
 						<div id="style_switch_box">
 							<ul id="style_switch" class="">
 								<!--<foreach for="GLOBALS['_style_']['_style_icons_']" key=nStyleicon value=sStyleicon>-->
-								<li <!--{if Core_Extend+getStyleId()==$nStyleicon}-->class="current"<!--{/if}-->><a  href="javascript:void(0);" onclick="setStyle(<!--{$nStyleicon}-->)" title="<!--{$nStyleicon}-->" style="background: <!--{$sStyleicon}-->;"><!--{$nStyleicon}--></a></li>
+								<li <!--{if Core_Extend+getStyleId()==$nStyleicon}-->class="current"<!--{/if}-->><a  href="javascript:void(0);" onclick="<!--{if Core_Extend+getStyleId()==$nStyleicon}-->javascript:void(0);<!--{d*else}-->setStyle(<!--{$nStyleicon}-->)<!--{/if}-->" title="<!--{$nStyleicon}-->" style="background: <!--{$sStyleicon}-->;"><!--{$nStyleicon}--></a></li>
 								<!--</foreach>-->
 							</ul>
 						</div>
