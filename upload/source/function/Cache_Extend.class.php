@@ -336,9 +336,14 @@ class Cache_Extend{
 			}
 		}
 
-		$arrStyleObjects=StyleModel::F()->asArray()->getAll();
+		$arrCacheStyledir=$arrTheStyles=array();
+		$arrCacheStyledir=G::listDir(NEEDFORBUG_PATH.'/data/~runtime/style_');
+
+		$arrStyleObjects=StyleModel::F('style_status=?',1)->asArray()->getAll();
 		if(is_array($arrStyleObjects)){
 			foreach($arrStyleObjects as $arrStyle){
+				$arrTheStyles[]=$arrStyle['style_id'];
+				
 				$oTheme=ThemeModel::F('theme_id=?',$arrStyle['theme_id'])->getOne();
 				$arrStyle['doyouhaobaby_template_base']=$oTheme['theme_dirname'];
 				$arrStyle=array_merge($arrStyle,$arrStylevars[$arrStyle['style_id']]);
@@ -389,6 +394,17 @@ class Cache_Extend{
 
 				$arrStyle['verhash']=G::randString(6,null,true);
 				$arrStyles[intval($arrStyle['style_id'])]=$arrStyle;
+			}
+		}
+
+		foreach($arrCacheStyledir as $nKey=>$sValue){
+			if(!in_array($sValue,$arrTheStyles)){
+				$sCurDeletedstyleDir=NEEDFORBUG_PATH.'/data/~runtime/style_/'.$sValue;
+				$arrCurDeletedstyleFiles=G::listDir($sCurDeletedstyleDir,true,true);
+				foreach($arrCurDeletedstyleFiles as $sCurDeletedstyleFile){
+					@unlink($sCurDeletedstyleFile);
+				}
+				@rmdir($sCurDeletedstyleDir);
 			}
 		}
 
