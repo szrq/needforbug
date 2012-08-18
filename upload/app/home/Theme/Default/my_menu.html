@@ -2,6 +2,7 @@
 			<div class="span12">
 				<ul class="nav nav-tabs">
 					<li <!--{if ACTION_NAME==='user'}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://my/user?id='.$nId)}-->"><!--<lang package='Template/My'>-->基本信息<!--</lang>--></a></li>
+					<li <!--{if ACTION_NAME==='rating'}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://my/rating?id='.$nId)}-->"><!--<lang package='Template/My'>-->积分<!--</lang>--></a></li>
 					<li <!--{if ACTION_NAME==='avatar'}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://my/avatar?id='.$nId)}-->"><!--<lang package='Template/My'>-->我的头像<!--</lang>--></a></li>
 					<li <!--{if ACTION_NAME==='feed'}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://my/feed?id='.$nId.'&do=contact')}-->"><!--<lang package='Template/My'>-->用户动态<!--</lang>--></a></li>
 				</ul>
