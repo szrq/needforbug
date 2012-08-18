@@ -10,6 +10,12 @@ return array(
 '5386bb191583a12597b2ea7daef29b4a'=>"会员列表",
 '02bf863a224b14de19b887cfe6e0f80b'=>"随便看看",
 'e5f71fc31e7246dd6ccc5539570471b0'=>"搜索",
+'13b110ed328b1eba97b07ccaf7c4fc8d'=>"管理中心",
+'409120b562eac58d04bbca0fb5f24f52'=>"个人中心",
+'8ba7b7aa18f6acbacf875c0553619aa6'=>"修改资料",
+'6555ef98b5975ac92a3b4c251ac8e8f6'=>"我的好友",
+'0b3be10ddad95a93a594366ed2e6fa6b'=>"注销",
+'5ac1e42b6f9f5023bca426a1bddbae4c'=>"短消息",
 )
 
 ?>

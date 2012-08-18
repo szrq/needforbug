@@ -1,9 +1,7 @@
 <?php
 /** DoYouHaoBaby Framework Lang File, Do not to modify it! */
 return array(
-'1aca18990731d6d4c5c768c2dffc33a4'=>"我的地盘",
 '200acf2a58ff12c2646c6dc6dc3ad033'=>"新社区",
-'85c71a9bf0f2e4cde76824776f90a9c6'=>"修改头像",
 '409120b562eac58d04bbca0fb5f24f52'=>"个人中心",
 '8ba7b7aa18f6acbacf875c0553619aa6'=>"修改资料",
 '7fc88aeedae8d92a749abc4e9815923d'=>"修改密码",
@@ -30,6 +28,7 @@ return array(
 '7ac1bb2018e5d3da0daee34accebc480'=>"帮助标题",
 'ffc7ed1cd5288ff735a3c4a059125354'=>"添加时间",
 'f74689759c4b8b04e155c27170196c70'=>"站点信息",
+'fc8571def6800174193d9ce0db448e90'=>"返回个人中心",
 )
 
 ?>

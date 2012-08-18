@@ -10,7 +10,7 @@
 			<p><!--{if $GLOBALS['___login___']===false}-->
 				<a class="btn btn-success btn-large" href="<!--{:Dyhb::U('home://public/register')}-->"><!--<lang package='Template/Public'>-->加入我们<!--</lang>--></a>
 				<!--{d*else}-->
-				<a class="btn btn-success btn-large" href="<!--{:Dyhb::U('home://user/index')}-->"><!--{$GLOBALS['___login___']['user_name']}--> <!--<lang package='Template/Public'>-->我的地盘<!--</lang>--></a>
+				<a class="btn btn-success btn-large" href="<!--{:Dyhb::U('home://user/index')}-->"><!--<lang package='Template/Public'>-->个人中心<!--</lang>--></a>
 				<!--{/if}-->
 			</p>
 		</div>
@@ -72,21 +72,15 @@
 					</form>
 				</div>
 				<!--{d*else}-->
-				<h3><!--{$GLOBALS['___login___']['user_name']}--> <!--<lang package='Template/Public'>-->我的地盘<!--</lang>--></h3>
+				<h3><a href="<!--{:Dyhb::U('home://user/index')}-->"><!--<lang package='Template/Public'>-->返回个人中心<!--</lang>--></a></h3>
 					<table class="table">
-						<thead>
-							<tr>
-								<th width="40%"><i class="icon-camera"></i><a href="<!--{:Dyhb::U('home://user/avatar')}-->"><!--<lang package='Template/Public'>-->修改头像<!--</lang>--></a></th>
-								<th width="60%"><i class="icon-info-sign"></i><a href="<!--{:Dyhb::U('home://user/index')}-->"><!--<lang package='Template/Public'>-->个人中心<!--</lang>--></a></th>
-							</tr>
-						</thead>
 						<tbody>
 							<tr>
-								<td rowspan="4">
+								<td rowspan="4" width="40%">
 									<a href="<!--{:Dyhb::U('home://user/avatar')}-->">
 									<img src="<!--{:Core_Extend::avatar($GLOBALS['___login___']['user_id'])}-->" class="thumbnail"/></a>
 								</td>
-								<td><i class="icon-cog"></i><a href="<!--{:Dyhb::U('home://user/base')}-->"><!--<lang package='Template/Public'>-->修改资料<!--</lang>--></a></td>
+								<td width="60%"><i class="icon-cog"></i><a href="<!--{:Dyhb::U('home://user/base')}-->"><!--<lang package='Template/Public'>-->修改资料<!--</lang>--></a></td>
 							</tr>
 							<tr>
 								<td><i class="icon-lock"></i><a href="<!--{:Dyhb::U('home://user/password')}-->"><!--<lang package='Template/Public'>-->修改密码<!--</lang>--></a></td>
