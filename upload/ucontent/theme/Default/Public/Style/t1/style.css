@@ -51,5 +51,6 @@ input:focus,textarea:focus {border-color: #BA350F;}
 /**===============================
            重写底部
 ================================*/
-#footer{background: none;}
-#footer a:hover{color:#333333;}
+#footer{background: none;color:#333333;}
+#footer a{color:#333333;}
+#footer a:hover{color:#000;}

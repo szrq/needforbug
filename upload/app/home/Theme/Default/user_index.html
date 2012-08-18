@@ -18,7 +18,7 @@ $(function(){
 function addHomefresh(){
 	$('#homefresh_message').val(editor.html());
 	if($('#homefresh_message').val()==''){
-		needforbugAlert('新鲜事内容不能为空','',3);
+		needforbugAlert('<!--<lang package='Template/User'>-->新鲜事内容不能为空<!--</lang>-->','',3);
 		return false;
 	}
 	
@@ -26,7 +26,7 @@ function addHomefresh(){
 	$("#submit_button").val('add...');
 	Dyhb.AjaxSubmit('homefreshAdd','<!--{:Dyhb::U('user/add_homefresh')}-->','',function(data,status){ 
 		$("#submit_button").attr("disabled",false);
-		$("#submit_button").val("发布");
+		$("#submit_button").val("<!--<lang package='__COMMON_LANG__@Template/Common'>-->发布<!--</lang>-->");
 		
 		if(status==1){
 			window.location.reload();
@@ -52,31 +52,31 @@ function addHomefresh(){
 								<!--{d*else}-->
 									<!--{$GLOBALS['___login___']['user_name']}-->
 								<!--{/if}--></h6>
-							<p>积分 <span class="badge badge-success"><a href="#">292</a></span></p>
-							<p>金币 <span class="badge badge-success"><a href="#">116</a></span></p>
+							<p><!--<lang package='Template/User'>-->积分<!--</lang>--> <span class="badge badge-success"><a href="#">292</a></span></p>
+							<p><!--<lang package='Template/User'>-->金币<!--</lang>--> <span class="badge badge-success"><a href="#">116</a></span></p>
 						 </div>
 					</div>
 
 					<ul class="nav nav-list">
-						<li class="nav-header">我的地盘</li>
-						<li class="active"><a href="<!--{:Dyhb::U('home://user/index')}-->"><i class="icon-white icon-home"></i> 个人中心</a></li>
-						<li><a href="<!--{:Dyhb::U('home://user/base')}-->"><i class="icon-cog"></i> 修改资料</a></li>
-						<li><a href="<!--{:Dyhb::U('home://user/avatar')}-->"><i class="icon-camera"></i> 修改头像</a></li>
-						<li><a href="<!--{:Dyhb::U('home://user/password')}-->"><i class="icon-lock"></i> 修改密码</a></li>
-						<li><a href="<!--{:Dyhb::U('home://user/tag')}-->"><i class="icon-tags"></i> 我的标签</a></li>
-						<li><a href="<!--{:Dyhb::U('home://public/logout')}-->"><i class="icon-off"></i> 注销</a></li>
-						<li class="nav-header">我的成长</li>
-						<li><a href="<!--{:Dyhb::U('home://friend/index')}-->"><i class="icon-user"></i> 我的好友</a></li>
-						<li class="nav-header">我的应用</li>
-						<li><a href="<!--{:Dyhb::U('group://public/index')}-->"><i class="icon-pencil"></i> 群组</a></li>
-						<li><a href="#"><i class="icon-pencil"></i> 商城</a></li>
+						<li class="nav-header"><!--<lang package='Template/User'>-->我的地盘<!--</lang>--></li>
+						<li class="active"><a href="<!--{:Dyhb::U('home://user/index')}-->"><i class="icon-white icon-home"></i> <!--<lang package='Template/User'>-->个人中心<!--</lang>--></a></li>
+						<li><a href="<!--{:Dyhb::U('home://user/base')}-->"><i class="icon-cog"></i> <!--<lang package='Template/User'>-->修改资料<!--</lang>--></a></li>
+						<li><a href="<!--{:Dyhb::U('home://user/avatar')}-->"><i class="icon-camera"></i> <!--<lang package='Template/User'>-->修改头像<!--</lang>--></a></li>
+						<li><a href="<!--{:Dyhb::U('home://user/password')}-->"><i class="icon-lock"></i> <!--<lang package='Template/User'>-->修改密码<!--</lang>--></a></li>
+						<li><a href="<!--{:Dyhb::U('home://user/tag')}-->"><i class="icon-tags"></i> <!--<lang package='Template/User'>-->我的标签<!--</lang>--></a></li>
+						<li><a href="<!--{:Dyhb::U('home://public/logout')}-->"><i class="icon-off"></i> <!--<lang package='Template/User'>-->注销<!--</lang>--></a></li>
+						<li class="nav-header"><!--<lang package='Template/User'>-->我的成长<!--</lang>--></li>
+						<li><a href="<!--{:Dyhb::U('home://friend/index')}-->"><i class="icon-user"></i> <!--<lang package='Template/User'>-->我的好友<!--</lang>--></a></li>
+						<li class="nav-header"><!--<lang package='Template/User'>-->我的应用<!--</lang>--></li>
+						<li><a href="<!--{:Dyhb::U('group://public/index')}-->"><i class="icon-pencil"></i> <!--<lang package='Template/User'>-->群组<!--</lang>--></a></li>
+						<li><a href="#"><i class="icon-pencil"></i> <!--<lang package='Template/User'>-->商城<!--</lang>--></a></li>
 						<li class="divider"></li>
-						<li><a href="<!--{:Dyhb::U('home://public/help')}-->"><i class="icon-flag"></i> 帮助</a></li>
+						<li><a href="<!--{:Dyhb::U('home://public/help')}-->"><i class="icon-flag"></i> <!--<lang package='Template/User'>-->帮助<!--</lang>--></a></li>
 					</ul>
 				</div>
 			</div><!--/home-floatmenu-->
 			<div class="span9">
-				<em>你正在想什么呢? 快来与朋友们分享吧!</em>
+				<em><!--<lang package='Template/User'>-->你正在想什么呢? 快来与朋友们分享吧!<!--</lang>--></em>
 				<div class="homefresh-box" >
 				<form class="well form-inline" method="post" id="homefreshAdd" name="homefreshAdd">
 					<textarea class="input-xlarge" name="homefresh_message" id="homefresh_message" rows="3" style="width:100%;"></textarea>
@@ -84,23 +84,23 @@ function addHomefresh(){
 						<tbody>
 							<tr>
 								<td>
-									<label class="checkbox"><input type="checkbox" name="synchronized-to-sign" value="1"/> 同步到个人签名</label>
+									<label class="checkbox"><input type="checkbox" name="synchronized-to-sign" value="1"/> <!--<lang package='Template/User'>-->同步到个人签名<!--</lang>--></label>
 								</td>
 								<td rowspan="2" style="width:70px;">
 									<input type="hidden" name="ajax" value="1">
-									<button id="submit_button" onclick="addHomefresh()" type="button" class="btn btn-large btn-success" style="height:63px;">发布</button>
+									<button id="submit_button" onclick="addHomefresh()" type="button" class="btn btn-large btn-success" style="height:63px;"><!--<lang package='__COMMON_LANG__@Template/Common'>-->发布<!--</lang>--></button>
 								</td>
 							</tr>
 							<tr>
 								<td><p class="help-block">
-										<span class="max-limit-doing">新鲜事最大允许10000个字符，尽情表达吧</span>
+										<span class="max-limit-doing"><!--<lang package='Template/User'>-->新鲜事最大允许10000个字符，尽情表达吧<!--</lang>--></span>
 									</p>
 								</td>
 							</tr>
 							<!--{if $nDisplaySeccode==1}-->
 							<tr>
 								<td>
-									<label class="control-label" for="seccode">验证码</label>
+									<label class="control-label" for="seccode"><!--<lang package='__COMMON_LANG__@Template/Common'>-->验证码<!--</lang>--></label>
 									<p><input class="input-small" name="seccode" id="seccode" type="text" value=""></p>
 									<p class="help-block"><span id="seccodeImage"><img style="cursor:pointer" onclick="updateSeccode()" src="<!--{:Dyhb::U('home://public/seccode')}-->" /></span></p>
 								</td>
@@ -113,10 +113,10 @@ function addHomefresh(){
 
 				<div class="tabb-menu">
 					<ul class="nav nav-tabs">
-						<li <!--{if empty($sType)}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('user/index')}-->">我关注的</a></li>
-						<li <!--{if $sType=='myself'}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('user/index?type=myself')}-->">我自己的</a></li>
-						<li <!--{if $sType=='friend'}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('user/index?type=friend')}-->">好友的</a></li>
-						<li <!--{if $sType=='all'||isset($_GET['uid'])}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('user/index?type=all')}-->">正在发生</a></li>
+						<li <!--{if empty($sType)}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('user/index')}-->"><!--<lang package='Template/User'>-->我关注的<!--</lang>--></a></li>
+						<li <!--{if $sType=='myself'}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('user/index?type=myself')}-->"><!--<lang package='Template/User'>-->我自己的<!--</lang>--></a></li>
+						<li <!--{if $sType=='friend'}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('user/index?type=friend')}-->"><!--<lang package='Template/User'>-->好友的<!--</lang>--></a></li>
+						<li <!--{if $sType=='all'||isset($_GET['uid'])}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('user/index?type=all')}-->"><!--<lang package='Template/User'>-->正在发生<!--</lang>--></a></li>
 					</ul>
 				</div>
 
@@ -125,7 +125,7 @@ function addHomefresh(){
 					<table class="table">
 						<thead>
 							<tr>
-								<th colspan="2">大家正在说</th>
+								<th colspan="2"><!--<lang package='Template/User'>-->大家正在说<!--</lang>--></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -136,10 +136,10 @@ function addHomefresh(){
 									</div>
 								</td>
 								<td><div style="width:500px">
-									<p><h5><a href="<!--{:Dyhb::U('my/user?id='.$oHomefresh['user_id'])}-->"><!--{$oHomefresh:user:user_name}--></a> 在 <!--{$oHomefresh['create_dateline']|Core_Extend+timeFormat}--> 发布</h5></p>
+									<p><h5><a href="<!--{:Dyhb::U('my/user?id='.$oHomefresh['user_id'])}-->"><!--{$oHomefresh:user:user_name}--></a> <!--<lang package='Template/User'>-->在<!--</lang>--> <!--{$oHomefresh['create_dateline']|Core_Extend+timeFormat}--> <!--<lang package='__COMMON_LANG__@Template/Common'>-->发布<!--</lang>--></h5></p>
 									<p><!--{$oHomefresh['homefresh_message']|Core_Extend+htmlSubstring=$GLOBALS['_cache_']['home_option']['homefresh_list_substring_num']}--></p>
 									<blockquote style="margin-top:5px">
-										<p style="font-size:12px; color:#999999;">这篇主题还没有回复</p>
+										<p style="font-size:12px; color:#999999;"><!--<lang package='Template/User'>-->这篇主题还没有回复<!--</lang>--></p>
 									</blockquote>
 									</div>
 								</td>
@@ -148,9 +148,9 @@ function addHomefresh(){
 						</tbody>
 					</table>
 					<!--{d*else}-->
-					<p>暂时没有发现任何新鲜事</p>
+					<p><!--<lang package='Template/User'>-->暂时没有发现任何新鲜事<!--</lang>--></p>
 					<!--{/if}-->
-										
+
 					<!--{$sPageNavbar}-->
 				</div>
 			</div>

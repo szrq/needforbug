@@ -1,23 +1,23 @@
 <!--<include file="Core_Extend::template('header')" />-->
 	
 		<ul class="breadcrumb">
-			<li>主页</li>
+			<li><!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>--></li>
 		</ul>
 		
 		<div class="hero-unit">
 			<h1><!--{$GLOBALS['_option_']['site_name']}--></h1>
 			<p><!--{$GLOBALS['_option_']['site_description']}--></p>
 			<p><!--{if $GLOBALS['___login___']===false}-->
-				<a class="btn btn-success btn-large" href="<!--{:Dyhb::U('home://public/register')}-->">加入我们</a>
+				<a class="btn btn-success btn-large" href="<!--{:Dyhb::U('home://public/register')}-->"><!--<lang package='Template/Public'>-->加入我们<!--</lang>--></a>
 				<!--{d*else}-->
-				<a class="btn btn-success btn-large" href="<!--{:Dyhb::U('home://user/index')}-->"><!--{$GLOBALS['___login___']['user_name']}--> 我的地盘</a>
+				<a class="btn btn-success btn-large" href="<!--{:Dyhb::U('home://user/index')}-->"><!--{$GLOBALS['___login___']['user_name']}--> <!--<lang package='Template/Public'>-->我的地盘<!--</lang>--></a>
 				<!--{/if}-->
 			</p>
 		</div>
 
 		<div class="row">
 			<div class="span7">
-				<h3><!--{$GLOBALS['_option_']['site_name']}--> 新社区</h3>
+				<h3><!--{$GLOBALS['_option_']['site_name']}--> <!--<lang package='Template/Public'>-->新社区<!--</lang>--></h3>
 				<div class="alert alert-success" style="text-align:center;margin: 15px 0px;height87px;">
 					<img src="<!--{$sLogo}-->"/>
 				</div>
@@ -26,37 +26,37 @@
 			<div class="span5">
 				<!--{if $GLOBALS['___login___']===false}-->
 				<div class="well">
-					<h3>用户登录</h3>
+					<h3><!--<lang package='Template/Public'>-->用户登录<!--</lang>--></h3>
 					<form class="form-horizontal" method='post' name="login_form" id="login_form">
 						<label><div id="result" class="none"></div></label>
-						<p><label for="user_name">用户名/E-mail</label>
+						<p><label for="user_name"><!--<lang package='Template/Public'>-->用户名/E-mail<!--</lang>--></label>
 							<input class="span3" id="user_name" name="user_name" type="text" value="">
 						</p>
-						<p><label for="user_name">密码</label>
+						<p><label for="user_name"><!--<lang package='Template/Public'>-->密码<!--</lang>--></label>
 							<input class="span3" id="user_password" name="user_password" type="password" value="">
 						</p>
 						<p><label class="checkbox">
-								<input id="remember_me" type="checkbox" name="remember_me" value="1" onclick="rememberme();"/>记住我
+								<input id="remember_me" type="checkbox" name="remember_me" value="1" onclick="rememberme();"/><!--<lang package='__COMMON_LANG__@Template/Common'>-->记住我<!--</lang>-->
 								<span class="pipe">|</span>
-								<a href="<!--{:Dyhb::U('home://public/get_password')}-->" class="resetpassword-link">忘记密码?</a>
+								<a href="<!--{:Dyhb::U('home://public/get_password')}-->" class="resetpassword-link"><!--<lang package='__COMMON_LANG__@Template/Common'>-->忘记密码?<!--</lang>--></a>
 							</label>
 						</p>
 						<div id="remember_time" class="none">
-							<label for="remember_time">COOKIE有效期 <span class="pipe">|</span> <a href="javascript:void(0);" onclick="rememberme(1);"><i class="icon-remove"></i>关闭</a></label>
+							<label for="remember_time"><!--<lang package='__COMMON_LANG__@Template/Common'>-->COOKIE有效期<!--</lang>--> <span class="pipe">|</span> <a href="javascript:void(0);" onclick="rememberme(1);"><i class="icon-remove"></i><!--<lang package='__COMMON_LANG__@Template/Common'>-->关闭<!--</lang>--></a></label>
 							<select name="remember_time">
-								<option value="0" <!--{if $nRememberTime==0}-->selected<!--{/if}-->>及时</option>
-								<option value="3600" <!--{if $nRememberTime==3600}-->selected<!--{/if}-->>一小时</option>
-								<option value="86400" <!--{if $nRememberTime==86400}-->selected<!--{/if}-->>一天</option>
-								<option value="604800" <!--{if $nRememberTime==604800}-->selected<!--{/if}-->>一星期</option>
-								<option value="2592000" <!--{if $nRememberTime==2592000}-->selected<!--{/if}-->>一月</option>
-								<option value="31536000" <!--{if $nRememberTime==31536000}-->selected<!--{/if}-->>一年</option>
+								<option value="0" <!--{if $nRememberTime==0}-->selected<!--{/if}-->><!--<lang package='__COMMON_LANG__@Common'>-->及时<!--</lang>--></option>
+								<option value="3600" <!--{if $nRememberTime==3600}-->selected<!--{/if}-->><!--<lang package='__COMMON_LANG__@Common'>-->一小时<!--</lang>--></option>
+								<option value="86400" <!--{if $nRememberTime==86400}-->selected<!--{/if}-->><!--<lang package='__COMMON_LANG__@Common'>-->一天<!--</lang>--></option>
+								<option value="604800" <!--{if $nRememberTime==604800}-->selected<!--{/if}-->><!--<lang package='__COMMON_LANG__@Common'>-->一星期<!--</lang>--></option>
+								<option value="2592000" <!--{if $nRememberTime==2592000}-->selected<!--{/if}-->><!--<lang package='__COMMON_LANG__@Common'>-->一月<!--</lang>--></option>
+								<option value="31536000" <!--{if $nRememberTime==31536000}-->selected<!--{/if}-->><!--<lang package='__COMMON_LANG__@Common'>-->一年<!--</lang>--></option>
 							</select>
 							<p class="help-block">
-								<i class=" icon-info-sign"></i> 注意在网吧等共同场所请不要记住我
+								<i class=" icon-info-sign"></i> <!--<lang package='__COMMON_LANG__@Template/Common'>-->注意在网吧等共同场所请不要记住我<!--</lang>-->
 							</p>
 						</div>
 						<!--{if $nDisplaySeccode==1}-->
-						<label for="user_name">验证码</label>
+						<label for="user_name"><!--<lang package='__COMMON_LANG__@Template/Common'>-->验证码<!--</lang>--></label>
 							<input class="input-small" name="seccode" id="seccode" type="text" value="">
 							<p class="help-block">
 								<span id="seccodeImage"><img style="cursor:pointer" onclick="updateSeccode()" src="<!--{:Dyhb::U('home://public/seccode')}-->" /></span>
@@ -64,20 +64,20 @@
 						<!--{/if}-->
 						<div class="space"></div>
 						<p><input type="hidden" name="ajax" value="1">
-							<button type="button" class="btn btn-success" onClick="Dyhb.AjaxSubmit('login_form','<!--{:Dyhb::U('home://public/check_login')}-->','result',login_handle);">登录</button>
-							<a href="<!--{:Dyhb::U('home://public/register')}-->">新用户注册</a>
+							<button type="button" class="btn btn-success" onClick="Dyhb.AjaxSubmit('login_form','<!--{:Dyhb::U('home://public/check_login')}-->','result',login_handle);"><!--<lang package='__COMMON_LANG__@Template/Common'>-->登录<!--</lang>--></button>
+							<a href="<!--{:Dyhb::U('home://public/register')}-->"><!--<lang package='__COMMON_LANG__@Template/Common'>-->新用户注册<!--</lang>--></a>
 							<span class="pipe">|</span>
-							<a href="<!--{:Dyhb::U('home://public/clear')}-->">清除痕迹</a>
+							<a href="<!--{:Dyhb::U('home://public/clear')}-->"><!--<lang package='__COMMON_LANG__@Template/Common'>-->清除痕迹<!--</lang>--></a>
 						</p>
 					</form>
 				</div>
 				<!--{d*else}-->
-				<h3><!--{$GLOBALS['___login___']['user_name']}--> 我的地盘</h3>
+				<h3><!--{$GLOBALS['___login___']['user_name']}--> <!--<lang package='Template/Public'>-->我的地盘<!--</lang>--></h3>
 					<table class="table">
 						<thead>
 							<tr>
-								<th width="40%"><i class="icon-camera"></i><a href="<!--{:Dyhb::U('home://user/avatar')}-->">修改头像</a></th>
-								<th width="60%"><i class="icon-info-sign"></i><a href="<!--{:Dyhb::U('home://user/index')}-->">个人中心</a></th>
+								<th width="40%"><i class="icon-camera"></i><a href="<!--{:Dyhb::U('home://user/avatar')}-->"><!--<lang package='Template/Public'>-->修改头像<!--</lang>--></a></th>
+								<th width="60%"><i class="icon-info-sign"></i><a href="<!--{:Dyhb::U('home://user/index')}-->"><!--<lang package='Template/Public'>-->个人中心<!--</lang>--></a></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -86,16 +86,16 @@
 									<a href="<!--{:Dyhb::U('home://user/avatar')}-->">
 									<img src="<!--{:Core_Extend::avatar($GLOBALS['___login___']['user_id'])}-->" class="thumbnail"/></a>
 								</td>
-								<td><i class="icon-cog"></i><a href="<!--{:Dyhb::U('home://user/base')}-->">修改资料</a></td>
+								<td><i class="icon-cog"></i><a href="<!--{:Dyhb::U('home://user/base')}-->"><!--<lang package='Template/Public'>-->修改资料<!--</lang>--></a></td>
 							</tr>
 							<tr>
-								<td><i class="icon-lock"></i><a href="<!--{:Dyhb::U('home://user/password')}-->">修改密码</a></td>
+								<td><i class="icon-lock"></i><a href="<!--{:Dyhb::U('home://user/password')}-->"><!--<lang package='Template/Public'>-->修改密码<!--</lang>--></a></td>
 							</tr>
 							<tr>
-								<td><i class="icon-tags"></i><a href="<!--{:Dyhb::U('home://user/tag')}-->">我的标签</a></td>
+								<td><i class="icon-tags"></i><a href="<!--{:Dyhb::U('home://user/tag')}-->"><!--<lang package='Template/Public'>-->我的标签<!--</lang>--></a></td>
 							</tr>
 							<tr>
-								<td><i class="icon-off"></i><a href="<!--{:Dyhb::U('home://public/logout')}-->">注销</a></td>
+								<td><i class="icon-off"></i><a href="<!--{:Dyhb::U('home://public/logout')}-->"><!--<lang package='Template/Public'>-->注销<!--</lang>--></a></td>
 							</tr>
 						</tbody>
 					</table>
@@ -106,7 +106,7 @@
 		<!--{if $arrLinkDatas['link_content'] || $arrLinkDatas['link_text'] || $arrLinkDatas['link_logo']}-->
 		<div class="row">
 			<div class="span12">
-				<h3>友情衔接</h3>
+				<h3><!--<lang package='Template/Public'>-->友情衔接<!--</lang>--></h3>
 				<hr/>
 				<!--{if $arrLinkDatas['link_content']}-->
 				<div class="home-links">

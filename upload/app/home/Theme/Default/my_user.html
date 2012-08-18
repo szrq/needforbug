@@ -9,9 +9,9 @@ $(function(){
 <!--{/script}-->
 
 		<ul class="breadcrumb">
-			<li><a href="<!--{:__APP__}-->">主页</a> <span class="divider">/</span></li>
+			<li><a href="<!--{:__APP__}-->"><!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>--></a> <span class="divider">/</span></li>
 			<li><a href="<!--{:Dyhb::U('home://my/user?id='.$nId)}-->"><!--{$oUserInfo:user_name}--></a> <span class="divider">/</span></li>
-			<li>个人空间</li>
+			<li><!--<lang package='Template/My'>-->个人空间<!--</lang>--></li>
 		</ul>
 		
 		<!--<include file="my_menu" />-->
@@ -27,7 +27,7 @@ $(function(){
 				<table class="table">
 					<thead>
 						<tr>
-							<th>用户名</th>
+							<th><!--<lang package='Template/My'>-->用户名<!--</lang>--></th>
 							<th><!--{$oUserInfo:user_name}--></th>
 						</tr>
 					</thead>
@@ -41,7 +41,7 @@ $(function(){
 							<!--{if $sBase=='userprofile_gender'}-->
 							<!--{:Profile_Extend::getGender($oUserInfo->userprofile->userprofile_gender)}-->
 							<!--{elseif $sBase=='userprofile_birthday'}-->
-							<!--{$oUserInfo->userprofile->userprofile_birthyear}-->年<!--{$oUserInfo->userprofile->userprofile_birthmonth}-->月<!--{$oUserInfo->userprofile->userprofile_birthday}-->日
+							<!--{$oUserInfo->userprofile->userprofile_birthyear}--><!--<lang package='__COMMON_LANG__@Common'>-->年<!--</lang>--><!--{$oUserInfo->userprofile->userprofile_birthmonth}--><!--<lang package='__COMMON_LANG__@Common'>-->月<!--</lang>--><!--{$oUserInfo->userprofile->userprofile_birthday}--><!--<lang package='__COMMON_LANG__@Common'>-->日<!--</lang>-->
 							<!--{elseif $sBase=='userprofile_birthcity'}-->
 							<!--{$sDirthDistrict}-->
 							<!--{elseif $sBase=='userprofile_residecity'}-->
@@ -104,7 +104,7 @@ $(function(){
 						<!--{/if}-->
 						<!--</foreach>-->
 						<tr>
-							<td>昵称</td>
+							<td><!--<lang package='Template/My'>-->昵称<!--</lang>--></td>
 							<td><!--{$oUserInfo:user_nikename}--></td>
 						<tr/>
 						<tr>
@@ -112,7 +112,7 @@ $(function(){
 							<td><!--{$oUserInfo:user_email}--></td>
 						<tr/>
 						<tr>
-							<td>用户签名</td>
+							<td><!--<lang package='Template/My'>-->用户签名<!--</lang>--></td>
 							<td><!--{$oUserInfo:user_sign|Profile_Extend+formatUserinfo}--></td>
 						<tr/>
 						<!--{/if}-->
@@ -128,7 +128,7 @@ $(function(){
 								<a href="<!--{:Dyhb::U('home://my/avatar?id='.$nId)}-->"><img src="<!--{:Core_Extend::avatar( $nId,'small' )}-->" class="thumbnail"/></a>
 							</td>
 							<td>
-								<label class="control-label" for="email-input"><i class="icon-retweet"></i> 与用户 Email 交流</label>
+								<label class="control-label" for="email-input"><i class="icon-retweet"></i> <!--<lang package='Template/My'>-->与用户 Email 交流<!--</lang>--></label>
 								<div class="input-prepend">
 									<span class="add-on"><i class="icon-envelope"></i></span><input style="width:140px;" id="email-input" type="text" value="<!--{$oUserInfo:user_email}-->">
 								</div>
@@ -140,46 +140,46 @@ $(function(){
 							<td colspan="2"><a href="<!--{:Dyhb::U('my/user?id='.$oUserInfo['user_id'])}-->"><!--{$oUserInfo:user_name}-->@<!--{$oUserInfo:user_id}--></a></td>
 						</tr>
 						<tr>
-							<td colspan="2"><i class="icon-info-sign"></i> 性别 <!--{:Profile_Extend::getGender($oUserInfo->userprofile->userprofile_gender)}--></td>
+							<td colspan="2"><i class="icon-info-sign"></i> <!--<lang package='Template/My'>-->性别<!--</lang>--> <!--{:Profile_Extend::getGender($oUserInfo->userprofile->userprofile_gender)}--></td>
 						</tr>
 						<tr>
-							<td colspan="2"><i class="icon-user"></i> <!--{$oUserInfo:create_dateline|Core_Extend+timeFormat}-->注册</td>
+							<td colspan="2"><i class="icon-user"></i> <!--{$oUserInfo:create_dateline|Core_Extend+timeFormat}--><!--<lang package='Template/My'>-->注册<!--</lang>--></td>
 						</tr>
 						<tr>
-							<td colspan="2"><i class="icon-heart"></i> 等级 <a href="<!--{:Dyhb::U('home://my/rating')}-->">下士</a></td>
+							<td colspan="2"><i class="icon-heart"></i> <!--<lang package='Template/My'>-->等级<!--</lang>--> <a href="<!--{:Dyhb::U('home://my/rating')}-->">下士</a></td>
 						</tr>
 						<tr>
-							<td colspan="2"><i class="icon-star"></i> 积分 <span class="badge badge-success"><a href="#">292</a></span>
-							金币 <span class="badge badge-success"><a href="#">116</a></span></td>
+							<td colspan="2"><i class="icon-star"></i> <!--<lang package='Template/My'>-->积分<!--</lang>--> <span class="badge badge-success"><a href="#">292</a></span>
+							<!--<lang package='Template/My'>-->金币<!--</lang>--> <span class="badge badge-success"><a href="#">116</a></span></td>
 						</tr>
 					</tbody>
 				</table>
 
 				<div style="padding:5px;">
-					<a class="btn" href="#"><i class="icon-user"></i> 关注+1</a>
-					<a href="<!--{:Dyhb::U('pm/pmnew?uid='.$oUserInfo['user_id'])}-->" rel="nofollow" class="btn"><i class="icon-envelope"></i> 发消息</a>
+					<a class="btn" href="#"><i class="icon-user"></i> <!--<lang package='Template/My'>-->关注<!--</lang>-->+1</a>
+					<a href="<!--{:Dyhb::U('pm/pmnew?uid='.$oUserInfo['user_id'])}-->" rel="nofollow" class="btn"><i class="icon-envelope"></i> <!--<lang package='Template/My'>-->发消息<!--</lang>--></a>
 				</div>
 
 				<div style="padding:5px;">
-					<h5><i class="icon-pencil"></i> 签名</h5>
-					<!--{if $oUserInfo:user_sign}--><!--{$oUserInfo:user_sign|Profile_Extend+formatUserinfo}--><!--{d*else}-->该用户暂时没有设置签名<!--{/if}-->
+					<h5><i class="icon-pencil"></i> <!--<lang package='Template/My'>-->签名<!--</lang>--></h5>
+					<!--{if $oUserInfo:user_sign}--><!--{$oUserInfo:user_sign|Profile_Extend+formatUserinfo}--><!--{d*else}--><!--<lang package='Template/My'>-->该用户暂时没有设置签名<!--</lang>--><!--{/if}-->
 				</div>
 
 				<div style="padding:5px;">
-					<h4>他关注的用户</h4>
+					<h4><!--<lang package='Template/My'>-->他关注的用户<!--</lang>--></h4>
 					<p><!--{if is_array($arrFriends)}-->
 					<ul class="thumbnails">
 						<!--<foreach for=arrFriends value=oFriend>-->
 						<li class="span1">
 							<div class="thumbnail">
-								<a href="<!--{:Dyhb::U('home://my/user?id='.$oFriend['friend_friendid'])}-->"><img src="<!--{:Core_Extend::avatar( $oFriend['friend_friendid'],'small' )}-->" title="好友 <!--{$oFriend['friend_friendusername']}-->" alt="好友 <!--{$oFriend['friend_friendusername']}-->"></a>
-								<a rel="tooltip" title="好友 <!--{$oFriend['friend_friendusername']}-->" href="<!--{:Dyhb::U('home://my/user?id='.$oFriend['friend_friendid'])}-->"><h5 style="text-align:center;"><!--{:G::subString(UserModel::getUsernameById($oFriend['friend_friendid']),0,6)}--></h5></a>
+								<a href="<!--{:Dyhb::U('home://my/user?id='.$oFriend['friend_friendid'])}-->"><img src="<!--{:Core_Extend::avatar( $oFriend['friend_friendid'],'small' )}-->" title="<!--<lang package='Template/My'>-->好友<!--</lang>--> <!--{$oFriend['friend_friendusername']}-->" alt="<!--<lang package='Template/My'>-->好友<!--</lang>--> <!--{$oFriend['friend_friendusername']}-->"></a>
+								<a rel="tooltip" title="<!--<lang package='Template/My'>-->好友<!--</lang>--> <!--{$oFriend['friend_friendusername']}-->" href="<!--{:Dyhb::U('home://my/user?id='.$oFriend['friend_friendid'])}-->"><h5 style="text-align:center;"><!--{:G::subString(UserModel::getUsernameById($oFriend['friend_friendid']),0,6)}--></h5></a>
 							</div>
 						</li>
 						<!--</foreach>-->
 					</ul>
 					<!--{d*else}-->
-					他尚未关注任何人
+					<!--<lang package='Template/My'>-->他尚未关注任何人<!--</lang>-->
 					<!--{/if}-->
 					</p>
 				</div>

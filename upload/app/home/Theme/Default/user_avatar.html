@@ -1,9 +1,9 @@
 <!--<include file="Core_Extend::template('header')" />-->
 
 		<ul class="breadcrumb">
-			<li><a href="<!--{:__APP__}-->">主页</a> <span class="divider">/</span></li>
-			<li><a href="<!--{:Dyhb::U('home://user/base')}-->">用户资料</a> <span class="divider">/</span></li>
-			<li>修改头像</li>
+			<li><a href="<!--{:__APP__}-->"><!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>--></a> <span class="divider">/</span></li>
+			<li><a href="<!--{:Dyhb::U('home://user/base')}-->"><!--<lang package='Template/User'>-->用户资料<!--</lang>--></a> <span class="divider">/</span></li>
+			<li><!--<lang package='Template/User'>-->修改头像<!--</lang>--></li>
 		</ul>
 
 		<!--<include file="user_information_menu" />-->
@@ -13,32 +13,32 @@
 				<!--{if !$arrAvatarInfo['exist']}-->
 				<div class="alert fade in">
 					<button type="button" class="close" data-dismiss="alert">&times;</button>
-					你还没有上传头像，头像为系统默认头像
+					<!--<lang package='Template/User'>-->你还没有上传头像，头像为系统默认头像<!--</lang>-->
 				</div>
 				<!--{/if}-->
-				<h3>当前头像</h3>
+				<h3><!--<lang package='Template/User'>-->当前头像<!--</lang>--></h3>
 				<table class="table table-bordered" style="width:95%;">
 					<thead>
 						<tr>
-							<th>头像类型</th>
-							<th>头像预览</th>
+							<th><!--<lang package='Template/User'>-->头像类型<!--</lang>--></th>
+							<th><!--<lang package='Template/User'>-->头像预览<!--</lang>--></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td>高清原始头像</td>
-							<td><a href="<!--{$arrAvatarInfo['origin']}-->" target="_blank">点击查看</a></td>
+							<td><!--<lang package='Template/User'>-->高清原始头像<!--</lang>--></td>
+							<td><a href="<!--{$arrAvatarInfo['origin']}-->" target="_blank"><!--<lang package='Template/User'>-->点击查看<!--</lang>--></a></td>
 						</tr>
 						<tr>
-							<td>大头像 200*200</td>
+							<td><!--<lang package='Template/User'>-->大头像<!--</lang>--> 200*200</td>
 							<td><img src="<!--{$arrAvatarInfo['big']}-->" class="thumbnail" /></td>
 						</tr>
 						<tr>
-							<td>中等头像 120×120</td>
+							<td><!--<lang package='Template/User'>-->中等头像<!--</lang>--> 120×120</td>
 							<td><img src="<!--{$arrAvatarInfo['middle']}-->" class="thumbnail" /></td>
 						</tr>
 						<tr>
-							<td>小头像 48×48</td>
+							<td><!--<lang package='Template/User'>-->小头像<!--</lang>--> 48×48</td>
 							<td><img src="<!--{$arrAvatarInfo['small']}-->" class="thumbnail" /></td>
 						</tr>
 					</tbody>
@@ -48,20 +48,20 @@
 		
 		<div class="row">
 			<div class="span12">
-				<h3>上传头像</h3>
+				<h3><!--<lang package='Template/User'>-->上传头像<!--</lang>--></h3>
 				<hr>
 				<form name="photo" enctype="multipart/form-data" action="<!--{:Dyhb::U('user/avatar_upload')}-->" method="post" name="uploadAdd" id="uploadAdd">
 					<fieldset>
 						<div class="control-group">
-							<label class="control-label" for="">高清原始头像 (最大上传尺寸 <!--{:G::changeFileSize($nUploadSize)}-->)</label>
+							<label class="control-label" for=""><!--<lang package='Template/User'>-->高清原始头像<!--</lang>--> (<!--<lang package='Template/User'>-->最大上传尺寸<!--</lang>--> <!--{:G::changeFileSize($nUploadSize)}-->)</label>
 							<div class="controls">
 								<input class="input-xlarge" type="file" name="image" size="30"/>
-								<p class="help-block">值得注意的是头像文件太大将无法上传成功</p>
+								<p class="help-block"><!--<lang package='Template/User'>-->值得注意的是头像文件太大将无法上传成功<!--</lang>--></p>
 							</div>
 						</div>
 						<div class="form-actions">
-							<button type="submit" class="btn btn-success">上传头像</button>
-							<a href="<!--{:__APP__}-->" class="btn">取消</a>
+							<button type="submit" class="btn btn-success"><!--<lang package='Template/User'>-->上传头像<!--</lang>--></button>
+							<a href="<!--{:__APP__}-->" class="btn"><!--<lang package='__COMMON_LANG__@Template/Common'>-->取消<!--</lang>--></a>
 						</div>
 					</fieldset>
 				</form>

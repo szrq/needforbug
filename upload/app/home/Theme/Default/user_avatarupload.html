@@ -4,32 +4,32 @@
 <script src="<!--{:__PUBLIC__}-->/js/common/jcrop.js"></script>
 
 		<ul class="breadcrumb">
-			<li><a href="<!--{:__APP__}-->">主页</a> <span class="divider">/</span></li>
-			<li><a href="<!--{:Dyhb::U('home://user/base')}-->">用户资料</a> <span class="divider">/</span></li>
-			<li><a href="<!--{:Dyhb::U('home://user/avatar')}-->">修改头像</a> <span class="divider">/</span></li>
-			<li>裁剪头像</li>
+			<li><a href="<!--{:__APP__}-->"><!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>--></a> <span class="divider">/</span></li>
+			<li><a href="<!--{:Dyhb::U('home://user/base')}-->"><!--<lang package='Template/User'>-->用户资料<!--</lang>--></a> <span class="divider">/</span></li>
+			<li><a href="<!--{:Dyhb::U('home://user/avatar')}-->"><!--<lang package='Template/User'>-->修改头像<!--</lang>--></a> <span class="divider">/</span></li>
+			<li><!--<lang package='Template/User'>-->裁剪头像<!--</lang>--></li>
 		</ul>
 		
 		<!--<include file="user_information_menu" />-->
 		
 		<div class="row">
 			<div class="span12">
-				<h3>临时头像</h3>
+				<h3><!--<lang package='Template/User'>-->临时头像<!--</lang>--></h3>
 				<hr/>
 				<table class="table table-bordered" style="width:95%;">
 					<thead>
 						<tr>
-							<th>头像类型</th>
-							<th>头像预览</th>
+							<th><!--<lang package='Template/User'>-->头像类型<!--</lang>--></th>
+							<th><!--<lang package='Template/User'>-->头像预览<!--</lang>--></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td>临时头像</td>
+							<td><!--<lang package='Template/User'>-->临时头像<!--</lang>--></td>
 							<td><img src="<!--{:__ROOT__}-->/data/avatar/<!--{$arrPhotoInfo['savename']}-->" id="cropbox"/></td>
 						</tr>
 						<tr>
-							<td>裁剪预览</td>
+							<td><!--<lang package='Template/User'>-->裁剪预览<!--</lang>--></td>
 							<td><div class="preview" style="width:100px;height:100px;overflow:hidden;">
 									<img src="<!--{:__ROOT__}-->/data/avatar/<!--{$arrPhotoInfo['savename']}-->" id="preview" alt="Preview" />
 								</div>
@@ -41,7 +41,7 @@
 				<form action="<!--{:Dyhb::U('user/save_crop')}-->" method="post" onsubmit="return checkCoords();" id="coords" class="coords well form-inline">
 					<fieldset>
 						<div class="control-group">
-							<label class="control-label" for="">头像参数</label>
+							<label class="control-label" for=""><!--<lang package='Template/User'>-->头像参数<!--</lang>--></label>
 							<div class="controls">
 								<input type="hidden" id="x" name="x" />
 								<input type="hidden" id="y" name="y" />
@@ -55,8 +55,8 @@
 						</div>
 						<div class="form-actions">
 							<input type="hidden" name="temp_image" value="<!--{$arrPhotoInfo['savename']}-->" />
-							<button type="submit" class="btn btn-success">裁剪图像</button>
-							<a href="<!--{:__APP__}-->" class="btn">取消</a>
+							<button type="submit" class="btn btn-success"><!--<lang package='Template/User'>-->裁剪图像<!--</lang>--></button>
+							<a href="<!--{:__APP__}-->" class="btn"><!--<lang package='__COMMON_LANG__@Template/Common'>-->取消<!--</lang>--></a>
 						</div>
 					</fieldset>
 				</form>

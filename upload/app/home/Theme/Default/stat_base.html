@@ -1,8 +1,8 @@
 <!--<include file="Core_Extend::template('header')" />-->
 
 		<ul class="breadcrumb">
-			<li><a href="<!--{:__APP__}-->">主页</a> <span class="divider">/</span></li>
-			<li>社区广场</li>
+			<li><a href="<!--{:__APP__}-->"><!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>--></a> <span class="divider">/</span></li>
+			<li><!--<lang package='Template/Stat'>-->社区广场<!--</lang>--></li>
 		</ul>
 		
 		<!--<include file="stat_menu" />-->
@@ -11,25 +11,25 @@
 			<div class="span12">
 				<div class="alert alert-success">
 					<button class="close" data-dismiss="alert">&times;</button>
-					这里为整个站点的概况，它可以帮助你了解我们
+					<!--<lang package='Template/Stat'>-->这里为整个站点的概况，它可以帮助你了解我们<!--</lang>-->
 				</div>
 
 				<table class="table table-bordered table-striped">
 					<thead>
 						<tr>
-							<th colspan="2">会员统计</th>
+							<th colspan="2"><!--<lang package='Template/Stat'>-->会员统计<!--</lang>--></th>
 						</tr>
 					</thead>
 					<tr>
-						<td width="36%">注册会员</td>
+						<td width="36%"><!--<lang package='Template/Stat'>-->注册会员<!--</lang>--></td>
 						<td width="64%"><span class="badge badge-success"><a href="<!--{:Dyhb::U('home://stat/userlist')}-->"><!--{$arrSite['user']}--></a></span></td>
 					</tr>
 					<tr>
-						<td>管理成员</td>
+						<td><!--<lang package='Template/Stat'>-->管理成员<!--</lang>--></td>
 						<td><span class="badge"><!--{$arrSite['adminuser']}--></span></td>
 					</tr>
 					<tr>
-						<td>新会员</td>
+						<td><!--<lang package='Template/Stat'>-->新会员<!--</lang>--></td>
 						<td><span class="badge"><!--{$arrSite['newuser']}--></span></td>
 					</tr>
 				</table>
@@ -37,11 +37,11 @@
 				<table class="table table-bordered table-striped">
 					<thead>
 						<tr>
-							<th colspan="2">站点统计</th>
+							<th colspan="2"><!--<lang package='Template/Stat'>-->站点统计<!--</lang>--></th>
 						</tr>
 					</thead>
 					<tr>
-						<td width="36%">应用数量</td>
+						<td width="36%"><!--<lang package='Template/Stat'>-->应用数量<!--</lang>--></td>
 						<td width="64%"><span class="badge"><!--{$arrSite['app']}--></span></td>
 					</tr>
 				</table>

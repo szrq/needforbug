@@ -1,9 +1,9 @@
 <!--<include file="Core_Extend::template('header')" />-->
 
 		<ul class="breadcrumb">
-			<li><a href="<!--{:__APP__}-->">主页</a> <span class="divider">/</span></li>
-			<li><a href="<!--{:Dyhb::U('home://my/user?id='.$nId)}-->">个人空间</a> <span class="divider">/</span></li>
-			<li>查看头像</li>
+			<li><a href="<!--{:__APP__}-->"><!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>--></a> <span class="divider">/</span></li>
+			<li><a href="<!--{:Dyhb::U('home://my/user?id='.$nId)}-->"><!--<lang package='Template/My'>-->个人空间<!--</lang>--></a> <span class="divider">/</span></li>
+			<li><!--<lang package='Template/My'>-->查看头像<!--</lang>--></li>
 		</ul>
 
 		<!--<include file="my_menu" />-->
@@ -13,35 +13,35 @@
 				<!--{if !$arrAvatarInfo['exist']}-->
 				<div class="alert fade in">
 					<button type="button" class="close" data-dismiss="alert">&times;</button>
-					该用户还没有上传头像，头像为系统默认头像
+					<!--<lang package='Template/My'>-->该用户还没有上传头像，头像为系统默认头像<!--</lang>-->
 					<!--{if $GLOBALS['___login___']!==false}-->
-					<a href="<!--{:Dyhb::U('home://user/avatar')}-->">立刻上传你的专属头像</a>
+					<a href="<!--{:Dyhb::U('home://user/avatar')}-->"><!--<lang package='Template/My'>-->立刻上传你的专属头像<!--</lang>--></a>
 					<!--{/if}-->
 				</div>
 				<!--{/if}-->
-				<h3>当前头像</h3>
+				<h3><!--<lang package='Template/My'>-->当前头像<!--</lang>--></h3>
 				<table class="table table-bordered" style="width:95%;">
 					<thead>
 						<tr>
-							<th>头像类型</th>
-							<th>头像预览</th>
+							<th><!--<lang package='Template/My'>-->头像类型<!--</lang>--></th>
+							<th><!--<lang package='Template/My'>-->头像预览<!--</lang>--></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td>高清原始头像</td>
-							<td><a href="<!--{$arrAvatarInfo['origin']}-->" target="_blank">点击查看</a></td>
+							<td><!--<lang package='Template/My'>-->高清原始头像<!--</lang>--></td>
+							<td><a href="<!--{$arrAvatarInfo['origin']}-->" target="_blank"><!--<lang package='Template/My'>-->点击查看<!--</lang>--></a></td>
 						</tr>
 						<tr>
-							<td>大头像 200*200</td>
+							<td><!--<lang package='Template/My'>-->大头像<!--</lang>--> 200*200</td>
 							<td><img src="<!--{$arrAvatarInfo['big']}-->" class="thumbnail" /></td>
 						</tr>
 						<tr>
-							<td>中等头像 120×120</td>
+							<td><!--<lang package='Template/My'>-->中等头像<!--</lang>--> 120×120</td>
 							<td><img src="<!--{$arrAvatarInfo['middle']}-->" class="thumbnail" /></td>
 						</tr>
 						<tr>
-							<td>小头像 48×48</td>
+							<td><!--<lang package='Template/My'>-->小头像<!--</lang>--> 48×48</td>
 							<td><img src="<!--{$arrAvatarInfo['small']}-->" class="thumbnail" /></td>
 						</tr>
 					</tbody>

@@ -7,6 +7,7 @@ return array(
 '7653297de32f34fdec0dd0653aebf358'=>"跳转",
 'b5cf1708daf7f799ab5bf1f616fa0b52'=>"系统即将自动关闭",
 'b15d91274e9fc68608c609999e0413fa'=>"关闭",
+'058ebdf2884474ebff2977ba2f0e275e'=>"系统消息",
 )
 
 ?>

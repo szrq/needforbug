@@ -1,8 +1,8 @@
 <!--<include file="Core_Extend::template('header')" />-->
 	
 		<ul class="breadcrumb">
-			<li><a href="<!--{:__APP__}-->">主页</a> <span class="divider">/</span></li>
-			<li>用户等级</li>
+			<li><a href="<!--{:__APP__}-->"><!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>--></a> <span class="divider">/</span></li>
+			<li><!--<lang package='Template/My'>-->用户等级<!--</lang>--></li>
 		</ul>
 		
 		<!--<include file="user_information_menu" />-->
@@ -12,9 +12,9 @@
 				<table class="table table-bordered">
 					<thead>
 						<tr>
-							<th width="50px">等级ID</th>
-							<th>等级名字</th>
-							<th>等级积分</th>
+							<th width="50px"><!--<lang package='Template/My'>-->等级ID<!--</lang>--></th>
+							<th><!--<lang package='Template/My'>-->等级名字<!--</lang>--></th>
+							<th><!--<lang package='Template/My'>-->等级积分<!--</lang>--></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -30,9 +30,9 @@
 			</div>
 
 			<div class="span3">
-				<h4>等级分组</h4>
+				<h4><!--<lang package='Template/My'>-->等级分组<!--</lang>--></h4>
 				<p><ul class="nav nav-tabs nav-stacked">
-					<li <!--{if empty($nId)}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://my/rating')}-->">全部</a></li>
+					<li <!--{if empty($nId)}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://my/rating')}-->"><!--<lang package='Template/My'>-->全部<!--</lang>--></a></li>
 					<!--<foreach for=arrRatinggroups value=oRatinggroup>-->
 					<li <!--{if $nId==$oRatinggroup['ratinggroup_id']}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://my/rating?id='.$oRatinggroup['ratinggroup_id'])}-->"><!--{$oRatinggroup['ratinggroup_title']}-->&nbsp;(<!--{$oRatinggroup['ratinggroup_name']}-->)</a></li>
 					<!--</foreach>-->

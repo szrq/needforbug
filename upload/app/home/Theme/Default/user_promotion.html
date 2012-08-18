@@ -1,36 +1,36 @@
 <!--<include file="Core_Extend::template('header')" />-->
 
 		<ul class="breadcrumb">
-			<li><a href="<!--{:__APP__}-->">主页</a> <span class="divider">/</span></li>
-			<li><a href="<!--{:Dyhb::U('home://user/base')}-->">用户资料</a> <span class="divider">/</span></li>
-			<li>访问推广</li>
+			<li><a href="<!--{:__APP__}-->"><!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>--></a> <span class="divider">/</span></li>
+			<li><a href="<!--{:Dyhb::U('home://user/base')}-->"><!--<lang package='Template/User'>-->用户资料<!--</lang>--></a> <span class="divider">/</span></li>
+			<li><!--<lang package='Template/User'>-->访问推广<!--</lang>--></li>
 		</ul>
 
 		<!--<include file="user_information_menu" />-->
 
 		<div class="row">
 			<div class="span12">
-				<p>如果您的朋友通过下面链接访问站点，您将获得积分奖励 <span class="label label-success">金币+1&nbsp;</span></p>
-				<p>如果您的朋友不但访问并且注册成为会员，您将再获得积分奖励 <span class="label label-success">金币+2&nbsp;</span></p>
+				<p><!--<lang package='Template/User'>-->如果您的朋友通过下面链接访问站点，您将获得积分奖励<!--</lang>--> <span class="label label-success"><!--<lang package='Template/User'>-->金币<!--</lang>-->+1&nbsp;</span></p>
+				<p><!--<lang package='Template/User'>-->如果您的朋友不但访问并且注册成为会员，您将再获得积分奖励<!--</lang>--> <span class="label label-success"><!--<lang package='Template/User'>-->金币<!--</lang>-->+2&nbsp;</span></p>
 				<table class="table">
 					<thead>
 						<tr>
-							<th colspan="2">方式一</th>
+							<th colspan="2"><!--<lang package='Template/User'>-->方式一<!--</lang>--></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td>推广链接</td>
+							<td><!--<lang package='Template/User'>-->推广链接<!--</lang>--></td>
 							<td>
-								<input type="text" class="input-xlarge" value="<!--{$sUserName}-->邀请您访问<!--{$sSiteName}--> @ <!--{$sSiteUrl}-->/?fromuid=<!--{$nUserId}-->" size="50" />
-								<button type="button" class="btn btn-success btn-small" onclick="copy('<!--{$sUserName}-->邀请您访问<!--{$sSiteName}-->'+'\n'+'<!--{$sSiteUrl}-->/?fromuid=<!--{$nUserId}-->','推广链接复制成功');" type="submit"><em>复制</em></button>
+								<input type="text" class="input-xlarge" value="<!--{$sUserName}--><!--<lang package='Template/User'>-->邀请您访问<!--</lang>--><!--{$sSiteName}--> @ <!--{$sSiteUrl}-->/?fromuid=<!--{$nUserId}-->" size="50" />
+								<button type="button" class="btn btn-success btn-small" onclick="copy('<!--{$sUserName}--><!--<lang package='Template/User'>-->邀请您访问<!--</lang>--><!--{$sSiteName}-->'+'\n'+'<!--{$sSiteUrl}-->/?fromuid=<!--{$nUserId}-->','<!--<lang package='Template/User'>-->推广链接复制成功<!--</lang>-->');" type="submit"><em><!--<lang package='Template/User'>-->复制<!--</lang>--></em></button>
 							</td>
 						</tr>
 						<tr>
-							<th colspan="2">方式二</th>
+							<th colspan="2"><!--<lang package='Template/User'>-->方式二<!--</lang>--></th>
 						</tr>
 						<tr>
-							<td colspan="2">你可以可以访问网站其他应用推出的类似服务来推广，推广成功后也可以获得积分奖励 &nbsp;<i class="icon-home"></i> <a href="<!--{:__APP__}-->">去首页看看&raquo;</a></td>
+							<td colspan="2"><!--<lang package='Template/User'>-->你可以可以访问网站其他应用推出的类似服务来推广，推广成功后也可以获得积分奖励<!--</lang>--> &nbsp;<i class="icon-home"></i> <a href="<!--{:__APP__}-->"><!--<lang package='Template/User'>-->去首页看看<!--</lang>-->&raquo;</a></td>
 						</tr>
 					</tbody>
 				</table>

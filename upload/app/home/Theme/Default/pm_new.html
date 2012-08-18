@@ -11,7 +11,7 @@ function pmSend(){
 
 function complete(data,status){
 	$("#sendpm_submit").attr("disabled", false);
-	$("#sendpm_submit").val('发送');
+	$("#sendpm_submit").val('<!--<lang package='Template/Pm'>-->发送<!--</lang>-->');
 
 	if(status==1){
 		$('#pm_subject').val('');
@@ -26,8 +26,8 @@ $(document).ready(function(){
 <!--{/script}-->
 
 		<ul class="breadcrumb">
-			<li><a href="<!--{:__APP__}-->">主页</a> <span class="divider">/</span></li>
-			<li>发送短消息</li>
+			<li><a href="<!--{:__APP__}-->"><!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>--></a> <span class="divider">/</span></li>
+			<li><!--<lang package='Template/Pm'>-->发送短消息<!--</lang>--></li>
 		</ul>
 
 		<!--<include file="pm_menu" />-->
@@ -38,7 +38,7 @@ $(document).ready(function(){
 				<table class="table table-bordered">
 					<thead>
 						<tr>
-							<th colspan="2">回复 <a href="<!--{:Dyhb::U('home://my/user?id='.$oPm->pm_msgfromid)}-->" target="_blank"><!--{$oPm:pm_msgfrom}--></a></th>
+							<th colspan="2"><!--<lang package='Template/Pm'>-->回复<!--</lang>--> <a href="<!--{:Dyhb::U('home://my/user?id='.$oPm->pm_msgfromid)}-->" target="_blank"><!--{$oPm:pm_msgfrom}--></a></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -53,7 +53,7 @@ $(document).ready(function(){
 							</td>
 						</tr>
 						<tr>
-							<td colspan="2"><i class="icon-eye-open"></i> <a href="<!--{:Dyhb::U('home://pm/show?id='.$oPm->pm_id.'&uid='.$oPm->pm_msgfromid)}-->">查看消息详情</a></td>
+							<td colspan="2"><i class="icon-eye-open"></i> <a href="<!--{:Dyhb::U('home://pm/show?id='.$oPm->pm_id.'&uid='.$oPm->pm_msgfromid)}-->"><!--<lang package='Template/Pm'>-->查看消息详情<!--</lang>--></a></td>
 						<tr>
 					</tbody>
 				</table>
@@ -72,29 +72,29 @@ $(document).ready(function(){
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="messageto">收件用户<em class="red">*</em></label>
+							<label class="control-label" for="messageto"><!--<lang package='Template/Pm'>-->收件用户<!--</lang>--><em class="red">*</em></label>
 							<div class="controls">
 								<input class="input-xlarge" id="messageto" name="messageto" type="text" <!--{if !empty($sUserName)}-->readonly="true"<!--{/if}--> value="<!--{$sUserName}-->">
-								<p class="help-block">多个收件用户或者用户ID用分号(;)或者英文逗号(,)隔开</p>
+								<p class="help-block"><!--<lang package='Template/Pm'>-->多个收件用户或者用户ID用分号(;)或者英文逗号(,)隔开<!--</lang>--></p>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="pm_subject">短消息主题</label>
+							<label class="control-label" for="pm_subject"><!--<lang package='Template/Pm'>-->短消息主题<!--</lang>--></label>
 							<div class="controls">
 								<input class="input-xlarge" id="pm_subject" name="pm_subject" type="text">
-								<p class="help-block">短消息主题可以为空，其最大字符不能够超过225</p>
+								<p class="help-block"><!--<lang package='Template/Pm'>-->短消息主题可以为空，其最大字符不能够超过225<!--</lang>--></p>
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="pm_message">短消息内容<em class="red">*</em></label>
+							<label class="control-label" for="pm_message"><!--<lang package='Template/Pm'>-->短消息内容<!--</lang>--><em class="red">*</em></label>
 							<div class="controls">
 								<textarea class="input-xlarge" id="pm_message" name="pm_message" rows="8"><!--{$sContent}--></textarea>
-								<p class="help-block">短消息内容不能为空，且最大字符不能够超过1000</p>
+								<p class="help-block"><!--<lang package='Template/Pm'>-->短消息内容不能为空，且最大字符不能够超过1000<!--</lang>--></p>
 							</div>
 						</div>
 						<!--{if $nDisplaySeccode==1}-->
 						<div class="control-group">
-							<label class="control-label" for="seccode">验证码<em class="red">*</em></label>
+							<label class="control-label" for="seccode"><!--<lang package='__COMMON_LANG__@Template/Common'>-->验证码<!--</lang>--><em class="red">*</em></label>
 							<div class="controls">
 								<input class="input-small" name="seccode" id="seccode" type="text" value="">
 								<p class="help-block"><span id="seccodeImage"><img style="cursor:pointer" onclick="updateSeccode()" src="<!--{:Dyhb::U('home://public/seccode')}-->" /></span></p>
@@ -103,8 +103,8 @@ $(document).ready(function(){
 						<!--{/if}-->
 						<div class="form-actions">
 							<input type="hidden" name="ajax" value="1">
-							<button type="button" onclick="pmSend()" class="btn btn-success" id="sendpm_submit">发送</button>
-							<a href="<!--{:__APP__}-->" class="btn">取消</a>
+							<button type="button" onclick="pmSend()" class="btn btn-success" id="sendpm_submit"><!--<lang package='Template/Pm'>-->发送<!--</lang>--></button>
+							<a href="<!--{:__APP__}-->" class="btn"><!--<lang package='__COMMON_LANG__@Template/Common'>-->取消<!--</lang>--></a>
 						</div>
 					</fieldset>
 				</form>

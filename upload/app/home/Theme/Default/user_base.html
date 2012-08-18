@@ -6,15 +6,15 @@ function update(){
 	$("#submit_button").val('update...');
 	Dyhb.AjaxSubmit('informationUpd','<!--{:Dyhb::U('user/change_info')}-->','',function(data,status){ 
 		$("#submit_button").attr("disabled",false);
-		$("#submit_button").val("更新");
+		$("#submit_button").val("<!--<lang package='__COMMON_LANG__@Template/Common'>-->更新<!--</lang>-->");
 	});
 }
 <!--{/script}-->
 
 		<ul class="breadcrumb">
-			<li><a href="<!--{:__APP__}-->">主页</a> <span class="divider">/</span></li>
-			<li><a href="<!--{:Dyhb::U('home://user/base')}-->">用户资料</a> <span class="divider">/</span></li>
-			<li>基本信息</li>
+			<li><a href="<!--{:__APP__}-->"><!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>--></a> <span class="divider">/</span></li>
+			<li><a href="<!--{:Dyhb::U('home://user/base')}-->"><!--<lang package='Template/User'>-->用户资料<!--</lang>--></a> <span class="divider">/</span></li>
+			<li><!--<lang package='Template/User'>-->基本信息<!--</lang>--></li>
 		</ul>
 
 		<!--<include file="user_information_menu" />-->
@@ -34,7 +34,7 @@ function update(){
 				<form method="post" id="informationUpd" name="informationUpd">
 					<fieldset>
 						<div class="control-group">
-							<label class="control-label" for="user_name">用户名 <!--{$oUserInfo:user_name}--></label>
+							<label class="control-label" for="user_name"><!--<lang package='Template/User'>-->用户名<!--</lang>--> <!--{$oUserInfo:user_name}--></label>
 						</div>
 						<!--{if !$sDo}-->
 						<!--<foreach for=arrBases value=sBase>-->
@@ -44,9 +44,9 @@ function update(){
 							<label class="control-label" for="userprofile_gender"><!--{$arrUserprofilesettingDatas['userprofile_gender']['userprofilesetting_title']}--></label>
 							<div class="controls">
 								<select id="userprofile_gender" name="userprofile_gender">
-									<option value="0" <!--{if !$oUserInfo->userprofile->userprofile_gender}-->selected="selected"<!--{/if}-->>保密</option>
-									<option value="1" <!--{if $oUserInfo->userprofile->userprofile_gender==1}-->selected="selected"<!--{/if}-->>男</option>
-									<option value="2" <!--{if $oUserInfo->userprofile->userprofile_gender==2}-->selected="selected"<!--{/if}-->>女</option>
+									<option value="0" <!--{if !$oUserInfo->userprofile->userprofile_gender}-->selected="selected"<!--{/if}-->><!--{:Profile_Extend::getGender(0)}--></option>
+									<option value="1" <!--{if $oUserInfo->userprofile->userprofile_gender==1}-->selected="selected"<!--{/if}-->><!--{:Profile_Extend::getGender(1)}--></option>
+									<option value="2" <!--{if $oUserInfo->userprofile->userprofile_gender==2}-->selected="selected"<!--{/if}-->><!--{:Profile_Extend::getGender(2)}--></option>
 								</select>
 							</div>
 						</div>
@@ -55,20 +55,20 @@ function update(){
 							<label class="control-label" for="userprofile_birthday"><!--{$arrUserprofilesettingDatas['userprofile_birthday']['userprofilesetting_title']}--></label>
 							<div class="controls">
 								<select name="userprofile_birthyear" id="userprofile_birthyear" style="width:80px;" onchange="showYearmonthday('userprofile_birthday','userprofile_birthmonth','userprofile_birthyear');">
-									<option value="" <!--{if !$oUserInfo->userprofile->userprofile_birthyear}-->selected="selected"<!--{/if}-->>年</option>
+									<option value="" <!--{if !$oUserInfo->userprofile->userprofile_birthyear}-->selected="selected"<!--{/if}-->><!--<lang package='__COMMON_LANG__@Common'>-->年<!--</lang>--></option>
 									<!--<for start='0' end='100' var='nBirthyear'>-->
 									<!--{~$nTheNowYear=$nNowYear-$nBirthyear}-->
 									<option value="<!--{$nTheNowYear}-->" <!--{if $oUserInfo->userprofile->userprofile_birthyear==$nTheNowYear}-->selected="selected"<!--{/if}-->><!--{$nTheNowYear}--></option>
 									<!--</for>-->
 								</select>&nbsp;&nbsp;
 								<select name="userprofile_birthmonth" id="userprofile_birthmonth" style="width:60px;" onchange="showYearmonthday('userprofile_birthday','userprofile_birthmonth','userprofile_birthyear');">
-									<option value="" <!--{if !$oUserInfo->userprofile->userprofile_birthmonth}-->selected="selected"<!--{/if}-->>月</option>
+									<option value="" <!--{if !$oUserInfo->userprofile->userprofile_birthmonth}-->selected="selected"<!--{/if}-->><!--<lang package='__COMMON_LANG__@Common'>-->月<!--</lang>--></option>
 									<!--<for start='1' end='12' var='nBirthmonth'>-->
 									<option value="<!--{$nBirthmonth}-->" <!--{if $oUserInfo->userprofile->userprofile_birthmonth==$nBirthmonth}-->selected="selected"<!--{/if}-->><!--{$nBirthmonth}--></option>
 									<!--</for>-->
 								</select>&nbsp;&nbsp;
 								<select name="userprofile_birthday" id="userprofile_birthday" style="width:60px;">
-									<option value="" <!--{if !$oUserInfo->userprofile->userprofile_birthday}-->selected="selected"<!--{/if}-->>日</option>
+									<option value="" <!--{if !$oUserInfo->userprofile->userprofile_birthday}-->selected="selected"<!--{/if}-->><!--<lang package='__COMMON_LANG__@Common'>-->日<!--</lang>--></option>
 									<!--<for start='1' end='$nNowDays' var='nBirthday'>-->
 									<option value="<!--{$nBirthday}-->" <!--{if $oUserInfo->userprofile->userprofile_birthday==$nBirthday}-->selected="selected"<!--{/if}-->><!--{$nBirthday}--></option>
 									<!--</for>-->
@@ -97,7 +97,7 @@ function update(){
 									<option value="A" <!--{if $oUserInfo->userprofile->userprofile_bloodtype=='A'}-->selected="selected"<!--{/if}-->>A</option>
 									<option value="B" <!--{if $oUserInfo->userprofile->userprofile_bloodtype=='B'}-->selected="selected"<!--{/if}-->>B</option>
 									<option value="AB" <!--{if $oUserInfo->userprofile->userprofile_bloodtype=='AB'}-->selected="selected"<!--{/if}-->>AB</option>
-									<option value="O" <!--{if $oUserInfo->userprofile->userprofile_bloodtype=='O'}-->selected="selected"<!--{/if}-->>O</option><option value="其它">其它</option>
+									<option value="O" <!--{if $oUserInfo->userprofile->userprofile_bloodtype=='O'}-->selected="selected"<!--{/if}-->>O</option><option value="<!--<lang package='Template/User'>-->其它<!--</lang>-->"><!--<lang package='Template/User'>-->其它<!--</lang>--></option>
 								</select>
 							</div>
 						</div>
@@ -137,7 +137,7 @@ function update(){
 						<div class="control-group">
 							<label class="control-label" for="user_email">Email</label>
 							<div class="controls">
-								<!--{$oUserInfo:user_email}-->&nbsp;(<a href="<!--{:Dyhb::U('home://user/base?do=info')}-->">修改</a>)
+								<!--{$oUserInfo:user_email}-->&nbsp;(<a href="<!--{:Dyhb::U('home://user/base?do=info')}-->"><!--<lang package='Template/User'>-->修改<!--</lang>--></a>)
 							</div>
 						</div>
 						<!--{elseif $sDo=='edu'}-->
@@ -148,16 +148,16 @@ function update(){
 							<label class="control-label" for="userprofile_nowschool"><!--{$arrUserprofilesettingDatas['userprofile_nowschool']['userprofilesetting_title']}--></label>
 							<div class="controls">
 								<select name="userprofile_nowschool">
-									<option value="博士" <!--{if $oUserInfo->userprofile->userprofile_nowschool=='博士'}-->selected="selected"<!--{/if}-->>博士</option>
-									<option value="硕士" <!--{if $oUserInfo->userprofile->userprofile_nowschool=='硕士'}-->selected="selected"<!--{/if}-->>硕士</option>
-									<option value="本科" <!--{if $oUserInfo->userprofile->userprofile_nowschool=='本科'}-->selected="selected"<!--{/if}-->>本科</option>
-									<option value="专科" <!--{if $oUserInfo->userprofile->userprofile_nowschool=='专科'}-->selected="selected"<!--{/if}-->>专科</option>
-									<option value="高中" <!--{if $oUserInfo->userprofile->userprofile_nowschool=='高中'}-->selected="selected"<!--{/if}-->>高中</option>
-									<option value="初中" <!--{if $oUserInfo->userprofile->userprofile_nowschool=='初中'}-->selected="selected"<!--{/if}-->>初中</option>
-									<option value="小学" <!--{if $oUserInfo->userprofile->userprofile_nowschool=='小学'}-->selected="selected"<!--{/if}-->>小学</option>
-									<option value="幼儿班" <!--{if $oUserInfo->userprofile->userprofile_nowschool=='幼儿班'}-->selected="selected"<!--{/if}-->>幼儿班</option>
-									<option value="其它" <!--{if $oUserInfo->userprofile->userprofile_nowschool=='其它'}-->selected="selected"<!--{/if}-->>其它</option>
-									<option value="工作" <!--{if $oUserInfo->userprofile->userprofile_nowschool=='工作'}-->selected="selected"<!--{/if}-->>工作</option>
+									<option value="<!--<lang package='Template/User'>-->博士<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_nowschool==Dyhb+L("博士",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->博士<!--</lang>--></option>
+									<option value="<!--<lang package='Template/User'>-->硕士<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_nowschool==Dyhb+L("硕士",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->硕士<!--</lang>--></option>
+									<option value="<!--<lang package='Template/User'>-->本科<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_nowschool==Dyhb+L("本科",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->本科<!--</lang>--></option>
+									<option value="<!--<lang package='Template/User'>-->专科<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_nowschool==Dyhb+L("专科",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->专科<!--</lang>--></option>
+									<option value="<!--<lang package='Template/User'>-->高中<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_nowschool==Dyhb+L("高中",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->高中<!--</lang>--></option>
+									<option value="<!--<lang package='Template/User'>-->初中<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_nowschool==Dyhb+L("初中",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->初中<!--</lang>--></option>
+									<option value="<!--<lang package='Template/User'>-->小学<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_nowschool==Dyhb+L("小学",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->小学<!--</lang>--></option>
+									<option value="<!--<lang package='Template/User'>-->幼儿班<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_nowschool==Dyhb+L("幼儿班",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->幼儿班<!--</lang>--></option>
+									<option value="<!--<lang package='Template/User'>-->其它<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_nowschool==Dyhb+L("其它",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->其它<!--</lang>--></option>
+									<option value="<!--<lang package='Template/User'>-->工作<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_nowschool==Dyhb+L("工作",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->工作<!--</lang>--></option>
 								</select>
 							</div>
 						</div>
@@ -166,13 +166,13 @@ function update(){
 							<label class="control-label" for="userprofile_education"><!--{$arrUserprofilesettingDatas['userprofile_education']['userprofilesetting_title']}--></label>
 							<div class="controls">
 								<select name="userprofile_education">
-									<option value="博士" <!--{if $oUserInfo->userprofile->userprofile_education=='博士'}-->selected="selected"<!--{/if}-->>博士</option>
-									<option value="硕士" <!--{if $oUserInfo->userprofile->userprofile_education=='硕士'}-->selected="selected"<!--{/if}-->>硕士</option>
-									<option value="本科" <!--{if $oUserInfo->userprofile->userprofile_education=='本科'}-->selected="selected"<!--{/if}-->>本科</option>
-									<option value="专科" <!--{if $oUserInfo->userprofile->userprofile_education=='专科'}-->selected="selected"<!--{/if}-->>专科</option>
-									<option value="中学" <!--{if $oUserInfo->userprofile->userprofile_education=='中学'}-->selected="selected"<!--{/if}-->>中学</option>
-									<option value="小学" <!--{if $oUserInfo->userprofile->userprofile_education=='小学'}-->selected="selected"<!--{/if}-->>小学</option>
-									<option value="其它" <!--{if $oUserInfo->userprofile->userprofile_education=='其它'}-->selected="selected"<!--{/if}-->>其它</option>
+									<option value="<!--<lang package='Template/User'>-->博士<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_education==Dyhb+L("博士",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->博士<!--</lang>--></option>
+									<option value="<!--<lang package='Template/User'>-->硕士<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_education==Dyhb+L("硕士",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->硕士<!--</lang>--></option>
+									<option value="<!--<lang package='Template/User'>-->本科<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_education==Dyhb+L("本科",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->本科<!--</lang>--></option>
+									<option value="<!--<lang package='Template/User'>-->专科<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_education==Dyhb+L("专科",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->专科<!--</lang>--></option>
+									<option value="<!--<lang package='Template/User'>-->中学<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_education==Dyhb+L("中学",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->中学<!--</lang>--></option>
+									<option value="<!--<lang package='Template/User'>-->小学<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_education==Dyhb+L("小学",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->小学<!--</lang>--></option>
+									<option value="<!--<lang package='Template/User'>-->其它<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_education==Dyhb+L("其它",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->其它<!--</lang>--></option>
 								</select>
 							</div>
 						</div>
@@ -205,9 +205,9 @@ function update(){
 							<label class="control-label" for="userprofile_idcardtype"><!--{$arrUserprofilesettingDatas['userprofile_idcardtype']['userprofilesetting_title']}--></label>
 							<div class="controls">
 								<select name="userprofile_idcardtype">
-									<option value="身份证" <!--{if $oUserInfo->userprofile->userprofile_idcardtype=='身份证'}-->selected="selected"<!--{/if}-->>身份证</option>
-									<option value="护照" <!--{if $oUserInfo->userprofile->userprofile_idcardtype=='护照'}-->selected="selected"<!--{/if}-->>护照</option>
-									<option value="驾驶证" <!--{if $oUserInfo->userprofile->userprofile_idcardtype=='驾驶证'}-->selected="selected"<!--{/if}-->>驾驶证</option>
+									<option value="<!--<lang package='Template/User'>-->身份证<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_idcardtype==Dyhb+L("身份证",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->身份证<!--</lang>--></option>
+									<option value="<!--<lang package='Template/User'>-->护照<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_idcardtype==Dyhb+L("护照",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->护照<!--</lang>--></option>
+									<option value="<!--<lang package='Template/User'>-->驾驶证<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_idcardtype==Dyhb+L("驾驶证",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->驾驶证<!--</lang>--></option>
 								</select>
 							</div>
 						</div>
@@ -229,7 +229,7 @@ function update(){
 						<!--{/if}-->
 						<!--</foreach>-->
 						<div class="control-group">
-							<label class="control-label" for="user_nikename">昵称</label>
+							<label class="control-label" for="user_nikename"><!--<lang package='Template/User'>-->昵称<!--</lang>--></label>
 							<div class="controls">
 								<input class="input-xlarge" type="text" name="user_nikename" id="user_nikename" size="40" value="<!--{$oUserInfo:user_nikename}-->" />
 							</div>
@@ -241,7 +241,7 @@ function update(){
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="user_sign">用户签名</label>
+							<label class="control-label" for="user_sign"><!--<lang package='Template/User'>-->用户签名<!--</lang>--></label>
 							<div class="controls">
 								<textarea class="input-xlarge" name="user_sign" id="user_sign" rows="5" style="width:400px;"><!--{$oUserInfo:user_sign}--></textarea>
 							</div>
@@ -249,7 +249,7 @@ function update(){
 						<!--{/if}-->
 						<!--{if $nDisplaySeccode==1}-->
 						<div class="control-group">
-							<label class="control-label" for="seccode">验证码</label>
+							<label class="control-label" for="seccode"><!--<lang package='__COMMON_LANG__@Template/Common'>-->验证码<!--</lang>--></label>
 							<div class="controls">
 								<input class="input-small" name="seccode" id="seccode" type="text" value="">
 								<p class="help-block"><span id="seccodeImage"><img style="cursor:pointer" onclick="updateSeccode()" src="<!--{:Dyhb::U('home://public/seccode')}-->" /></span></p>
@@ -259,8 +259,8 @@ function update(){
 						<div class="form-actions">
 							<input type="hidden" name="ajax" value="1">
 							<input type="hidden" name="user_id" value="<!--{$oUserInfo:user_id}-->">
-							<button id="submit_button" onclick="update()" type="button" class="btn btn-success">更新</button>
-							<a href="<!--{:__APP__}-->" class="btn">取消</a>
+							<button id="submit_button" onclick="update()" type="button" class="btn btn-success"><!--<lang package='__COMMON_LANG__@Template/Common'>-->更新<!--</lang>--></button>
+							<a href="<!--{:__APP__}-->" class="btn"><!--<lang package='__COMMON_LANG__@Template/Common'>-->取消<!--</lang>--></a>
 						</div>
 					</fieldset>
 				</form>

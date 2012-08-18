@@ -17,12 +17,12 @@ body{ background-color: #FFF; color: #000; font-family: Verdana, Tahoma; font-si
 </head>
 <body>
 	<div id="wrapper">
-		<div id="largetext">导出</div>
+		<div id="largetext"><!--<lang package='Template/Pm'>-->导出<!--</lang>--></div>
 		<div id="userinfo"><a href="<!--{$sBlogUrl}-->/index.php?app=home&c=my&a=user&id=<!--{$nUserId}-->" target="_blank"><!--{$oPm['pm_msgfrom']}--> @ <!--{$sCurrentTimestamp}--></a></div>
 		<br />
 		<!--<foreach for=arrPms value=oPm>-->
 		<div class="pm">
-			<strong><!--{$oPm['pm_msgfrom']}--></strong> <!--{$oPm['create_dateline']|Core_Extend+timeFormat}--><br />
+			<strong><!--{$oPm['pm_msgfrom']}--></strong> <!--{$oPm['create_dateline']|date='Y-m-d H:i:s',**}--><br />
 			<br />
 			<div class="content"><!--{$oPm['pm_message']|Pm_Extend+ubb}--></div>
 		</div>

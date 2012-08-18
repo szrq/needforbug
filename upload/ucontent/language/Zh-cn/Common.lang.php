@@ -11,6 +11,7 @@ return array(
 '909ef04cd2e3f52d8f324bbfc0101cc0'=>"一星期",
 '43bc301e73522b009a4b39851960d8a7'=>"一月",
 '5c83b1cd6af4da9824f9aab49962f4fe'=>"一年",
+'7229ecc63125adf7fcf2867d792a77be'=>"次",
 )
 
 ?>

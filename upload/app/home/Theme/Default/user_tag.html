@@ -16,7 +16,7 @@ function add(){
 
 	Dyhb.AjaxSubmit('hometagAdd','<!--{:Dyhb::U('home://user/add_hometag')}-->','',function(data,status){
 		$("#submit_button").attr("disabled",false);
-		$("#submit_button").val("添加");
+		$("#submit_button").val("<!--<lang package='Template/User'>-->添加<!--</lang>-->");
 		
 		if(status==1){
 			window.location.reload();
@@ -38,9 +38,9 @@ function completeDelete(data,status){
 <!--{/script}-->
 
 		<ul class="breadcrumb">
-			<li><a href="<!--{:__APP__}-->">主页</a> <span class="divider">/</span></li>
-			<li><a href="<!--{:Dyhb::U('home://user/base')}-->">用户资料</a> <span class="divider">/</span></li>
-			<li>用户标签</li>
+			<li><a href="<!--{:__APP__}-->"><!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>--></a> <span class="divider">/</span></li>
+			<li><a href="<!--{:Dyhb::U('home://user/base')}-->"><!--<lang package='Template/User'>-->用户资料<!--</lang>--></a> <span class="divider">/</span></li>
+			<li><!--<lang package='Template/User'>-->用户标签<!--</lang>--></li>
 		</ul>
 
 		<!--<include file="user_information_menu" />-->
@@ -50,20 +50,20 @@ function completeDelete(data,status){
 				<!--{if is_array($arrHometags)}-->
 				<!--<foreach for=arrHometags value=oHometag>-->
 				<!--{if $oHometag['hometag_status']}-->
-				<a href="javascript:void(0);" title="删除" onclick="deleteHometag('<!--{$oHometag['hometag_id']}-->');"><i class=" icon-remove-sign"></i></a>
+				<a href="javascript:void(0);" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->删除<!--</lang>-->" onclick="deleteHometag('<!--{$oHometag['hometag_id']}-->');"><i class=" icon-remove-sign"></i></a>
 				<span class="label label-success"><!--{$oHometag['hometag_name']}--></span>&nbsp;&nbsp;
 				<!--{/if}-->
 				<!--</foreach>-->
 				<!--{d*else}-->
-				你还没有个人标签，请点击添加。
+				<!--<lang package='Template/User'>-->你还没有个人标签，请点击添加。<!--</lang>-->
 				<!--{/if}-->
-				<button class="btn btn-small" onclick="showTag()">+添加新标签</button>
+				<button class="btn btn-small" onclick="showTag()">+<!--<lang package='Template/User'>-->添加新标签<!--</lang>--></button>
 				<div id="addTag" class="none">
 					<p><form action="<!--{:Dyhb::U('user/add_hometag')}-->" method="post" name="hometagAdd" id="hometagAdd" class="coords well form-inline">
 						<input type="text" class="input-small" name="hometag_name" id="hometag_name">
 						<input type="hidden" name="ajax" value="1">
 						<input type="hidden" name="hometag_status" value="1">
-						<button id="submit_button" type="button" onclick="add()" class="btn">添加</button>
+						<button id="submit_button" type="button" onclick="add()" class="btn"><!--<lang package='Template/User'>-->添加<!--</lang>--></button>
 						</form>
 					</p>
 				</div>
