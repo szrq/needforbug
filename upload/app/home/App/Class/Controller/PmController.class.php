@@ -162,6 +162,15 @@ class PmController extends InitController{
 		$arrWhere=array();
 		
 		$sType=trim(G::getGpc('type','G'));
+
+		if(in_array($sType,array('system','systemnew'))){
+			$sFormAction=Dyhb::U('home://pm/readselect');
+		}elseif($sType=='my'){
+			$sFormAction=Dyhb::U('home://pm/delmyselect');
+		}else{
+			$sFormAction=Dyhb::U('home://pm/delselect');
+		}
+
 		if($sType=='new'){
 			$arrWhere['pm_isread']=0;
 			$arrWhere['pm_type']='user';
@@ -183,16 +192,33 @@ class PmController extends InitController{
 
 			$arrReadPms=array();
 		}else{
-			$oSystemMessage=SystempmModel::F('user_id=?',$GLOBALS['___login___']['user_id'])->query();
+			// 已删短消息
+			$arrSystemdeleteMessages=PmsystemdeleteModel::F('user_id=?',$GLOBALS['___login___']['user_id'])->getAll();
+			if(is_array($arrSystemdeleteMessages)){
+				foreach($arrSystemdeleteMessages as $oSystemdeleteMessage){
+					$arrDeletePms[]=$oSystemdeleteMessage['pm_id'];
+				}
+			}else{
+				$arrDeletePms=array();
+			}
 
-			if(!empty($oSystemMessage['user_id'])){
-				$arrReadPms=unserialize($oSystemMessage['systempm_readids']);
+			$arrNotinPms=$arrDeletePms;
+
+			// 已读短消息
+			$arrSystemreadMessages=PmsystemreadModel::F('user_id=?',$GLOBALS['___login___']['user_id'])->getAll();
+			if(is_array($arrSystemreadMessages)){
+				foreach($arrSystemreadMessages as $oSystemreadMessage){
+					$arrReadPms[]=$oSystemreadMessage['pm_id'];
+					if($sType=='systemnew'){
+						$arrNotinPms[]=$oSystemreadMessage['pm_id'];
+					}
+				}
 			}else{
 				$arrReadPms=array();
 			}
 			
-			if($sType=='systemnew' && !empty($arrReadPms)){
-				$arrWhere['pm_id']=array('NOT IN',$arrReadPms);
+			if(!empty($arrNotinPms)){
+				$arrWhere['pm_id']=array('NOT IN',$arrNotinPms);
 			}
 		}
 
@@ -209,6 +235,7 @@ class PmController extends InitController{
 		$this->assign('sPmType',$sType);
 		$this->assign('arrReadPms',$arrReadPms);
 		$this->assign('sType',($sType?$sType:'user'));
+		$this->assign('sFormAction',$sFormAction);
 
 		$this->display('pm+index');
 	}
@@ -310,21 +337,26 @@ class PmController extends InitController{
 
 	public function readselect(){
 		$arrPmIds=G::getGpc('pmid','P');
-		$arrUserId=G::getGpc('uid','P');
 		
 		if(empty($arrPmIds)){
 			$this->E(Dyhb::L('你没有指定要标记的短消息','Controller/Pm'));
 		}
 		
 		foreach($arrPmIds as $nPmId){
-			$oPm=PmModel::F('pm_id=? AND pm_status=1 AND pm_isread=0',$nPmId)->getOne();
-
-			if(!empty($oPm['pm_id'])){
-				$this->read_system_message_($oPm['pm_id']);
-			}
+			$this->read_system_message_($nPmId);
 		}
 		
 		$this->S(Dyhb::L('标记短消息已读成功','Controller/Pm'));
+	}
+
+	public function delete_systempm(){
+		$arrPmIds=G::getGpc('pmid','P');
+
+		foreach($arrPmIds as $nPmId){
+				$this->delete_system_message_($nPmId);
+		}
+
+		$this->S(Dyhb::L('删除系统短消息成功','Controller/Pm'));
 	}
 
 	public function show(){
@@ -346,9 +378,8 @@ class PmController extends InitController{
 		
 		// 系统消息
 		if($oOnePm['pm_type']=='system'){
-			$arrReadPms=$this->read_system_message_($oOnePm['pm_id']);
+			$this->read_system_message_($oOnePm['pm_id']);
 				
-			$this->assign('arrReadPms',$arrReadPms);
 			$this->assign('oPm',$oOnePm);
 			$this->assign('sType','system');
 			$this->display('pm+singlesystem');
@@ -468,36 +499,41 @@ class PmController extends InitController{
 	}
 
 	protected function read_system_message_($nPmId){
-		$oSystemMessage=SystempmModel::F('user_id=?',$GLOBALS['___login___']['user_id'])->query();
-			
-		$arrReadPms=array();
-		
-		if(!empty($oSystemMessage['user_id'])){
-			$arrReadPms=unserialize($oSystemMessage['systempm_readids']);
-				
-			if(!in_array($nPmId,$arrReadPms)){
-				$arrReadPms[]=$nPmId;
-			}
-				
-			$oSystemMessage->systempm_readids=serialize($arrReadPms);
-			$oSystemMessage->save(0,'update');
-				
-			if($oSystemMessage->isError()){
-				$this->E($oSystemMessage->getErrorMessage());
-			}
-		}else{
-			$arrReadPms[]=$nPmId;
-			$oSystemMessage=new SystempmModel();
-			$oSystemMessage->user_id=$GLOBALS['___login___']['user_id'];
-			$oSystemMessage->systempm_readids=G::addslashes(serialize($arrReadPms));
-			$oSystemMessage->save(0);
-				
-			if($oSystemMessage->isError()){
-				$this->E($oSystemMessage->getErrorMessage());
-			}
-		}
+		$oPmsystemread=PmsystemreadModel::F('user_id=? AND pm_id=?',$GLOBALS['___login___']['user_id'],$nPmId)->query();
 
-		return $arrReadPms;
+		if(!empty($oPmsystemread['user_id'])){
+			return true;
+		}else{
+			$oPmsystemread=new PmsystemreadModel();
+			$oPmsystemread->user_id=$GLOBALS['___login___']['user_id'];
+			$oPmsystemread->pm_id=$nPmId;
+			$oPmsystemread->save(0);
+				
+			if($oPmsystemread->isError()){
+				$this->E($oPmsystemread->getErrorMessage());
+			}
+
+			return $oPmsystemread;
+		}
+	}
+
+	protected function delete_system_message_($nPmId){
+		$oPmsystemdelete=PmsystemdeleteModel::F('user_id=? AND pm_id=?',$GLOBALS['___login___']['user_id'],$nPmId)->query();
+
+		if(!empty($oPmsystemdelete['user_id'])){
+			return true;
+		}else{
+			$oPmsystemdelete=new PmsystemdeleteModel();
+			$oPmsystemdelete->user_id=$GLOBALS['___login___']['user_id'];
+			$oPmsystemdelete->pm_id=$nPmId;
+			$oPmsystemdelete->save(0);
+				
+			if($oPmsystemdelete->isError()){
+				$this->E($oPmsystemdelete->getErrorMessage());
+			}
+
+			return $oPmsystemdelete;
+		}
 	}
 
 }

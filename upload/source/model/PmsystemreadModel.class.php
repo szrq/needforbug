@@ -1,14 +1,14 @@
 <?php
 /* [NeedForBug!] (C)Dianniu From 2010.
-   系统短消息阅读情况模型($)*/
+   系统短消息阅读状态模型($)*/
 
 !defined('DYHB_PATH') && exit;
 
-class SystempmModel extends CommonModel{
+class PmsystemreadModel extends CommonModel{
 
 	static public function init__(){
 		return array(
-			'table_name'=>'systempm',
+			'table_name'=>'pmsystemread',
 		);
 	}
 

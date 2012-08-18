@@ -4,7 +4,7 @@
 function update(){
 	$("#submit_button").attr("disabled","disabled");
 	$("#submit_button").val('update...');
-	Dyhb.AjaxSubmit('informationUpd','<!--{:Dyhb::U('user/change_info')}-->','',function(data,status){ 
+	Dyhb.AjaxSubmit('informationUpd','<!--{:Dyhb::U('home://user/change_info')}-->','',function(data,status){ 
 		$("#submit_button").attr("disabled",false);
 		$("#submit_button").val("<!--<lang package='__COMMON_LANG__@Template/Common'>-->更新<!--</lang>-->");
 	});

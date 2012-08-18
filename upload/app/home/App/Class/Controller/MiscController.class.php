@@ -59,14 +59,32 @@ class MiscController extends InitController{
 			unset($arrWhere['pm_msgtoid']);
 
 			// 系统短消息
+			unset($arrWhere['pm_isread']);
 			$arrWhere['pm_type']='system';
-			$oSystemMessage=SystempmModel::F('user_id=?',$GLOBALS['___login___']['user_id'])->query();
-			if(!empty($oSystemMessage['user_id'])){
-				$arrReadPms=unserialize($oSystemMessage['systempm_readids']);
-				if(!empty($arrReadPms)){
-					$arrWhere['pm_id']=array('NOT IN',$arrReadPms);
+
+			// 需要排除的短消息ID
+			$arrNotinPms=array();
+
+			// 已删
+			$arrSystemdeleteMessages=PmsystemdeleteModel::F('user_id=?',$GLOBALS['___login___']['user_id'])->getAll();
+			if(is_array($arrSystemdeleteMessages)){
+				foreach($arrSystemdeleteMessages as $oSystemdeleteMessage){
+					$arrNotinPms[]=$oSystemdeleteMessage['pm_id'];
 				}
 			}
+
+			// 已读
+			$arrSystemreadMessages=PmsystemreadModel::F('user_id=?',$GLOBALS['___login___']['user_id'])->getAll();
+			if(is_array($arrSystemreadMessages)){
+				foreach($arrSystemreadMessages as $oSystemreadMessage){
+					$arrNotinPms[]=$oSystemreadMessage['pm_id'];
+				}
+			}
+
+			if(!empty($arrNotinPms)){
+				$arrWhere['pm_id']=array('NOT IN',$arrNotinPms);
+			}
+
 			$arrData['system']=intval(PmModel::F()->where($arrWhere)->all()->getCounts());
 
 			// 总共的短消息

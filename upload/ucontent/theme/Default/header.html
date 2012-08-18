@@ -73,13 +73,14 @@
 					<!--{/if}-->
 				</div>
 			</div>
-		</div>
+		</div><div class="navbar-inner">
+		<div style="margin:auto;">
+		<div class="span12">
+
 		<div class="navbar">
-			<div class="navbar-inner">
 				<div class="container-fluid">
-					<a class="brand" href="<!--{:__APP__}-->" title="首页"><!--{$GLOBALS['_option_']['site_name']}--></a>
+					<a class="brand" href="<!--{:__APP__}-->" title="首页">首页</a>
 					<ul class="nav">
-						<li <!--{if APP_NAME==='home' && MODULE_NAME==='public' && ACTION_NAME==='index'}-->class="active"<!--{/if}-->><a href="<!--{:__APP__}-->">首页</a></li>
 						<!--{~$arrMainNavs=$GLOBALS['_cache_']['nav']['main']}-->
 						<!--<foreach for=arrMainNavs value=arrMainNav>-->
 						<!--{if $arrMainNav['sub']}-->
@@ -164,6 +165,9 @@
 					</form>
 				</div><!--/container-fluid-->
 			</div><!--/navbar-inner-->
+			</div>
+			</div>
+			</div>
 		</div><!--/navbar-->
 	</div>
 	<div id="content">
