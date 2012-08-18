@@ -33,6 +33,7 @@
 					<thead>
 						<tr>
 							<th><!--<lang package='Template/Default/App'>-->应用名称<!--</lang>--></th>
+							<th><!--<lang package='Template/Default/Common'>-->编号<!--</lang>--></th>
 							<th><!--<lang package='Template/Default/App'>-->版本<!--</lang>--></th>
 							<th><!--<lang package='Template/Default/App'>-->管理<!--</lang>--></th>
 							<th><!--<lang package='Template/Default/App'>-->菜单<!--</lang>--></th>
@@ -61,6 +62,7 @@
 								<!--{/if}-->
 								</div>
 							</td>
+							<td><!--{$value:app_id}--></td>
 							<td><!--{$value:app_version}--></td>
 							<td><!--{if $value['app_isadmin']}-->
 									<!--{if $value['app_status']}-->
