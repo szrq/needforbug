@@ -16,8 +16,4 @@
 
 防灌水相关功能开发，EMAIL验证等等
 
-开发一个定义doyouhaobaby_base_template
-
-用户等级安排得不合理
-
 对公用短消息系统进行改造

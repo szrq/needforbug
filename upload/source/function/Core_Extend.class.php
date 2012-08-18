@@ -623,6 +623,7 @@ NEEDFORBUG;
 		}
 
 		$GLOBALS['_style_']=(array)(include $sStyleCachepath.'/style.php');
+		define('DOYOUHAOBABY_TEMPLATE_BASE',$GLOBALS['_style_']['doyouhaobaby_template_base']);
 
 		if(defined('CURSCRIPT') && !file_exists($sStyleCachepath.'/scriptstyle_'.APP_NAME.'_'.CURSCRIPT.'.css')){
 			$sContent=$GLOBALS['_curscript_']='';
