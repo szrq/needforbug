@@ -5,11 +5,11 @@
 	<footer id="footer">
 		<div class="container">
 			<div class="row">
-				<div class="span5">
+				<div class="span4">
 					<p>Copyright (c) <!--{$GLOBALS['_option_']['site_year']}--> <!--{$GLOBALS['_option_']['site_name']}-->.</p>
 					<p>Powered by <strong><a href="<!--{$GLOBALS['_option_']['needforbug_program_url']}-->" title="<!--{$GLOBALS['_option_']['needforbug_program_year']}-->"><!--{$GLOBALS['_option_']['needforbug_program_name']}--></a></strong> <em><!--{$GLOBALS['_option_']['needforbug_program_version']}--></em>.</p>
 				</div>
-				<div class="span7">
+				<div class="span8">
 					<p><!--{~$arrFooterNavs=$GLOBALS['_cache_']['nav']['footer']}-->
 					<!--<foreach for=arrFooterNavs value=arrFooterNav>-->
 					<a <!--{$arrFooterNav['style']}--> title="<!--{$arrFooterNav['description']}-->" href="<!--{$arrFooterNav['link']}-->" <!--{$arrFooterNav['target']}-->>
@@ -19,12 +19,12 @@
 					<!--</foreach>-->
 					<a href="<!--{$GLOBALS['_option_']['needforbug_company_url']}-->" title="<!--{$GLOBALS['_option_']['needforbug_company_year']}-->"><!--{$GLOBALS['_option_']['needforbug_company_name']}--></a>
 					<!--{$GLOBALS['_option_']['stat_code']}-->
-					</p>
-					<p><!--{$GLOBALS['_option_']['site_description']}-->
-						<!--{if !empty($GLOBALS['_option_']['icp'])}-->
+					<!--{if !empty($GLOBALS['_option_']['icp'])}-->
 						<span class="pipe">|</span>
 						<a href="http://www.miitbeian.gov.cn/"><!--{$GLOBALS['_option_']['icp']}--></a>
 						<!--{/if}-->
+					</p>
+					<p class="footer_debug">GMT <!--{$GLOBALS['_commonConfig_']['TIME_ZONE']}-->, <!--{:date('Y-m-d H:i')}-->. <span class="runtime_result" id="runtime_result"><!--<lang package='__COMMON_LANG__@Template/Header'>-->数据加载中<!--</lang>--></span>
 					</p>
 				</div>
 			</div>

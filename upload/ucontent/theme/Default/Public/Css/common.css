@@ -7,6 +7,7 @@ Description: 本主题基本css元素
 /**===============================
            基础
 ================================*/
+html{-webkit-text-size-adjust:none;}
 body{padding-top: 60px;padding-bottom: 40px;margin: 0px;padding: 0px;{BG_CODE};color:{NORMAL_COLOR};}
 body,h1,h2,h3,h4,h5,h6,p,ul,ol,li,form,img,dl,dt,dd,table,th,td,fieldset,div,strong,label,em{border:0 none;}
 /*ul,ol,li{list-style:none;}*/
@@ -121,3 +122,4 @@ table thead th .order_asc { padding-right: 8px; background: url({IMG_DIR}/order_
 #footer{color: {FOOTER_TEXT_COLOR};text-align: left;margin-top: 20px;margin:auto;padding: 25px 0px 10px 0px;{FOOTER_BG_CODE};}
 #footer a{color:{FOOTER_TEXT_COLOR}}
 #footer a:hover{color:#FFF;}
+#footer .footer_debug{font-size:10px;color:{LIGHT_TEXTCOLOR};}

@@ -16,6 +16,7 @@ return array(
 '6555ef98b5975ac92a3b4c251ac8e8f6'=>"我的好友",
 '0b3be10ddad95a93a594366ed2e6fa6b'=>"注销",
 '5ac1e42b6f9f5023bca426a1bddbae4c'=>"短消息",
+'f09b1233cace4c9ed006366a821f2af1'=>"数据加载中",
 )
 
 ?>

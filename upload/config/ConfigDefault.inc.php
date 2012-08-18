@@ -15,6 +15,9 @@ return array(
 
 	// 系统调试
 	'APP_DEBUG'=>TRUE,
+	'SHOW_RUN_TIME'=>TRUE,
+	'SHOW_DB_TIMES'=>TRUE,
+	'SHOW_GZIP_STATUS'=>TRUE,
 
 	// 重要前缀
 	'RBAC_DATA_PREFIX'=>'rbac_data_prefix_needforbug_',

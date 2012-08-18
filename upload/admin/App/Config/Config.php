@@ -13,6 +13,9 @@ $arrAppConfigs=array(
 );
 
 $arrGlobalConfig=(array)require(NEEDFORBUG_PATH.'/config/Config.inc.php');
+$arrGlobalConfig['SHOW_RUN_TIME']=FALSE;
+$arrGlobalConfig['SHOW_DB_TIMES']=FALSE;
+$arrGlobalConfig['SHOW_GZIP_STATUS']=FALSE;
 $arrAppConfigs['TPL_DIR']=$arrGlobalConfig['ADMIN_TPL_DIR'];
 unset($arrGlobalConfig['ADMIN_TPL_DIR']);
 

@@ -22,6 +22,10 @@
 	Dyhb.Lang.SetCurrentLang('<!--{:LANG_NAME}-->');
 	Dyhb.Ajax.Dyhb.Image=['<!--{:__PUBLIC__}-->/images/common/ajax/loading.gif','<!--{:__PUBLIC__}-->/images/common/ajax/ok.gif','<!--{:__PUBLIC__}-->/images/common/ajax/update.gif'];
 	<!--{:App::U()}-->
+	$(document).ready(function(){
+		$('#runtime_result').html($('#dyhb_run_time').html());
+		$('#dyhb_run_time').html(' ');
+	});
 	<!--{/script}-->
 	<!--<load file="<!--{:__PUBLIC__}-->/js/artdialog/skins/default.css" />-->
 	<script type="text/javascript" src="<!--{:__PUBLIC__}-->/js/artdialog/jquery.artDialog.min.js"></script>
