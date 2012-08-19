@@ -9,7 +9,7 @@ class UserprofilesettingController extends InitController{
 	public function filter_(&$arrMap){
 		$arrMap['userprofilesetting_id']=array('like',"%".G::getGpc('userprofilesetting_id')."%");
 	}
-
+	
 	protected function aInsert($nId=null){
 		if(!Dyhb::classExists('Cache_Extend')){
 			require_once(Core_Extend::includeFile('function/Cache_Extend'));

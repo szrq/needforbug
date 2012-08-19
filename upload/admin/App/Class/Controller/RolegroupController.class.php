@@ -46,6 +46,8 @@ class RolegroupController extends InitController{
 	}
 
 	public function is_system_rolegroup($nId){
+		$nId=intval($nId);
+
 		if($nId<=5){
 			return true;
 		}

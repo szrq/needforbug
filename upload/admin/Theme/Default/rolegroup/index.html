@@ -52,7 +52,7 @@
 					<tbody>
 						<!--<foreach for=oList>-->
 						<tr>
-							<td><input type="checkbox" name="key" value="<!--{$value:rolegroup_id}-->" <!--{if $value['rolegroup_id']<=5}-->disabled="disabled"<!--{/if}-->></td>
+							<td><input type="checkbox" name="key" value="<!--{$value:rolegroup_id}-->" <!--{if $TheController->is_system_rolegroup($value->rolegroup_id)}-->disabled="disabled"<!--{/if}-->></td>
 							<td><!--{$value:rolegroup_id}--></td>
 							<td><a href="javascript:edit('<!--{$value:rolegroup_id}-->')"><!--{$value:rolegroup_name}--></a>
 								<div class="row-actions">

@@ -77,7 +77,7 @@ function changeRatinggroup(oObj,id){
 					<tbody>
 						<!--<foreach for=oList>-->
 						<tr>
-							<td><input type="checkbox" name="key" value="<!--{$value:rating_id}-->"></td>
+							<td><input type="checkbox" name="key" value="<!--{$value:rating_id}-->" <!--{if $TheController->is_system_rating($value->rating_id)}-->disabled="disabled"<!--{/if}-->></td>
 							<td><!--{$value:rating_id}--></td>
 							<td><a href="javascript:edit('<!--{$value:rating_id}-->')"><!--{$value:rating_name}--></a>
 								<div class="row-actions">

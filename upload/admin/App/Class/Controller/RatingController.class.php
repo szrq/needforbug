@@ -90,6 +90,8 @@ class RatingController extends InitController{
 	}
 
 	public function is_system_rating($nId){
+		$nId=intval($nId);
+
 		if($nId<=100){
 			return true;
 		}

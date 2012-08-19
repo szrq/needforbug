@@ -38,6 +38,8 @@ class RatinggroupController extends InitController{
 	}
 
 	public function is_system_ratinggroup($nId){
+		$nId=intval($nId);
+
 		if($nId<=5){
 			return true;
 		}

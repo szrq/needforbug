@@ -87,7 +87,7 @@ function changeNodegroup(oObj,id){
 					<tbody>
 						<!--<foreach for=oList>-->
 						<tr>
-							<td><input type="checkbox" name="key" value="<!--{$value:node_id}-->" <!--{if $value['node_id']<=31}-->disabled="disabled"<!--{/if}-->></td>
+							<td><input type="checkbox" name="key" value="<!--{$value:node_id}-->" <!--{if $TheController->is_system_node($value->node_id)}-->disabled="disabled"<!--{/if}-->></td>
 							<td><!--{$value:node_id}--></td>
 							<td><a href="javascript:child('<!--{$value:node_id}-->')"><!--{$value:node_name}--></a>
 								<div class="row-actions">

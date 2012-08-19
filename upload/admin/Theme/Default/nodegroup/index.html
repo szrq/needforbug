@@ -52,7 +52,7 @@
 					<tbody>
 						<!--<foreach for=oList>-->
 						<tr>
-							<td><input type="checkbox" name="key" value="<!--{$value:nodegroup_id}-->" <!--{if $value['nodegroup_id']<=8}-->disabled="disabled"<!--{/if}-->></td>
+							<td><input type="checkbox" name="key" value="<!--{$value:nodegroup_id}-->" <!--{if $TheController->is_system_nodegroup($value->nodegroup_id)}-->disabled="disabled"<!--{/if}-->></td>
 							<td><!--{$value:nodegroup_id}--></td>
 							<td><a href="javascript:edit('<!--{$value:nodegroup_id}-->')"><!--{$value:nodegroup_name}--></a>
 								<div class="row-actions">

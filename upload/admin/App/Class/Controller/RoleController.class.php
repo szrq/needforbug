@@ -445,7 +445,9 @@ class RoleController extends InitController{
 	}
 
 	public function is_system_role($nId){
-		if($nId<=9){
+		$nId=intval($nId);
+
+		if($nId<=19){
 			return true;
 		}
 

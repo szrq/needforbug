@@ -85,7 +85,7 @@ function changeRolegroup(oObj,id){
 					<tbody>
 						<!--<foreach for=oList>-->
 						<tr>
-							<td><input type="checkbox" name="key" value="<!--{$value:role_id}-->" <!--{if $value['role_id']<=9}-->disabled="disabled"<!--{/if}-->></td>
+							<td><input type="checkbox" name="key" value="<!--{$value:role_id}-->" <!--{if $TheController->is_system_role($value->role_id)}-->disabled="disabled"<!--{/if}-->></td>
 							<td><!--{$value:role_id}--></td>
 							<td><a href="javascript:edit('<!--{$value:role_id}-->')"><!--{$value:role_name}--></a>
 								<div class="row-actions">
