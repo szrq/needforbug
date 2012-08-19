@@ -10,8 +10,10 @@ class GroupCache_Extend{
 		$arrData=array();
 
 		$arrOptionData=GroupoptionModel::F()->asArray()->all()->query();
-		foreach($arrOptionData as $nKey=>$arrValue){
-			$arrData[$arrValue['groupoption_name']]=$arrValue['groupoption_value'];
+		if(is_array($arrOptionData)){
+			foreach($arrOptionData as $nKey=>$arrValue){
+				$arrData[$arrValue['groupoption_name']]=$arrValue['groupoption_value'];
+			}
 		}
 
 		Core_Extend::saveSyscache('group_option',$arrData);

@@ -355,11 +355,13 @@ class StyleController extends InitController{
 		$arrCustomStylevar=$arrSystemStylevar=array();
 
 		$arrCurtomStylevarList=(array)(include NEEDFORBUG_PATH.'/Source/Common/Style.php');
-		foreach($arrStylevars as $oStylevar){
-			if(!in_array(strtolower($oStylevar['stylevar_variable']),$arrCurtomStylevarList)){
-				$arrCustomStylevar[$oStylevar['stylevar_variable']]=$oStylevar['stylevar_substitute'];
-			}else{
-				$arrSystemStylevar[$oStylevar['stylevar_variable']]=$oStylevar['stylevar_substitute'];
+		if(is_array($arrStylevars)){
+			foreach($arrStylevars as $oStylevar){
+				if(!in_array(strtolower($oStylevar['stylevar_variable']),$arrCurtomStylevarList)){
+					$arrCustomStylevar[$oStylevar['stylevar_variable']]=$oStylevar['stylevar_substitute'];
+				}else{
+					$arrSystemStylevar[$oStylevar['stylevar_variable']]=$oStylevar['stylevar_substitute'];
+				}
 			}
 		}
 
@@ -577,8 +579,10 @@ class StyleController extends InitController{
 				$arrStylevarData=array();
 
 				$arrStylevars=StylevarModel::F('style_id=?',$oStyle['style_id'])->getAll();
-				foreach($arrStylevars as $oStylevar){
-					$arrStylevarData[strtolower($oStylevar['stylevar_variable'])]=trim($oStylevar['stylevar_substitute']);
+				if(is_array($arrStylevars)){
+					foreach($arrStylevars as $oStylevar){
+						$arrStylevarData[strtolower($oStylevar['stylevar_variable'])]=trim($oStylevar['stylevar_substitute']);
+					}
 				}
 
 				$arrData['data']=array(
@@ -646,8 +650,10 @@ class StyleController extends InitController{
 				$arrStylevarData=array();
 
 				$arrStylevars=StylevarModel::F('style_id=?',intval(G::getGpc('id','G')))->getAll();
-				foreach($arrStylevars as $oStylevar){
-					$arrStylevarData[strtolower($oStylevar['stylevar_variable'])]=trim($oStylevar['stylevar_substitute']);
+				if(is_array($arrStylevars)){
+					foreach($arrStylevars as $oStylevar){
+						$arrStylevarData[strtolower($oStylevar['stylevar_variable'])]=trim($oStylevar['stylevar_substitute']);
+					}
 				}
 
 				$oStylevar=Dyhb::instance('StylevarModel');
@@ -741,10 +747,12 @@ class StyleController extends InitController{
 				$arrStylevarData=$arrDeletevars=array();
 			
 				$arrStylevars=StylevarModel::F('style_id=?',$nStyleId)->getAll();
-				foreach($arrStylevars as $oStylevar){
-					$arrStylevarData[strtolower($oStylevar['stylevar_variable'])]=trim($oStylevar['stylevar_substitute']);
-					if(!in_array(strtolower($oStylevar['stylevar_variable']),$arrResetStylevarkeyData)){
-						$arrDeletevars[]=strtolower($oStylevar['stylevar_variable']);
+				if(is_array($arrStylevars)){
+					foreach($arrStylevars as $oStylevar){
+						$arrStylevarData[strtolower($oStylevar['stylevar_variable'])]=trim($oStylevar['stylevar_substitute']);
+						if(!in_array(strtolower($oStylevar['stylevar_variable']),$arrResetStylevarkeyData)){
+							$arrDeletevars[]=strtolower($oStylevar['stylevar_variable']);
+						}
 					}
 				}
 

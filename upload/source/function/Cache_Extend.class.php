@@ -47,8 +47,10 @@ class Cache_Extend{
 		$arrData=array();
 
 		$arrOptionData=OptionModel::F()->asArray()->all()->query();
-		foreach($arrOptionData as $nKey=>$arrValue){
-			$arrData[$arrValue['option_name']]=$arrValue['option_value'];
+		if(is_array($arrOptionData)){
+			foreach($arrOptionData as $nKey=>$arrValue){
+				$arrData[$arrValue['option_name']]=$arrValue['option_value'];
+			}
 		}
 
 		Core_Extend::saveSyscache('option',$arrData);
@@ -87,28 +89,30 @@ class Cache_Extend{
 		}
 		
 		$arrNavs=NavModel::F($arrWhere)->order('nav_sort DESC')->getAll();
-		foreach($arrNavs as $key=>$oNav){
-			$arrReturnNav[$key]=array(
-				'title'=>$oNav['nav_name'],
-				'description'=>self::getDescription_($oNav),
-				'link'=>self::getNavUrl_($oNav),
-				'style'=>self::getColorAndStyle_($oNav),
-				'target'=>self::getTarget_($oNav),
-			);
-
-			// 查询子菜单
-			$arrReturnNav[$key]['sub']=array();
-
-			$arrWhere2['nav_parentid']=$oNav['nav_id'];
-			$arrNavSubs=NavModel::F($arrWhere2)->order('nav_sort DESC')->getAll();
-			foreach($arrNavSubs as $oNavSub){
-				$arrReturnNav[$key]['sub'][]=array(
-					'title'=>$oNavSub['nav_name'],
-					'description'=>self::getDescription_($oNavSub),
-					'link'=>self::getNavUrl_($oNavSub),
-					'style'=>self::getColorAndStyle_($oNavSub),
-					'target'=>self::getTarget_($oNavSub),
+		if(is_array($arrNavs)){
+			foreach($arrNavs as $key=>$oNav){
+				$arrReturnNav[$key]=array(
+					'title'=>$oNav['nav_name'],
+					'description'=>self::getDescription_($oNav),
+					'link'=>self::getNavUrl_($oNav),
+					'style'=>self::getColorAndStyle_($oNav),
+					'target'=>self::getTarget_($oNav),
 				);
+
+				// 查询子菜单
+				$arrReturnNav[$key]['sub']=array();
+
+				$arrWhere2['nav_parentid']=$oNav['nav_id'];
+				$arrNavSubs=NavModel::F($arrWhere2)->order('nav_sort DESC')->getAll();
+				foreach($arrNavSubs as $oNavSub){
+					$arrReturnNav[$key]['sub'][]=array(
+						'title'=>$oNavSub['nav_name'],
+						'description'=>self::getDescription_($oNavSub),
+						'link'=>self::getNavUrl_($oNavSub),
+						'style'=>self::getColorAndStyle_($oNavSub),
+						'target'=>self::getTarget_($oNavSub),
+					);
+				}
 			}
 		}
 
@@ -217,23 +221,25 @@ class Cache_Extend{
 		$sTightlinkContent=$sTightlinkText=$sTightlinkLogo='';
 
 		$arrLinks=LinkModel::F('link_status=?',1)->order('link_sort DESC')->getAll();
-		foreach($arrLinks as $oLink){
-			if($oLink['link_description']){
-				if($oLink['link_logo']){
-					$sTightlinkContent.='<li><div class="home-logo"><img src="'.$oLink['link_logo'].'" border="0" alt="'.$oLink['link_name'].'" /></div>
-						<div class="home-content"><h5><a href="'.$oLink['link_url'].'" target="_blank">'.
-						$oLink['link_name'].'</a></h5><p>'.$oLink['link_description'].'</p></div></li>';
+		if(is_array($arrLinks)){
+			foreach($arrLinks as $oLink){
+				if($oLink['link_description']){
+					if($oLink['link_logo']){
+						$sTightlinkContent.='<li><div class="home-logo"><img src="'.$oLink['link_logo'].'" border="0" alt="'.$oLink['link_name'].'" /></div>
+							<div class="home-content"><h5><a href="'.$oLink['link_url'].'" target="_blank">'.
+							$oLink['link_name'].'</a></h5><p>'.$oLink['link_description'].'</p></div></li>';
+					}else{
+						$sTightlinkContent.='<li><div class="home-content"><h5><a href="'.$oLink['link_url'].'" target="_blank">'.
+							$oLink['link_name'].'</a></h5><p>'.$oLink['link_description'].'</p></div></li>';
+					}
 				}else{
-					$sTightlinkContent.='<li><div class="home-content"><h5><a href="'.$oLink['link_url'].'" target="_blank">'.
-						$oLink['link_name'].'</a></h5><p>'.$oLink['link_description'].'</p></div></li>';
-				}
-			}else{
-				if($oLink['link_logo']){
-					$sTightlinkLogo.='<a href="'.$oLink['link_url'].'" target="_blank"><img src="'.$oLink['link_logo'].
-						'" border="0" alt="'.$oLink['link_name'].'" /></a>';
-				}else{
-					$sTightlinkText.='<li><a href="'.$oLink['link_url'].'" target="_blank" title="'.
-						$oLink['link_name'].'">'.$oLink['link_name'].'</a></li>';
+					if($oLink['link_logo']){
+						$sTightlinkLogo.='<a href="'.$oLink['link_url'].'" target="_blank"><img src="'.$oLink['link_logo'].
+							'" border="0" alt="'.$oLink['link_name'].'" /></a>';
+					}else{
+						$sTightlinkText.='<li><a href="'.$oLink['link_url'].'" target="_blank" title="'.
+							$oLink['link_name'].'">'.$oLink['link_name'].'</a></li>';
+					}
 				}
 			}
 		}
@@ -258,8 +264,10 @@ class Cache_Extend{
 		$arrUserprofilesettingDatas=array();
 
 		$arrUserprofilesettings=UserprofilesettingModel::F('userprofilesetting_status=?',1)->asArray()->getAll();
-		foreach($arrUserprofilesettings as $arrUserprofilesetting){
-			$arrUserprofilesettingDatas[$arrUserprofilesetting['userprofilesetting_id']]=$arrUserprofilesetting;
+		if(is_array($arrUserprofilesettings)){
+			foreach($arrUserprofilesettings as $arrUserprofilesetting){
+				$arrUserprofilesettingDatas[$arrUserprofilesetting['userprofilesetting_id']]=$arrUserprofilesetting;
+			}
 		}
 
 		Core_Extend::saveSyscache('userprofilesetting',$arrUserprofilesettingDatas);
@@ -269,9 +277,11 @@ class Cache_Extend{
 		$arrBadwordDatas=BadwordModel::F()->order('badword_id ASC')->all()->query();
 
 		$arrSaveData=array();
-		foreach($arrBadwordDatas as $nKey=>$oBadwordData){
-			$arrSaveData[$oBadwordData['badword_id']]['regex']=$oBadwordData['badword_findpattern'];
-			$arrSaveData[$oBadwordData['badword_id']]['value']=$oBadwordData['badword_replacement'];
+		if(is_array($arrBadwordDatas)){
+			foreach($arrBadwordDatas as $nKey=>$oBadwordData){
+				$arrSaveData[$oBadwordData['badword_id']]['regex']=$oBadwordData['badword_findpattern'];
+				$arrSaveData[$oBadwordData['badword_id']]['value']=$oBadwordData['badword_replacement'];
+			}
 		}
 
 		Core_Extend::saveSyscache('badword',$arrSaveData);
@@ -294,8 +304,10 @@ class Cache_Extend{
 		$arrData=array();
 		
 		$arrRatinggroupDatas=RatinggroupModel::F('ratinggroup_status=?',1)->order('ratinggroup_id ASC')->asArray()->all()->query();
-		foreach($arrRatinggroupDatas as $arrRatinggroup){
-			$arrData[$arrRatinggroup['ratinggroup_id']]=$arrRatinggroup;
+		if(is_array($arrRatinggroupDatas)){
+			foreach($arrRatinggroupDatas as $arrRatinggroup){
+				$arrData[$arrRatinggroup['ratinggroup_id']]=$arrRatinggroup;
+			}
 		}
 		
 		Core_Extend::saveSyscache('ratinggroup',$arrData);
@@ -305,8 +317,10 @@ class Cache_Extend{
 		$arrData=array();
 
 		$arrRatingDatas=RatingModel::F()->order('rating_id ASC')->asArray()->all()->query();
-		foreach($arrRatingDatas as $arrRating){
-			$arrData[$arrRating['rating_id']]=$arrRating;
+		if(is_array($arrRatingDatas)){
+			foreach($arrRatingDatas as $arrRating){
+				$arrData[$arrRating['rating_id']]=$arrRating;
+			}
 		}
 		
 		Core_Extend::saveSyscache('rating',$arrData);
@@ -316,9 +330,11 @@ class Cache_Extend{
 		$arrData=array();
 
 		$arrCreditruls=CreditruleModel::F()->asArray()->getAll();
-		foreach($arrCreditruls as $arrRule){
-			$arrRule['creditrule_rulenameuni']=urlencode($arrRule['creditrule_name']);
-			$arrData[$arrRule['creditrule_action']]=$arrRule;
+		if(is_array($arrCreditruls)){
+			foreach($arrCreditruls as $arrRule){
+				$arrRule['creditrule_rulenameuni']=urlencode($arrRule['creditrule_name']);
+				$arrData[$arrRule['creditrule_action']]=$arrRule;
+			}
 		}
 
 		Core_Extend::saveSyscache('creditrule',$arrData);
@@ -517,6 +533,17 @@ class Cache_Extend{
 		$sCss=trim($sCss);
 
 		return $sCss?'background: '.$sCss:'';
+	}
+
+	public function static updateCacheStyle(){
+		$arrData=array();
+
+		$arrSlides=SlideModel::F('slide_status=?',1)->getAll();
+		if(is_array($arrSlides)){
+			
+		}
+
+		Core_Extend::saveSyscache('slide',$arrData);
 	}
 
 }

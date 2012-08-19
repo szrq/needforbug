@@ -10,8 +10,10 @@ class HomeCache_Extend{
 		$arrData=array();
 
 		$arrOptionData=HomeoptionModel::F()->asArray()->all()->query();
-		foreach($arrOptionData as $nKey=>$arrValue){
-			$arrData[$arrValue['homeoption_name']]=$arrValue['homeoption_value'];
+		if(is_array($arrOptionData)){
+			foreach($arrOptionData as $nKey=>$arrValue){
+				$arrData[$arrValue['homeoption_name']]=$arrValue['homeoption_value'];
+			}
 		}
 
 		Core_Extend::saveSyscache('home_option',$arrData);

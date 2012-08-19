@@ -23,13 +23,15 @@ class GroupuserModel extends CommonModel{
 
 	public function userToGroup($nGroupId){
 		$arrUsers=UserModel::F()->order('user_id DESC')->getAll();
-		foreach($arrUsers as $oUser){
-			$nGroupNums=GroupuserModel::F('user_id=? AND group_id=?',$oUser['user_id'],$nGroupId)->all()->getCounts();
-			if($nGroupNums==0){
-				$oGroupuser=new GroupuserModel();
-				$oGroupuser->user_id=$oUser['user_id'];
-				$oGroupuser->group_id=$nGroupId;
-				$oGroupuser->save(0);
+		if(is_array($arrUsers)){
+			foreach($arrUsers as $oUser){
+				$nGroupNums=GroupuserModel::F('user_id=? AND group_id=?',$oUser['user_id'],$nGroupId)->all()->getCounts();
+				if($nGroupNums==0){
+					$oGroupuser=new GroupuserModel();
+					$oGroupuser->user_id=$oUser['user_id'];
+					$oGroupuser->group_id=$nGroupId;
+					$oGroupuser->save(0);
+				}
 			}
 		}
 

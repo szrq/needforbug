@@ -231,8 +231,10 @@ class AppconfigtoolController extends InitController{
 		$arrWhere=array();
 		$arrWhere['app_status']=1;
 		$arrApps=AppModel::F()->where($arrWhere)->all()->query();
-		foreach($arrApps as $oApp){
-			$arrSaveDatas[]=$oApp['app_identifier'];
+		if(is_array($arrApps)){
+			foreach($arrApps as $oApp){
+				$arrSaveDatas[]=$oApp['app_identifier'];
+			}
 		}
 		$arrSaveDatas[]='admin';
 

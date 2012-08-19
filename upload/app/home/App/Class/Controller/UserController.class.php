@@ -166,12 +166,14 @@ class UserController extends InitController{
 		$oUser=UserModel::F('user_id=?',$nUserId)->query();
 		$oUser->safeInput();
 		$arrUserprofilesettings=UserprofilesettingModel::F()->getAll();
-		foreach($arrUserprofilesettings as $oUserprofilesetting){
-			if(isset($_POST[$oUserprofilesetting['userprofilesetting_id']])){
-				if(in_array($oUserprofilesetting['userprofilesetting_id'],array('userprofile_bio','userprofile_interest','user_remark','user_sign'))){
-					$oUser->userprofile->{$oUserprofilesetting['userprofilesetting_id']}=G::cleanJs($_POST[$oUserprofilesetting['userprofilesetting_id']]);
-				}else{
-					$oUser->userprofile->{$oUserprofilesetting['userprofilesetting_id']}=$_POST[$oUserprofilesetting['userprofilesetting_id']];
+		if(is_array($arrUserprofilesettings)){
+			foreach($arrUserprofilesettings as $oUserprofilesetting){
+				if(isset($_POST[$oUserprofilesetting['userprofilesetting_id']])){
+					if(in_array($oUserprofilesetting['userprofilesetting_id'],array('userprofile_bio','userprofile_interest','user_remark','user_sign'))){
+						$oUser->userprofile->{$oUserprofilesetting['userprofilesetting_id']}=G::cleanJs($_POST[$oUserprofilesetting['userprofilesetting_id']]);
+					}else{
+						$oUser->userprofile->{$oUserprofilesetting['userprofilesetting_id']}=$_POST[$oUserprofilesetting['userprofilesetting_id']];
+					}
 				}
 			}
 		}

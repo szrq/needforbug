@@ -113,14 +113,18 @@ class RoleController extends InitController{
 	public function app(){
 		$arrAppList=array();
 		$arrList=NodeModel::F('node_level=?',1)->setColumns('node_id,node_title')->asArray()->all()->query();
-		foreach($arrList as $arrVo){
-			$arrAppList[$arrVo['node_id']]=$arrVo['node_title'];
+		if(is_array($arrList)){
+			foreach($arrList as $arrVo){
+				$arrAppList[$arrVo['node_id']]=$arrVo['node_title'];
+			}
 		}
 
 		$arrGroupList=array();
 		$arrList=RoleModel::F()->setColumns('role_id,role_name')->asArray()->all()->query();
-		foreach($arrList as $arrVo){
-			$arrGroupList[$arrVo['role_id']]=$arrVo['role_name'];
+		if($arrList){
+			foreach($arrList as $arrVo){
+				$arrGroupList[$arrVo['role_id']]=$arrVo['role_name'];
+			}
 		}
 		$this->assign("arrGroupList",$arrGroupList);
 
@@ -134,8 +138,10 @@ class RoleController extends InitController{
 		$this->assign("nSelectGroupId",$nGroupId);
 		if(!empty($nGroupId)){
 			$arrList=RoleModel::F()->query()->getGroupAppList($nGroupId);
-			foreach($arrList as $arrVo){
-				$arrGroupAppList[]=	$arrVo['node_id'];
+			if(is_array($arrList)){
+				foreach($arrList as $arrVo){
+					$arrGroupAppList[]=	$arrVo['node_id'];
+				}
 			}
 		}
 		$this->assign('arrGroupAppList',$arrGroupAppList);
@@ -155,8 +161,10 @@ class RoleController extends InitController{
 
 		$arrGroupList=array();
 		$arrList=RoleModel::F()->setColumns('role_id,role_name')->all()->asArray()->query();
-		foreach($arrList as $arrVo){
-			$arrGroupList[$arrVo['role_id']]=$arrVo['role_name'];
+		if(is_array($arrList)){
+			foreach($arrList as $arrVo){
+				$arrGroupList[$arrVo['role_id']]=$arrVo['role_name'];
+			}
 		}
 		$this->assign("arrGroupList",$arrGroupList);
 
@@ -164,8 +172,10 @@ class RoleController extends InitController{
 		$this->assign("nSelectGroupId",$nGroupId);
 		if(!empty($nGroupId)){
 			$arrList=RoleModel::F()->query()->getGroupAppList($nGroupId);
-			foreach($arrList as $arrVo){
-				$arrAppList[$arrVo['node_id']]=	$arrVo['node_title'];
+			if(is_array($arrList)){
+				foreach($arrList as $arrVo){
+					$arrAppList[$arrVo['node_id']]=	$arrVo['node_title'];
+				}
 			}
 		}
 		$this->assign("arrAppList",$arrAppList);
@@ -176,16 +186,20 @@ class RoleController extends InitController{
 			$arrWhere['node_level']=2;
 			$arrWhere['node_parentid']=$nAppId;
 			$arrNodelist=NodeModel::F()->setColumns('node_id,node_title')->where($arrWhere)->asArray()->all()->query();
-			foreach($arrNodelist as $arrVo){
-				$arrModuleList[$arrVo['node_id']]=$arrVo['node_title'];
+			if(is_array($arrNodelist)){
+				foreach($arrNodelist as $arrVo){
+					$arrModuleList[$arrVo['node_id']]=$arrVo['node_title'];
+				}
 			}
 		}
 
 		$arrGroupModuleList=array();
 		if(!empty($nGroupId)&& !empty($nAppId)){
 			$arrGrouplist=RoleModel::F()->query()->getGroupModuleList($nGroupId,$nAppId);
-			foreach($arrGrouplist as $arrVo){
-				$arrGroupModuleList[]=$arrVo['node_id'];
+			if(is_array($arrGrouplist)){
+				foreach($arrGrouplist as $arrVo){
+					$arrGroupModuleList[]=$arrVo['node_id'];
+				}
 			}
 		}
 		$this->assign('arrGroupModuleList',$arrGroupModuleList);
@@ -237,8 +251,10 @@ class RoleController extends InitController{
 		$this->assign('nAppId',$nAppId);
 
 		$arrGrouplist=RoleModel::F()->setColumns('role_id,role_name')->asArray()->all()->query();
-		foreach($arrGrouplist as $arrVo){
-			$arrGroupList[$arrVo['role_id']]=$arrVo['role_name'];
+		if(is_array($arrGrouplist)){
+			foreach($arrGrouplist as $arrVo){
+				$arrGroupList[$arrVo['role_id']]=$arrVo['role_name'];
+			}
 		}
 		$this->assign("arrGroupList",$arrGroupList);
 		$this->assign("nSelectGroupId",$nGroupId);
@@ -246,8 +262,10 @@ class RoleController extends InitController{
 		$arrAppList=array();
 		if(!empty($nGroupId)){
 			$arrList=RoleModel::F()->query()->getGroupAppList($nGroupId);
-			foreach($arrList as $arrVo){
-				$arrAppList[$arrVo['node_id']]=	$arrVo['node_title'];
+			if($arrList){
+				foreach($arrList as $arrVo){
+					$arrAppList[$arrVo['node_id']]=	$arrVo['node_title'];
+				}
 			}
 		}
 		$this->assign("arrAppList",$arrAppList);
@@ -256,8 +274,10 @@ class RoleController extends InitController{
 		$arrModuleList=array();
 		if(!empty($nAppId)){
 			$arrList=RoleModel::F()->query()->getGroupModuleList($nGroupId,$nAppId);
-			foreach($arrList as $arrVo){
-				$arrModuleList[$arrVo['node_id']]=$arrVo['node_title'];
+			if(is_array($arrList)){
+				foreach($arrList as $arrVo){
+					$arrModuleList[$arrVo['node_id']]=$arrVo['node_title'];
+				}
 			}
 		}
 		$this->assign("arrModuleList",$arrModuleList);
@@ -336,8 +356,10 @@ class RoleController extends InitController{
 		}
 
 		$arrList=RoleModel::F()->setColumns('role_id,role_name')->asArray()->all()->query();
-		foreach($arrList as $arrVo){
-			$arrGroupList[$arrVo['role_id']]=$arrVo['role_name'];
+		if(is_array($arrList)){
+			foreach($arrList as $arrVo){
+				$arrGroupList[$arrVo['role_id']]=$arrVo['role_name'];
+			}
 		}
 		$this->assign("arrGroupList",$arrGroupList);
 
@@ -350,8 +372,10 @@ class RoleController extends InitController{
 		$arrGroupUserList=array();
 		if(!empty($nGroupId)){
 			$arrList=RoleModel::F()->query()->getGroupUserList($nGroupId);
-			foreach($arrList as $arrVo){
-				$arrGroupUserList[]=$arrVo['user_id'];
+			if(is_array($arrList)){
+				foreach($arrList as $arrVo){
+					$arrGroupUserList[]=$arrVo['user_id'];
+				}
 			}
 		}
 		$this->assign('arrGroupUserList',$arrGroupUserList);
