@@ -413,27 +413,31 @@ class Cache_Extend{
 			}
 		}
 
-		foreach($arrCacheStyledir as $nKey=>$sValue){
-			if(!in_array($sValue,$arrTheStyles)){
-				$sCurDeletedstyleDir=NEEDFORBUG_PATH.'/data/~runtime/style_/'.$sValue;
-				$arrCurDeletedstyleFiles=G::listDir($sCurDeletedstyleDir,true,true);
-				foreach($arrCurDeletedstyleFiles as $sCurDeletedstyleFile){
-					@unlink($sCurDeletedstyleFile);
+		if(is_array($arrCacheStyledir)){
+			foreach($arrCacheStyledir as $nKey=>$sValue){
+				if(!in_array($sValue,$arrTheStyles)){
+					$sCurDeletedstyleDir=NEEDFORBUG_PATH.'/data/~runtime/style_/'.$sValue;
+					$arrCurDeletedstyleFiles=G::listDir($sCurDeletedstyleDir,true,true);
+					foreach($arrCurDeletedstyleFiles as $sCurDeletedstyleFile){
+						@unlink($sCurDeletedstyleFile);
+					}
+					@rmdir($sCurDeletedstyleDir);
 				}
-				@rmdir($sCurDeletedstyleDir);
 			}
 		}
 
-		foreach($arrStyles as $arrStyle){
-			$arrStyle['_style_icons_']=$arrStyleIcons;
+		if(is_array($arrStyles)){
+			foreach($arrStyles as $arrStyle){
+				$arrStyle['_style_icons_']=$arrStyleIcons;
 
-			$sStyleIdPath=NEEDFORBUG_PATH.'/data/~runtime/style_/'.intval($arrStyle['style_id']);
-			if(!is_dir($sStyleIdPath)&& !G::makeDir($sStyleIdPath)){
-				Dyhb::E(Dyhb::L('无法写入缓存文件,请检查缓存目录 %s 的权限是否为0777','__COMMON_LANG__@Function/Cache_Extend',null,$sStyleIdPath));
+				$sStyleIdPath=NEEDFORBUG_PATH.'/data/~runtime/style_/'.intval($arrStyle['style_id']);
+				if(!is_dir($sStyleIdPath)&& !G::makeDir($sStyleIdPath)){
+					Dyhb::E(Dyhb::L('无法写入缓存文件,请检查缓存目录 %s 的权限是否为0777','__COMMON_LANG__@Function/Cache_Extend',null,$sStyleIdPath));
+				}
+				
+				self::writeToCache($sStyleIdPath.'/style.php',$arrStyle);
+				self::writetoCssCache($arrStyle,$sStyleIdPath);
 			}
-			
-			self::writeToCache($sStyleIdPath.'/style.php',$arrStyle);
-			self::writetoCssCache($arrStyle,$sStyleIdPath);
 		}
 	}
 
