@@ -19,38 +19,10 @@ class PmController extends InitController{
 		$this->assign('sType',$sType);
 	}
 
-	public function bForeverdelete_(){
-		$sId=G::getGpc('id','G');
-
-		$arrIds=explode(',',$sId);
-		foreach($arrIds as $nId){
-			$arrPmSystems=SystempmModel::F()->all()->query();
-
-			foreach($arrPmSystems as $oPmSystem){
-				$arrReadIds=unserialize($oPmSystem['systempm_readids']);
-				if(in_array($nId,$arrReadIds)){
-					foreach($arrReadIds as $nKey=>$nReadIds){
-						if($nReadIds==$nId){
-							unset($arrReadIds[$nKey]);
-						}
-					}
-				}
-
-				if(empty($arrReadIds)){
-					$oDb=Db::RUN();
-
-					$sSql="DELETE FROM ".SystempmModel::F()->query()->getTablePrefix()."systempm WHERE `user_id`=".$oPmSystem['user_id'];
-					$oDb->query($sSql);
-				}else{
-					$oPmSystem->systempm_readids=serialize($arrReadIds);
-
-					$oPmSystem->save(0,'update');
-					if($oPmSystem->isError()){
-						$this->E($oPmSystem->getErrorMessage());
-					}
-				}
-			}
-		}
+	public function aForeverdelete($sId){
+		// 删除数据相关的记录
+		PmsystemdeleteModel::M()->deleteWhere(array('pm_id'=>array('in',$sId)));
+		PmsystemreadModel::M()->deleteWhere(array('pm_id'=>array('in',$sId)));
 	}
 
 	public function show(){
