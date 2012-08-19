@@ -538,7 +538,7 @@ class Cache_Extend{
 	public static function updateCacheSlide(){
 		$arrData=array();
 
-		$arrSlides=SlideModel::F('slide_status=?',1)->order('create_dateline DESC,slide_sort DESC')->getAll();
+		$arrSlides=SlideModel::F('slide_status=?',1)->order('slide_sort ASC,create_dateline DESC')->getAll();
 		if(is_array($arrSlides)){
 			foreach($arrSlides as $oSlide){
 				$arrData[]=array(

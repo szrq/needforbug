@@ -14,6 +14,8 @@
 				<ul>
 					<li><!--<lang package='Template/Default/Slide'>-->你可以在这里管理网站首页的幻灯片<!--</lang>--></li>
 					<li><!--<lang package='Template/Default/Slide'>-->注意，系统预置的幻灯片不能删除，只允许隐藏<!--</lang>--></li>
+					<li><!--<lang package='Template/Default/Slide'>-->注意，幻灯片图片大小不要设置得太小，否则幻灯片将会很小<!--</lang>--></li>
+					<li><!--<lang package='Template/Default/Slide'>-->注意，幻灯片第一张图片错误将导致幻灯片无法显示<!--</lang>--></li>
 				</ul>
 			</div>
 		</article>
@@ -69,7 +71,7 @@
 									</span>
 								</div>
 							</td>
-							<td><a href="<!--{$value:slide_img}-->" target="_blank">打开图像</a></td>
+							<td><a href="<!--{$value:slide_img|Core_Extend+getEvalValue}-->" target="_blank">打开图像</a></td>
 							<td><!--{$value:slide_url}--></td>
 							<td class="pointer" title="<!--<lang package='Template/Default/Common'>-->点击修改数据<!--</lang>-->" id="slide_sort_<!--{$value:slide_id}-->" onClick="clickToInput('slide_sort','<!--{$value:slide_id}-->')"><!--{$value:slide_sort}--></td>
 							<td><img src="<!--{:__TMPLPUB__}-->/Images/<!--<if condition="$value:slide_status eq 1" >-->yes<!--<else/>-->no<!--</if>-->.gif"/></td>

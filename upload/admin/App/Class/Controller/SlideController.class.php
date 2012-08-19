@@ -36,6 +36,10 @@ class SlideController extends InitController{
 		Cache_Extend::updateCacheSlide();
 	}
 
+	public function afterInputChangeAjax($sName=null){
+		$this->aInsert();
+	}
+
 	protected function aUpdate($nId=null){
 		$this->aInsert();
 	}
