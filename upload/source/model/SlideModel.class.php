@@ -21,4 +21,8 @@ class SlideModel extends CommonModel{
 		return ModelMeta::instance(__CLASS__);
 	}
 
+	public function safeInput(){
+		$_POST['slide_title']=G::html($_POST['slide_title']);
+	}
+
 }

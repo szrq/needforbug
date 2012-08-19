@@ -535,12 +535,18 @@ class Cache_Extend{
 		return $sCss?'background: '.$sCss:'';
 	}
 
-	public function static updateCacheStyle(){
+	public static function updateCacheSlide(){
 		$arrData=array();
 
-		$arrSlides=SlideModel::F('slide_status=?',1)->getAll();
+		$arrSlides=SlideModel::F('slide_status=?',1)->order('create_dateline DESC,slide_sort DESC')->getAll();
 		if(is_array($arrSlides)){
-			
+			foreach($arrSlides as $oSlide){
+				$arrData[]=array(
+					'slide_title'=>$oSlide['slide_title'],
+					'slide_img'=>Core_Extend::getEvalValue($oSlide['slide_img']),
+					'slide_url'=>Core_Extend::getEvalValue($oSlide['slide_url']),
+				);
+			}
 		}
 
 		Core_Extend::saveSyscache('slide',$arrData);

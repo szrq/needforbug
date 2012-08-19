@@ -256,6 +256,17 @@ class Core_Extend{
 		return str_replace(array_keys($arrReplaces),array_values($arrReplaces),$sString);
 	}
 
+	static public function getEvalValue($sValue){
+		$arrMatches=array();
+
+		if(preg_match("/{\s*(\S+?)\s*\}/ise",$sValue,$arrMatches)){
+			@eval('$sValue='.$arrMatches[1].';');
+			return $sValue;
+		}else{
+			return $sValue;
+		}
+	}
+
 	static public function badword($sContent){
 		if(empty($sContent)){
 			return '';
