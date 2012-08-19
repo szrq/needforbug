@@ -18,6 +18,26 @@
 					<li><!--<lang package='Template/Default/Slide'>-->注意，幻灯片第一张图片错误将导致幻灯片无法显示<!--</lang>--></li>
 				</ul>
 			</div>
+			<form action="<!--{:Dyhb::U('slide/update_option')}-->" method="post" id="slideOption">
+				<div class="module_content">
+					<fieldset>
+						<label for="slide_duration"><!--<lang package='Template/Default/Slide'>-->幻灯片滚动持续时间<!--</lang>--></label>
+						<input type="text" id="slide_duration" name="options[slide_duration]" value="<!--{$arrOptions['slide_duration']}-->" />
+						<div class="description"><!--<lang package='Template/Default/Slide'>-->幻灯片滚动持续时间大小请设置在0-1之间，如0.3<!--</lang>--></div>
+					</fieldset>
+					<fieldset>
+						<label for="badword_on"><!--<lang package='Template/Default/Slide'>-->幻灯片滚动延迟时间<!--</lang>--></label>
+						<input type="text" id="slide_delay" name="options[slide_delay]" value="<!--{$arrOptions['slide_delay']}-->" />
+						<div class="description"><!--<lang package='Template/Default/Slide'>-->幻灯片滚动持续时间大小，单位为(s)，如5<!--</lang>--></div>
+					</fieldset>
+				</div>
+				<footer>
+					<div class="submit_link">
+						<input type="submit" id="submit_button"  value="<!--<lang package='Template/Default/Common'>-->发布<!--</lang>-->" class="alt_btn">
+						<input type="reset" value="<!--<lang package='Template/Default/Common'>-->重置<!--</lang>-->">
+					</div>
+				</footer>
+			</form>
 		</article>
 
 		<article class="module width_full">

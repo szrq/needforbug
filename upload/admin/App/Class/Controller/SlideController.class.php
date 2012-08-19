@@ -10,6 +10,30 @@ class SlideController extends InitController{
 		$arrMap['slide_title']=array('like',"%".G::getGpc('slide_title')."%");
 	}
 
+	public function bIndex_(){
+		$arrOptionData=$GLOBALS['_option_'];
+
+		$this->assign('arrOptions',$arrOptionData);
+	}
+
+	public function update_option(){
+		$arrOptions=G::getGpc('options','P');
+		$nSlideduration=$arrOptions['slide_duration'];
+		$nSlideDelay=intval($arrOptions['slide_delay']);
+
+		if($nSlideduration<0.1 || $nSlideduration>1){
+			$_POST['options']['slide_duration']=0.3;
+		}
+
+		if($nSlideDelay<1){
+			$_POST['options']['slide_delay']=5;
+		}
+
+		$oOptionController=new OptionController();
+
+		$oOptionController->update_option();
+	}
+
 	public function bEdit_(){
 		$nId=intval(G::getGpc('id','G'));
 
