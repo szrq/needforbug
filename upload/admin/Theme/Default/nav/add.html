@@ -42,7 +42,9 @@ function complete(data,status){
 				<ul>
 					<li><!--<lang package='Template/Default/Nav'>-->在这里你可以添加菜单，编辑已有菜单<!--</lang>--></li>
 					<li><!--<lang package='Template/Default/Nav'>-->注意，内置菜单有些项是无法编辑的<!--</lang>--></li>
-					<li><!--<lang package='Template/Default/Nav'>-->菜单的URL可以使用常规的URL地址，也可以使用框架内置的URL规则<!--</lang>--></li>
+					<li><!--<lang package='Template/Default/Nav'>-->内置菜单的URL使用框架内置的URL规则，其它的使用常规URL<!--</lang>--></li>
+					<li><!--<lang package='Template/Default/Nav'>-->导航链接支持{*}风格值，其中*表示能够正确运行的PHP代码，如{Dyhb::U('home://public/login')}<!--</lang>--></li>
+					<li><!--<lang package='Template/Default/Nav'>-->当采用{*}风格值的时候，如果*表示的PHP代码不能正常运行，前台将引发致命错误<!--</lang>--></li>
 				</ul>
 			</div>
 		</article>

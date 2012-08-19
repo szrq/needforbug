@@ -128,7 +128,7 @@ class Cache_Extend{
 			return $GLOBALS['_option_']['site_url'];
 		}
 
-		return (!$oNav['nav_type']?Dyhb::U($oNav['nav_url']):$oNav['nav_url']);
+		return (!$oNav['nav_type']?Dyhb::U($oNav['nav_url']):Core_Extend::getEvalValue($oNav['nav_url']));
 	}
 
 	static private function getColorAndStyle_($oNav){
