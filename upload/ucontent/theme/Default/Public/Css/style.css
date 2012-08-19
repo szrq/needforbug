@@ -19,7 +19,7 @@ Tags: admin, light
 [/CURSCRIPT]
 
 /**===============================
-           友情衔接
+           友情衔接&其它
 ================================*/
 [CURSCRIPT=home::index]
 .home-links, .home-img-link, .home-txt-link { padding: 2px; }
@@ -30,6 +30,7 @@ Tags: admin, light
 .home-content { padding-right: 18px; height: 50px; }
 .home-content p { overflow: hidden; height: 17px; color: {LIGHT_TEXTCOLOR}; }
 .home-txt-link li { float: left; margin-right: 5px; width: 8em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#home_slidebox_container{height:300px;overflow:hidden;}
 [/CURSCRIPT]
 
 /**===============================
