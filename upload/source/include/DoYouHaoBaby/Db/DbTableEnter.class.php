@@ -335,7 +335,7 @@ class DbTableEnter{
 
 		$arrData=array($arrMeta,$arrFields);
 		if($bCached){
-			Dyhb::cache($this->_sCacheId,$arrData,
+			Dyhb::cache($this->_sCacheId.'_'.md5($this->_sCacheId),$arrData,
 				array('encoding_filename'=>false,
 					'cache_path'=>(defined('DB_META_CACHED_PATH')?DB_META_CACHED_PATH:APP_RUNTIME_PATH.'/Data/DbMeta')
 				)
