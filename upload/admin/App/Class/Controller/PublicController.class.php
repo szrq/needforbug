@@ -84,6 +84,8 @@ class PublicController extends InitController{
 		if($arrUserData!==false){
 			UserModel::M()->replaceSession($arrUserData['session_hash'],$arrUserData['user_id'],isset($arrUserData['session_auth_key'])?$arrUserData['session_auth_key']:'');
 			UserModel::M()->logout();
+
+			$GLOBALS['___login___']=false;
 		}
 		UserModel::M()->clearThisCookie();
 

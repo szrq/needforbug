@@ -210,7 +210,10 @@ class PublicController extends InitController{
 			$arrUserData=$GLOBALS['___login___'];
 			UserModel::M()->replaceSession($arrUserData['session_hash'],$arrUserData['user_id'],$arrUserData['session_auth_key']);
 			UserModel::M()->logout();
-			$this->assign("__JumpUrl__",Dyhb::U('public/login'));
+
+			$GLOBALS['___login___']=false;
+	
+			$this->assign("__JumpUrl__",Dyhb::U('home://public/login'));
 			$this->S(Dyhb::L('登出成功','Controller/Public'));
 		}else{
 			$this->E(Dyhb::L('已经登出','Controller/Public'));
