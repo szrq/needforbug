@@ -1,7 +1,7 @@
 <!--<include file="Core_Extend::template('header')" />-->
 
 		<ul class="breadcrumb">
-			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a> <span class="divider">/</span></li>
+			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span></li>
 			<li><!--<lang package='Template/Pm'>-->短消息<!--</lang>--></li>
 		</ul>
 		
@@ -12,7 +12,7 @@
 				<table class="table table-bordered">
 					<thead>
 						<tr>
-							<th colspan="2"><i class="icon-user"></i> <!--<lang package='Template/Pm'>-->发布者<!--</lang>--> <a href="<!--{:Dyhb::U('home://my/user?id='.$oPm->pm_msgfromid)}-->" target="_blank"><!--{$oPm:pm_msgfrom}--></a></th>
+							<th colspan="2"><i class="icon-user"></i>&nbsp;<!--<lang package='Template/Pm'>-->发布者<!--</lang>--> <a href="<!--{:Dyhb::U('home://my/user?id='.$oPm->pm_msgfromid)}-->" target="_blank"><!--{$oPm:pm_msgfrom}--></a></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -24,7 +24,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td colspan="2"><i class="icon-share-alt"></i> <a href="<!--{:Dyhb::U('home://pm/index?type=system')}-->"><!--<lang package='Template/Pm'>-->公共消息<!--</lang>--></a></td>
+							<td colspan="2"><i class="icon-share-alt"></i>&nbsp;<a href="<!--{:Dyhb::U('home://pm/index?type=system')}-->"><!--<lang package='Template/Pm'>-->公共消息<!--</lang>--></a></td>
 						<tr>
 					</tbody>
 				</table>

@@ -1,7 +1,7 @@
 <!--<include file="Core_Extend::template('header')" />-->
 	
 		<ul class="breadcrumb">
-			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a><span class="divider">/</span><!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>--></li>
+			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span><!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>--></li>
 		</ul>
 
 		<div class="row">
@@ -101,7 +101,7 @@
 							</label>
 						</p>
 						<div id="remember_time" class="none">
-							<label for="remember_time"><!--<lang package='__COMMON_LANG__@Template/Common'>-->COOKIE有效期<!--</lang>--> <span class="pipe">|</span> <a href="javascript:void(0);" onclick="rememberme(1);"><i class="icon-remove"></i><!--<lang package='__COMMON_LANG__@Template/Common'>-->关闭<!--</lang>--></a></label>
+							<label for="remember_time"><!--<lang package='__COMMON_LANG__@Template/Common'>-->COOKIE有效期<!--</lang>--> <span class="pipe">|</span> <a href="javascript:void(0);" onclick="rememberme(1);"><i class="icon-remove"></i>&nbsp;<!--<lang package='__COMMON_LANG__@Template/Common'>-->关闭<!--</lang>--></a></label>
 							<select name="remember_time">
 								<option value="0" <!--{if $nRememberTime==0}-->selected<!--{/if}-->><!--<lang package='__COMMON_LANG__@Common'>-->及时<!--</lang>--></option>
 								<option value="3600" <!--{if $nRememberTime==3600}-->selected<!--{/if}-->><!--<lang package='__COMMON_LANG__@Common'>-->一小时<!--</lang>--></option>
@@ -111,7 +111,7 @@
 								<option value="31536000" <!--{if $nRememberTime==31536000}-->selected<!--{/if}-->><!--<lang package='__COMMON_LANG__@Common'>-->一年<!--</lang>--></option>
 							</select>
 							<p class="help-block">
-								<i class=" icon-info-sign"></i> <!--<lang package='__COMMON_LANG__@Template/Common'>-->注意在网吧等共同场所请不要记住我<!--</lang>-->
+								<i class=" icon-info-sign"></i>&nbsp;<!--<lang package='__COMMON_LANG__@Template/Common'>-->注意在网吧等共同场所请不要记住我<!--</lang>-->
 							</p>
 						</div>
 						<!--{if $nDisplaySeccode==1}-->
@@ -140,21 +140,21 @@
 									<a href="<!--{:Dyhb::U('home://user/avatar')}-->">
 									<img src="<!--{:Core_Extend::avatar($GLOBALS['___login___']['user_id'])}-->" class="thumbnail"/></a>
 								</td>
-								<td width="60%"><i class="icon-cog"></i><a href="<!--{:Dyhb::U('home://user/base')}-->"><!--<lang package='Template/Public'>-->修改资料<!--</lang>--></a></td>
+								<td width="60%"><i class="icon-cog"></i>&nbsp;<a href="<!--{:Dyhb::U('home://user/base')}-->"><!--<lang package='Template/Public'>-->修改资料<!--</lang>--></a></td>
 							</tr>
 							<tr>
-								<td><i class="icon-lock"></i><a href="<!--{:Dyhb::U('home://user/password')}-->"><!--<lang package='Template/Public'>-->修改密码<!--</lang>--></a></td>
+								<td><i class="icon-lock"></i>&nbsp;<a href="<!--{:Dyhb::U('home://user/password')}-->"><!--<lang package='Template/Public'>-->修改密码<!--</lang>--></a></td>
 							</tr>
 							<tr>
-								<td><i class="icon-tags"></i><a href="<!--{:Dyhb::U('home://user/tag')}-->"><!--<lang package='Template/Public'>-->我的标签<!--</lang>--></a></td>
+								<td><i class="icon-tags"></i>&nbsp;<a href="<!--{:Dyhb::U('home://user/tag')}-->"><!--<lang package='Template/Public'>-->我的标签<!--</lang>--></a></td>
 							</tr>
 							<tr>
-								<td><i class="icon-off"></i><a href="<!--{:Dyhb::U('home://public/logout')}-->"><!--<lang package='Template/Public'>-->注销<!--</lang>--></a></td>
+								<td><i class="icon-off"></i>&nbsp;<a href="<!--{:Dyhb::U('home://public/logout')}-->"><!--<lang package='Template/Public'>-->注销<!--</lang>--></a></td>
 							</tr>
 						</tbody>
 					</table>
 					<hr/>
-					<a class="btn btn-success btn-large" href="<!--{:Dyhb::U('home://user/index')}-->"><i class="icon-info-sign icon-white"></i> <!--<lang package='Template/Public'>-->个人中心<!--</lang>--></a>
+					<a class="btn btn-success btn-large" href="<!--{:Dyhb::U('home://user/index')}-->"><i class="icon-info-sign icon-white"></i>&nbsp;<!--<lang package='Template/Public'>-->个人中心<!--</lang>--></a>
 					<!--{/if}-->
 				</div>
 			</div>

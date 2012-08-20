@@ -9,7 +9,7 @@ $(function(){
 <!--{/script}-->
 
 		<ul class="breadcrumb">
-			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a> <span class="divider">/</span></li>
+			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span></li>
 			<li><a href="<!--{:Dyhb::U('home://my/user?id='.$nId)}-->"><!--{$oUserInfo:user_name}--></a> <span class="divider">/</span></li>
 			<li><!--<lang package='Template/My'>-->个人空间<!--</lang>--></li>
 		</ul>
@@ -128,7 +128,7 @@ $(function(){
 								<a href="<!--{:Dyhb::U('home://my/avatar?id='.$nId)}-->"><img src="<!--{:Core_Extend::avatar( $nId,'small' )}-->" class="thumbnail"/></a>
 							</td>
 							<td>
-								<label class="control-label" for="email-input"><i class="icon-retweet"></i> <!--<lang package='Template/My'>-->与用户 Email 交流<!--</lang>--></label>
+								<label class="control-label" for="email-input"><i class="icon-retweet"></i>&nbsp;<!--<lang package='Template/My'>-->与用户 Email 交流<!--</lang>--></label>
 								<div class="input-prepend">
 									<span class="add-on"><i class="icon-envelope"></i></span><input style="width:140px;" id="email-input" type="text" value="<!--{$oUserInfo:user_email}-->">
 								</div>
@@ -140,28 +140,28 @@ $(function(){
 							<td colspan="2"><a href="<!--{:Dyhb::U('my/user?id='.$oUserInfo['user_id'])}-->"><!--{$oUserInfo:user_name}-->@<!--{$oUserInfo:user_id}--></a></td>
 						</tr>
 						<tr>
-							<td colspan="2"><i class="icon-info-sign"></i> <!--<lang package='Template/My'>-->性别<!--</lang>--> <!--{:Profile_Extend::getGender($oUserInfo->userprofile->userprofile_gender)}--></td>
+							<td colspan="2"><i class="icon-info-sign"></i>&nbsp;<!--<lang package='Template/My'>-->性别<!--</lang>--> <!--{:Profile_Extend::getGender($oUserInfo->userprofile->userprofile_gender)}--></td>
 						</tr>
 						<tr>
-							<td colspan="2"><i class="icon-user"></i> <!--{$oUserInfo:create_dateline|Core_Extend+timeFormat}--><!--<lang package='Template/My'>-->注册<!--</lang>--></td>
+							<td colspan="2"><i class="icon-user"></i>&nbsp;<!--{$oUserInfo:create_dateline|Core_Extend+timeFormat}--><!--<lang package='Template/My'>-->注册<!--</lang>--></td>
 						</tr>
 						<tr>
-							<td colspan="2"><i class="icon-heart"></i> <!--<lang package='Template/My'>-->等级<!--</lang>--> <a href="<!--{:Dyhb::U('home://my/rating')}-->">下士</a></td>
+							<td colspan="2"><i class="icon-heart"></i>&nbsp;<!--<lang package='Template/My'>-->等级<!--</lang>--> <a href="<!--{:Dyhb::U('home://my/rating')}-->">下士</a></td>
 						</tr>
 						<tr>
-							<td colspan="2"><i class="icon-star"></i> <!--<lang package='Template/My'>-->积分<!--</lang>--> <span class="badge badge-success"><a href="#">292</a></span>
-							<!--<lang package='Template/My'>-->金币<!--</lang>--> <span class="badge badge-success"><a href="#">116</a></span></td>
+							<td colspan="2"><i class="icon-star"></i>&nbsp;<!--<lang package='Template/My'>-->积分<!--</lang>-->&nbsp;<span class="badge badge-success"><a href="#">292</a></span>&nbsp;
+							<!--<lang package='Template/My'>-->金币<!--</lang>-->&nbsp;<span class="badge badge-success"><a href="#">116</a></span></td>
 						</tr>
 					</tbody>
 				</table>
 
 				<div style="padding:5px;">
-					<a class="btn" href="#"><i class="icon-user"></i> <!--<lang package='Template/My'>-->关注<!--</lang>-->+1</a>
-					<a href="<!--{:Dyhb::U('pm/pmnew?uid='.$oUserInfo['user_id'])}-->" rel="nofollow" class="btn"><i class="icon-envelope"></i> <!--<lang package='Template/My'>-->发消息<!--</lang>--></a>
+					<a class="btn" href="#"><i class="icon-user"></i>&nbsp;<!--<lang package='Template/My'>-->关注<!--</lang>-->+1</a>&nbsp;
+					<a href="<!--{:Dyhb::U('pm/pmnew?uid='.$oUserInfo['user_id'])}-->" rel="nofollow" class="btn"><i class="icon-envelope"></i>&nbsp;<!--<lang package='Template/My'>-->发消息<!--</lang>--></a>
 				</div>
 
 				<div style="padding:5px;">
-					<h5><i class="icon-pencil"></i> <!--<lang package='Template/My'>-->签名<!--</lang>--></h5>
+					<h4><i class="icon-pencil"></i>&nbsp;<!--<lang package='Template/My'>-->签名<!--</lang>--></h4>
 					<!--{if $oUserInfo:user_sign}--><!--{$oUserInfo:user_sign|Profile_Extend+formatUserinfo}--><!--{d*else}--><!--<lang package='Template/My'>-->该用户暂时没有设置签名<!--</lang>--><!--{/if}-->
 				</div>
 

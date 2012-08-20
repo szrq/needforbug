@@ -31,7 +31,7 @@ function deleteFriend(friendid,fan){
 
 
 		<ul class="breadcrumb">
-			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a> <span class="divider">/</span></li>
+			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span></li>
 			<li><!--<lang package='Template/Stat'>-->社区广场<!--</lang>--> <span class="divider">/</span></li>
 			<li><a href="<!--{:Dyhb::U('home://friend/index')}-->"><!--<lang package='Template/Stat'>-->我的好友<!--</lang>--></a></li>
 		</ul>
@@ -42,7 +42,7 @@ function deleteFriend(friendid,fan){
 			<div class="span12">
 				<form class="well form-search" action="<!--{:Dyhb::U('home://stat/userlist')}-->" method="get" onsubmit="return findUser();">
 					<input type="text" class="input-medium search-query" name="key" id="key">&nbsp;
-					<button type="submit" class="btn"><i class="icon-search"></i> <!--<lang package='Template/Stat'>-->查找会员<!--</lang>--></button>
+					<button type="submit" class="btn"><i class="icon-search"></i>&nbsp;<!--<lang package='Template/Stat'>-->查找会员<!--</lang>--></button>
 				</form>
 
 				<!--{if $sKey}-->

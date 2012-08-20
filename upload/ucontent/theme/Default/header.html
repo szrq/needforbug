@@ -45,7 +45,7 @@
 							<!--<foreach for=arrHeaderNavs value=arrHeaderNav>-->
 							<a <!--{$arrHeaderNav['style']}--> title="<!--{$arrHeaderNav['description']}-->" href="<!--{$arrHeaderNav['link']}-->" <!--{$arrHeaderNav['target']}-->>
 								<!--{$arrHeaderNav['title']}-->
-							</a>
+							</a>&nbsp;
 							<!--</foreach>-->
 						</div>
 						<div class="right">
@@ -113,7 +113,7 @@
 					<div class="btn-group pull-right">
 						<!--{if $GLOBALS['___login___']===false}-->
 						<a class="btn dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);">
-							<i class="icon-user"></i> <!--<lang package='__COMMON_LANG__@Template/Header'>-->未登录<!--</lang>-->
+							<i class="icon-user"></i>&nbsp;<!--<lang package='__COMMON_LANG__@Template/Header'>-->未登录<!--</lang>-->
 							<span class="caret"></span>
 						</a>
 						<ul class="dropdown-menu">
@@ -123,7 +123,7 @@
 						</ul>
 						<!--{d*else}-->
 						<a class="btn dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);">
-							<i class="icon-user"></i>
+							<i class="icon-user"></i>&nbsp;
 							<!--{if $GLOBALS['___login___']['user_nikename']}-->
 								<!--{$GLOBALS['___login___']['user_nikename']}-->
 							<!--{d*else}-->
