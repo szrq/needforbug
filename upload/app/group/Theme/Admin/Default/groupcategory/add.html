@@ -81,7 +81,7 @@ function complete(data,status){
 						<input type="hidden" name="ajax" value="1">
 						<input type="hidden" name="value" id="value" value="<!--<if condition="isset( $_GET['value'] )">--><!--{$_GET['value']}--><!--</if>-->"/>
 						<input type="button" id="submit_button" onclick="<!--<if condition="isset( $oValue )">-->update()<!--<else/>-->add()<!--</if>-->" value="<!--<if condition="isset( $oValue )">--><!--<lang package='Template/Default/Common'>-->更新<!--</lang>--><!--<else/>--><!--<lang package='Template/Default/Common'>-->发布<!--</lang>--><!--</if>-->" class="alt_btn">
-						<input type="reset" value="<!--<lang package='Template/Default/Common'>-->重置<!--</lang>-->">
+						&nbsp;<input type="reset" value="<!--<lang package='Template/Default/Common'>-->重置<!--</lang>-->">
 					</div>
 				</footer>
 			</form>
