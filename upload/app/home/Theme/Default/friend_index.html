@@ -78,7 +78,7 @@ function deleteFriend(friendid,fan){
 				</ul>
 				<form class="well form-search" action="<!--{:Dyhb::U('home://friend/index')}-->" method="get" onsubmit="return findUser();">
 					<!--{if $sType=='fan'}--><input type="hidden" name="type" value="fan"><!--{/if}-->
-					<input type="text" class="input-medium search-query" name="key" id="key">
+					<input type="text" class="input-medium search-query" name="key" id="key">&nbsp;
 					<button type="submit" class="btn"><i class="icon-search"></i> <!--{if $sType=='fan'}--><!--<lang package='Template/Friend'>-->查找粉丝<!--</lang>--><!--{d*else}--><!--<lang package='Template/Friend'>-->查找好友<!--</lang>--><!--{/if}--></button>
 				</form>
 				<!--{if $sKey}-->
@@ -100,7 +100,8 @@ function deleteFriend(friendid,fan){
 									<span id="commenthide_<!--{$nUserId}-->"><!--{if $sType=='fan'}--><!--{$oFriend['friend_fancomment']}--><!--{d*else)}--><!--{$oFriend['friend_comment']}--><!--{/if}--></span> <span id="commentedit_<!--{$nUserId}-->">[<a href="javascript:;" onclick="editComment(<!--{$nUserId}-->)">+<!--<lang package='Template/Friend'>-->添加备注<!--</lang>--></a>]</span>
 									<span id="commentbox_<!--{$nUserId}-->" style="display:none"><input name="comment_<!--{$nUserId}-->" value="" id="comment_<!--{$nUserId}-->" onBlur="updateComment(<!--{$nUserId}-->,'<!--{if $sType=='fan'}-->1<!--{d*else}-->0<!--{/if}-->')" class="input-small"></span>
 								</p>
-								<p><a href="<!--{:Dyhb::U('home://pm/pmnew?uid='.$nUserId)}-->" class="btn btn-success"><i class="icon-envelope icon-white"></i> <!--<lang package='Template/Friend'>-->短消息<!--</lang>--></a> <a href="javascript:void(0);" onclick="deleteFriend('<!--{$nUserId}-->','<!--{if $sType=='fan'}-->1<!--{d*else}-->0<!--{/if}-->');" class="btn"><i class="icon-remove-sign"></i> <!--<lang package='__COMMON_LANG__@Template/Common'>-->删除<!--</lang>--></a></p>
+								<p><a href="<!--{:Dyhb::U('home://pm/pmnew?uid='.$nUserId)}-->" class="btn btn-success"><i class="icon-envelope icon-white"></i> <!--<lang package='Template/Friend'>-->短消息<!--</lang>--></a>&nbsp;
+								<a href="javascript:void(0);" onclick="deleteFriend('<!--{$nUserId}-->','<!--{if $sType=='fan'}-->1<!--{d*else}-->0<!--{/if}-->');" class="btn"><i class="icon-remove-sign"></i> <!--<lang package='__COMMON_LANG__@Template/Common'>-->删除<!--</lang>--></a></p>
 							</div>
 						</div>
 					</li>
