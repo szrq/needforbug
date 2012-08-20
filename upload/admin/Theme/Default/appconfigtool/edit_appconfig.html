@@ -15,7 +15,7 @@
 							<tbody>
 								<!--<foreach for=arrConfigfiles value=arrConfigfile>-->
 								<tr>
-									<td><b><a href="javascript:void(0);" onclick="resizeUp('<!--{$arrConfigfile['file']|md5}-->');">[+]</a><a href="javascript:void(0);" onclick="resizeDown('<!--{$arrConfigfile['file']|md5}-->');">[-]</a></b> <!--<lang package='Template/Default/Appconfigtool'>-->文件<!--</lang>--><!--{$arrConfigfile['file']}--><br/>
+									<td><b><a href="javascript:void(0);" onclick="resizeUp('<!--{$arrConfigfile['file']|md5}-->');">[+]</a><a href="javascript:void(0);" onclick="resizeDown('<!--{$arrConfigfile['file']|md5}-->');">[-]</a></b>&nbsp;<!--<lang package='Template/Default/Appconfigtool'>-->文件<!--</lang>--><!--{$arrConfigfile['file']}--><br/>
 										<textarea id="<!--{$arrConfigfile['file']|md5=**}-->" cols="85" rows="10" name="data[<!--{$arrConfigfile['file']}-->]" style="width:95%;height:200px;font: 12px 'Courier New';"><!--{$arrConfigfile['content']}--></textarea>
 									</td>
 								</tr>
