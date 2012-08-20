@@ -214,15 +214,18 @@ class PublicController extends InitController{
 		$this->is_login();
 
 		$sTag=G::getGpc('tag');
-		$arrMenuList=UserModel::M()->getMenuList();
-		
 		if($sTag===null){
 			$sTag='';
+			
+			Core_Extend::loadCache('adminctrlmenu');
+			$this->assign('arrAdminctrlmenus',$GLOBALS['_cache_']['adminctrlmenu']);
 		}
+
+		$arrMenuList=UserModel::M()->getMenuList();
 
 		$this->assign('sMenuTag',$sTag);
 		$this->assign('arrMenuList',$arrMenuList);
-
+	
 		$this->display();
 	}
 

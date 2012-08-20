@@ -556,4 +556,20 @@ class Cache_Extend{
 		Core_Extend::saveSyscache('slide',$arrData);
 	}
 
+	public static function updateCacheAdminctrlmenu(){
+		$arrData=array();
+
+		$arrAdminctrlmenus=AdminctrlmenuModel::F('adminctrlmenu_status=?',1)->order('adminctrlmenu_sort ASC,create_dateline DESC')->getAll();
+		if(is_array($arrAdminctrlmenus)){
+			foreach($arrAdminctrlmenus as $oAdminctrlmenu){
+				$arrData[]=array(
+					'adminctrlmenu_title'=>$oAdminctrlmenu['adminctrlmenu_title'],
+					'adminctrlmenu_url'=>$oAdminctrlmenu['adminctrlmenu_url'],
+				);
+			}
+		}
+
+		Core_Extend::saveSyscache('adminctrlmenu',$arrData);
+	}
+
 }
