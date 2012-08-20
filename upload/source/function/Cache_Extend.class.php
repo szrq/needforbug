@@ -563,6 +563,7 @@ class Cache_Extend{
 		if(is_array($arrAdminctrlmenus)){
 			foreach($arrAdminctrlmenus as $oAdminctrlmenu){
 				$arrData[]=array(
+					'adminctrlmenu_id'=>$oAdminctrlmenu['adminctrlmenu_id'],
 					'adminctrlmenu_title'=>$oAdminctrlmenu['adminctrlmenu_title'],
 					'adminctrlmenu_url'=>$oAdminctrlmenu['adminctrlmenu_url'],
 				);

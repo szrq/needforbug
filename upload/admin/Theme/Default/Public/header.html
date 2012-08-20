@@ -53,3 +53,12 @@ $(document).ready(function(){
 
 <body id="main">
 <div id="DyhbAjaxResult" class="none DyhbAjaxResult">&nbsp;</div>
+<!--{script}-->
+function adminctrlmenuAdd(sUrl,sTitle){
+	Dyhb.AjaxSend(D.U('adminctrlmenu/add_url?url='+encodeURIComponent(sUrl)+'&title='+sTitle),'','',function(data,status){
+		if(status==1){
+			parent.menu.location=D.U( 'public/fmenu?title='+encodeURIComponent('<!--<lang package='Template/Default/Common'>-->首页<!--</lang>-->')+'&currentid=3&notrefershmain=1' );
+		}
+	});
+}
+<!--{/script}-->

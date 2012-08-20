@@ -9,6 +9,10 @@ class BadwordModel extends CommonModel{
 	static public function init__(){
 		return array(
 			'table_name'=>'badword',
+			'props'=>array(
+				'badword_id'=>array('readonly'=>true),
+			),
+			'attr_protected'=>'badword_id',
 			'check'=>array(
 				'badword_find'=>array(
 					array('require',Dyhb::L('待过滤的词语不能为空','__COMMON_LANG__@Model/Badword')),

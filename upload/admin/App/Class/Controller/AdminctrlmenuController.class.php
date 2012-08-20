@@ -10,54 +10,11 @@ class AdminctrlmenuController extends InitController{
 		$arrMap['adminctrlmenu_title']=array('like',"%".G::getGpc('adminctrlmenu_title')."%");
 	}
 
-	/*public function bIndex_(){
-		$arrOptionData=$GLOBALS['_option_'];
-
-		$this->assign('arrOptions',$arrOptionData);
-	}
-
-	public function update_option(){
-		$arrOptions=G::getGpc('options','P');
-		$nSlideduration=$arrOptions['slide_duration'];
-		$nSlideDelay=intval($arrOptions['slide_delay']);
-
-		if($nSlideduration<0.1 || $nSlideduration>1){
-			$_POST['options']['slide_duration']=0.3;
-		}
-
-		if($nSlideDelay<1){
-			$_POST['options']['slide_delay']=5;
-		}
-
-		$oOptionController=new OptionController();
-
-		$oOptionController->update_option();
-	}
-
-	public function bEdit_(){
-		$nId=intval(G::getGpc('id','G'));
-
-		if($this->is_system_slide($nId)){
-			$this->E(Dyhb::L('系统幻灯片无法编辑','Controller/Slide'));
-		}
-	}
-
-	public function bForeverdelete_(){
-		$sId=G::getGpc('id','G');
-
-		$arrIds=explode(',',$sId);
-		foreach($arrIds as $nId){
-			if($this->is_system_slide($nId)){
-				$this->E(Dyhb::L('系统幻灯片无法删除','Controller/Slide'));
-			}
-		}
-	}
-	
 	protected function aInsert($nId=null){
 		if(!Dyhb::classExists('Cache_Extend')){
 			require_once(Core_Extend::includeFile('function/Cache_Extend'));
 		}
-		Cache_Extend::updateCacheSlide();
+		Cache_Extend::updateCacheAdminctrlmenu();
 	}
 
 	public function afterInputChangeAjax($sName=null){
@@ -88,14 +45,66 @@ class AdminctrlmenuController extends InitController{
 		$oModel->safeInput();
 	}
 
-	public function is_system_slide($nId){
-		$nId=intval($nId);
+	public function clicknum(){
+		$nId=intval(G::getGpc('id','G'));
 
-		if($nId<=3){
-			return true;
+		if(empty($nId)){
+			return;
 		}
 
-		return false;
-	}*/
+		$oAdminctrlmenu=AdminctrlmenuModel::F('adminctrlmenu_id=?',$nId)->getOne();
+		if(empty($oAdminctrlmenu['adminctrlmenu_id'])){
+			return;
+		}
+
+		$oAdminctrlmenu->adminctrlmenu_clicknum=$oAdminctrlmenu->adminctrlmenu_clicknum+1;
+		$oAdminctrlmenu->save(0,'update');
+
+		if($oAdminctrlmenu->isError()){
+			return;
+		}
+
+		echo $oAdminctrlmenu->adminctrlmenu_clicknum;
+	}
+
+	public function add_url(){
+		$sUrl=trim(G::getGpc('url','G'));
+		$sTitle=trim(G::getGpc('title','G'));
+
+		$sUrl=parse_url($sUrl,PHP_URL_QUERY);
+
+		$oAdminctrlmenu=AdminctrlmenuModel::F('adminctrlmenu_url=? AND adminctrlmenu_internal=1',$sUrl)->getOne();
+		if(!empty($oAdminctrlmenu['adminctrlmenu_id'])){
+			if($oAdminctrlmenu->adminctrlmenu_status==1){
+				$this->E(Dyhb::L('快捷访问导航已经被添加','Controller/Adminctrlmenu'));
+			}else{
+				$oAdminctrlmenu->adminctrlmenu_status=1;
+				$oAdminctrlmenu->save(0,'update');
+
+				if($oAdminctrlmenu->isError()){
+					$oAdminctrlmenu->E($oAdminctrlmenu->getErrorMessage());
+				}else{
+					$this->aInsert();
+
+					$this->S(Dyhb::L('添加快捷访问导航成功','Controller/Adminctrlmenu'));
+				}
+			}
+		}else{
+			$oAdminctrlmenu=new AdminctrlmenuModel();
+			$oAdminctrlmenu->adminctrlmenu_title=$sTitle;
+			$oAdminctrlmenu->adminctrlmenu_url=$sUrl;
+			$oAdminctrlmenu->adminctrlmenu_internal=1;
+			$oAdminctrlmenu->adminctrlmenu_status=1;
+			$oAdminctrlmenu->save(0);
+
+			if($oAdminctrlmenu->isError()){
+				$oAdminctrlmenu->E($oAdminctrlmenu->getErrorMessage());
+			}else{
+				$this->aInsert();
+
+				$this->S(Dyhb::L('添加快捷访问导航成功','Controller/Adminctrlmenu'));
+			}
+		}
+	}
 
 }

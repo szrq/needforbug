@@ -18,7 +18,7 @@ class SlideModel extends CommonModel{
 					array('require',Dyhb::L('幻灯片图片不能为空','__COMMON_LANG__@Model/Slide')),
 					array('max_length',325,Dyhb::L('幻灯片图片最大长度为325个字符','__COMMON_LANG__@Model/Slide')),
 				),
-				'slide_img'=>array(
+				'slide_url'=>array(
 					array('require',Dyhb::L('幻灯片URL不能为空','__COMMON_LANG__@Model/Slide')),
 					array('max_length',325,Dyhb::L('幻灯片URL最大长度为325个字符','__COMMON_LANG__@Model/Slide')),
 				),
