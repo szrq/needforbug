@@ -39,7 +39,7 @@ function complete(data,status){
 
 	<section class="secondary_bar">
 		<div class="breadcrumbs_container">
-			<article class="breadcrumbs"><a href="<!--{:Dyhb::U('public/fmain')}-->"><!--<lang package='Template/Default/Common'>-->主页<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a class="current"><!--<if condition="isset( $_GET['value'] )">--><!--<lang package='__APP_ADMIN_LANG__@Template/Group'>-->编辑群组<!--</lang>--><!--<else/>--><!--<lang package='__APP_ADMIN_LANG__@Template/Group'>-->添加群组<!--</lang>--><!--</if>--></a></article>
+			<article class="breadcrumbs"><a href="<!--{:Dyhb::U('public/fmain')}-->"><!--<lang package='Template/Default/Common'>-->主页<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a class="current"><!--<if condition="isset( $_GET['value'] )">--><!--<lang package='__APP_ADMIN_LANG__@Template/Group'>-->编辑群组<!--</lang>--><!--<else/>--><!--<lang package='__APP_ADMIN_LANG__@Template/Group'>-->添加群组<!--</lang>--><!--</if>--></a> <div class="breadcrumb_divider"></div> <a href="javascript:void(0);" onclick="adminctrlmenuAdd('<!--{:__SELF__}-->','<!--<if condition="isset( $_GET['value'] )">--><!--<lang package='__APP_ADMIN_LANG__@Template/Group'>-->编辑群组<!--</lang>-->_<!--{$_GET['value']}--><!--<else/>--><!--<lang package='__APP_ADMIN_LANG__@Template/Group'>-->添加群组<!--</lang>--><!--</if>-->')" title="<!--<lang package='Template/Default/Common'>-->添加到快捷导航<!--</lang>-->">[+]</a></article>
 		</div>
 	</section>
 
