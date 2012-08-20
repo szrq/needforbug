@@ -2,7 +2,7 @@
 
 	<section class="secondary_bar">
 		<div class="breadcrumbs_container">
-			<article class="breadcrumbs"><a href="<!--{:Dyhb::U('public/fmain')}-->"><!--<lang package='Template/Default/Common'>-->主页<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a class="current"><!--<lang package='Template/Default/Pm'>-->短消息列表<!--</lang>--></a></article>
+			<article class="breadcrumbs"><a href="<!--{:Dyhb::U('public/fmain')}-->"><!--<lang package='Template/Default/Common'>-->主页<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a class="current"><!--<lang package='Template/Default/Pm'>-->短消息列表<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a href="javascript:void(0);" onclick="adminctrlmenuAdd('<!--{:__SELF__}-->','<!--<lang package='Template/Default/Pm'>-->短消息列表<!--</lang>-->')" title="<!--<lang package='Template/Default/Common'>-->添加到快捷导航<!--</lang>-->">[+]</a></article>
 		</div>
 	</section>
 
@@ -80,7 +80,6 @@
 								<!--{d*else}-->
 								<a href="javascript:resume('<!--{$value:pm_id}-->')"><input type="image" src="<!--{:__TMPLPUB__}-->/Images/icn_jump_back.png" title="<!--<lang package='Template/Default/Common'>-->恢复<!--</lang>-->"></a>
 								<!--{/if}-->
-								&nbsp;<a href="javascript:edit('<!--{$value:pm_id}-->')"><input type="image" src="<!--{:__TMPLPUB__}-->/Images/icn_edit.png" title="<!--<lang package='Template/Default/Common'>-->编辑<!--</lang>-->"></a>
 							</td>
 						</tr>
 						<!--</foreach>-->

@@ -2,7 +2,7 @@
 
 	<section class="secondary_bar">
 		<div class="breadcrumbs_container">
-			<article class="breadcrumbs"><a href="<!--{:Dyhb::U('public/fmain')}-->"><!--<lang package='Template/Default/Common'>-->主页<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a class="current"><!--<lang package='Template/Default/App'>-->应用列表<!--</lang>--></a></article>
+			<article class="breadcrumbs"><a href="<!--{:Dyhb::U('public/fmain')}-->"><!--<lang package='Template/Default/Common'>-->主页<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a class="current"><!--<lang package='Template/Default/App'>-->应用列表<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a href="javascript:void(0);" onclick="adminctrlmenuAdd('<!--{:__SELF__}-->','<!--<lang package='Template/Default/App'>-->应用列表<!--</lang>-->')" title="<!--<lang package='Template/Default/Common'>-->添加到快捷导航<!--</lang>-->">[+]</a></article>
 		</div>
 	</section>
 
@@ -87,9 +87,9 @@
 								<a href="<!--{:Dyhb::U('app/disable?id='.$value['app_id'])}-->"><!--<lang package='Template/Default/App'>-->关闭<!--</lang>--></a>
 								<!--{d*else}-->
 								<a href="<!--{:Dyhb::U('app/enable?id='.$value['app_id'])}-->"><!--<lang package='Template/Default/App'>-->开启<!--</lang>--></a>
-								<!--{/if}-->
+								<!--{/if}-->&nbsp;
 								<!--{if Dyhb+C('APP_DEVELOP')}-->
-								<a href="<!--{:Dyhb::U('app/edit?id='.$value['app_id'])}-->"><!--<lang package='Template/Default/App'>-->设计<!--</lang>--></a>
+								<a href="<!--{:Dyhb::U('app/edit?id='.$value['app_id'])}-->"><!--<lang package='Template/Default/App'>-->设计<!--</lang>--></a>&nbsp;
 								<!--{/if}-->
 								<!--{if $value['app_identifier']!='home'}-->
 								<a href="<!--{:Dyhb::U('installapp/uninstall_app?name='.$value['app_identifier'])}-->"><!--<lang package='Template/Default/App'>-->卸载<!--</lang>--></a>

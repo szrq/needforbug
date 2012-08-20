@@ -559,7 +559,7 @@ class Cache_Extend{
 	public static function updateCacheAdminctrlmenu(){
 		$arrData=array();
 
-		$arrAdminctrlmenus=AdminctrlmenuModel::F('adminctrlmenu_status=?',1)->order('adminctrlmenu_sort ASC,create_dateline DESC')->getAll();
+		$arrAdminctrlmenus=AdminctrlmenuModel::F('adminctrlmenu_status=?',1)->order('adminctrlmenu_sort ASC,create_dateline ASC')->getAll();
 		if(is_array($arrAdminctrlmenus)){
 			foreach($arrAdminctrlmenus as $oAdminctrlmenu){
 				$arrData[]=array(

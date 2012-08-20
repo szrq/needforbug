@@ -59,7 +59,7 @@ function menuClicknum(nMenuId){
 						and strtolower( $sNodeName ) neq 'public'
 						and strtolower( $sNodeName ) neq 'index'
 						and $value['node_access']==1" >-->
-				<li class=''><a onClick="refreshmainframe('<!--{:Dyhb::U($sNodeName.'/index')}-->');currentClass(<!--{$nIndex}-->);return false;" href="<!--{:Dyhb::U($sNodeName.'/index')}-->"><!--{$value['node_title']}--></a></li>
+				<li class=''><a onClick="refreshmainframe('<!--{:Dyhb::U($sNodeName.'/index')}-->');currentClass(<!--{$nIndex}-->);return false;" href="javascript:void(0);"><!--{$value['node_title']}--></a></li>
 				<!--{~$nIndex++}-->
 				<!--</if>-->
 				<!--</foreach>-->

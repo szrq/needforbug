@@ -14,7 +14,7 @@ function refreshDistrict(province,city,district){
 
 	<section class="secondary_bar">
 		<div class="breadcrumbs_container">
-			<article class="breadcrumbs"><a href="<!--{:Dyhb::U('public/fmain')}-->"><!--<lang package='Template/Default/Common'>-->主页<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a class="current"><!--<lang package='Template/Default/District'>-->地区列表<!--</lang>--></a></article>
+			<article class="breadcrumbs"><a href="<!--{:Dyhb::U('public/fmain')}-->"><!--<lang package='Template/Default/Common'>-->主页<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a class="current"><!--<lang package='Template/Default/District'>-->地区列表<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a href="javascript:void(0);" onclick="adminctrlmenuAdd('<!--{:__SELF__}-->','<!--<lang package='Template/Default/District'>-->地区列表<!--</lang>-->')" title="<!--<lang package='Template/Default/Common'>-->添加到快捷导航<!--</lang>-->">[+]</a></article>
 		</div>
 	</section>
 
@@ -64,7 +64,7 @@ function refreshDistrict(province,city,district){
 					<tbody>
 						<!--<foreach for=arrThevalues>-->
 						<tr>
-							<td><input type="checkbox" name="key" value="<!--{$value[0]}-->" <!--{if $value[0]<=45051}-->disabled="disabled"<!--{/if}-->></td>
+							<td><input type="checkbox" name="key" value="<!--{$value[0]}-->" <!--{if $TheController->is_system_district($value[0])}-->disabled="disabled"<!--{/if}-->></td>
 							<td><!--{$value[0]}--></td>
 							<td><!--{$value[1]}-->
 								<div class="row-actions">
