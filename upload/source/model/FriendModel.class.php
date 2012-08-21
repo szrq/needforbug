@@ -88,13 +88,16 @@ class FriendModel extends CommonModel{
 			$sSql="UPDATE ". FriendModel::F()->query()->getTablePrefix()."friend SET friend_direction=3 WHERE `friend_friendid`={$nUserId} AND `user_id`=".$nLoginUserId;
 			$oDb->query($sSql);
 		}
+
+		// 更新我的好友和对方的粉丝数量
+		$this->updateFriendAndFans($nLoginUserId,$nUserId);
 		
 		return true;
 	}
 	
-	public function deleteFriend($nFriendId,$nLoginUserId,$nFan=0){
+	public function deleteFriend($nFriendId,$nLoginUserId,$nFan=0){/* $nFan=1 表示解除粉丝 */
 		if(empty($nFriendId)){
-			$this->E(Dyhb::L('你没有指定删除的好友','__COMMON_LANG__@Model/Friend'));
+			$this->setErrorMessage(Dyhb::L('你没有指定删除的好友','__COMMON_LANG__@Model/Friend'));
 			return false;
 		}
 
@@ -103,7 +106,7 @@ class FriendModel extends CommonModel{
 			$nFriendId=$nLoginUserId;
 			$nLoginUserId=$nTemp;
 		}
-		
+
 		$oDb=Db::RUN();
 		
 		$sSql="UPDATE ".self::F()->query()->getTablePrefix()."friend SET friend_status=0,friend_direction=1 WHERE `friend_friendid`={$nFriendId} AND `user_id`=".$nLoginUserId;
@@ -111,18 +114,24 @@ class FriendModel extends CommonModel{
 
 		$sSql="UPDATE ".self::F()->query()->getTablePrefix()."friend SET friend_direction=1 WHERE `friend_friendid`={$nLoginUserId} AND `user_id`=".$nFriendId;
 		$oDb->query($sSql);
+
+		if($nFan){// 更新我的粉丝数量和对方好友数量
+			$this->updateFriendAndFans($nLoginUserId,$nFriendId);
+		}else{// 更新我的好友和对方的粉丝数量
+			$this->updateFriendAndFans($nLoginUserId,$nFriendId);
+		}
 		
 		return true;
 	}
 	
 	public function editFriendComment($nFriendId,$nLoginUserId,$sComment,$nFan=0){
 		if(empty($nFriendId)){
-			$this->E(Dyhb::L('你没有指定好友ID','__COMMON_LANG__@Model/Friend'));
+			$this->setErrorMessage(Dyhb::L('你没有指定好友ID','__COMMON_LANG__@Model/Friend'));
 			return false;
 		}
 		
 		if(strlen($sComment)>255){
-			$this->E(Dyhb::L('好友注释的字符数最多为255','__COMMON_LANG__@Model/Friend'));
+			$this->setErrorMessage(Dyhb::L('好友注释的字符数最多为255','__COMMON_LANG__@Model/Friend'));
 			return false;
 		}
 
@@ -181,6 +190,30 @@ class FriendModel extends CommonModel{
 			return $arrUserId;
 		}else{
 			return array();
+		}
+	}
+
+	public function updateFriendAndFans($nLoginUserId,$nFriendId){
+		// 更新我的好友数量
+		$nFriendCounts=FriendModel::F('user_id=? AND friend_status=1',$nLoginUserId)->all()->getCounts();
+		$oUserCount=UsercountModel::F('user_id=?',$nLoginUserId)->getOne();
+		$oUserCount->usercount_friends=$nFriendCounts;
+		$oUserCount->save(0,'update');
+
+		if($oUserCount->isError()){
+			$this->setErrorMessage($oUserCount->getErrorMessage());
+			return false;
+		}
+
+		// 更新对方的粉丝数量
+		$nHefanCounts=FriendModel::F('friend_friendid=? AND friend_status=1',$nFriendId)->all()->getCounts();
+		$oUserCount=UsercountModel::F('user_id=?',$nFriendId)->getOne();
+		$oUserCount->usercount_fans=$nHefanCounts;
+		$oUserCount->save(0,'update');
+
+		if($oUserCount->isError()){
+			$this->setErrorMessage($oUserCount->getErrorMessage());
+			return false;
 		}
 	}
 
