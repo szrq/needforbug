@@ -62,7 +62,7 @@ class PublicController extends InitController{
 			Dyhb::L('查看最新版本','Controller/Public')."</a>&nbsp;"."<a href=\"http://doyouhaobaby.net\" target=\"_blank\">".
 			Dyhb::L('专业支持与服务','Controller/Public')."</a>",
 			'DoYouHaoBaby'.Dyhb::L('版本','Controller/Public')=>DYHB_VERSION.
-			' [ <a href="http://bbs.doyouhaobaby.net" target="_blank">'.Dyhb::L('查看最新版本','Controller/Public').'</a> ] &nbsp;'.
+			' [ <a href="http://bbs.doyouhaobaby.net" target="_blank">'.Dyhb::L('查看最新版本','Controller/Public').'</a> <span id="newest_version">'.Dyhb::L('读取中','Controller/Public').'...</span>] &nbsp;'.
 			Dyhb::L('DoYouHaoBaby 是一款性能卓越的PHP 开发框架','Controller/Public').' <img src="'.__FRAMEWORK__.'/dyhb-powered.png" />',
 		);
 		$this->assign('arrVersionInfo',$arrVersionInfo);
@@ -74,6 +74,11 @@ class PublicController extends InitController{
 			$sCopyTxt=nl2br(file_get_contents(NEEDFORBUG_PATH."/ucontent/admin/LICENSE.txt"));
 		}
 		$this->assign('sCopyTxt',$sCopyTxt);
+		
+		$sUpdateUrl=__PUBLIC__.'/update.php?version='.urlencode(NEEDFORBUG_SERVER_VERSION).
+			'&release='.urlencode(NEEDFORBUG_SERVER_RELEASE).'&hostname='.
+			urlencode($_SERVER['HTTP_HOST']).'&url='.urlencode($GLOBALS['_option_']['site_name']);
+		$this->assign('sUpdateUrl',$sUpdateUrl);
 
 		$this->display();
 	}
@@ -84,8 +89,6 @@ class PublicController extends InitController{
 		if($arrUserData!==false){
 			UserModel::M()->replaceSession($arrUserData['session_hash'],$arrUserData['user_id'],isset($arrUserData['session_auth_key'])?$arrUserData['session_auth_key']:'');
 			UserModel::M()->logout();
-
-			$GLOBALS['___login___']=false;
 		}
 		UserModel::M()->clearThisCookie();
 
@@ -216,18 +219,15 @@ class PublicController extends InitController{
 		$this->is_login();
 
 		$sTag=G::getGpc('tag');
+		$arrMenuList=UserModel::M()->getMenuList();
+		
 		if($sTag===null){
 			$sTag='';
-			
-			Core_Extend::loadCache('adminctrlmenu');
-			$this->assign('arrAdminctrlmenus',$GLOBALS['_cache_']['adminctrlmenu']);
 		}
-
-		$arrMenuList=UserModel::M()->getMenuList();
 
 		$this->assign('sMenuTag',$sTag);
 		$this->assign('arrMenuList',$arrMenuList);
-	
+
 		$this->display();
 	}
 
