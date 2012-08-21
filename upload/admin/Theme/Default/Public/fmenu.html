@@ -28,6 +28,12 @@
 		</div>
 	</section>
 
+	<!--{script}-->
+	function menuClicknum(nMenuId){
+		Dyhb.Ajax.Get(D.U('adminctrlmenu/clicknum?id='+nMenuId));
+	}
+	<!--{/script}-->
+
 	<aside id="sidebar" class="column">
 		<div id="sidemenu">
 			<!--[if IE 7]><!--><!--<![endif]-->
@@ -38,7 +44,10 @@
 				<li class=''><a onClick="refreshmainframe('<!--{:Dyhb::U('public/fmain')}-->');currentClass(0);return false;" href="<!--{:Dyhb::U('public/fmain')}-->"><!--<lang package='Template/Default/Common'>-->管理中心主页<!--</lang>--></a></li>
 				<li class=''><a onClick="refreshmainframe('<!--{:Dyhb::U('public/program_update')}-->');currentClass(1);return false;" href="<!--{:Dyhb::U('public/program_update')}-->"><!--<lang package='Template/Default/Common'>-->程序升级<!--</lang>--><span id="update_num" >&nbsp;</span></a></li>
 				<li class=''><a onClick="refreshmainframe('<!--{:Dyhb::U('public/profile')}-->');currentClass(2);return false;" href="<!--{:Dyhb::U('public/profile')}-->"><!--<lang package='Template/Default/Common'>-->个人中心<!--</lang>--></a></li>
-				<li class=''><a onClick="refreshmainframe('<!--{:Dyhb::U('public/custommenu')}-->');currentClass(3);return false;" href="<!--{:Dyhb::U('public/custommenu')}-->"><!--<lang package='Template/Default/Common'>-->常用操作管理<!--</lang>--></a></li>
+				<li class=''><a onClick="refreshmainframe('<!--{:Dyhb::U('adminctrlmenu/index')}-->');currentClass(3);return false;" href="<!--{:Dyhb::U('adminctrlmenu/index')}-->"><!--<lang package='Template/Default/Common'>-->常用操作管理<!--</lang>--></a></li>
+				<!--<foreach for=arrAdminctrlmenus key=nAdminctrlmenu value=arrAdminctrlmenu>-->
+				<li class=''><a onClick="refreshmainframe('<!--{:__APP__}-->?<!--{$arrAdminctrlmenu['adminctrlmenu_url']}-->');currentClass(<!--{$nAdminctrlmenu+4}-->);menuClicknum(<!--{$arrAdminctrlmenu['adminctrlmenu_id']}-->);return false;" href="<!--{:__APP__}-->?<!--{$arrAdminctrlmenu['adminctrlmenu_url']}-->"><!--{$arrAdminctrlmenu['adminctrlmenu_title']}--></a></li>
+				<!--</foreach>-->
 				<!--</if>-->
 				<!--<assign name='nIndex' value="0" />-->
 				<!--<foreach for=arrMenuList >-->
