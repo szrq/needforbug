@@ -253,6 +253,23 @@ class PublicController extends InitController{
 		$oOptionController->update_option();
 	}
 
+	public function close_updateinfo(){
+		$oOptionModel=OptionModel::F('option_name=?','programeupdate_on')->getOne();
+		$oOptionModel->option_value=0;
+		$oOptionModel->save(0,'update');
+		
+		if($oOptionModel->isError()){
+			$this->E($oOptionModel->getErrorMessage());
+		}
+
+		if(!Dyhb::classExists('Cache_Extend')){
+			require_once(Core_Extend::includeFile('function/Cache_Extend'));
+		}
+		Cache_Extend::updateCache('option');
+
+		$this->S(Dyhb::L('升级提醒信息成功关闭','Controller/Public'));
+	}
+
 	public function profile(){
 		$arrUserData=$GLOBALS['___login___'];
 		$sUserName=isset($arrUserData['user_nikename']) && $arrUserData['user_nikename']?$arrUserData['user_nikename']:$arrUserData['user_name'];

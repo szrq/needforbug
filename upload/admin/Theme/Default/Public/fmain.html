@@ -1,5 +1,18 @@
 <!--<include file="public+header">-->
 
+<!--<if condition="$GLOBALS['_option_']['programeupdate_on'] eq 1">-->
+<!--{script}-->
+function closeUpdateinfo(){
+	Dyhb.AjaxSend(D.U('public/close_updateinfo'),'ajax=1','',function(data,status){
+		if(status==1){
+			parent.menu.location=D.U( 'public/fmenu?title='+encodeURIComponent('<!--<lang package='Template/Default/Common'>-->首页<!--</lang>-->')+'&notrefershmain=1' );
+			setTimeout("window.location.reload();",1000);
+		}
+	});
+}
+<!--{/script}-->
+<!--</if>-->
+
 	<section class="secondary_bar">
 		<div class="breadcrumbs_container">
 			<article class="breadcrumbs"><a href="<!--{:Dyhb::U('public/fmain')}-->"><!--<lang package='Template/Default/Common'>-->主页<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a class="current"><!--<lang package='Template/Default/Public'>-->系统信息<!--</lang>--></a></article>
@@ -13,6 +26,7 @@
 			<header><h3><legend id="news_title"><!--<lang package='Template/Default/Public'>-->读取中<!--</lang>-->...</legend></h3></header>
 			<div class="module_content">
 				<p><div id="news_content" class="alertmsg"><!--<lang package='Template/Default/Public'>-->读取中<!--</lang>-->...</div></p>
+				<p><!--<lang package='Template/Default/Public'>-->如果不想看到升级信息，请点击这里<!--</lang>-->&nbsp;<a href="javascript:void(0);" onclick="closeUpdateinfo();"><!--<lang package='Template/Default/Public'>-->关闭升级提醒<!--</lang>--></a></p>
 			</div>
 		</article>
 		</div>

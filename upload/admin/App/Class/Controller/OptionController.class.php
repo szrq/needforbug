@@ -26,6 +26,10 @@ class OptionController extends InitController{
 			$oOptionModel=OptionModel::F('option_name=?',$sKey)->getOne();
 			$oOptionModel->option_value=$val;
 			$oOptionModel->save(0,'update');
+			
+			if($oOptionModel->isError()){
+				$this->E($oOptionModel->getErrorMessage());
+			}
 		}
 
 		if(!Dyhb::classExists('Cache_Extend')){
