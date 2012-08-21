@@ -78,7 +78,7 @@ section.sidemenu_div {height: 38px;width: 100%;background: #F1F1F4 url(../Images
 #sidemenu{margin-left:0px;}
 #sidemenu li{position:relative;list-style:none;list-style: none; padding: 0;width:120px;}
 #sidemenu li a{padding:5px;width:120px;border-bottom:1px solid #ccc;text-decoration:none;height:25px;display:block;text-align:center;line-height:25px;color: #666666;}
-#sidemenu li a:hover,#sidemenu li.active a{background:#F8F8F8;text-decoration: underline;}
+#sidemenu li a:hover,#sidemenu li.active a{background:#F8F8F8;text-decoration: none;}
 #sidemenu ul{position:absolute;top:36px;left:0px;clear: both;margin: 0; padding: 0;}
 #sidemenu table{position:absolute;top:0;left:0;}
 
@@ -224,3 +224,8 @@ a.big-button:hover{text-decoration:none;color:#000;}
  #pagenav a:active {color: #fff; background-image: none; background-color: #77BACE;border: #000 1px solid;}
  #pagenav span.current {font-weight: bold;color: #77BACE;background-color: #eee; border: #77BACE 2px solid;padding:2px 6px 2px 6px; margin-right: 3px; -moz-border-radius: 2px;-khtml-border-radius: 2px;-webkit-border-radius: 2px;border-radius: 2px;}
  #pagenav span.disabled {color: #77BACE; background-color: #f5f5f5; border: #eee 1px solid;padding:2px 6px 2px 6px;margin-right: 3px; -moz-border-radius: 2px;-khtml-border-radius: 2px;-webkit-border-radius: 2px;border-radius: 2px;}
+
+/**===============================
+           升级提醒
+================================*/
+.update_num {margin-left:2px;padding:1px 5px 0px 6px;color:#77BACE;font-weight:bold;background-color:white;-webkit-border-radius:8px;-moz-border-radius:8px;border-radius:8px;}

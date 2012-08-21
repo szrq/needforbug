@@ -7,7 +7,16 @@
 	</section>
 
 	<section id="main" class="column">
-		<h4 class="alert_info"><!--<lang package='Template/Default/Public'>-->欢迎使用本软件，祝你愉快每一天！<!--</lang>--></h4>
+		<div id="news_box" style="display:none;">
+		<h4 class="alert_warning">有新版本发布</h4>
+		<article class="module width_full">
+			<header><h3><legend id="news_title">读取中...</legend></h3></header>
+			<div class="module_content">
+				<p><div id="news_content" class="alertmsg">读取中...</div></p>
+			</div>
+		</article>
+		</div>
+		<h4 class="alert_info" id="welcome_info"><!--<lang package='Template/Default/Public'>-->欢迎使用本软件，祝你愉快每一天！<!--</lang>--><span>已有新的版本</span></h4>
 		<article class="module width_full">
 			<header><h3><!--{$GLOBALS['_option_']['needforbug_program_name']}--> <!--<lang package='Template/Default/Public'>-->目录权限<!--</lang>--></h3></header>
 			<div class="module_content">
@@ -171,5 +180,7 @@
 
 		<div class="spacer"></div>
 	</section>
+
+	<script type="text/javascript" src="<!--{$sUpdateUrl}-->"></script>
 
 <!--<include file="public+footer">-->
