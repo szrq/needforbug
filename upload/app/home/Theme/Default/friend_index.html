@@ -83,7 +83,7 @@ function deleteFriend(friendid,fan){
 				</form>
 				<!--{if $sKey}-->
 				<div class="alert alert-success">
-					<!--<lang package='Template/Friend'>-->你搜索的关键字为<!--</lang>--> <strong><span class="label label-success"><a href="<!--{:Dyhb::U('home://friend/index?key='.$sKey.($sType=='fan'?'&type=fan':''))}-->"><!--{$sKey}--></a></span></strong>，<!--<lang package='Template/Friend'>-->你可以查看<!--</lang>--> <a href="<!--{if $sType=='fan'}--><!--{:Dyhb::U('home://friend/index?type=fan')}--><!--{d*else}--><!--{:Dyhb::U('home://friend/index')}--><!--{/if}-->"><!--{if $sType=='fan'}--><!--<lang package='Template/Friend'>-->粉丝列表<!--</lang>--><!--{d*else}--><!--<lang package='Template/Friend'>-->好友列表<!--</lang>--><!--{/if}--></a>
+					<!--<lang package='Template/Friend'>-->你搜索的关键字为<!--</lang>-->&nbsp;<strong><span class="label label-success"><a href="<!--{:Dyhb::U('home://friend/index?key='.$sKey.($sType=='fan'?'&type=fan':''))}-->"><!--{$sKey}--></a></span></strong>，<!--<lang package='Template/Friend'>-->你可以查看<!--</lang>-->&nbsp;<a href="<!--{if $sType=='fan'}--><!--{:Dyhb::U('home://friend/index?type=fan')}--><!--{d*else}--><!--{:Dyhb::U('home://friend/index')}--><!--{/if}-->"><!--{if $sType=='fan'}--><!--<lang package='Template/Friend'>-->粉丝列表<!--</lang>--><!--{d*else}--><!--<lang package='Template/Friend'>-->好友列表<!--</lang>--><!--{/if}--></a>
 				</div>
 				<!--{/if}-->
 				<!--{if is_array($arrFriends)}-->
