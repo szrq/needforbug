@@ -228,4 +228,4 @@ a.big-button:hover{text-decoration:none;color:#000;}
 /**===============================
            升级提醒
 ================================*/
-.update_num {margin-left:2px;padding:1px 5px 0px 6px;color:#77BACE;font-weight:bold;background-color:white;-webkit-border-radius:8px;-moz-border-radius:8px;border-radius:8px;}
+.update_num {margin-left:2px;padding:1px 5px 0px 6px;color:white;font-weight:bold;background-color:#77BACE;-webkit-border-radius:8px;-moz-border-radius:8px;border-radius:8px;}

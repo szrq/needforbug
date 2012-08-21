@@ -236,9 +236,21 @@ class PublicController extends InitController{
 	}
 
 	public function program_update(){
-		// 待做
+		$sUpdateUrl=__PUBLIC__.'/update.php?version='.urlencode(NEEDFORBUG_SERVER_VERSION).
+			'&release='.urlencode(NEEDFORBUG_SERVER_RELEASE).'&hostname='.
+			urlencode($_SERVER['HTTP_HOST']).'&url='.urlencode($GLOBALS['_option_']['site_name']).'&infolist=1';
+		$this->assign('sUpdateUrl',$sUpdateUrl);
+
+		$arrOptionData=$GLOBALS['_option_'];
+		$this->assign('arrOptions',$arrOptionData);
 
 		$this->display();
+	}
+	
+	public function programeupdate_option(){
+		$oOptionController=new OptionController();
+
+		$oOptionController->update_option();
 	}
 
 	public function profile(){
@@ -252,5 +264,6 @@ class PublicController extends InitController{
 	public function custommenu(){
 		echo 'Hello world!';
 	}
+
 
 }
