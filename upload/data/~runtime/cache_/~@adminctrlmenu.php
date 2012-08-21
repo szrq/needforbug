@@ -1,1 +1,0 @@
-<?php die(); ?>a:1:{i:0;a:3:{s:16:"adminctrlmenu_id";s:2:"37";s:19:"adminctrlmenu_title";s:12:"主页入口";s:17:"adminctrlmenu_url";s:20:"c=app&a=config&id=42";}}

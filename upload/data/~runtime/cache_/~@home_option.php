@@ -1,1 +1,0 @@
-<?php die(); ?>a:9:{s:17:"homehelp_list_num";s:2:"10";s:18:"homefresh_list_num";s:2:"15";s:28:"homefresh_list_substring_num";s:3:"500";s:13:"user_list_num";s:2:"10";s:15:"friend_list_num";s:2:"10";s:19:"my_friend_limit_num";s:1:"6";s:11:"pm_list_num";s:1:"5";s:21:"pm_list_substring_num";s:3:"200";s:18:"pm_single_list_num";s:2:"10";}

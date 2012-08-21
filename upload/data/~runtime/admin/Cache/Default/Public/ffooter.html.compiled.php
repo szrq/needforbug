@@ -1,2 +1,0 @@
-<?php  /* DoYouHaoBaby Framework 模板缓存文件 生成时间：2012-08-21 00:10:30  */ ?>
-<?php $this->includeChildTemplate(TEMPLATE_PATH.'/Public/ffheader.html');?><footer id="footer" class="footer"><p>Copyright&nbsp;&copy;&nbsp;<?php echo($GLOBALS['_option_']['needforbug_program_year']);?>&nbsp;<a target="_blank" href="<?php echo($GLOBALS['_option_']['needforbug_program_url']);?>"><?php echo($GLOBALS['_option_']['needforbug_program_name']);?></a></p></footer><?php $this->includeChildTemplate(TEMPLATE_PATH.'/Public/fffooter.html');?>
