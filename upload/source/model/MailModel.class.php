@@ -40,69 +40,88 @@ class MailModel extends CommonModel{
 	}
 
 	public function getMailConnect(){
-		$sServer=OptionModel::getOption('mailserver');
-		$sAuthUsername=OptionModel::getOption('mailauth_username');
-		$sAuthPassword=OptionModel::getOption('mailauth_password');
-		$nPort=OptionModel::getOption('mailport');
-		$sEmailSendType=OptionModel::getOption('mailsend');
-		$nMailDelimiter=OptionModel::getOption('maildelimiter');
-		$sEmailFrom=OptionModel::getOption('mailfrom');
-		if(empty($sEmailFrom)){
-			$sEmailFrom=OptionModel::getOption('maildefault');
+		// 取得邮件配置信息
+		$sMailServer=$GLOBALS['_option_']['mail_server'];
+		$sMailAuthUsername=$GLOBALS['_option_']['mail_auth_username'];
+		$sMailAuthPassword=$GLOBALS['_option_']['mail_auth_password'];
+		$nMailPort=$GLOBALS['_option_']['mail_port'];
+		$nMailSendtype=$GLOBALS['_option_']['mail_sendtype'];
+		$nMailDelimiter=$GLOBALS['_option_']['mail_delimiter'];
+		$sMailFrom=$GLOBALS['_option_']['mail_from'];
+
+		if(empty($sMailFrom)){
+			$sMailFrom=$GLOBALS['_option_']['mail_default'];
 		}
+
 		if(!in_array($nMailDelimiter,array(0,1,2))){
 			$nMailDelimiter=0;
 		}
-		if(empty($nPort)){
-			$nPort=25;
+
+		if(empty($nMailPort)){
+			$nMailPort=25;
 		}
-		if($sEmailSendType==1){
-			$sEmailSendType=Mail::PHP_MAIL;
+
+		if($nMailSendtype==1){
+			$nMailSendtype=Mail::PHP_MAIL;
+		}elseif($nMailSendtype==2){
+			$nMailSendtype=Mail::SOCKET_SMTP;
+		}elseif($nMailSendtype==3){
+			$nMailSendtype=Mail::PHP_SMTP;
+		}else{
+			$nMailSendtype=Mail::SOCKET_SMTP;
 		}
-		elseif($sEmailSendType==2){
-			$sEmailSendType=Mail::SOCKET_SMTP;
+
+		$oMailConnect=new Mail($sMailServer,$sMailAuthUsername,$sMailAuthPassword,$nMailPort,$nEmailSendtype );
+		$oMailConnect->setEmailLimiter($nMailDelimiter );
+		$oMailConnect->setEmailFrom($sMailFrom );
+
+		$sSiteName=$GLOBALS['_option_']['site_name'];
+		if(!empty($sSiteName)){
+			$oMailConnect->setSiteName($sSiteName);
 		}
-		elseif($sEmailSendType==3){
-			$sEmailSendType=Mail::PHP_SMTP;
-		}
-		else{
-			$sEmailSendType=Mail::SOCKET_SMTP;
-		}
-		$oMail=new Mail($sServer,$sAuthUsername,$sAuthPassword,$nPort,$sEmailSendType );
-		$oMail->setEmailLimiter($nMailDelimiter );
-		$oMail->setEmailFrom($sEmailFrom );// 邮件来源
-		$oBlogName=OptionModel::getOption('blog_name');
-		if(!empty($oBlogName)){
-			$oMail->setSiteName($oBlogName);
-		}
-		return $oMail;
+
+		return $oMailConnect;
 	}
 
-	public function sendAEmail($oMailSend,$sEmailTo,$sEmailSubject,$sEmailMessage,$sEmailApplication='blog',$bSave=true){
-		$oMailSend->setEmailTo($sEmailTo );// 邮件去向
-		$oMailSend->setEmailSubject($sEmailSubject );// 邮件主题
-		$oMailSend->setEmailMessage($sEmailMessage ,$oMailSend);// 邮件消息
+	public function sendAEmail(Mail $oMailConnect,$sMailTo,$sMailSubject,$sMailMessage,$sMailApplication='home',$bSave=true){
+		// 设置邮件发送信息
+		$oMailConnect->setEmailTo($sMailTo);
+		$oMailConnect->setEmailSubject($sMailSubject );
+		$oMailConnect->setEmailMessage($sMailMessage);
+		
+		// 保存邮件到服务器
 		if($bSave===true){
 			$oMail=new MailModel();
-			$oMail->mail_subject=$sEmailSubject;
-			$oMail->mail_message=$sEmailMessage;
-			$oMail->mail_application=$sEmailApplication;
-			$oMail->mail_htmlon=$oMailSend->getIsHtml()===true?1:0;
-			$oMail->mail_frommail=$oMailSend->getEmailFrom();
-			$oMail->mail_tomail=$sEmailTo;
-			$oMail->mail_charset=$oMailSend->getCharset();
+			$oMail->mail_subject=$sMailSubject;
+			$oMail->mail_message=$sMailMessage;
+			$oMail->mail_application=$sMailApplication;
+			$oMail->mail_htmlon=$oMailConnect->getIsHtml()===true?1:0;
+			$oMail->mail_frommail=$oMailConnect->getEmailFrom();
+			$oMail->mail_tomail=$sMailTo;
+			$oMail->mail_charset=$oMailConnect->getCharset();
 		}
-		$oMailSend->send();
+
+		// 发送邮件
+		$oMailConnect->send();
+
 		if($oMailSend->isError()){
 			if($bSave===true){
-				$oMail->mail_isfailure=1;
-				$oMail->save();
+				$oMail->mail_status=0;
+				$oMail->save(0,'update');
+
+				if($oMail->isError()){
+					$this->setErrorMessage($oMail->getErrorMessage());
+				}
 			}
+
 			$this->setErrorMessage($oMailSend->getErrorMessage());
-		}
-		else{
+		}else{
 			if($bSave===true){
-				$oMail->save();
+				$oMail->save(0,'update');
+
+				if($oMail->isError()){
+					$this->setErrorMessage($oMail->getErrorMessage());
+				}
 			}
 		}
 	}

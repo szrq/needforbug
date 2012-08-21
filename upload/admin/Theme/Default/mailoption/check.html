@@ -1,0 +1,79 @@
+<!--<include file="public+header" />-->
+
+<!--{script}-->
+function option(){
+	$("#submit_button").attr("disabled", "disabled");
+	$("#submit_button").val( 'update...' );
+	$("#submit_button").attr("disabled", false);
+}
+
+function mailCheck(){
+	var sTestmailfrom=$("#test_mail_from").val();
+	if(sTestmailfrom==''){
+		sTestmailfrom='none';
+	}
+
+	var sTestmailto=$("#test_mail_to").val();
+	if(sTestmailto==''){
+		needforbugAlert('<!--<lang package='Template/Default/Mailoption'>-->接收邮件地址不能为空<!--</lang>-->','',3);
+	}
+
+	Dyhb.AjaxSend('<!--{:Dyhb::U('mailoption/mail_check')}-->','ajax=1&from='+sTestmailfrom+'&to='+sTestmailto,'',function(data,status){
+		if(status==1){
+			needforbugAlert('<!--<lang package='Template/Default/Mailoption'>-->邮件测试成功<!--</lang>-->','',1);
+		} 
+	});
+}
+<!--{/script}-->
+
+	<section class="secondary_bar">
+		<div class="breadcrumbs_container">
+			<article class="breadcrumbs"><a href="<!--{:Dyhb::U('public/fmain')}-->"><!--<lang package='Template/Default/Common'>-->主页<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a class="current"><!--<lang package='Template/Default/Mailoption'>-->邮件检测<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a href="javascript:void(0);" onclick="adminctrlmenuAdd('<!--{:__SELF__}-->','<!--<lang package='Template/Default/Mailoption'>-->邮件检测<!--</lang>-->')" title="<!--<lang package='Template/Default/Common'>-->添加到快捷导航<!--</lang>-->">[+]</a></article>
+		</div>
+	</section>
+
+	<section id="main" class="column">
+		<article class="module width_full">
+			<header><h3><!--<lang package='Template/Default/Common'>-->操作提示<!--</lang>--></h3></header>
+			<div class="module_content">
+				<ul>
+					<li><!--<lang package='Template/Default/Mailoption'>-->本程序用于检测邮件发送是否设置正确<!--</lang>--></li>
+				</ul>
+			</div>
+		</article>
+
+	<section id="main" class="column">
+		<article class="module width_full">
+			<header><h3 class="tabs_involved"><!--<lang package='Template/Default/Mailoption'>-->邮件检测<!--</lang>--></h3>
+				<ul class="tabs">
+					<li><a href="<!--{:Dyhb::U('option/index')}-->"><!--<lang package='Template/Default/Mailoption'>-->基本设置<!--</lang>--></a></li>
+					<li class="active"><a href="<!--{:Dyhb::U('option/admin')}-->"><!--<lang package='Template/Default/Mailoption'>-->邮件检测<!--</lang>--></a></li>
+				</ul>
+			</header>
+			<form action="<!--{:Dyhb::U('mailoption/mail_check')}-->" method="post">
+				<div class="module_content">
+					<fieldset>
+						<label for="admin_email"><!--<lang package='Template/Default/Mailoption'>-->邮件发件者邮箱<!--</lang>--></label>
+						<input name="test_mail_from" id="test_mail_from" value="" type="text">
+						<div class="description"><!--<lang package='Template/Default/Mailoption'>-->这里填写邮件发送者的邮箱,如admin@admin.com，不填则为默认邮箱<!--</lang>--></div>
+					</fieldset>
+					<fieldset>
+						<label for="admin_email"><!--<lang package='Template/Default/Mailoption'>-->邮件收件者邮箱<!--</lang>--></label>
+						<input name="test_mail_from" id="test_mail_from" value="" type="text">
+						<div class="description"><!--<lang package='Template/Default/Mailoption'>-->如果要测试包含用户名的邮件地址，格式为“username <user@domain.com>”，多个邮件地址用逗号分隔<!--</lang>--></div>
+					</fieldset>
+				</div>
+				<footer>
+					<div class="submit_link">
+						<input id="submit_button" type="button" class="alt_btn" onclick="mailCheck()" name="test_mail_check" value="<!--<lang package='Template/Default/Mailoption'>-->开始测试发送邮件<!--</lang>-->" />
+						&nbsp;<input type="reset" value="<!--<lang package='Template/Default/Common'>-->重置<!--</lang>-->" />
+					</div>
+				</footer>
+			</form>
+			</div>
+		</article>
+
+		<div class="spacer"></div>
+	</section>
+
+<!--<include file="public+footer">-->
