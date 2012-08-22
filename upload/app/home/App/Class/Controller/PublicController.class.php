@@ -241,7 +241,7 @@ class PublicController extends InitController{
 			$this->E($oUser->getErrorMessage());
 		}
 
-		$sGetPasswordUrl=Dyhb::U('home://public/reset_password?email='.urlencode($sEmail).'&hash='.urlencode(str_replace('/',md5('/'),G::authcode($sTemppassword,false,null,3600))));
+		$sGetPasswordUrl=Dyhb::U('home://public/reset_password?email='.urlencode($sEmail).'&hash='.urlencode(str_replace('/',md5('/'),G::authcode($sTemppassword,false,null,$GLOBALS['_option_']['getpassword_expired']))));
 
 		$oMailModel=Dyhb::instance('MailModel');
 		$oMailConnect=$oMailModel->getMailConnect();
@@ -251,7 +251,10 @@ class PublicController extends InitController{
 		$sEmailContent=Dyhb::L('你的登录信息','Controller/Public').':'.$sNlbr;
 		$sEmailContent.='Email:'.$sEmail.$sNlbr;
 		$sEmailContent.=Dyhb::L('重置密码链接','Controller/Public').':'.$sNlbr;
-		$sEmailContent.="<a href=\"{$sGetPasswordUrl}\">{$sGetPasswordUrl}</a>";
+		$sEmailContent.="<a href=\"{$sGetPasswordUrl}\">{$sGetPasswordUrl}</a>".$sNlbr.$sNlbr;
+		$sEmailContent.="-----------------------------------------------------".$sNlbr;
+		$sEmailContent.=Dyhb::L('这是系统用于找回密码的邮件，请勿回复','Controller/Public').$sNlbr;
+		$sEmailContent.=Dyhb::L('链接过期时间','Controller/Public').':'.$GLOBALS['_option_']['getpassword_expired'].Dyhb::L('秒','__COMMON_LANG__@Common').$sNlbr;
 
 		$oMailConnect->setEmailTo($sEmail);
 		$oMailConnect->setEmailSubject($sEmailSubject);
@@ -317,6 +320,81 @@ class PublicController extends InitController{
 
 			$this->S(Dyhb::L('密码修改成功，你需要重新登录','Controller/Public'));
 		}
+	}
+
+	public function user_appeal(){
+			$this->display('public+userappeal');
+	}
+
+	public function user_appeal2(){
+			//$this->check_seccode(true);
+			$sUsername=trim(G::getGpc('user_name','P'));
+			if(Core_Extend::isPostInt($sUsername)){
+				$oUser=UserModel::F('user_id=?',$sUsername)->getOne();
+			}else{
+				$oUser=UserModel::F('user_name=?',$sUsername)->getOne();
+			}
+			if(empty($oUser->user_id)){
+			$this->E(Dyhb::L('用户名或者用户ID不存在','Controller/Public'));
+		}
+		if($oUser->user_status==0){
+			$this->E(Dyhb::L('该账户已经被禁止','Controller/Public'));
+		}
+
+		$sUserid=G::authcode($oUser['user_id'],false,null,$GLOBALS['_option_']['getpassword_expired']);
+
+		 $this->assign('sUserid',$sUserid);
+		$this->display('public+userappeal2');
+	}
+
+	public function user_appeal3(){
+		//$this->check_seccode(true);
+		
+		$sRealname=trim(G::getGpc('real_name','P'));
+		$sAddress=trim(G::getGpc('address','P'));
+		$sIdnumber=trim(G::getGpc('id_number','P'));
+		$sAppealemail=trim(G::getGpc('appeal_email','P'));
+		$sUserid=trim(G::getGpc('user_id','P'));
+		
+		if(empty($sRealname)){
+		$this->E("真实姓名不能为空");
+		}
+		if(empty($sAppealemail)){
+		$this->E("申诉结果接收邮箱不能为空");
+		}		
+		Check::RUN();
+		if(!Check::C($sAppealemail,'email')){
+			$this->E(Dyhb::L('Email格式不正确','Controller/Public'));
+		}
+		$sUserid=G::authcode($sUserid);
+		if(empty($sUserid)){
+		$this->E("页面已过期");
+		}
+		$oUser=UserModel::F('user_id=?',$sUserid)->getOne();
+		if(empty($oUser->user_id)){
+			$this->E(Dyhb::L('Email账号不存在','Controller/Public'));
+		}
+		if($oUser->user_status==0){
+			$this->E(Dyhb::L('该账户已经被禁止','Controller/Public'));
+		}
+		Dyhb::cookie('real_name',$sRealname,$GLOBALS['_option_']['getpassword_expired']);
+		Dyhb::cookie('address',$sAddress,$GLOBALS['_option_']['getpassword_expired']);
+		Dyhb::cookie('id_number',$sIdnumber,$GLOBALS['_option_']['getpassword_expired']);
+		Dyhb::cookie('appeal_email',$sAppealemail,$GLOBALS['_option_']['getpassword_expired']);
+
+		$arrAppealemail=explode('@',$sAppealemail);
+
+		$sUserid=G::authcode($oUser['user_id'],false,null,$GLOBALS['_option_']['getpassword_expired']);
+		$this->assign('sUserid',$sUserid);
+		$this->assign('sAppealemailsite',"http://".$arrAppealemail[1]);
+		$this->assign('sAppealemail',$sAppealemail);
+		$this->display('public+userappeal3');
+
+		//G::dump($sUserid);
+	}
+
+	public function user_appeal4(){
+		
 	}
 
 	public function logout(){

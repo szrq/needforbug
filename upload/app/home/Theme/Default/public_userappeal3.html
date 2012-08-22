@@ -2,17 +2,24 @@
 
 		<ul class="breadcrumb">
 			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
-			<li><!--<lang package='Template/Public'>-->找回密码<!--</lang>--></li>
+			<li><!--<lang package='Template/Public'>-->填写申诉资料<!--</lang>--></li>
 		</ul>
 		
 		<div class="row">
-			<div class="span7">
-				<form class="form-horizontal" method='post' name="getpassword_form" id="getpassword_form" action="<!--{:Dyhb::U('home://public/password_email')}-->">
+			<div class="span12">
+				<form class="form-horizontal" method='post' name="getpassword_form" id="getpassword_form" action="<!--{:Dyhb::U('home://public/user_appeal4')}-->">
 					<fieldset>
+					<h3>申诉验证码</h3>
 						<div class="control-group">
-							<label class="control-label" for="user_email">E-mail</label>
+							<label class="control-label" for="open_email"><!--<lang package='__COMMON_LANG__@Template/Public'>-->申诉验证码已发送到你的邮箱<!--</lang>--><em class="red"><!--{$sAppealemail}--></em></label>
 							<div class="controls">
-								<input class="input-xlarge" id="user_email" name="user_email" type="text" value="">
+								<input class="btn btn-success" id="open_email" name="open_email" type="button" value="打开网站<!--{$sAppealemailsite}-->"  onclick="window.open('<!--{$sAppealemailsite}-->');">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="hashcode"><!--<lang package='__COMMON_LANG__@Template/Public'>-->申诉验证码<!--</lang>--><em class="red">*</em></label>
+							<div class="controls">
+								<input class="input-xlarge" id="hashcode" name="hashcode" type="text" value="">
 							</div>
 						</div>
 						<div class="control-group">
@@ -23,15 +30,12 @@
 							</div>
 						</div>
 						<div class="form-actions">
+						<input type="hidden" value="<!--{$sUserid}-->" name="user_id"/>
 							<button type="submit" class="btn btn-success"><!--<lang package='__COMMON_LANG__@Template/Common'>-->提交<!--</lang>--></button>&nbsp;
 							<a href="<!--{:Dyhb::U('home://public/index')}-->"><!--<lang package='__COMMON_LANG__@Template/Public'>-->返回首页<!--</lang>--></a>
 						</div>
 					</fieldset>
 				</form>
-			</div>
-			<div class="span5">
-				<h3><!--<lang package='Template/Public'>-->忘记邮箱或者邮箱错误<!--</lang>--></h3>
-				<p><a href="<!--{:Dyhb::U('home://public/user_appeal')}-->" class="btn btn-success"><!--<lang package='Template/Public'>-->用户申诉<!--</lang>--></a></p>
 			</div>
 		</div><!--/row-->
 
