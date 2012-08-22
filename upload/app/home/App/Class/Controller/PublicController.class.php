@@ -395,13 +395,13 @@ class PublicController extends InitController{
 
 		$sEmailSubject=$GLOBALS['_option_']['site_name'].Dyhb::L('会员申诉验证码','Controller/Public');
 		$sNlbr=$oMailConnect->getIsHtml()===true?'<br/>':"\r\n";
-		$sEmailContent='<b>'.Dyhb::L('尊敬的用户','Controller/Public').':</b>'.$sNlbr.$sNlbr;
-		$sEmailContent.='<hr/>'.$sNlbr;
-		$sEmailContent.=Dyhb::L('你的登录信息','Controller/Public').':'.$sNlbr;
-		$sEmailContent.=Dyhb::L('用户ID','Controller/Public').':'.$oUser->user_id.$sNlbr;
-		$sEmailContent=Dyhb::L('本次申诉验证码','Controller/Public').':'.$sHashcode.$sNlbr;
-		$sEmailContent.=Dyhb::L('如果你关闭了申诉页面，你也可以点击下面的链接','Controller/Public').$sNlbr;
-		$sEmailContent.=Dyhb::L('申诉链接','Controller/Public').":<a href=\"{$sGetPasswordUrl}\">{$sGetPasswordUrl}</a>".$sNlbr.$sNlbr;
+		$sEmailContent='<b>'.Dyhb::L('尊敬的用户','Controller/Public').':</b>'.$sNlbr;
+		$sEmailContent.='-----------------------------------------------------'.$sNlbr;
+		$sEmailContent.=Dyhb::L('你的登录信息','Controller/Public').':';
+		$sEmailContent.=Dyhb::L('用户ID','Controller/Public').'('.$oUser->user_id.')'.$sNlbr;
+		$sEmailContent.=Dyhb::L('本次申诉验证码','Controller/Public').':<span style="color:red;font-weight:bold;">'.$sHashcode.'</span>'.$sNlbr;
+		$sEmailContent.=Dyhb::L('如果你关闭了申诉页面，你也可以点击下面的链接','Controller/Public').Dyhb::L('申诉链接','Controller/Public').$sNlbr;
+		$sEmailContent.="<a href=\"{$sGetPasswordUrl}\">{$sGetPasswordUrl}</a>".$sNlbr.$sNlbr;
 		$sEmailContent.="-----------------------------------------------------".$sNlbr;
 		$sEmailContent.=Dyhb::L('这是系统用于发送申诉验证码的邮件，请勿回复','Controller/Public').$sNlbr;
 		$sEmailContent.=Dyhb::L('申诉验证码过期时间','Controller/Public').':'.$GLOBALS['_option_']['getpassword_expired'].Dyhb::L('秒','__COMMON_LANG__@Common').$sNlbr;
