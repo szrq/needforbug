@@ -577,7 +577,7 @@ class Dyhb{
 
 		// 如果指定了查询参数
 		if(isset($arrArray['query'])){
-			$arrQuery =array();
+			$arrQuery=array();
 			parse_str($arrArray['query'],$arrQuery);
 			$arrParams=array_merge($arrQuery,$arrParams);
 		}
@@ -588,7 +588,7 @@ class Dyhb{
 			
 			$sStr=$sDepr;
 			foreach($arrParams as $sVar=>$sVal){
-				$sStr.=$sVar.$sDepr.$sVal.$sDepr;
+				$sStr.=$sVar.$sDepr.urlencode($sVal).$sDepr;
 			}
 			
 			// 删除末尾的分隔符
@@ -604,12 +604,16 @@ class Dyhb{
 				$sUrl.=$GLOBALS['_commonConfig_']['URL_HTML_SUFFIX'];
 			}
 		}else{
-			$arrParams= http_build_query($arrParams);
+			$sStr='';
+			foreach($arrParams as $sVar=>$sVal){
+				$sStr.=$sVar.'='.urlencode($sVal).'&';
+			}
+			$sStr=rtrim($sStr,'&');
 
 			if(empty($sRoute)){
-				$sUrl=__APP__.(APP_NAME!==$sApp?'?app='.$sApp.'&':'?').'c='.$sModule.'&a='.$sAction.($arrParams?'&'.$arrParams:'');
+				$sUrl=__APP__.(APP_NAME!==$sApp?'?app='.$sApp.'&':'?').'c='.$sModule.'&a='.$sAction.($sStr?'&'.$sStr:'');
 			}else{
-				$sUrl=__APP__.(APP_NAME!==$sApp?'?app='.$sApp.'&':'?').($sRoute?'r='.$sRoute:'').($arrParams?'&'.$arrParams:'');
+				$sUrl=__APP__.(APP_NAME!==$sApp?'?app='.$sApp.'&':'?').($sRoute?'r='.$sRoute:'').($sStr?'&'.$sStr:'');
 			}
 		}
 
