@@ -122,7 +122,7 @@ class UserModel extends CommonModel{
 				}
 
 				$arrUserData=$GLOBALS['___login___'];
-				UserModel::M()->replaceSession($arrUserData['session_hash'],$arrUserData['user_id'],$arrUserData['session_auth_key'],$arrUserData['session_seccode']);
+				UserModel::M()->replaceSession($arrUserData['session_hash'],$arrUserData['user_id'],$arrUserData['session_auth_key']);
 				UserModel::M()->logout();
 				UserModel::M()->clearThisCookie();
 			}
