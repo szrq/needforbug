@@ -327,23 +327,26 @@ class PublicController extends InitController{
 	}
 
 	public function user_appeal2(){
-			//$this->check_seccode(true);
-			$sUsername=trim(G::getGpc('user_name','P'));
-			if(Core_Extend::isPostInt($sUsername)){
-				$oUser=UserModel::F('user_id=?',$sUsername)->getOne();
-			}else{
-				$oUser=UserModel::F('user_name=?',$sUsername)->getOne();
-			}
-			if(empty($oUser->user_id)){
+		//$this->check_seccode(true);
+
+		$sUsername=trim(G::getGpc('user_name','P'));
+		if(Core_Extend::isPostInt($sUsername)){
+			$oUser=UserModel::F('user_id=?',$sUsername)->getOne();
+		}else{
+			$oUser=UserModel::F('user_name=?',$sUsername)->getOne();
+		}
+		
+		if(empty($oUser->user_id)){
 			$this->E(Dyhb::L('用户名或者用户ID不存在','Controller/Public'));
 		}
+
 		if($oUser->user_status==0){
 			$this->E(Dyhb::L('该账户已经被禁止','Controller/Public'));
 		}
 
 		$sUserid=G::authcode($oUser['user_id'],false,null,$GLOBALS['_option_']['getpassword_expired']);
+		$this->assign('sUserid',$sUserid);
 
-		 $this->assign('sUserid',$sUserid);
 		$this->display('public+userappeal2');
 	}
 
@@ -357,44 +360,134 @@ class PublicController extends InitController{
 		$sUserid=trim(G::getGpc('user_id','P'));
 		
 		if(empty($sRealname)){
-		$this->E("真实姓名不能为空");
+			$this->E(Dyhb::L('真实姓名不能为空','Controller/Public'));
 		}
+
 		if(empty($sAppealemail)){
-		$this->E("申诉结果接收邮箱不能为空");
-		}		
+			$this->E(Dyhb::L('申诉结果接收邮箱不能为','Controller/Public'));
+		}	
+		
 		Check::RUN();
 		if(!Check::C($sAppealemail,'email')){
 			$this->E(Dyhb::L('Email格式不正确','Controller/Public'));
 		}
+
 		$sUserid=G::authcode($sUserid);
 		if(empty($sUserid)){
-		$this->E("页面已过期");
+			$this->E(Dyhb::L('页面已过期','Controller/Public'));
 		}
+
 		$oUser=UserModel::F('user_id=?',$sUserid)->getOne();
 		if(empty($oUser->user_id)){
 			$this->E(Dyhb::L('Email账号不存在','Controller/Public'));
 		}
+
 		if($oUser->user_status==0){
 			$this->E(Dyhb::L('该账户已经被禁止','Controller/Public'));
 		}
-		Dyhb::cookie('real_name',$sRealname,$GLOBALS['_option_']['getpassword_expired']);
-		Dyhb::cookie('address',$sAddress,$GLOBALS['_option_']['getpassword_expired']);
-		Dyhb::cookie('id_number',$sIdnumber,$GLOBALS['_option_']['getpassword_expired']);
-		Dyhb::cookie('appeal_email',$sAppealemail,$GLOBALS['_option_']['getpassword_expired']);
+		
+		$sHashcode=G::randString(32);
+
+		$sGetPasswordUrl='xxx';
+
+		$oMailModel=Dyhb::instance('MailModel');
+		$oMailConnect=$oMailModel->getMailConnect();
+
+		$sEmailSubject=$GLOBALS['_option_']['site_name'].Dyhb::L('会员申诉验证码','Controller/Public');
+		$sNlbr=$oMailConnect->getIsHtml()===true?'<br/>':"\r\n";
+		$sEmailContent='<b>'.Dyhb::L('尊敬的用户','Controller/Public').':</b>'.$sNlbr.$sNlbr;
+		$sEmailContent.='<hr/>'.$sNlbr;
+		$sEmailContent.=Dyhb::L('你的登录信息','Controller/Public').':'.$sNlbr;
+		$sEmailContent.=Dyhb::L('用户ID','Controller/Public').':'.$oUser->user_id.$sNlbr;
+		$sEmailContent=Dyhb::L('本次申诉验证码','Controller/Public').':'.$sHashcode.$sNlbr;
+		$sEmailContent.=Dyhb::L('如果你关闭了申诉页面，你也可以点击下面的链接','Controller/Public').$sNlbr;
+		$sEmailContent.=Dyhb::L('申诉链接','Controller/Public').":<a href=\"{$sGetPasswordUrl}\">{$sGetPasswordUrl}</a>".$sNlbr.$sNlbr;
+		$sEmailContent.="-----------------------------------------------------".$sNlbr;
+		$sEmailContent.=Dyhb::L('这是系统用于发送申诉验证码的邮件，请勿回复','Controller/Public').$sNlbr;
+		$sEmailContent.=Dyhb::L('申诉验证码过期时间','Controller/Public').':'.$GLOBALS['_option_']['getpassword_expired'].Dyhb::L('秒','__COMMON_LANG__@Common').$sNlbr;
+		
+		$oMailConnect->setEmailTo($sAppealemail);
+		$oMailConnect->setEmailSubject($sEmailSubject);
+		$oMailConnect->setEmailMessage($sEmailContent);
+		$oMailConnect->send();
+		if($oMailConnect->isError()){
+			$this->E($oMailConnect->getErrorMessage());
+		}
+		
+		$sUserid=G::authcode($oUser['user_id'],false,null,$GLOBALS['_option_']['getpassword_expired']);
+		$sHashcode=G::authcode($sHashcode,false,null,$GLOBALS['_option_']['getpassword_expired']);
 
 		$arrAppealemail=explode('@',$sAppealemail);
+		$sAppealemailsite="http://".$arrAppealemail[1];
 
-		$sUserid=G::authcode($oUser['user_id'],false,null,$GLOBALS['_option_']['getpassword_expired']);
 		$this->assign('sUserid',$sUserid);
-		$this->assign('sAppealemailsite',"http://".$arrAppealemail[1]);
+		$this->assign('sHashcode',$sHashcode);
+		$this->assign('sAppealemailsite',$sAppealemailsite);
+		$this->assign('sRealname',$sRealname);
+		$this->assign('sAddress',$sAddress);
+		$this->assign('sIdnumber',$sIdnumber);
 		$this->assign('sAppealemail',$sAppealemail);
-		$this->display('public+userappeal3');
 
-		//G::dump($sUserid);
+		$this->display('public+userappeal3');
 	}
 
 	public function user_appeal4(){
+		//$this->check_seccode(true);
 		
+		$sRealname=trim(G::getGpc('real_name','P'));
+		$sAddress=trim(G::getGpc('address','P'));
+		$sIdnumber=trim(G::getGpc('id_number','P'));
+		$sAppealemail=trim(G::getGpc('appeal_email','P'));
+		$sUserid=trim(G::getGpc('user_id','P'));
+		$sHashcode=trim(G::getGpc('hashcode','P'));
+		$sOldHashcode=trim(G::getGpc('old_hashcode','P'));
+
+		$sUserid=G::authcode($sUserid);
+		if(empty($sUserid)){
+			$this->E(Dyhb::L('页面已过期','Controller/Public'));
+		}
+
+		$oUser=UserModel::F('user_id=?',$sUserid)->getOne();
+		if(empty($oUser->user_id)){
+			$this->E(Dyhb::L('Email账号不存在','Controller/Public'));
+		}
+
+		if($oUser->user_status==0){
+			$this->E(Dyhb::L('该账户已经被禁止','Controller/Public'));
+		}
+
+		if(empty($sHashcode)){
+			$this->E(Dyhb::L('申诉验证码不能为空','Controller/Public'));
+		}
+
+		$sOldHashcode=G::authcode($sOldHashcode);
+		if(empty($sOldHashcode)){
+			$this->E(Dyhb::L('申诉验证码已过期','Controller/Public'));
+		}
+
+		if($sOldHashcode!=$sHashcode){
+			$this->E(Dyhb::L('申诉验证码错误','Controller/Public'));
+		}
+
+		$sReceiptnumber=G::randString(32);
+
+		// 将申诉信息保存到数据库
+		$oAppeal=new AppealModel();
+		$oAppeal->user_id=intval($sUserid);
+		$oAppeal->appeal_realname=$sRealname;
+		$oAppeal->appeal_address=$sAddress;
+		$oAppeal->appeal_idnumber=$sIdnumber;
+		$oAppeal->appeal_email=$sAppealemail;
+		$oAppeal->appeal_receiptnumber=$sReceiptnumber;
+		$oAppeal->save(0);
+
+		if($oAppeal->isError()){
+			$this->E($oAppeal->getErrorMessage());
+		}
+
+		$this->assign('oAppeal',$oAppeal);
+
+		$this->display('public+userappeal4');
 	}
 
 	public function logout(){

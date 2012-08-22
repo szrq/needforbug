@@ -9,11 +9,12 @@
 			<div class="span12">
 				<form class="form-horizontal" method='post' name="getpassword_form" id="getpassword_form" action="<!--{:Dyhb::U('home://public/user_appeal4')}-->">
 					<fieldset>
-					<h3>申诉验证码</h3>
+						<div class="alert alert_success"><h3><!--<lang package='__COMMON_LANG__@Template/Public'>-->申诉验证码<!--</lang>--></h3></div>
 						<div class="control-group">
-							<label class="control-label" for="open_email"><!--<lang package='__COMMON_LANG__@Template/Public'>-->申诉验证码已发送到你的邮箱<!--</lang>--><em class="red"><!--{$sAppealemail}--></em></label>
+							<label class="control-label" for="open_email">&nbsp;</label>
 							<div class="controls">
-								<input class="btn btn-success" id="open_email" name="open_email" type="button" value="打开网站<!--{$sAppealemailsite}-->"  onclick="window.open('<!--{$sAppealemailsite}-->');">
+								<p><!--<lang package='__COMMON_LANG__@Template/Public'>-->申诉验证码已发送到你的邮箱<!--</lang>-->&nbsp;<em class="red"><!--{$sAppealemail}--></em></p>
+								<input class="btn btn-success" id="open_email" name="open_email" type="button" value="<!--<lang package='__COMMON_LANG__@Template/Public'>-->打开网站<!--</lang>-->&nbsp;<!--{$sAppealemailsite}-->"  onclick="window.open('<!--{$sAppealemailsite}-->');">
 							</div>
 						</div>
 						<div class="control-group">
@@ -30,7 +31,12 @@
 							</div>
 						</div>
 						<div class="form-actions">
-						<input type="hidden" value="<!--{$sUserid}-->" name="user_id"/>
+							<input type="hidden" value="<!--{$sUserid}-->" name="user_id"/>
+							<input type="hidden" value="<!--{$sHashcode}-->" name="old_hashcode"/>
+							<input type="hidden" value="<!--{$sRealname}-->" name="real_name"/>
+							<input type="hidden" value="<!--{$sAddress}-->" name="address"/>
+							<input type="hidden" value="<!--{$sIdnumber}-->" name="id_number"/>
+							<input type="hidden" value="<!--{$sAppealemail}-->" name="appeal_email"/>
 							<button type="submit" class="btn btn-success"><!--<lang package='__COMMON_LANG__@Template/Common'>-->提交<!--</lang>--></button>&nbsp;
 							<a href="<!--{:Dyhb::U('home://public/index')}-->"><!--<lang package='__COMMON_LANG__@Template/Public'>-->返回首页<!--</lang>--></a>
 						</div>
