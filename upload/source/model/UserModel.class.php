@@ -94,10 +94,12 @@ class UserModel extends CommonModel{
 		}
 	}
 
-	public function changePassword($sPassword,$sNewPassword,$sOldPassword){
-		$arrUserData=$GLOBALS['___login___'];
+	public function changePassword($sPassword,$sNewPassword,$sOldPassword,$bIgnoreOldPassword=false,$arrUserData=array(),$bResetPassword=false){
+		if(empty($arrUserData) && $bResetPassword===false){
+			$arrUserData=$GLOBALS['___login___'];
+		}
 
-		if($sOldPassword==''){
+		if($bIgnoreOldPassword===false && $sOldPassword==''){
 			$this->setErrorMessage(Dyhb::L('旧密码不能为空','__COMMON_LANG__@Model/User'));
 		}
 
@@ -109,18 +111,21 @@ class UserModel extends CommonModel{
 			$this->setErrorMessage(Dyhb::L('两次输入的密码不一致','__COMMON_LANG__@Model/User'));
 		}
 
-		UserModel::M()->changePassword($arrUserData['user_name'],$sPassword,$sOldPassword);
+		UserModel::M()->changePassword($arrUserData['user_name'],$sPassword,$sOldPassword,$bIgnoreOldPassword);
 		if(UserModel::M()->isBehaviorError()){
 			$this->setErrorMessage(UserModel::M()->getBehaviorErrorMessage());
 		}else{
-			$oUser=UserModel::F('user_id=?',$arrUserData['user_id'])->query();
-			if($oUser->isError()){
-				$this->setErrorMessage($oUser->getErrorMessage());
+			if($bResetPassword===false){
+				$oUser=UserModel::F('user_id=?',$arrUserData['user_id'])->query();
+				if($oUser->isError()){
+					$this->setErrorMessage($oUser->getErrorMessage());
+				}
+
+				$arrUserData=$GLOBALS['___login___'];
+				UserModel::M()->replaceSession($arrUserData['session_hash'],$arrUserData['user_id'],$arrUserData['session_auth_key'],$arrUserData['session_seccode']);
+				UserModel::M()->logout();
+				UserModel::M()->clearThisCookie();
 			}
-			$arrUserData=$GLOBALS['___login___'];
-			UserModel::M()->replaceSession($arrUserData['session_hash'],$arrUserData['user_id'],$arrUserData['session_auth_key'],$arrUserData['session_seccode']);
-			UserModel::M()->logout();
-			UserModel::M()->clearThisCookie();
 		}
 
 		return true;
