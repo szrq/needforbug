@@ -14,26 +14,39 @@ class MailoptionController extends OptionController{
 	}
 
 	public function check(){
+		$arrOptionData=$GLOBALS['_option_'];
+		$this->assign('arrOptions',$arrOptionData);
+
 		$this->display();
 	}
 
 	public function mail_check(){
-		$sEmailFrom=trim(G::getGpc('from','G'));
-		$sEmailTo=trim(G::getGpc('to','G'));
+		$sEmailFrom=trim(G::getGpc('test_mail_from','P'));
+		$sEmailTo=trim(G::getGpc('test_mail_to','P'));
+		$sEmailSubject=trim(G::getGpc('test_mail_subject','P'));
+		$sEmailMessage=trim(G::getGpc('test_mail_message','P'));
 
 		if(empty($sEmailTo)){
 			$this->E(Dyhb::L('邮件接收者不能为空','Controller/Mailoption'));
 		}
 
+		if(empty($sEmailSubject)){
+			$this->E(Dyhb::L('邮件测试主题不能为空','Controller/Mailoption'));
+		}
+
+		if(empty($sEmailMessage)){
+			$this->E(Dyhb::L('邮件测试内容不能为空','Controller/Mailoption'));
+		}
+
+		$sEmailSubject=Core_Extend::replaceSiteVar($sEmailSubject);
+		$sEmailMessage=str_replace("\r\n",'<br/>',Core_Extend::replaceSiteVar($sEmailMessage));
+
 		$oMailModel=Dyhb::instance('MailModel');
 		$oMailConnect=$oMailModel->getMailConnect();
 
-		if(!empty($sEmailFrom) && $sEmailFrom!='none'){
+		if(!empty($sEmailFrom)){
 			$oMailConnect->setEmailFrom($sEmailFrom);
 		}
-
-		$sEmailSubject=$this->get_email_to_test_subject();
-		$sEmailMessage=$this->get_email_to_test_message($oMailConnect);
 
 		$this->send_a_email($oMailConnect,$sEmailTo,$sEmailSubject,$sEmailMessage);
 	}
@@ -41,7 +54,7 @@ class MailoptionController extends OptionController{
 	public function send_a_email($oMailConnect,$sEmailTo,$sEmailSubject,$sEmailMessage){
 		$oMailConnect->setEmailTo($sEmailTo);
 		$oMailConnect->setEmailSubject($sEmailSubject);
-		$oMailConnect->setEmailMessage($sEmailMessage,$oMailSend);
+		$oMailConnect->setEmailMessage($sEmailMessage);
 		$oMailConnect->send();
 
 		if($oMailConnect->isError()){
@@ -49,24 +62,6 @@ class MailoptionController extends OptionController{
 		}
 
 		$this->S(Dyhb::L('邮件成功发送！注意：使用PHP 函数 Mail函数或者PHP 函数 SMTP发送，虽然显示发送成功，但不保证能够收得到邮件','Controller/Mailoption'));
-	}
-
-	public function get_email_to_test_message($oMailSend){
-		$sLine=$this->get_mail_line($oMailSend);
-		$sMessage=$this->get_email_to_test_subject()."{$sLine}";
-		$sMessage.="-----------------------------------------------------{$sLine}";
-		$sMessage.=G::L('这是系统发出的一封用于测试邮件是否设置成功的测试邮件。')."{$sLine}{$sLine}";
-		$sMessage.="-----------------------------------------------------{$sLine}";
-		$sMessage.=G::L('消息来源：').Global_Extend::getOption('blog_name')."{$sLine}";
-		$sMessage.=G::L('站点网址：').Global_Extend::getOption('blog_url')."{$sLine}";
-		$sMessage.="-----------------------------------------------------{$sLine}";
-		$sMessage.=G::L('程序支持：').Global_Extend::getOption('blog_program_name')." Blog " .BLOG_SERVER_VERSION. "  Release " .BLOG_SERVER_RELEASE."{$sLine}";
-		$sMessage.=G::L('产品官网：').Global_Extend::getOption('blog_program_url')."{$sLine}";
-		return $sMessage;
-	}
-
-	public function get_email_to_test_subject(){
-		return G::L("我的朋友：【%s】您在博客（%s）测试邮件发送成功了！",'app',null,G::L('风随我动'),Global_Extend::getOption('blog_name'));
 	}
 
 	public function get_mail_line($oMailConnect){

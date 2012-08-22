@@ -71,9 +71,9 @@ class MailModel extends CommonModel{
 			$nMailSendtype=Mail::SOCKET_SMTP;
 		}
 
-		$oMailConnect=new Mail($sMailServer,$sMailAuthUsername,$sMailAuthPassword,$nMailPort,$nEmailSendtype );
-		$oMailConnect->setEmailLimiter($nMailDelimiter );
-		$oMailConnect->setEmailFrom($sMailFrom );
+		$oMailConnect=new Mail($sMailServer,$sMailAuthUsername,$sMailAuthPassword,$nMailPort,$nMailSendtype);
+		$oMailConnect->setEmailLimiter($nMailDelimiter);
+		$oMailConnect->setEmailFrom($sMailFrom);
 
 		$sSiteName=$GLOBALS['_option_']['site_name'];
 		if(!empty($sSiteName)){
