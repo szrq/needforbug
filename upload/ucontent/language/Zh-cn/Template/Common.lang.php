@@ -18,6 +18,7 @@ return array(
 '83611abd5f806cb2db7cb992e91186dd'=>"发布",
 '66eeacd93a7c1bda93906fe908ad11a0'=>"全选",
 'db1c89e0f6e62f9642018cbb531bbd4f'=>"首页",
+'939d5345ad4345dbaabe14798f6ac0f1'=>"提交",
 )
 
 ?>
