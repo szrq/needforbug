@@ -9,7 +9,7 @@ Description: NeedForBug! Extend Stylecolor
 ================================*/
 body { background:#FFF url({IMG_DIR}/../Style/t5/bgimg.jpg) no-repeat 50% 0; }
 a {color: #0088cc;text-decoration: none;}
-a:hover {color: #005580;text-decoration: underline;}
+a:hover {color: #005580;}
 
 /**===============================
            重新定义一些颜色
@@ -51,5 +51,5 @@ input:focus,textarea:focus {border-color: #2e80d1;}
            重写底部
 ================================*/
 #footer{background: none;color:#333333;}
-#footer a{color:#0088cc;}
-#footer a:hover{color:#005580;}
+#footer a{color:#333333;}
+#footer a:hover{color:#333333;}
