@@ -62,17 +62,15 @@ class Mail{
 		}
 
 		$sEmailTo=implode(',',$arrToUsers);
-		
+
 		// 是否允许HTML 代码
 		if($this->_bIsHtml===TRUE){
 			$this->_sContentType='text/html';
 		}
 
 		// 邮件头部
-		$sHeaders="From:{$sEmailFrom}{$sEmailLimiter}X-Priority: 3{$sEmailLimiter}
-			X-Mailer: DoYouHaoBaby!{$sEmailLimiter}MIME-Version: 1.0{$sEmailLimiter}Content-type: $this->_sContentType;
-			charset={$this->_sCharset}{$sEmailLimiter}Content-Transfer-Encoding: base64{$sEmailLimiter}";
-
+		$sHeaders="From:{$sEmailFrom}{$sEmailLimiter}X-Priority: 3{$sEmailLimiter}X-Mailer: DoYouHaoBaby!{$sEmailLimiter}MIME-Version: 1.0{$sEmailLimiter}Content-type: $this->_sContentType; charset={$this->_sCharset}{$sEmailLimiter}Content-Transfer-Encoding: base64{$sEmailLimiter}";
+		
 		$this->_nPort=$this->_nPort?$this->_nPort:25;// 端口
 		if(strtolower($this->_sEmailSendType)==self::PHP_MAIL && function_exists('mail')){
 			@mail($sEmailTo,$sEmailSubject,$sEmailMessage,$sHeaders);
