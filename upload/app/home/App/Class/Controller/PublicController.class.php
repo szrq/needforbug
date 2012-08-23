@@ -214,6 +214,9 @@ class PublicController extends InitController{
 	}
 
 	public function password_email(){
+		if(UserModel::M()->isLogin()){
+			$this->U('home://user/password');
+		}
 		$this->check_seccode(true);
 
 		$sEmail=trim(G::getGpc('user_email','P'));
@@ -240,8 +243,8 @@ class PublicController extends InitController{
 		if($oUser->isError()){
 			$this->E($oUser->getErrorMessage());
 		}
-
-		$sGetPasswordUrl=Dyhb::U('home://public/reset_password?email='.urlencode($sEmail).'&hash='.urlencode(str_replace('/',md5('/'),G::authcode($sTemppassword,false,null,$GLOBALS['_option_']['getpassword_expired']))));
+		
+		$sGetPasswordUrl=$GLOBALS['_option_']['site_url'].'/index.php?c=public&a=reset_password&email='.urlencode($sEmail).'&hash='.urlencode(G::authcode($sTemppassword,false,null,$GLOBALS['_option_']['getpassword_expired']));
 
 		$oMailModel=Dyhb::instance('MailModel');
 		$oMailConnect=$oMailModel->getMailConnect();
@@ -268,13 +271,16 @@ class PublicController extends InitController{
 	}
 
 	public function reset_password(){
+		if(UserModel::M()->isLogin()){
+			$this->U('home://user/password');
+		}
 		$sEmail=trim(G::getGpc('email','G'));
 		$sHash=trim(G::getGpc('hash','G'));
 
 		if(empty($sHash)){
 			$this->U('home://public/get_password');
 		}
-		$sHash=str_replace(md5('/'),'/',$sHash);
+
 		$sHash=G::authcode($sHash);
 		if(empty($sHash)){
 			$this->assign('__JumpUrl__',Dyhb::U('home://public/get_password'));
@@ -337,12 +343,19 @@ class PublicController extends InitController{
 	}
 
 	public function user_appeal(){
-			$this->display('public+userappeal');
+		if(UserModel::M()->isLogin()){
+			$this->U('home://user/index');
+		}
+		$this->display('public+userappeal');
 	}
 
 	public function user_appeal2(){
-		//$this->check_seccode(true);
+		if(UserModel::M()->isLogin()){
+			$this->U('home://user/index');
+		}
 
+		$this->check_seccode(true);
+	
 		$sUsername=trim(G::getGpc('user_name','P'));
 		if(Core_Extend::isPostInt($sUsername)){
 			$oUser=UserModel::F('user_id=?',$sUsername)->getOne();
@@ -365,7 +378,11 @@ class PublicController extends InitController{
 	}
 
 	public function user_appeal3(){
-		//$this->check_seccode(true);
+		if(UserModel::M()->isLogin()){
+			$this->U('home://user/index');
+		}
+
+		$this->check_seccode(true);
 		
 		$sRealname=trim(G::getGpc('real_name','P'));
 		$sAddress=trim(G::getGpc('address','P'));
@@ -385,10 +402,15 @@ class PublicController extends InitController{
 		if(!Check::C($sAppealemail,'email')){
 			$this->E(Dyhb::L('Email格式不正确','Controller/Public'));
 		}
-
+		
 		$sUserid=G::authcode($sUserid);
 		if(empty($sUserid)){
 			$this->E(Dyhb::L('页面已过期','Controller/Public'));
+		}
+
+		$oUser=UserModel::F('user_email=? AND user_id!=?',$sAppealemail,$sUserid)->getOne();
+		if(!empty($oUser->user_id)){
+			$this->E(Dyhb::L('该邮箱已经存在','Controller/Public'));
 		}
 
 		$oUser=UserModel::F('user_id=?',$sUserid)->getOne();
@@ -401,8 +423,10 @@ class PublicController extends InitController{
 		}
 		
 		$sHashcode=G::randString(32);
+		$sUserid=G::authcode($oUser['user_id'],false,null,$GLOBALS['_option_']['getpassword_expired']);
 
-		$sGetPasswordUrl='xxx';
+		$sGetPasswordUrl=$GLOBALS['_option_']['site_url'].'/index.php?c=public&a=user_appeal4&user_id='.
+			urlencode($sUserid).'&real_name='.urlencode($sRealname).'&address='.urlencode($sAddress).'&id_number='.urlencode($sIdnumber).'&appeal_email='.urlencode($sAppealemail).'&emaillink=1';
 
 		$oMailModel=Dyhb::instance('MailModel');
 		$oMailConnect=$oMailModel->getMailConnect();
@@ -446,12 +470,20 @@ class PublicController extends InitController{
 	}
 
 	public function user_appeal4(){
-		//$this->check_seccode(true);
+		if(UserModel::M()->isLogin()){
+			$this->U('home://user/index');
+		}
+
+		$nEmaillink=intval(G::getGpc('emaillink'));
+
+		if($nEmaillink!=1){
+			$this->check_seccode(true);
+		}
 		
-		$sRealname=trim(G::getGpc('real_name','P'));
-		$sAddress=trim(G::getGpc('address','P'));
-		$sIdnumber=trim(G::getGpc('id_number','P'));
-		$sAppealemail=trim(G::getGpc('appeal_email','P'));
+		$sRealname=trim(G::getGpc('real_name'));
+		$sAddress=trim(G::getGpc('address'));
+		$sIdnumber=trim(G::getGpc('id_number'));
+		$sAppealemail=trim(G::getGpc('appeal_email'));
 		$sUserid=trim(G::getGpc('user_id'));
 		$sHashcode=trim(G::getGpc('hashcode','P'));
 		$sOldHashcode=trim(G::getGpc('old_hashcode','P'));
@@ -470,17 +502,20 @@ class PublicController extends InitController{
 			$this->E(Dyhb::L('该账户已经被禁止','Controller/Public'));
 		}
 
-		if(empty($sHashcode)){
-			$this->E(Dyhb::L('申诉验证码不能为空','Controller/Public'));
-		}
 
-		$sOldHashcode=G::authcode($sOldHashcode);
-		if(empty($sOldHashcode)){
-			$this->E(Dyhb::L('申诉验证码已过期','Controller/Public'));
-		}
+		if($nEmaillink!=1){
+			if(empty($sHashcode)){
+				$this->E(Dyhb::L('申诉验证码不能为空','Controller/Public'));
+			}
 
-		if($sOldHashcode!=$sHashcode){
-			$this->E(Dyhb::L('申诉验证码错误','Controller/Public'));
+			$sOldHashcode=G::authcode($sOldHashcode);
+			if(empty($sOldHashcode)){
+				$this->E(Dyhb::L('申诉验证码已过期','Controller/Public'));
+			}
+
+			if($sOldHashcode!=$sHashcode){
+				$this->E(Dyhb::L('申诉验证码错误','Controller/Public'));
+			}
 		}
 
 		$sReceiptnumber=G::randString(32);
@@ -508,6 +543,10 @@ class PublicController extends InitController{
 	}
 	
 	public function appeal_tocomputer(){
+		if(UserModel::M()->isLogin()){
+			$this->U('home://user/index');
+		}
+
 		$nAppealId=intval(G::getGpc('id','G'));
 		$sUserid=trim(G::getGpc('user_id','G'));
 
@@ -562,6 +601,10 @@ class PublicController extends InitController{
 		echo $sContent;
 	}
 	public function appeal_tomail(){
+		if(UserModel::M()->isLogin()){
+			$this->U('home://user/index');
+		}
+
 		$nAppealId=intval(G::getGpc('id','G'));
 		$sUserid=trim(G::getGpc('user_id','G'));
 
@@ -621,11 +664,19 @@ class PublicController extends InitController{
 	}
 
 	public function get_appealschedule(){
+		if(UserModel::M()->isLogin()){
+			$this->U('home://user/index');
+		}
 		$this->display('public+getappealschedule');
 	}
 
 	public function appealschedule_result(){
-		//$this->check_seccode(true);
+		if(UserModel::M()->isLogin()){
+			$this->U('home://user/index');
+		}
+
+		$this->check_seccode(true);
+
 		$sAppealReceiptnumber=trim(G::getGpc('appeal_receiptnumber','P'));
 		$sAppealEmail=trim(G::getGpc('appeal_email','P'));
 		if(empty($sAppealReceiptnumber)){

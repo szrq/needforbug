@@ -8,34 +8,32 @@
 		<div class="row">
 			<div class="span12">
 				<h3><!--<lang package='__COMMON_LANG__@Template/Public'>-->你的申诉进度如下<!--</lang>-->:</h3>
-				<p>
 				<table class="table table-bordered">
-				<tbody>
-					<tr>
-						<td width="33%" <!--{if $oAppeal['appeal_progress']==0}-->class="alert alert_success"<!--{/if}-->>申诉录入&nbsp;<i class="icon-arrow-right"></i></td>
-						<td width="33%" <!--{if $oAppeal['appeal_progress']==1}-->class="alert alert_success"<!--{/if}-->>系统审核&nbsp;<i class="icon-arrow-right"></i></td>
-						<td width="34%" <!--{if in_array($oAppeal['appeal_progress'],array(2,3))}-->class="alert alert_success"<!--{/if}-->><!--{if $oAppeal['appeal_progress']==3}-->申诉驳回<!--{d*else}-->申诉通过<!--{/if}--></td>
-					</tr>
-				</tbody>
+					<tbody>
+						<tr>
+							<td width="33%" <!--{if $oAppeal['appeal_progress']==0}-->class="alert alert_success"<!--{/if}-->><!--<lang package='Template/Public'>-->申诉录入<!--</lang>-->&nbsp;<i class="icon-arrow-right"></i></td>
+							<td width="33%" <!--{if $oAppeal['appeal_progress']==1}-->class="alert alert_success"<!--{/if}-->><!--<lang package='Template/Public'>-->系统审核<!--</lang>-->&nbsp;<i class="icon-arrow-right"></i></td>
+							<td width="34%" <!--{if in_array($oAppeal['appeal_progress'],array(2,3))}-->class="alert alert_success"<!--{/if}-->><!--{if $oAppeal['appeal_progress']==3}--><!--<lang package='Template/Public'>-->申诉驳回<!--</lang>--><!--{d*else}--><!--<lang package='Template/Public'>-->申诉通过<!--</lang>--><!--{/if}--></td>
+						</tr>
+					</tbody>
 				</table>
 				<div class="progress progress-striped active">
-						<div class="bar" style="width: <!--{$TheController->appealschedule_progress($oAppeal['appeal_progress'])}-->%;"></div>
-					</div>
-				</p>
+					<div class="bar" style="width: <!--{$TheController->appealschedule_progress($oAppeal['appeal_progress'])}-->%;"></div>
+				</div>
 				<hr/>
 				<!--{if $oAppeal['appeal_progress']==2}-->
-				<h3>恭喜申诉通过</h3>
+				<h3><!--<lang package='Template/Public'>-->恭喜申诉通过<!--</lang>--></h3>
 				<div class="alert alert_sucess">
-				申诉重置密码链接已发送至你的邮箱,请注意查收.<br />
-				若尚未收到邮件,点击这里&nbsp;<a href="" class="btn btn-success">重新获取</a>
+				<!--<lang package='Template/Public'>-->申诉重置密码链接已发送至你的邮箱,请注意查收.<!--</lang>--><br />
+				<!--<lang package='Template/Public'>-->若尚未收到邮件,点击这里<!--</lang>-->&nbsp;<a href="" class="btn btn-success"><!--<lang package='Template/Public'>-->重新获取<!--</lang>--></a>
 				</div>
 				<!--{/if}-->
 				<!--{if $oAppeal['appeal_progress']==3}-->
-				<h3>申诉已被驳回</h3>
+				<h3><!--<lang package='Template/Public'>-->申诉已被驳回<!--</lang>--></h3>
 				<div class="alert alert_sucess">
-				<!--{$oAppeal['appeal_reason']|nl2br}-->
+					<!--{$oAppeal['appeal_reason']|nl2br}-->
 					<div style="margin-top:10px;">
-						<a href="" class="btn btn-success">重新申诉</a>
+						<a href="<!--{:Dyhb::U('home://public/user_appeal')}-->" class="btn btn-success"><!--<lang package='Template/Public'>-->重新申诉<!--</lang>--></a>
 					</div>
 				</div>
 				<!--{/if}-->
