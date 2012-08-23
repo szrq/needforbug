@@ -10,13 +10,19 @@ class InitController extends Controller{
 		parent::init__();
 
 		Core_Extend::loadCache('option');
-
 		Core_Extend::loginInformation();
 
 		UserModel::M()->checkRbac();
 		if(UserModel::M()->isBehaviorError()){
 			$this->E(UserModel::M()->getBehaviorErrorMessage());
 		}
+
+		Core_Extend::page404($this);
+	}
+
+	public function page404(){
+		$this->display('public+404');
+		exit();
 	}
 
 	public function index($sName=null,$bDisplay=true){
