@@ -49,9 +49,13 @@ class Template{
 		}
 
 		if(defined('TMPL_STRIP_SPACE')){
+			// HTML
 			$arrFind=array("~>\s+<~","~>(\s+\n|\r)~");
 			$arrReplace=array("><",">");
 			$sCompiled=preg_replace($arrFind,$arrReplace,$sCompiled);
+
+			// Javascript
+			$sCompiled=preg_replace(array('/(^|\r|\n)\/\*.+?(\r|\n)\*\/(\r|\n)/is','/\/\/note.+?(\r|\n)/i','/\/\/debug.+?(\r|\n)/i','/(^|\r|\n)(\s|\t)+/','/(\r|\n)/',"/\/\*(.*?)\*\//ies"),'',$sCompiled);
 		}
 
 		$sStr="<?php !defined('DYHB_PATH') && exit; /* DoYouHaoBaby Framework ".(Dyhb::L('模板缓存文件 生成时间：','__DYHB__@Dyhb')).date('Y-m-d H:i:s',CURRENT_TIMESTAMP)."  */ ?>\r\n";
