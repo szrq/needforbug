@@ -21,6 +21,13 @@ class Core_Extend{
 		return $arrUserData;
 	}
 
+	static public function page404($oThis){
+		$arrAllMethod=get_class_methods($oThis);
+		if(!in_array(ACTION_NAME,$arrAllMethod)){
+			$oThis->page404();
+		}
+	}
+
 	static public function seccode(){
 		$arrOption=array(
 			'seccode_image_width_size'=>$GLOBALS['_option_']['seccode_image_width_size'],

@@ -10,16 +10,15 @@ class InitController extends Controller{
 		parent::init__();
 
 		Core_Extend::loadCache('option');
-
 		Core_Extend::loadCache('nav');
-
 		Core_Extend::loadCache('home_option');
 
 		Core_Extend::loginInformation();
 
 		$this->defineCurscript();
-
 		Core_Extend::initFront();
+		
+		Core_Extend::page404($this);
 	}
 
 	public function defineCurscript(){
