@@ -7,12 +7,8 @@
 class PublicController extends Controller{
 
 	public function index(){
-
-		
-		$this->display();
-	}
-
-	public function create(){
+		echo 'Hello world';
+		exit();
 		$this->display();
 	}
 
