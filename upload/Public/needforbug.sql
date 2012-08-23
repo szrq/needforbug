@@ -126,7 +126,7 @@ CREATE TABLE IF NOT EXISTS `needforbug_appeal` (
   `update_dateline` int(10) NOT NULL COMMENT '更新时间',
   `appeal_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '申诉状态',
   `appeal_progress` tinyint(1) NOT NULL DEFAULT '0' COMMENT '申诉进度',
-  `appeal_reason` text CHARACTER SET utf8mb4 NOT NULL COMMENT '驳回理由',
+  `appeal_reason` text CHARACTER SET utf8 NOT NULL COMMENT '驳回理由',
   PRIMARY KEY (`appeal_id`),
   KEY `user_id` (`user_id`),
   KEY `create_dateline` (`create_dateline`),
