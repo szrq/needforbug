@@ -1,0 +1,46 @@
+<!--<include file="Core_Extend::template('header')" />-->
+
+		<ul class="breadcrumb">
+			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
+			<li><!--<lang package='Template/Public'>-->申诉结果<!--</lang>--></li>
+		</ul>
+
+		<div class="row">
+			<div class="span12">
+				<h3><!--<lang package='__COMMON_LANG__@Template/Public'>-->你的申诉进度如下<!--</lang>-->:</h3>
+				<p>
+				<table class="table table-bordered">
+				<tbody>
+					<tr>
+						<td width="33%" <!--{if $oAppeal['appeal_progress']==0}-->class="alert alert_success"<!--{/if}-->>申诉录入&nbsp;<i class="icon-arrow-right"></i></td>
+						<td width="33%" <!--{if $oAppeal['appeal_progress']==1}-->class="alert alert_success"<!--{/if}-->>系统审核&nbsp;<i class="icon-arrow-right"></i></td>
+						<td width="34%" <!--{if in_array($oAppeal['appeal_progress'],array(2,3))}-->class="alert alert_success"<!--{/if}-->><!--{if $oAppeal['appeal_progress']==3}-->申诉驳回<!--{d*else}-->申诉通过<!--{/if}--></td>
+					</tr>
+				</tbody>
+				</table>
+				<div class="progress progress-striped active">
+						<div class="bar" style="width: <!--{$TheController->appealschedule_progress($oAppeal['appeal_progress'])}-->%;"></div>
+					</div>
+				</p>
+				<hr/>
+				<!--{if $oAppeal['appeal_progress']==2}-->
+				<h3>恭喜申诉通过</h3>
+				<div class="alert alert_sucess">
+				申诉重置密码链接已发送至你的邮箱,请注意查收.<br />
+				若尚未收到邮件,点击这里&nbsp;<a href="" class="btn btn-success">重新获取</a>
+				</div>
+				<!--{/if}-->
+				<!--{if $oAppeal['appeal_progress']==3}-->
+				<h3>申诉已被驳回</h3>
+				<div class="alert alert_sucess">
+				<!--{$oAppeal['appeal_reason']|nl2br}-->
+					<div style="margin-top:10px;">
+						<a href="" class="btn btn-success">重新申诉</a>
+					</div>
+				</div>
+				<!--{/if}-->
+				<p><a href="<!--{:Dyhb::U('home://public/index')}-->" class="btn"><i class="icon-share-alt"></i>&nbsp;<!--<lang package='__COMMON_LANG__@Template/Public'>-->返回首页<!--</lang>--></a></p>
+			</div>
+		</div><!--/row-->
+
+<!--<include file="Core_Extend::template('footer')" />-->

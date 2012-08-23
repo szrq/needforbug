@@ -2,19 +2,23 @@
 
 		<ul class="breadcrumb">
 			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
-			<li><!--<lang package='Template/Public'>-->用户申诉<!--</lang>--></li>
+			<li><!--<lang package='Template/Public'>-->申诉进度查询<!--</lang>--></li>
 		</ul>
-
-		<!--<include file="public_userappeal_menu" />-->
 		
 		<div class="row">
 			<div class="span7">
-				<form class="form-horizontal" method='post' name="userappeal_form" id="userappeal_form" action="<!--{:Dyhb::U('home://public/user_appeal2')}-->">
+				<form class="form-horizontal" method='post' name="getprogress_form" id="getprogress_form" action="<!--{:Dyhb::U('home://public/appealschedule_result')}-->">
 					<fieldset>
 						<div class="control-group">
-							<label class="control-label" for="user_name"><!--<lang package='__COMMON_LANG__@Template/Public'>-->用户名/用户ID<!--</lang>--></label>
+							<label class="control-label" for="appeal_receiptnumber"><!--<lang package='__COMMON_LANG__@Template/Public'>-->申诉回执编号<!--</lang>--><em class="red">*</em></label>
 							<div class="controls">
-								<input class="input-xlarge" id="user_name" name="user_name" type="text" value="">
+								<input class="input-xlarge" id="appeal_receiptnumber" name="appeal_receiptnumber" type="text" value="">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="appeal_email"><!--<lang package='__COMMON_LANG__@Template/Public'>-->接受申诉结果的邮箱<!--</lang>--><em class="red">*</em></label>
+							<div class="controls">
+								<input class="input-xlarge" id="appeal_email" name="appeal_email" type="text" value="">
 							</div>
 						</div>
 						<div class="control-group">
@@ -32,8 +36,8 @@
 				</form>
 			</div>
 			<div class="span5">
-				<h3><!--<lang package='Template/Public'>-->已经发送申诉请求？<!--</lang>--></h3>
-				<p><a href="<!--{:Dyhb::U('home://public/get_appealschedule')}-->" class="btn btn-success"><!--<lang package='Template/Public'>-->查询申诉进度<!--</lang>--></a></p>
+				<h3><!--<lang package='Template/Public'>-->申诉不成功？<!--</lang>--></h3>
+				<p><a href="<!--{:Dyhb::U('home://public/user_appeal')}-->" class="btn btn-success"><!--<lang package='Template/Public'>-->重新申诉<!--</lang>--></a></p>
 			</div>
 		</div><!--/row-->
 

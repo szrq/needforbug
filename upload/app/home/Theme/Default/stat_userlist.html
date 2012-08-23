@@ -68,7 +68,7 @@ function deleteFriend(friendid,fan){
 						<!--<foreach for=arrUsers value=oUser>-->
 						<tr>
 							<td><a href="<!--{:Dyhb::U('home://my/user?id='.$oUser['user_id'])}-->"><img src="<!--{:Core_Extend::avatar( $oUser['user_id'],'small' )}-->" class="thumbnail" /></a></td>
-							<td><a href="<!--{:Dyhb::U('home://my/user?id='.$oUser['user_id'])}-->"><!--{$oUser:user_name}--></a><!--{if $oUser['user_nikename']}--> <!--{$oUser['user_nikename']}--><!--{/if}-->
+							<td><a href="<!--{:Dyhb::U('home://my/user?id='.$oUser['user_id'])}-->"><!--{$oUser:user_name}--></a>&nbsp;<!--{if $oUser['user_nikename']}--> <!--{$oUser['user_nikename']}--><!--{/if}-->
 								<!--{if $GLOBALS['___login___']!==false}--><br/>
 								<!--{~$nAlreadyFriendId=Core_Extend::isAlreadyFriend($oUser['user_id'])}-->
 								<!--{if $nAlreadyFriendId==1}--><span class="label label-warning"><a href="javascript:void(0);" onclick="deleteFriend('<!--{$oUser['user_id']}-->','0');return false;"><!--<lang package='Template/Stat'>-->取消关注<!--</lang>--></a></span>

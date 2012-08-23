@@ -1,16 +1,21 @@
 <!--<include file="Core_Extend::template('header')" />-->
-	<!--{script}-->
-		function appealTocomputer(id){
-			window.location.href=D.U('home://public/appeal_tocomputer?id='+id+'&user_id=<!--{$sUserid|urlencode}-->');
-		}
-		function appealTomail(id){
-			window.location.href=D.U('home://public/appeal_tomail?id='+id+'&user_id=<!--{$sUserid|urlencode}-->');
-		}
-	<!--{/script}-->
+
+<!--{script}-->
+function appealTocomputer(id){
+	window.location.href=D.U('home://public/appeal_tocomputer?id='+id+'&user_id=<!--{$sUserid|urlencode}-->');
+}
+
+function appealTomail(id){
+	window.location.href=D.U('home://public/appeal_tomail?id='+id+'&user_id=<!--{$sUserid|urlencode}-->');
+}
+<!--{/script}-->
+
 		<ul class="breadcrumb">
 			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
 			<li><!--<lang package='Template/Public'>-->获取申诉回执编号<!--</lang>--></li>
 		</ul>
+
+		<!--<include file="public_userappeal_menu" />-->
 		
 		<div class="row">
 			<div class="span12">

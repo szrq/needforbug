@@ -322,6 +322,20 @@ class PublicController extends InitController{
 		}
 	}
 
+	public function get_progress(){
+		if(ACTION_NAME==='user_appeal'){
+			return 25;
+		}elseif(ACTION_NAME==='user_appeal2'){
+			return 50;
+		}elseif(ACTION_NAME==='user_appeal3'){
+			return 75;
+		}elseif(ACTION_NAME==='user_appeal4'){
+			return 100;
+		}
+
+		return 0;
+	}
+
 	public function user_appeal(){
 			$this->display('public+userappeal');
 	}
@@ -604,6 +618,50 @@ class PublicController extends InitController{
 		$this->assign('__JumpUrl__','javascript:history.back(-1);');
 
 		$this->S(Dyhb::L('申诉回执编号已发送到您的邮箱','Controller/Public').' '.$oAppeal->appeal_email);
+	}
+
+	public function get_appealschedule(){
+		$this->display('public+getappealschedule');
+	}
+
+	public function appealschedule_result(){
+		//$this->check_seccode(true);
+		$sAppealReceiptnumber=trim(G::getGpc('appeal_receiptnumber','P'));
+		$sAppealEmail=trim(G::getGpc('appeal_email','P'));
+		if(empty($sAppealReceiptnumber)){
+			$this->E('申诉回执编号不能为空');
+		}
+		if(empty($sAppealEmail)){
+			$this->E('申诉邮箱不能为空');
+		}
+
+		Check::RUN();
+		if(!Check::C($sAppealEmail,'email')){
+			$this->E('申诉邮箱错误');
+		}
+		$oAppeal=AppealModel::F('appeal_email=? AND appeal_receiptnumber=?',$sAppealEmail,$sAppealReceiptnumber)->getOne();
+		if(empty($oAppeal->appeal_id)){
+			$this->E('申诉回执编号或者申诉邮箱错误,又或者该申诉回执已被删除');
+		}
+		if($oAppeal->appeal_status==0){
+			$this->E('该申诉回执已经被关闭');
+		}
+
+		$this->assign('oAppeal',$oAppeal);
+		
+		$this->display('public+appealscheduleresult');
+	}
+
+	public function appealschedule_progress($nProgress){
+		if($nProgress==0){
+			return 33;
+		}elseif($nProgress==1){
+			return 66;
+		}elseif($nProgress==2 || $nProgress==3){
+			return 100;
+		}
+
+		return 0;
 	}
 
 	public function logout(){
