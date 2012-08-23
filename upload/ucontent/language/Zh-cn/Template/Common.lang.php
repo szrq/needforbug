@@ -19,6 +19,7 @@ return array(
 '66eeacd93a7c1bda93906fe908ad11a0'=>"全选",
 'db1c89e0f6e62f9642018cbb531bbd4f'=>"首页",
 '939d5345ad4345dbaabe14798f6ac0f1'=>"提交",
+'5a1367058cd396b24d50bde9444d02de'=>"返回首页",
 )
 
 ?>

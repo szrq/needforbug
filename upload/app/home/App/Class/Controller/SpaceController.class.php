@@ -4,13 +4,9 @@
 
 !defined('DYHB_PATH') && exit;
 
-class MyController extends InitController{
+class SpaceController extends InitController{
 
-	public function init__(){
-		parent::init__();
-	}
-	
-	public function user(){
+	public function index(){
 		require_once(Core_Extend::includeFile('function/Profile_Extend'));
 		
 		$nId=intval(G::getGpc('id','G'));
@@ -20,7 +16,7 @@ class MyController extends InitController{
 		
 		$oUserInfo=UserModel::F()->getByuser_id($nId);
 		if(empty($oUserInfo['user_id'])){
-			$this->E(Dyhb::L('你指定的用户不存在','Controller/My'));
+			$this->E(Dyhb::L('你指定的用户不存在','Controller/Space'));
 		}else{
 			$this->assign('oUserInfo',$oUserInfo);
 		}
@@ -58,7 +54,7 @@ class MyController extends InitController{
 
 		$this->assign('arrInfoMenus',$arrInfoMenus);
 
-		$this->display('my+user');
+		$this->display('space+index');
 	}
 
 	public function rating(){
@@ -89,7 +85,7 @@ class MyController extends InitController{
 		$this->assign('arrRatings',$arrRatings);
 		$this->assign('arrRatinggroups',$arrRatinggroups);
 
-		$this->display('my+rating');
+		$this->display('space+rating');
 	}
 
 	public function avatar(){
@@ -100,7 +96,7 @@ class MyController extends InitController{
 		
 		$oUserInfo=UserModel::F()->getByuser_id($nId);
 		if(empty($oUserInfo['user_id'])){
-			$this->E(Dyhb::L('你指定的用户不存在','Controller/My'));
+			$this->E(Dyhb::L('你指定的用户不存在','Controller/Space'));
 		}else{
 			$this->assign('oUserInfo',$oUserInfo);
 		}
@@ -111,7 +107,7 @@ class MyController extends InitController{
 		$this->assign('arrAvatarInfo',$arrAvatarInfo);
 		$this->assign('nId',$nId);
 
-		$this->display('my+avatar');
+		$this->display('space+avatar');
 	}
 
 }
