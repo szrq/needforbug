@@ -358,7 +358,7 @@ class PublicController extends InitController{
 		$sIdnumber=trim(G::getGpc('id_number','P'));
 		$sAppealemail=trim(G::getGpc('appeal_email','P'));
 		$sUserid=trim(G::getGpc('user_id','P'));
-		
+
 		if(empty($sRealname)){
 			$this->E(Dyhb::L('真实姓名不能为空','Controller/Public'));
 		}
@@ -438,7 +438,7 @@ class PublicController extends InitController{
 		$sAddress=trim(G::getGpc('address','P'));
 		$sIdnumber=trim(G::getGpc('id_number','P'));
 		$sAppealemail=trim(G::getGpc('appeal_email','P'));
-		$sUserid=trim(G::getGpc('user_id','P'));
+		$sUserid=trim(G::getGpc('user_id'));
 		$sHashcode=trim(G::getGpc('hashcode','P'));
 		$sOldHashcode=trim(G::getGpc('old_hashcode','P'));
 
@@ -484,10 +484,126 @@ class PublicController extends InitController{
 		if($oAppeal->isError()){
 			$this->E($oAppeal->getErrorMessage());
 		}
-
+	
+		$sUserid=G::authcode($oAppeal['user_id'],false,null,$GLOBALS['_option_']['getpassword_expired']);
+		
+		$this->assign('sUserid',$sUserid);
 		$this->assign('oAppeal',$oAppeal);
 
 		$this->display('public+userappeal4');
+	}
+	
+	public function appeal_tocomputer(){
+		$nAppealId=intval(G::getGpc('id','G'));
+		$sUserid=trim(G::getGpc('user_id','G'));
+
+		$sUserid=G::authcode($sUserid);
+		if(empty($sUserid)){
+			$this->E(Dyhb::L('页面已过期','Controller/Public'));
+		}
+
+		$oUser=UserModel::F('user_id=?',$sUserid)->getOne();
+		if(empty($oUser->user_id)){
+			$this->E(Dyhb::L('Email账号不存在','Controller/Public'));
+		}
+
+		if($oUser->user_status==0){
+			$this->E(Dyhb::L('该账户已经被禁止','Controller/Public'));
+		}
+
+		if(empty($nAppealId)){
+			$this->E(Dyhb::L('无法获取申诉ID','Controller/Public'));
+		}
+
+		$oAppeal=AppealModel::F('appeal_id=?',$nAppealId)->getOne();
+
+		if(empty($oAppeal->appeal_id)){
+			$this->E(Dyhb::L('无效的申诉ID','Controller/Public'));
+		}
+
+		$sName='APPEAL_'.date('Y_m_d_H_i_s',CURRENT_TIMESTAMP).'.txt';
+
+		header('Content-Type: text/plain');
+		header('Content-Disposition: attachment;filename="'.$sName.'"');
+		if(preg_match("/MSIE([0-9].[0-9]{1,2})/",$_SERVER['HTTP_USER_AGENT'])){
+			header('Cache-Control: must-revalidate,post-check=0,pre-check=0');
+			header('Pragma: public');
+		}else{
+			header('Pragma: no-cache');
+		}
+		
+		$sAppealscheduleUrl=$GLOBALS['_option_']['site_url'].'/index.php?app=home&c=public&a=get_appealschedule';
+		$sNlbr="\r\n";
+
+		$sContent='['.$GLOBALS['_option_']['site_name'].']'.Dyhb::L('用户申诉回执单','Controller/Public').$sNlbr;
+		$sContent.='-----------------------------------------------------'.$sNlbr;
+		$sContent.=Dyhb::L('申诉人','Controller/Public').':'.$oAppeal->appeal_realname.$sNlbr.$sNlbr;
+		$sContent.=Dyhb::L('申诉回执编号','Controller/Public').':'.$oAppeal->appeal_receiptnumber.$sNlbr.$sNlbr;
+		$sContent.='--'.Dyhb::L('请牢记你的申诉编号，以便于随时查询申诉进度','Controller/Public').$sNlbr;
+		$sContent.=$sAppealscheduleUrl.$sNlbr.$sNlbr;
+		$sContent.=Dyhb::L('接受申诉结果的Email','Controller/Public').':'.$oAppeal->appeal_email.$sNlbr.$sNlbr;
+		$sContent.='-----------------------------------------------------'.$sNlbr;
+		$sContent.=date('Y-m-d H:i',CURRENT_TIMESTAMP);
+
+		echo $sContent;
+	}
+	public function appeal_tomail(){
+		$nAppealId=intval(G::getGpc('id','G'));
+		$sUserid=trim(G::getGpc('user_id','G'));
+
+		$sUserid=G::authcode($sUserid);
+		if(empty($sUserid)){
+			$this->E(Dyhb::L('页面已过期','Controller/Public'));
+		}
+
+		$oUser=UserModel::F('user_id=?',$sUserid)->getOne();
+		if(empty($oUser->user_id)){
+			$this->E(Dyhb::L('Email账号不存在','Controller/Public'));
+		}
+
+		if($oUser->user_status==0){
+			$this->E(Dyhb::L('该账户已经被禁止','Controller/Public'));
+		}
+
+		if(empty($nAppealId)){
+			$this->E(Dyhb::L('无法获取申诉ID','Controller/Public'));
+		}
+
+		$oAppeal=AppealModel::F('appeal_id=?',$nAppealId)->getOne();
+
+		if(empty($oAppeal->appeal_id)){
+			$this->E(Dyhb::L('无效的申诉ID','Controller/Public'));
+		}
+		
+		$oMailModel=Dyhb::instance('MailModel');
+		$oMailConnect=$oMailModel->getMailConnect();
+
+		$sAppealscheduleUrl=$GLOBALS['_option_']['site_url'].'/index.php?app=home&c=public&a=get_appealschedule';
+		$sNlbr=$oMailConnect->getIsHtml()===true?'<br/>':"\r\n";
+
+		$sEmailSubject=$GLOBALS['_option_']['site_name'].Dyhb::L('用户申诉回执单','Controller/Public');
+		$sEmailContent='<b>'.Dyhb::L('尊敬的用户','Controller/Public').':</b>'.$sNlbr;
+		$sEmailContent.='-----------------------------------------------------'.$sNlbr;
+		$sEmailContent.=Dyhb::L('申诉人','Controller/Public').':'.$oAppeal->appeal_realname.$sNlbr.$sNlbr;
+		$sEmailContent.=Dyhb::L('申诉回执编号','Controller/Public').':'.$oAppeal->appeal_receiptnumber.$sNlbr.$sNlbr;
+		$sEmailContent.='--'.Dyhb::L('请牢记你的申诉编号，以便于随时查询申诉进度','Controller/Public').$sNlbr;
+		$sEmailContent.="<a href=\"{$sAppealscheduleUrl}\">{$sAppealscheduleUrl}</a>".$sNlbr.$sNlbr;
+		$sEmailContent.=Dyhb::L('接受申诉结果的Email','Controller/Public').':'.$oAppeal->appeal_email.$sNlbr.$sNlbr;
+		$sEmailContent.='-----------------------------------------------------'.$sNlbr;
+		$sEmailContent.=date('Y-m-d H:i',CURRENT_TIMESTAMP);
+
+		$oMailConnect->setEmailTo($oAppeal->appeal_email);
+		$oMailConnect->setEmailSubject($sEmailSubject);
+		$oMailConnect->setEmailMessage($sEmailContent);
+		$oMailConnect->send();
+		if($oMailConnect->isError()){
+			$this->E($oMailConnect->getErrorMessage());
+		}
+
+		$this->assign('__WaitSecond__',5);
+		$this->assign('__JumpUrl__','javascript:history.back(-1);');
+
+		$this->S(Dyhb::L('申诉回执编号已发送到您的邮箱','Controller/Public').' '.$oAppeal->appeal_email);
 	}
 
 	public function logout(){
