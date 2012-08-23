@@ -55,10 +55,10 @@
 					$arrNode=explode('@',$value['node_name']);
 					$sNodeName=$arrNode[1];
 				<!--</php>-->
-				<!--<if condition="$value['nodegroup_id'] eq $sMenuTag
-						and strtolower( $sNodeName ) neq 'public'
-						and strtolower( $sNodeName ) neq 'index'
-						and $value['node_access']==1" >-->
+				<!--<if condition="$value['nodegroup_id'] eq $sMenuTag &&
+						strtolower( $sNodeName ) neq 'public' &&
+						strtolower( $sNodeName ) neq 'index' &&
+						$value['node_access']==1" >-->
 				<li class=''><a onClick="refreshmainframe('<!--{:Dyhb::U($sNodeName.'/index')}-->');currentClass(<!--{$nIndex}-->);return false;" href="<!--{:Dyhb::U($sNodeName.'/index')}-->"><!--{$value['node_title']}--></a></li>
 				<!--{~$nIndex++}-->
 				<!--</if>-->
