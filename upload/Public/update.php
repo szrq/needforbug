@@ -49,19 +49,19 @@ $sUrl=isset($_GET['url'])?trim($_GET['url']):'';
 $nInfolist=isset($_GET['infolist']) && $_GET['infolist']==1?intval($_GET['infolist']):'';
 
 if(empty($sVersion)){
-		errorMessage('无法获取版本信息');
+	errorMessage('无法获取版本信息');
 }
 
 if(empty($nRelease)){
-		errorMessage('无法获取版本发布日期');
-} 
+	errorMessage('无法获取版本发布日期');
+}
 
 if(empty($sHostname)){
-		errorMessage('无法获取域名信息');
+	errorMessage('无法获取域名信息');
 }
 
 if(empty($sUrl)){
-		errorMessage('无法获取程序安装地址');
+	errorMessage('无法获取程序安装地址');
 }
 
 /** 比较版本取得更新信息 */
