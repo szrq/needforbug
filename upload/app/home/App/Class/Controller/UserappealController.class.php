@@ -89,7 +89,7 @@ class UserappealController extends InitController{
 
 		$oUser=UserModel::F('user_email=? AND user_id!=?',$sAppealemail,$sUserid)->getOne();
 		if(!empty($oUser->user_id)){
-			//$this->E(Dyhb::L('该邮箱已经存在','Controller/Userappeal'));
+			$this->E(Dyhb::L('该邮箱已经存在','Controller/Userappeal'));
 		}
 
 		$oUser=UserModel::F('user_id=?',$sUserid)->getOne();
