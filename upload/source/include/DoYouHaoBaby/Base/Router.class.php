@@ -146,7 +146,11 @@ class Router{
 		$arrPaths=array_filter(explode($sDepr,trim(str_ireplace(strtolower($sRouteName),'',$sRegx),$sDepr)));
 
 		if(!empty($arrRule[1]) && in_array($arrRule[1],$arrPaths)){
-			array_shift($arrPaths);
+			foreach($arrPaths as $nKey=>$sValue){
+				if($sValue==$arrRule[1]){
+					unset($arrPaths[$nKey]);
+				}
+			}
 		}
 
 		$arrVars=explode(',',$arrRule[1]);
