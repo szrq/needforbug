@@ -11,6 +11,18 @@ class RatingController extends Controller{
 		Core_Extend::loadCache('ratinggroup');
 
 		$nId=intval(G::getGpc('id','G'));
+		if(empty($nId)){
+			$nId=$GLOBALS['___login___']['user_id'];
+		}
+		
+		$oUserInfo=UserModel::F()->getByuser_id($nId);
+		if(empty($oUserInfo['user_id'])){
+			$this->E(Dyhb::L('你指定的用户不存在','Controller/Space'));
+		}else{
+			$this->assign('oUserInfo',$oUserInfo);
+		}
+
+		$nCId=intval(G::getGpc('cid','G'));
 
 		$arrRatinggroups=$GLOBALS['_cache_']['ratinggroup'];
 
@@ -19,10 +31,10 @@ class RatingController extends Controller{
 			$arrRatinggroupIds[]=$oRatinggroup['ratinggroup_id'];
 		}
 
-		if(!empty($nId) && in_array($nId,$arrRatinggroupIds)){
+		if(!empty($nCId) && in_array($nCId,$arrRatinggroupIds)){
 			$arrRatings=array();
 			foreach($GLOBALS['_cache_']['rating'] as $arrRating){
-				if($arrRating['ratinggroup_id']==$nId){
+				if($arrRating['ratinggroup_id']==$nCId){
 					$arrRatings[]=$arrRating;
 				}
 			}
@@ -30,7 +42,7 @@ class RatingController extends Controller{
 			$arrRatings=$GLOBALS['_cache_']['rating'];
 		}
 
-		$this->assign('nId',$nId);
+		$this->assign('nCId',$nCId);
 		$this->assign('arrRatings',$arrRatings);
 		$this->assign('arrRatinggroups',$arrRatinggroups);
 

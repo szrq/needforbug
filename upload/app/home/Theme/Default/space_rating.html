@@ -32,9 +32,9 @@
 			<div class="span3">
 				<h4><!--<lang package='Template/Space'>-->等级分组<!--</lang>--></h4>
 				<p><ul class="nav nav-tabs nav-stacked">
-					<li <!--{if empty($nId)}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://space/rating')}-->"><!--<lang package='Template/Space'>-->全部<!--</lang>--></a></li>
+					<li <!--{if empty($nCId)}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('space@?id='.$oUserInfo['user_id'].'&type=rating')}-->"><!--<lang package='Template/Space'>-->全部<!--</lang>--></a></li>
 					<!--<foreach for=arrRatinggroups value=oRatinggroup>-->
-					<li <!--{if $nId==$oRatinggroup['ratinggroup_id']}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://space/rating?id='.$oRatinggroup['ratinggroup_id'])}-->"><!--{$oRatinggroup['ratinggroup_title']}-->&nbsp;(<!--{$oRatinggroup['ratinggroup_name']}-->)</a></li>
+					<li <!--{if $nCId==$oRatinggroup['ratinggroup_id']}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://space@?id='.$oUserInfo['user_id'].'&type=rating'.'&cid='.$oRatinggroup['ratinggroup_id'])}-->"><!--{$oRatinggroup['ratinggroup_title']}-->&nbsp;(<!--{$oRatinggroup['ratinggroup_name']}-->)</a></li>
 					<!--</foreach>-->
 				</ul></p>
 			</div>

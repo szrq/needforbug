@@ -10,7 +10,7 @@ $(function(){
 
 		<ul class="breadcrumb">
 			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
-			<li><a href="<!--{:Dyhb::U('home://space/index?id='.$nId)}-->"><!--{$oUserInfo:user_name}--></a> <span class="divider">/</span></li>
+			<li><a href="<!--{:Dyhb::U('home://space@?id='.$nId)}-->"><!--{$oUserInfo:user_name}--></a> <span class="divider">/</span></li>
 			<li><!--<lang package='Template/Space'>-->个人空间<!--</lang>--></li>
 		</ul>
 		
@@ -20,7 +20,7 @@ $(function(){
 			<div class="span8">
 				<ul class="nav nav-pills">
 					<!--<foreach for=arrInfoMenus key=sInfoMenuKey value=sInfoMenu>-->
-					<li <!--{if (!$sDo && !$sInfoMenuKey) || $sDo==$sInfoMenuKey}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://space/index?id='.$nId.(!empty($sInfoMenuKey)?'&do='.$sInfoMenuKey:''))}-->"><!--{$sInfoMenu}--></a></li>
+					<li <!--{if (!$sDo && !$sInfoMenuKey) || $sDo==$sInfoMenuKey}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://space@?id='.$nId.(!empty($sInfoMenuKey)?'&do='.$sInfoMenuKey:''))}-->"><!--{$sInfoMenu}--></a></li>
 					<!--</foreach>-->
 				</ul>
 
@@ -125,7 +125,7 @@ $(function(){
 					<thead>
 						<tr>
 							<td style="text-align:center;">
-								<a href="<!--{:Dyhb::U('home://space/avatar?id='.$nId)}-->"><img src="<!--{:Core_Extend::avatar( $nId,'small' )}-->" class="thumbnail"/></a>
+								<a href="<!--{:Dyhb::U('home://space@?id='.$nId.'&type=avatar')}-->"><img src="<!--{:Core_Extend::avatar( $nId,'small' )}-->" class="thumbnail"/></a>
 							</td>
 							<td>
 								<label class="control-label" for="email-input"><i class="icon-retweet"></i>&nbsp;<!--<lang package='Template/Space'>-->与用户 Email 交流<!--</lang>--></label>
@@ -137,7 +137,7 @@ $(function(){
 					</thead>
 					<tbody>
 						<tr>
-							<td colspan="2"><a href="<!--{:Dyhb::U('space/user?id='.$oUserInfo['user_id'])}-->"><!--{$oUserInfo:user_name}-->@<!--{$oUserInfo:user_id}--></a></td>
+							<td colspan="2"><a href="<!--{:Dyhb::U('space@?id='.$oUserInfo['user_id'])}-->"><!--{$oUserInfo:user_name}-->@<!--{$oUserInfo:user_id}--></a></td>
 						</tr>
 						<tr>
 							<td colspan="2"><i class="icon-info-sign"></i>&nbsp;<!--<lang package='Template/Space'>-->性别<!--</lang>--> <!--{:Profile_Extend::getGender($oUserInfo->userprofile->userprofile_gender)}--></td>
@@ -172,8 +172,8 @@ $(function(){
 						<!--<foreach for=arrFriends value=oFriend>-->
 						<li class="span1">
 							<div class="thumbnail">
-								<a href="<!--{:Dyhb::U('home://space/index?id='.$oFriend['friend_friendid'])}-->"><img src="<!--{:Core_Extend::avatar( $oFriend['friend_friendid'],'small' )}-->" title="<!--<lang package='Template/Space'>-->好友<!--</lang>--> <!--{$oFriend['friend_friendusername']}-->" alt="<!--<lang package='Template/Space'>-->好友<!--</lang>--> <!--{$oFriend['friend_friendusername']}-->"></a>
-								<a rel="tooltip" title="<!--<lang package='Template/Space'>-->好友<!--</lang>--> <!--{$oFriend['friend_friendusername']}-->" href="<!--{:Dyhb::U('home://space/index?id='.$oFriend['friend_friendid'])}-->"><h5 style="text-align:center;"><!--{:G::subString(UserModel::getUsernameById($oFriend['friend_friendid']),0,6)}--></h5></a>
+								<a href="<!--{:Dyhb::U('home://space@?id='.$oFriend['friend_friendid'])}-->"><img src="<!--{:Core_Extend::avatar( $oFriend['friend_friendid'],'small' )}-->" title="<!--<lang package='Template/Space'>-->好友<!--</lang>--> <!--{$oFriend['friend_friendusername']}-->" alt="<!--<lang package='Template/Space'>-->好友<!--</lang>--> <!--{$oFriend['friend_friendusername']}-->"></a>
+								<a rel="tooltip" title="<!--<lang package='Template/Space'>-->好友<!--</lang>--> <!--{$oFriend['friend_friendusername']}-->" href="<!--{:Dyhb::U('home://space@?id='.$oFriend['friend_friendid'])}-->"><h5 style="text-align:center;"><!--{:G::subString(UserModel::getUsernameById($oFriend['friend_friendid']),0,6)}--></h5></a>
 							</div>
 						</li>
 						<!--</foreach>-->

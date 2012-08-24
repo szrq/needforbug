@@ -7,7 +7,18 @@
 class SpaceController extends InitController{
 
 	public function index(){
-		Core_Extend::doControllerAction('Space@Base','index');
+		$sType=trim(G::getGpc('type','G'));
+		$this->assign('sType',$sType);
+
+		if(empty($sType)){
+			Core_Extend::doControllerAction('Space@Base','index');
+		}else{
+			if(method_exists($this,$sType)){
+				$this->{$sType}();
+			}else{
+				Dyhb::E(sprintf('method %s not exists',$sType));
+			}
+		}
 	}
 
 	public function rating(){
