@@ -149,13 +149,19 @@ class App{
 			define('APP_TEMPLATE_PATH',APP_PATH.'/Theme');
 		}
 
+		if($GLOBALS['_commonConfig_']['COOKIE_LANG_TEMPLATE_INCLUDE_APPNAME']===TRUE){
+			$sCookieName=APP_NAME.'_template';
+		}else{
+			$sCookieName='template';
+		}
+
 		if(!$GLOBALS['_commonConfig_']['THEME_SWITCH']){
 			$sTemplateSet=ucfirst(strtolower($GLOBALS['_commonConfig_']['TPL_DIR']));
 		}elseif(isset($_GET['t'])){
 			$sTemplateSet=ucfirst(strtolower($_GET['t']));
 		}else{
-			if(Dyhb::cookie(APP_NAME.'_template')){
-				$sTemplateSet=Dyhb::cookie(APP_NAME.'_template');
+			if(Dyhb::cookie($sCookieName)){
+				$sTemplateSet=Dyhb::cookie($sCookieName);
 			}else{
 				$sTemplateSet=ucfirst(strtolower($GLOBALS['_commonConfig_']['TPL_DIR']));
 			}
@@ -165,7 +171,7 @@ class App{
 			$sTemplateSet=ucfirst(strtolower($GLOBALS['_commonConfig_']['TPL_DIR']));
 		}
 
-		Dyhb::cookie(APP_NAME.'_template',$sTemplateSet);
+		Dyhb::cookie($sCookieName,$sTemplateSet);
 
 		define('TEMPLATE_NAME',$sTemplateSet);
 		define('TEMPLATE_PATH',APP_TEMPLATE_PATH.'/'.TEMPLATE_NAME);
@@ -179,12 +185,18 @@ class App{
 			define('APP_LANG_PATH',APP_PATH.'/App/Lang');
 		}
 
+		if($GLOBALS['_commonConfig_']['COOKIE_LANG_TEMPLATE_INCLUDE_APPNAME']===TRUE){
+			$sCookieName=APP_NAME.'_language';
+		}else{
+			$sCookieName='language';
+		}
+
 		if(!$GLOBALS['_commonConfig_']['LANG_SWITCH']){
 			$sLangSet=ucfirst(strtolower($GLOBALS['_commonConfig_']['LANG']));
 		}elseif(isset($_GET['l'])){
 			$sLangSet=ucfirst(strtolower($_GET['l']));
 		}elseif(Dyhb::cookie(APP_NAME.'_language')){
-			$sLangSet=Dyhb::cookie(APP_NAME.'_language');
+			$sLangSet=Dyhb::cookie($sCookieName);
 		}elseif($GLOBALS['_commonConfig_']['AUTO_ACCEPT_LANGUAGE'] && isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])){
 			preg_match('/^([a-z\-]+)/i', $_SERVER['HTTP_ACCEPT_LANGUAGE'],$arrMatches);
 			$sLangSet=ucfirst(strtolower($arrMatches[1]));
@@ -192,7 +204,7 @@ class App{
 			$sLangSet=ucfirst(strtolower($GLOBALS['_commonConfig_']['LANG']));
 		}
 
-		Dyhb::cookie(APP_NAME.'_language',$sLangSet);
+		Dyhb::cookie($sCookieName,$sLangSet);
 
 		define('LANG_NAME',$sLangSet);
 		Lang::setCurrentLang($sLangSet);

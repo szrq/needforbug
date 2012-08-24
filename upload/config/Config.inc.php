@@ -39,5 +39,6 @@
   'FRONT_TPL_DIR' => 'Default',
   'ADMIN_TPL_DIR' => 'Default',
   'NOT_ALLOWED_EMPTYCONTROL_VIEW' => true,
+  'COOKIE_LANG_TEMPLATE_INCLUDE_APPNAME' => false,
 )
 ?>

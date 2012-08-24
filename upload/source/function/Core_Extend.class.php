@@ -538,8 +538,8 @@ NEEDFORBUG;
 			@unlink($sAppConfigcachefile);
 
 			if($bCleanCookie===true){
-				Dyhb::cookie($sApp.'_template',null,-1);
-				Dyhb::cookie($sApp.'_language',null,-1);
+				Dyhb::cookie('template',null,-1);
+				Dyhb::cookie('language',null,-1);
 			}
 		}
 
