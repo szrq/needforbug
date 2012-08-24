@@ -586,17 +586,35 @@ class Dyhb{
 		if($GLOBALS['_commonConfig_']['URL_MODEL']>0){
 			$sDepr=$GLOBALS['_commonConfig_']['URL_PATHINFO_MODEL']==2?$GLOBALS['_commonConfig_']['URL_PATHINFO_DEPR']:'/';
 			
-			$sStr=$sDepr;
-			foreach($arrParams as $sVar=>$sVal){
-				$sStr.=$sVar.$sDepr.urlencode($sVal).$sDepr;
-			}
-			
-			// 删除末尾的分隔符
-			$sStr=substr($sStr,0,-1);
-
 			if(!empty($sRoute)){
+				// 匹配路由参数
+				if(isset($GLOBALS['_commonConfig_']['_ROUTER_'][$sRoute])){
+					$arrRouters=$GLOBALS['_commonConfig_']['_ROUTER_'][$sRoute];
+					if(!empty($arrRouters[1])){
+						$arrRoutervalue=explode(',',$arrRouters[1]);
+						foreach($arrRoutervalue as $sRoutervalue){
+							if(array_key_exists($sRoutervalue,$arrParams)){
+								$sRoute.=$sDepr.urlencode($arrParams[$sRoutervalue]);
+								unset($arrParams[$sRoutervalue]);
+							}
+						}
+					}
+				}
+
+				$sStr=$sDepr;
+				foreach($arrParams as $sVar=>$sVal){
+					$sStr.=$sVar.$sDepr.urlencode($sVal).$sDepr;
+				}
+				$sStr=substr($sStr,0,-1);
+
 				$sUrl=__APP__.$sDepr.$sRoute.(APP_NAME!==$sApp?$sDepr.'app'.$sDepr.$sApp:'').$sStr;
 			}else{
+				$sStr=$sDepr;
+				foreach($arrParams as $sVar=>$sVal){
+					$sStr.=$sVar.$sDepr.urlencode($sVal).$sDepr;
+				}
+				$sStr=substr($sStr,0,-1);
+
 				$sUrl=__APP__.$sDepr.$sModule.$sDepr.$sAction.(APP_NAME!==$sApp?$sDepr.'app'.$sDepr.$sApp:'').$sStr;
 			}
 

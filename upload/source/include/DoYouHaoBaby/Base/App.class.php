@@ -48,9 +48,6 @@ class App{
 
 		// 开启静态缓存
 		if($GLOBALS['_commonConfig_']['HTML_CACHE_ON']){
-			if(file_exists(APP_PATH.'/App/Config/Html.php')){
-				Dyhb::C('_HTML_',(array)(include APP_PATH.'/App/Config/Html.php'));
-			}
 			Html::R();
 		}
 

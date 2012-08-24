@@ -4,6 +4,12 @@
 
 !defined('DYHB_PATH') && exit;
 
+/** 支持的URL模式 */
+define('URL_COMMON',0);// 普通模式
+define('URL_PATHINFO',1);// PATHINFO模式
+define('URL_REWRITE',2);// REWRITE模式
+define('URL_COMPAT',3);// 兼容模式
+
 class Url{
 
 	protected $_sLastRouterName=null;
@@ -111,12 +117,6 @@ class Url{
 			
 			// Resource目录路径
 			define('__LIBCOM__',__FRAMEWORK__.'/Resource_');
-			
-			/** 支持的URL模式 */
-			define('URL_COMMON',0);// 普通模式
-			define('URL_PATHINFO',1);// PATHINFO模式
-			define('URL_REWRITE',2);// REWRITE模式
-			define('URL_COMPAT',3);// 兼容模式
 		}
 
 		$nUrlModel=$GLOBALS['_commonConfig_']['URL_MODEL'];

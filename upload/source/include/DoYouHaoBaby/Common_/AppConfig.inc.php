@@ -25,6 +25,18 @@ if(is_file(APP_PATH.'/App/Config/ExtendConfig.php' )){
 	}
 }
 
+/** 设置路由 */
+if(file_exists(APP_PATH.'/App/Config/Router.php')){// 从配置文件中载入路由
+	$arrRouters=(array)(include(APP_PATH.'/App/Config/Router.php'));
+	$arrConfig['_ROUTER_']=$arrRouters;
+}
+
+/** 设置HTML静态化 */
+if(file_exists(APP_PATH.'/App/Config/Html.php')){
+	$arrHtmls=(array)(include APP_PATH.'/App/Config/Html.php');
+	$arrConfig['_HTML_']=$arrHtmls;
+}
+
 if(!is_dir(APP_RUNTIME_PATH)){
 	G::makeDir(APP_RUNTIME_PATH);
 }
