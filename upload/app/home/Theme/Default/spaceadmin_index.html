@@ -4,7 +4,7 @@
 function update(){
 	$("#submit_button").attr("disabled","disabled");
 	$("#submit_button").val('update...');
-	Dyhb.AjaxSubmit('informationUpd','<!--{:Dyhb::U('home://user/change_info')}-->','',function(data,status){ 
+	Dyhb.AjaxSubmit('informationUpd','<!--{:Dyhb::U('home://spaceadmin/change_info')}-->','',function(data,status){ 
 		$("#submit_button").attr("disabled",false);
 		$("#submit_button").val("<!--<lang package='__COMMON_LANG__@Template/Common'>-->更新<!--</lang>-->");
 	});
@@ -13,17 +13,17 @@ function update(){
 
 		<ul class="breadcrumb">
 			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
-			<li><a href="<!--{:Dyhb::U('home://user/base')}-->"><!--<lang package='Template/User'>-->用户资料<!--</lang>--></a> <span class="divider">/</span></li>
-			<li><!--<lang package='Template/User'>-->基本信息<!--</lang>--></li>
+			<li><a href="<!--{:Dyhb::U('home://spaceadmin/index')}-->"><!--<lang package='Template/Spaceadmin'>-->用户资料<!--</lang>--></a> <span class="divider">/</span></li>
+			<li><!--<lang package='Template/Spaceadmin'>-->基本信息<!--</lang>--></li>
 		</ul>
 
-		<!--<include file="user_information_menu" />-->
+		<!--<include file="spaceadmin_menu" />-->
 		
 		<div class="row">
 			<div class="span9">
 				<ul class="nav nav-pills">
 					<!--<foreach for=arrInfoMenus key=sInfoMenuKey value=sInfoMenu>-->
-					<li <!--{if (!$sDo && !$sInfoMenuKey) || $sDo==$sInfoMenuKey}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://user/base'.(!empty($sInfoMenuKey)?'?do='.$sInfoMenuKey:''))}-->"><!--{$sInfoMenu}--></a></li>
+					<li <!--{if (!$sDo && !$sInfoMenuKey) || $sDo==$sInfoMenuKey}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://spaceadmin/index'.(!empty($sInfoMenuKey)?'?do='.$sInfoMenuKey:''))}-->"><!--{$sInfoMenu}--></a></li>
 					<!--</foreach>-->
 				</ul>
 			</div>
@@ -34,7 +34,7 @@ function update(){
 				<form method="post" id="informationUpd" name="informationUpd">
 					<fieldset>
 						<div class="control-group">
-							<label class="control-label" for="user_name"><!--<lang package='Template/User'>-->用户名<!--</lang>--> <!--{$oUserInfo:user_name}--></label>
+							<label class="control-label" for="user_name"><!--<lang package='Template/Spaceadmin'>-->用户名<!--</lang>-->&nbsp;<!--{$oUserInfo:user_name}--></label>
 						</div>
 						<!--{if !$sDo}-->
 						<!--<foreach for=arrBases value=sBase>-->
@@ -97,7 +97,7 @@ function update(){
 									<option value="A" <!--{if $oUserInfo->userprofile->userprofile_bloodtype=='A'}-->selected="selected"<!--{/if}-->>A</option>
 									<option value="B" <!--{if $oUserInfo->userprofile->userprofile_bloodtype=='B'}-->selected="selected"<!--{/if}-->>B</option>
 									<option value="AB" <!--{if $oUserInfo->userprofile->userprofile_bloodtype=='AB'}-->selected="selected"<!--{/if}-->>AB</option>
-									<option value="O" <!--{if $oUserInfo->userprofile->userprofile_bloodtype=='O'}-->selected="selected"<!--{/if}-->>O</option><option value="<!--<lang package='Template/User'>-->其它<!--</lang>-->"><!--<lang package='Template/User'>-->其它<!--</lang>--></option>
+									<option value="O" <!--{if $oUserInfo->userprofile->userprofile_bloodtype=='O'}-->selected="selected"<!--{/if}-->>O</option><option value="<!--<lang package='Template/Spaceadmin'>-->其它<!--</lang>-->"><!--<lang package='Template/Spaceadmin'>-->其它<!--</lang>--></option>
 								</select>
 							</div>
 						</div>
@@ -137,7 +137,7 @@ function update(){
 						<div class="control-group">
 							<label class="control-label" for="user_email">Email</label>
 							<div class="controls">
-								<!--{$oUserInfo:user_email}-->&nbsp;(<a href="<!--{:Dyhb::U('home://user/base?do=info')}-->"><!--<lang package='Template/User'>-->修改<!--</lang>--></a>)
+								<!--{$oUserInfo:user_email}-->&nbsp;(<a href="<!--{:Dyhb::U('home://spaceadmin/index?do=info')}-->"><!--<lang package='Template/Spaceadmin'>-->修改<!--</lang>--></a>)
 							</div>
 						</div>
 						<!--{elseif $sDo=='edu'}-->
@@ -148,16 +148,16 @@ function update(){
 							<label class="control-label" for="userprofile_nowschool"><!--{$arrUserprofilesettingDatas['userprofile_nowschool']['userprofilesetting_title']}--></label>
 							<div class="controls">
 								<select name="userprofile_nowschool">
-									<option value="<!--<lang package='Template/User'>-->博士<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_nowschool==Dyhb+L("博士",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->博士<!--</lang>--></option>
-									<option value="<!--<lang package='Template/User'>-->硕士<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_nowschool==Dyhb+L("硕士",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->硕士<!--</lang>--></option>
-									<option value="<!--<lang package='Template/User'>-->本科<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_nowschool==Dyhb+L("本科",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->本科<!--</lang>--></option>
-									<option value="<!--<lang package='Template/User'>-->专科<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_nowschool==Dyhb+L("专科",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->专科<!--</lang>--></option>
-									<option value="<!--<lang package='Template/User'>-->高中<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_nowschool==Dyhb+L("高中",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->高中<!--</lang>--></option>
-									<option value="<!--<lang package='Template/User'>-->初中<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_nowschool==Dyhb+L("初中",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->初中<!--</lang>--></option>
-									<option value="<!--<lang package='Template/User'>-->小学<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_nowschool==Dyhb+L("小学",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->小学<!--</lang>--></option>
-									<option value="<!--<lang package='Template/User'>-->幼儿班<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_nowschool==Dyhb+L("幼儿班",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->幼儿班<!--</lang>--></option>
-									<option value="<!--<lang package='Template/User'>-->其它<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_nowschool==Dyhb+L("其它",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->其它<!--</lang>--></option>
-									<option value="<!--<lang package='Template/User'>-->工作<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_nowschool==Dyhb+L("工作",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->工作<!--</lang>--></option>
+									<option value="<!--<lang package='Template/Spaceadmin'>-->博士<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_nowschool==Dyhb+L("博士",'Template/Spaceadmin')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/Spaceadmin'>-->博士<!--</lang>--></option>
+									<option value="<!--<lang package='Template/Spaceadmin'>-->硕士<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_nowschool==Dyhb+L("硕士",'Template/Spaceadmin')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/Spaceadmin'>-->硕士<!--</lang>--></option>
+									<option value="<!--<lang package='Template/Spaceadmin'>-->本科<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_nowschool==Dyhb+L("本科",'Template/Spaceadmin')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/Spaceadmin'>-->本科<!--</lang>--></option>
+									<option value="<!--<lang package='Template/Spaceadmin'>-->专科<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_nowschool==Dyhb+L("专科",'Template/Spaceadmin')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/Spaceadmin'>-->专科<!--</lang>--></option>
+									<option value="<!--<lang package='Template/Spaceadmin'>-->高中<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_nowschool==Dyhb+L("高中",'Template/Spaceadmin')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/Spaceadmin'>-->高中<!--</lang>--></option>
+									<option value="<!--<lang package='Template/Spaceadmin'>-->初中<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_nowschool==Dyhb+L("初中",'Template/Spaceadmin')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/Spaceadmin'>-->初中<!--</lang>--></option>
+									<option value="<!--<lang package='Template/Spaceadmin'>-->小学<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_nowschool==Dyhb+L("小学",'Template/Spaceadmin')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/Spaceadmin'>-->小学<!--</lang>--></option>
+									<option value="<!--<lang package='Template/Spaceadmin'>-->幼儿班<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_nowschool==Dyhb+L("幼儿班",'Template/Spaceadmin')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/Spaceadmin'>-->幼儿班<!--</lang>--></option>
+									<option value="<!--<lang package='Template/Spaceadmin'>-->其它<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_nowschool==Dyhb+L("其它",'Template/Spaceadmin')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/Spaceadmin'>-->其它<!--</lang>--></option>
+									<option value="<!--<lang package='Template/Spaceadmin'>-->工作<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_nowschool==Dyhb+L("工作",'Template/Spaceadmin')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/Spaceadmin'>-->工作<!--</lang>--></option>
 								</select>
 							</div>
 						</div>
@@ -166,13 +166,13 @@ function update(){
 							<label class="control-label" for="userprofile_education"><!--{$arrUserprofilesettingDatas['userprofile_education']['userprofilesetting_title']}--></label>
 							<div class="controls">
 								<select name="userprofile_education">
-									<option value="<!--<lang package='Template/User'>-->博士<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_education==Dyhb+L("博士",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->博士<!--</lang>--></option>
-									<option value="<!--<lang package='Template/User'>-->硕士<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_education==Dyhb+L("硕士",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->硕士<!--</lang>--></option>
-									<option value="<!--<lang package='Template/User'>-->本科<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_education==Dyhb+L("本科",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->本科<!--</lang>--></option>
-									<option value="<!--<lang package='Template/User'>-->专科<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_education==Dyhb+L("专科",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->专科<!--</lang>--></option>
-									<option value="<!--<lang package='Template/User'>-->中学<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_education==Dyhb+L("中学",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->中学<!--</lang>--></option>
-									<option value="<!--<lang package='Template/User'>-->小学<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_education==Dyhb+L("小学",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->小学<!--</lang>--></option>
-									<option value="<!--<lang package='Template/User'>-->其它<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_education==Dyhb+L("其它",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->其它<!--</lang>--></option>
+									<option value="<!--<lang package='Template/Spaceadmin'>-->博士<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_education==Dyhb+L("博士",'Template/Spaceadmin')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/Spaceadmin'>-->博士<!--</lang>--></option>
+									<option value="<!--<lang package='Template/Spaceadmin'>-->硕士<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_education==Dyhb+L("硕士",'Template/Spaceadmin')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/Spaceadmin'>-->硕士<!--</lang>--></option>
+									<option value="<!--<lang package='Template/Spaceadmin'>-->本科<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_education==Dyhb+L("本科",'Template/Spaceadmin')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/Spaceadmin'>-->本科<!--</lang>--></option>
+									<option value="<!--<lang package='Template/Spaceadmin'>-->专科<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_education==Dyhb+L("专科",'Template/Spaceadmin')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/Spaceadmin'>-->专科<!--</lang>--></option>
+									<option value="<!--<lang package='Template/Spaceadmin'>-->中学<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_education==Dyhb+L("中学",'Template/Spaceadmin')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/Spaceadmin'>-->中学<!--</lang>--></option>
+									<option value="<!--<lang package='Template/Spaceadmin'>-->小学<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_education==Dyhb+L("小学",'Template/Spaceadmin')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/Spaceadmin'>-->小学<!--</lang>--></option>
+									<option value="<!--<lang package='Template/Spaceadmin'>-->其它<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_education==Dyhb+L("其它",'Template/Spaceadmin')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/Spaceadmin'>-->其它<!--</lang>--></option>
 								</select>
 							</div>
 						</div>
@@ -205,9 +205,9 @@ function update(){
 							<label class="control-label" for="userprofile_idcardtype"><!--{$arrUserprofilesettingDatas['userprofile_idcardtype']['userprofilesetting_title']}--></label>
 							<div class="controls">
 								<select name="userprofile_idcardtype">
-									<option value="<!--<lang package='Template/User'>-->身份证<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_idcardtype==Dyhb+L("身份证",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->身份证<!--</lang>--></option>
-									<option value="<!--<lang package='Template/User'>-->护照<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_idcardtype==Dyhb+L("护照",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->护照<!--</lang>--></option>
-									<option value="<!--<lang package='Template/User'>-->驾驶证<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_idcardtype==Dyhb+L("驾驶证",'Template/User')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/User'>-->驾驶证<!--</lang>--></option>
+									<option value="<!--<lang package='Template/Spaceadmin'>-->身份证<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_idcardtype==Dyhb+L("身份证",'Template/Spaceadmin')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/Spaceadmin'>-->身份证<!--</lang>--></option>
+									<option value="<!--<lang package='Template/Spaceadmin'>-->护照<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_idcardtype==Dyhb+L("护照",'Template/Spaceadmin')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/Spaceadmin'>-->护照<!--</lang>--></option>
+									<option value="<!--<lang package='Template/Spaceadmin'>-->驾驶证<!--</lang>-->" <!--{if $oUserInfo->userprofile->userprofile_idcardtype==Dyhb+L("驾驶证",'Template/Spaceadmin')}-->selected="selected"<!--{/if}-->><!--<lang package='Template/Spaceadmin'>-->驾驶证<!--</lang>--></option>
 								</select>
 							</div>
 						</div>
@@ -229,7 +229,7 @@ function update(){
 						<!--{/if}-->
 						<!--</foreach>-->
 						<div class="control-group">
-							<label class="control-label" for="user_nikename"><!--<lang package='Template/User'>-->昵称<!--</lang>--></label>
+							<label class="control-label" for="user_nikename"><!--<lang package='Template/Spaceadmin'>-->昵称<!--</lang>--></label>
 							<div class="controls">
 								<input class="input-xlarge" type="text" name="user_nikename" id="user_nikename" size="40" value="<!--{$oUserInfo:user_nikename}-->" />
 							</div>
@@ -241,7 +241,7 @@ function update(){
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="user_sign"><!--<lang package='Template/User'>-->用户签名<!--</lang>--></label>
+							<label class="control-label" for="user_sign"><!--<lang package='Template/Spaceadmin'>-->用户签名<!--</lang>--></label>
 							<div class="controls">
 								<textarea class="input-xlarge" name="user_sign" id="user_sign" rows="5" style="width:400px;"><!--{$oUserInfo:user_sign}--></textarea>
 							</div>
@@ -252,7 +252,7 @@ function update(){
 							<label class="control-label" for="seccode"><!--<lang package='__COMMON_LANG__@Template/Common'>-->验证码<!--</lang>--></label>
 							<div class="controls">
 								<input class="input-small" name="seccode" id="seccode" type="text" value="">
-								<p class="help-block"><span id="seccodeImage"><img style="cursor:pointer" onclick="updateSeccode()" src="<!--{:Dyhb::U('home://public/seccode')}-->" /></span></p>
+								<p class="help-block"><span id="seccodeImage"><img style="cursor:pointer" onclick="updateSeccode()" src="<!--{:Dyhb::U('home://spaceadmin/seccode')}-->" /></span></p>
 							</div>
 						</div>
 						<!--{/if}-->

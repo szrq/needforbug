@@ -1,0 +1,46 @@
+<!--[if IE 6]> 
+<!--{style}-->
+html{overflow:hidden;}
+body{height:100%;overflow:auto;}
+<!--{/style}-->
+<![endif]-->
+
+			<div class="span3">
+				<div class="well" style="padding: 8px 0;">
+					<div class="userinfo">
+						<div class="userpic">
+							<span id="my-face">
+								<a href='<!--{:Dyhb::U('home://spaceadmin/avatar')}-->' target='_self'>
+									<img src='<!--{:Core_Extend::avatar( $GLOBALS['___login___']['user_id'],'small' )}-->' class="thumbnail">
+								</a>
+							</span>
+						</div>
+						<div class="user_name">
+							<h6><!--{if !empty($GLOBALS['___login___']['user_nikename'])}-->
+									<!--{$GLOBALS['___login___']['user_nikename']}-->
+								<!--{d*else}-->
+									<!--{$GLOBALS['___login___']['user_name']}-->
+								<!--{/if}--></h6>
+							<p><!--<lang package='Template/Ucenter'>-->积分<!--</lang>-->&nbsp;<span class="badge badge-success"><a href="#">292</a></span></p>
+							<p><!--<lang package='Template/Ucenter'>-->金币<!--</lang>-->&nbsp;<span class="badge badge-success"><a href="#">116</a></span></p>
+						 </div>
+					</div>
+
+					<ul class="nav nav-list">
+						<li class="nav-header"><!--<lang package='Template/Ucenter'>-->我的地盘<!--</lang>--></li>
+						<li class="active"><a href="<!--{:Dyhb::U('home://ucenter/index')}-->"><i class="icon-white icon-home"></i>&nbsp;<!--<lang package='Template/Ucenter'>-->个人中心<!--</lang>--></a></li>
+						<li><a href="<!--{:Dyhb::U('home://spaceadmin/base')}-->"><i class="icon-cog"></i>&nbsp;<!--<lang package='Template/Ucenter'>-->修改资料<!--</lang>--></a></li>
+						<li><a href="<!--{:Dyhb::U('home://spaceadmin/avatar')}-->"><i class="icon-camera"></i>&nbsp;<!--<lang package='Template/Ucenter'>-->修改头像<!--</lang>--></a></li>
+						<li><a href="<!--{:Dyhb::U('home://spaceadmin/password')}-->"><i class="icon-lock"></i>&nbsp;<!--<lang package='Template/Ucenter'>-->修改密码<!--</lang>--></a></li>
+						<li><a href="<!--{:Dyhb::U('home://spaceadmin/tag')}-->"><i class="icon-tags"></i>&nbsp;<!--<lang package='Template/Ucenter'>-->我的标签<!--</lang>--></a></li>
+						<li><a href="<!--{:Dyhb::U('home://public/logout')}-->"><i class="icon-off"></i>&nbsp;<!--<lang package='Template/Ucenter'>-->注销<!--</lang>--></a></li>
+						<li class="nav-header"><!--<lang package='Template/Ucenter'>-->我的成长<!--</lang>--></li>
+						<li><a href="<!--{:Dyhb::U('home://friend/index')}-->"><i class="icon-user"></i>&nbsp;<!--<lang package='Template/Ucenter'>-->我的好友<!--</lang>--></a></li>
+						<li class="nav-header"><!--<lang package='Template/Ucenter'>-->我的应用<!--</lang>--></li>
+						<li><a href="<!--{:Dyhb::U('group://public/index')}-->"><i class="icon-pencil"></i>&nbsp;<!--<lang package='Template/Ucenter'>-->群组<!--</lang>--></a></li>
+						<li><a href="#"><i class="icon-pencil"></i>&nbsp;<!--<lang package='Template/Ucenter'>-->商城<!--</lang>--></a></li>
+						<li class="divider"></li>
+						<li><a href="<!--{:Dyhb::U('home://public/help')}-->"><i class="icon-flag"></i>&nbsp;<!--<lang package='Template/Ucenter'>-->帮助<!--</lang>--></a></li>
+					</ul>
+				</div>
+			</div>

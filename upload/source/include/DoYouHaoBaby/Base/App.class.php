@@ -86,7 +86,11 @@ class App{
 		}
 
 		if($oModule===false){
-			$bResult=self::display();
+			if($GLOBALS['_commonConfig_']['NOT_ALLOWED_EMPTYCONTROL_VIEW']===true){
+				Dyhb::E(Dyhb::L('模块%s 不存在','__DYHB__@Dyhb',null,$sModule));
+			}else{
+				$bResult=self::display();
+			}
 		}
 		self::$_oControl=$oModule;
 
@@ -100,7 +104,7 @@ class App{
 			call_user_func(array($oModule,'b'.ucfirst(ACTION_NAME).'_'));
 		}
 
-		if(method_exists( $oModule,ACTION_NAME)){
+		if(method_exists($oModule,ACTION_NAME)){
 			call_user_func(array($oModule,ACTION_NAME));
 			$bResult=true;
 		}else{
@@ -108,7 +112,11 @@ class App{
 		}
 
 		if($bResult===false){
-			$bResult=self::display();
+			if($GLOBALS['_commonConfig_']['NOT_ALLOWED_EMPTYACTION_VIEW']===true){
+				Dyhb::E(Dyhb::L('模块%s 不存在的方法%s 不存在','__DYHB__@Dyhb',null,$sModule,ACTION_NAME));
+			}else{
+				$bResult=self::display();
+			}
 		}
 
 		if(method_exists($oModule,'a'.ucfirst(ACTION_NAME).'_')){

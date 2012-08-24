@@ -38,5 +38,6 @@
   'APP_DEVELOP' => 1,
   'FRONT_TPL_DIR' => 'Default',
   'ADMIN_TPL_DIR' => 'Default',
+  'NOT_ALLOWED_EMPTYCONTROL_VIEW' => true,
 )
 ?>

@@ -70,6 +70,8 @@ return array(
 	'URL_PATHINFO_MODEL'=>2,// 1：普通模式,2：智能模式
 	'URL_PATHINFO_DEPR'=>'/',// url分割符
 	'URL_HTML_SUFFIX'=>'',// 伪静态后缀
+	'NOT_ALLOWED_EMPTYCONTROL_VIEW'=>FALSE,// 是否允许不存在模块的时候直接调用视图
+	'NOT_ALLOWED_EMPTYACTION_VIEW'=>FALSE,// 是否允许不存在方法的时候直接调用视图
 	'DEFAULT_CONTROL'=>'index',// 默认控制器
 	'DEFAULT_ACTION'=>'index',// 默认方法
 	'LOG_RECORD'=>FALSE,// 默认不记录日志

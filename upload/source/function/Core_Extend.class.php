@@ -82,6 +82,34 @@ class Core_Extend{
 		return $arrAvatarInfo;
 	}
 
+	static public function doControllerAction($sPath,$sAction){
+		require_once(Core_Extend::includeController($sPath,$sClassController));
+
+		$oClass=new $sClassController();
+		$oClass->{$sAction}();
+	}
+	
+	static public function includeController($sPath,&$sClassController){
+		$sFilepath=APP_PATH.'/App/Class/Controller/';
+
+		$arrValue=explode('@',$sPath);
+		if(!isset($arrValue[1])){
+			Dyhb::E('IncludeController parameter is error');
+		}
+		$sFilepath.=$arrValue[0].'_/';
+
+		$arrValue=explode('/',$arrValue[1]);
+		$sClassController=array_pop($arrValue).'Controller';
+		$sClass=$sClassController.'_.php';
+		$sFilepath.=($arrValue?implode('/',$arrValue).'/':'').$sClass;
+
+		if(!file_exists($sFilepath)){
+			Dyhb::E(sprintf('Include Controller %s failed',$sFilepath));
+		}
+
+		return $sFilepath;
+	}
+
 	static public function loadCache($CacheNames,$bForce=false){
 		static $arrLoadedCache=array();
 

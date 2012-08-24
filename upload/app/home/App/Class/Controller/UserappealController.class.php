@@ -8,7 +8,7 @@ class UserappealController extends InitController{
 
 	public function index(){
 		if(UserModel::M()->isLogin()){
-			$this->U('home://user/index');
+			$this->U('home://ucenter/index');
 		}
 
 		$this->display('userappeal+index');
@@ -30,7 +30,7 @@ class UserappealController extends InitController{
 
 	public function step2(){
 		if(UserModel::M()->isLogin()){
-			$this->U('home://user/index');
+			$this->U('home://ucenter/index');
 		}
 
 		$this->check_seccode(true);
@@ -58,7 +58,7 @@ class UserappealController extends InitController{
 
 	public function step3(){
 		if(UserModel::M()->isLogin()){
-			$this->U('home://user/index');
+			$this->U('home://ucenter/index');
 		}
 
 		$this->check_seccode(true);
@@ -75,7 +75,7 @@ class UserappealController extends InitController{
 
 		if(empty($sAppealemail)){
 			$this->E(Dyhb::L('申诉结果接收邮箱不能为','Controller/Userappeal'));
-		}	
+		}
 		
 		Check::RUN();
 		if(!Check::C($sAppealemail,'email')){
@@ -150,7 +150,7 @@ class UserappealController extends InitController{
 
 	public function step4(){
 		if(UserModel::M()->isLogin()){
-			$this->U('home://user/index');
+			$this->U('home://ucenter/index');
 		}
 
 		$nEmaillink=intval(G::getGpc('emaillink'));
@@ -223,7 +223,7 @@ class UserappealController extends InitController{
 	
 	public function tocomputer(){
 		if(UserModel::M()->isLogin()){
-			$this->U('home://user/index');
+			$this->U('home://ucenter/index');
 		}
 
 		$nAppealId=intval(G::getGpc('id','G'));
@@ -282,7 +282,7 @@ class UserappealController extends InitController{
 
 	public function tomail(){
 		if(UserModel::M()->isLogin()){
-			$this->U('home://user/index');
+			$this->U('home://ucenter/index');
 		}
 
 		$nAppealId=intval(G::getGpc('id','G'));
@@ -345,14 +345,14 @@ class UserappealController extends InitController{
 
 	public function schedule(){
 		if(UserModel::M()->isLogin()){
-			$this->U('home://user/index');
+			$this->U('home://ucenter/index');
 		}
 		$this->display('userappeal+schedule');
 	}
 
 	public function schedule_result(){
 		if(UserModel::M()->isLogin()){
-			$this->U('home://user/index');
+			$this->U('home://ucenter/index');
 		}
 
 		$this->check_seccode(true);

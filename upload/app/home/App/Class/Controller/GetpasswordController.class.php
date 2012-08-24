@@ -8,7 +8,7 @@ class GetpasswordController extends InitController{
 
 	public function index(){
 		if(UserModel::M()->isLogin()){
-			$this->U('home://user/password');
+			$this->U('home://spaceadmin/password');
 		}
 	
 		$this->display('getpassword+index');
@@ -16,7 +16,7 @@ class GetpasswordController extends InitController{
 
 	public function email(){
 		if(UserModel::M()->isLogin()){
-			$this->U('home://user/password');
+			$this->U('home://spaceadmin/password');
 		}
 		$this->check_seccode(true);
 
@@ -73,7 +73,7 @@ class GetpasswordController extends InitController{
 
 	public function reset(){
 		if(UserModel::M()->isLogin()){
-			$this->U('home://user/password');
+			$this->U('home://spaceadmin/password');
 		}
 		$sEmail=trim(G::getGpc('email','G'));
 		$sHash=trim(G::getGpc('hash','G'));
