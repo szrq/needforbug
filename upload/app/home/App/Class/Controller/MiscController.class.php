@@ -18,4 +18,8 @@ class MiscController extends InitController{
 		Core_Extend::doControllerAction('Misc@Style','index');
 	}
 
+	public function extendstyle(){
+		Core_Extend::doControllerAction('Misc@Extendstyle','index');
+	}
+
 }

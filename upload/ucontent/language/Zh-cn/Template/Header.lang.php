@@ -1,7 +1,6 @@
 <?php
 /** DoYouHaoBaby Framework Lang File, Do not to modify it! */
 return array(
-'cf4f4fa1ef7f728bd0401334e216add6'=>"切换到窄版",
 '63e85df1cc14cff812a8ce7960442a0f'=>"未登录",
 '4347981379bd6f93bb10f6e222af8596'=>"用户登录",
 'e804a9a2158eb06e6609b0b7ac9c3cb9'=>"用户注册",

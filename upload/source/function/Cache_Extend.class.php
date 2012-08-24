@@ -418,7 +418,7 @@ class Cache_Extend{
 
 				$arrStyle['_style_extend_icons_']=array();
 				$arrStyleExtendValue=explode("\t",$arrStyleExtendValue[0]);
-				$arrStyleExtendValue[]='';
+				$arrStyleExtendValue[]=0;
 				foreach($arrStyleExtendValue as $sStyleExtendValue){
 					if(array_key_exists($sStyleExtendValue,$arrExtendstyleData)){
 						$arrStyle['_style_extend_icons_'][$sStyleExtendValue]=$arrExtendstyleData[$sStyleExtendValue];

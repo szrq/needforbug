@@ -690,7 +690,7 @@ NEEDFORBUG;
 
 		// 清除直接使用$_GET['t']带来的影响
 		if(isset($_GET['t'])){
-			Dyhb::cookie(APP_NAME.'_template',NULL,-1);
+			Dyhb::cookie('template',NULL,-1);
 		}
 	}
 
@@ -705,9 +705,20 @@ NEEDFORBUG;
 			$sScriptCss.='<link rel="stylesheet" type="text/css" href="'.$sStyleCacheurl.'/'.APP_NAME.'_common.css?'.$GLOBALS['_style_']['verhash']."\" />";
 		}
 
-		$sCurrentT=$GLOBALS['_style_']['_current_style_'];
+		$sCurrentT=Dyhb::cookie('extend_style_id');
+		if($sCurrentT==''){
+			if($GLOBALS['___login___']!==false){
+				$sCurrentT=$GLOBALS['___login___']['user_extendstyle'];
+			}else{
+				$sCurrentT=$GLOBALS['_style_']['_current_style_'];
+			}
+		}
 		if(!empty($sCurrentT) && file_exists($sStyleCachepath.'/t_'.$sCurrentT.'.css')){
-			$sScriptCss.='<link rel="stylesheet" type="text/css" href="'.$sStyleCacheurl.'/t_'.$sCurrentT.'.css?'.$GLOBALS['_style_']['verhash']."\" />";
+			$sScriptCss.='<link rel="stylesheet" id="extend_style" type="text/css" href="'.$sStyleCacheurl.'/t_'.$sCurrentT.'.css?'.$GLOBALS['_style_']['verhash']."\" />";
+			$GLOBALS['_extend_style_']=$sCurrentT;
+		}else{
+			$GLOBALS['_extend_style_']='0';
+			$sScriptCss.='<link rel="stylesheet" id="extend_style" type="text/css" href="'.__PUBLIC__.'/images/common/none.css?'.$GLOBALS['_style_']['verhash']."\" />";
 		}
 		
 		if(!defined('CURSCRIPT')){

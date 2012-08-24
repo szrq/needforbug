@@ -49,7 +49,17 @@
 							<!--</foreach>-->
 						</div>
 						<div class="right">
-							<a href="javascript:void(0);" onclick="javascript:void(0);"><!--<lang package='__COMMON_LANG__@Template/Header'>-->切换到窄版<!--</lang>--></a>
+							<div class="btn-group">
+								<a href="javascript:void(0);" data-toggle="dropdown"><img src="<!--{:__PUBLIC__}-->/images/common/style.gif"/>切换样式</a>
+								<ul class="dropdown-menu">
+								<!--<foreach for="GLOBALS['_style_']['_style_extend_icons_']" key=sStyleextendicon value=arrStyleextendicon>-->
+									<!--{if $sStyleextendicon=='0' && count($GLOBALS['_style_']['_style_extend_icons_'])!=1}-->
+									<li class="divider"></li>
+									<!--{/if}-->
+									<li style="background:<!--{$arrStyleextendicon[2]}-->;"><a href="javascript:void(0);" onclick="<!--{if count($GLOBALS['_style_']['_style_extend_icons_'])==1}-->javascript:void(0);<!--{d*else}-->setExtendstyle('<!--{$sStyleextendicon}-->','<!--{if $sStyleextendicon!='0'}--><!--{:Core_Extend::getCurstyleCacheurl()}-->/t_<!--{$sStyleextendicon}-->.css<!--{/if}-->');<!--{/if}-->" style="color:#FFF;<!--{if $GLOBALS['_extend_style_']==$sStyleextendicon}-->font-weight:bold;border:2px solid #FFF;<!--{/if}-->"><!--{$arrStyleextendicon[1]}--></a></li>
+								<!--</foreach>-->
+							  </ul>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -67,7 +77,7 @@
 					<!--{if count($GLOBALS['_style_']['_style_icons_'])>1}-->
 					<div class="right">
 						<div id="style_switch_box">
-							<ul id="style_switch" class="">
+							<ul id="style_switch">
 								<!--<foreach for="GLOBALS['_style_']['_style_icons_']" key=nStyleicon value=sStyleicon>-->
 								<li <!--{if Core_Extend+getStyleId()==$nStyleicon}-->class="current"<!--{/if}-->><a  href="javascript:void(0);" onclick="<!--{if Core_Extend+getStyleId()==$nStyleicon}-->javascript:void(0);<!--{d*else}-->setStyle(<!--{$nStyleicon}-->)<!--{/if}-->" title="<!--{$nStyleicon}-->" style="background: <!--{$sStyleicon}-->;"><!--{$nStyleicon}--></a></li>
 								<!--</foreach>-->

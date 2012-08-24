@@ -365,3 +365,9 @@ function setStyle(nStyle){
 		}
 	});
 }
+
+function setExtendstyle(sExtendstyle,sCss){
+	document.getElementById('extend_style').href=sCss?sCss:_ROOT_+'/Public/images/common/none.css';
+
+	Dyhb.AjaxSend(D.U('home://misc/extendstyle?id='+sExtendstyle),'ajax=1','',function(data,status){});
+}
