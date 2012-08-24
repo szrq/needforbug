@@ -42,6 +42,7 @@ class RatingController extends Controller{
 			$arrRatings=$GLOBALS['_cache_']['rating'];
 		}
 
+		$this->assign('nId',$nId);
 		$this->assign('nCId',$nCId);
 		$this->assign('arrRatings',$arrRatings);
 		$this->assign('arrRatinggroups',$arrRatinggroups);
