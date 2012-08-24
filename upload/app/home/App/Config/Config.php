@@ -11,6 +11,7 @@ $arrAppConfigs=array(
 	'DEFAULT_CONTROL'=>'public',
 	'TMPL_ACTION_ERROR'=>'message',
 	'TMPL_ACTION_SUCCESS'=>'message',
+	'START_ROUTER'=>true,
 );
 
 $arrGlobalConfig=(array)require(NEEDFORBUG_PATH.'/config/Config.inc.php');

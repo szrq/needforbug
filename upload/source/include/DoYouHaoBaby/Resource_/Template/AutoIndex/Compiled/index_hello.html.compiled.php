@@ -34,7 +34,7 @@ em{color:#6C6C6C}
 		<?php $arrLangs=G::listDir(DYHB_PATH.'/Resource_/Lang'); ?>
 		<div class="lang_list">
 			<div class="lang_title">Please select your language !</div>
-			<?php $sLangCookieName=APP_NAME.'_language'; ?>
+			<?php $sLangCookieName=$GLOBALS['_commonConfig_']['COOKIE_LANG_TEMPLATE_INCLUDE_APPNAME']===true?APP_NAME.'_language':'language'; ?>
 			<select name="lang-dropdown" onchange="document.location.href=this.options[this.selectedIndex].value;">
 				<option value="">-- Please select your language --</option>
 				<?php $i=1;?>

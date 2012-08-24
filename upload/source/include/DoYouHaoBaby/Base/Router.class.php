@@ -42,9 +42,7 @@ class Router{
 		}
 
 		if(is_null($arrRouters)){
-			if(file_exists(APP_PATH.'/App/Config/Router.php')){// 从配置文件中载入路由
-				$arrRouters=(array)(include(APP_PATH.'/App/Config/Router.php'));
-			}
+			$arrRouters=$GLOBALS['_commonConfig_']['_ROUTER_'];
 		}
 
 		$this->_arrRouters=array_merge($this->_arrRouters,$arrRouters);
@@ -104,7 +102,7 @@ class Router{
 			$sRouteName=array_shift($arrPaths);
 		}
 
-		$sRouteName= ucwords(strtolower($sRouteName));
+		$sRouteName=strtolower($sRouteName);
 		if(isset($this->_arrRouters[$sRouteName.'@'])){
 			$sRouteName=$sRouteName.'@';
 		}
@@ -138,6 +136,9 @@ class Router{
 		}
 
 		$arrVar=$this->parseUrl($arrRule[0]);
+		if($GLOBALS['_commonConfig_']['URL_MODEL']===URL_COMMON){
+			return $arrVar;
+		}
 
 		$sPathInfo=&$_SERVER['PATH_INFO'];
 		$sDepr=$GLOBALS['_commonConfig_']['URL_PATHINFO_DEPR'];
@@ -145,7 +146,11 @@ class Router{
 		$arrPaths=array_filter(explode($sDepr,trim(str_ireplace(strtolower($sRouteName),'',$sRegx),$sDepr)));
 
 		if(!empty($arrRule[1]) && in_array($arrRule[1],$arrPaths)){
-			array_shift($arrPaths);
+			foreach($arrPaths as $nKey=>$sValue){
+				if($sValue==$arrRule[1]){
+					unset($arrPaths[$nKey]);
+				}
+			}
 		}
 
 		$arrVars=explode(',',$arrRule[1]);
@@ -177,6 +182,10 @@ class Router{
 		$arrMatches=array();
 		if(preg_match($sTheRegex,$sRegx,$arrMatches)){
 			$arrVar=$this->parseUrl($arrRule[0]);
+			if($GLOBALS['_commonConfig_']['URL_MODEL']===URL_COMMON){
+				return $arrVar;
+			}
+
 			$arrVars=explode(',',$arrRule[1]);
 			for($nI=0;$nI<count($arrVars);$nI++){
 				$arrVar[$arrVars[$nI]]=$arrMatches[$nI+1];

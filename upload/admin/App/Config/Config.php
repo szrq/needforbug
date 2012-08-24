@@ -18,5 +18,6 @@ $arrGlobalConfig['SHOW_DB_TIMES']=FALSE;
 $arrGlobalConfig['SHOW_GZIP_STATUS']=FALSE;
 $arrAppConfigs['TPL_DIR']=$arrGlobalConfig['ADMIN_TPL_DIR'];
 unset($arrGlobalConfig['ADMIN_TPL_DIR']);
+$arrGlobalConfig['COOKIE_LANG_TEMPLATE_INCLUDE_APPNAME']=TRUE;
 
 return array_merge($arrAppConfigs,$arrGlobalConfig);

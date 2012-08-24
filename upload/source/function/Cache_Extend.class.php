@@ -391,6 +391,40 @@ class Cache_Extend{
 					$arrStyle['logo_str']="<img src=\"".$arrStyle['logo']."\" alt=\"".$GLOBALS['_option_']['site_name']."\" border=\"0\" />";
 				}
 
+				$sStyleExtendDir=NEEDFORBUG_PATH.'/ucontent/theme/'.$arrStyle['doyouhaobaby_template_base'].'/Public/Style';
+				!is_dir($sStyleExtendDir) && $sStyleExtendDir=NEEDFORBUG_PATH.'/ucontent/theme/Default/Public/Style';
+				if(is_dir($sStyleExtendDir)){
+					$arrStyleDirs=G::listDir($sStyleExtendDir);
+
+					$arrExtendstyleData[]=array('',Dyhb::L('默认','__COMMON_LANG__@Function/Cache_Extend'),$arrStyle['menu_hover_bg_color']);
+					
+					foreach($arrStyleDirs as $sStyleDir){
+						$sExtendStylefile=$sStyleExtendDir.'/'.$sStyleDir.'/style.css';
+
+						if(file_exists($sExtendStylefile)){
+							$sContent=file_get_contents($sExtendStylefile);
+
+							if(preg_match('/\[name\](.+?)\[\/name\]/i',$sContent,$arrResult1) &&
+								preg_match('/\[iconbgcolor](.+?)\[\/iconbgcolor]/i',$sContent,$arrResult2))
+							{
+								$arrExtendstyleData[$sStyleDir]=array($sStyleDir,$arrResult1[1],$arrResult2[1]);
+							}
+						}
+					}
+				}
+
+				$arrStyleExtendValue=explode('|',$arrStyle['style_extend']);
+				$arrStyle['_current_style_']=$arrStyleExtendValue[1];
+
+				$arrStyle['_style_extend_icons_']=array();
+				$arrStyleExtendValue=explode("\t",$arrStyleExtendValue[0]);
+				$arrStyleExtendValue[]='';
+				foreach($arrStyleExtendValue as $sStyleExtendValue){
+					if(array_key_exists($sStyleExtendValue,$arrExtendstyleData)){
+						$arrStyle['_style_extend_icons_'][$sStyleExtendValue]=$arrExtendstyleData[$sStyleExtendValue];
+					}
+				}
+
 				$nContentWidthInt=intval($arrStyle['content_width']);
 				$nContentWidthInt=$nContentWidthInt?$nContentWidthInt:600;
 				$nImageMaxWidth=$GLOBALS['_option_']['image_max_width'];
@@ -461,27 +495,29 @@ class Cache_Extend{
 				$arrTypes[]=$oApp['app_identifier'];
 			}
 		}
-		
-		$arrCssfiles=array('style'=>array('style','style_append'),
-							'common'=>array('common','common_append','t'));
+
+		$arrCssfiles=array(
+			'style'=>array('style','style_append'),
+			'common'=>array('common','common_append'),
+		);
+
+		$arrStyleExtendValue=explode('|',$arrData['style_extend']);
+		$arrStyleExtendValue=explode("\t",$arrStyleExtendValue[0]);
+		foreach($arrStyleExtendValue as $nStyleExtendValue=>$sStyleExtendValue){
+			$arrCssfiles['t_'.$sStyleExtendValue]=array($sStyleExtendValue);
+		}
 
 		foreach($arrTypes as $sType){
 			foreach($arrCssfiles as $sExtra=>$arrCssData){
 				$sCssData='';
+
 				foreach($arrCssData as $sCss){
 					if($sType=='@'){
-						if($sCss=='t'){
-							$sCssfile='';
-							if($sExtra=='common'){
-								$arrStyleExtendValue=explode('|',$arrData['style_extend']);
-								if(isset($arrStyleExtendValue[1]) && !empty($arrStyleExtendValue[1])){
-									$sCssfile=NEEDFORBUG_PATH.'/ucontent/theme/'.ucfirst($arrData['doyouhaobaby_template_base']).'/Public/Style/'.$arrStyleExtendValue[1].'/style.css';
-								}
-							}
-						}else{
-							$sCssfile=NEEDFORBUG_PATH.'/ucontent/theme/'.ucfirst($arrData['doyouhaobaby_template_base']).'/Public/Css/'.$sCss.'.css';
-							!file_exists($sCssfile) && $sCssfile=NEEDFORBUG_PATH.'/ucontent/theme/Default/Public/Css/'.$sCss.'.css';
-						}
+						$sCssfile=NEEDFORBUG_PATH.'/ucontent/theme/'.ucfirst($arrData['doyouhaobaby_template_base']).'/Public/Css/'.$sCss.'.css';
+						!file_exists($sCssfile) && $sCssfile=NEEDFORBUG_PATH.'/ucontent/theme/Default/Public/Css/'.$sCss.'.css';
+					}elseif(strpos($sExtra,'t_')===0){
+						$sCssfile=NEEDFORBUG_PATH.'/ucontent/theme/'.ucfirst($arrData['doyouhaobaby_template_base']).'/Public/Style/'.$sCss.'/style.css';
+						!file_exists($sCssfile) && NEEDFORBUG_PATH.'/ucontent/theme/Default/Public/Style/'.$sCss.'/style.css';
 					}else{
 						$sCssfile=NEEDFORBUG_PATH.'/app/'.$sType.'/Theme/'.ucfirst($arrData['doyouhaobaby_template_base']).'/Public/Css/'.$sCss.'.css';
 						!file_exists($sCssfile) && NEEDFORBUG_PATH.'/app/'.$sType.'/Theme/Default/Public/Css/'.$sCss.'.css';
@@ -500,7 +536,7 @@ class Cache_Extend{
 				$sCssData=preg_replace("/<\?.+?\?>\s*/",'',$sCssData);
 				$sCssData=preg_replace(array('/\s*([,;:\{\}])\s*/','/[\t\n\r]/','/\/\*.+?\*\//'),array('\\1','',''),$sCssData);
 
-				if(!file_put_contents($sStyleIdPath.'/'.($sType!='@'?$sType.'_':'').$sExtra.'.css',$sCssData) && !G::makeDir($sStyleIdPath)){
+				if(!file_put_contents($sStyleIdPath.'/'.($sType!='@' && strpos($sExtra,'t_')!==0?$sType.'_':'').$sExtra.'.css',$sCssData) && !G::makeDir($sStyleIdPath)){
 					Dyhb::E(Dyhb::L('无法写入缓存文件,请检查缓存目录 %s 的权限是否为0777','__COMMON_LANG__@Function/Cache_Extend',null,$sStyleIdPath));
 				}else{
 					$arrCurscriptCss=Glob($sStyleIdPath.'/scriptstyle_*.css');

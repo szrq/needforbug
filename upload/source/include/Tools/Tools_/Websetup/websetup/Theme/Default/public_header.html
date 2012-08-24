@@ -43,7 +43,7 @@ Dyhb.Lang.SetCurrentLang( '{:LANG_NAME}' );
 	<div class="information ">
 	<div class="lang_list">
 			<div class="lang_title">Please select your language !</div>
-			{~$sLangCookieName=APP_NAME.'_language'}
+			{~$sLangCookieName=$GLOBALS['_commonConfig_']['COOKIE_LANG_TEMPLATE_INCLUDE_APPNAME']===TRUE?APP_NAME.'_language':'language'}
 			<select name="lang-dropdown" onchange="document.location.href=this.options[this.selectedIndex].value;">
 				<option value="">-- Please select your language --</option>
 				<foreach for=arrListLangs>

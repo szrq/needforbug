@@ -29,13 +29,7 @@ class StyleController extends Controller{
 
 		// 发送主题COOKIE
 		Dyhb::cookie('style_id',$nStyleId);
-
-		$arrApps=AppModel::F()->where(array('app_status'=>1))->all()->query();
-		if(is_array($arrApps)){
-			foreach($arrApps as $oApp){
-				Dyhb::cookie(strtolower($oApp['app_identifier']).'_template',ucfirst(strtolower($oApp['app_identifier'])));
-			}
-		}
+		Dyhb::cookie('template',ucfirst(strtolower($oTheme['theme_dirname']));
 
 		$this->S(Dyhb::L('主题切换成功','Controller/Misc'));
 	}

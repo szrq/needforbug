@@ -1,6 +1,6 @@
 <?dyhb
 return array(
-	'START_GZIP'=>true,// Gzip压缩
+	'START_GZIP'=>TRUE,// Gzip压缩
 	'DEFAULT_APP'=>'@',// 默认APP,@表示当前项目
 	'APP_DEBUG'=>FALSE,// 项目DEBUG调式
 	'DB_HOST'=>'localhost',// 数据库地址
@@ -33,15 +33,15 @@ return array(
 	'TMPL_MODULE_ACTION_DEPR'=>'_',// 默认模块和方法分割符
 	'DEFAULT_AJAX_RETURN'=>'JSON',// 默认AJAX数据返回格式,可选JSON,XML
 	'TMPL_VAR_IDENTIFY'=>'',// 模板node解析自动识别为obj,array
-	'AUTO_ACCEPT_LANGUAGE'=>true,// 自动侦测语言
+	'AUTO_ACCEPT_LANGUAGE'=>TRUE,// 自动侦测语言
 	'DYHB_AUTH_KEY'=>'dyhb_auth_key',// 安全key
 	//'RBAC_ROLE_TABLE'=>role',
 	//'RBAC_USERROLE_TABLE'=>'roleuser',
 	//'RBAC_ACCESS_TABLE'=>access',
 	//'RBAC_NODE_TABLE'=>'node',
-	//'USER_AUTH_ON'=>true,
+	//'USER_AUTH_ON'=>TRUE,
 	//'NOT_AUTH_MODULE'=>',
-	//'USER_AUTH_ON'=>true,
+	//'USER_AUTH_ON'=>TRUE,
 	//'USER_AUTH_TYPE'=>1, 默认认证类型1登录认证2实时认证
 	//'USER_AUTH_KEY'=>'auth_id', 用户认证SESSION标记
 	//'ADMIN_AUTH_KEY'=>'administrator',
@@ -52,15 +52,16 @@ return array(
 	//'REQUIRE_AUTH_MODULE'=>', 默认需要认证模块
 	//'NOT_AUTH_ACTION'=>'', 默认无需认证操作
 	//'REQUIRE_AUTH_ACTION'=>', 默认需要认证操作
-	//'GUEST_AUTH_ON'=>false, 是否开启游客授权访问
+	//'GUEST_AUTH_ON'=>FALSE, 是否开启游客授权访问
 	//'GUEST_AUTH_ID'=>0, 游客的用户ID
 	'RBAC_DATA_PREFIX'=>'rbac_data_prefix',// RBAC相关数据前缀
-	'HTML_CACHE_ON'=>false,// 默认关闭静态缓存
+	'HTML_CACHE_ON'=>FALSE,// 默认关闭静态缓存
 	'HTML_CACHE_TIME'=>86400,// 静态缓存有效期
 	'HTML_READ_TYPE'=>0,// 静态缓存读取方式0readfile1跳转
 	'HTML_FILE_SUFFIX'=>'.html',// 默认静态文件后缀
 	'TIME_ZONE'=>'Asia/Shanghai',// 时区
 	'COOKIE_PREFIX'=>'dyhb_',// cookie前缀
+	'COOKIE_LANG_TEMPLATE_INCLUDE_APPNAME'=>TRUE,// 语言包和模板COOKIE是否包含应用名
 	'COOKIE_DOMAIN'=>'',// cookie域名
 	'COOKIE_PATH'=>'/',// cookie路径
 	'COOKIE_EXPIRE'=>86400,// cookie默认过期时间一天
@@ -79,7 +80,7 @@ return array(
 	'LOG_RECORD_LEVEL'=>'EMERG|ALERT|CRIT|ERR',// 允许记录的日志级别
 	'LOG_MUST_RECORD_EXCEPTION'=>FALSE,// 是否强制记录异常
 	'LOG_SQL_ENABLED'=>FALSE,// 是否记录数据中的日志
-	'SHOW_PAGE_TRACE'=>false,// 显示页面调式信息
+	'SHOW_PAGE_TRACE'=>FALSE,// 显示页面调式信息
 	'SHOW_RUN_TIME'=>FALSE,// 是否显示运行状态
 	'SHOW_DETAIL_TIME'=>FALSE,// 是否显示运行时间
 	'SHOW_USE_MEM'=>FALSE,// 系统运行是否显示内存
