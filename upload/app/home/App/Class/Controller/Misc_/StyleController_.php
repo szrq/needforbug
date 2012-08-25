@@ -7,6 +7,10 @@
 class StyleController extends Controller{
 
 	public function index(){
+		if($GLOBALS['_option_']['style_switch_on']==0){
+			$this->E(Dyhb::L('系统已经关闭了主题切换功能','Controller/Misc'));
+		}
+
 		$nStyleId=intval(G::getGpc('id','G'));
 		if(empty($nStyleId)){
 			$this->E(Dyhb::L('主题切换失败','Controller/Misc'));

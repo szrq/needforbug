@@ -47,6 +47,7 @@
 							<a href="javascript:void(0);">网站地图</a>
 						</div>
 						<div class="right">
+							<!--{if $GLOBALS['_option_']['extendstyle_switch_on']==1}-->
 							<div id="extendstyle_select_box" class="left">
 								<div class="btn-group">
 									<a href="javascript:void(0);" id="extendstyle_select" data-toggle="dropdown">&nbsp;&nbsp;&nbsp;&nbsp;</a>
@@ -61,6 +62,7 @@
 								</div>
 							</div>
 							<span class="pipe">|</span>
+							<!--{/if}-->
 							<!--{~$arrHeaderNavs=$GLOBALS['_cache_']['nav']['header']}-->
 							<!--<foreach for=arrHeaderNavs value=arrHeaderNav>-->
 							<a <!--{$arrHeaderNav['style']}--> title="<!--{$arrHeaderNav['description']}-->" href="<!--{$arrHeaderNav['link']}-->" <!--{$arrHeaderNav['target']}-->>
@@ -82,7 +84,7 @@
 				</div>
 				<div class="span5">
 					<div class="right">
-						<!--{if count($GLOBALS['_style_']['_style_icons_'])>1}-->
+						<!--{if $GLOBALS['_option_']['style_switch_on']==1 && count($GLOBALS['_style_']['_style_icons_'])>1}-->
 						<div id="style_switch_box">
 							<ul id="style_switch">
 								<!--<foreach for="GLOBALS['_style_']['_style_icons_']" key=nStyleicon value=sStyleicon>-->

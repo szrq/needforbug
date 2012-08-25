@@ -36,6 +36,18 @@ function option(){
 						<div class="description"><!--<lang package='Template/Default/Styleoption'>-->网站图片宽度，如800或者80%<!--</lang>-->
 						</div>
 					</fieldset>
+					<fieldset>
+						<label for="style_switch_on"><!--<lang package='Template/Default/Styleoption'>-->是否启用前台主题切换<!--</lang>--></label>
+						<input type="radio" id="style_switch_on" name="options[style_switch_on]" value="1" <!--{if $arrOptions['style_switch_on']==1}-->checked="checked"<!--{/if}-->/><!--<lang package='Template/Default/Common'>-->是<!--</lang>-->
+						<input type="radio" id="" name="options[style_switch_on]" value="0" <!--{if $arrOptions['style_switch_on']==0}-->checked="checked"<!--{/if}--> /><!--<lang package='Template/Default/Common'>-->否<!--</lang>-->
+						<div class="description"><!--<lang package='Template/Default/Styleoption'>-->你如果想关闭前台切换主题，请选择否<!--</lang>--></div>
+					</fieldset>
+					<fieldset>
+						<label for="extendstyle_switch_on"><!--<lang package='Template/Default/Styleoption'>-->是否启用前台主题扩展样式切换<!--</lang>--></label>
+						<input type="radio" id="extendstyle_switch_on" name="options[extendstyle_switch_on]" value="1" <!--{if $arrOptions['extendstyle_switch_on']==1}-->checked="checked"<!--{/if}-->/><!--<lang package='Template/Default/Common'>-->是<!--</lang>-->
+						<input type="radio" id="" name="options[extendstyle_switch_on]" value="0" <!--{if $arrOptions['extendstyle_switch_on']==0}-->checked="checked"<!--{/if}--> /><!--<lang package='Template/Default/Common'>-->否<!--</lang>-->
+						<div class="description"><!--<lang package='Template/Default/Styleoption'>-->主题样式扩展是对前台主题的扩展，最大化简化主题的多样性<!--</lang>--></div>
+					</fieldset>
 				</div>
 				<footer>
 					<div class="submit_link">

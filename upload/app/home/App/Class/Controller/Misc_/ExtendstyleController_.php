@@ -7,6 +7,10 @@
 class ExtendstyleController extends Controller{
 
 	public function index(){
+		if($GLOBALS['_option_']['extendstyle_switch_on']==0){
+			$this->E(Dyhb::L('系统已经关闭了主题扩展切换功能','Controller/Misc'));
+		}
+
 		$sStyleId=trim(G::getGpc('id','G'));
 
 		// 发送主题COOKIE
