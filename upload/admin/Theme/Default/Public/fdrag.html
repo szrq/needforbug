@@ -19,7 +19,7 @@
 			frmBody.cols="0, 5, *";
 			imgArrow.src = "<!--{:__TMPLPUB__}-->/Images/arrow_right.gif";
 		}
-	}
+	};
 
 	var orgX = 0;
 	document.onmousedown = function(e){
@@ -28,7 +28,7 @@
 		if (Browser.isIE){
 			document.getElementById('tbl').setCapture();
 		}
-	}
+	};
 
 	document.onmouseup = function(e){
 		var evt = Utils.fixEvent(e);
@@ -38,10 +38,10 @@
 		frmWidth = (parseInt(frmWidth) + (evt.clientX - orgX));
 		frmBody.cols = frmWidth + ", 5, *";
 
-		if (Browser.isIE){ 
+		if (Browser.isIE){
 			document.releaseCapture();
 		}
-	}
+	};
 
 	var Browser = new Object();
 
