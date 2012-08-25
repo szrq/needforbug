@@ -65,7 +65,7 @@ header#header {height: 65px;width: 100%;background: #222222 url(../Images/header
 ================================*/
 .fmenu-body{background:#E0E0E3;}
 
-aside#sidebar {120px;background: #E0E0E3 url(../Images/sidebar.png) repeat;min-height: 500px;margin-top: -4px;}
+aside#sidebar {120px;background2: #E0E0E3 url(../Images/sidebar.png) repeat;min-height: 500px;margin-top: -4px;}
 
 /* 主菜单标题 */
 section.sidemenu_div {height: 38px;width: 100%;background: #F1F1F4 url(../Images/secondary_bar.png) repeat-x;}
@@ -79,20 +79,20 @@ section.sidemenu_div {height: 38px;width: 100%;background: #F1F1F4 url(../Images
 #sidemenu li{position:relative;list-style:none;list-style: none; padding: 0;width:120px;}
 #sidemenu li a{padding:5px;width:120px;border-bottom:1px solid #ccc;text-decoration:none;height:25px;display:block;text-align:center;line-height:25px;color: #666666;}
 #sidemenu li a:hover,#sidemenu li.active a{background:#F8F8F8;text-decoration: none;}
-#sidemenu ul{position:absolute;top:36px;left:0px;clear: both;margin: 0; padding: 0;}
+#sidemenu ul{position:absolute;top:36px;left:0px;clear: both;margin: 0; padding: 0;margin-top:10px;}
 #sidemenu table{position:absolute;top:0;left:0;}
 
 /**===============================
            拖动条
 ================================*/
-.fdrag-body{margin: 0;padding: 0;background: #fff;cursor: E-resize;}
+.fdrag-body{margin: 0;padding: 0;background: #F8F8F8 url(../Images/secondary_bar.png) repeat-x;cursor: E-resize;}
 
 /**===============================
            主内容
 ================================*/
 
 /* 主内容头部 */
-section.secondary_bar {height: 38px;width: 100%;background: #F1F1F4 url(../Images/secondary_bar.png) repeat-x;}
+section.secondary_bar {position:fixed;height: 38px;width: 100%;background: #F1F1F4 url(../Images/secondary_bar.png) repeat-x;}
 section.secondary_bar .breadcrumbs_container {float: left;width: 100%;height: 38px;}
 article.breadcrumbs {float: left;padding: 0 10px;border: 1px solid #ccc;-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;-webkit-box-shadow: 0 1px 0 #fff;-moz-box-shadow: 0 1px 0 #fff;box-shadow: 0 1px 0 #fff;height: 23px;margin: 4px 3%;}
 .breadcrumbs a {display: inline-block;float: left;height: 24px;line-height: 23px;}
@@ -102,7 +102,7 @@ article.breadcrumbs {float: left;padding: 0 10px;border: 1px solid #ccc;-webkit-
 .breadcrumb_divider {display: inline-block;width: 12px;height: 24px;background: url(../Images/breadcrumb_divider.png) no-repeat;float: left;margin: 0 5px;}
 
 /* 主内容 */
-section#main {width: 100%;min-height: 500px;float: left;margin-top: -2px;}
+section#main {width: 100%;min-height: 500px;float: left;margin-top: 25px;}
 #main h3 {color: #1F1F20;text-transform: uppercase;text-shadow: 0 1px 0 #fff;font-size: 13px;margin: 8px 20px;}
 
 /* 主内容模块 */
@@ -156,7 +156,7 @@ html ul.tabs li:last-child, html ul.tabs li:last-child a  {-webkit-border-top-ri
 /**===============================
            底部
 ================================*/
-#footer{overflow:hidden;width:100%;text-align:center; font-size:11px;background: #ededed;color:#aaaaaa;margin-top:-5px;}
+#footer{overflow:hidden;width:100%;text-align:center; font-size:11px;color:#aaaaaa;margin-top:-5px;}
 #footer a{ color:#aaaaaa; text-decoration:none;}
 #footer a:hover{ text-decoration:underline; }
 
