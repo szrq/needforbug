@@ -29,7 +29,7 @@ class Pm_Extend{
 		$sContent.="------------------ ".Dyhb::L('原始短消息','__COMMON_LANG__@Function/Pm_Extend')." ------------------\r\n";
 
 		$sContent.="<b>".Dyhb::L('发送者','__COMMON_LANG__@Function/Pm_Extend').
-			"</b>   \"<a href=\"".Dyhb::U('home://space@?id'.$oPm['pm_msgfromid'])."\">{$oPm['pm_msgfrom']}</a>\";\r\n";
+			"</b>   \"<a href=\"".Dyhb::U('home://space@?id='.$oPm['pm_msgfromid'])."\">{$oPm['pm_msgfrom']}</a>\";\r\n";
 
 		$sContent.="<b>".Dyhb::L('发送时间','__COMMON_LANG__@Function/Pm_Extend').
 			"</b>   ".date('Y'.Dyhb::L('年','__COMMON_LANG__@Function/Pm_Extend').
@@ -52,7 +52,7 @@ class Pm_Extend{
 
 		if($oPm['pm_type']=='user'){
 			$sContent.="<b>".Dyhb::L('收件人','__COMMON_LANG__@Function/Pm_Extend').
-				"</b>   \"<a href=\"".Dyhb::U('home://space@?id'.$oPm['pm_msgtoid'])."\">".
+				"</b>   \"<a href=\"".Dyhb::U('home://space@?id='.$oPm['pm_msgtoid'])."\">".
 				UserModel::getUsernameById($oPm['pm_msgtoid'])."</a>\";\r\n";
 		}else{
 			$sContent.="<blockquote><em>".Dyhb::L('本短消息属于系统短消息','__COMMON_LANG__@Function/Pm_Extend')."</em></blockquote>";

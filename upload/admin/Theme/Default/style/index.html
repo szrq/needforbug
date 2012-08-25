@@ -22,6 +22,23 @@
 		</article>
 
 		<article class="module width_full">
+			<header><h3 class="tabs_involved"><!--<lang package='Template/Default/Style'>-->更新CSS 缓存<!--</lang>--></h3>
+			</header>
+			<div class="module_content">
+				<ul>
+					<!--<lang package='Template/Default/Style'>-->如果你修改了主题，但是主题没有立刻生效，请在这里更新主题Css 缓存<!--</lang>-->
+				</ul>
+			</div>
+			<form action="<!--{:Dyhb::U('style/update_css')}-->" method="post">
+					<footer>
+					<div class="submit_link">
+						<input type="submit" id="submit_button" value="<!--<lang package='Template/Default/Common'>-->发布<!--</lang>-->" class="alt_btn">
+					</div>
+				</footer>
+			</form>
+		</article>
+
+		<article class="module width_full">
 			<header><h3 class="tabs_involved"><!--<lang package='Template/Default/Style'>-->当前安装的主题<!--</lang>--></h3>
 			</header>
 			<div class="module_content">
@@ -162,23 +179,6 @@
 					<input type="button" name="delete" value="<!--<lang package='Template/Default/Common'>-->删除<!--</lang>-->" onclick="foreverdel()" class="alt_btn">
 				</div>
 			</div>
-		</article>
-
-		<article class="module width_full">
-			<header><h3 class="tabs_involved"><!--<lang package='Template/Default/Style'>-->更新CSS 缓存<!--</lang>--></h3>
-			</header>
-			<div class="module_content">
-				<ul>
-					<!--<lang package='Template/Default/Style'>-->如果你修改了主题，但是主题没有立刻生效，请在这里更新主题Css 缓存<!--</lang>-->
-				</ul>
-			</div>
-			<form action="<!--{:Dyhb::U('style/update_css')}-->" method="post">
-					<footer>
-					<div class="submit_link">
-						<input type="submit" id="submit_button" value="<!--<lang package='Template/Default/Common'>-->发布<!--</lang>-->" class="alt_btn">
-					</div>
-				</footer>
-			</form>
 		</article>
 
 <!--<include file="public+footer">-->

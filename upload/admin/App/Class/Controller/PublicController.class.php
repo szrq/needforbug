@@ -118,12 +118,6 @@ class PublicController extends InitController{
 		$this->display();
 	}
 
-	public function ffooter(){
-		$arrMenuList=UserModel::M()->getTopMenuList();
-		$this->assign('arrListMenu',$arrMenuList);
-		$this->display();
-	}
-
 	public function check_login(){
 		$this->check_seccode(true);
 		$sUserName=G::getGpc('user_name','P');
