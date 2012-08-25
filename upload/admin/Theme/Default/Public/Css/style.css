@@ -14,7 +14,7 @@ Tags: admin, light
            基本元素
 ================================*/
 html, div, map, dt, isindex, form, header, aside, section, section, article, footer {  display: block; } 
-html, body {height: 100%;margin: 0;padding: 0;font-family: '宋体',Arial,Tahoma,Verdana,Helvetica,sans-serif;background: #F8F8F8;font-size: 12px;-webkit-text-size-adjust:none;}
+html, body {height: 100%;margin: 0;padding: 0;font:12px/1.5 Tahoma,Helvetica,'SimSun',sans-serif;background: #F8F8F8;-webkit-text-size-adjust:none;}
 a:link, a:visited {color: #77BACE;text-decoration: none;}
 a:hover {text-decoration: underline;}
 hr{height:1px;border:none;border-top:1px dashed #cccccc;}
@@ -156,7 +156,7 @@ html ul.tabs li:last-child, html ul.tabs li:last-child a  {-webkit-border-top-ri
 /**===============================
            底部
 ================================*/
-#footer{overflow:hidden;width:100%;text-align:center; font-size:11px;color:#aaaaaa;margin-top:-5px;font-family:Arial,Tahoma,Verdana,Helvetica,sans-serif;}
+#footer{overflow:hidden;width:100%;text-align:center; color:#aaaaaa;margin-top:-5px;font-size:11px;}
 #footer a{ color:#aaaaaa; text-decoration:none;}
 #footer a:hover{ text-decoration:underline; }
 
