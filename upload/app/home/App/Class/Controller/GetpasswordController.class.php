@@ -77,24 +77,33 @@ class GetpasswordController extends InitController{
 		}
 		$sEmail=trim(G::getGpc('email','G'));
 		$sHash=trim(G::getGpc('hash','G'));
+		$nAppeal=intval(G::getGpc('appeal','G'));
 
 		if(empty($sHash)){
 			$this->U('home://getpassword/index');
 		}
 
 		$sHash=G::authcode($sHash);
+
 		if(empty($sHash)){
 			$this->assign('__JumpUrl__',Dyhb::U('home://getpassword/index'));
 			$this->E(Dyhb::L('找回密码链接已过期','Controller/Getpassword'));
 		}
-
-		$oUser=UserModel::F('user_email=? AND user_temppassword=?',$sEmail,$sHash)->getOne();
+		
+		if(!empty($nAppeal)&&$nAppeal==1){
+			$oUser=UserModel::F('user_temppassword=?',$sHash)->getOne();
+		}else{
+			$oUser=UserModel::F('user_email=? AND user_temppassword=?',$sEmail,$sHash)->getOne();
+		}
+		
 		if(empty($oUser->user_id)){
 			$this->assign('__JumpUrl__',Dyhb::U('home://getpassword/index'));
 			$this->E(Dyhb::L('找回密码链接已过期','Controller/Getpassword'));
 		}
 
 		$this->assign('sEmail',$sEmail);
+		$this->assign('nAppeal',$nAppeal);
+		$this->assign('user_id',$oUser->user_id);
 
 		$this->display('getpassword+reset');
 	}
@@ -105,8 +114,15 @@ class GetpasswordController extends InitController{
 		$sPassword=trim(G::getGpc('user_password','P'));
 		$sNewPassword=trim(G::getGpc('new_password','P'));
 		$sEmail=trim(G::getGpc('user_email','P'));
+		$nAppeal=intval(G::getGpc('appeal','P'));
+		$nUserId=intval(G::getGpc('user_id','P'));
 		
-		$oUser=UserModel::F('user_email=?',$sEmail)->getOne();
+		if(!empty($nUserId)&&$nAppeal==1){
+			$oUser=UserModel::F('user_id=?',$nUserId)->getOne();
+		}else{
+			$oUser=UserModel::F('user_email=?',$sEmail)->getOne();
+		}
+
 		if(empty($oUser->user_id)){
 			$this->E(Dyhb::L('Email账号不存在','Controller/Getpassword'));
 		}

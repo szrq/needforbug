@@ -33,6 +33,7 @@
 				<ul class="tabs">
 					<li <!--{if $nType=='6666'}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('appeal/index?type=6666')}-->"><!--<lang package='Template/Default/Appeal'>-->所有用户申诉<!--</lang>--></a></li>
 					<li <!--{if $nType=='0'}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('appeal/index?type=0')}-->"><!--<lang package='Template/Default/Appeal'>-->待审核用户<!--</lang>--></a></li>
+					<li <!--{if $nType=='1'}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('appeal/index?type=1')}-->"><!--<lang package='Template/Default/Appeal'>-->正在审核用户<!--</lang>--></a></li>
 					<li <!--{if $nType=='2'}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('appeal/index?type=2')}-->"><!--<lang package='Template/Default/Appeal'>-->审核通过用户<!--</lang>--></a></li>
 					<li <!--{if $nType=='3'}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('appeal/index?type=3')}-->"><!--<lang package='Template/Default/Appeal'>-->审核驳回用户<!--</lang>--></a></li>
 				</ul>
@@ -46,7 +47,11 @@
 							<th><a href="javascript:sortBy('appeal_realname','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('appeal_realname')}-->><!--<lang package='Template/Default/Appeal'>-->申诉人<!--</lang>--></a></th>
 							<th><a href="javascript:sortBy('appeal_email','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('appeal_email')}-->><!--<lang package='Template/Default/Appeal'>-->申诉邮箱<!--</lang>--></a></th>
 							<th><a href="javascript:sortBy('appeal_progress','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('appeal_progress')}-->><!--<lang package='Template/Default/Appeal'>-->审核状态<!--</lang>--></a></th>
-							<th><a href="javascript:sortBy('create_dateline','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('create_dateline')}-->><!--<lang package='Template/Default/Common'>-->申诉时间<!--</lang>--></a></th>
+							<!--{if $nType=='2' or $nType=='3'}-->
+							<th><a href="javascript:sortBy('update_dateline','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('update_dateline')}-->><!--<lang package='Template/Default/Appeal'>-->审核时间<!--</lang>--></a></th>
+							<!--{d*else}-->
+							<th><a href="javascript:sortBy('create_dateline','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('create_dateline')}-->><!--<lang package='Template/Default/Appeal'>-->申诉时间<!--</lang>--></a></th>
+							<!--{/if}-->
 						</tr>
 					</thead>
 					<tbody>
@@ -57,12 +62,15 @@
 							<td><!--{$value:appeal_realname}-->
 								<div class="row-actions">
 									<span class='view'><a href="<!--{:Dyhb::U('appeal/show?id='.$value->appeal_id)}-->"><!--<lang package='Template/Default/Common'>-->查看<!--</lang>--></a>|</span>
-									<span class='delete'><a href="javascript:foreverdel('<!--{$value:appeal_id}-->');"><!--<lang package='Template/Default/Common'>-->删除<!--</lang>--></a>|</span>
-									<span class='hide'><!--<if condition="$value:appeal_status eq 1" >--><a href="javascript:forbid('<!--{$value:appeal_id}-->')"><!--<lang package='Template/Default/Common'>-->禁用<!--</lang>--></a><!--<else/>--><a href="javascript:resume('<!--{$value:appeal_id}-->')"><!--<lang package='Template/Default/Common'>-->恢复<!--</lang>--></a><!--</if>--></span>
+									<span class='delete'><a href="javascript:foreverdel('<!--{$value:appeal_id}-->');"><!--<lang package='Template/Default/Common'>-->删除<!--</lang>--></a></span>
 								</div></td>
 							<td><a href=""><!--{$value:appeal_email}--></a></td>
-							<td><!--{if $value:appeal_progress==1}--><font color="red">审核中</font><!--{elseif $value:appeal_progress==2}-->审核通过<!--{elseif $value:appeal_progress==3}-->审核拒绝<!--{d*else}--><font color="red">待审核</font><!--{/if}--></td>
+							<td><!--{if $value:appeal_progress==1}--><font color="red"><!--<lang package='Template/Default/Appeal'>-->审核中<!--</lang>--></font><!--{elseif $value:appeal_progress==2}--><!--<lang package='Template/Default/Appeal'>-->审核通过<!--</lang>--><!--{elseif $value:appeal_progress==3}--><!--<lang package='Template/Default/Appeal'>-->审核拒绝<!--</lang>--><!--{d*else}--><font color="red"><!--<lang package='Template/Default/Appeal'>-->待审核<!--</lang>--></font><!--{/if}--></td>
+							<!--{if $nType=='2' or $nType=='3'}-->
+							<td><!--{$value:update_dateline|date='Y-m-d H:i',**}--></td>
+							<!--{d*else}-->
 							<td><!--{$value:create_dateline|date='Y-m-d H:i',**}--></td>
+							<!--{/if}-->
 						</tr>
 						<!--</foreach>-->
 					</tbody>
@@ -75,8 +83,5 @@
 				<!--{$sPageNavbar}-->
 			</div>
 		</article>
-
-		<div class="spacer"></div>
-	</section>
 
 <!--<include file="public+footer">-->
