@@ -430,25 +430,6 @@ INSERT INTO `needforbug_rolegroup` (`rolegroup_id`, `rolegroup_name`, `rolegroup
 -- --------------------------------------------------------
 
 --
--- 表的结构 `needforbug_slide`
---
-
-CREATE TABLE IF NOT EXISTS `needforbug_slide` (
-  `slide_id` smallint(6) NOT NULL AUTO_INCREMENT COMMENT '滑动幻灯片状态ID',
-  `slide_sort` smallint(6) NOT NULL DEFAULT '0' COMMENT '排序',
-  `slide_title` varchar(50) CHARACTER SET utf8 NOT NULL COMMENT '标题',
-  `slide_url` varchar(325) CHARACTER SET utf8 NOT NULL COMMENT 'URL地址',
-  `slide_img` varchar(325) CHARACTER SET utf8 NOT NULL COMMENT '图片地址',
-  `slide_status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态',
-  `create_dateline` int(10) NOT NULL COMMENT '创建时间',
-  `update_dateline` int(10) NOT NULL COMMENT '更新时间',
-  PRIMARY KEY (`slide_id`),
-  KEY `slide_status` (`slide_status`),
-  KEY `create_dateline` (`create_dateline`),
-  KEY `update_dateline` (`update_dateline`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
-
---
 -- 转存表中的数据 `needforbug_slide`
 --
 
@@ -549,38 +530,6 @@ INSERT INTO `needforbug_theme` (`theme_id`, `theme_name`, `theme_dirname`, `them
 (1, '默认模板套系', 'Default', '点牛（成都）');
 
 -- --------------------------------------------------------
-
---
--- 表的结构 `needforbug_user`
---
-
-CREATE TABLE IF NOT EXISTS `needforbug_user` (
-  `user_id` int(10) NOT NULL AUTO_INCREMENT COMMENT '用户ID',
-  `user_name` varchar(50) CHARACTER SET ucs2 NOT NULL COMMENT '用户名',
-  `user_nikename` varchar(50) DEFAULT NULL COMMENT '用户别名',
-  `user_password` char(32) NOT NULL COMMENT '用户密码',
-  `user_registerip` varchar(40) NOT NULL COMMENT '注册IP',
-  `user_lastlogintime` int(11) DEFAULT NULL COMMENT '用户最后登录时间',
-  `user_lastloginip` varchar(40) DEFAULT NULL COMMENT '用户登录IP',
-  `user_logincount` int(10) DEFAULT '0' COMMENT '用户登录次数',
-  `user_email` varchar(150) DEFAULT NULL COMMENT '用户Email',
-  `user_remark` varchar(255) DEFAULT NULL COMMENT '用户备注',
-  `user_sign` varchar(1000) NOT NULL COMMENT '用户签名',
-  `create_dateline` int(10) DEFAULT NULL COMMENT '创建时间',
-  `update_dateline` int(10) DEFAULT NULL COMMENT '更新时间',
-  `user_status` tinyint(1) DEFAULT '0' COMMENT '用户状态',
-  `user_random` char(6) NOT NULL COMMENT '用户随机码',
-  `user_temppassword` varchar(255) NOT NULL COMMENT '密码重置临时密码',
-  `user_extendstyle` varchar(35) NOT NULL COMMENT '用户扩展样式',
-  PRIMARY KEY (`user_id`),
-  KEY `user_status` (`user_status`),
-  KEY `create_dateline` (`create_dateline`),
-  KEY `user_email` (`user_email`),
-  KEY `update_dateline` (`update_dateline`),
-  KEY `user_password` (`user_password`),
-  KEY `user_name` (`user_name`),
-  KEY `user_nikename` (`user_nikename`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=27 ;
 
 --
 -- 转存表中的数据 `needforbug_user`

@@ -10,7 +10,7 @@ define('NEEDFORBUG_SERVER_VERSION','1.0');
 define('NEEDFORBUG_SERVER_RELEASE','20120104');
 
 /** 系统应用路径定义 */
-define('NEEDFORBUG_PATH',getcwd().'/..');
+define('NEEDFORBUG_PATH',dirname(getcwd()));
 
 /** 项目及项目路径定义 */
 define('APP_NAME','install');
