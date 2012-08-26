@@ -397,7 +397,7 @@ class UserappealController extends InitController{
 			if($oUser->isError()){
 				$this->E($oUser->getErrorMessage());
 			}
-				
+			
 			$sGetPasswordUrl=$GLOBALS['_option_']['site_url'].'/index.php?c=getpassword&a=reset&email='.urlencode($sEmail).'&appeal=1'.'&hash='.urlencode(G::authcode($sTemppassword,false,null,$GLOBALS['_option_']['getpassword_expired']));
 
 			$oMailModel=Dyhb::instance('MailModel');

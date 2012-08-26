@@ -16,28 +16,31 @@ class AppealController extends InitController{
 		if($nType<4&&$nType>=0){
 			$arrMap['appeal_progress']=$nType;
 		}
+
 		$this->assign('nType',$nType);
 	}
+
 	public function show(){
 		$nAppealId=intval(G::getGpc('id','G'));
 
 		if(!empty($nAppealId)){
 			$oAppeal=AppealModel::F('appeal_id=?',$nAppealId)->getOne();
+			$oUser=UserModel::F('user_id=?',$oAppeal->user_id)->getOne();
+			
 			if($oAppeal->appeal_progress==0){
 				$oAppeal->appeal_progress=1;
 				$oAppeal->save(0,'update');
-				if(!$oAppeal->isError()){
-				$this->assign('oAppeal',$oAppeal);
-				$this->display();
-				}else{
-				$this->E('无法保存用户信息');
+				if($oAppeal->isError()){
+					$this->E(Dyhb::L('用户信息更新错','Controller/Appeal'));
 				}
-			}else{
-				$this->assign('oAppeal',$oAppeal);
-				$this->display();
 			}
+
+			$this->assign('oAppeal',$oAppeal);
+			$this->assign('oUser',$oUser);
+
+			$this->display();
 		}else{
-			$this->E('无法获取用户的申诉信息');
+			$this->E(Dyhb::L('无法获取用户申诉信息','Controller/Appeal'));
 		}
 	}
 
@@ -48,6 +51,7 @@ class AppealController extends InitController{
 			$oAppeal=AppealModel::F('appeal_id=?',$nAppealId)->getOne();
 			$oAppeal->appeal_progress=2;
 			$oAppeal->save(0,'update');
+
 			if(!$oAppeal->isError()){
 				$sEmail=$oAppeal->appeal_email;
 				$oUser=UserModel::F('user_id=?',$oAppeal->user_id)->getOne();
@@ -63,15 +67,16 @@ class AppealController extends InitController{
 				$oMailModel=Dyhb::instance('MailModel');
 				$oMailConnect=$oMailModel->getMailConnect();
 
-				$sEmailSubject=$GLOBALS['_option_']['site_name'].'会员申诉密码重置';
+				$sEmailSubject=Dyhb::L('会员申诉密码重置','Controller/Appeal');
 				$sNlbr=$oMailConnect->getIsHtml()===true?'<br/>':"\r\n";
 				$sEmailContent='';
-				$sEmailContent.='重置密码链接'.':'.$sNlbr;
+				$sEmailContent.=Dyhb::L('尊敬的','Controller/Appeal').$oUser->user_name.Dyhb::L('用户','Controller/Appeal').':'.$sNlbr.$sNlbr;
+				$sEmailContent.=Dyhb::L('您的申诉已通过,点击下面链接重置密码','Controller/Appeal').':'.$sNlbr;
 				$sEmailContent.="<a href=\"{$sGetPasswordUrl}\">{$sGetPasswordUrl}</a>".$sNlbr.$sNlbr;
 				$sEmailContent.="-----------------------------------------------------".$sNlbr;
-				$sEmailContent.='这是系统用于重置密码的邮件，请勿回复'.$sNlbr;
-				$sEmailContent.='链接过期时间'.$GLOBALS['_option_']['getpassword_expired'].
-					'秒'.$sNlbr;
+				$sEmailContent.=Dyhb::L('这是系统用于重置密码的邮件，请勿回复','Controller/Appeal').$sNlbr;
+				$sEmailContent.=Dyhb::L('链接过期时间','Controller/Appeal').$GLOBALS['_option_']['getpassword_expired'].
+					Dyhb::L('秒','Controller/Appeal').$sNlbr;
 
 				$oMailConnect->setEmailTo($sEmail);
 				$oMailConnect->setEmailSubject($sEmailSubject);
@@ -80,12 +85,13 @@ class AppealController extends InitController{
 				if($oMailConnect->isError()){
 					$this->E($oMailConnect->getErrorMessage());
 				}
-				$this->S('审核通过');
+
+				$this->S(Dyhb::L('审核通过','Controller/Appeal'));
 			}else{
-				$this->E('审核失败');
+				$this->E(Dyhb::L('审核失败','Controller/Appeal'));
 			}
 		}else{
-			$this->E('无法获取用户的申诉信息');
+			$this->E(Dyhb::L('无法获取用户申诉信息','Controller/Appeal'));
 		}
 	}
 
@@ -99,13 +105,38 @@ class AppealController extends InitController{
 			$oAppeal->appeal_reason=$sAppealReason;
 			$oAppeal->save(0,'update');
 			if(!$oAppeal->isError()){
+				$sEmail=$oAppeal->appeal_email;
+				
+				$sAppealUrl=$GLOBALS['_option_']['site_url'].'/index.php?c=userappeal&a=index';
+
+				$oMailModel=Dyhb::instance('MailModel');
+				$oMailConnect=$oMailModel->getMailConnect();
+
+				$sEmailSubject=Dyhb::L('会员申诉驳回','Controller/Appeal');
+				$sNlbr=$oMailConnect->getIsHtml()===true?'<br/>':"\r\n";
+				$sEmailContent='';
+				$sEmailContent.=Dyhb::L('驳回理由','Controller/Appeal').':'.$sAppealReason.$sNlbr.$sNlbr;
+				$sEmailContent.=Dyhb::L('申诉页面链接','Controller/Appeal').':'.$sNlbr;
+				$sEmailContent.="<a href=\"{$sAppealUrl}\">{$sAppealUrl}</a>".$sNlbr.$sNlbr;
+				$sEmailContent.="-----------------------------------------------------".$sNlbr;
+				$sEmailContent.=Dyhb::L('这是系统用于申诉驳回的邮件，请勿回复','Controller/Appeal').$sNlbr;
+
+				$oMailConnect->setEmailTo($sEmail);
+				$oMailConnect->setEmailSubject($sEmailSubject);
+				$oMailConnect->setEmailMessage($sEmailContent);
+				$oMailConnect->send();
+				if($oMailConnect->isError()){
+					$this->E($oMailConnect->getErrorMessage());
+				}
+
 				$this->assign('__JumpUrl__',Dyhb::U('Appeal/index'));
-				$this->S('审核驳回');
+
+				$this->S(Dyhb::L('审核驳回','Controller/Appeal'));
 			}else{
-				$this->E('驳回失败');
+				$this->E(Dyhb::L('驳回失败','Controller/Appeal'));
 			}
 		}else{
-			$this->E('无法获取用户的申诉信息');
+			$this->E(Dyhb::L('无法获取用户申诉信息','Controller/Appeal'));
 		}
 	}
 }
