@@ -87,7 +87,7 @@ class Install_Extend extends Controller{
 		fclose($hFp);
 	}
 
-	public static function runQuery($sFilepath){
+	public static function runQuery($sFilepath,$bEchomessage=true){
 		global $hConn,$sSql4Tmp,$sDbprefix,$nMysqlVersion;
 		
 		$sQuery='';
@@ -99,7 +99,11 @@ class Install_Extend extends Controller{
 				$sQuery.=$sLine;
 				$sQuery=str_replace('#@__',$sDbprefix,$sQuery);
 				$hRs=mysql_query($sQuery,$hConn);
-				self::showJavascriptMessage(Dyhb::L('执行SQL').' '.G::subString($sQuery,0,50).' ... '.Dyhb::L('成功'));
+
+				if($bEchomessage===true){
+					self::showJavascriptMessage(Dyhb::L('执行SQL').' '.G::subString($sQuery,0,50).' ... '.Dyhb::L('成功'));
+				}
+
 				$sQuery='';
 			}else if(!preg_match("#^(\/\/|--)#",$sLine)){
 				$sQuery.=$sLine;
@@ -107,6 +111,51 @@ class Install_Extend extends Controller{
 		}
 
 		fclose($hFp);
+	}
+
+	static public function removeDir($sDirName){
+		if(!is_dir($sDirName)){
+			@unlink($sDirName);
+			self::showJavascriptMessage('清理文件'.' '.str_replace(G::tidyPath(NEEDFORBUG_PATH),'{NEEDFORBUG_PATH}',G::tidyPath($sDirName)));
+
+			return false;
+		}
+
+		$hHandle=@opendir($sDirName);
+		while(($file=@readdir($hHandle))!==false){
+			if($file!='.' && $file!='..'){
+				$sDir=$sDirName.'/'.$file;
+				if(is_dir($sDir)){
+					self::removeDir($sDir);
+				}else{
+					@unlink($sDir);
+					self::showJavascriptMessage('清理文件'.' '.str_replace(G::tidyPath(NEEDFORBUG_PATH),'{NEEDFORBUG_PATH}',G::tidyPath($sDir)));
+				}
+			}
+		}
+
+		closedir($hHandle);
+
+		$bResult=rmdir($sDirName);
+		self::showJavascriptMessage('清理目录'.' '.str_replace(G::tidyPath(NEEDFORBUG_PATH),'{NEEDFORBUG_PATH}',G::tidyPath($sDirName)));
+
+		return $bResult;
+	}
+
+	public static function isEmptydir($sDir){
+		$hDir=@opendir($sDir);
+		
+		$nI=0;
+		while($file=readdir($hDir)){
+			$nI++;
+		}
+		closedir($hDir);
+
+		if($nI>2){
+			return false;
+		}else{
+			return true;
+		}
 	}
 
 }

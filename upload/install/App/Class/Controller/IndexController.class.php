@@ -9,8 +9,18 @@ define('NEEDFORBUG_DATABASE','needforbugv'.NEEDFORBUG_SERVER_RELEASE);
 
 class IndexController extends Controller{
 
+	public $_sLockfile='';
+
 	public function init__(){
 		parent::init__();
+	}
+
+	public function check_install(){
+		$this->_sLockfile=NEEDFORBUG_PATH.'/data/Install.lock.php';
+
+		if(file_exists($this->_sLockfile)){
+			$this->E(Dyhb::L(" 程序已运行安装，如果你确定要重新安装，请先从FTP中删除 %s",'App',null,$this->_sLockfile));
+		}
 	}
 
 	public function index(){
@@ -23,6 +33,8 @@ class IndexController extends Controller{
 	}
 
 	public function step1(){
+		$this->check_install();
+
 		// 版权信息
 		if(file_exists(APP_PATH."/App/Lang/".LANG_NAME."/LICENSE.txt")){
 			$sCopyTxt=nl2br(file_get_contents(APP_PATH."/App/Lang/".LANG_NAME."/LICENSE.txt"));
@@ -35,6 +47,8 @@ class IndexController extends Controller{
 	}
 
 	public function step2(){
+		$this->check_install();
+
 		// 取得服务器相关信息
 		$arrInfo=array();
 
@@ -78,6 +92,8 @@ class IndexController extends Controller{
 	}
 
 	public function step3(){
+		$this->check_install();
+
 		if(!empty($_SERVER['HTTP_HOST'])){
 			$sBaseurl='http://'.$_SERVER['HTTP_HOST'];
 		}else{
@@ -86,14 +102,19 @@ class IndexController extends Controller{
 
 		$sBaseurl=$sBaseurl.__ROOT__;
 
+		$arrApps=G::listDir(APP_PATH.'/Static/Sql/Zh-cn/App');
+
 		$this->assign('sBasepath',$sBaseurl);
 		$this->assign('sBaseurl',$sBaseurl);
+		$this->assign('arrApps',$arrApps);
 
 		$this->display('install+step3');
 	}
 
 	public function install(){
 		global $hConn,$sSql4Tmp,$sDbprefix,$nMysqlVersion;
+
+		$this->check_install();
 
 		// 获取表单数据
 		$sDbhost=trim(G::getGpc('dbhost'));
@@ -155,7 +176,7 @@ class IndexController extends Controller{
 		$arrConfig['RBAC_DATA_PREFIX']=$sRbacprefix;
 		$arrConfig['COOKIE_PREFIX']=$sCookieprefix;
 		
-		if(!file_put_contents(NEEDFORBUG_PATH.'/config/Config.inc2222.php',
+		if(!file_put_contents(NEEDFORBUG_PATH.'/config/Config.inc.php',
 			"<?php\n /* DoYouHaoBaby Framework Config File,Do not to modify this file! */ \n return ".
 			var_export($arrConfig,true).
 			"\n?>")
@@ -189,6 +210,37 @@ class IndexController extends Controller{
 		Install_Extend::runQuery($sNeedforbugDatapath);
 		Install_Extend::showJavascriptMessage(' ');
 
+		// 导入地理数据
+		Install_Extend::showJavascriptMessage('<h3>'.'导入地理数据库数据'.'</h3>');
+		for($nI=1;$nI<=6;$nI++){
+			Install_Extend::showJavascriptMessage('导入地理数据库数据'.$nI);
+			Install_Extend::runQuery($sNeedforbugDatadir.'/district/'.$nI.'.sql',false);
+		}
+		Install_Extend::showJavascriptMessage(' ');
+
+		// 安装系统预置应用
+		Install_Extend::showJavascriptMessage('<h3>'.'安装系统预置应用'.'</h3>');
+		
+		$arrApps=G::getGpc('app','P');
+		if(empty($arrApps)){
+			Install_Extend::showJavascriptMessage('没有发现需要安装的应用');
+			Install_Extend::showJavascriptMessage(' ');
+		}else{
+			foreach($arrApps as $sApp){
+				Install_Extend::showJavascriptMessage(sprintf('创建应用 %s 的数据库表',$sApp));
+				Install_Extend::importTable($sNeedforbugDatadir.'/app/'.$sApp.'/needforbug.table.sql');
+				Install_Extend::showJavascriptMessage(' ');
+
+				$sNeedforbugAppDatapath=$sNeedforbugDatadir.'/'.ucfirst(Dyhb::cookie($sLangCookieName)).'/app/'.$sApp.'/needforbug.data.sql';
+				if(!is_file($sNeedforbugDatapath)){
+					$sNeedforbugAppDatapath=$sNeedforbugDatadir.'/Zh-cn/app/'.$sApp.'/needforbug.data.sql';
+				}
+				Install_Extend::showJavascriptMessage(sprintf('导入应用 %s 的数据库数据',$sApp));
+				Install_Extend::runQuery($sNeedforbugAppDatapath);
+				Install_Extend::showJavascriptMessage(' ');
+			}
+		}
+
 		// 初始化安装程序设置
 		Install_Extend::showJavascriptMessage('<h3>'.'初始化安装程序设置'.'</h3>');
 		
@@ -209,18 +261,45 @@ class IndexController extends Controller{
 		$sPassword=md5(md5($sAdminpwd).trim($sRandom));
 		mysql_query("Update `{$sDbprefix}user` set user_name='".$sAdminuser."',user_password='".$sPassword."',user_random='".$sRandom."',user_password='".$sPassword."',user_registerip='".G::getIp()."',user_email='".trim(G::getGpc('adminmail'))."',user_lastloginip='".G::getIp()."' where user_id=1;",$hConn);
 		Install_Extend::showJavascriptMessage(Dyhb::L('初始化超级管理员帐号').'... '.Dyhb::L('成功'));
+		Install_Extend::showJavascriptMessage(' ');
+
+		// 写入锁定文件
+		if(!file_put_contents($this->_sLockfile,'ok')){
+			$this->E(Dyhb::L('写入安装锁定文件失败，请检查%s目录是否可写入','App',null,NEEDFORBUG_PATH.'/data'));
+		}
+		Install_Extend::showJavascriptMessage(Dyhb::L('写入安装程序锁定文件').'... '.Dyhb::L('成功'));
+		Install_Extend::showJavascriptMessage(' ');
+
+		// 执行清理
+		Install_Extend::showJavascriptMessage('<h3>'.'清理系统缓存目录'.'</h3>');
+
+		// 初始化系统和跳转
+		$sInitsystemUrl=trim(G::getGpc('baseurl')).'/index.php?app=home&c=misc&a=init_system';
+		
+		echo<<<NEEDFORBUG
+		<script type="text/javascript">
+			function setLaststep(){
+				setTimeout(function(){
+					document.getElementById("laststep").disabled=false;
+					window.location=D.U('index/success');
+				},1000);
+			}
+		</script>
+		<script type="text/javascript">setTimeout(function(){window.location=window.location=D.U('index/success');},30000);
+		</script>
+		<iframe src="{$sInitsystemUrl}" style="display:none;" onload="setLaststep()"></iframe>
+NEEDFORBUG;
 
 		exit();
 	}
 
-	public function step7(){
-		$hFp=fopen($this->_sLockfile,'w');
-		fwrite($hFp,'ok');
-		fclose($hFp);
-		$this->display('step7');
+	public function success(){
+		$this->display('install+success');
 	}
 
 	public function check_database(){
+		$this->check_install();
+
 		header("Pragma:no-cache\r\n");
 		header("Cache-Control:no-cache\r\n");
 		header("Expires:0\r\n");

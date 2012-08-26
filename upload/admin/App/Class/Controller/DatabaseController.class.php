@@ -88,23 +88,24 @@ class DatabaseController extends InitController{
 		}
 
 		$nMaxSize=G::getGpc('vol_size');
-		$nMaxSize=empty($nMaxSize)? 0:intval($nMaxSize);
+		$nMaxSize=empty($nMaxSize)?0:intval($nMaxSize);
 		$nVol=G::getGpc('vol');
-		$nVol=empty($nVol)? 1:intval($nVol);
+		$nVol=empty($nVol)?1:intval($nVol);
 		$bIsShort=G::getGpc('ext_insert');
 		$bIsShort=$bIsShort==0?false:true;
 		$oBackup->setIsShort($bIsShort);
+		
 		$nAllowMaxSize=intval(@ini_get('upload_max_filesize'));//单位M
-		if($nAllowMaxSize > 0 && $nMaxSize >($nAllowMaxSize * 1024)){
-			$nMaxSize=$nAllowMaxSize * 1024;//单位K
+		if($nAllowMaxSize>0 && $nMaxSize>($nAllowMaxSize*1024)){
+			$nMaxSize=$nAllowMaxSize*1024;//单位K
 		}
 
-		if($nMaxSize > 0){
-			$oBackup->setMaxSize($nMaxSize * 1024);
+		if($nMaxSize>0){
+			$oBackup->setMaxSize($nMaxSize*1024);
 		}
 
-		$sType=G::getGpc('type','P');
-		$sType=empty($sType)?'':trim($sType);
+		$sType=G::getGpc('type');
+		$sType=empty($sType)?'full':trim($sType);
 		$arrTables=array();
 		switch($sType){
 			case 'full':
@@ -134,7 +135,7 @@ class DatabaseController extends InitController{
 				}
 
 				$arrList=array();
-				for($nI=1;$nI <=$nVol;$nI++){
+				for($nI=1;$nI<=$nVol;$nI++){
 					$arrList[]=array(
 						'name'=>$sSqlFileName.'_'.$nI.'.sql',
 						'href'=>__ROOT__.'/data/backup/'.$sSqlFileName.'_'.$nI.'.sql'
@@ -144,6 +145,8 @@ class DatabaseController extends InitController{
 				$arrMessage=array(
 					'list'=>$arrList
 				);
+
+				@unlink($sRunLog);
 
 				$this->sql_dump_message($arrMessage);
 			}else{
@@ -160,6 +163,8 @@ class DatabaseController extends InitController{
 					'list'=>$arrList
 				);
 
+				@unlink($sRunLog);
+
 				$this->sql_dump_message($arrMessage);
 			}
 		}else{
@@ -170,7 +175,8 @@ class DatabaseController extends InitController{
 			$arrList=array(
 				'sql_file_name'=>$sSqlFileName,
 				'vol_size'=>$nMaxSize,
-				'vol'=>$nVol+1
+				'vol'=>$nVol+1,
+				'type'=>$sType,
 			);
 
 			$sLink=Dyhb::U('database/dumpsql',$arrList);

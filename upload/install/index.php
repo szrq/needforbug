@@ -16,10 +16,6 @@ define('NEEDFORBUG_PATH',dirname(getcwd()));
 define('APP_NAME','install');
 define('APP_PATH',getcwd());
 
-/** 项目运行时路径及数据库表缓存路径 */
-define('APP_RUNTIME_PATH',NEEDFORBUG_PATH.'/data/~runtime/'.APP_NAME);
-define('DB_META_CACHED_PATH',NEEDFORBUG_PATH.'/data/~runtime/cache_');
-
 /** 项目语言包路径定义 */
 define('__COMMON_LANG__',NEEDFORBUG_PATH.'/ucontent/language');
 

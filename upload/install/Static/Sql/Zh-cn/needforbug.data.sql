@@ -249,13 +249,13 @@ INSERT INTO `needforbug_option` (`option_name`, `option_value`) VALUES
 ('image_max_width', '800'),
 ('slide_duration', '0.3'),
 ('slide_delay', '5'),
-('mail_default', '635750556@qq.com'),
+('mail_default', ''),
 ('mail_sendtype', '2'),
-('mail_server', 'smtp.qq.com'),
+('mail_server', ''),
 ('mail_port', '25'),
 ('mail_auth', '1'),
-('mail_from', '635750556@qq.com'),
-('mail_auth_username', '635750556'),
+('mail_from', ''),
+('mail_auth_username', ''),
 ('mail_auth_password', ''),
 ('mail_delimiter', '1'),
 ('programeupdate_on', '1'),
@@ -445,7 +445,7 @@ INSERT INTO `needforbug_slide` (`slide_id`, `slide_sort`, `slide_title`, `slide_
 --
 
 INSERT INTO `needforbug_style` (`style_id`, `style_name`, `style_status`, `theme_id`, `style_extend`) VALUES
-(1, '默认主题', 1, 1, 't1	t2	t3	t4	t5|t4');
+(1, '默认主题', 1, 1, 't1	t2	t3	t4	t5|');
 
 -- --------------------------------------------------------
 

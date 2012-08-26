@@ -58,7 +58,7 @@ function doInstall(){
 							<td><strong><lang package='Default/Install'>数据库密码</lang></strong></td>
 							<td>
 								<div style='float:left;margin-right:3px;'>
-									<input name="dbpwd" id="dbpwd" type="text" onChange="testDb()" onBlur="testDb()"/>
+									<input name="dbpwd" id="dbpwd" type="password" onChange="testDb()" onBlur="testDb()"/>
 								</div>
 								<div style='float:left;margin-left:10px;' id='dbpwdsta'>&nbsp;</div>
 							</td>
@@ -95,7 +95,9 @@ function doInstall(){
 						</tr>
 						<tr>
 							<td><strong><lang package='Default/Install'>密　码</lang></strong></td>
-							<td><input name="adminpwd" type="text" value="123456" /></td>
+							<td><input name="adminpwd" type="password" value="123456" />
+								<small style="margin-left:10px;"><lang package='Default/Install'>管理员默认密码为123456</lang></small>
+							</td>
 						</tr>
 						<tr>
 							<td><strong><lang package='Default/Install'>Cookie前缀</lang></strong></td>
@@ -131,6 +133,24 @@ function doInstall(){
 								<small style="margin-left:10px;"><lang package='Default/Install'>社区地址由程序自动获取，如果错误请自己修正，注意结尾不要有“/”</lang></small>
 							</td>
 						</tr>
+					</tbody>
+				</table></p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="span12">
+				<h2><lang package='Default/Install'>安装应用</lang></h2>
+				<p><table border="0" align="center" cellpadding="0" cellspacing="0" class="table table-striped table-bordered">
+					<tbody>
+						<foreach for=arrApps value=sApp>
+						<tr>
+							<td><strong>{$sApp}</strong></td>
+							<td>
+								<input type="checkbox" name="app[]" value="{$sApp}" checked="true">
+							</td>
+						</tr>
+						</foreach>
 					</tbody>
 				</table></p>
 			</div>
