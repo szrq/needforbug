@@ -1,5 +1,11 @@
 <!--<include file="Core_Extend::template('header')" />-->
 
+<!--{script}-->
+function retrieve(id){
+	Dyhb.AjaxSend(D.U('userappeal/retrieve?id='+id),'ajax=1');
+}
+<!--{/script}-->
+
 		<ul class="breadcrumb">
 			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
 			<li><!--<lang package='Template/Userappeal'>-->申诉结果<!--</lang>--></li>
@@ -31,7 +37,7 @@
 				<h3><!--<lang package='Template/Userappeal'>-->恭喜申诉通过<!--</lang>--></h3>
 				<div class="alert alert_sucess">
 				<!--<lang package='Template/Userappeal'>-->申诉重置密码链接已发送至你的邮箱,请注意查收.<!--</lang>--><br />
-				<!--<lang package='Template/Userappeal'>-->若尚未收到邮件,点击这里<!--</lang>-->&nbsp;<a href="javascript:void(0);" class="btn btn-success"><!--<lang package='Template/Userappeal'>-->重新获取<!--</lang>--></a>
+				<!--<lang package='Template/Userappeal'>-->若尚未收到邮件,点击这里<!--</lang>-->&nbsp;<a href="javascript:void(0);" class="btn btn-success" onclick="retrieve(<!--{$oAppeal['user_id']}-->);"><!--<lang package='Template/Userappeal'>-->重新获取<!--</lang>--></a>
 				</div>
 				<!--{/if}-->
 				<!--{if $oAppeal['appeal_progress']==3}-->

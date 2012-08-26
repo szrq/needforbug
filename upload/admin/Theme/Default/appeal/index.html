@@ -46,7 +46,11 @@
 							<th><a href="javascript:sortBy('appeal_realname','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('appeal_realname')}-->><!--<lang package='Template/Default/Appeal'>-->申诉人<!--</lang>--></a></th>
 							<th><a href="javascript:sortBy('appeal_email','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('appeal_email')}-->><!--<lang package='Template/Default/Appeal'>-->申诉邮箱<!--</lang>--></a></th>
 							<th><a href="javascript:sortBy('appeal_progress','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('appeal_progress')}-->><!--<lang package='Template/Default/Appeal'>-->审核状态<!--</lang>--></a></th>
+							<!--{if $nType=='2' or $nType=='3'}-->
+							<th><a href="javascript:sortBy('update_dateline','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('update_dateline')}-->><!--<lang package='Template/Default/Common'>-->审核时间<!--</lang>--></a></th>
+							<!--{d*else}-->
 							<th><a href="javascript:sortBy('create_dateline','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('create_dateline')}-->><!--<lang package='Template/Default/Common'>-->申诉时间<!--</lang>--></a></th>
+							<!--{/if}-->
 						</tr>
 					</thead>
 					<tbody>
@@ -62,7 +66,11 @@
 								</div></td>
 							<td><a href=""><!--{$value:appeal_email}--></a></td>
 							<td><!--{if $value:appeal_progress==1}--><font color="red">审核中</font><!--{elseif $value:appeal_progress==2}-->审核通过<!--{elseif $value:appeal_progress==3}-->审核拒绝<!--{d*else}--><font color="red">待审核</font><!--{/if}--></td>
+							<!--{if $nType=='2' or $nType=='3'}-->
+							<td><!--{$value:update_dateline|date='Y-m-d H:i',**}--></td>
+							<!--{d*else}-->
 							<td><!--{$value:create_dateline|date='Y-m-d H:i',**}--></td>
+							<!--{/if}-->
 						</tr>
 						<!--</foreach>-->
 					</tbody>

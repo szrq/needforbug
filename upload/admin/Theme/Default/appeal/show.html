@@ -27,11 +27,16 @@
 			}
 		});
 	}
-	$("#appeal_form").submit(function(){
+
+$(document).ready(function(){
+	$("#appeal_form").submit(function(e){
 		if($("#appeal_reason").val()==""){
-			alert("请填写驳回理由");
+			$("#appeal_reason").focus();
+			$("#appeal_prompt").css("color","red");
+			return false;
 		}
 	});
+});
 <!--{/script}-->
 
 	<section class="secondary_bar">
@@ -55,7 +60,7 @@
 			</header>
 			<div class="module_content">
 				<table class="tablesorter" cellspacing="0" id="checkList">
-					<form id="appeal_form" method="post" action="<!--{:Dyhb::U('appeal/reject')}-->">
+					<form id="appeal_form" method="post" action="<!--{:Dyhb::U('appeal/reject?id='.$oAppeal->appeal_id)}-->">
 						<tbody>
 							<tr>
 								<td>申诉真实姓名</td>
@@ -74,7 +79,7 @@
 								<td><!--{$oAppeal->appeal_email}--></td>
 							</tr>
 							<tr>
-								<td colspan="2"><div>驳回理由</div><textarea id="appeal_reason" name="appeal_reason" style="width:500px;height:120px;resize:none;margin-top:8px;margin-bottom:4px;"></textarea><div><font color="gray">若驳回申诉,请填写驳回理由.</font></div></td>
+								<td colspan="2"><div>驳回理由</div><textarea id="appeal_reason" name="appeal_reason" style="width:500px;height:120px;resize:none;margin-top:8px;margin-bottom:4px;"></textarea><div ><font color="gray" id="appeal_prompt">若驳回申诉,请填写驳回理由.</font></div></td>
 							</tr>
 							<tr>
 								<td colspan="2">
