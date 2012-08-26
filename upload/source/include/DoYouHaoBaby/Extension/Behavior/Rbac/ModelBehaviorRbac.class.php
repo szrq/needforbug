@@ -537,7 +537,7 @@ class ModelBehaviorRbac extends ModelBehavior{
 
 		$arrAccessList=Dyhb::cookie('_access_list_');
 		foreach($arrMenuList as $sKey=>$arrModule){
-			if(isset($arrAccessList[strtolower(APP_NAME)][strtolower($arrModule['node_name'])]) OR Dyhb::cookie(md5($GLOBALS['_commonConfig_']['ADMIN_AUTH_KEY']))){
+			if(Dyhb::cookie(md5($GLOBALS['_commonConfig_']['ADMIN_AUTH_KEY'])) OR (is_array($arrAccessList) && isset($arrAccessList[strtolower(APP_NAME)][strtolower($arrModule['node_name'])]))){
 				$arrModule['node_access']=1;
 				$arrMenuList[$sKey]=$arrModule;
 			}
