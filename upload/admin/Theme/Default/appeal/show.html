@@ -1,0 +1,96 @@
+<!--<include file="public+header" />-->
+
+<!--{style}-->
+.alert {
+  padding: 8px 35px 8px 14px;
+  margin-bottom: 18px;
+  color: #c09853;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  background-color: #fcf8e3;
+  border: 1px solid #fbeed5;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+}
+
+.alert-success {
+  color: #468847;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+<!--{/style}-->
+<!--{script}-->
+	function appeal_pass(id){
+		Dyhb.AjaxSend(D.U('appeal/pass?id='+id),'ajax=1','',function(data,status){
+			if(status==1){
+				window.location.href=D.U('appeal/index');
+			}
+		});
+	}
+	$("#appeal_form").submit(function(){
+		if($("#appeal_reason").val()==""){
+			alert("请填写驳回理由");
+		}
+	});
+<!--{/script}-->
+
+	<section class="secondary_bar">
+		<div class="breadcrumbs_container">
+			<article class="breadcrumbs"><a href="<!--{:Dyhb::U('public/fmain')}-->"><!--<lang package='Template/Default/Common'>-->主页<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a class="current"><!--<lang package='Template/Default/Appeal'>-->用户申诉审核<!--</lang>--></a> <div class="breadcrumb_divider"></div> 
+		</div>
+	</section>
+
+	<section id="main" class="column">
+		<article class="module width_full">
+			<header><h3><!--<lang package='Template/Default/Common'>-->操作提示<!--</lang>--></h3></header>
+			<div class="module_content">
+				<ul>
+					<li><!--<lang package='Template/Default/Appeal'>-->在这里你会看到用户申诉的详细信息<!--</lang>--></li>
+				</ul>
+			</div>
+		</article>
+		
+		<article class="module width_full">
+			<header><h3 class="tabs_involved">id为<!--{$oAppeal->user_id}-->的用户申诉信息</h3>
+			</header>
+			<div class="module_content">
+				<table class="tablesorter" cellspacing="0" id="checkList">
+					<form id="appeal_form" method="post" action="<!--{:Dyhb::U('appeal/reject')}-->">
+						<tbody>
+							<tr>
+								<td>申诉真实姓名</td>
+								<td><!--{$oAppeal->appeal_realname}--></td>
+							</tr>
+							<tr>
+								<td>申诉详细地址</td>
+								<td><!--{$oAppeal->appeal_address}--></td>
+							</tr>
+							<tr>
+								<td>申诉身份证号</td>
+								<td><!--{$oAppeal->appeal_idnumber}--></td>
+							</tr>
+							<tr>
+								<td>申诉Email</td>
+								<td><!--{$oAppeal->appeal_email}--></td>
+							</tr>
+							<tr>
+								<td colspan="2"><div>驳回理由</div><textarea id="appeal_reason" name="appeal_reason" style="width:500px;height:120px;resize:none;margin-top:8px;margin-bottom:4px;"></textarea><div><font color="gray">若驳回申诉,请填写驳回理由.</font></div></td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<div class="submit_link">
+										<input type="button" id="appeal_pass2" name="appeal_pass2" onclick="appeal_pass(<!--{$oAppeal->appeal_id}-->);" value="<!--<lang package='Template/Default/Common'>-->审核通过<!--</lang>-->" class="alt_btn">
+										&nbsp;<input type="submit" id="appeal_reject" name="appeal_reject" value="<!--<lang package='Template/Default/Common'>-->审核驳回<!--</lang>-->" class="alt_btn">
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</form>
+				</table>
+			</div>
+		</article>
+
+		<div class="spacer"></div>
+	</section>
+
+<!--<include file="public+footer">-->
