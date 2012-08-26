@@ -47,5 +47,66 @@ class Install_Extend extends Controller{
 			}
 		}
 	}
+	
+	public static function showJavascriptMessage($sMessage){
+		echo '<script type="text/javascript">showMessage(\''.addslashes($sMessage).' \');</script>'."\r\n";
+		flush();
+		ob_flush();
+	}
+
+	public static function importTable($sFilepath){
+		global $hConn,$sSql4Tmp,$sDbprefix,$nMysqlVersion;
+
+		$sQuery='';
+
+		$hFp=fopen($sFilepath,'r');
+		while(!feof($hFp)){
+			$sLine=rtrim(fgets($hFp,1024));
+			if(preg_match("#;$#",$sLine)){
+				$sQuery.=$sLine."\n";
+				$sQuery=str_replace('#@__',$sDbprefix,$sQuery);
+				if(substr($sQuery,0,12)=='CREATE TABLE'){
+					$sTableName=preg_replace("/CREATE TABLE `([a-z0-9_]+)` .*/is","\\1",$sQuery);
+					self::showJavascriptMessage(Dyhb::L('创建数据库表').' '.$sTableName.' ... '.Dyhb::L('成功'));
+				}
+
+				if($nMysqlVersion<4.1){
+					$hRs=mysql_query($sQuery,$hConn);
+				}else{
+					if(preg_match('#CREATE#i',$sQuery)){
+						$hRs=mysql_query(preg_replace("#TYPE=MyISAM#i",$sSql4Tmp,$sQuery),$hConn);
+					}else{
+						$hRs=mysql_query($sQuery,$hConn);
+					}
+				}
+				$sQuery='';
+			}else if(!preg_match("#^(\/\/|--)#",$sLine)){
+				$sQuery.=$sLine;
+			}
+		}
+		fclose($hFp);
+	}
+
+	public static function runQuery($sFilepath){
+		global $hConn,$sSql4Tmp,$sDbprefix,$nMysqlVersion;
+		
+		$sQuery='';
+
+		$hFp=fopen($sFilepath,'r');
+		while(!feof($hFp)){
+			$sLine=rtrim(fgets($hFp,1024));
+			if(preg_match("#;$#",$sLine)){
+				$sQuery.=$sLine;
+				$sQuery=str_replace('#@__',$sDbprefix,$sQuery);
+				$hRs=mysql_query($sQuery,$hConn);
+				self::showJavascriptMessage(Dyhb::L('执行SQL').' '.G::subString($sQuery,0,50).' ... '.Dyhb::L('成功'));
+				$sQuery='';
+			}else if(!preg_match("#^(\/\/|--)#",$sLine)){
+				$sQuery.=$sLine;
+			}
+		}
+
+		fclose($hFp);
+	}
 
 }

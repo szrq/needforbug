@@ -1,4 +1,4 @@
-<include file="header">
+<include file="common+header">
 		
 	<ul class="breadcrumb">
 		<li><a href="{:__APP__}" title="<lang package='Default/Install'>主页</lang>"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span></li>
@@ -27,8 +27,10 @@
 
 	<div class="row">
 		<div class="span12">
-			<p><input type='button' value='Next' class='btn btn-primary' onclick="window.location.href='{:Dyhb::U( 'index/step2' )}'"/></p>
+			<div class="well">
+				<p><input type='button' value='Next' class='btn btn-primary' onclick="window.location.href='{:Dyhb::U( 'index/select' )}'"/></p>
+			</div>
 		</div>
 	</div>
 
-<include file="footer">
+<include file="common+footer">

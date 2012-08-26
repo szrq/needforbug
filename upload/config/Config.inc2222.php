@@ -2,8 +2,8 @@
  /* DoYouHaoBaby Framework Config File,Do not to modify this file! */ 
  return array (
   'DB_PASSWORD' => '123456',
-  'DB_PREFIX' => 'dyhbblogx_',
-  'DB_NAME' => 'dyhbblogxv201222',
+  'DB_PREFIX' => 'needforbug_',
+  'DB_NAME' => 'needforbugv20120104',
   'DB_CACHE_FIELDS' => true,
   'DB_CACHE' => true,
   'DB_CACHE_TIME' => 86400000000,
@@ -11,8 +11,8 @@
   'SHOW_RUN_TIME' => true,
   'SHOW_DB_TIMES' => true,
   'SHOW_GZIP_STATUS' => true,
-  'RBAC_DATA_PREFIX' => 'rbac_data_prefix_x_doyouhaobaby_',
-  'COOKIE_PREFIX' => 'x_doyouhaobaby_',
+  'RBAC_DATA_PREFIX' => 'needforbug_rbac_D73316_',
+  'COOKIE_PREFIX' => 'needforbug_7A9Ae0_',
   'RBAC_ROLE_TABLE' => 'role',
   'RBAC_USERROLE_TABLE' => 'userrole',
   'RBAC_ACCESS_TABLE' => 'access',

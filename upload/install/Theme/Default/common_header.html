@@ -31,12 +31,14 @@
 	Dyhb.Ajax.Dyhb.Image=['{:__PUBLIC__}/images/common/ajax/loading.gif','{:__PUBLIC__}/images/common/ajax/ok.gif','{:__PUBLIC__}/images/common/ajax/update.gif'];
 	{:App::U()}
 	{/script}
-	<load file="{:__PUBLIC__}/js/artdialog/skins/default.css" />
-	<script type="text/javascript" src="{:__PUBLIC__}/js/artdialog/jquery.artDialog.min.js"></script>
-	<script type="text/javascript" src="{:__PUBLIC__}/js/artdialog/artDialog.plugins.min.js"></script>
 </head>
-
 <body>
+{script}
+function showMessage(sMessage){
+	document.getElementById('message-list').innerHTML+=sMessage+'<br />';
+}
+{/script}
+
 <div id="DyhbAjaxResult" class="none DyhbAjaxResult">&nbsp;</div>
 <div class="navbar navbar-fixed-top">
 	<div class="navbar-inner">

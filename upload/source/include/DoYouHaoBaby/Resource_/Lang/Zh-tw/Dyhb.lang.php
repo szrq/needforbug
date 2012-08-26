@@ -50,7 +50,7 @@ return array(
 '38836abee8151da298340bab3c162fe8'=>"參數\$nType 必須為TemplateHtmlNodeTag::TYPE_HEAD 或TemplateHtmlNodeTag::TYPE_TAIL",
 '6e40e05e06314f3e8fdfddb1d472c93a'=>"參數\$oTailTag 必須是一個尾標籤",
 '2421086dcea912644116d35c29f952fd'=>"沒有頭標籤",
-'090049eb48499bb04cd08250bfe26d8d'=>"警告：對不起子模板：%s不存在",
+'5df4e7710f50f99836a079cd57ba6054'=>"警告：對不起子模板 %s 不存在",
 '476edaf664ed3a42b27defeca69e8d0d'=>"無法找到模板文件<br>%s",
 '054878576ffe995e434f8ed0e10d218f'=>"%s 類型節點必須成對使用，沒有找到對應的尾標籤; %s",
 'a5a2e969d247021ffe9f4abd8e0a33da'=>"Template節點“%s”缺少必須的屬性：“%s”",

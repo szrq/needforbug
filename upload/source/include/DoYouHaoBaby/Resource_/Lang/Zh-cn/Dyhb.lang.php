@@ -50,7 +50,7 @@ return array(
 '38836abee8151da298340bab3c162fe8'=>"参数 \$nType 必须为 TemplateHtmlNodeTag::TYPE_HEAD 或 TemplateHtmlNodeTag::TYPE_TAIL",
 '6e40e05e06314f3e8fdfddb1d472c93a'=>"参数 \$oTailTag 必须是一个尾标签",
 '2421086dcea912644116d35c29f952fd'=>"没有头标签",
-'090049eb48499bb04cd08250bfe26d8d'=>"警告：对不起子模板：%s不存在",
+'5df4e7710f50f99836a079cd57ba6054'=>"警告：对不起子模板 %s 不存在",
 '476edaf664ed3a42b27defeca69e8d0d'=>"无法找到模板文件<br>%s",
 '054878576ffe995e434f8ed0e10d218f'=>"%s 类型节点 必须成对使用，没有找到对应的尾标签; %s",
 'a5a2e969d247021ffe9f4abd8e0a33da'=>"Template节点“%s”缺少必须的属性：“%s”",
