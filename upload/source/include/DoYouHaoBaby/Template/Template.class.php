@@ -220,7 +220,7 @@ class Template{
 			}
 
 			if($bExistsFile===false){
-				E(Dyhb::L('警告：对不起子模板：%s不存在','__DYHB__@Dyhb',null,$sTemplateFile));
+				E(Dyhb::L('警告：对不起子模板 %s 不存在','__DYHB__@Dyhb',null,$sTemplateFile));
 				return;
 			}
 		}
