@@ -267,7 +267,8 @@ INSERT INTO `needforbug_option` (`option_name`, `option_value`) VALUES
 ('mail_testsubject', '尊敬的{user_name}：{site_name}系统测试邮件发送成功'),
 ('getpassword_expired', '36000'),
 ('style_switch_on', '1'),
-('extendstyle_switch_on', '1');
+('extendstyle_switch_on', '1'),
+('appeal_expired', '360000');
 
 -- --------------------------------------------------------
 
