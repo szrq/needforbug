@@ -104,7 +104,7 @@ class MailModel extends CommonModel{
 		// 发送邮件
 		$oMailConnect->send();
 
-		if($oMailSend->isError()){
+		if($oMailConnect->isError()){
 			if($bSave===true){
 				$oMail->mail_status=0;
 				$oMail->save(0,'update');
@@ -114,7 +114,7 @@ class MailModel extends CommonModel{
 				}
 			}
 
-			$this->setErrorMessage($oMailSend->getErrorMessage());
+			$this->setErrorMessage($oMailConnect->getErrorMessage());
 		}else{
 			if($bSave===true){
 				$oMail->save(0,'update');

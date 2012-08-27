@@ -16,6 +16,26 @@ class HomefreshcommentModel extends CommonModel{
 			'attr_protected'=>'homefreshcomment_id',
 			'autofill'=>array(
 				array('user_id','userId','create','callback'),
+				array('homefreshcomment_ip','getIp','create','callback'),
+			),
+			'check'=>array(
+				'homefreshcomment_name'=>array(
+					array('require',Dyhb::L('评论名字不能为空','__APP_ADMIN_LANG__@Model/Homefreshcomment')),
+					array('max_length',25,Dyhb::L('评论名字的最大字符数为25','__APP_ADMIN_LANG__@Model/Homefreshcomment'))
+				),
+				'homefreshcomment_email'=>array(
+					array('empty'),
+					array('max_length',300,Dyhb::L('评论Email 最大字符数为300','__APP_ADMIN_LANG__@Model/Homefreshcomment')),
+					array('email',Dyhb::L('评论的邮件必须为正确的Email 格式','__APP_ADMIN_LANG__@Model/Homefreshcomment'))
+				),
+				'homefreshcomment_url'=>array(
+					array('empty'),
+					array('max_length',300,Dyhb::L('评论URL 最大字符数为300','__APP_ADMIN_LANG__@Model/Homefreshcomment')),
+					array('url',Dyhb::L('评论的邮件必须为正确的URL 格式','__APP_ADMIN_LANG__@Model/Homefreshcomment'))
+				),
+				'homefreshcomment_content'=>array(
+					array('require',Dyhb::L('评论的内容不能为空','__APP_ADMIN_LANG__@Model/Homefreshcomment'))
+				),
 			),
 		);
 	}
@@ -33,6 +53,10 @@ class HomefreshcommentModel extends CommonModel{
 		$arrUserData=$GLOBALS['___login___'];
 
 		return $arrUserData['user_id']?$arrUserData['user_id']:0;
+	}
+
+	protected function getIp(){
+		return G::getIp();
 	}
 
 }

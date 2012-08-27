@@ -252,6 +252,7 @@ CREATE TABLE `#@__homefreshcomment` (
   `homefreshcomment_parentid` mediumint(8) NOT NULL DEFAULT '0' COMMENT '父级ID',
   `homefreshcomment_isreplymail` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否邮件通知，通知给评论者',
   `homefreshcomment_ismobile` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否为手机评论',
+  `homefreshcomment_auditpass` tinyint(1) NOT NULL DEFAULT '1' COMMENT '审核是否通过',
   `homefresh_id` char(10) NOT NULL COMMENT '新鲜事ID',
   PRIMARY KEY (`homefreshcomment_id`),
   KEY `user_id` (`user_id`),

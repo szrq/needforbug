@@ -10,6 +10,8 @@ Dyhb::import(NEEDFORBUG_PATH.'/app/home/App/Class/Model');
 class HomemainController extends InitController{
 
 	public function index($sModel=null,$bDisplay=true){
+		$sType=trim(G::getGpc('type','G'));
+
 		Core_Extend::loadCache('home_option');
 
 		$arrOptionData=$GLOBALS['_cache_']['home_option'];
@@ -17,7 +19,7 @@ class HomemainController extends InitController{
 		$this->assign('nId',intval(G::getGpc('id','G')));
 		$this->assign('arrOptions',$arrOptionData);
 		
-		$this->display(Admin_Extend::template('home','homeoption/index'));
+		$this->display(Admin_Extend::template('home','homeoption/'.($sType?$sType:'index')));
 	}
 
 	public function update_option(){

@@ -33,10 +33,13 @@ hr{height:1px;border:none;border-top:1px dashed #cccccc;}
 .pointer{cursor:pointer;}
 
 /**===============================
-           标签样式
+           标签样式和内容tab样式
 ================================*/
-.tags{ display: inline-block; padding: 3px 6px; height: 17px; line-height: 17px; color: #588C98!important; text-align: center; background-color: #DFEAF2; margin-right: 10px; cursor: pointer; margin-bottom: 3px; border: 1px solid #fff; white-space: nowrap; }
-.tags:hover{ background-color: #C2E4EB; }
+.content-tab-box{margin:10px 0px;}
+.content-tab-active,.content-tab,.tags{ display: inline-block; padding: 3px 6px; height: 17px; line-height: 17px; color: #588C98!important; text-align: center; background-color: #DFEAF2; margin-right: 10px; cursor: pointer; margin-bottom: 3px; border: 1px solid #fff; white-space: nowrap; }
+.content-tab-active:hover,.content-tab:hover,.tags:hover{ background-color: #C2E4EB; }
+.content-tab-active{background-color: #C2E4EB; }
+a.content-tab:link,a.content-tab-active:link{ text-decoration:none; }
 
 /**===============================
            头部

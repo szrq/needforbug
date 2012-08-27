@@ -73,7 +73,24 @@ INSERT INTO `needforbug_homeoption` (`homeoption_name`, `homeoption_value`) VALU
 ('pm_list_num', '5'),
 ('pm_list_substring_num', '200'),
 ('pm_single_list_num', '10'),
-('homefreshcomment_list_num', '10');
+('homefreshcomment_list_num', '10'),
+('comment_min_len', '5'),
+('comment_max_len', '500'),
+('comment_post_space', '0'),
+('comment_banip_enable', '1'),
+('comment_ban_ip', ''),
+('comment_spam_enable', '1'),
+('comment_spam_words', '六合彩'),
+('comment_spam_url_num', '3'),
+('comment_spam_content_size', '100'),
+('disallowed_all_english_word', '1'),
+('disallowed_spam_word_to_database', '1'),
+('close_comment_feature', '0'),
+('comment_repeat_check', '1'),
+('audit_comment', '0'),
+('seccode_comment_status', '1'),
+('comment_mail_to_admin', '0'),
+('comment_mail_to_author', '0');
 
 -- --------------------------------------------------------
 
