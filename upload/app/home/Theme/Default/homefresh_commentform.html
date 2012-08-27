@@ -1,0 +1,18 @@
+					<div id="homefresh-commentform-box" style="margin-top:30px;">
+						<h3>发表评论</h3>
+						<form class="well" method="post" name="homefresh-commentform" action="<!--{:Dyhb::U('home://ucenter/add_homefreshcomment')}-->" id="homefresh-commentform">
+							<label>用户昵称<em class="red">*</em></label>
+							<input type="text" class="span3" placeholder="请输入你的用户昵称" name="homefreshcomment_name" id="homefreshcomment_name">
+							<label>邮件地址(选填)</label>
+							<input type="text" class="span3" name="homefreshcomment_email" id="homefreshcomment_email">
+							<label>个人主页(选填)</label>
+							<input type="text" class="span3" name="homefreshcomment_url" id="homefreshcomment_url">
+							<label>内容<em class="red">*</em></label>
+							<textarea name="homefreshcomment_content" id="homefreshcomment_content" rows="10" style="width:80%;"></textarea>
+							<label class="checkbox">
+								<input type="checkbox" name="homefreshcomment_isreplymail" id="homefreshcomment_isreplymail" value="1"> 回复时邮件通知
+							</label>
+							<input type="hidden" name="homefresh_id" value="<!--{$oHomefresh['homefresh_id']}-->"/>
+							<button type="submit" class="btn btn-primary">发表评论</button>
+						</form>
+					</div>

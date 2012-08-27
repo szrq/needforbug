@@ -683,7 +683,7 @@ NEEDFORBUG;
 
 			$sCssCurScripts=$GLOBALS['_curscript_'];
 			$sCssCurScripts=preg_replace(array('/\s*([,;:\{\}])\s*/','/[\t\n\r]/','/\/\*.+?\*\//'),array('\\1','',''),$sCssCurScripts);
-			if(!file_put_contents($sStyleCachepath.'/scriptstyle_'.APP_NAME.'_'.CURSCRIPT.'.css',$sCssCurScripts)){
+			if(!file_put_contents($sStyleCachepath.'/scriptstyle_'.APP_NAME.'_'.CURSCRIPT.'.css',stripslashes($sCssCurScripts))){
 				Dyhb::E(Dyhb::L('无法写入缓存文件,请检查缓存目录 %s 的权限是否为0777','__COMMON_LANG__@Function/Cache_Extend',null,$sStyleCachepath));
 			}
 		}
@@ -758,12 +758,15 @@ NEEDFORBUG;
 
 	static public function defineCurscript($arrModulecachelist){
 		foreach($arrModulecachelist as $sKey=>$sCache){
-			if(strpos($sCache,'::') && MODULE_NAME.'::'.ACTION_NAME==$sCache){
-				define('CURSCRIPT',$sKey);
-				continue;
-			}elseif(MODULE_NAME===$sCache){
-				define('CURSCRIPT',$sKey);
-				continue;
+			$arrCaches=explode(',',$sCache);
+			foreach($arrCaches as $sValue){
+				if(strpos($sValue,'::') && MODULE_NAME.'::'.ACTION_NAME==$sValue){
+					define('CURSCRIPT',$sKey);
+					continue;
+				}elseif(MODULE_NAME===$sValue){
+					define('CURSCRIPT',$sKey);
+					continue;
+				}
 			}
 		}
 	}

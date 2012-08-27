@@ -27,6 +27,11 @@ function addHomefresh(){
 }
 <!--{/script}-->
 
+		<ul class="breadcrumb">
+			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
+			<li><!--<lang package='Template/Homefresh'>-->个人中心<!--</lang>--></li>
+		</ul>
+		
 		<div class="row">
 
 			<!--<include file="ucenter_sidebar" />-->
@@ -34,37 +39,37 @@ function addHomefresh(){
 			<div class="span9">
 				<em><!--<lang package='Template/Homefresh'>-->你正在想什么呢? 快来与朋友们分享吧!<!--</lang>--></em>
 				<div class="homefresh-box" >
-				<form class="well form-inline" method="post" id="homefreshAdd" name="homefreshAdd">
-					<textarea class="input-xlarge" name="homefresh_message" id="homefresh_message" rows="3" style="width:100%;"></textarea>
-					<table class="table">
-						<tbody>
-							<tr>
-								<td>
-									<label class="checkbox"><input type="checkbox" name="synchronized-to-sign" value="1"/> <!--<lang package='Template/Homefresh'>-->同步到个人签名<!--</lang>--></label>
-								</td>
-								<td rowspan="2" style="width:70px;">
-									<input type="hidden" name="ajax" value="1">
-									<button id="submit_button" onclick="addHomefresh()" type="button" class="btn btn-large btn-success" style="height:63px;"><!--<lang package='__COMMON_LANG__@Template/Common'>-->发布<!--</lang>--></button>
-								</td>
-							</tr>
-							<tr>
-								<td><p class="help-block">
-										<span class="max-limit-doing"><!--<lang package='Template/Homefresh'>-->新鲜事最大允许10000个字符，尽情表达吧<!--</lang>--></span>
-									</p>
-								</td>
-							</tr>
-							<!--{if $nDisplaySeccode==1}-->
-							<tr>
-								<td>
-									<label class="control-label" for="seccode"><!--<lang package='__COMMON_LANG__@Template/Common'>-->验证码<!--</lang>--></label>
-									<p><input class="input-small" name="seccode" id="seccode" type="text" value=""></p>
-									<p class="help-block"><span id="seccodeImage"><img style="cursor:pointer" onclick="updateSeccode()" src="<!--{:Dyhb::U('home://public/seccode')}-->" /></span></p>
-								</td>
-							</tr>
-							<!--{/if}-->
-						</tbody>
-					</table>
-				</form>
+					<form class="well form-inline" method="post" id="homefreshAdd" name="homefreshAdd">
+						<textarea class="input-xlarge" name="homefresh_message" id="homefresh_message" rows="3" style="width:100%;"></textarea>
+						<table class="table">
+							<tbody>
+								<tr>
+									<td>
+										<label class="checkbox"><input type="checkbox" name="synchronized-to-sign" value="1"/> <!--<lang package='Template/Homefresh'>-->同步到个人签名<!--</lang>--></label>
+									</td>
+									<td rowspan="2" style="width:70px;">
+										<input type="hidden" name="ajax" value="1">
+										<button id="submit_button" onclick="addHomefresh()" type="button" class="btn btn-large btn-success" style="height:63px;"><!--<lang package='__COMMON_LANG__@Template/Common'>-->发布<!--</lang>--></button>
+									</td>
+								</tr>
+								<tr>
+									<td><p class="help-block">
+											<span class="max-limit-doing"><!--<lang package='Template/Homefresh'>-->新鲜事最大允许10000个字符，尽情表达吧<!--</lang>--></span>
+										</p>
+									</td>
+								</tr>
+								<!--{if $nDisplaySeccode==1}-->
+								<tr>
+									<td>
+										<label class="control-label" for="seccode"><!--<lang package='__COMMON_LANG__@Template/Common'>-->验证码<!--</lang>--></label>
+										<p><input class="input-small" name="seccode" id="seccode" type="text" value=""></p>
+										<p class="help-block"><span id="seccodeImage"><img style="cursor:pointer" onclick="updateSeccode()" src="<!--{:Dyhb::U('home://public/seccode')}-->" /></span></p>
+									</td>
+								</tr>
+								<!--{/if}-->
+							</tbody>
+						</table>
+					</form>
 				</div>
 
 				<div class="tabb-menu">
@@ -75,7 +80,6 @@ function addHomefresh(){
 						<li <!--{if $sType=='all'||isset($_GET['uid'])}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('ucenter/index?type=all')}-->"><!--<lang package='Template/Homefresh'>-->正在发生<!--</lang>--></a></li>
 					</ul>
 				</div>
-
 				<div class="message-box">
 					<!--{if is_array($arrHomefreshs)}-->
 					<table class="table">
@@ -87,17 +91,25 @@ function addHomefresh(){
 						<tbody>
 							<!--<foreach for=arrHomefreshs value=oHomefresh>-->
 							<tr>
-								<td><div style="text-align:center; width:48px;">
-										<a href="<!--{:Dyhb::U('home://my/user?id='.$oHomefresh['user_id'])}-->"><img src="<!--{:Core_Extend::avatar($oHomefresh['user_id'],'small')}-->" class="thumbnail" /></a>
+								<td style="width:48px;">
+									<div style="text-align:center;">
+										<a href="<!--{:Dyhb::U('home://space@?id='.$oHomefresh['user_id'])}-->"><img src="<!--{:Core_Extend::avatar($oHomefresh['user_id'],'small')}-->" class="thumbnail" /></a>
 									</div>
 								</td>
-								<td><div style="width:500px">
-									<p><h5><a href="<!--{:Dyhb::U('my/user?id='.$oHomefresh['user_id'])}-->"><!--{$oHomefresh:user:user_name}--></a>&nbsp;<!--<lang package='Template/Homefresh'>-->在<!--</lang>-->&nbsp;<!--{$oHomefresh['create_dateline']|Core_Extend+timeFormat}-->&nbsp;<!--<lang package='__COMMON_LANG__@Template/Common'>-->发布<!--</lang>--></h5></p>
-									<p><!--{$oHomefresh['homefresh_message']|Core_Extend+htmlSubstring=$GLOBALS['_cache_']['home_option']['homefresh_list_substring_num']}--></p>
-									<blockquote style="margin-top:5px">
-										<p style="font-size:12px; color:#999999;"><!--<lang package='Template/Homefresh'>-->这篇主题还没有回复<!--</lang>--></p>
-									</blockquote>
+								<td><h4><a href="<!--{:Dyhb::U('home://space@?id='.$oHomefresh['user_id'])}-->"><!--{$oHomefresh:user:user_name}--></a>&nbsp;<!--<lang package='Template/Homefresh'>-->于<!--</lang>-->&nbsp;<!--{$oHomefresh['create_dateline']|Core_Extend+timeFormat}-->&nbsp;<!--<lang package='__COMMON_LANG__@Template/Common'>-->发布<!--</lang>-->
+									</h4>
+									<hr/>
+									<div class="homefresh-content">
+										<!--{$oHomefresh['homefresh_message']|Core_Extend+htmlSubstring=$GLOBALS['_cache_']['home_option']['homefresh_list_substring_num']}-->
 									</div>
+									<div class="homefresh-count">
+										<a href="http://">赞(<!--{$oHomefresh['homefresh_goodnum']}-->)</a>
+										<span class="pipe">|</span>
+										<a href="http://">评论(<!--{$oHomefresh['homefresh_commentnum']}-->)</a>
+										<span class="pipe">|</span>
+										<a href="<!--{:Dyhb::U('home://fresh@?id='.$oHomefresh['homefresh_id'])}-->" title="阅读全文"><i class="icon-eye-open"></i></a>
+									</div>
+									<div><input type="text" style="width:60%;" value="我也来说一句"></div>
 								</td>
 							</tr>
 							<!--</foreach>-->

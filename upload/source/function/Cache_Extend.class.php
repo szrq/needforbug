@@ -536,7 +536,7 @@ class Cache_Extend{
 				$sCssData=preg_replace("/<\?.+?\?>\s*/",'',$sCssData);
 				$sCssData=preg_replace(array('/\s*([,;:\{\}])\s*/','/[\t\n\r]/','/\/\*.+?\*\//'),array('\\1','',''),$sCssData);
 
-				if(!file_put_contents($sStyleIdPath.'/'.($sType!='@' && strpos($sExtra,'t_')!==0?$sType.'_':'').$sExtra.'.css',$sCssData) && !G::makeDir($sStyleIdPath)){
+				if(!file_put_contents($sStyleIdPath.'/'.($sType!='@' && strpos($sExtra,'t_')!==0?$sType.'_':'').$sExtra.'.css',stripslashes($sCssData)) && !G::makeDir($sStyleIdPath)){
 					Dyhb::E(Dyhb::L('无法写入缓存文件,请检查缓存目录 %s 的权限是否为0777','__COMMON_LANG__@Function/Cache_Extend',null,$sStyleIdPath));
 				}else{
 					$arrCurscriptCss=Glob($sStyleIdPath.'/scriptstyle_*.css');

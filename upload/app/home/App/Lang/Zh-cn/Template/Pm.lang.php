@@ -38,6 +38,7 @@ return array(
 'a8b0c20416853bda54120bf19477ad11'=>"全部",
 '607e7a4f377fa66b0b28ce318aab841f'=>"查看",
 '21e106fd180f9dfe0937383ac30ac4ad'=>"转发",
+'3ecb2cdcaf6ba5bb16ef4b05d14e7184'=>"查看消息详情",
 )
 
 ?>

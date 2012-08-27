@@ -20,4 +20,12 @@ class UcenterController extends InitController{
 		Core_Extend::doControllerAction('Ucenter@Homefresh','add');
 	}
 
+	public function view(){
+		Core_Extend::doControllerAction('Ucenter@Homefresh','view');
+	}
+
+	public function add_homefreshcomment(){
+		Core_Extend::doControllerAction('Ucenter@Homefresh','add_comment');
+	}
+
 }

@@ -25,7 +25,7 @@ class InitController extends Controller{
 		$arrModulecachelist=array(
 			'index'=>'public::index',
 			'pm'=>'pm',
-			'userhome'=>'ucenter::index'
+			'userhome'=>'ucenter',
 		);
 
 		Core_Extend::defineCurscript($arrModulecachelist);

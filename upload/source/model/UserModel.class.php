@@ -155,16 +155,16 @@ class UserModel extends CommonModel{
 
 		if(UserModel::M()->isBehaviorError()){
 			$oLoginlog->loginlog_status=0;
-			$oLoginlog->save();
+			$oLoginlog->save(0);
 			$this->setErrorMessage(UserModel::M()->getBehaviorErrorMessage());
 		}else{
 			if($oUser->isError()){
 				$oLoginlog->loginlog_status=0;
-				$oLoginlog->save();
+				$oLoginlog->save(0);
 				$this->setErrorMessage($oUser->getErrorMessage());
 			}
 			$oLoginlog->loginlog_status=1;
-			$oLoginlog->save();
+			$oLoginlog->save(0);
 		}
 
 		return true;

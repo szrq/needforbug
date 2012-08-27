@@ -99,4 +99,54 @@ class HomefreshController extends Controller{
 		}
 	}
 
+	public function view(){
+		$nId=intval(G::getGpc('id','G'));
+
+		if(empty($nId)){
+			$this->E(Dyhb::L('你没有指定要阅读的新鲜事','Controller/Homefresh'));
+		}
+
+		$oHomefresh=HomefreshModel::F('homefresh_id=? AND homefresh_status=1',$nId)->getOne();
+		if(empty($oHomefresh['homefresh_id'])){
+			$this->E(Dyhb::L('新鲜事不存在或者被屏蔽了','Controller/Homefresh'));
+		}
+
+		$oHomefresh->homefresh_viewnum=$oHomefresh->homefresh_viewnum+1;
+		$oHomefresh->save(0,'update');
+
+		if($oHomefresh->isError()){
+			$this->E($oHomefresh->getErrorMessage());
+		}
+
+		// 读取评论列表
+		$arrOptionData=$GLOBALS['_cache_']['home_option'];
+
+		$arrWhere=array();
+		$arrWhere['homefreshcomment_status']=1;
+		$arrWhere['homefresh_id']=$nId;
+
+		$nTotalRecord=HomefreshcommentModel::F()->where($arrWhere)->all()->getCounts();
+		$oPage=Page::RUN($nTotalRecord,$arrOptionData['homefreshcomment_list_num'],G::getGpc('page','G'));
+
+		$arrHomefreshcommentLists=HomefreshcommentModel::F()->where($arrWhere)->all()->order('`create_dateline` DESC')->limit($oPage->returnPageStart(),$arrOptionData['homefreshcomment_list_num'])->getAll();
+
+		$this->assign('nTotalHomefreshcomment',$nTotalRecord);
+		$this->assign('sPageNavbar',$oPage->P('pagination','li','active'));
+		$this->assign('arrHomefreshcommentLists',$arrHomefreshcommentLists);
+		$this->assign('oHomefresh',$oHomefresh);
+
+		$this->display('homefresh+view');
+	}
+
+	public function add_comment(){
+		$oHomefreshcomment=new HomefreshcommentModel();
+		$oHomefreshcomment->save(0);
+
+		if(!$oHomefreshcomment->isError()){
+			$oHomefreshcomment->getErrorMessage();
+		}
+
+		$this->S('添加新鲜事评论成功');
+	}
+
 }
