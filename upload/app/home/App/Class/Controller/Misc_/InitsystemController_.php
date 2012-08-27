@@ -9,9 +9,7 @@ class InitsystemController extends Controller{
 	public function index(){
 		// 更新系统缓存
 		require_once(Core_Extend::includeFile('function/Cache_Extend'));
-		Cache_Extend::updateCache($sCacheName);
-
-		file_put_contents(NEEDFORBUG_PATH.'/test.txt','yes');
+		Cache_Extend::updateCache();
 	}
 
 }
