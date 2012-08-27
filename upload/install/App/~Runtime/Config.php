@@ -23,7 +23,7 @@
   'DB_DISTRIBUTED' => false,
   'DB_FIELDTYPE_CHECK' => true,
   'TEMPLATE_NOT_ALLOWS_FUNC' => 'echo,exit',
-  'CACHE_LIFE_TIME' => 86400000,
+  'CACHE_LIFE_TIME' => -1,
   'THEME_SWITCH' => true,
   'TPL_DIR' => 'Default',
   'PHP_OFF' => false,
@@ -50,7 +50,7 @@
   'COOKIE_PATH' => '/',
   'COOKIE_EXPIRE' => 86400,
   'SESSION_PREFIX' => 'dyhb_',
-  'URL_MODEL' => 1,
+  'URL_MODEL' => 0,
   'START_ROUTER' => false,
   'URL_PATHINFO_MODEL' => 2,
   'URL_PATHINFO_DEPR' => '/',
@@ -78,11 +78,5 @@
   'LANG_SWITCH' => true,
   'LANG' => 'zh-cn',
   'URL_DOMAIN' => '',
-  '_ROUTER_' => 
-  array (
-  ),
-  '_HTML_' => 
-  array (
-  ),
 )
 ?>

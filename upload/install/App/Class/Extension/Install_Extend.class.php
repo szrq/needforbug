@@ -80,7 +80,7 @@ class Install_Extend extends Controller{
 				}
 
 				if($hRs===true){
-					self::showJavascriptMessage(Dyhb::L('创建数据库表').' '.$sTableName.' ... '.Dyhb::L('成功'));
+					self::showJavascriptMessage(Dyhb::L('创建数据库表','Function/Install_Extend').' '.$sTableName.' ... '.Dyhb::L('成功','Function/Install_Extend'));
 				}else{
 					self::sqlError($sQuery);
 				}
@@ -109,7 +109,7 @@ class Install_Extend extends Controller{
 				if($hRs===true){
 					if($bEchomessage===true){
 						self::showJavascriptMessage(
-							Dyhb::L('执行SQL').' '.G::subString($sQuery,0,50).' ... '.Dyhb::L('成功'));
+							Dyhb::L('执行SQL','Function/Install_Extend').' '.G::subString($sQuery,0,50).' ... '.Dyhb::L('成功','Function/Install_Extend'));
 					}
 				}else{
 					self::sqlError($sQuery);
@@ -126,18 +126,18 @@ class Install_Extend extends Controller{
 
 	static public function sqlError($sSql){
 		self::showJavascriptMessage('');
-		self::showJavascriptMessage('<h3 style="color:red;">'.'对不起数据库执行遇到错误'.'</h3>');
+		self::showJavascriptMessage('<h3 style="color:red;">'.Dyhb::L('对不起数据库执行遇到错误','Function/Install_Extend').'</h3>');
 
-		self::showJavascriptMessage('<b>'.'错误代码'.'</b>');
+		self::showJavascriptMessage('<b>'.Dyhb::L('错误代码','Function/Install_Extend').'</b>');
 		self::showJavascriptMessage(mysql_errno());
 		self::showJavascriptMessage('');
-		self::showJavascriptMessage('<b>'.'错误消息').'</b>';
+		self::showJavascriptMessage('<b>'.Dyhb::L('错误消息','Function/Install_Extend')).'</b>';
 		self::showJavascriptMessage(mysql_error());
 		self::showJavascriptMessage('');
-		self::showJavascriptMessage('<b>'.'错误SQL').'</b>';
+		self::showJavascriptMessage('<b>'.Dyhb::L('错误SQL','Function/Install_Extend')).'</b>';
 		self::showJavascriptMessage($sSql);
 		self::showJavascriptMessage('');
-		self::showJavascriptMessage('<b>'.'请修正后再次执行升级程序'.'</b>');
+		self::showJavascriptMessage('<b>'.Dyhb::L('请修正后再次执行升级程序','Function/Install_Extend').'</b>');
 
 		exit();
 	}
@@ -145,7 +145,7 @@ class Install_Extend extends Controller{
 	static public function removeDir($sDirName){
 		if(!is_dir($sDirName)){
 			@unlink($sDirName);
-			self::showJavascriptMessage('清理文件'.' '.str_replace(G::tidyPath(NEEDFORBUG_PATH),'{NEEDFORBUG_PATH}',G::tidyPath($sDirName)));
+			self::showJavascriptMessage(Dyhb::L('清理文件','Function/Install_Extend').' '.str_replace(G::tidyPath(NEEDFORBUG_PATH),'{NEEDFORBUG_PATH}',G::tidyPath($sDirName)));
 
 			return false;
 		}
@@ -158,7 +158,7 @@ class Install_Extend extends Controller{
 					self::removeDir($sDir);
 				}else{
 					@unlink($sDir);
-					self::showJavascriptMessage('清理文件'.' '.str_replace(G::tidyPath(NEEDFORBUG_PATH),'{NEEDFORBUG_PATH}',G::tidyPath($sDir)));
+					self::showJavascriptMessage(Dyhb::L('清理文件','Function/Install_Extend').' '.str_replace(G::tidyPath(NEEDFORBUG_PATH),'{NEEDFORBUG_PATH}',G::tidyPath($sDir)));
 				}
 			}
 		}
@@ -166,7 +166,7 @@ class Install_Extend extends Controller{
 		closedir($hHandle);
 
 		$bResult=rmdir($sDirName);
-		self::showJavascriptMessage('清理目录'.' '.str_replace(G::tidyPath(NEEDFORBUG_PATH),'{NEEDFORBUG_PATH}',G::tidyPath($sDirName)));
+		self::showJavascriptMessage(Dyhb::L('清理目录','Function/Install_Extend').' '.str_replace(G::tidyPath(NEEDFORBUG_PATH),'{NEEDFORBUG_PATH}',G::tidyPath($sDirName)));
 
 		return $bResult;
 	}

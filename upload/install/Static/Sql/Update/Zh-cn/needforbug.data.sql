@@ -1,4 +1,4 @@
--- NEEDFORBUG 数据库升级数据
+-- NEEDFORBUG 数据库数据升级
 -- version 1.0
 -- http://www.doyouhaobaby.net
 --
@@ -12,8 +12,17 @@
 -- --------------------------------------------------------
 
 --
--- 转存表中的数据 `needforbug_app`
+-- 转存表中的数据 `needforbug_test`
 --
 
-INSERT INTO `needforbug_app` (`app_id`, `app_identifier`, `app_name`, `app_version`, `app_description`, `app_url`, `app_email`, `app_author`, `app_authorurl`, `app_isadmin`, `app_isinstall`, `app_isuninstall`, `app_issystem`, `app_isappnav`, `app_status`) VALUES
-(1, 'home', '个人中心', '1.0', '个人中心应用', 'http://doyouhaobaby.net', 'admin@dianniu.net', 'DianniuTeam', 'http://doyouhaobaby.net', 1, 1, 1, 1, 0, 1);
+INSERT INTO `#@__test` (`test_id`, `test_value`, `create_dateline`, `update_dateline`) VALUES
+(1, '测试值', 1340369066, 1340369066),
+(2, '测试值2', 1340369066, 1340369066);
+
+-- --------------------------------------------------------
+
+--
+-- 删除表中的数据 `needforbug_test`
+--
+
+DELETE FROM `#@__test` WHERE `test_id`=1;

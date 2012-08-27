@@ -5,15 +5,15 @@
 	<title>NeedForBug-{:NEEDFORBUG_SERVER_VERSION} | 
 			{if MODULE_NAME==='index' && ACTION_NAME=='index'}
 			Select Language
-			{elseif MODULE_NAME==='index'}<lang package='Default/Install'>安装程序</lang>
+			{elseif MODULE_NAME==='index'}<lang package='Template/Default/Install'>安装程序</lang>
 			{d*else}
-			<lang package='Default/Update'>升级程序</lang>
+			<lang package='Template/Default/Update'>升级程序</lang>
 			{/if}
 	</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 	<meta name="description" content="">
 	<meta name="author" content="">
-	<meta content="DoYouHaoBaby Inc." name="Copyright" />
+	<meta content="Needforbug" name="Copyright" />
 	<load file="{:__TMPLPUB__}/Css/style.css" />
 	<!--[if lt IE 9]>
 	<script src="{:__PUBLIC__}/js/common/html5.js"></script>
@@ -51,10 +51,10 @@ function showMessage(sMessage){
 			<a class="brand" href="{:__APP__}">NeedForBug-{:NEEDFORBUG_SERVER_VERSION}</a>
 			<div class="nav-collapse pull-right">
 				<ul class="nav">
-					<li class="active"><a href="http://www.doyouhaobaby.net" target="_blank"><lang package='Default/Install'>官方网站</lang></a></li>
-					<li><a href="http://bbs.doyouhaobaby.net" target="_blank"><lang package='Default/Install'>技术论坛</lang></a></li>
+					<li class="active"><a href="http://www.doyouhaobaby.net" target="_blank"><lang package='Template/Default/Common'>官方网站</lang></a></li>
+					<li><a href="http://bbs.doyouhaobaby.net" target="_blank"><lang package='Template/Default/Common'>技术论坛</lang></a></li>
 				</ul>
-			</div><!--/.nav-collapse -->
+			</div>
 		</div>
 	</div>
 </div>

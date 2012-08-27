@@ -1,7 +1,7 @@
 <include file="common+header">
 
 	<ul class="breadcrumb">
-		<li><a href="{:__APP__}" title="<lang package='Default/Install'>主页</lang>"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span></li>
+		<li><a href="{:__APP__}" title="<lang package='Template/Default/Common'>主页</lang>"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span></li>
 		<li>{$__MessageTitle__}</li>
 	</ul>
 
@@ -19,10 +19,10 @@
 				<p><div id="__Loader__"><img src="{$__LoadingImg__}"/></div></p>
 				<p id="__JumpUrl__">
 					<if condition="isset( $__CloseWindow__ ) AND !empty( $__CloseWindow__ )" >
-					<span class="red" id="__Seconds__">{$__WaitSecond__}</span>&nbsp;<lang package='Default/Common'>系统即将自动关闭</lang><lang package='Default/Common'>如果不想等待,直接点击</lang>&nbsp;<a href="{$__JumpUrl__}" class="lightlink"><lang package='Default/Common'>这里</lang></a>&nbsp;<lang package='Default/Common'>关闭</lang>
+					<span class="red" id="__Seconds__">{$__WaitSecond__}</span>&nbsp;<lang package='Template/Default/Common'>系统即将自动关闭</lang><lang package='Template/Default/Common'>如果不想等待,直接点击</lang>&nbsp;<a href="{$__JumpUrl__}" class="lightlink"><lang package='Template/Default/Common'>这里</lang></a>&nbsp;<lang package='Template/Default/Common'>关闭</lang>
 					</if>
 					<if condition="!isset( $__CloseWindow__ ) OR empty( $__CloseWindow__ )" >
-						<span class="red" id="__Seconds__">{$__WaitSecond__}</span>&nbsp;<lang package='Default/Common'>系统即将自动跳转</lang><lang package='Default/Common'>如果不想等待,直接点击</lang>&nbsp;<a href="{$__JumpUrl__}" class="lightlink "><lang package='Default/Common'>这里</lang></a>&nbsp;<lang package='Default/Common'>跳转</lang>
+						<span class="red" id="__Seconds__">{$__WaitSecond__}</span>&nbsp;<lang package='Template/Default/Common'>系统即将自动跳转</lang><lang package='Template/Default/Common'>如果不想等待,直接点击</lang>&nbsp;<a href="{$__JumpUrl__}" class="lightlink "><lang package='Template/Default/Common'>这里</lang></a>&nbsp;<lang package='Template/Default/Common'>跳转</lang>
 					</if>
 				</p>
 			</div>

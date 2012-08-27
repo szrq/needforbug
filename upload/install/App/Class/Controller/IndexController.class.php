@@ -13,13 +13,24 @@ class IndexController extends Controller{
 
 	public function init__(){
 		parent::init__();
+
+		$this->check();
+	}
+
+	public function check(){
+		$sInstallLockfile=NEEDFORBUG_PATH.'/data/Install.lock.php';
+		$sUpdateLockfile=NEEDFORBUG_PATH.'/data/Update.lock.php';
+
+		if(file_exists($sInstallLockfile) && file_exists($sUpdateLockfile)){
+			$this->E(Dyhb::L("程序已经锁定，既不需要安装也不需要升级，如有需要请删除安装锁定文件 %s 或者升级锁定文件 %s",'Controller/Common'),null,$sInstallLockfile,$sUpdateLockfile);
+		}
 	}
 
 	public function check_install(){
 		$this->_sLockfile=NEEDFORBUG_PATH.'/data/Install.lock.php';
 
 		if(file_exists($this->_sLockfile)){
-			$this->E(Dyhb::L(" 程序已运行安装，如果你确定要重新安装，请先从FTP中删除 %s",'App',null,str_replace(G::tidyPath(NEEDFORBUG_PATH),'{NEEDFORBUG_PATH}',G::tidyPath($this->_sLockfile))));
+			$this->E(Dyhb::L("程序已运行安装，如果你确定要重新安装，请先从FTP中删除 %s",'Controller/Install',null,str_replace(G::tidyPath(NEEDFORBUG_PATH),'{NEEDFORBUG_PATH}',G::tidyPath($this->_sLockfile))));
 		}
 	}
 
@@ -30,6 +41,22 @@ class IndexController extends Controller{
 
 	public function select(){
 		$this->display('step+select');
+	}
+
+	public function get_progress(){
+		if(ACTION_NAME==='step1'){
+			return 20;
+		}elseif(ACTION_NAME==='step2'){
+			return 40;
+		}elseif(ACTION_NAME==='step3'){
+			return 60;
+		}elseif(ACTION_NAME==='install'){
+			return 80;
+		}elseif(ACTION_NAME==='success'){
+			return 100;
+		}
+
+		return 0;
 	}
 
 	public function step1(){
@@ -56,17 +83,17 @@ class IndexController extends Controller{
 		$arrInfo['sp_gd']=Install_Extend::gdVersion();
 		
 		$arrInfo['sp_server']=$_SERVER['SERVER_SOFTWARE'];
-		$arrInfo['sp_host']=(empty($_SERVER['REMOTE_ADDR'])? $_SERVER['REMOTE_HOST'] : $_SERVER['REMOTE_ADDR']);
+		$arrInfo['sp_host']=(empty($_SERVER['REMOTE_ADDR'])?$_SERVER['REMOTE_HOST']:$_SERVER['REMOTE_ADDR']);
 		$arrInfo['sp_name']=$_SERVER['SERVER_NAME'];
 		$arrInfo['sp_max_execution_time']=ini_get('max_execution_time');
 		
-		$arrInfo['sp_allow_reference']=(ini_get('allow_call_time_pass_reference')? '<font color=green>[√]On</font>' : '<font color=red>[×]Off</font>');
-		$arrInfo['sp_allow_url_fopen']=(ini_get('allow_url_fopen')? '<font color=green>[√]On</font>' : '<font color=red>[×]Off</font>');
+		$arrInfo['sp_allow_reference']=(ini_get('allow_call_time_pass_reference')?'<font color=green>[√]On</font>':'<font color=red>[×]Off</font>');
+		$arrInfo['sp_allow_url_fopen']=(ini_get('allow_url_fopen')?'<font color=green>[√]On</font>':'<font color=red>[×]Off</font>');
 		
-		$arrInfo['sp_safe_mode']=(ini_get('safe_mode')? '<font color=red>[×]On</font>' : '<font color=green>[√]Off</font>');
-		$arrInfo['sp_gd']=($arrInfo['sp_gd']>0 ? '<font color=green>[√]On</font>' : '<font color=red>[×]Off</font>');
+		$arrInfo['sp_safe_mode']=(ini_get('safe_mode')?'<font color=red>[×]On</font>':'<font color=green>[√]Off</font>');
+		$arrInfo['sp_gd']=($arrInfo['sp_gd']>0?'<font color=green>[√]On</font>':'<font color=red>[×]Off</font>');
 		
-		$arrInfo['sp_mysql']=(function_exists('mysql_connect')? '<font color=green>[√]On</font>' : '<font color=red>[×]Off</font>');
+		$arrInfo['sp_mysql']=(function_exists('mysql_connect')?'<font color=green>[√]On</font>':'<font color=red>[×]Off</font>');
 		if($arrInfo['sp_mysql']=='<font color=red>[×]Off</font>'){
 			$bSpMysqlErr=TRUE;
 		}else{
@@ -127,33 +154,33 @@ class IndexController extends Controller{
 
 		// 验证表单
 		if(empty($sAdminuser)){
-			$this->E(Dyhb::L('管理员帐号不能为空'));
+			$this->E(Dyhb::L('管理员帐号不能为空','Controller/Install'));
 		}
 
 		if(!preg_match('/^[a-z0-9\-\_]*[a-z\-_]+[a-z0-9\-\_]*$/i',$sAdminuser)){
-			$this->E(Dyhb::L('管理员帐号只能是由英文,字母和下划线组成'));
+			$this->E(Dyhb::L('管理员帐号只能是由英文,字母和下划线组成','Controller/Install'));
 		}
 
 		if(empty($sAdminpwd)){
-			$this->E(Dyhb::L('管理员密码不能为空'));
+			$this->E(Dyhb::L('管理员密码不能为空','Controller/Install'));
 		}
 
 		if(empty($sRbacprefix)){
-			$this->E(Dyhb::L('Rbac前缀不能为空'));
+			$this->E(Dyhb::L('Rbac前缀不能为空','Controller/Install'));
 		}
 
 		if(empty($sCookieprefix)){
-			$this->E(Dyhb::L('Cookie前缀不能为空'));
+			$this->E(Dyhb::L('Cookie前缀不能为空','Controller/Install'));
 		}
 
 		if((!$hConn=@mysql_connect($sDbhost,$sDbuser,$sDbpwd))){
-			$this->E(Dyhb::L('数据库服务器或登录密码无效').",".Dyhb::L('无法连接数据库，请重新设定！'));
+			$this->E(Dyhb::L('数据库服务器或登录密码无效','Controller/Install').",".Dyhb::L('无法连接数据库，请重新设定','Controller/Install'));
 		}
 
 		mysql_query("CREATE DATABASE IF NOT EXISTS `".$sDbname."`;",$hConn);
 
 		if(!mysql_select_db($sDbname)){
-			$this->E(Dyhb::L('选择数据库失败，可能是你没权限，请预先创建一个数据库！'));
+			$this->E(Dyhb::L('选择数据库失败，可能是你没权限，请预先创建一个数据库','Controller/Install'));
 		}
 
 		// 取得数据库版本
@@ -179,7 +206,7 @@ class IndexController extends Controller{
 			var_export($arrConfig,true).
 			"\n?>")
 		){
-			$this->E((Dyhb::L('写入配置失败，请检查%s目录是否可写入！','app',null,NEEDFORBUG_PATH.'/Config')));
+			$this->E(Dyhb::L('写入配置失败，请检查 %s目录是否可写入','Controller/Install',null,NEEDFORBUG_PATH.'/Config'));
 		}
 
 		// 输出消息框
@@ -192,7 +219,7 @@ class IndexController extends Controller{
 		}
 		
 		// 创建系统表
-		Install_Extend::showJavascriptMessage('<h3>'.'创建系统数据库表'.'</h3>');
+		Install_Extend::showJavascriptMessage('<h3>'.Dyhb::L('创建系统数据库表','Controller/Install').'</h3>');
 		Install_Extend::importTable(APP_PATH.'/Static/Sql/Install/needforbug.table.sql');
 		Install_Extend::showJavascriptMessage(' ');
 
@@ -204,28 +231,28 @@ class IndexController extends Controller{
 		if(!is_file($sNeedforbugDatapath)){
 			$sNeedforbugDatapath=$sNeedforbugDatadir.'/Zh-cn/needforbug.data.sql';
 		}
-		Install_Extend::showJavascriptMessage('<h3>'.'初始化系统数据库数据'.'</h3>');
+		Install_Extend::showJavascriptMessage('<h3>'.Dyhb::L('初始化系统数据库数据','Controller/Install').'</h3>');
 		Install_Extend::runQuery($sNeedforbugDatapath);
 		Install_Extend::showJavascriptMessage(' ');
 
 		// 导入地理数据
-		Install_Extend::showJavascriptMessage('<h3>'.'导入地理数据库数据'.'</h3>');
+		Install_Extend::showJavascriptMessage('<h3>'.Dyhb::L('导入地理数据库数据','Controller/Install').'</h3>');
 		for($nI=1;$nI<=6;$nI++){
-			Install_Extend::showJavascriptMessage('导入地理数据库数据'.$nI);
+			Install_Extend::showJavascriptMessage(Dyhb::L('导入地理数据库数据','Controller/Install').$nI);
 			Install_Extend::runQuery($sNeedforbugDatadir.'/district/'.$nI.'.sql',false);
 		}
 		Install_Extend::showJavascriptMessage(' ');
 
 		// 安装系统预置应用
-		Install_Extend::showJavascriptMessage('<h3>'.'安装系统预置应用'.'</h3>');
+		Install_Extend::showJavascriptMessage('<h3>'.Dyhb::L('安装系统预置应用','Controller/Install').'</h3>');
 		
 		$arrApps=G::getGpc('app','P');
 		if(empty($arrApps)){
-			Install_Extend::showJavascriptMessage('没有发现需要安装的应用');
+			Install_Extend::showJavascriptMessage(Dyhb::L('没有发现需要安装的应用','Controller/Install'));
 			Install_Extend::showJavascriptMessage(' ');
 		}else{
 			foreach($arrApps as $sApp){
-				Install_Extend::showJavascriptMessage(sprintf('创建应用 %s 的数据库表',$sApp));
+				Install_Extend::showJavascriptMessage(Dyhb::L('创建应用 %s 的数据库表','Controller/Install',null,$sApp));
 				Install_Extend::importTable($sNeedforbugDatadir.'/app/'.$sApp.'/needforbug.table.sql');
 				Install_Extend::showJavascriptMessage(' ');
 
@@ -233,44 +260,44 @@ class IndexController extends Controller{
 				if(!is_file($sNeedforbugDatapath)){
 					$sNeedforbugAppDatapath=$sNeedforbugDatadir.'/Zh-cn/app/'.$sApp.'/needforbug.data.sql';
 				}
-				Install_Extend::showJavascriptMessage(sprintf('导入应用 %s 的数据库数据',$sApp));
+				Install_Extend::showJavascriptMessage(Dyhb::L('导入应用 %s 的数据库数据','Controller/Install',null,$sApp));
 				Install_Extend::runQuery($sNeedforbugAppDatapath);
 				Install_Extend::showJavascriptMessage(' ');
 			}
 		}
 
 		// 初始化安装程序设置
-		Install_Extend::showJavascriptMessage('<h3>'.'初始化安装程序设置'.'</h3>');
+		Install_Extend::showJavascriptMessage('<h3>'.Dyhb::L('初始化安装程序设置','Controller/Install').'</h3>');
 		
 		mysql_query("Update `{$sDbprefix}option` set option_value='".trim(G::getGpc('baseurl'))."' where option_name='site_url';",$hConn);
-		Install_Extend::showJavascriptMessage(Dyhb::L('写入社区地址').' '.trim(G::getGpc('baseurl')).' ... '.Dyhb::L('成功'));
+		Install_Extend::showJavascriptMessage(Dyhb::L('写入社区地址','Controller/Install').' '.trim(G::getGpc('baseurl')).' ... '.Dyhb::L('成功','Controller/Common'));
 
 		mysql_query("Update `{$sDbprefix}option` set option_value='".trim(G::getGpc('webname'))."' where option_name='site_name';",$hConn);
-		Install_Extend::showJavascriptMessage(Dyhb::L('写入社区名称').' '.trim(G::getGpc('webname')).' ... '.Dyhb::L('成功'));
+		Install_Extend::showJavascriptMessage(Dyhb::L('写入社区名称','Controller/Install').' '.trim(G::getGpc('webname')).' ... '.Dyhb::L('成功','Controller/Common'));
 
 		mysql_query("Update `{$sDbprefix}option` set option_value='".trim(G::getGpc('adminmail'))."' where option_name='admin_email';",$hConn);
-		Install_Extend::showJavascriptMessage(Dyhb::L('写入管理员邮件').' '.trim(G::getGpc('adminmail')).' ... '.Dyhb::L('成功'));
+		Install_Extend::showJavascriptMessage(Dyhb::L('写入管理员邮件','Controller/Install').' '.trim(G::getGpc('adminmail')).' ... '.Dyhb::L('成功','Controller/Common'));
 		Install_Extend::showJavascriptMessage(' ');
 
 		// 初始化管理员信息
-		Install_Extend::showJavascriptMessage('<h3>'.'初始化管理员信息'.'</h3>');
+		Install_Extend::showJavascriptMessage('<h3>'.Dyhb::L('初始化管理员信息','Controller/Install').'</h3>');
 		
 		$sRandom=G::randString(6);
 		$sPassword=md5(md5($sAdminpwd).trim($sRandom));
 		mysql_query("Update `{$sDbprefix}user` set user_name='".$sAdminuser."',user_password='".$sPassword."',user_random='".$sRandom."',user_password='".$sPassword."',user_registerip='".G::getIp()."',user_email='".trim(G::getGpc('adminmail'))."',user_lastloginip='".G::getIp()."' where user_id=1;",$hConn);
-		Install_Extend::showJavascriptMessage(Dyhb::L('初始化超级管理员帐号').'... '.Dyhb::L('成功'));
+		Install_Extend::showJavascriptMessage(Dyhb::L('初始化超级管理员帐号','Controller/Install').'... '.Dyhb::L('成功','Controller/Common'));
 		Install_Extend::showJavascriptMessage(' ');
 
 		// 写入锁定文件
 		if(!file_put_contents($this->_sLockfile,'ok')){
-			$this->E(Dyhb::L('写入安装锁定文件失败，请检查%s目录是否可写入','App',null,NEEDFORBUG_PATH.'/data'));
+			$this->E(Dyhb::L('写入安装锁定文件失败，请检查%s目录是否可写入','Controller/Install',null,NEEDFORBUG_PATH.'/data'));
 		}
-		Install_Extend::showJavascriptMessage(Dyhb::L('写入安装程序锁定文件').'... '.Dyhb::L('成功'));
+		Install_Extend::showJavascriptMessage(Dyhb::L('写入安装程序锁定文件','Controller/Install').'... '.Dyhb::L('成功','Controller/Common'));
 		Install_Extend::showJavascriptMessage(' ');
 
 		// 执行清理
 		if(is_dir(NEEDFORBUG_PATH.'/data/~runtime')){
-			Install_Extend::showJavascriptMessage('<h3>'.'清理系统缓存目录'.'</h3>');
+			Install_Extend::showJavascriptMessage('<h3>'.Dyhb::L('清理系统缓存目录','Controller/Install').'</h3>');
 			Install_Extend::removeDir(NEEDFORBUG_PATH.'/data/~runtime');
 		}
 
@@ -313,16 +340,16 @@ NEEDFORBUG;
 
 		if($hConn){
 			if(empty($sDbname)){
-				$this->S("<font color='green'>".Dyhb::L('数据库连接成功')."</font>");
+				$this->S("<font color='green'>".Dyhb::L('数据库连接成功','Controller/Install')."</font>");
 			}else{
 				if(mysql_select_db($sDbname,$hConn)){
-					$this->E("<font color='red'>".Dyhb::L('数据库已经存在，系统将覆盖数据库')."</font>");
+					$this->E("<font color='red'>".Dyhb::L('数据库已经存在,系统将覆盖数据库','Controller/Install')."</font>");
 				}else{
-					$this->S("<font color='green'>".Dyhb::L('数据库不存在,系统将自动创建')."</font>");
+					$this->S("<font color='green'>".Dyhb::L('数据库不存在,系统将自动创建','Controller/Install')."</font>");
 				}
 			}
 		}else{
-			$this->E("<font color='red'>".Dyhb::L('数据库连接失败！')."</font>");
+			$this->E("<font color='red'>".Dyhb::L('数据库连接失败','Controller/Install')."</font>");
 		}
 
 		@mysql_close($hConn);

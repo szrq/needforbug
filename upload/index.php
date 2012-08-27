@@ -2,6 +2,11 @@
 /* [NeedForBug!] (C)Dianniu From 2010.
    Needforbug 主页入口文件($)*/
 
+/** 是否需要安装 */
+if(!file_exists('data/Install.lock.php')){
+	header("location:install/index.php");
+}
+
 //error_reporting(E_ERROR|E_PARSE|E_STRICT);
 error_reporting(E_ALL);
 
