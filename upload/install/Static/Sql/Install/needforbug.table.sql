@@ -931,10 +931,6 @@ CREATE TABLE `#@__userprofile` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
---
--- 转存表中的数据 `needforbug_userprofile`
---
-
 -- --------------------------------------------------------
 
 --
@@ -953,10 +949,6 @@ CREATE TABLE `#@__userprofilesetting` (
   `userprofilesetting_privacy` tinyint(1) NOT NULL DEFAULT '0' COMMENT '属性隐私 0公开，1好友可见，3保密',
   PRIMARY KEY (`userprofilesetting_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- 转存表中的数据 `needforbug_userprofilesetting`
---
 
 -- --------------------------------------------------------
 

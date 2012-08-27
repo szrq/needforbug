@@ -15,7 +15,7 @@
 -- 转存表中的数据 `needforbug_app`
 --
 
-INSERT INTO `needforbug_app` (`app_id`, `app_identifier`, `app_name`, `app_version`, `app_description`, `app_url`, `app_email`, `app_author`, `app_authorurl`, `app_isadmin`, `app_isinstall`, `app_isuninstall`, `app_issystem`, `app_isappnav`, `app_status`) VALUES
+INSERT INTO `#@__app` (`app_id`, `app_identifier`, `app_name`, `app_version`, `app_description`, `app_url`, `app_email`, `app_author`, `app_authorurl`, `app_isadmin`, `app_isinstall`, `app_isuninstall`, `app_issystem`, `app_isappnav`, `app_status`) VALUES
 (1, 'home', '个人中心', '1.0', '个人中心应用', 'http://doyouhaobaby.net', 'admin@dianniu.net', 'DianniuTeam', 'http://doyouhaobaby.net', 1, 1, 1, 1, 0, 1);
 
 -- --------------------------------------------------------
@@ -24,7 +24,7 @@ INSERT INTO `needforbug_app` (`app_id`, `app_identifier`, `app_name`, `app_versi
 -- 转存表中的数据 `needforbug_creditrule`
 --
 
-INSERT INTO `needforbug_creditrule` (`creditrule_id`, `creditrule_name`, `creditrule_action`, `creditrule_cycletype`, `creditrule_cycletime`, `creditrule_rewardnum`, `creditrule_extendcredit1`, `creditrule_extendcredit2`, `creditrule_extendcredit3`, `creditrule_extendcredit4`, `creditrule_extendcredit5`, `creditrule_extendcredit6`, `creditrule_extendcredit7`, `creditrule_extendcredit8`) VALUES
+INSERT INTO `#@__creditrule` (`creditrule_id`, `creditrule_name`, `creditrule_action`, `creditrule_cycletype`, `creditrule_cycletime`, `creditrule_rewardnum`, `creditrule_extendcredit1`, `creditrule_extendcredit2`, `creditrule_extendcredit3`, `creditrule_extendcredit4`, `creditrule_extendcredit5`, `creditrule_extendcredit6`, `creditrule_extendcredit7`, `creditrule_extendcredit8`) VALUES
 (1, '发短消息', 'sendpm', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (2, '访问推广', 'promotion_visit', 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0),
 (3, '注册推广', 'promotion_register', 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0),
@@ -37,7 +37,7 @@ INSERT INTO `needforbug_creditrule` (`creditrule_id`, `creditrule_name`, `credit
 -- 转存表中的数据 `needforbug_homehelp`
 --
 
-INSERT INTO `needforbug_homehelp` (`homehelp_id`, `homehelp_title`, `homehelp_content`, `homehelpcategory_id`, `homehelp_status`, `create_dateline`, `update_dateline`, `user_id`, `homehelp_username`, `homehelp_updateuserid`, `homehelp_updateusername`, `homehelp_viewnum`) VALUES
+INSERT INTO `#@__homehelp` (`homehelp_id`, `homehelp_title`, `homehelp_content`, `homehelpcategory_id`, `homehelp_status`, `create_dateline`, `update_dateline`, `user_id`, `homehelp_username`, `homehelp_updateuserid`, `homehelp_updateusername`, `homehelp_viewnum`) VALUES
 (1, '欢迎来到我们的帮助宝库！', '{site_name} 欢迎你的到来，希望这里能够帮助到你！', 1, 1, 1340045081, 1340213370, 1, 'admin', 1, 'admin', 0),
 (2, '我必须要注册吗？', '<span style="color:#444444;font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;">这取决于管理员如何设置 {site_name} 的用户组权限选项，您甚至有可能必须在注册成正式用户后后才能浏览网站。当然，在通常情况下，您至少应该是正式用户才能发新帖和回复已有帖子。请先</span><span style="color:#444444;font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;">免费注册成为我们的新用户！&nbsp;</span><br style="word-wrap:break-word;color:#444444;font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;" />\n<br style="word-wrap:break-word;color:#444444;font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;" />\n<span style="color:#444444;font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;">强烈建议您注册，这样会得到很多以游客身份无法实现的功能。</span>', 1, 1, 1340163725, 1340213377, 1, 'admin', 1, 'admin', 2),
 (3, '我如何登录网站？', '<span style="color:#444444;font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;">如果您已经注册成为该论坛的会员，哪么您只要通过访问页面右上的</span><a href="http://bbs.emlog.net/logging.php?action=login" target="_blank" style="word-wrap:break-word;text-decoration:none;color:#000000;font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;">登录</a><span style="color:#444444;font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;">，进入登陆界面填写正确的用户名和密码，点击“登录”即可完成登陆如果您还未注册请点击这里。</span><br style="word-wrap:break-word;color:#444444;font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;" />\n<br style="word-wrap:break-word;color:#444444;font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;" />\n<span style="color:#444444;font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;">如果需要保持登录，请选择相应的 Cookie 时间，在此时间范围内您可以不必输入密码而保持上次的登录状态。</span>', 1, 1, 1340164011, 1340213385, 1, 'admin', 1, 'admin', 1),
@@ -53,7 +53,7 @@ INSERT INTO `needforbug_homehelp` (`homehelp_id`, `homehelp_title`, `homehelp_co
 -- 转存表中的数据 `needforbug_homehelpcategory`
 --
 
-INSERT INTO `needforbug_homehelpcategory` (`homehelpcategory_id`, `homehelpcategory_name`, `homehelpcategory_count`, `homehelpcategory_sort`, `update_dateline`, `create_dateline`) VALUES
+INSERT INTO `#@__homehelpcategory` (`homehelpcategory_id`, `homehelpcategory_name`, `homehelpcategory_count`, `homehelpcategory_sort`, `update_dateline`, `create_dateline`) VALUES
 (1, '用户须知', 7, 0, 1340187070, 1340171834),
 (2, '基本功能操作', 1, 0, 1340187040, 1340162722),
 (3, '其他相关问题', 0, 0, 1340524577, 1340162735);
@@ -63,7 +63,7 @@ INSERT INTO `needforbug_homehelpcategory` (`homehelpcategory_id`, `homehelpcateg
 -- 转存表中的数据 `needforbug_homeoption`
 --
 
-INSERT INTO `needforbug_homeoption` (`homeoption_name`, `homeoption_value`) VALUES
+INSERT INTO `#@__homeoption` (`homeoption_name`, `homeoption_value`) VALUES
 ('homehelp_list_num', '10'),
 ('homefresh_list_num', '15'),
 ('homefresh_list_substring_num', '500'),
@@ -97,7 +97,7 @@ INSERT INTO `needforbug_homeoption` (`homeoption_name`, `homeoption_value`) VALU
 -- 转存表中的数据 `needforbug_homesite`
 --
 
-INSERT INTO `needforbug_homesite` (`homesite_id`, `homesite_name`, `homesite_nikename`, `homesite_content`) VALUES
+INSERT INTO `#@__homesite` (`homesite_id`, `homesite_name`, `homesite_nikename`, `homesite_content`) VALUES
 (1, 'aboutus', '关于我们', '<h3>\n	社区化电子商务\n</h3>\n{site_name} 致力于打造以社区为基础的电子商务平台。<br />\n<span style="white-space:nowrap;"></span><br />\n<h3>\n	我们的目标\n</h3>\n我们的理念：{site_description}'),
 (2, 'contactus', '联系我们', '<h3>\n	联系我们\n</h3>\n<p>\n	如果您对本站有任何疑问或建议，请通过以下方式联系我们：{admin_email}\n</p>'),
 (3, 'agreement', '用户协议', '<div class="hero-unit">\n	<h4>\n		用户内容知识共享\n	</h4>\n	<ul>\n		<li>\n			自由复制、发行、展览、表演、放映、广播或通过信息网络传播本作品\n		</li>\n		<li>\n			自由创作演绎作品\n		</li>\n		<li>\n			自由对本作品进行商业性使用\n		</li>\n	</ul>\n	<h4>\n		惟须遵守下列条件\n	</h4>\n	<ul>\n		<li>\n			署名－您必须按照作者或者许可人指定的方式对作品进行署名。\n		</li>\n		<li>\n			相同方式共享－如果您改变、转换本作品或者以本作品为基础进行创作，您只能采用与本协议相同的许可协议发布基于本作品的演绎作品。\n		</li>\n	</ul>\n</div>\n<h3>\n	服务条款确认与接纳\n</h3>\n<p>\n	{site_name} 拥有 {site_url}&nbsp;及其涉及到的产品、相关软件的所有权和运作权， {site_name} 享有对 {site_url} 上一切活动的监督、提示、检查、纠正及处罚等权利。用户通过注册程序阅读本服务条款并点击"同意"按钮完成注册，即表示用户与 {site_name} 已达成协议，自愿接受本服务条款的所有内容。如果用户不同意服务条款的条件，则不能获得使用 {site_name} 服务以及注册成为用户的权利。\n</p>\n<h3>\n	使用规则\n</h3>\n<ol>\n	<li>\n		用户注册成功后，{site_name} 将给予每个用户一个用户帐号及相应的密码，该用户帐号和密码由用户负<span style="white-space:nowrap;">责保管；用户应当对以其用户帐号进行的所有活动和事件负法律责任。</span> \n	</li>\n	<li>\n		用户须对在 {site_name} 的注册信息的真实性、合法性、有效性承担全部责任，用户不得冒充他人；不得利用他人的名义发布任何信息；不得恶意使用注册帐户导致其他用户误认；否则 {site_name} 有权立即停止提供服务，收回其帐号并由用户独自承担由此而产生的一切法律责任。\n	</li>\n	<li>\n		用户不得使用 {site_name} 服务发送或传播敏感信息和违反国家法律制度的信息，包括但不限于下列信息:\n		<ul>\n			<li>\n				反对宪法所确定的基本原则的；\n			</li>\n			<li>\n				危害国家安全，泄露国家秘密，颠覆国家政权，破坏国家统一的；\n			</li>\n			<li>\n				损害国家荣誉和利益的；\n			</li>\n			<li>\n				煽动民族仇恨、民族歧视，破坏民族团结的；\n			</li>\n			<li>\n				破坏国家宗教政策，宣扬邪教和封建迷信的；\n			</li>\n			<li>\n				散布谣言，扰乱社会秩序，破坏社会稳定的；\n			</li>\n			<li>\n				散布淫秽、色情、赌博、暴力、凶杀、恐怖或者教唆犯罪的；\n			</li>\n			<li>\n				侮辱或者诽谤他人，侵害他人合法权益的\n			</li>\n			<li>\n				含有法律、行政法规禁止的其他内容的。\n			</li>\n		</ul>\n	</li>\n	<li>\n		{site_name} 有权对用户使用 {site_name}&nbsp;的情况进行审查和监督，如用户在使用 {site_name} 时违反任何上述规定，{site_name} 或其授权的人有权要求用户改正或直接采取一切必要的措施（包括但不限于删除用户张贴的内容、暂停或终止用户使用 {site_name}&nbsp;的权利）以减轻用户不当行为造成的影响。\n	</li>\n	<li>\n		盗取他人用户帐号或利用网络通讯骚扰他人，均属于非法行为。用户不得采用测试、欺骗等任何非法手段，盗取其他用户的帐号和对他人进行骚扰。\n	</li>\n</ol>\n<h3>\n	知识产权\n</h3>\n<ol>\n	<li>\n		用户保证和声明对其所提供的作品拥有完整的合法的著作权或完整的合法的授权可以用于其在 {site_name} 上从事&gt;的活动，保证 {site_name} 使用该作品不违反国家的法律法规，也不侵犯第三方的合法权益或承担任何义务。用户应对其所提供作品因形式、内容及授权的不完善、不合法所造成的一切后果承担完全责任。\n	</li>\n	<li>\n		对于经用户本人创作并上传到 {site_name} 的文本、图片、图形等， {site_name} 保留对其网站所有内容进行实时监控的权利，并有权依其独立判断对任何违反本协议约定的作品实施删除。{site_name} 对于删除用户作品引起的任何后果或导致用户的任何损失不负任何责任。\n	</li>\n	<li>\n		因用户作品的违法或侵害第三人的合法权益而导致 {site_name} 或其关联公司对第三方承担任何性质的赔偿、补偿或罚款而遭受损失（直接的、间接的、偶然的、惩罚性的和继发的损失），用户对于 {site_name} 或其关联公司蒙受的上述损失承担全面的赔偿责任。\n	</li>\n	<li>\n		任何第三方，都可以在遵循 《<a href="http://creativecommons.org/licenses/by-sa/2.5/cn/" target="_blank" style="white-space:nowrap;">知识共享署名-相同方式共享 2.5 中国大陆许可协议</a>》 的情况下分享本站用户创造的内容。\n	</li>\n</ol>\n<h3>\n	免责声明\n</h3>\n<p>\n	<br />\n</p>\n<ul>\n	<li>\n		{site_name} 不能对用户在本社区回答问题的答案或评论的准确性及合理性进行保证。\n	</li>\n	<li>\n		若{site_name} 已经明示其网络服务提供方式发生变更并提醒用户应当注意事项，用户未按要求操作所产生的一切后果由用户自行承担。\n	</li>\n	<li>\n		用户明确同意其使用 {site_name} 网络服务所存在的风险将完全由其自己承担；因其使用 {site_name} 服务而产生的一切后果也由其自己承担，{site_name} 对用户不承担任何责任。\n	</li>\n	<li>\n		{site_name} 不保证网络服务一定能满足用户的要求，也不保证网络服务不会中断，对网络服务的及时性、安全性、准确性也都不作保证。\n	</li>\n	<li>\n		对于因不可抗力或 {site_name} 不能控制的原因造成的网络服务中断或其它缺陷，{site_name} 不承担任何责任，但将尽力减少因此而给用户造成的损失和影响。\n	</li>\n	<li>\n		用户同意保障和维护 {site_name} 及其他用户的利益，用户在 {site_name} 发表的内容仅表明其个人的立场和观点，并不代表 {site_name} 的立场或观点。由于用户发表内容违法、不真实、不正当、侵犯第三方合法权益，或用户违反本协议项下的任何条款而给 {site_name} 或任何其他第三人造成损失，用户同意承担由此造成的损害赔偿责任。\n	</li>\n</ul>\n<p>\n	<br />\n</p>\n<h3>\n	服务条款的修改\n</h3>\n<p>\n	{site_name} 会在必要时修改服务条款，服务条款一旦发生变动，{site_name} 将会在用户进入下一步使用前的页面提示修改内容。如果您同意改动，则再一次激活"我同意"按钮。如果您不接受，则及时取消您的用户使用服务资格。 用户要继续使用 {site_name} 各项服务需要两方面的确认:\n</p>\n<ol>\n	<li>\n		首先确认 {site_name} 服务条款及其变动。\n	</li>\n	<li>\n		同意接受所有的服务条款限制。\n	</li>\n</ol>\n<h3>\n	联系我们\n</h3>\n<p>\n	如果您对此服务条款有任何疑问或建议，请通过以下方式联系我们：{admin_email}\n</p>'),
@@ -109,7 +109,7 @@ INSERT INTO `needforbug_homesite` (`homesite_id`, `homesite_name`, `homesite_nik
 -- 转存表中的数据 `needforbug_link`
 --
 
-INSERT INTO `needforbug_link` (`link_id`, `create_dateline`, `update_dateline`, `link_name`, `link_url`, `link_description`, `link_logo`, `link_status`, `link_sort`) VALUES
+INSERT INTO `#@__link` (`link_id`, `create_dateline`, `update_dateline`, `link_name`, `link_url`, `link_description`, `link_logo`, `link_status`, `link_sort`) VALUES
 (1, 1340369066, 1343901367, 'DoYouHaoBaby', 'http://doyouhaobaby.net', 'The DoYouHaoBaby Framework', '', 1, 0),
 (2, 1340369020, 1343812340, '点牛', 'http://dianniu.net', '社区化电子商务软件提供商', '', 1, 0),
 (3, 1340369020, 1343812340, 'NeedForBug', 'http://needforbug.doyouhaobaby.net', 'NeedForBug官方网站', '', 1, 0);
@@ -120,7 +120,7 @@ INSERT INTO `needforbug_link` (`link_id`, `create_dateline`, `update_dateline`, 
 -- 转存表中的数据 `needforbug_nav`
 --
 
-INSERT INTO `needforbug_nav` (`nav_id`, `nav_parentid`, `nav_name`, `nav_identifier`, `nav_title`, `nav_url`, `nav_target`, `nav_type`, `nav_style`, `nav_location`, `nav_status`, `nav_sort`, `nav_color`, `nav_icon`) VALUES
+INSERT INTO `#@__nav` (`nav_id`, `nav_parentid`, `nav_name`, `nav_identifier`, `nav_title`, `nav_url`, `nav_target`, `nav_type`, `nav_style`, `nav_location`, `nav_status`, `nav_sort`, `nav_color`, `nav_icon`) VALUES
 (2, 0, '设为首页', 'sethomepage', '', '#', 0, 0, 'a:3:{i:0;i:0;i:1;i:0;i:2;i:0;}', 1, 1, 0, 0, ''),
 (3, 0, '加入收藏', 'setfavorite', '', '#', 0, 0, 'a:3:{i:0;i:0;i:1;i:0;i:2;i:0;}', 1, 1, 0, 0, ''),
 (4, 0, '关于我们', 'aboutus', '', 'home://homesite/aboutus', 0, 0, '', 2, 1, 0, 0, ''),
@@ -135,7 +135,7 @@ INSERT INTO `needforbug_nav` (`nav_id`, `nav_parentid`, `nav_name`, `nav_identif
 -- 转存表中的数据 `needforbug_node`
 --
 
-INSERT INTO `needforbug_node` (`node_id`, `node_name`, `node_title`, `node_status`, `node_remark`, `node_sort`, `node_parentid`, `node_level`, `nodegroup_id`, `create_dateline`, `update_dateline`) VALUES
+INSERT INTO `#@__node` (`node_id`, `node_name`, `node_title`, `node_status`, `node_remark`, `node_sort`, `node_parentid`, `node_level`, `nodegroup_id`, `create_dateline`, `update_dateline`) VALUES
 (1, 'admin', 'admin后台管理', 1, '', 1, 0, 1, 0, 0, 1338558614),
 (14, 'admin@rating', '角色等级', 1, '', 5, 1, 2, 1, 1338612283, 1341116051),
 (2, 'admin@role', '角色管理', 1, '', 3, 1, 2, 1, 0, 1341116051),
@@ -176,7 +176,7 @@ INSERT INTO `needforbug_node` (`node_id`, `node_name`, `node_title`, `node_statu
 -- 转存表中的数据 `needforbug_nodegroup`
 --
 
-INSERT INTO `needforbug_nodegroup` (`nodegroup_id`, `nodegroup_name`, `nodegroup_title`, `create_dateline`, `update_dateline`, `nodegroup_status`, `nodegroup_sort`) VALUES
+INSERT INTO `#@__nodegroup` (`nodegroup_id`, `nodegroup_name`, `nodegroup_title`, `create_dateline`, `update_dateline`, `nodegroup_status`, `nodegroup_sort`) VALUES
 (1, 'rbac', '权限', 1296454621, 1343878985, 1, 5),
 (2, 'option', '设置', 1334071384, 1343878985, 1, 1),
 (3, 'admin', '站长', 1334394747, 1343878985, 1, 8),
@@ -192,7 +192,7 @@ INSERT INTO `needforbug_nodegroup` (`nodegroup_id`, `nodegroup_name`, `nodegroup
 -- 转存表中的数据 `needforbug_option`
 --
 
-INSERT INTO `needforbug_option` (`option_name`, `option_value`) VALUES
+INSERT INTO `#@__option` (`option_name`, `option_value`) VALUES
 ('admin_list_num', '15'),
 ('site_name', 'NeedForBug'),
 ('site_description', 'Enjoy Online Shopping.独属于我的社区购物'),
@@ -293,7 +293,7 @@ INSERT INTO `needforbug_option` (`option_name`, `option_value`) VALUES
 -- 转存表中的数据 `needforbug_rating`
 --
 
-INSERT INTO `needforbug_rating` (`rating_id`, `rating_name`, `rating_remark`, `rating_nikename`, `create_dateline`, `update_dateline`, `rating_creditstart`, `rating_creditend`, `ratinggroup_id`) VALUES
+INSERT INTO `#@__rating` (`rating_id`, `rating_name`, `rating_remark`, `rating_nikename`, `create_dateline`, `update_dateline`, `rating_creditstart`, `rating_creditend`, `ratinggroup_id`) VALUES
 (1, '列兵1', '', '', 1295530584, 1343975315, 0, 456, 1),
 (2, '列兵2', '', NULL, 1295530598, 1338883899, 457, 912, 1),
 (3, '三等兵', '', NULL, 1338403516, 1338883899, 913, 1824, 1),
@@ -401,7 +401,7 @@ INSERT INTO `needforbug_rating` (`rating_id`, `rating_name`, `rating_remark`, `r
 -- 转存表中的数据 `needforbug_ratinggroup`
 --
 
-INSERT INTO `needforbug_ratinggroup` (`ratinggroup_id`, `ratinggroup_name`, `ratinggroup_title`, `create_dateline`, `update_dateline`, `ratinggroup_status`, `ratinggroup_sort`) VALUES
+INSERT INTO `#@__ratinggroup` (`ratinggroup_id`, `ratinggroup_name`, `ratinggroup_title`, `create_dateline`, `update_dateline`, `ratinggroup_status`, `ratinggroup_sort`) VALUES
 (1, 'soldiers', '士兵', 1338469985, 0, 1, 0),
 (2, 'nco', '士官', 1338470021, 0, 1, 0),
 (3, 'lieutenant', '尉官', 1338470314, 1343585867, 1, 0),
@@ -414,7 +414,7 @@ INSERT INTO `needforbug_ratinggroup` (`ratinggroup_id`, `ratinggroup_name`, `rat
 -- 转存表中的数据 `needforbug_role`
 --
 
-INSERT INTO `needforbug_role` (`role_id`, `role_name`, `role_parentid`, `role_status`, `role_remark`, `role_nikename`, `create_dateline`, `update_dateline`, `rolegroup_id`) VALUES
+INSERT INTO `#@__role` (`role_id`, `role_name`, `role_parentid`, `role_status`, `role_remark`, `role_nikename`, `create_dateline`, `update_dateline`, `rolegroup_id`) VALUES
 (1, '管理员', 0, 1, '', '管理员', 1295530584, 1338614986, 2),
 (2, '超级群主', 0, 1, '', '超级群主', 1295530598, 1338615068, 2),
 (3, '群主', 0, 1, '', '群主', 1338403516, 1338615084, 2),
@@ -441,7 +441,7 @@ INSERT INTO `needforbug_role` (`role_id`, `role_name`, `role_parentid`, `role_st
 -- 转存表中的数据 `needforbug_rolegroup`
 --
 
-INSERT INTO `needforbug_rolegroup` (`rolegroup_id`, `rolegroup_name`, `rolegroup_title`, `create_dateline`, `update_dateline`, `rolegroup_status`, `rolegroup_sort`) VALUES
+INSERT INTO `#@__rolegroup` (`rolegroup_id`, `rolegroup_name`, `rolegroup_title`, `create_dateline`, `update_dateline`, `rolegroup_status`, `rolegroup_sort`) VALUES
 (1, 'usergroup', '用户组', 1338469985, 1338614736, 1, 0),
 (2, 'admingroup', '管理组', 1338470021, 1338614767, 1, 0),
 (3, 'specialgroup', '特殊分组', 1338470314, 1338615164, 1, 0),
@@ -453,7 +453,7 @@ INSERT INTO `needforbug_rolegroup` (`rolegroup_id`, `rolegroup_name`, `rolegroup
 -- 转存表中的数据 `needforbug_slide`
 --
 
-INSERT INTO `needforbug_slide` (`slide_id`, `slide_sort`, `slide_title`, `slide_url`, `slide_img`, `slide_status`, `create_dateline`, `update_dateline`) VALUES
+INSERT INTO `#@__slide` (`slide_id`, `slide_sort`, `slide_title`, `slide_url`, `slide_img`, `slide_status`, `create_dateline`, `update_dateline`) VALUES
 (1, 0, '欢迎加入', '{Dyhb::U(''home://public/register'')}', '{__PUBLIC__.''/images/common/slidebox/1.jpg''}', 1, 1345357086, 1345364471),
 (2, 0, '立刻登录', '{Dyhb::U(''home://public/login'')}', '{__PUBLIC__.''/images/common/slidebox/2.jpg''}', 1, 1345357086, 0),
 (3, 0, '关于我们', '{Dyhb::U(''home://homesite/aboutus'')}', '{__PUBLIC__.''/images/common/slidebox/3.jpg''}', 1, 1345357086, 0);
@@ -464,7 +464,7 @@ INSERT INTO `needforbug_slide` (`slide_id`, `slide_sort`, `slide_title`, `slide_
 -- 转存表中的数据 `needforbug_style`
 --
 
-INSERT INTO `needforbug_style` (`style_id`, `style_name`, `style_status`, `theme_id`, `style_extend`) VALUES
+INSERT INTO `#@__style` (`style_id`, `style_name`, `style_status`, `theme_id`, `style_extend`) VALUES
 (1, '默认主题', 1, 1, 't1	t2	t3	t4	t5|');
 
 -- --------------------------------------------------------
@@ -473,7 +473,7 @@ INSERT INTO `needforbug_style` (`style_id`, `style_name`, `style_status`, `theme
 -- 转存表中的数据 `needforbug_stylevar`
 --
 
-INSERT INTO `needforbug_stylevar` (`stylevar_id`, `style_id`, `stylevar_variable`, `stylevar_substitute`) VALUES
+INSERT INTO `#@__stylevar` (`stylevar_id`, `style_id`, `stylevar_variable`, `stylevar_substitute`) VALUES
 (1, 1, 'img_dir', ''),
 (2, 1, 'style_img_dir', ''),
 (3, 1, 'logo', 'logo.png'),
@@ -546,7 +546,7 @@ INSERT INTO `needforbug_stylevar` (`stylevar_id`, `style_id`, `stylevar_variable
 -- 转存表中的数据 `needforbug_theme`
 --
 
-INSERT INTO `needforbug_theme` (`theme_id`, `theme_name`, `theme_dirname`, `theme_copyright`) VALUES
+INSERT INTO `#@__theme` (`theme_id`, `theme_name`, `theme_dirname`, `theme_copyright`) VALUES
 (1, '默认模板套系', 'Default', '点牛（成都）');
 
 -- --------------------------------------------------------
@@ -555,7 +555,7 @@ INSERT INTO `needforbug_theme` (`theme_id`, `theme_name`, `theme_dirname`, `them
 -- 转存表中的数据 `needforbug_user`
 --
 
-INSERT INTO `needforbug_user` (`user_id`, `user_name`, `user_nikename`, `user_password`, `user_registerip`, `user_lastlogintime`, `user_lastloginip`, `user_logincount`, `user_email`, `user_remark`, `user_sign`, `create_dateline`, `update_dateline`, `user_status`, `user_random`, `user_temppassword`, `user_extendstyle`) VALUES
+INSERT INTO `#@__user` (`user_id`, `user_name`, `user_nikename`, `user_password`, `user_registerip`, `user_lastlogintime`, `user_lastloginip`, `user_logincount`, `user_email`, `user_remark`, `user_sign`, `create_dateline`, `update_dateline`, `user_status`, `user_random`, `user_temppassword`, `user_extendstyle`) VALUES
 (1, 'admin', '', '67231717f41a20687eab5b20a63d8b68', '127.0.0.1', 1345888640, '::1', 0, 'admin@admin.com', '', '', 1333281705, 1345896636, 1, 'D75628', '', '');
 
 -- --------------------------------------------------------
@@ -564,7 +564,7 @@ INSERT INTO `needforbug_user` (`user_id`, `user_name`, `user_nikename`, `user_pa
 -- 转存表中的数据 `needforbug_usercount`
 --
 
-INSERT INTO `needforbug_usercount` (`user_id`, `usercount_extendcredit1`, `usercount_extendcredit2`, `usercount_extendcredit3`, `usercount_extendcredit4`, `usercount_extendcredit5`, `usercount_extendcredit6`, `usercount_extendcredit7`, `usercount_extendcredit8`, `usercount_friends`, `usercount_oltime`, `usercount_fans`) VALUES
+INSERT INTO `#@__usercount` (`user_id`, `usercount_extendcredit1`, `usercount_extendcredit2`, `usercount_extendcredit3`, `usercount_extendcredit4`, `usercount_extendcredit5`, `usercount_extendcredit6`, `usercount_extendcredit7`, `usercount_extendcredit8`, `usercount_friends`, `usercount_oltime`, `usercount_fans`) VALUES
 (1, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 0);
 
 -- --------------------------------------------------------
@@ -573,5 +573,83 @@ INSERT INTO `needforbug_usercount` (`user_id`, `usercount_extendcredit1`, `userc
 -- 转存表中的数据 `needforbug_userprofile`
 --
 
-INSERT INTO `needforbug_userprofile` (`user_id`, `userprofile_realname`, `userprofile_gender`, `userprofile_birthyear`, `userprofile_birthmonth`, `userprofile_birthday`, `userprofile_constellation`, `userprofile_zodiac`, `userprofile_telephone`, `userprofile_mobile`, `userprofile_idcardtype`, `userprofile_idcard`, `userprofile_address`, `userprofile_zipcode`, `userprofile_nationality`, `userprofile_birthprovince`, `userprofile_birthcity`, `userprofile_birthdist`, `userprofile_birthcommunity`, `userprofile_resideprovince`, `userprofile_residecity`, `userprofile_residedist`, `userprofile_residecommunity`, `userprofile_residesuite`, `userprofile_graduateschool`, `userprofile_company`, `userprofile_education`, `userprofile_occupation`, `userprofile_position`, `userprofile_revenue`, `userprofile_affectivestatus`, `userprofile_lookingfor`, `userprofile_bloodtype`, `userprofile_height`, `userprofile_weight`, `userprofile_alipay`, `userprofile_icq`, `userprofile_qq`, `userprofile_yahoo`, `userprofile_msn`, `userprofile_taobao`, `userprofile_site`, `userprofile_bio`, `userprofile_interest`, `userprofile_google`, `userprofile_baidu`, `userprofile_renren`, `userprofile_douban`, `userprofile_facebook`, `userprofile_twriter`, `userprofile_dianniu`, `userprofile_skype`, `userprofile_weibocom`, `userprofile_tqqcom`, `userprofile_diandian`, `userprofile_kindergarten`, `userprofile_primary`, `userprofile_juniorhighschool`, `userprofile_highschool`, `userprofile_university`, `userprofile_master`, `userprofile_dr`, `userprofile_nowschool`, `userprofile_field1`, `userprofile_field2`, `userprofile_field3`, `userprofile_field4`, `userprofile_field5`, `userprofile_field6`, `userprofile_field7`, `userprofile_field8`) VALUES
+INSERT INTO `#@__userprofile` (`user_id`, `userprofile_realname`, `userprofile_gender`, `userprofile_birthyear`, `userprofile_birthmonth`, `userprofile_birthday`, `userprofile_constellation`, `userprofile_zodiac`, `userprofile_telephone`, `userprofile_mobile`, `userprofile_idcardtype`, `userprofile_idcard`, `userprofile_address`, `userprofile_zipcode`, `userprofile_nationality`, `userprofile_birthprovince`, `userprofile_birthcity`, `userprofile_birthdist`, `userprofile_birthcommunity`, `userprofile_resideprovince`, `userprofile_residecity`, `userprofile_residedist`, `userprofile_residecommunity`, `userprofile_residesuite`, `userprofile_graduateschool`, `userprofile_company`, `userprofile_education`, `userprofile_occupation`, `userprofile_position`, `userprofile_revenue`, `userprofile_affectivestatus`, `userprofile_lookingfor`, `userprofile_bloodtype`, `userprofile_height`, `userprofile_weight`, `userprofile_alipay`, `userprofile_icq`, `userprofile_qq`, `userprofile_yahoo`, `userprofile_msn`, `userprofile_taobao`, `userprofile_site`, `userprofile_bio`, `userprofile_interest`, `userprofile_google`, `userprofile_baidu`, `userprofile_renren`, `userprofile_douban`, `userprofile_facebook`, `userprofile_twriter`, `userprofile_dianniu`, `userprofile_skype`, `userprofile_weibocom`, `userprofile_tqqcom`, `userprofile_diandian`, `userprofile_kindergarten`, `userprofile_primary`, `userprofile_juniorhighschool`, `userprofile_highschool`, `userprofile_university`, `userprofile_master`, `userprofile_dr`, `userprofile_nowschool`, `userprofile_field1`, `userprofile_field2`, `userprofile_field3`, `userprofile_field4`, `userprofile_field5`, `userprofile_field6`, `userprofile_field7`, `userprofile_field8`) VALUES
 (1, '', 1, 2012, 6, 14, '', '', '', '', '身份证', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '本科', '', '', '', '已婚', '', 'B', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '博士', '', '', '', '', '', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- 转存表中的数据 `needforbug_userprofilesetting`
+--
+
+INSERT INTO `#@__userprofilesetting` (`userprofilesetting_id`, `userprofilesetting_status`, `userprofilesetting_title`, `userprofilesetting_description`, `userprofilesetting_sort`, `userprofilesetting_showinfo`, `userprofilesetting_allowsearch`, `userprofilesetting_privacy`) VALUES
+('userprofile_realname', 1, '真实姓名', '', 0, 0, 1, 0),
+('userprofile_gender', 1, '性别', '', 0, 0, 1, 0),
+('userprofile_birthyear', 1, '出生年份', '', 0, 0, 1, 0),
+('userprofile_birthmonth', 1, '出生月份', '', 0, 0, 0, 0),
+('userprofile_birthday', 1, '生日', '', 0, 0, 0, 0),
+('userprofile_constellation', 1, '星座', '星座(根据生日自动计算)', 0, 0, 0, 0),
+('userprofile_zodiac', 1, '生肖', '生肖(根据生日自动计算)', 0, 0, 0, 0),
+('userprofile_telephone', 1, '固定电话', '', 0, 0, 0, 0),
+('userprofile_mobile', 1, '手机', '', 0, 0, 0, 0),
+('userprofile_idcardtype', 1, '证件类型', '身份证 护照 驾驶证等', 0, 0, 0, 0),
+('userprofile_idcard', 1, '证件号', '', 0, 0, 0, 0),
+('userprofile_address', 1, '邮寄地址', '', 0, 0, 0, 0),
+('userprofile_zipcode', 1, '邮编', '', 0, 0, 0, 0),
+('userprofile_nationality', 1, '国籍', '', 0, 0, 0, 0),
+('userprofile_birthprovince', 1, '出生省份', '', 0, 0, 0, 0),
+('userprofile_birthcity', 1, '出生地', '', 0, 0, 0, 0),
+('userprofile_birthdist', 1, '出生县', '出生行政区/县', 0, 0, 0, 0),
+('userprofile_birthcommunity', 1, '出生小区', '', 0, 0, 0, 0),
+('userprofile_resideprovince', 1, '居住省份', '', 0, 0, 0, 0),
+('userprofile_residecity', 1, '居住地', '', 0, 0, 0, 0),
+('userprofile_residedist', 1, '居住县', '居住行政区/县', 0, 0, 0, 0),
+('userprofile_residecommunity', 1, '居住小区', '', 0, 0, 0, 0),
+('userprofile_residesuite', 1, '房间', '小区、写字楼门牌号', 0, 0, 0, 0),
+('userprofile_graduateschool', 1, '毕业学校', '', 0, 0, 0, 0),
+('userprofile_education', 1, '学历', '', 0, 0, 0, 0),
+('userprofile_company', 1, '公司', '', 0, 0, 0, 0),
+('userprofile_occupation', 1, '职业', '', 0, 0, 0, 0),
+('userprofile_position', 1, '职位', '', 0, 0, 0, 0),
+('userprofile_revenue', 1, '年收入', '单位 元', 0, 0, 0, 0),
+('userprofile_affectivestatus', 1, '情感状态', '', 0, 0, 0, 0),
+('userprofile_lookingfor', 1, '交友目的', '希望在网站找到什么样的朋友', 0, 0, 0, 0),
+('userprofile_bloodtype', 1, '血型', '', 0, 0, 0, 0),
+('userprofile_height', 1, '身高', '单位 cm', 0, 0, 0, 0),
+('userprofile_weight', 1, '体重', '单位 kg', 0, 0, 0, 0),
+('userprofile_alipay', 1, '支付宝', '', 0, 0, 0, 0),
+('userprofile_icq', 1, 'ICQ', '', 0, 0, 0, 0),
+('userprofile_qq', 1, 'QQ', '', 0, 0, 0, 0),
+('userprofile_yahoo', 1, 'YAHOO帐号', '', 0, 0, 0, 0),
+('userprofile_msn', 1, 'MSN', '', 0, 0, 0, 0),
+('userprofile_taobao', 1, '阿里旺旺', '', 0, 0, 0, 0),
+('userprofile_site', 1, '个人主页', '', 0, 0, 0, 0),
+('userprofile_bio', 1, '自我介绍', '', 0, 0, 0, 0),
+('userprofile_interest', 1, '兴趣爱好', '', 0, 0, 0, 0),
+('userprofile_field1', 0, '自定义字段1', '', 0, 0, 0, 0),
+('userprofile_field2', 0, '自定义字段2', '', 0, 0, 0, 0),
+('userprofile_field3', 0, '自定义字段3', '', 0, 0, 0, 0),
+('userprofile_field4', 0, '自定义字段4', '', 0, 0, 0, 0),
+('userprofile_field5', 0, '自定义字段5', '', 0, 0, 0, 0),
+('userprofile_field6', 0, '自定义字段6', '', 0, 0, 0, 0),
+('userprofile_field7', 0, '自定义字段7', '', 0, 0, 0, 0),
+('userprofile_field8', 0, '自定义字段8', '', 0, 0, 0, 0),
+('userprofile_google', 1, 'Google', '', 0, 0, 0, 0),
+('userprofile_baidu', 1, '百度', '', 0, 0, 0, 0),
+('userprofile_renren', 1, '人人', '', 0, 0, 0, 0),
+('userprofile_douban', 1, '豆瓣', '', 0, 0, 0, 0),
+('userprofile_facebook', 1, 'Facebook', '', 0, 0, 0, 0),
+('userprofile_twriter', 1, 'TWriter', '', 0, 0, 0, 0),
+('userprofile_dianniu', 1, '点牛', '', 0, 0, 0, 0),
+('userprofile_skype', 1, 'Skype', '', 0, 0, 0, 0),
+('userprofile_weibocom', 1, '新浪微博', '', 0, 0, 0, 0),
+('userprofile_tqqcom', 1, '腾讯微博', '', 0, 0, 0, 0),
+('userprofile_diandian', 1, '点点网', '', 0, 0, 0, 0),
+('userprofile_kindergarten', 1, '幼儿园', '', 0, 0, 0, 0),
+('userprofile_primary', 1, '小学', '', 0, 0, 0, 0),
+('userprofile_juniorhighschool', 1, '初中', '', 0, 0, 0, 0),
+('userprofile_highschool', 1, '高中', '', 0, 0, 0, 0),
+('userprofile_university', 1, '大学', '', 0, 0, 0, 0),
+('userprofile_master', 1, '硕士', '', 0, 0, 0, 0),
+('userprofile_dr', 1, '博士', '', 0, 0, 0, 0),
+('userprofile_nowschool', 1, '当前学校', '', 0, 0, 0, 0);
