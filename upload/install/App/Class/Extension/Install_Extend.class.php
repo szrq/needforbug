@@ -67,7 +67,6 @@ class Install_Extend extends Controller{
 				$sQuery=str_replace('#@__',$sDbprefix,$sQuery);
 				if(substr($sQuery,0,12)=='CREATE TABLE'){
 					$sTableName=preg_replace("/CREATE TABLE `([a-z0-9_]+)` .*/is","\\1",$sQuery);
-					self::showJavascriptMessage(Dyhb::L('创建数据库表').' '.$sTableName.' ... '.Dyhb::L('成功'));
 				}
 
 				if($nMysqlVersion<4.1){
@@ -79,6 +78,13 @@ class Install_Extend extends Controller{
 						$hRs=mysql_query($sQuery,$hConn);
 					}
 				}
+
+				if($hRs===true){
+					self::showJavascriptMessage(Dyhb::L('创建数据库表').' '.$sTableName.' ... '.Dyhb::L('成功'));
+				}else{
+					self::sqlError($sQuery);
+				}
+
 				$sQuery='';
 			}else if(!preg_match("#^(\/\/|--)#",$sLine)){
 				$sQuery.=$sLine;
@@ -100,8 +106,13 @@ class Install_Extend extends Controller{
 				$sQuery=str_replace('#@__',$sDbprefix,$sQuery);
 				$hRs=mysql_query($sQuery,$hConn);
 
-				if($bEchomessage===true){
-					self::showJavascriptMessage(Dyhb::L('执行SQL').' '.G::subString($sQuery,0,50).' ... '.Dyhb::L('成功'));
+				if($hRs===true){
+					if($bEchomessage===true){
+						self::showJavascriptMessage(
+							Dyhb::L('执行SQL').' '.G::subString($sQuery,0,50).' ... '.Dyhb::L('成功'));
+					}
+				}else{
+					self::sqlError($sQuery);
 				}
 
 				$sQuery='';
@@ -111,6 +122,24 @@ class Install_Extend extends Controller{
 		}
 
 		fclose($hFp);
+	}
+
+	static public function sqlError($sSql){
+		self::showJavascriptMessage('');
+		self::showJavascriptMessage('<h3 style="color:red;">'.'对不起数据库执行遇到错误'.'</h3>');
+
+		self::showJavascriptMessage('<b>'.'错误代码'.'</b>');
+		self::showJavascriptMessage(mysql_errno());
+		self::showJavascriptMessage('');
+		self::showJavascriptMessage('<b>'.'错误消息').'</b>';
+		self::showJavascriptMessage(mysql_error());
+		self::showJavascriptMessage('');
+		self::showJavascriptMessage('<b>'.'错误SQL').'</b>';
+		self::showJavascriptMessage($sSql);
+		self::showJavascriptMessage('');
+		self::showJavascriptMessage('<b>'.'请修正后再次执行升级程序'.'</b>');
+
+		exit();
 	}
 
 	static public function removeDir($sDirName){

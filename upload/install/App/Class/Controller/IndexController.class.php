@@ -1,6 +1,6 @@
 <?php
 /* [NeedForBug!] (C)Dianniu From 2010.
-   Needforbug 安装程序默认控制器($)*/
+   Needforbug 安装程序($)*/
 
 !defined('DYHB_PATH') && exit;
 
@@ -9,7 +9,7 @@ define('NEEDFORBUG_DATABASE','needforbugv'.NEEDFORBUG_SERVER_RELEASE);
 
 class IndexController extends Controller{
 
-	public $_sLockfile='';
+	protected $_sLockfile='';
 
 	public function init__(){
 		parent::init__();
@@ -19,7 +19,7 @@ class IndexController extends Controller{
 		$this->_sLockfile=NEEDFORBUG_PATH.'/data/Install.lock.php';
 
 		if(file_exists($this->_sLockfile)){
-			$this->E(Dyhb::L(" 程序已运行安装，如果你确定要重新安装，请先从FTP中删除 %s",'App',null,$this->_sLockfile));
+			$this->E(Dyhb::L(" 程序已运行安装，如果你确定要重新安装，请先从FTP中删除 %s",'App',null,str_replace(G::tidyPath(NEEDFORBUG_PATH),'{NEEDFORBUG_PATH}',G::tidyPath($this->_sLockfile))));
 		}
 	}
 
@@ -47,8 +47,6 @@ class IndexController extends Controller{
 	}
 
 	public function step2(){
-		$this->check_install();
-
 		// 取得服务器相关信息
 		$arrInfo=array();
 
@@ -102,7 +100,7 @@ class IndexController extends Controller{
 
 		$sBaseurl=$sBaseurl.__ROOT__;
 
-		$arrApps=G::listDir(APP_PATH.'/Static/Sql/Zh-cn/App');
+		$arrApps=G::listDir(APP_PATH.'/Static/Sql/Install/Zh-cn/App');
 
 		$this->assign('sBasepath',$sBaseurl);
 		$this->assign('sBaseurl',$sBaseurl);
@@ -195,11 +193,11 @@ class IndexController extends Controller{
 		
 		// 创建系统表
 		Install_Extend::showJavascriptMessage('<h3>'.'创建系统数据库表'.'</h3>');
-		Install_Extend::importTable(APP_PATH.'/Static/Sql/needforbug.table.sql');
+		Install_Extend::importTable(APP_PATH.'/Static/Sql/Install/needforbug.table.sql');
 		Install_Extend::showJavascriptMessage(' ');
 
 		$sLangCookieName=$GLOBALS['_commonConfig_']['COOKIE_LANG_TEMPLATE_INCLUDE_APPNAME']===true?APP_NAME.'_language':'language';
-		$sNeedforbugDatadir=APP_PATH.'/Static/Sql/';
+		$sNeedforbugDatadir=APP_PATH.'/Static/Sql/Install';
 
 		// 执行系统初始化数据
 		$sNeedforbugDatapath=$sNeedforbugDatadir.'/'.ucfirst(Dyhb::cookie($sLangCookieName)).'/needforbug.data.sql';
@@ -271,7 +269,10 @@ class IndexController extends Controller{
 		Install_Extend::showJavascriptMessage(' ');
 
 		// 执行清理
-		Install_Extend::showJavascriptMessage('<h3>'.'清理系统缓存目录'.'</h3>');
+		if(is_dir(NEEDFORBUG_PATH.'/data/~runtime')){
+			Install_Extend::showJavascriptMessage('<h3>'.'清理系统缓存目录'.'</h3>');
+			Install_Extend::removeDir(NEEDFORBUG_PATH.'/data/~runtime');
+		}
 
 		// 初始化系统和跳转
 		$sInitsystemUrl=trim(G::getGpc('baseurl')).'/index.php?app=home&c=misc&a=init_system';
