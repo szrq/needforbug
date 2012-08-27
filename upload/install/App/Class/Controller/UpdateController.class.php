@@ -82,11 +82,11 @@ class UpdateController extends Controller{
 			$this->E(Dyhb::L('选择数据库失败，可能是你没权限，请预先创建一个数据库','Controller/Update'));
 		}
 
-		$sRs=mysql_query("SELECT VERSION();",$hConn);
+		$sRs=Install_Extend::queryString("SELECT VERSION();");
 		$arrRow=mysql_fetch_array($sRs);
 		$arrMysqlVersions=explode('.',trim($arrRow[0]));
 		$nMysqlVersion=$arrMysqlVersions[0].".".$arrMysqlVersions[1];
-		mysql_query("SET NAMES 'UTF8',character_set_client=binary,sql_mode='';",$hConn);
+		Install_Extend::queryString("SET NAMES 'UTF8',character_set_client=binary,sql_mode='';");
 
 		// 前缀
 		$sDbprefix=$arrConfig['DB_PREFIX'];

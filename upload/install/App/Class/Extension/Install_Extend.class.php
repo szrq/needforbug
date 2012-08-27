@@ -70,20 +70,16 @@ class Install_Extend extends Controller{
 				}
 
 				if($nMysqlVersion<4.1){
-					$hRs=mysql_query($sQuery,$hConn);
+					self::queryString($sQuery);
 				}else{
 					if(preg_match('#CREATE#i',$sQuery)){
-						$hRs=mysql_query(preg_replace("#TYPE=MyISAM#i",$sSql4Tmp,$sQuery),$hConn);
+						self::queryString(preg_replace("#TYPE=MyISAM#i",$sSql4Tmp,$sQuery));
 					}else{
-						$hRs=mysql_query($sQuery,$hConn);
+						self::queryString($sQuery);
 					}
 				}
 
-				if($hRs===true){
-					self::showJavascriptMessage(Dyhb::L('创建数据库表','Function/Install_Extend').' '.$sTableName.' ... '.Dyhb::L('成功','Function/Install_Extend'));
-				}else{
-					self::sqlError($sQuery);
-				}
+				self::showJavascriptMessage(Dyhb::L('创建数据库表','Function/Install_Extend').' '.$sTableName.' ... '.Dyhb::L('成功','Function/Install_Extend'));
 
 				$sQuery='';
 			}else if(!preg_match("#^(\/\/|--)#",$sLine)){
@@ -104,15 +100,11 @@ class Install_Extend extends Controller{
 			if(preg_match("#;$#",$sLine)){
 				$sQuery.=$sLine;
 				$sQuery=str_replace('#@__',$sDbprefix,$sQuery);
-				$hRs=mysql_query($sQuery,$hConn);
+				self::queryString($sQuery);
 
-				if($hRs===true){
-					if($bEchomessage===true){
-						self::showJavascriptMessage(
-							Dyhb::L('执行SQL','Function/Install_Extend').' '.G::subString($sQuery,0,50).' ... '.Dyhb::L('成功','Function/Install_Extend'));
-					}
-				}else{
-					self::sqlError($sQuery);
+				if($bEchomessage===true){
+					self::showJavascriptMessage(
+						Dyhb::L('执行SQL','Function/Install_Extend').' '.G::subString($sQuery,0,50).' ... '.Dyhb::L('成功','Function/Install_Extend'));
 				}
 
 				$sQuery='';
@@ -122,6 +114,18 @@ class Install_Extend extends Controller{
 		}
 
 		fclose($hFp);
+	}
+
+	static public function queryString($sSql){
+		global $hConn;
+
+		$hRs=mysql_query($sSql,$hConn);
+
+		if($hRs){
+			return $hRs;
+		}else{
+			self::sqlError($sSql);
+		}
 	}
 
 	static public function sqlError($sSql){

@@ -177,19 +177,19 @@ class IndexController extends Controller{
 			$this->E(Dyhb::L('数据库服务器或登录密码无效','Controller/Install').",".Dyhb::L('无法连接数据库，请重新设定','Controller/Install'));
 		}
 
-		mysql_query("CREATE DATABASE IF NOT EXISTS `".$sDbname."`;",$hConn);
+		Install_Extend::queryString("CREATE DATABASE IF NOT EXISTS `".$sDbname."`;");
 
 		if(!mysql_select_db($sDbname)){
 			$this->E(Dyhb::L('选择数据库失败，可能是你没权限，请预先创建一个数据库','Controller/Install'));
 		}
 
 		// 取得数据库版本
-		$sRs=mysql_query("SELECT VERSION();",$hConn);
+		$sRs=Install_Extend::queryString("SELECT VERSION();");
 		$arrRow=mysql_fetch_array($sRs);
 		$arrMysqlVersions=explode('.',trim($arrRow[0]));
 		$nMysqlVersion=$arrMysqlVersions[0].".".$arrMysqlVersions[1];
 
-		mysql_query("SET NAMES 'UTF8',character_set_client=binary,sql_mode='';",$hConn);
+		Install_Extend::queryString("SET NAMES 'UTF8',character_set_client=binary,sql_mode='';");
 
 		// 写入配置文件
 		$arrConfig=(array)(include NEEDFORBUG_PATH.'/config/ConfigDefault.inc.php');
@@ -269,13 +269,13 @@ class IndexController extends Controller{
 		// 初始化安装程序设置
 		Install_Extend::showJavascriptMessage('<h3>'.Dyhb::L('初始化安装程序设置','Controller/Install').'</h3>');
 		
-		mysql_query("Update `{$sDbprefix}option` set option_value='".trim(G::getGpc('baseurl'))."' where option_name='site_url';",$hConn);
+		Install_Extend::queryString("Update `{$sDbprefix}option` set option_value='".trim(G::getGpc('baseurl'))."' where option_name='site_url';");
 		Install_Extend::showJavascriptMessage(Dyhb::L('写入社区地址','Controller/Install').' '.trim(G::getGpc('baseurl')).' ... '.Dyhb::L('成功','Controller/Common'));
 
-		mysql_query("Update `{$sDbprefix}option` set option_value='".trim(G::getGpc('webname'))."' where option_name='site_name';",$hConn);
+		Install_Extend::queryString("Update `{$sDbprefix}option` set option_value='".trim(G::getGpc('webname'))."' where option_name='site_name';");
 		Install_Extend::showJavascriptMessage(Dyhb::L('写入社区名称','Controller/Install').' '.trim(G::getGpc('webname')).' ... '.Dyhb::L('成功','Controller/Common'));
 
-		mysql_query("Update `{$sDbprefix}option` set option_value='".trim(G::getGpc('adminmail'))."' where option_name='admin_email';",$hConn);
+		Install_Extend::queryString("Update `{$sDbprefix}option` set option_value='".trim(G::getGpc('adminmail'))."' where option_name='admin_email';");
 		Install_Extend::showJavascriptMessage(Dyhb::L('写入管理员邮件','Controller/Install').' '.trim(G::getGpc('adminmail')).' ... '.Dyhb::L('成功','Controller/Common'));
 		Install_Extend::showJavascriptMessage(' ');
 
@@ -284,7 +284,7 @@ class IndexController extends Controller{
 		
 		$sRandom=G::randString(6);
 		$sPassword=md5(md5($sAdminpwd).trim($sRandom));
-		mysql_query("Update `{$sDbprefix}user` set user_name='".$sAdminuser."',user_password='".$sPassword."',user_random='".$sRandom."',user_password='".$sPassword."',user_registerip='".G::getIp()."',user_email='".trim(G::getGpc('adminmail'))."',user_lastloginip='".G::getIp()."' where user_id=1;",$hConn);
+		Install_Extend::queryString("Update `{$sDbprefix}user` set user_name='".$sAdminuser."',user_password='".$sPassword."',user_random='".$sRandom."',user_password='".$sPassword."',user_registerip='".G::getIp()."',user_email='".trim(G::getGpc('adminmail'))."',user_lastloginip='".G::getIp()."' where user_id=1;");
 		Install_Extend::showJavascriptMessage(Dyhb::L('初始化超级管理员帐号','Controller/Install').'... '.Dyhb::L('成功','Controller/Common'));
 		Install_Extend::showJavascriptMessage(' ');
 
