@@ -232,6 +232,36 @@ CREATE TABLE `#@__homefresh` (
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `needforbug_homefreshcomment`
+--
+
+DROP TABLE IF EXISTS `#@__homefreshcomment`;
+CREATE TABLE `#@__homefreshcomment` (
+  `homefreshcomment_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '评论ID',
+  `create_dateline` int(10) NOT NULL COMMENT '创建时间',
+  `update_dateline` int(10) NOT NULL COMMENT '更新时间',
+  `user_id` mediumint(8) NOT NULL DEFAULT '0' COMMENT '用户ID，在线用户评论',
+  `homefreshcomment_name` varchar(25) NOT NULL COMMENT '名字',
+  `homefreshcomment_content` text NOT NULL COMMENT '内容',
+  `homefreshcomment_email` varchar(300) NOT NULL COMMENT '邮件',
+  `homefreshcomment_url` varchar(300) NOT NULL COMMENT 'URL',
+  `homefreshcomment_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否显示',
+  `homefreshcomment_ip` varchar(16) NOT NULL COMMENT 'IP',
+  `homefreshcomment_parentid` mediumint(8) NOT NULL DEFAULT '0' COMMENT '父级ID',
+  `homefreshcomment_isreplymail` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否邮件通知，通知给评论者',
+  `homefreshcomment_ismobile` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否为手机评论',
+  `homefresh_id` char(10) NOT NULL COMMENT '新鲜事ID',
+  PRIMARY KEY (`homefreshcomment_id`),
+  KEY `user_id` (`user_id`),
+  KEY `homefresh_id` (`homefresh_id`),
+  KEY `create_dateline` (`create_dateline`),
+  KEY `update_dateline` (`update_dateline`),
+  KEY `homefreshcomment_status` (`homefreshcomment_status`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `needforbug_homehelp`
 --
 

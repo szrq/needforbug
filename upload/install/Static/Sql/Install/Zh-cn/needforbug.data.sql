@@ -72,7 +72,8 @@ INSERT INTO `needforbug_homeoption` (`homeoption_name`, `homeoption_value`) VALU
 ('my_friend_limit_num', '6'),
 ('pm_list_num', '5'),
 ('pm_list_substring_num', '200'),
-('pm_single_list_num', '10');
+('pm_single_list_num', '10'),
+('homefreshcomment_list_num', '10');
 
 -- --------------------------------------------------------
 
