@@ -38,8 +38,13 @@ function option(){
 						<div class="description"><!--<lang package='Template/Default/Registeroption'>-->你可以在前台登陆的时候看到这里的设置效果<!--</lang>--></div>
 					</fieldset>
 					<fieldset>
-						<label for="remember_time"><!--<lang package='Template/Default/Registeroption'>-->获取密码链接过期时间<!--</lang>--></label>
+						<label for="getpassword_expired"><!--<lang package='Template/Default/Registeroption'>-->获取密码链接过期时间<!--</lang>--></label>
 						 <input type="text" name="options[getpassword_expired]" id="getpassword_expired" value="<!--{$arrOptions['getpassword_expired']}-->">
+						<div class="description"><!--<lang package='Template/Default/Registeroption'>-->过期时间单位为s,尽量将过期时间设置短一些,如3600<!--</lang>--></div>
+					</fieldset>
+					<fieldset>
+						<label for="appeal_expired"><!--<lang package='Template/Default/Registeroption'>-->申诉获取密码链接过期时间<!--</lang>--></label>
+						 <input type="text" name="options[appeal_expired]" id="appeal_expired" value="<!--{$arrOptions['appeal_expired']}-->">
 						<div class="description"><!--<lang package='Template/Default/Registeroption'>-->过期时间单位为s,尽量将过期时间设置短一些,如3600<!--</lang>--></div>
 					</fieldset>
 				</div>

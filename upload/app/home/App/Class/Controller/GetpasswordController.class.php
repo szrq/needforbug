@@ -90,7 +90,7 @@ class GetpasswordController extends InitController{
 			$this->E(Dyhb::L('找回密码链接已过期','Controller/Getpassword'));
 		}
 		
-		if(!empty($nAppeal)&&$nAppeal==1){
+		if($nAppeal==1){
 			$oUser=UserModel::F('user_temppassword=?',$sHash)->getOne();
 		}else{
 			$oUser=UserModel::F('user_email=? AND user_temppassword=?',$sEmail,$sHash)->getOne();

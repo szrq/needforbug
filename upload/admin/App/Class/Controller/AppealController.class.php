@@ -55,6 +55,11 @@ class AppealController extends InitController{
 			if(!$oAppeal->isError()){
 				$sEmail=$oAppeal->appeal_email;
 				$oUser=UserModel::F('user_id=?',$oAppeal->user_id)->getOne();
+				$sRandom=G::randString(6);
+				$sNewPassword=G::randString(8);
+				$sPassword=md5(md5(trim($sNewPassword)).trim($sRandom));
+				$oUser->user_password=$sNewPassword;
+				$oUser->user_random=$sRandom;
 				$sTemppassword=md5(G::randString(32));
 				$oUser->user_temppassword=$sTemppassword;
 				$oUser->save(0,'update');
@@ -62,8 +67,7 @@ class AppealController extends InitController{
 					$this->E($oUser->getErrorMessage());
 				}
 				
-				$sGetPasswordUrl=$GLOBALS['_option_']['site_url'].'/index.php?c=getpassword&a=reset&email='.urlencode($sEmail).'&appeal=1'.'&hash='.urlencode(G::authcode($sTemppassword,false,null,$GLOBALS['_option_']['getpassword_expired']));
-
+				$sGetPasswordUrl=$GLOBALS['_option_']['site_url'].'/index.php?c=getpassword&a=reset&email='.urlencode($sEmail).'&appeal=1'.'&hash='.urlencode(G::authcode($sTemppassword,false,null,$GLOBALS['_option_']['appeal_expired']));
 				$oMailModel=Dyhb::instance('MailModel');
 				$oMailConnect=$oMailModel->getMailConnect();
 
@@ -71,7 +75,9 @@ class AppealController extends InitController{
 				$sNlbr=$oMailConnect->getIsHtml()===true?'<br/>':"\r\n";
 				$sEmailContent='';
 				$sEmailContent.=Dyhb::L('尊敬的','Controller/Appeal').$oUser->user_name.Dyhb::L('用户','Controller/Appeal').':'.$sNlbr.$sNlbr;
-				$sEmailContent.=Dyhb::L('您的申诉已通过,点击下面链接重置密码','Controller/Appeal').':'.$sNlbr;
+				$sEmailContent.=Dyhb::L('您的申诉已通过','Controller/Appeal').$sNlbr.$sNlbr;
+				$sEmailContent.=Dyhb::L('您的新密码是','Controller/Appeal').':'.$sNewPassword.$sNlbr.$sNlbr;
+				$sEmailContent.=Dyhb::L('您也可以点击下面链接重置密码','Controller/Appeal').':'.$sNlbr;
 				$sEmailContent.="<a href=\"{$sGetPasswordUrl}\">{$sGetPasswordUrl}</a>".$sNlbr.$sNlbr;
 				$sEmailContent.="-----------------------------------------------------".$sNlbr;
 				$sEmailContent.=Dyhb::L('这是系统用于重置密码的邮件，请勿回复','Controller/Appeal').$sNlbr;

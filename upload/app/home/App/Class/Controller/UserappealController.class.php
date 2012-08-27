@@ -50,7 +50,7 @@ class UserappealController extends InitController{
 			$this->E(Dyhb::L('该账户已经被禁止','Controller/Userappeal'));
 		}
 
-		$sUserid=G::authcode($oUser['user_id'],false,null,$GLOBALS['_option_']['getpassword_expired']);
+		$sUserid=G::authcode($oUser['user_id'],false,null,$GLOBALS['_option_']['appeal_expired']);
 		$this->assign('sUserid',$sUserid);
 
 		$this->display('userappeal+step2');
@@ -102,7 +102,7 @@ class UserappealController extends InitController{
 		}
 		
 		$sHashcode=G::randString(32);
-		$sUserid=G::authcode($oUser['user_id'],false,null,$GLOBALS['_option_']['getpassword_expired']);
+		$sUserid=G::authcode($oUser['user_id'],false,null,$GLOBALS['_option_']['appeal_expired']);
 
 		$sGetPasswordUrl=$GLOBALS['_option_']['site_url'].'/index.php?c=userappeal&a=step4&user_id='.
 			urlencode($sUserid).'&real_name='.urlencode($sRealname).'&address='.urlencode($sAddress).'&id_number='.urlencode($sIdnumber).'&appeal_email='.urlencode($sAppealemail).'&emaillink=1';
@@ -121,7 +121,7 @@ class UserappealController extends InitController{
 		$sEmailContent.="<a href=\"{$sGetPasswordUrl}\">{$sGetPasswordUrl}</a>".$sNlbr.$sNlbr;
 		$sEmailContent.="-----------------------------------------------------".$sNlbr;
 		$sEmailContent.=Dyhb::L('这是系统用于发送申诉验证码的邮件，请勿回复','Controller/Userappeal').$sNlbr;
-		$sEmailContent.=Dyhb::L('申诉验证码过期时间','Controller/Userappeal').':'.$GLOBALS['_option_']['getpassword_expired'].Dyhb::L('秒','__COMMON_LANG__@Common').$sNlbr;
+		$sEmailContent.=Dyhb::L('申诉验证码过期时间','Controller/Userappeal').':'.$GLOBALS['_option_']['appeal_expired'].Dyhb::L('秒','__COMMON_LANG__@Common').$sNlbr;
 		
 		$oMailConnect->setEmailTo($sAppealemail);
 		$oMailConnect->setEmailSubject($sEmailSubject);
@@ -131,8 +131,8 @@ class UserappealController extends InitController{
 			$this->E($oMailConnect->getErrorMessage());
 		}
 		
-		$sUserid=G::authcode($oUser['user_id'],false,null,$GLOBALS['_option_']['getpassword_expired']);
-		$sHashcode=G::authcode($sHashcode,false,null,$GLOBALS['_option_']['getpassword_expired']);
+		$sUserid=G::authcode($oUser['user_id'],false,null,$GLOBALS['_option_']['appeal_expired']);
+		$sHashcode=G::authcode($sHashcode,false,null,$GLOBALS['_option_']['appeal_expired']);
 
 		$arrAppealemail=explode('@',$sAppealemail);
 		$sAppealemailsite="http://".$arrAppealemail[1];
@@ -213,7 +213,7 @@ class UserappealController extends InitController{
 			$this->E($oAppeal->getErrorMessage());
 		}
 	
-		$sUserid=G::authcode($oAppeal['user_id'],false,null,$GLOBALS['_option_']['getpassword_expired']);
+		$sUserid=G::authcode($oAppeal['user_id'],false,null,$GLOBALS['_option_']['appeal_expired']);
 		
 		$this->assign('sUserid',$sUserid);
 		$this->assign('oAppeal',$oAppeal);
@@ -398,7 +398,7 @@ class UserappealController extends InitController{
 				$this->E($oUser->getErrorMessage());
 			}
 			
-			$sGetPasswordUrl=$GLOBALS['_option_']['site_url'].'/index.php?c=getpassword&a=reset&email='.urlencode($sEmail).'&appeal=1'.'&hash='.urlencode(G::authcode($sTemppassword,false,null,$GLOBALS['_option_']['getpassword_expired']));
+			$sGetPasswordUrl=$GLOBALS['_option_']['site_url'].'/index.php?c=getpassword&a=reset&email='.urlencode($sEmail).'&appeal=1'.'&hash='.urlencode(G::authcode($sTemppassword,false,null,$GLOBALS['_option_']['appeal_expired']));
 
 			$oMailModel=Dyhb::instance('MailModel');
 			$oMailConnect=$oMailModel->getMailConnect();
@@ -410,7 +410,7 @@ class UserappealController extends InitController{
 			$sEmailContent.="<a href=\"{$sGetPasswordUrl}\">{$sGetPasswordUrl}</a>".$sNlbr.$sNlbr;
 			$sEmailContent.="-----------------------------------------------------".$sNlbr;
 			$sEmailContent.='这是系统用于重置密码的邮件，请勿回复'.$sNlbr;
-			$sEmailContent.='链接过期时间'.$GLOBALS['_option_']['getpassword_expired'].
+			$sEmailContent.='链接过期时间'.$GLOBALS['_option_']['appeal_expired'].
 				'秒'.$sNlbr;
 
 			$oMailConnect->setEmailTo($sEmail);
