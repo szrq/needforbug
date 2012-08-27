@@ -57,7 +57,7 @@ class Install_Extend extends Controller{
 	public static function importTable($sFilepath){
 		global $hConn,$sSql4Tmp,$sDbprefix,$nMysqlVersion;
 
-		$sQuery='';
+		$sQuery=$sTableName='';
 
 		$hFp=fopen($sFilepath,'r');
 		while(!feof($hFp)){
