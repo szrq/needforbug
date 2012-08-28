@@ -40,7 +40,7 @@ function complete(data,status){
 			<div class="span12">
 				<div class="alert fade in">
 					<button type="button" class="close" data-dismiss="alert">&times;</button>
-					<strong><!--<lang package='Template/Pm'>-->注意<!--</lang>--></strong> <!--<lang package='Template/Pm'>-->清空操作将会清空<!--</lang>-->&nbsp;<i class="icon-envelope"></i>&nbsp;<a href="<!--{:Dyhb::U('home://my/user?id='.$nUserId)}-->"><strong><!--{:UserModel::getUsernameById($nUserId)}--></strong></a>&nbsp;<!--<lang package='Template/Pm'>-->所有消息记录<!--</lang>-->
+					<strong><!--<lang package='Template/Pm'>-->注意<!--</lang>--></strong> <!--<lang package='Template/Pm'>-->清空操作将会清空<!--</lang>-->&nbsp;<i class="icon-envelope"></i>&nbsp;<a href="<!--{:Dyhb::U('home://space@?id='.$nUserId)}-->"><strong><!--{:UserModel::getUsernameById($nUserId)}--></strong></a>&nbsp;<!--<lang package='Template/Pm'>-->所有消息记录<!--</lang>-->
 				</div>
 				
 				<div class="alert alert-success">
@@ -55,7 +55,7 @@ function complete(data,status){
 						<i class="icon-share-alt"></i>&nbsp;<a href="javascript:history.go(-1);" class="back"><!--<lang package='Template/Pm'>-->返回<!--</lang>--></a>
 					</div>
 					
-					<div class="left" style="margin-top:5px;"><i class="icon-envelope"></i>&nbsp;<a href="<!--{:Dyhb::U('home://my/user?id='.$nUserId)}-->"><strong><!--{:UserModel::getUsernameById($nUserId)}--></strong></a>&nbsp;<!--<lang package='Template/Pm'>-->短消息记录<!--</lang>-->&nbsp;&nbsp;</div>
+					<div class="left" style="margin-top:5px;"><i class="icon-envelope"></i>&nbsp;<a href="<!--{:Dyhb::U('home://space@?id='.$nUserId)}-->"><strong><!--{:UserModel::getUsernameById($nUserId)}--></strong></a>&nbsp;<!--<lang package='Template/Pm'>-->短消息记录<!--</lang>-->&nbsp;&nbsp;</div>
 
 					<ul class="nav nav-pills">
 						<li <!--{if $sDate==3}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://pm/show?id='.$oPm['pm_id'].'&uid='.$nUserId.'&date=3')}-->"><!--<lang package='Template/Pm'>-->最近三天<!--</lang>--></a></li>
@@ -85,7 +85,7 @@ function complete(data,status){
 								<p class="clear"><a name="pm-<!--{$oPm:pm_id}-->"></a></p>
 								<div class="left" style="width:90%;">
 									<!--{if $oPm['pm_subject']}--><a href="<!--{:Dyhb::U('home://pm/show?id='.$oPm->pm_id.'&muid='.$oPm->pm_msgfromid)}-->"><h5><!--{$oPm['pm_subject']}--></h5></a><!--{/if}-->
-									<p class="pm-cite"><a href="<!--{:Dyhb::U('home://my/user?id='.$oPm->pm_msgfromid)}-->" target="_blank"><!--{$oPm:pm_msgfrom}--></a><!--{if $sType=='my'}-->&nbsp;<i class="icon-arrow-right"></i>&nbsp;<a href="<!--{:Dyhb::U('home://my/user?id='.$oPm->pm_msgtoid)}-->" target="_blank"><!--{:UserModel::getUsernameById($oPm->pm_msgtoid)}--></a><!--{/if}-->&nbsp;<em><!--{$oPm:create_dateline|Core_Extend+timeFormat}--></em>&nbsp;&nbsp;<i class="icon-eye-open"></i>&nbsp;<a href="<!--{:Dyhb::U('home://pm/show?id='.$oPm->pm_id.'&muid='.$oPm->pm_msgfromid)}-->"><!--<lang package='Template/Pm'>-->查看<!--</lang>--></a></p>
+									<p class="pm-cite"><a href="<!--{:Dyhb::U('home://space@?id='.$oPm->pm_msgfromid)}-->" target="_blank"><!--{$oPm:pm_msgfrom}--></a><!--{if $sType=='my'}-->&nbsp;<i class="icon-arrow-right"></i>&nbsp;<a href="<!--{:Dyhb::U('home://space@?id='.$oPm->pm_msgtoid)}-->" target="_blank"><!--{:UserModel::getUsernameById($oPm->pm_msgtoid)}--></a><!--{/if}-->&nbsp;<em><!--{$oPm:create_dateline|Core_Extend+timeFormat}--></em>&nbsp;&nbsp;<i class="icon-eye-open"></i>&nbsp;<a href="<!--{:Dyhb::U('home://pm/show?id='.$oPm->pm_id.'&muid='.$oPm->pm_msgfromid)}-->"><!--<lang package='Template/Pm'>-->查看<!--</lang>--></a></p>
 									<p class="pm-summary"><!--{$oPm:pm_message|Pm_Extend+ubb}--></p>
 								</div>
 								<div class="right" style="width:60px;">
@@ -98,11 +98,11 @@ function complete(data,status){
 						<tr id="pm_<!--{$oPm:pm_id}-->" class="<!--{$sEven}-->">
 							<td>
 								<div class="left" style="width:60px;">
-									<a href="<!--{:Dyhb::U('home://my/user?id='.$oPm->pm_msgfromid)}-->" target="_blank"><img src="<!--{:Core_Extend::avatar( $oPm->pm_msgfromid,'small' )}-->" class="thumbnail" /></a>
+									<a href="<!--{:Dyhb::U('home://space@?id='.$oPm->pm_msgfromid)}-->" target="_blank"><img src="<!--{:Core_Extend::avatar( $oPm->pm_msgfromid,'small' )}-->" class="thumbnail" /></a>
 								</div>
 								<div class="right" style="width:90%;">
 									<!--{if $oPm['pm_subject']}--><a href="<!--{:Dyhb::U('home://pm/show?id='.$oPm->pm_id.'&uid='.$oPm->pm_msgfromid)}-->"><h5><!--{$oPm['pm_subject']}--></h5></a><!--{/if}-->
-									<p class="pm-cite"><a href="<!--{:Dyhb::U('home://my/user?id='.$oPm->pm_msgfromid)}-->" target="_blank"><!--{$oPm:pm_msgfrom}--></a><!--{if $sType=='my'}-->&nbsp;<i class="icon-arrow-right"></i>&nbsp;<a href="<!--{:Dyhb::U('home://my/user?id='.$oPm->pm_msgtoid)}-->" target="_blank"><!--{:UserModel::getUsernameById($oPm->pm_msgtoid)}--></a><!--{/if}-->&nbsp;<em><!--{$oPm:create_dateline|Core_Extend+timeFormat}--></em>&nbsp;&nbsp;<i class="icon-eye-open"></i>&nbsp;<a href="<!--{:Dyhb::U('home://pm/show?id='.$oPm->pm_id.'&uid='.$oPm->pm_msgfromid)}-->"><!--<lang package='Template/Pm'>-->查看<!--</lang>--></a></p>
+									<p class="pm-cite"><a href="<!--{:Dyhb::U('home://space@?id='.$oPm->pm_msgfromid)}-->" target="_blank"><!--{$oPm:pm_msgfrom}--></a><!--{if $sType=='my'}-->&nbsp;<i class="icon-arrow-right"></i>&nbsp;<a href="<!--{:Dyhb::U('home://space@?id='.$oPm->pm_msgtoid)}-->" target="_blank"><!--{:UserModel::getUsernameById($oPm->pm_msgtoid)}--></a><!--{/if}-->&nbsp;<em><!--{$oPm:create_dateline|Core_Extend+timeFormat}--></em>&nbsp;&nbsp;<i class="icon-eye-open"></i>&nbsp;<a href="<!--{:Dyhb::U('home://pm/show?id='.$oPm->pm_id.'&uid='.$oPm->pm_msgfromid)}-->"><!--<lang package='Template/Pm'>-->查看<!--</lang>--></a></p>
 									<p class="pm-summary"><!--{$oPm:pm_message|Pm_Extend+ubb}--></p>
 								</div>
 							</td>

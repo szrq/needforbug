@@ -19,7 +19,7 @@ a:hover {color: {HIGHLIGHTLINK_COLOR};}
 hr{margin: 10px 0 10px;width:100%;color:{INTERVAL_LINE_COLOR};}
 /* 竖直分割线 */
 .pipe{margin:0 5px;color:{INTERVAL_LINE_COLOR};}
-p{word-break:break-all;}
+p{ table-layout:fixed; word-break: break-all; overflow:hidden;}
 
 /**===============================
            全局样式

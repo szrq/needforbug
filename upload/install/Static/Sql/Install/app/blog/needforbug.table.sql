@@ -20,7 +20,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 DROP TABLE IF EXISTS `#@__blog`;
 CREATE TABLE `#@__blog` (
   `blog_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '日志ID',
-  `blog_title` varchar(300) CHARACTER SET ucs2 NOT NULL DEFAULT '' COMMENT '标题',
+  `blog_title` varchar(300) NOT NULL DEFAULT '' COMMENT '标题',
   `blog_dateline` int(10) NOT NULL COMMENT '发布时间',
   `update_dateline` int(10) NOT NULL COMMENT '更新时间',
   `blog_content` longtext NOT NULL COMMENT '正文',

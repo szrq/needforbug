@@ -14,19 +14,20 @@ Tags: admin, light
            新鲜事
 ================================*/
 [CURSCRIPT=home::userhome]
-.homefresh-box{}
+.homefresh-box{ table-layout:fixed; word-break: break-all; overflow:hidden;}
 .homefresh-box .max-limit-doing{ margin:5px 70px 0px 0px; }
-.homefresh-content{padding:5px 10px 15px 10px;background:#FFF;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;}
+.homefresh-content{ table-layout:fixed; word-break: break-all; overflow:hidden;padding:5px 10px 15px 10px;background:#FFF;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;}
 .homefresh-count{margin:5px;}
 .homefresh-count a{font-size:12px;}
-.message-box{}
+.message-box{ table-layout:fixed; word-break: break-all; overflow:hidden;}
 .message-box ul{list-style:none;}
 .message-box .homefresh-header{padding-left:100px;padding-bottom:15px;}
 .message-box .homefresh-header h3{margin-bottom:0px;}
 .message-box .homefresh-header ul li{margin:10px 0px;}
 .message-box .homefresh-author-avatar{position:absolute;margin-left:-100px;}
 .message-box .user_sign{background:url("{IMG_DIR}/user_sign.gif") no-repeat;padding-top:20px;}
-.homefreshcomment-content{padding:3px 0px 10px 5px;}
+.homefreshcomment-content{ table-layout:fixed; word-break: break-all; overflow:hidden;padding:3px 0px 10px 5px;}
+#homefresh-title-box{margin-top:10px;}
 [/CURSCRIPT]
 
 /**===============================

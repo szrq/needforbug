@@ -361,8 +361,8 @@ class Model implements IModel,IModelCallback,ArrayAccess{
 	protected function makePostData(){
 		foreach($this->_arrProp as $sField =>$value){
 			$sPostName=$this->getPostName($sField);
-			if(!isset($this->_arrChangedProp[$sField]) && isset($_POST[ $sPostName ])){
-				$value=trim($_POST[ $sPostName ]);
+			if(!isset($this->_arrChangedProp[$sField]) && isset($_POST[$sPostName])){
+				$value=trim($_POST[$sPostName]);
 				$this->_arrProp[$sField]=$value;
 				$this->_arrChangedProp[$sField]=$value; // 设置属性为“脏”状态
 			}

@@ -2,6 +2,9 @@
 /* [DoYouHaoBaby!] (C)Dianniu From 2010.
    DoYouHaoBaby 框架基础文件($)*/
 
+/** 防止乱码 */
+header("Content-type:text/html;charset=utf-8");
+
 /** DoYouHaoBaby系统目录定义 */
 //[RUNTIME]
 if(!defined('DYHB_PATH')){
@@ -15,7 +18,6 @@ if(!defined('DYHB_PATH')){
 $GLOBALS['_beginTime_']=microtime(TRUE);
 define('IS_WIN',DIRECTORY_SEPARATOR=='\\'?1:0);
 function E($sMessage){
-	header("Content-type:text/html;charset=utf-8");
 	require_once(DYHB_PATH.'/Resource_/Template/Error.template.php');
 	exit();
 }

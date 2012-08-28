@@ -2,6 +2,27 @@
 /* [DoYouHaoBaby!] (C)Dianniu From 2010.
    DoYouHaoBaby 基础初始化文件($)*/
 
+/** 系统异常和错误处理 */
+set_exception_handler(array('Dyhb','exceptionHandler'));
+
+if(!defined('NEEDFORBUG_DEBUG')){
+	define('NEEDFORBUG_DEBUG',FALSE);
+}
+if(NEEDFORBUG_DEBUG===TRUE){
+	set_error_handler(array('Dyhb','errorHandel'));
+	register_shutdown_function(array('Dyhb','shutdownHandel'));
+}
+
+/** 自动载入 */
+if(function_exists('spl_autoload_register')) {
+	spl_autoload_register(array('Dyhb','autoload'));
+}else{
+	function __autoload($sClassName){
+		Dyhb::autoLoad($sClassName);
+	}
+}
+
+/** 编译锁定文件 */
 if(!defined('APP_RUNTIME_LOCK')){
 	define('APP_RUNTIME_LOCK',APP_RUNTIME_PATH.'/~Runtime.inc.lock');
 }
@@ -42,9 +63,6 @@ class Dyhb{
 	static private $_bAutoLoad=true;
 	static private $_sPackagePath='';
 	static private $_arrConfig=array();
-	static private $_arrHandles=array();
-	const HANDLE_ERROR='error';
-	const HANDLE_SHUTDOWN='shutdown';
 
 	static public function import($sPackage,$bForce=false){
 		if(!is_dir($sPackage)){
@@ -326,62 +344,15 @@ class Dyhb{
 	}
 
 	static public function errorHandel($nErrorNo,$sErrStr,$sErrFile,$nErrLine){
-		foreach (self::$_arrHandles as $sHandleKey=>$arrFunctions){
-			$arrHandleKeyEles=explode(':',$sHandleKey);
-			if(count($arrHandleKeyEles)!=2 OR $arrHandleKeyEles[0]!==self::HANDLE_ERROR){
-				continue;
-			}
-
-			// 比较错误类型
-			$nHandleFlag=intval($arrHandleKeyEles[1]);
-			if($nHandleFlag&$nErrorNo){
-				self::runtimeEvent($sHandleKey,array($nErrorNo,$sErrStr,$sErrFile,$nErrLine));
-			}
-		}
-
-		return false;
-	}
-
-	static public function exitBeforeShutdown(){
-		$arrError=error_get_last();
-		if($arrError!==null){
-			if((!($arrError['type']&E_WARNING) AND !($arrError['type']&E_NOTICE) AND !($arrError['type']&E_STRICT))){
-				E("<b>[{$arrError['type']}]:</b> {$arrError['message']}<br><b>File:</b> {$arrError['file']}<br><b>Line:</b> {$arrError['line']}");
-			}
+		if($nErrorNo){
+			E("<b>[{$nErrorNo}]:</b> {$sErrStr}<br><b>File:</b> {$sErrFile}<br><b>Line:</b> {$nErrLine}");
 		}
 	}
 
-	static public function runtimeShutdown(){
-		self::runtimeEvent(self::HANDLE_SHUTDOWN);
-	}
-	
-	static public function runtimeEvent($sHandle,$arrArgs=array()){
-		if(isset(self::$_arrHandles[$sHandle])){
-			foreach(self::$_arrHandles[$sHandle] as $Func){
-				call_user_func_array($Func,$arrArgs);
-			}
+	static public function shutdownHandel(){
+		if(($arrError=error_get_last()) && $arrError['type']){
+			E("<b>[{$arrError['type']}]:</b> {$arrError['message']}<br><b>File:</b> {$arrError['file']}<br><b>Line:</b> {$arrError['line']}");
 		}
-	}
-
-	static public function registerShutdown($Callback){
-		self::registerRuntimeHandle($Callback,self::HANDLE_SHUTDOWN);
-	}
-
-	static public function registerRuntimeHandle($Callback,$sHandle){
-		if(self::findRuntimeHandle($Callback,$sHandle)===null){
-			self::$_arrHandles[$sHandle][]=$Callback;
-		}
-	}
-
-	static private function findRuntimeHandle($Callback,$sHandle){
-		if(isset(self::$_arrHandles[$sHandle])){
-			foreach(self::$_arrHandles[$sHandle] as $nKey=>$Func){
-				if(G::isSameCallback($Callback,$Func)){
-					return $nKey;
-				}
-			}
-		}
-		return null;
 	}
 
 	static public function C($sName='',$Value=NULL,$Default=null){
@@ -668,9 +639,4 @@ class Dyhb{
 		exit;
 	}
 
-}
-
-/** PHP __autoload自动载入 */
-function __autoload($sClassName){
-	Dyhb::autoLoad($sClassName);
 }

@@ -12,13 +12,10 @@ class App{
 	static private function init_(){
 		// 初始化
 		header('DoYouHaoBaby-Framework | '.DYHB_VERSION);
-		header("Content-type:text/html;charset=utf-8");
 		session_start();
 
-		// 注册运行时
-		register_shutdown_function(array('Dyhb','runtimeShutdown'));
-		Dyhb::registerShutdown(array('Dyhb','exitBeforeShutdown'));
-		set_error_handler(array('Dyhb','errorHandel'));
+		// 移除模式方法转义
+		G::stripslashesMagicquotegpc();
 
 		// 载入DoYouHaoBaby框架
 		Dyhb::import(DYHB_PATH);
