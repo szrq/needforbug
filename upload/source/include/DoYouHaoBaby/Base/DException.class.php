@@ -72,6 +72,3 @@ class DException extends Exception{
 	}
 
 }
-
-/** 注册默认异常处理函数 */
-set_exception_handler(array('Dyhb','exceptionHandler'));

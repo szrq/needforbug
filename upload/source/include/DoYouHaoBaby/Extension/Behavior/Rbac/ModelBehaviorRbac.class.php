@@ -118,7 +118,7 @@ class ModelBehaviorRbac extends ModelBehavior{
 
 		$this->sendCookie($oMember->id(),$oMember[$this->_arrSettings['password_prop']]);
 
-		$sHash=G::addslashes(Dyhb::cookie($GLOBALS['_commonConfig_']['RBAC_DATA_PREFIX'].'hash'));
+		$sHash=Dyhb::cookie($GLOBALS['_commonConfig_']['RBAC_DATA_PREFIX'].'hash');
 		$this->updateSession($sHash,$oMember->id(),$GLOBALS['_authkey_']);// 更新数据库中的登陆会话
 
 		$this->saveAccessList($oMember->id());// 最后缓存rbac权限
@@ -140,9 +140,8 @@ class ModelBehaviorRbac extends ModelBehavior{
 		$sAuthData=Dyhb::cookie($GLOBALS['_commonConfig_']['RBAC_DATA_PREFIX'].'auth');
 		list($nUserId,$sPassword)=$sAuthData?explode("\t",G::authCode($sAuthData,true,NULL,$this->_arrSettings['rbac_login_life'])):array('','');
 
-		$sHash=G::addslashes(Dyhb::cookie($GLOBALS['_commonConfig_']['RBAC_DATA_PREFIX'].'hash'));
+		$sHash=Dyhb::cookie($GLOBALS['_commonConfig_']['RBAC_DATA_PREFIX'].'hash');
 		$nUserId=intval($nUserId);
-		$sPassword=G::addslashes($sPassword);
 
 		$arrUserInformation=array();// 用户信息容器
 		$bSessionExists=false;
@@ -195,7 +194,7 @@ class ModelBehaviorRbac extends ModelBehavior{
 		$nUserId=isset($arrUserInformation['user_id'])? $arrUserInformation['user_id']:$nUserId;// 用户名和用户密码
 		$sUserName=isset($arrUserInformation['user_name'])? $arrUserInformation['user_name'] :'';
 
-		if(!$sHash || $sHash!=G::addslashes(Dyhb::cookie($GLOBALS['_commonConfig_']['RBAC_DATA_PREFIX'].'hash'))){// 设置hash值
+		if(!$sHash || $sHash!=Dyhb::cookie($GLOBALS['_commonConfig_']['RBAC_DATA_PREFIX'].'hash')){// 设置hash值
 			Dyhb::cookie($GLOBALS['_commonConfig_']['RBAC_DATA_PREFIX'].'hash',$sHash,$this->_arrSettings['rbac_login_life']);
 		}
 

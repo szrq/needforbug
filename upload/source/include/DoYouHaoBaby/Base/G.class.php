@@ -74,7 +74,17 @@ class G{
 				$String=stripslashes($String);
 			}
 		}
+
 		return $String;
+	}
+
+	static public function stripslashesMagicquotegpc(){
+		if(self::getMagicQuotesGpc()){
+			$_GET=self::stripslashes($_GET);
+			$_POST=self::stripslashes($_POST);
+			$_COOKIE=self::stripslashes($_COOKIE);
+			$_REQUEST=self::stripslashes($_REQUEST);
+		}
 	}
 
 	static public function addslashes($String,$bRecursive=true){
@@ -83,7 +93,7 @@ class G{
 				$String[self::addslashes($sKey)]=self::addslashes($value);// 如果你只注意到值，却没有注意到key
 			}
 		}else{
-			if(self::getMagicQuotesGpc() and is_string($String)){
+			if(is_string($String)){
 				$String=addslashes($String);
 			}
 		}

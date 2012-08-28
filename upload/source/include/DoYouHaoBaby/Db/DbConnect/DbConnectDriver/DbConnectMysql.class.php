@@ -421,18 +421,18 @@ class DbConnectMysql extends DbConnect{
 		}
 
 		if(is_bool($Value)){
-			return $Value?$this->getTrueValue(): $this->getFalseValue();
+			return $Value?$this->getTrueValue():$this->getFalseValue();
 		}
 
 		if(is_null($Value)){// Null值
 			return $this->getNullValue();
 		}
 
-		if(!($Value instanceof DbExpression)){
-			return G::getMagicQuotesGpc()?"'".$Value."'":"'".mysql_real_escape_string($Value,$this->getCurrentConnect())."'";
+		if($Value instanceof DbExpression){
+			$Value=$Value->makeSql($this);
 		}
 
-		return $Value->makeSql($this);
+		return "'".mysql_real_escape_string($Value,$this->getCurrentConnect())."'";
 	}
 
 	public function metaColumns($sTableName){
