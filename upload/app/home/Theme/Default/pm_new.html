@@ -38,17 +38,17 @@ $(document).ready(function(){
 				<table class="table table-bordered">
 					<thead>
 						<tr>
-							<th colspan="2"><!--<lang package='Template/Pm'>-->回复<!--</lang>--> <a href="<!--{:Dyhb::U('home://my/user?id='.$oPm->pm_msgfromid)}-->" target="_blank"><!--{$oPm:pm_msgfrom}--></a></th>
+							<th colspan="2"><!--<lang package='Template/Pm'>-->回复<!--</lang>--> <a href="<!--{:Dyhb::U('home://space@?id='.$oPm->pm_msgfromid)}-->" target="_blank"><!--{$oPm:pm_msgfrom}--></a></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr id="pm_<!--{$oPm:pm_id}-->" class="pmlist-odd">
 							<td width="60px">
-								<a href="<!--{:Dyhb::U('home://my/user?id='.$oPm->pm_msgfromid)}-->" target="_blank"><img src="<!--{:Core_Extend::avatar( $oPm->pm_msgfromid,'small' )}-->" class="thumbnail" /></a>
+								<a href="<!--{:Dyhb::U('home://space@?id='.$oPm->pm_msgfromid)}-->" target="_blank"><img src="<!--{:Core_Extend::avatar( $oPm->pm_msgfromid,'small' )}-->" class="thumbnail" /></a>
 							</td>
 							<td>
 								<!--{if $oPm['pm_subject']}--><a href="<!--{:Dyhb::U('home://pm/show?id='.$oPm->pm_id)}-->"><h5><!--{$oPm['pm_subject']}--></h5></a><!--{/if}-->
-								<p class="pm-cite"><a href="<!--{:Dyhb::U('home://my/user?id='.$oPm->pm_msgfromid)}-->" target="_blank"><!--{$oPm:pm_msgfrom}--></a>&nbsp;<em><!--{$oPm:create_dateline|Core_Extend+timeFormat}--></em></p>
+								<p class="pm-cite"><a href="<!--{:Dyhb::U('home://space@?id='.$oPm->pm_msgfromid)}-->" target="_blank"><!--{$oPm:pm_msgfrom}--></a>&nbsp;<em><!--{$oPm:create_dateline|Core_Extend+timeFormat}--></em></p>
 								<p class="pm-summary"><!--{$oPm:pm_message|Pm_Extend+ubb}--></p>
 							</td>
 						</tr>

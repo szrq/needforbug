@@ -94,7 +94,7 @@ function deleteFriend(friendid,fan){
 						<div class="thumbnail">
 							<img src="<!--{:Core_Extend::avatar( $nUserId,'middle' )}-->" alt="">
 							<div class="caption" style="text-align:center;">
-								<a href="<!--{:Dyhb::U('home://my/user?id='.$nUserId)}-->"><h5><!--{:UserModel::getUsernameById($nUserId)}-->@<!--{$nUserId}--></h5></a>
+								<a href="<!--{:Dyhb::U('home://space@?id='.$nUserId)}-->"><h5><!--{:UserModel::getUsernameById($nUserId)}-->@<!--{$nUserId}--></h5></a>
 								<p><!--{~$sUsersign=UserModel::getUsernameById($nUserId,'user_sign')}-->
 									<!--{if $sUsersign}--><!--{$sUsersign|strip_tags}--><!--{d*else}--><!--<lang package='Template/Friend'>-->该用户很懒，暂时没有签名<!--</lang>--><!--{/if}--><br/>
 									<span id="commenthide_<!--{$nUserId}-->"><!--{if $sType=='fan'}--><!--{$oFriend['friend_fancomment']}--><!--{d*else)}--><!--{$oFriend['friend_comment']}--><!--{/if}--></span> <span id="commentedit_<!--{$nUserId}-->">[<a href="javascript:;" onclick="editComment(<!--{$nUserId}-->)">+<!--<lang package='Template/Friend'>-->添加备注<!--</lang>--></a>]</span>

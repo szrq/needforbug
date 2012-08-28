@@ -12,18 +12,18 @@
 				<table class="table table-bordered">
 					<thead>
 						<tr>
-							<th colspan="2"><i class="icon-envelope"></i>&nbsp;<!--<lang package='Template/Pm'>-->发送给<!--</lang>--> <a href="<!--{:Dyhb::U('home://my/user?id='.$oPm->pm_msgtoid)}-->" target="_blank"><!--{:UserModel::getUsernameById($oPm->pm_msgtoid)}--></a></th>
+							<th colspan="2"><i class="icon-envelope"></i>&nbsp;<!--<lang package='Template/Pm'>-->发送给<!--</lang>-->&nbsp;<a href="<!--{:Dyhb::U('home://space@?id='.$oPm->pm_msgtoid)}-->" target="_blank"><!--{:UserModel::getUsernameById($oPm->pm_msgtoid)}--></a></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr id="pm_<!--{$oPm:pm_id}-->" class="pmlist-even">
 							<td width="60px">
-								<a href="<!--{:Dyhb::U('home://my/user?id='.$oPm->pm_msgfromid)}-->" target="_blank"><img src="<!--{:Core_Extend::avatar( $oPm->pm_msgfromid,'small' )}-->" class="thumbnail" />
+								<a href="<!--{:Dyhb::U('home://space@?id='.$oPm->pm_msgfromid)}-->" target="_blank"><img src="<!--{:Core_Extend::avatar( $oPm->pm_msgfromid,'small' )}-->" class="thumbnail" />
 								</a>
 							</td>
 							<td>
 								<!--{if $oPm['pm_subject']}--><h5><!--{$oPm['pm_subject']}--></h5><!--{/if}-->
-								<p class="pm-cite"><a href="<!--{:Dyhb::U('home://my/user?id='.$oPm->pm_msgfromid)}-->" target="_blank"><!--{$oPm:pm_msgfrom}--></a> &nbsp;<em><!--{$oPm:create_dateline|Core_Extend+timeFormat}--></em></p>
+								<p class="pm-cite"><a href="<!--{:Dyhb::U('home://space@?id='.$oPm->pm_msgfromid)}-->" target="_blank"><!--{$oPm:pm_msgfrom}--></a> &nbsp;<em><!--{$oPm:create_dateline|Core_Extend+timeFormat}--></em></p>
 								<p class="pm-summary"><!--{$oPm:pm_message|Pm_Extend+ubb}--></p>
 							</td>
 						</tr>

@@ -118,7 +118,7 @@ function deleteSystemPms(){
 								<!--{if $oPm['pm_type']=='user'}-->
 								<tr id="pm_<!--{$oPm:pm_id}-->" class="<!--{$sEven}-->">
 									<td width="60px">
-										<a href="<!--{:Dyhb::U('home://my/user?id='.$oPm->pm_msgfromid)}-->" target="_blank">
+										<a href="<!--{:Dyhb::U('home://space@?id='.$oPm->pm_msgfromid)}-->" target="_blank">
 											<img src="<!--{:Core_Extend::avatar($oPm->pm_msgfromid,'small')}-->" class="thumbnail" />
 										</a>
 									</td>
@@ -126,9 +126,9 @@ function deleteSystemPms(){
 										<!--{if $oPm['pm_subject']}-->
 										<a href="<!--{:Dyhb::U('home://pm/show?id='.$oPm->pm_id.($sType=='my'?'&muid':'&uid=').$oPm->pm_msgfromid)}-->"><h5><!--{$oPm['pm_subject']}--></h5></a>
 										<!--{/if}-->
-										<p class="pm-cite"><a href="<!--{:Dyhb::U('home://my/user?id='.$oPm->pm_msgfromid)}-->" target="_blank"><!--{$oPm:pm_msgfrom}--></a>
+										<p class="pm-cite"><a href="<!--{:Dyhb::U('home://space@?id='.$oPm->pm_msgfromid)}-->" target="_blank"><!--{$oPm:pm_msgfrom}--></a>
 										<!--{if $sType=='my'}-->
-										&nbsp;<i class="icon-arrow-right"></i>&nbsp;<a href="<!--{:Dyhb::U('home://my/user?id='.$oPm->pm_msgtoid)}-->" target="_blank"><!--{:UserModel::getUsernameById($oPm->pm_msgtoid)}--></a>
+										&nbsp;<i class="icon-arrow-right"></i>&nbsp;<a href="<!--{:Dyhb::U('home://space@?id='.$oPm->pm_msgtoid)}-->" target="_blank"><!--{:UserModel::getUsernameById($oPm->pm_msgtoid)}--></a>
 										<!--{/if}-->
 										&nbsp;<em><!--{$oPm:create_dateline|Core_Extend+timeFormat}--></em>
 										<!--{if $sType!='my' && $oPm:pm_isread==0}-->
@@ -156,7 +156,7 @@ function deleteSystemPms(){
 									<td width="10px"><img src="<!--{:__PUBLIC__}-->/images/common/pm.gif" /></td>
 									<td>
 										<!--{if $oPm['pm_subject']}--><a href="<!--{:Dyhb::U('home://pm/show?id='.$oPm->pm_id)}-->"><h5><!--{$oPm['pm_subject']}--></h5></a><!--{/if}-->
-										<p class="pm-cite"><a href="<!--{:Dyhb::U('home://my/user?id='.$oPm->pm_msgfromid)}-->" target="_blank"><!--{$oPm:pm_msgfrom}--></a> <!--<lang package='Template/Pm'>-->发布<!--</lang>-->&nbsp;<em><!--{$oPm:create_dateline|Core_Extend+timeFormat}--></em><!--{if !in_array($oPm['pm_id'],$arrReadPms)}-->&nbsp;<img src="<!--{:__PUBLIC__}-->/images/common/notice_newpm.gif" title="<!--<lang package='Template/Pm'>-->未读短消息<!--</lang>-->"/><!--{/if}--></p>
+										<p class="pm-cite"><a href="<!--{:Dyhb::U('home://space@?id='.$oPm->pm_msgfromid)}-->" target="_blank"><!--{$oPm:pm_msgfrom}--></a> <!--<lang package='Template/Pm'>-->发布<!--</lang>-->&nbsp;<em><!--{$oPm:create_dateline|Core_Extend+timeFormat}--></em><!--{if !in_array($oPm['pm_id'],$arrReadPms)}-->&nbsp;<img src="<!--{:__PUBLIC__}-->/images/common/notice_newpm.gif" title="<!--<lang package='Template/Pm'>-->未读短消息<!--</lang>-->"/><!--{/if}--></p>
 										<p class="pm-summary">
 										<!--{$oPm:pm_message|G+subString=0,$GLOBALS['_cache_']['home_option']['pm_list_substring_num']|Pm_Extend+ubb}-->
 										</p>
