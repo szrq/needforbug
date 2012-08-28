@@ -45,7 +45,7 @@ class CreditoptionController extends OptionController{
 		}
 
 		$oOptionModel=OptionModel::F('option_name=?','extend_credit')->getOne();
-		$oOptionModel->option_value=G::addslashes(serialize($arrSaveExtendCredits));
+		$oOptionModel->option_value=serialize($arrSaveExtendCredits);
 		$oOptionModel->save(0,'update');
 
 		unset($_POST['options']['extend_credit']);

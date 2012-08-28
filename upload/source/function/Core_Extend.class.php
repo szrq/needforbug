@@ -216,8 +216,6 @@ class Core_Extend{
 		}else{
 			$nType=0;
 		}
-		
-		$Data=G::addslashes($Data);
 
 		$oSyscacheModel=new SyscacheModel();
 		$oSyscacheModel->syscache_name=$sCacheName;
