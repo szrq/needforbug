@@ -67,14 +67,14 @@ class UploadFileForUploadify extends UploadFile{
 
 			$this->_arrLastFileinfo=$arrFile;
 			$arrFileInfo[]=$arrFile;
-			$bIsUpload =true;
+			$bIsUpload=true;
 		}
 
 		if($bIsUpload){
 			$this->_arrUploadFileInfo=$arrFileInfo;
 			return true;
 		}else{
-			$this->_sError=Dyhb::L('文件只有部分被上传','__DYHB__@NetDyhb');
+			$this->error(self::UPLOAD_ERR_PARTIAL);
 			return false;
 		}
 	}

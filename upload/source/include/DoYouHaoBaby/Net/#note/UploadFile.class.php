@@ -7,14 +7,13 @@ class UploadFile{
 	 * @access const
 	 * @var int
 	 */
-	const ERR_NOUPLOAD=1;// 文件未上传
-	const ERR_EXMAXBYTE_BY_PHP=2;// 超过限制字节数（在 php.ini 中设定）
-	const ERR_UNALLOWEXT=3;// 不允许的文件类型
-	const ERR_EXMAXBYTE=4;// 超过限制字节数
-	const ERR_STOREDIR_NOTEXIST=5;// 存储目录不存在，且 UploadFile::setAutoCreateStoreDir(false);
-	const ERR_STOREDIR_UNCREATE=6;// 无法自动创建 存储目录
-	const ERR_UNCOPY=7;// 无法将上传文件 由 临时路径拷贝至 存储路径
-	const ERR_CANCEL=8;// 上传被取消
+	const UPLOAD_ERR_OK=0;// 文件成功上传
+	const UPLOAD_ERR_INI_SIZE=1;// 其值为 1，上传的文件超过了 php.ini 中 upload_max_filesize 选项限制的值
+	const UPLOAD_ERR_FORM_SIZE=2;// 其值为 2，上传文件的大小超过了 HTML 表单中 MAX_FILE_SIZE 选项指定的值
+	const UPLOAD_ERR_PARTIAL=3; // 其值为 3，文件只有部分被上传
+	const UPLOAD_ERR_NO_FILE=4;// 文件未上传
+	const UPLOAD_ERR_NO_TMP_DIR=6; // 其值为 6，找不到临时文件夹
+	const UPLOAD_ERR_CANT_WRITE=7;// 文件写入失败
 
 	/**
 	 * 允许上传的 最大字节数， 204800byte=200Kb
@@ -330,8 +329,6 @@ class UploadFile{
 	 * @return string
 	 */
 	public function upload($sSavePath=''){}
-
-	public function cancelUpload($sInputName=null){}
 
 	/**
 	 * 转换上传文件数组变量为正确的方式
