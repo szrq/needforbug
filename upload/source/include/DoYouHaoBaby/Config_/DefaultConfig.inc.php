@@ -6,7 +6,6 @@
 
 return array(
 	'START_GZIP'=>TRUE,
-	'DEFAULT_APP'=>'@',
 	'APP_DEBUG'=>FALSE,
 	'DB_HOST'=>'localhost',
 	'DB_USER'=>'root',
