@@ -118,6 +118,8 @@ class HomefreshController extends InitController{
 			$this->E($oHomefresh->getErrorMessage());
 		}
 
+		$sHomefreshtitle=$oHomefresh->homefresh_title?$oHomefresh->homefresh_title:G::subString(strip_tags($oHomefresh['homefresh_message']));
+
 		// 读取评论列表
 		$arrOptionData=$GLOBALS['_cache_']['home_option'];
 
@@ -138,6 +140,7 @@ class HomefreshController extends InitController{
 		$oUserprofile=UserprofileModel::F('user_id=?',$GLOBALS['___login___']['user_id'])->getOne();
 
 		$this->assign('oHomefresh',$oHomefresh);
+		$this->assign('sHomefreshtitle',$sHomefreshtitle);
 		$this->assign('nTotalHomefreshcomment',$nTotalRecord);
 		$this->assign('sPageNavbar',$oPage->P('pagination','li','active'));
 		$this->assign('arrHomefreshcommentLists',$arrHomefreshcommentLists);
@@ -311,7 +314,11 @@ class HomefreshController extends InitController{
 			$this->comment_sendmail($oHomefreshcomment);
 		}
 
-		$this->S(Dyhb::L('添加新鲜事评论成功','Controller/Homefresh'));
+		$arrCommentData=$oHomefreshcomment->toArray();
+		$arrCommentData['jumpurl']=Dyhb::U('home://fresh@?id='.$oHomefreshcomment->homefresh_id.'&extra=new'.$oHomefreshcomment['homefreshcomment_id']).
+			'#comment-'.$oHomefreshcomment['homefreshcomment_id'];
+			
+		$this->A($arrCommentData,Dyhb::L('添加新鲜事评论成功','Controller/Homefresh'),1);
 	}
 
 	public function send_cookie($oCommentModel){

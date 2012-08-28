@@ -215,6 +215,7 @@ CREATE TABLE `#@__friend` (
 DROP TABLE IF EXISTS `#@__homefresh`;
 CREATE TABLE `#@__homefresh` (
   `homefresh_id` mediumint(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '新鲜事ID',
+  `homefresh_title` varchar(300) NOT NULL COMMENT '新鲜事标题',
   `user_id` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '用户',
   `homefresh_username` varchar(15) NOT NULL DEFAULT '' COMMENT '用户名',
   `homefresh_from` varchar(20) NOT NULL DEFAULT '' COMMENT '来源',

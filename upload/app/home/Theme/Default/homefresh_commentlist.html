@@ -1,4 +1,5 @@
 					<div id="homefresh-commentlist-box" style="margin-top:30px;">
+						<a name="comments"></a>
 						<h3>总评论数(<!--{$nTotalHomefreshcomment}-->)</h3>
 						<!--{if is_array($arrHomefreshcommentLists)}-->
 						<table class="table">
@@ -6,12 +7,13 @@
 								<!--<foreach for=arrHomefreshcommentLists value=oHomefreshcommentList>-->
 								<tr>
 									<td style="width:48px;">
+										<a name="comment-<!--{$oHomefreshcommentList['homefreshcomment_id']}-->"></a>
 										<div style="text-align:center;">
 											<a href="<!--{:Dyhb::U('home://space@?id='.$oHomefreshcommentList['user_id'])}-->"><img src="<!--{:Core_Extend::avatar($oHomefreshcommentList['user_id'],'small')}-->" class="thumbnail" /></a>
 										</div>
 									</td>
-									<td><h4><a href="<!--{:Dyhb::U('home://space@?id='.$oHomefreshcommentList['user_id'])}-->"><!--{$oHomefreshcommentList:user:user_name}--></a>&nbsp;<!--<lang package='Template/Homefresh'>-->于<!--</lang>-->&nbsp;<!--{$oHomefreshcommentList['create_dateline']|Core_Extend+timeFormat}-->&nbsp;<!--<lang package='__COMMON_LANG__@Template/Common'>-->发布<!--</lang>-->
-										</h4>
+									<td><h5><a href="<!--{:Dyhb::U('home://space@?id='.$oHomefreshcommentList['user_id'])}-->"><!--{$oHomefreshcommentList:user:user_name}--></a>&nbsp;<!--<lang package='Template/Homefresh'>-->于<!--</lang>-->&nbsp;<!--{$oHomefreshcommentList['create_dateline']|Core_Extend+timeFormat}-->&nbsp;<!--<lang package='__COMMON_LANG__@Template/Common'>-->发布<!--</lang>-->
+										</h5>
 										<hr/>
 										<div class="homefreshcomment-content">
 											<!--{$oHomefreshcommentList['homefreshcomment_content']}-->

@@ -167,7 +167,7 @@ function loadEditorThin(name){
 		allowMediaUpload:false,
 		allowFileManager:false,
 		items:['source','|','bold','forecolor','hilitecolor','italic','underline',
-		'removeformat','|','link','unlink','image'],
+		'removeformat','|','link','unlink','image','|','fullscreen'],
 		newlineTag:'<p>'
 	});
 
