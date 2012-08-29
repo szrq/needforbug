@@ -62,6 +62,9 @@ class LoginController extends Controller{
 	public function logout(){
 		if(UserModel::M()->isLogin()){
 			$arrUserData=$GLOBALS['___login___'];
+			if(!isset($arrUserData['session_auth_key'])){
+				$arrUserData['session_auth_key']='';
+			}
 			UserModel::M()->replaceSession($arrUserData['session_hash'],$arrUserData['user_id'],$arrUserData['session_auth_key']);
 			UserModel::M()->logout();
 

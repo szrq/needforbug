@@ -608,5 +608,18 @@ class Cache_Extend{
 
 		Core_Extend::saveSyscache('adminctrlmenu',$arrData);
 	}
-
+	
+	public static function updateCacheLang(){
+		$arrData=array();
+		
+		$arrLangs=G::listDir(NEEDFORBUG_PATH.'/ucontent/language');
+		if(is_array($arrLangs)){
+			foreach($arrLangs as $sLang){
+				$arrData[]=strtolower($sLang);
+			}
+		}
+		
+		Core_Extend::saveSyscache('lang', $arrData);
+	}
+	
 }

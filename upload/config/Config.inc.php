@@ -3,7 +3,7 @@
  return array (
   'DB_PASSWORD' => '123456',
   'DB_PREFIX' => 'needforbug_',
-  'DB_NAME' => 'needforbugv20120104',
+  'DB_NAME' => 'needforbug',
   'DB_CACHE_FIELDS' => true,
   'DB_CACHE' => true,
   'DB_CACHE_TIME' => 86400000000,

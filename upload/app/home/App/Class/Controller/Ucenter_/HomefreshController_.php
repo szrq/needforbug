@@ -22,9 +22,9 @@ class HomefreshController extends InitController{
 			case 'friend':
 				// 仅好友
 				$arrUserIds=FriendModel::getFriendById($GLOBALS['___login___']['user_id']);
-				
+			
 				if(!empty($arrUserIds)){
-					$arrWhere['user_id']=$arrUserIds;
+					$arrWhere['user_id']=array('in',$arrUserIds);
 				}else{
 					$arrWhere['user_id']='';
 				}
@@ -451,4 +451,20 @@ class HomefreshController extends InitController{
 		return $oMailConnect->getIsHtml()===true?'<br/>':"\r\n";
 	}
 
+	public function update_goodnum(){
+		//$this->S('12313');
+		$nId=intval(G::getGpc('id','G'));
+		$oHomefresh=HomefreshModel::F('homefresh_id=?',$nId)->getOne();
+		if(empty($oHomefresh->homefresh_id)){
+			$this->E('错误');
+		}
+		$oHomefresh->homefresh_goodnum=$oHomefresh->homefresh_goodnum+1;
+		$oHomefresh->save(0,'update');
+		if($oHomefresh->isError()){
+			$this->E($oHomefresh->getErrorMessage());
+		}
+		$arrData['num']=$oHomefresh->homefresh_goodnum;
+		$this->A($arrData,'正确',1);
+		
+	}
 }

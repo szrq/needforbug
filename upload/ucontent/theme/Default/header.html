@@ -63,6 +63,16 @@
 							</div>
 							<span class="pipe">|</span>
 							<!--{/if}-->
+							<div id="lang_select_box" class="left">
+								<div class="btn-group">
+									<a href="javascript:void(0);" id="lang_select" data-toggle="dropdown">Language</a>
+									<ul class="dropdown-menu">
+									<!--<foreach for="GLOBALS['_cache_']['lang']" value=sLang>-->
+										<li><a href="?l=<!--{$sLang}-->"><!--{$sLang}--></a></li>
+									<!--</foreach>-->
+									</ul>
+								</div>
+							</div>
 							<!--{~$arrHeaderNavs=$GLOBALS['_cache_']['nav']['header']}-->
 							<!--<foreach for=arrHeaderNavs value=arrHeaderNav>-->
 							<a <!--{$arrHeaderNav['style']}--> title="<!--{$arrHeaderNav['description']}-->" href="<!--{$arrHeaderNav['link']}-->" <!--{$arrHeaderNav['target']}-->>

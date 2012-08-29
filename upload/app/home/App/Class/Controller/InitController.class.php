@@ -17,6 +17,7 @@ class InitController extends Controller{
 
 		$this->defineCurscript();
 		Core_Extend::initFront();
+		Core_Extend::loadCache('lang');
 		
 		Core_Extend::page404($this);
 	}

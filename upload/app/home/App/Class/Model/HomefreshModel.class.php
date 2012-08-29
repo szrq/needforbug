@@ -16,6 +16,7 @@ class HomefreshModel extends CommonModel{
 			'attr_protected'=>'homefresh_id',
 			'autofill'=>array(
 				array('user_id','userId','create','callback'),
+				array('homefresh_ip','homefreshIp','create','callback'),
 			),
 			'check'=>array(
 				'homefresh_message'=>array(
@@ -40,6 +41,10 @@ class HomefreshModel extends CommonModel{
 
 		return $arrUserData['user_id']?$arrUserData['user_id']:0;
 	}
+	
+	protected function homefreshIp(){
+		return G::getIp();
+	}
 
 	public function getHomefreshComments($nHomefreshId){
 		if(empty($nHomefreshId)){
@@ -54,5 +59,6 @@ class HomefreshModel extends CommonModel{
 			$_POST['homefresh_message']=G::cleanJs($_POST['homefresh_message']);
 		}
 	}
+	
 
 }

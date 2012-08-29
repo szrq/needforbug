@@ -28,4 +28,8 @@ class UcenterController extends InitController{
 		Core_Extend::doControllerAction('Ucenter@Homefresh','add_comment');
 	}
 
+	public function update_homefreshgoodnum(){
+		Core_Extend::doControllerAction('Ucenter@Homefresh','update_goodnum');
+	}
+	
 }
