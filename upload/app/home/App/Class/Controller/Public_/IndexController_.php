@@ -7,10 +7,12 @@
 class IndexController extends Controller{
 
 	public function index(){
+		Core_Extend::loadCache('site');
 		Core_Extend::loadCache('slide');
 		Core_Extend::loadCache('link');
 		$sLogo=$GLOBALS['_option_']['site_logo']?$GLOBALS['_option_']['site_logo']:__PUBLIC__.'/images/common/logo.png';
 		
+		$this->assign('arrSite',$GLOBALS['_cache_']['site']);
 		$this->assign('arrSlides',$GLOBALS['_cache_']['slide']);
 		$this->assign('arrLinkDatas',$GLOBALS['_cache_']['link']);
 		$this->assign('sHomeDescription',Core_Extend::replaceSiteVar($GLOBALS['_option_']['home_description']));

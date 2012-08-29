@@ -1,7 +1,6 @@
 <?dyhb
 return array(
 	'START_GZIP'=>TRUE,// Gzip压缩
-	'DEFAULT_APP'=>'@',// 默认APP,@表示当前项目
 	'APP_DEBUG'=>FALSE,// 项目DEBUG调式
 	'DB_HOST'=>'localhost',// 数据库地址
 	'DB_USER'=>'root',// 数据库用户名

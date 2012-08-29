@@ -293,7 +293,7 @@ class StyleController extends InitController{
 		$bNotExistsSomesystemvar=false;
 		$arrStylevarKeys=array_keys($arrStyleData['style']);
 		
-		$arrCurtomStylevarList=(array)(include NEEDFORBUG_PATH.'/Source/Common/Style.php');
+		$arrCurtomStylevarList=(array)(include NEEDFORBUG_PATH.'/source/common/Style.php');
 		foreach($arrCurtomStylevarList as $sCurtomStylevarList){
 			if(!in_array($sCurtomStylevarList,$arrStylevarKeys)){
 				if($bIgnoreversion===false){
@@ -354,7 +354,7 @@ class StyleController extends InitController{
 		$arrStylevars=StylevarModel::F('style_id=?',intval(G::getGpc('id','G')))->getAll();
 		$arrCustomStylevar=$arrSystemStylevar=array();
 
-		$arrCurtomStylevarList=(array)(include NEEDFORBUG_PATH.'/Source/Common/Style.php');
+		$arrCurtomStylevarList=(array)(include NEEDFORBUG_PATH.'/source/common/Style.php');
 		if(is_array($arrStylevars)){
 			foreach($arrStylevars as $oStylevar){
 				if(!in_array(strtolower($oStylevar['stylevar_variable']),$arrCurtomStylevarList)){
@@ -801,7 +801,7 @@ class StyleController extends InitController{
 		// 初始化其主题变量
 		$arrStyleData=array();
 
-		$arrCurtomStylevarList=(array)(include NEEDFORBUG_PATH.'/Source/Common/Style.php');
+		$arrCurtomStylevarList=(array)(include NEEDFORBUG_PATH.'/source/common/Style.php');
 		foreach($arrCurtomStylevarList as $sCustomStylevar){
 			$arrStyleData[$sCustomStylevar]='';
 		}

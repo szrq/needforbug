@@ -2,11 +2,13 @@
 /* [DoYouHaoBaby!] (C)Dianniu From 2010.
    语言包制作工具($)*/
 
+//exit();
+
 /** 防止PHP页面乱码 */
 ini_set('default_charset','utf-8');
 
 /** 导入计时器 */
-include(dirname(__FILE__).'/Tools/Lang/Timer.class.php');
+include(dirname(__FILE__).'/Tools_/Lang/Timer.class.php');
 
 /** 定义PHP运行的操作系统是否是 WINDOWS平台 */
 define('IS_WIN',DIRECTORY_SEPARATOR=='\\'?1:0);

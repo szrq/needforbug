@@ -74,7 +74,7 @@ class TemplateNodeTag extends TemplateObj{
 	private $_sAttributeSource;
 	public function __construct($sSource,$sName,$nType){
 		if(!in_array($nType,array(self::TYPE_HEAD,self::TYPE_TAIL))){
-			Dyhb::E(Dyhb::L('参数 $nType 必须为 TemplateHtmlNodeTag::TYPE_HEAD 或 TemplateHtmlNodeTag::TYPE_TAIL','__DYHB__@Dyhb'));
+			Dyhb::E(Dyhb::L('参数 $nType 必须为 TemplateNodeTag::TYPE_HEAD 或 TemplateNodeTag::TYPE_TAIL','__DYHB__@Dyhb'));
 		}
 
 		parent::__construct($sSource);

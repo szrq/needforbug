@@ -246,7 +246,11 @@ class GeneratorApplication{
 if(!function_exists('E')){
 	function E($sMessage){
 		header("Content-type:text/html;charset=utf-8");
-		require_once(DYHB_PATH.'/Resource_/Template/Error.template.php');
+		if(!defined('DYHB_PATH')){
+			echo $sMessage;
+		}else{
+			require_once(DYHB_PATH.'/Resource_/Template/Error.template.php');
+		}
 		exit();
 	}
 }
