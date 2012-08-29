@@ -19,7 +19,7 @@ return array(
 '00f5fad2f31a7d3441585098d469a0de'=>"File upload save error",
 '80da8c3ecb3950b3f87833afa6bd5c18'=>"Storage directory does not exist:%s",
 'a850053e6304cc093a3a0e68b5659820'=>"The uploaded file exceeds the php.ini upload_max_filesize options limited value",
-'2ddaa73f92164f29d2f9abeb060501d4'=>"The number of bytes that exceeds the limit the ",
+'2ddaa73f92164f29d2f9abeb060501d4'=>"The number of bytes that exceeds the limit the",
 '61aa70d41df476628cc092dfa13f0b2b'=>"File was only partially uploaded",
 'eb10d2f7e05543083ce0dc899f3c95da'=>"File was not uploaded",
 'c064b258576d967904e32f2eb4caeee8'=>"Can not find the temporary folder",

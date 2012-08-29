@@ -36,7 +36,7 @@ return array(
 '27e0ca877865238aad6940481b2984d4'=>"Return to the previous page",
 '5a1367058cd396b24d50bde9444d02de'=>"Back Home",
 'fd379a89e999740b153a7e0421528877'=>"Page Trace Information",
-'828decd61462e3e149a5edd1e4497767'=>"Template cache file generation time:",
+'725fb30b49d03540f371f0f0153f935f'=>"Template cache file generation time:",
 '38f7590afa54046c6591607d546db71e'=>"Lacks the settings Content",
 'c21abaae562941799643eab25e867a2a'=>"Access unknown method:%s",
 'a9eaa7c7b8ee903c46a102dbc347bcf8'=>"Does not support cross-template object.",

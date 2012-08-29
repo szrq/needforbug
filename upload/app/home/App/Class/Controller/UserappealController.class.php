@@ -403,15 +403,15 @@ class UserappealController extends InitController{
 			$oMailModel=Dyhb::instance('MailModel');
 			$oMailConnect=$oMailModel->getMailConnect();
 
-			$sEmailSubject=$GLOBALS['_option_']['site_name'].'会员申诉密码重置';
+			$sEmailSubject=$GLOBALS['_option_']['site_name'].Dyhb::L('会员申诉密码重置','Controller/Userappeal');
 			$sNlbr=$oMailConnect->getIsHtml()===true?'<br/>':"\r\n";
 			$sEmailContent='';
-			$sEmailContent.='重置密码链接'.':'.$sNlbr;
+			$sEmailContent.=Dyhb::L('重置密码链接','Controller/Userappeal').':'.$sNlbr;
 			$sEmailContent.="<a href=\"{$sGetPasswordUrl}\">{$sGetPasswordUrl}</a>".$sNlbr.$sNlbr;
 			$sEmailContent.="-----------------------------------------------------".$sNlbr;
-			$sEmailContent.='这是系统用于重置密码的邮件，请勿回复'.$sNlbr;
-			$sEmailContent.='链接过期时间'.$GLOBALS['_option_']['appeal_expired'].
-				'秒'.$sNlbr;
+			$sEmailContent.=Dyhb::L('这是系统用于重置密码的邮件，请勿回复','Controller/Userappeal').$sNlbr;
+			$sEmailContent.=Dyhb::L('链接过期时间','Controller/Userappeal').$GLOBALS['_option_']['appeal_expired'].
+				Dyhb::L('秒','Controller/Userappeal').$sNlbr;
 
 			$oMailConnect->setEmailTo($sEmail);
 			$oMailConnect->setEmailSubject($sEmailSubject);
@@ -420,9 +420,9 @@ class UserappealController extends InitController{
 			if($oMailConnect->isError()){
 				$this->E($oMailConnect->getErrorMessage());
 			}
-			$this->S('发送成功,请注意查收');
+			$this->S(Dyhb::L('发送成功,请注意查收','Controller/Userappeal'));
 		}else{
-			$this->E('读取数据失败');
+			$this->E(Dyhb::L('读取数据失败','Controller/Userappeal'));
 		}
 	}
 
