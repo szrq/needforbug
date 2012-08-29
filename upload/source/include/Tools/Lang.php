@@ -2,7 +2,7 @@
 /* [DoYouHaoBaby!] (C)Dianniu From 2010.
    语言包制作工具($)*/
 
-exit();
+//exit();
 
 /** 防止PHP页面乱码 */
 ini_set('default_charset','utf-8');
