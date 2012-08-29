@@ -19,5 +19,7 @@ $arrAppConfigs['TPL_DIR']=$arrGlobalConfig['ADMIN_TPL_DIR'];
 unset($arrGlobalConfig['ADMIN_TPL_DIR']);
 $arrGlobalConfig['COOKIE_LANG_TEMPLATE_INCLUDE_APPNAME']=TRUE;
 $arrGlobalConfig['URL_MODEL']=0;
+$arrAppConfigs['LANG']=$arrGlobalConfig['ADMIN_LANGUAGE_DIR'];
+unset($arrGlobalConfig['ADMIN_LANGUAGE_DIR']);
 
 return array_merge($arrAppConfigs,$arrGlobalConfig);

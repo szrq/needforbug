@@ -62,4 +62,8 @@ return array(
 
 	// 语言包和模板COOKIE是否包含应用名字
 	'COOKIE_LANG_TEMPLATE_INCLUDE_APPNAME'=>FALSE,
+
+	// 语言包设置
+	'FRONT_LANGUAGE_DIR'=>'Zh-cn',
+	'ADMIN_LANGUAGE_DIR'=>'Zh-cn',
 );

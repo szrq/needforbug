@@ -41,5 +41,9 @@
   'COOKIE_LANG_TEMPLATE_INCLUDE_APPNAME' => false,
   'DB_HOST' => 'localhost',
   'DB_USER' => 'root',
+  'FRONT_LANGUAGE_DIR' => 'Zh-cn',
+  'ADMIN_LANGUAGE_DIR' => 'Zh-cn',
+  'ADMIN_LANG_DIR' => 'Zh-tw',
+  'FRONT_LANG_DIR' => 'Zh-tw',
 )
 ?>

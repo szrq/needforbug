@@ -17,5 +17,7 @@ $arrAppConfigs=array(
 $arrGlobalConfig=(array)require(NEEDFORBUG_PATH.'/config/Config.inc.php');
 $arrAppConfigs['TPL_DIR']=$arrGlobalConfig['FRONT_TPL_DIR'];
 unset($arrGlobalConfig['FRONT_TPL_DIR']);
+$arrAppConfigs['LANG']=$arrGlobalConfig['FRONT_LANGUAGE_DIR'];
+unset($arrGlobalConfig['FRONT_LANGUAGE_DIR']);
 
 return array_merge($arrAppConfigs,$arrGlobalConfig);
