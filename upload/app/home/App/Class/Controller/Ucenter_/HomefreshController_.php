@@ -118,7 +118,7 @@ class HomefreshController extends InitController{
 			$this->E($oHomefresh->getErrorMessage());
 		}
 
-		$sHomefreshtitle=$oHomefresh->homefresh_title?$oHomefresh->homefresh_title:G::subString(strip_tags($oHomefresh['homefresh_message']));
+		$sHomefreshtitle=$oHomefresh->homefresh_title?$oHomefresh->homefresh_title:G::subString(strip_tags($oHomefresh['homefresh_message']),0,30);
 
 		// 读取评论列表
 		$arrOptionData=$GLOBALS['_cache_']['home_option'];
