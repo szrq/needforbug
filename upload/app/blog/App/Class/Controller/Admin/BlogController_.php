@@ -19,11 +19,22 @@ class BlogController extends InitController{
 		$this->display(Admin_Extend::template('blog','blog/index'));
 	}
 
-	public function bAdd_(){
-		$oGroupcategory=Dyhb::instance('GroupcategoryModel');
-		$oGroupcategoryTree=$oGroupcategory->getGroupcategoryTree();
+	public function dateline($sType='Y',$oValue=false){
+		$sDate='';
+		if($oValue===false){
+			$sDate=CURRENT_TIMESTAMP;
+		}else{
+			$sDate=$oValue->blog_dateline;
+		}
 
-		$this->assign('oGroupcategoryTree',$oGroupcategoryTree);
+		return date($sType,$sDate);
+	}
+
+	public function bAdd_(){
+		//$oGroupcategory=Dyhb::instance('GroupcategoryModel');
+		//$oGroupcategoryTree=$oGroupcategory->getGroupcategoryTree();
+
+		//$this->assign('oGroupcategoryTree',$oGroupcategoryTree);
 	}
 
 	public function edit($sMode=null,$nId=null,$bDidplay=true){
@@ -31,8 +42,8 @@ class BlogController extends InitController{
 
 		$this->bAdd_();
 		
-		parent::edit('group',$nId,false);
-		$this->display(Admin_Extend::template('group','group/add'));
+		parent::edit('blog',$nId,false);
+		$this->display(Admin_Extend::template('blog','blog/add'));
 	}
 	
 	public function bEdit_(){
@@ -42,32 +53,34 @@ class BlogController extends InitController{
 	public function add(){
 		$this->bAdd_();
 		
-		$this->display(Admin_Extend::template('group','group/add'));
+		$this->display(Admin_Extend::template('blog','blog/add'));
 	}
 
 	public function AInsertObject_($oModel){
-		$oModel->safeInput();
+		//$oModel->safeInput();
+
+		$oModel->blog_dateline=$oModel->getDateline();
 	}
 	
 	public function update($sModel=null,$nId=null){
 		$nId=G::getGpc('value');
 		
-		parent::update('group',$nId);
+		parent::update('blog',$nId);
 	}
 
 	public function AUpdateObject_($oModel){
-		$oModel->safeInput();
+		//$oModel->safeInput();
 	}
 	
 	public function insert($sModel=null,$nId=null){
 		$nId=G::getGpc('value');
 		
-		parent::insert('group',$nId);
+		parent::insert('blog',$nId);
 	}
 
 	protected function aInsert($nId=null){
-		$oGroup=Dyhb::instance('GroupModel');
-		$oGroup->afterInsert($nId,intval(G::getGpc('group_categoryid','P')));
+		//$oGroup=Dyhb::instance('GroupModel');
+		//$oGroup->afterInsert($nId,intval(G::getGpc('group_categoryid','P')));
 	}
 
 	public function bForeverdelete_(){

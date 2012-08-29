@@ -113,6 +113,8 @@ class TemplateCodeCompiler_variable extends TemplateCodeCompilerBase{
 			$sName=$this->parseVarFunction($sName,$arrVar);// 传入变量名,和函数参数继续解析,这里的变量名是上面的判断设置的值
 		}
 
+		$sName=str_replace('^',':',$sName);
+
 		$sCode=!empty($sName)?"<?php echo({$sName});?>":'';
 
 		return $sCode;
@@ -317,6 +319,7 @@ class TemplateCodeCompiler_if extends TemplateCodeCompilerBase{
 		}
 
 		$sStr=str_replace('+','::',$sStr);
+		$sStr=str_replace('^',':',$sStr);
 
 		return "if({$sStr})";
 	}
@@ -476,6 +479,7 @@ class TemplateCodeCompiler_elseif extends TemplateCodeCompilerBase{
 		}
 
 		$sStr=str_replace('+','::',$sStr);
+		$sStr=str_replace('^',':',$sStr);
 
 		return "elseif({$sStr})";
 	}
