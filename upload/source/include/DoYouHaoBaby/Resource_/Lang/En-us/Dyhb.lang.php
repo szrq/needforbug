@@ -67,7 +67,6 @@ return array(
 '2e3a36de400201ee4590ba25055f65ba'=>"minutes ago",
 'a177a634f1efd25eee705b5a1c7049c8'=>"about %d hours ago",
 '205c8e14c4b004409b78fd19e0fdd9fc'=>"Module %s does not exist",
-'725fb30b49d03540f371f0f0153f935f'=>"模板缓存文件生成时间：",
 )
 
 ?>
