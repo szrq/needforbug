@@ -1,1 +1,0 @@
-<?php die(); ?>a:4:{s:3:"app";s:1:"3";s:4:"user";s:1:"1";s:9:"adminuser";s:1:"1";s:7:"newuser";s:1:"0";}
