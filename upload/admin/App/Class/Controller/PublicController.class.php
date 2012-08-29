@@ -71,7 +71,7 @@ class PublicController extends InitController{
 		if(file_exists(APP_PATH."/App/Lang/".LANG_NAME."/LICENSE.txt")){
 			$sCopyTxt=nl2br(file_get_contents(APP_PATH."/App/Lang/".LANG_NAME."/LICENSE.txt"));
 		}else{
-			$sCopyTxt=nl2br(file_get_contents(NEEDFORBUG_PATH."/ucontent/admin/LICENSE.txt"));
+			$sCopyTxt=nl2br(file_get_contents(APP_PATH."/LICENSE.txt"));
 		}
 		$this->assign('sCopyTxt',$sCopyTxt);
 		
