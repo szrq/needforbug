@@ -14,7 +14,7 @@ class App{
 		header('DoYouHaoBaby-Framework | '.DYHB_VERSION);
 		session_start();
 
-		// 移除模式方法转义
+		// 移除自动转义
 		G::stripslashesMagicquotegpc();
 
 		// 载入DoYouHaoBaby框架
@@ -192,7 +192,7 @@ class App{
 			$sLangSet=ucfirst(strtolower($GLOBALS['_commonConfig_']['LANG']));
 		}elseif(isset($_GET['l'])){
 			$sLangSet=ucfirst(strtolower($_GET['l']));
-		}elseif(Dyhb::cookie(APP_NAME.'_language')){
+		}elseif($sCookieName){
 			$sLangSet=Dyhb::cookie($sCookieName);
 		}elseif($GLOBALS['_commonConfig_']['AUTO_ACCEPT_LANGUAGE'] && isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])){
 			preg_match('/^([a-z\-]+)/i', $_SERVER['HTTP_ACCEPT_LANGUAGE'],$arrMatches);
