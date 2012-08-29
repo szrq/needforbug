@@ -1,6 +1,6 @@
 <?php
 /* [DoYouHaoBaby!] (C)Dianniu From 2010.
-   创建应用程序中文语言包(Zh-tw)($)*/
+   创建应用程序中文繁体语言包(Zh-tw)($)*/
 
 return array(
 '0'=>'設置的應用程序名 ( %s ) 無效.',

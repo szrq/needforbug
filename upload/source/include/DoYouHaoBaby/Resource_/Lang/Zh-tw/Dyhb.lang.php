@@ -66,6 +66,7 @@ return array(
 'cae20b9eed5eb51fe46b86072727dc60'=>"秒前",
 '2e3a36de400201ee4590ba25055f65ba'=>"分鐘前",
 'a177a634f1efd25eee705b5a1c7049c8'=>"大約 %d 小時前",
+'205c8e14c4b004409b78fd19e0fdd9fc'=>"模块%s 不存在",
 )
 
 ?>
