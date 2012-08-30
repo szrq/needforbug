@@ -9,7 +9,7 @@ return array(
 '47df87569cbeb9a09b6cd9b7f49844b9'=>"运营",
 '20dce2c6fa909a5cd62526615fe2788a'=>"工具",
 'cbebac754de5e76e2692f27ae35e958c'=>"站长",
-'469db73ced5abd4932e873be1f26197b'=>"首頁",
+'db1c89e0f6e62f9642018cbb531bbd4f'=>"首页",
 )
 
 ?>
