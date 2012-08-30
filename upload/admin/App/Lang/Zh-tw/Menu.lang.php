@@ -32,6 +32,7 @@ return array(
 'd4f806d2ae0b3ee51bc71a473dae0e1b'=>"應用配置",
 '68051bf4aa2743b030984b694628ee9c'=>"數據庫",
 'dbdfad95e7bedabe13b0e2b316d1b6df'=>"登錄記錄",
+'16cd4823ca64b0c6b0a5086bb9dda25a'=>"申訴審核",
 )
 
 ?>
