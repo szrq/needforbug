@@ -1,4 +1,4 @@
-<?php
+	<?php
 /* [NeedForBug!] (C)Dianniu From 2010.
    博客分类模型($)*/
 

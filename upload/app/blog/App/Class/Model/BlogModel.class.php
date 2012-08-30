@@ -11,8 +11,12 @@ class BlogModel extends CommonModel{
 			'table_name'=>'blog',
 			'props'=>array(
 				'blog_id'=>array('readonly'=>true),
+				'user'=>array(Db::BELONGS_TO=>'UserModel','source_key'=>'user_id','target_key'=>'user_id'),
 			),
 			'attr_protected'=>'blog_id',
+			'autofill'=>array(
+				array('user_id','userId','create','callback'),
+			),
 		);
 	}
 
@@ -35,19 +39,19 @@ class BlogModel extends CommonModel{
 		$nNewmin=intval(G::getGpc('newmin','P'));
 		$nNewsec=intval(G::getGpc('newsec','P'));
 
-		//if($nId){
-			if(checkdate($nNewmonth,$nNewday,$nNewyear)){
-				if(substr(PHP_OS,0,3)=='WIN' && $nNewyear<1970){
-					return CURRENT_TIMESTAMP;
-				}else{
-					return mktime($nNewhour,$nNewmin,$nNewsec,$nNewmonth,$nNewday,$nNewyear);
-				}
-			}else{
+		if(checkdate($nNewmonth,$nNewday,$nNewyear)){
+			if(substr(PHP_OS,0,3)=='WIN' && $nNewyear<1970){
 				return CURRENT_TIMESTAMP;
+			}else{
+				return mktime($nNewhour,$nNewmin,$nNewsec,$nNewmonth,$nNewday,$nNewyear);
 			}
-		//}else{
-			//return CURRENT_TIMESTAMP;
-		//}
+		}else{
+			return CURRENT_TIMESTAMP;
+		}
+	}
+	
+	protected function userId(){
+		return $GLOBALS['___login___']['user_id'];
 	}
 
 }
