@@ -26,6 +26,7 @@ class LanguageoptionController extends OptionController{
 		$arrOptions=G::getGpc('options','P');
 		$sAdminlanguage=trim($arrOptions['admin_language_name']);
 		$sFrontlanguage=trim($arrOptions['front_language_name']);
+		$nFrontlanguageSwitch=intval($arrOptions['language_switch_on']);
 
 		// 修改后台语言包
 		OptionModel::uploadOption('admin_language_name',strtolower($sAdminlanguage));
@@ -36,6 +37,10 @@ class LanguageoptionController extends OptionController{
 		OptionModel::uploadOption('front_language_name',strtolower($sFrontlanguage));
 		Core_Extend::changeAppconfig('FRONT_LANG_DIR',ucfirst($sFrontlanguage));
 		Dyhb::cookie('language',strtolower($sFrontlanguage));
+
+		// 修改前台语言包是否允许切换
+		OptionModel::uploadOption('language_switch_on',$nFrontlanguageSwitch);
+		Core_Extend::changeAppconfig('LANG_SWITCH',$nFrontlanguageSwitch==1?true:false);
 
 		$this->S(Dyhb::L('修改国际化语言成功','Controller/Languageoption'));
 	}

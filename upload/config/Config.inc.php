@@ -37,13 +37,15 @@
   'APP_DEVELOP' => 0,
   'FRONT_TPL_DIR' => 'Default',
   'ADMIN_TPL_DIR' => 'Default',
+  'CACHE_LIFE_TIME' => 8640000,
   'NOT_ALLOWED_EMPTYCONTROL_VIEW' => true,
   'COOKIE_LANG_TEMPLATE_INCLUDE_APPNAME' => false,
   'DB_HOST' => 'localhost',
   'DB_USER' => 'root',
   'FRONT_LANGUAGE_DIR' => 'Zh-cn',
   'ADMIN_LANGUAGE_DIR' => 'Zh-cn',
-  'ADMIN_LANG_DIR' => 'Zh-tw',
-  'FRONT_LANG_DIR' => 'Zh-tw',
+  'ADMIN_LANG_DIR' => 'Zh-cn',
+  'FRONT_LANG_DIR' => 'Zh-cn',
+  'LANG_SWITCH' => true,
 )
 ?>

@@ -56,6 +56,7 @@ return array(
 	// 模板设置
 	'FRONT_TPL_DIR'=>'Default',
 	'ADMIN_TPL_DIR'=>'Default',
+	'CACHE_LIFE_TIME'=>8640000,
 
 	// 禁止空模块直接加载视图
 	'NOT_ALLOWED_EMPTYCONTROL_VIEW'=>TRUE,
@@ -66,4 +67,5 @@ return array(
 	// 语言包设置
 	'FRONT_LANGUAGE_DIR'=>'Zh-cn',
 	'ADMIN_LANGUAGE_DIR'=>'Zh-cn',
+	'LANG_SWITCH'=>TRUE,//前台专用，后台自动重写为TRUE
 );
