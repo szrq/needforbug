@@ -24,7 +24,7 @@
 <body class="fmenu-body">
 	<section class="sidemenu_div">
 		<div class="sidemenu_title">
-			<p><!--<if condition="G+getGpc('title')">--><!--{$D.get.title}--><!--<else/>--><!--<lang package='Template/Default/Common'>-->首页<!--</lang>--><!--</if>--></p>
+			<p><!--<if condition="G+getGpc('title')">--><!--{$D.get.title|Dyhb+L='MenuHeader'}--><!--<else/>--><!--<lang package='Template/Default/Common'>-->首页<!--</lang>--><!--</if>--></p>
 		</div>
 	</section>
 
@@ -59,7 +59,7 @@
 						strtolower( $sNodeName ) neq 'public' &&
 						strtolower( $sNodeName ) neq 'index' &&
 						$value['node_access']==1" >-->
-				<li class=''><a onClick="refreshmainframe('<!--{:Dyhb::U($sNodeName.'/index')}-->');currentClass(<!--{$nIndex}-->);return false;" href="<!--{:Dyhb::U($sNodeName.'/index')}-->"><!--{$value['node_title']}--></a></li>
+				<li class=''><a onClick="refreshmainframe('<!--{:Dyhb::U($sNodeName.'/index')}-->');currentClass(<!--{$nIndex}-->);return false;" href="<!--{:Dyhb::U($sNodeName.'/index')}-->"><!--{$value['node_title']|Dyhb+L='Menu'}--></a></li>
 				<!--{~$nIndex++}-->
 				<!--</if>-->
 				<!--</foreach>-->
