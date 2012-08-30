@@ -50,7 +50,7 @@ define('__STATICS__','app/'.APP_NAME.'/Static');
 define('__THEMES__','app/'.APP_NAME.'/Theme');
 
 /** 项目编译锁定文件定义 */
-define('APP_RUNTIME_LOCK',NEEDFORBUG_PATH.'/data/~Runtime.inc.lock');
+define('APP_RUNTIME_LOCK',NEEDFORBUG_PATH.'/source/protected/~Runtime.inc.lock');
 
 /** 加载框架编译版本 */
 //define('STRIP_RUNTIME_SPACE',false);
