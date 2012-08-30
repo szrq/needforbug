@@ -393,6 +393,7 @@ class TemplateNodeCompiler_tpl_elseif extends TemplateNodeCompilerBase{
 		$sCondition=$this->parseCondition($sCondition);
 		$sCondition=str_replace(':','->',$sCondition);
 		$sCondition=str_replace('+','::',$sCondition);
+		$sCondition=str_replace('^',':',$sCondition);
 		$oObj->setCompiled("<?php elseif({$sCondition}):?>");
 	}
 
@@ -532,6 +533,7 @@ class TemplateNodeCompiler_tpl_if extends TemplateNodeCompilerBase{
 		$sCondition=$this->parseCondition($sCondition);
 		$sCondition=str_replace(':','->',$sCondition);
 		$sCondition=str_replace('+','::',$sCondition);
+		$sCondition=str_replace('^',':',$sCondition);
 		$oBody=$oObj->getBody();// 条件 体
 		$sBody=$oBody->getCompiled();
 		$sCompiled="<?php if({$sCondition}):?>{$sBody}<?php endif;?>";
