@@ -4,20 +4,10 @@
 
 !defined('DYHB_PATH') && exit;
 
-$arrAppConfigs=array(
-	//'START_ROUTER'=>TRUE,// 是否开启URL路由
-	'PHP_OFF'=>TRUE,
-	'CACHE_LIFE_TIME'=>8640000,
-	'DEFAULT_CONTROL'=>'public',
-	'TMPL_ACTION_ERROR'=>'message',
-	'TMPL_ACTION_SUCCESS'=>'message',
-	'START_ROUTER'=>true,
-);
+// 自动应用配置
+$arrMyappConfigs=array();
 
-$arrGlobalConfig=(array)require(NEEDFORBUG_PATH.'/config/Config.inc.php');
-$arrAppConfigs['TPL_DIR']=$arrGlobalConfig['FRONT_TPL_DIR'];
-unset($arrGlobalConfig['FRONT_TPL_DIR']);
-$arrAppConfigs['LANG']=$arrGlobalConfig['FRONT_LANGUAGE_DIR'];
-unset($arrGlobalConfig['FRONT_LANGUAGE_DIR']);
+// 读取前台应用基本配置
+$arrFrontappconfigs=(array)require(NEEDFORBUG_PATH.'/source/common/Config.php');
 
-return array_merge($arrAppConfigs,$arrGlobalConfig);
+return array_merge($arrMyappConfigs,$arrFrontappconfigs);
