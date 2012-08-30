@@ -9,7 +9,7 @@ return array(
 '47df87569cbeb9a09b6cd9b7f49844b9'=>"運營",
 '20dce2c6fa909a5cd62526615fe2788a'=>"工具",
 'cbebac754de5e76e2692f27ae35e958c'=>"站長",
-'469db73ced5abd4932e873be1f26197b'=>"首頁",
+'db1c89e0f6e62f9642018cbb531bbd4f'=>"首頁",
 'bb81f9c28ed3e69c05e7675e6051c57d'=>"國際化",
 '9970ad07468267e2f309f1467c75bb80'=>"主題",
 'b7838fb2ba87bf637a64cc7f940ed0cd'=>"應用APP",
