@@ -10,6 +10,12 @@ return array(
 '20dce2c6fa909a5cd62526615fe2788a'=>"工具",
 'cbebac754de5e76e2692f27ae35e958c'=>"站長",
 '469db73ced5abd4932e873be1f26197b'=>"首頁",
+'bb81f9c28ed3e69c05e7675e6051c57d'=>"國際化",
+'9970ad07468267e2f309f1467c75bb80'=>"主題",
+'b7838fb2ba87bf637a64cc7f940ed0cd'=>"應用APP",
+'1fd02a90c38333badc226309fea6fecb'=>"用戶",
+'fdbc77bd19b9ce6318b00649645095cc'=>"安全",
+'409120b562eac58d04bbca0fb5f24f52'=>"個人中心",
 )
 
 ?>
