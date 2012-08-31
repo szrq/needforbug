@@ -46,7 +46,7 @@ class PublicController extends InitController{
 		$this->assign('arrInfo',$arrInfo);
 
 		// 系统文件权限检查
-		$arrTestDirs=(array)(include NEEDFORBUG_PATH.'/source/common/Cache.php')
+		$arrTestDirs=(array)(include NEEDFORBUG_PATH.'/source/common/Cache.php');
 		$this->assign('arrTestDirs',$arrTestDirs);
 
 		// 程序信息
