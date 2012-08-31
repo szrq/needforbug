@@ -68,6 +68,29 @@ class PublicController extends InitController{
 			$sCopyTxt=nl2br(file_get_contents(APP_PATH."/LICENSE.MD"));
 		}
 		$this->assign('sCopyTxt',$sCopyTxt);
+
+		// 提示消息
+		$arrTipsTxt=array();
+		if(file_exists(APP_PATH."/App/Lang/".LANG_NAME."/Tips.MD")){
+			$tipsTxt=nl2br(file_get_contents(APP_PATH."/App/Lang/".LANG_NAME."/Tips.MD"));
+		}else{
+			$tipsTxt=nl2br(file_get_contents(APP_PATH."/App/Lang/Tips.MD"));
+		}
+		$tipsTxt=explode("\r\n",$tipsTxt);
+		foreach($tipsTxt as $sValue){
+			if(strlen($sValue)==6 || strpos($sValue,'###')===0){
+				continue;
+			}
+			$nValuePos=strpos($sValue,',');
+			if($nValuePos<=4){
+				$sValue=G::subString($sValue,5);
+			}
+			$arrTipsTxt[]=$sValue;
+		}
+
+		$nTips=mt_rand(0,count($arrTipsTxt)-1);
+		$tipsTxt=$arrTipsTxt[$nTips];
+		$this->assign('sTipsTxt',$tipsTxt);
 		
 		$sUpdateUrl=__PUBLIC__.'/update.php?version='.urlencode(NEEDFORBUG_SERVER_VERSION).
 			'&release='.urlencode(NEEDFORBUG_SERVER_RELEASE).'&hostname='.
