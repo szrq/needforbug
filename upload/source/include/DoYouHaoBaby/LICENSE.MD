@@ -1,12 +1,12 @@
 
-DoYouHaoBaby License:£¨BSD£©
+DoYouHaoBaby License:ï¼ˆBSDï¼‰
 ---------------------------------
 This is a free software,you can do it in any way.
 
 About Us:
 ---------------------------------
-Home£ºhttp://doyouhaobaby.net
-BBS£º http://bbs.doyouhaobaby.net
+Homeï¼šhttp://doyouhaobaby.net
+BBSï¼š http://bbs.doyouhaobaby.net
 
 Last updated 2012/08/02 By doyouhaobaby2009@gmail.com
 

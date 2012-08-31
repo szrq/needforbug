@@ -17,22 +17,21 @@
 		<article class="module width_full">
 			<header><h3><!--{$__MessageTitle__}--></h3></header>
 				<div class="module_content">
-					<!--<if condition="isset( $__Message__ ) AND !empty( $__Message__ )" >-->
-						<p><img src="<!--{$__InfobigImg__}-->"/></p>
-						<!--{$__Message__}-->
-					<!--</if>-->
-					<!--<if condition="isset( $__ErrorMessage__ ) AND !empty( $__ErrorMessage__ )" >-->
-						<p><table border="0" valign="middle" cellpadding="0" cellspacing="0">
-								<tbody>
-									<tr>
-										<td width="80px"><img src="<!--{$__ErrorbigImg__}-->"/></td>
-										<td><!--{$__ErrorMessage__}--></td>
-									</tr>
-								</tbody>
-							</table>
-						</p>
-					<!--</if>-->
-					<div id="__Loader__"><img src="<!--{$__LoadingImg__}-->"/></div></p>
+					<div style="overflow:hidden;">
+						<table width="100%" border="0" align="left" valign="middle" cellpadding="0" cellspacing="0">
+							<tr>
+								<!--<if condition="isset( $__Message__ ) AND !empty( $__Message__ )" >-->
+								<td width="60px" valign="middle"><img src="<!--{$__InfobigImg__}-->" style="margin-right:10px;"/></td>
+								<td valign="middle"><!--{$__Message__}--></td>
+								<!--</if>-->
+								<!--<if condition="isset( $__ErrorMessage__ ) AND !empty( $__ErrorMessage__ )" >-->
+								<td width="20px" valign="middle"><img src="<!--{$__ErrorbigImg__}-->" style="margin-right:10px;"/></td>
+								<td valign="middle"><!--{$__ErrorMessage__}--></td>
+								<!--</if>-->
+							</tr>
+						</table>
+					</div>
+					<p><div id="__Loader__"><img src="<!--{$__LoadingImg__}-->"/></div></p>
 					<p class="marginbot" id="__JumpUrl__">
 						<!--<if condition="isset( $__CloseWindow__ ) AND !empty( $__CloseWindow__ )" >-->
 						<span class="red" id="__Seconds__"><!--{$__WaitSecond__}--></span>&nbsp;<!--<lang package='__COMMON_LANG__@Template/Message'>-->系统即将自动关闭<!--</lang>--><!--<lang package='__COMMON_LANG__@Template/Message'>-->如果不想等待,直接点击<!--</lang>-->&nbsp;<a href="<!--{$__JumpUrl__}-->" class="lightlink"><!--<lang package='__COMMON_LANG__@Template/Message'>-->这里<!--</lang>--></a>&nbsp;<!--<lang package='__COMMON_LANG__@Template/Message'>-->关闭<!--</lang>-->

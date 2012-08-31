@@ -63,10 +63,10 @@ class IndexController extends Controller{
 		$this->check_install();
 
 		// 版权信息
-		if(file_exists(APP_PATH."/App/Lang/".LANG_NAME."/LICENSE.txt")){
-			$sCopyTxt=nl2br(file_get_contents(APP_PATH."/App/Lang/".LANG_NAME."/LICENSE.txt"));
+		if(file_exists(APP_PATH."/App/Lang/".LANG_NAME."/LICENSE.MD")){
+			$sCopyTxt=nl2br(file_get_contents(APP_PATH."/App/Lang/".LANG_NAME."/LICENSE.MD"));
 		}else{
-			$sCopyTxt=nl2br(file_get_contents(APP_PATH."/App/Lang/LICENSE.txt"));
+			$sCopyTxt=nl2br(file_get_contents(APP_PATH."/App/Lang/LICENSE.MD"));
 		}
 		$this->assign('sCopyTxt',$sCopyTxt);
 
@@ -101,13 +101,7 @@ class IndexController extends Controller{
 		}
 
 		// 系统安装权限检查
-		$arrSpTestDirs=array(
-			'/config/Config.inc.php',
-			'/data/*',
-			'/data/upload/*',
-			'/data/avatar/*',
-			'/data/backup/*',
-		);
+		$arrSpTestDirs=(array)(include NEEDFORBUG_PATH.'/source/common/Cache.php');
 
 		$this->assign('arrInfo',$arrInfo);
 		$this->assign('bSpMysqlErr',$bSpMysqlErr);
@@ -257,7 +251,7 @@ class IndexController extends Controller{
 				Install_Extend::showJavascriptMessage(' ');
 
 				$sNeedforbugAppDatapath=$sNeedforbugDatadir.'/'.ucfirst(Dyhb::cookie($sLangCookieName)).'/app/'.$sApp.'/needforbug.data.sql';
-				if(!is_file($sNeedforbugDatapath)){
+				if(!is_file($sNeedforbugAppDatapath)){
 					$sNeedforbugAppDatapath=$sNeedforbugDatadir.'/Zh-cn/app/'.$sApp.'/needforbug.data.sql';
 				}
 				Install_Extend::showJavascriptMessage(Dyhb::L('导入应用 %s 的数据库数据','Controller/Install',null,$sApp));
@@ -340,16 +334,16 @@ NEEDFORBUG;
 
 		if($hConn){
 			if(empty($sDbname)){
-				$this->S("<font color='green'>".Dyhb::L('数据库连接成功','Controller/Install')."</font>");
+				$this->S("<font color='green'>".Dyhb::L('数据库连接成功','Controller/Install')."</font>",0);
 			}else{
 				if(mysql_select_db($sDbname,$hConn)){
-					$this->E("<font color='red'>".Dyhb::L('数据库已经存在,系统将覆盖数据库','Controller/Install')."</font>");
+					$this->E("<font color='red'>".Dyhb::L('数据库已经存在,系统将覆盖数据库','Controller/Install')."</font>",0);
 				}else{
-					$this->S("<font color='green'>".Dyhb::L('数据库不存在,系统将自动创建','Controller/Install')."</font>");
+					$this->S("<font color='green'>".Dyhb::L('数据库不存在,系统将自动创建','Controller/Install')."</font>",0);
 				}
 			}
 		}else{
-			$this->E("<font color='red'>".Dyhb::L('数据库连接失败','Controller/Install')."</font>");
+			$this->E("<font color='red'>".Dyhb::L('数据库连接失败','Controller/Install')."</font>",0);
 		}
 
 		@mysql_close($hConn);

@@ -46,13 +46,7 @@ class PublicController extends InitController{
 		$this->assign('arrInfo',$arrInfo);
 
 		// 系统文件权限检查
-		$arrTestDirs=array(
-			'/config/Config.inc.php',
-			'/data/*',
-			'/data/upload/*',
-			'/data/avatar/*',
-			'/data/backup/*',
-		);
+		$arrTestDirs=(array)(include NEEDFORBUG_PATH.'/source/common/Cache.php');
 		$this->assign('arrTestDirs',$arrTestDirs);
 
 		// 程序信息
@@ -68,12 +62,35 @@ class PublicController extends InitController{
 		$this->assign('arrVersionInfo',$arrVersionInfo);
 
 		// 版权信息
-		if(file_exists(APP_PATH."/App/Lang/".LANG_NAME."/LICENSE.txt")){
-			$sCopyTxt=nl2br(file_get_contents(APP_PATH."/App/Lang/".LANG_NAME."/LICENSE.txt"));
+		if(file_exists(APP_PATH."/App/Lang/".LANG_NAME."/LICENSE.MD")){
+			$sCopyTxt=nl2br(file_get_contents(APP_PATH."/App/Lang/".LANG_NAME."/LICENSE.MD"));
 		}else{
-			$sCopyTxt=nl2br(file_get_contents(APP_PATH."/LICENSE.txt"));
+			$sCopyTxt=nl2br(file_get_contents(APP_PATH."/LICENSE.MD"));
 		}
 		$this->assign('sCopyTxt',$sCopyTxt);
+
+		// 提示消息
+		$arrTipsTxt=array();
+		if(file_exists(APP_PATH."/App/Lang/".LANG_NAME."/Tips.MD")){
+			$tipsTxt=nl2br(file_get_contents(APP_PATH."/App/Lang/".LANG_NAME."/Tips.MD"));
+		}else{
+			$tipsTxt=nl2br(file_get_contents(APP_PATH."/App/Lang/Tips.MD"));
+		}
+		$tipsTxt=explode("\r\n",$tipsTxt);
+		foreach($tipsTxt as $sValue){
+			if(strlen($sValue)==6 || strpos($sValue,'###')===0){
+				continue;
+			}
+			$nValuePos=strpos($sValue,',');
+			if($nValuePos<=4){
+				$sValue=G::subString($sValue,5);
+			}
+			$arrTipsTxt[]=$sValue;
+		}
+
+		$nTips=mt_rand(0,count($arrTipsTxt)-1);
+		$tipsTxt=$arrTipsTxt[$nTips];
+		$this->assign('sTipsTxt',$tipsTxt);
 		
 		$sUpdateUrl=__PUBLIC__.'/update.php?version='.urlencode(NEEDFORBUG_SERVER_VERSION).
 			'&release='.urlencode(NEEDFORBUG_SERVER_RELEASE).'&hostname='.
@@ -271,10 +288,5 @@ class PublicController extends InitController{
 
 		$this->display();
 	}
-
-	public function custommenu(){
-		echo 'Hello world!';
-	}
-
 
 }
