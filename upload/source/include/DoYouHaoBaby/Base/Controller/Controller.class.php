@@ -56,18 +56,19 @@ class Controller{
 		return false;
 	}
 
-	protected function E($sMessage='',$bAjax=FALSE){
-		$this->J($sMessage,0,$bAjax);
+	protected function E($sMessage='',$nDisplay=1,$bAjax=FALSE){
+		$this->J($sMessage,0,$nDisplay,$bAjax);
 	}
 
-	protected function S($sMessage,$bAjax=FALSE){
-		$this->J($sMessage,1,$bAjax);
+	protected function S($sMessage,$nDisplay=1,$bAjax=FALSE){
+		$this->J($sMessage,1,$nDisplay,$bAjax);
 	}
 
-	protected function A($Data,$sInfo='',$nStatus=1,$sType=''){
+	protected function A($Data,$sInfo='',$nStatus=1,$nDisplay=1,$sType=''){
 		$arrResult=array();
 
 		$arrResult['status']=$nStatus;
+		$arrResult['display']=$nDisplay;
 		$arrResult['info']=$sInfo?$sInfo:Dyhb::L('Ajax未指定返回消息','__DYHB__@Dyhb');
 		$arrResult['data']=$Data;
 
@@ -93,10 +94,10 @@ class Controller{
 		G::urlGoTo($sUrl,$nDelay,$sMsg);
 	}
 
-	private function J($sMessage,$nStatus=1,$bAjax=FALSE){
+	private function J($sMessage,$nStatus=1,$nDisplay=1,$bAjax=FALSE){
 		// 判断是否为AJAX返回
 		if($bAjax || $this->isAjax()){
-			$this->A('',$sMessage,$nStatus);
+			$this->A('',$sMessage,$nStatus,$nDisplay);
 		}
 
 		// 提示标题

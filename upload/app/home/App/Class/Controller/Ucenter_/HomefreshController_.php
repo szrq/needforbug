@@ -464,7 +464,7 @@ class HomefreshController extends InitController{
 			$this->E($oHomefresh->getErrorMessage());
 		}
 		$arrData['num']=$oHomefresh->homefresh_goodnum;
-		$this->A($arrData,'正确',1);
+		$this->A($arrData,'正确',1,0);
 		
 	}
 }
