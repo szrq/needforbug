@@ -10,18 +10,19 @@
 			<div class="span8">
 				<div class="well">
 					<h3><!--{$__MessageTitle__}--></h3>
-					<div style="overflow:hidden;"><table width="100%" border="0" align="left" valign="middle" cellpadding="0" cellspacing="0">
-						<tr>
-							<!--<if condition="isset( $__Message__ ) AND !empty( $__Message__ )" >-->
-							<td width="20px" valign="middle"><img src="<!--{$__InfobigImg__}-->" style="margin-right:10px;"/></td>
-							<td valign="middle"><!--{$__Message__}--></td>
-							<!--</if>-->
-							<!--<if condition="isset( $__ErrorMessage__ ) AND !empty( $__ErrorMessage__ )" >-->
-							<td width="20px" valign="middle"><img src="<!--{$__ErrorbigImg__}-->" style="margin-right:10px;"/></td>
-							<td valign="middle"><!--{$__ErrorMessage__}--></td>
-							<!--</if>-->
-						</tr>
-					</table>
+					<div style="overflow:hidden;">
+						<table width="100%" border="0" align="left" valign="middle" cellpadding="0" cellspacing="0">
+							<tr>
+								<!--<if condition="isset( $__Message__ ) AND !empty( $__Message__ )" >-->
+								<td width="60px" valign="middle"><img src="<!--{$__InfobigImg__}-->" style="margin-right:10px;"/></td>
+								<td valign="middle"><!--{$__Message__}--></td>
+								<!--</if>-->
+								<!--<if condition="isset( $__ErrorMessage__ ) AND !empty( $__ErrorMessage__ )" >-->
+								<td width="20px" valign="middle"><img src="<!--{$__ErrorbigImg__}-->" style="margin-right:10px;"/></td>
+								<td valign="middle"><!--{$__ErrorMessage__}--></td>
+								<!--</if>-->
+							</tr>
+						</table>
 					</div>
 					<p><div id="__Loader__"><img src="<!--{$__LoadingImg__}-->"/></div></p>
 					<p id="__JumpUrl__">
