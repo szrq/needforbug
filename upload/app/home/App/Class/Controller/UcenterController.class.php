@@ -32,4 +32,26 @@ class UcenterController extends InitController{
 		Core_Extend::doControllerAction('Ucenter@Homefresh','update_goodnum');
 	}
 	
+	public function deal(){
+		$sContent=trim(G::getGpc('content','G'));
+		$nId=intval(G::getGpc('id','G'));
+
+		if(empty($sContent)||empty($nId)){
+			$this->E('数据读取错误');
+		}
+		
+		$oHomefreshComment=new HomefreshcommentModel();
+		$oHomefreshComment->homefreshcomment_content=$sContent;
+		$oHomefreshComment->homefresh_id=$nId;
+		$oHomefreshComment->save(0);
+		if($oHomefreshComment->isError()){
+			$this->E($oHomefreshComment->getErrorMessage());
+		}
+		
+		$nHomefreshcomment=HomefreshcommentModel::F('homefresh_id=? AND homefreshcomment_status=1 AND homefreshcomment_auditpass=1',$nId)->all()->getCounts();
+		
+		$arrData['num']=$nHomefreshcomment;
+		$arrData['content']=$sContent;
+		$this->A($arrData,'评论成功',1);
+	}
 }

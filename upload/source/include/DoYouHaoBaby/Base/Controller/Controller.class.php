@@ -56,7 +56,7 @@ class Controller{
 		return false;
 	}
 
-	protected function E($sMessage='',$nDisplay=1,$bAjax=FALSE){
+	protected function E($sMessage='',$nDisplay=3,$bAjax=FALSE){
 		$this->J($sMessage,0,$nDisplay,$bAjax);
 	}
 

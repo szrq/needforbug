@@ -77,6 +77,6 @@ Dyhb.Ajax.Dyhb.AjaxResponse=function(oRequest,sTarget,Response,sTips){
 
 	/* 提示信息停留5秒 */
 	if(Dyhb.Ajax.Dyhb.ShowTip){
-		setTimeout(function(){sTarget.style.display="none";},5000);
+		setTimeout(function(){sTarget.style.display="none";},Dyhb.Ajax.Dyhb.Display*1000);
 	}
 };

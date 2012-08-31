@@ -2,6 +2,10 @@
 
 <!--{:Core_Extend::editorInclude()}-->
 
+<!--{style}-->
+
+<!--{/style}-->
+
 <!--{script}-->
 $(function(){
 	editor=loadEditorThin('homefresh_message');
@@ -29,12 +33,55 @@ function addHomefresh(){
 function showHomefreshtitle(){
 	$('#homefresh-title-box').toggle('fast');
 }
+
 function goodnum(id){
 	Dyhb.AjaxSend(D.U('home://ucenter/update_homefreshgoodnum'),'ajax=1&id='+id,'',function(data,status,info){
 		if(status==1){
 			$('#goodnum_'+id).text(data.num);
-			alert(info);
+			$('#goodnum_'+id).css("color","#4A4A4A");
 		}
+	});
+}
+var currentid='';
+function comment(id){
+	if(sds()===false){
+	return false;
+	}
+	currentid=id;
+	$("#id_"+id).css("display","none");
+	$("#id2_"+id).css("display","block");
+
+	
+	$("#id2_"+id).html($("#comment_box").html());
+
+
+	$(".comment_box_s").focus();
+}
+
+function sds(){
+	if($("#id2_"+currentid+' .comment_box_s').val()){
+		if(confirm('你有正在回复的评论,是否放弃')===true){
+$("#id_"+currentid).css("display","block");
+	$("#id2_"+currentid).css("display","none");
+	return true;
+		}else{
+$(".comment_box_s").focus();
+		return false;
+		}
+	}
+	$("#id_"+currentid).css("display","block");
+	$("#id2_"+currentid).css("display","none");
+	return true;
+}
+
+function commentSubmit(){
+	var value=$("#id2_"+currentid+' .comment_box_s').val();
+	if(value==""){
+		alert('评论不能为空');
+		return false;
+	}
+	Dyhb.AjaxSend(D.U('home://ucenter/deal'),"ajax=1&content="+encodeURIComponent(value)+"&id="+currentid,'',function(data,status){
+		alert(data.content);
 	});
 }
 <!--{/script}-->
@@ -102,6 +149,11 @@ function goodnum(id){
 					</ul>
 				</div>
 				<div class="message-box">
+					<div id="comment_box" class="none">
+						<textarea name="" class="comment_box_s" >
+						</textarea><br />
+						<input type="button" value="提交" onclick="commentSubmit();">
+					</div>
 					<!--{if is_array($arrHomefreshs)}-->
 					<table class="table">
 						<thead>
@@ -117,20 +169,25 @@ function goodnum(id){
 										<a href="<!--{:Dyhb::U('home://space@?id='.$oHomefresh['user_id'])}-->"><img src="<!--{:Core_Extend::avatar($oHomefresh['user_id'],'small')}-->" class="thumbnail" /></a>
 									</div>
 								</td>
-								<td><h4><a href="<!--{:Dyhb::U('home://space@?id='.$oHomefresh['user_id'])}-->"><!--{$oHomefresh:user:user_name}--></a>&nbsp;<!--<lang package='Template/Homefresh'>-->于<!--</lang>-->&nbsp;<!--{$oHomefresh['create_dateline']|Core_Extend+timeFormat}-->&nbsp;<!--<lang package='Template/Homefresh'>-->发布<!--</lang>-->
+								<td>
+								<h4><a href="<!--{:Dyhb::U('home://space@?id='.$oHomefresh['user_id'])}-->"><!--{$oHomefresh:user:user_name}--></a>&nbsp;<!--<lang package='Template/Homefresh'>-->于<!--</lang>-->&nbsp;<!--{$oHomefresh['create_dateline']|Core_Extend+timeFormat}-->&nbsp;<!--<lang package='Template/Homefresh'>-->发布<!--</lang>-->
 									</h4>
 									<hr/>
 									<div class="homefresh-content">
 										<!--{$oHomefresh['homefresh_message']|strip_tags|G+subString=0,$GLOBALS['_cache_']['home_option']['homefresh_list_substring_num']}-->
 									</div>
 									<div class="homefresh-count">
-										<a href="javascript:void(0);" onclick="goodnum('<!--{$oHomefresh['homefresh_id']}-->');"><!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->赞<!--</lang>-->(<span id="goodnum_<!--{$oHomefresh['homefresh_id']}-->"><!--{$oHomefresh['homefresh_goodnum']}--></span>)</a>
+										<a href="javascript:void(0);" onclick="goodnum('<!--{$oHomefresh['homefresh_id']}-->');"><!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->赞<!--</lang>-->(<span id="goodnum_<!--{$oHomefresh['homefresh_id']}-->" style="<!--{if in_array($oHomefresh['homefresh_id'],$arrGoodCookie)}-->color:#4A4A4A;<!--{/if}-->"><!--{$oHomefresh['homefresh_goodnum']}--></span>)</a>
 										<span class="pipe">|</span>
 										<a href="<!--{:Dyhb::U('home://fresh@?id='.$oHomefresh['homefresh_id'])}-->#comments"><!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->评论<!--</lang>-->(<!--{$oHomefresh['homefresh_commentnum']}-->)</a>
 										<span class="pipe">|</span>
 										<a href="<!--{:Dyhb::U('home://fresh@?id='.$oHomefresh['homefresh_id'])}-->" title="<!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->阅读全文<!--</lang>-->"><i class="icon-eye-open"></i></a>
 									</div>
-									<div><input type="text" style="width:60%;" value="<!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->我也来说一句<!--</lang>-->"></div>
+									<div>
+									<div id="id_<!--{$oHomefresh['homefresh_id']}-->" onclick="comment('<!--{$oHomefresh['homefresh_id']}-->');" style="border:1px solid #CCC;padding:2px 2px;"><!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->我也来说一句<!--</lang>-->
+									</div>
+									<div id="id2_<!--{$oHomefresh['homefresh_id']}-->">
+									</div>
 								</td>
 							</tr>
 							<!--</foreach>-->

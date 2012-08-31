@@ -47,6 +47,10 @@ class HomefreshController extends InitController{
 		
 		$arrOptionData=$GLOBALS['_cache_']['home_option'];
 
+		$sGoodCookie=Dyhb::cookie('homefresh_goodnum');
+		$arrGoodCookie=explode(',',$sGoodCookie);
+		$this->assign('arrGoodCookie',$arrGoodCookie);
+
 		// 新鲜事
 		$arrWhere['homefresh_status']=1;
 		$nTotalRecord=HomefreshModel::F()->where($arrWhere)->all()->getCounts();
@@ -454,6 +458,11 @@ class HomefreshController extends InitController{
 	public function update_goodnum(){
 		//$this->S('12313');
 		$nId=intval(G::getGpc('id','G'));
+		$cookieValue=Dyhb::cookie('homefresh_goodnum');
+		$cookieValue=explode(',',$cookieValue);
+		if(in_array($nId,$cookieValue)){
+			$this->E('你已经赞了',1);
+		}
 		$oHomefresh=HomefreshModel::F('homefresh_id=?',$nId)->getOne();
 		if(empty($oHomefresh->homefresh_id)){
 			$this->E('错误');
@@ -463,8 +472,11 @@ class HomefreshController extends InitController{
 		if($oHomefresh->isError()){
 			$this->E($oHomefresh->getErrorMessage());
 		}
+		$cookieValue[]=$nId;
+		$cookieValue=implode(',',$cookieValue);
+		Dyhb::cookie('homefresh_goodnum',$cookieValue);
 		$arrData['num']=$oHomefresh->homefresh_goodnum;
-		$this->A($arrData,'正确',1,0);
+		$this->A($arrData,'赞+1',1,1);
 		
 	}
 }
