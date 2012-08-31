@@ -25,10 +25,6 @@ Dyhb.Ajax.Dyhb.AjaxSend=function(sUrl,Params,sTarget,Response,sTips,sType){
 		sTips=(Dyhb.Ajax.Dyhb.Options['tips'])?Dyhb.Ajax.Dyhb.Options['tips']:Dyhb.Ajax.Dyhb.UpdateTips;
 	}
 
-	if(Dyhb.Ajax.Dyhb.ShowTip){
-		Dyhb.Ajax.Dyhb.Loading(Dyhb.Ajax.Dyhb.TipTarget,sTips);
-	}
-
 	if(Params===undefined || Params=='' || Params===null){
 		Params=(Dyhb.Ajax.Dyhb.Options['var'])?Dyhb.Ajax.Dyhb.Options['var']:'ajax=1';
 	}
@@ -37,14 +33,14 @@ Dyhb.Ajax.Dyhb.AjaxSend=function(sUrl,Params,sTarget,Response,sTips,sType){
 		Dyhb.Ajax.Post(sUrl,
 			Params,
 			function(xhr,responseText){
-				Dyhb.Ajax.Dyhb.AjaxResponse(xhr,Dyhb.Ajax.Dyhb.TipTarget,Response);
+				Dyhb.Ajax.Dyhb.AjaxResponse(xhr,Dyhb.Ajax.Dyhb.TipTarget,Response,sTips);
 			}
 		);
  	}else{
 		Dyhb.Ajax.Get(sUrl,
 			Params,
 			function(xhr,responseText){
-				Dyhb.Ajax.Dyhb.AjaxResponse(xhr,Dyhb.Ajax.Dyhb.TipTarget,Response);
+				Dyhb.Ajax.Dyhb.AjaxResponse(xhr,Dyhb.Ajax.Dyhb.TipTarget,Response,sTips);
 			}
 		);
 	}

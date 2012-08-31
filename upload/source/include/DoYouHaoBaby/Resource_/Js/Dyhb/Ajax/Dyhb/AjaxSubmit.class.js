@@ -24,16 +24,12 @@ Dyhb.Ajax.Dyhb.AjaxSubmit=function(sForm,sUrl,sTarget,Response,sTips){
 		sTips=(Dyhb.Ajax.Dyhb.Options['tips'])?Dyhb.Ajax.Dyhb.Options['tips']:Dyhb.Ajax.Dyhb.UpdateTips;
 	}
 
-	if(Dyhb.Ajax.Dyhb.ShowTip){
-		Dyhb.Ajax.Dyhb.Loading(Dyhb.Ajax.Dyhb.TipTarget,sTips);
-	}
-
 	var oSubmitFrom=document.getElementById(sForm);
 	oSubmitFrom.action=sUrl;
 	arrAjaxOption={
 		async:true,
 		onsuccess:function(xhr,responseText){
-			Dyhb.Ajax.Dyhb.AjaxResponse(xhr,Dyhb.Ajax.Dyhb.TipTarget,Response);
+			Dyhb.Ajax.Dyhb.AjaxResponse(xhr,Dyhb.Ajax.Dyhb.TipTarget,Response,sTips);
 		},
 		onfailure:function(xhr){
 			alert('Request Error!');

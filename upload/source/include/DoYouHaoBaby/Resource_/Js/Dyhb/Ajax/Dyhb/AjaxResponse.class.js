@@ -4,8 +4,9 @@
  * @param oRequest xmlHttp对象
  * @param sTarget DIV ID
  * @param Response 请求函数
+ * @param sTips 加载消息
  */
-Dyhb.Ajax.Dyhb.AjaxResponse=function(oRequest,sTarget,Response){
+Dyhb.Ajax.Dyhb.AjaxResponse=function(oRequest,sTarget,Response,sTips){
 	var sStr=oRequest.responseText;
 
 	sStr=sStr.replace(/([\x00-\x1f\\"])/g, function(a, b){
@@ -35,6 +36,11 @@ Dyhb.Ajax.Dyhb.AjaxResponse=function(oRequest,sTarget,Response){
 	Dyhb.Ajax.Dyhb.Info=arrReturn.info;
 	Dyhb.Ajax.Dyhb.Data=arrReturn.data;
 	Dyhb.Ajax.Dyhb.Type=arrReturn.type;
+	Dyhb.Ajax.Dyhb.Display=arrReturn.display;
+
+	if(Dyhb.Ajax.Dyhb.Display && Dyhb.Ajax.Dyhb.ShowTip){
+		Dyhb.Ajax.Dyhb.Loading(sTarget,sTips);
+	}
 
 	if(Dyhb.Ajax.Dyhb.Type=='EVAL'){
 		eval(Dyhb.Ajax.Dyhb.Data);/* 直接执行返回的脚本 */
@@ -49,7 +55,7 @@ Dyhb.Ajax.Dyhb.AjaxResponse=function(oRequest,sTarget,Response){
 	}
 
 	/* 显示提示信息 */
-	if(Dyhb.Ajax.Dyhb.ShowTip && Dyhb.Ajax.Dyhb.Info!=undefined && Dyhb.Ajax.Dyhb.Info!=''){
+	if(Dyhb.Ajax.Dyhb.Display && Dyhb.Ajax.Dyhb.ShowTip && Dyhb.Ajax.Dyhb.Info!=undefined && Dyhb.Ajax.Dyhb.Info!=''){
 		var sOldTarget=sTarget;
 		sTarget=document.getElementById(sTarget);
 		sTarget.style.display="block";
