@@ -62,10 +62,10 @@ class PublicController extends InitController{
 		$this->assign('arrVersionInfo',$arrVersionInfo);
 
 		// 版权信息
-		if(file_exists(APP_PATH."/App/Lang/".LANG_NAME."/LICENSE.txt")){
-			$sCopyTxt=nl2br(file_get_contents(APP_PATH."/App/Lang/".LANG_NAME."/LICENSE.txt"));
+		if(file_exists(APP_PATH."/App/Lang/".LANG_NAME."/LICENSE.MD")){
+			$sCopyTxt=nl2br(file_get_contents(APP_PATH."/App/Lang/".LANG_NAME."/LICENSE.MD"));
 		}else{
-			$sCopyTxt=nl2br(file_get_contents(APP_PATH."/LICENSE.txt"));
+			$sCopyTxt=nl2br(file_get_contents(APP_PATH."/LICENSE.MD"));
 		}
 		$this->assign('sCopyTxt',$sCopyTxt);
 		
