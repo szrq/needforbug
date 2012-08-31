@@ -257,7 +257,7 @@ class IndexController extends Controller{
 				Install_Extend::showJavascriptMessage(' ');
 
 				$sNeedforbugAppDatapath=$sNeedforbugDatadir.'/'.ucfirst(Dyhb::cookie($sLangCookieName)).'/app/'.$sApp.'/needforbug.data.sql';
-				if(!is_file($sNeedforbugDatapath)){
+				if(!is_file($sNeedforbugAppDatapath)){
 					$sNeedforbugAppDatapath=$sNeedforbugDatadir.'/Zh-cn/app/'.$sApp.'/needforbug.data.sql';
 				}
 				Install_Extend::showJavascriptMessage(Dyhb::L('导入应用 %s 的数据库数据','Controller/Install',null,$sApp));
