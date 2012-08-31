@@ -101,13 +101,7 @@ class IndexController extends Controller{
 		}
 
 		// 系统安装权限检查
-		$arrSpTestDirs=array(
-			'/config/Config.inc.php',
-			'/data/*',
-			'/data/upload/*',
-			'/data/avatar/*',
-			'/data/backup/*',
-		);
+		$arrSpTestDirs=(array)(include NEEDFORBUG_PATH.'/source/common/Cache.php');
 
 		$this->assign('arrInfo',$arrInfo);
 		$this->assign('bSpMysqlErr',$bSpMysqlErr);

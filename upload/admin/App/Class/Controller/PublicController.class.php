@@ -46,13 +46,7 @@ class PublicController extends InitController{
 		$this->assign('arrInfo',$arrInfo);
 
 		// 系统文件权限检查
-		$arrTestDirs=array(
-			'/config/Config.inc.php',
-			'/data/*',
-			'/data/upload/*',
-			'/data/avatar/*',
-			'/data/backup/*',
-		);
+		$arrTestDirs=(array)(include NEEDFORBUG_PATH.'/source/common/Cache.php')
 		$this->assign('arrTestDirs',$arrTestDirs);
 
 		// 程序信息
@@ -271,10 +265,5 @@ class PublicController extends InitController{
 
 		$this->display();
 	}
-
-	public function custommenu(){
-		echo 'Hello world!';
-	}
-
 
 }
