@@ -340,16 +340,16 @@ NEEDFORBUG;
 
 		if($hConn){
 			if(empty($sDbname)){
-				$this->S("<font color='green'>".Dyhb::L('数据库连接成功','Controller/Install')."</font>");
+				$this->S("<font color='green'>".Dyhb::L('数据库连接成功','Controller/Install')."</font>",0);
 			}else{
 				if(mysql_select_db($sDbname,$hConn)){
-					$this->E("<font color='red'>".Dyhb::L('数据库已经存在,系统将覆盖数据库','Controller/Install')."</font>");
+					$this->E("<font color='red'>".Dyhb::L('数据库已经存在,系统将覆盖数据库','Controller/Install')."</font>",0);
 				}else{
-					$this->S("<font color='green'>".Dyhb::L('数据库不存在,系统将自动创建','Controller/Install')."</font>");
+					$this->S("<font color='green'>".Dyhb::L('数据库不存在,系统将自动创建','Controller/Install')."</font>",0);
 				}
 			}
 		}else{
-			$this->E("<font color='red'>".Dyhb::L('数据库连接失败','Controller/Install')."</font>");
+			$this->E("<font color='red'>".Dyhb::L('数据库连接失败','Controller/Install')."</font>",0);
 		}
 
 		@mysql_close($hConn);
