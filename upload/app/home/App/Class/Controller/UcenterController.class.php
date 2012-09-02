@@ -49,9 +49,20 @@ class UcenterController extends InitController{
 		}
 		
 		$nHomefreshcomment=HomefreshcommentModel::F('homefresh_id=? AND homefreshcomment_status=1 AND homefreshcomment_auditpass=1',$nId)->all()->getCounts();
-		
+
+		$oHomefresh=HomefreshModel::F('homefresh_id=?',$nId)->getOne();
+		$oHomefresh->homefresh_commentnum=$nHomefreshcomment;
+		$oHomefresh->save(0,'update');
+		if($oHomefresh->isError()){
+			$this->E($oHomefresh->getErrorMessage());
+		}
+
+		$arrData=$oHomefreshComment->toArray();
+		$arrData['homefreshcomment_content']=G::subString(strip_tags($arrData['homefreshcomment_content']),0,$GLOBALS['_cache_']['home_option']['homefresh_list_substring_num']);
+		$arrData['comment_name']=UserModel::getUsernameById($oHomefreshComment->user_id);
+		$arrData['create_dateline']=Core_Extend::timeFormat($arrData['create_dateline']);
+		$arrData['avatar']=Core_Extend::avatar($arrData['user_id'],'small');
 		$arrData['num']=$nHomefreshcomment;
-		$arrData['content']=$sContent;
 		$this->A($arrData,'评论成功',1);
 	}
 }

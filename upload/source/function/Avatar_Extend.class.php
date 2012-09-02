@@ -26,6 +26,10 @@ class Avatar_Extend{
 	static public function saveCrop(){
 		$sSrc=G::getGpc('temp_image');
 		$sSrc=NEEDFORBUG_PATH.'/data/avatar/'.$sSrc;
+		if(!is_file($sSrc)){
+			$this->E(Dyhb::L('无法获取裁剪图像','__COMMON_LANG__@Function/Avatar_Extend'));
+		}
+
 		$arrPhotoInfo=@getimagesize($sSrc);
 
 		if(function_exists('imagecreatetruecolor') && function_exists('imagecopyresampled')){

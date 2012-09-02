@@ -46,7 +46,7 @@
  
         // Clone the actual textarea removing unique properties
         // and insert before original textarea:
-        return textarea.clone().removeAttr('id').removeAttr('name').css({
+        return textarea.clone().removeAttr('id').removeAttr('class').removeAttr('name').css({
           position: 'absolute',
           top: 0,
           left: -9999
@@ -85,8 +85,7 @@
       };
  
       // Bind namespaced handlers to appropriate events:
-      textarea.unbind('.dynSiz').bind('keyup.dynSiz', updateSize).bind('keydown.dynSiz', updateSize).bind('change.dynSiz', updateSize);
- 
+      textarea.unbind('.dynSiz').bind('keyup.dynSiz', updateSize).bind('keydown.dynSiz', updateSize).bind('change.dynSiz', updateSize).bind('paste.dynSiz', updateSize).bind('input.dynSiz', updateSize).bind('propertychange.dynSiz', updateSize);
     });
  
     // Chain:
