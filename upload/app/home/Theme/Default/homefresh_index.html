@@ -80,7 +80,7 @@ function homefreshcommentSwitchform(id){
 		},
 		animateDuration:300,
 		extraSpace:0,
-		min:'200px'
+		min:'80px'
 	});
 
 	$(".homefreshcommentform_area").focus();
@@ -213,12 +213,11 @@ function homefreshcommentSubmit(){
 										<span class="pipe">|</span>
 										<a href="<!--{:Dyhb::U('home://fresh@?id='.$oHomefresh['homefresh_id'])}-->" title="<!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->阅读全文<!--</lang>-->"><i class="icon-eye-open"></i></a>
 									</div>
-									<hr/>
-
-									<div id="homefreshcommentlist_<!--{$oHomefresh['homefresh_id']}-->" style="padding:10px 5px;">
-										<!--{~$arrHomefreshcomments=$TheController->get_newcomment($oHomefresh['homefresh_id'])}-->
+									<!--{~$arrHomefreshcomments=$TheController->get_newcomment($oHomefresh['homefresh_id'])}-->
+									<!--{if is_array($arrHomefreshcomments)}--><hr/><!--{/if}-->
+									<div id="homefreshcommentlist_<!--{$oHomefresh['homefresh_id']}-->" class="homefreshcommentlist_box">
 										<!--<foreach for=arrHomefreshcomments value=oHomefreshcomment>-->
-										<div class="homefreshcomment_item">
+										<div class="homefreshcomment_item" id="homefreshcommentitem_<!--{$oHomefresh['homefresh_id']}-->">
 											<div class="homefreshcomment_avatar"><img src="<!--{:Core_Extend::avatar($oHomefreshcomment['user_id'],'small')}-->" class="thumbnail" />
 											</div>
 											<div class="homefreshcomment_content">
@@ -228,6 +227,11 @@ function homefreshcommentSubmit(){
 										</div>
 										<div class="clear"></div>
 										<!--</foreach>-->
+										<!--{if is_array($arrHomefreshcomments)}-->
+										<div class="homefreshcomment_view">
+											<a href="<!--{:Dyhb::U('home://fresh@?id='.$oHomefresh['homefresh_id'])}-->#comments"><!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->查看全部评论<!--</lang>-->&raquo;</a>
+										</div>
+										<!--{/if}-->
 									</div>
 									<div id="homefreshcommentdiv_<!--{$oHomefresh['homefresh_id']}-->" onclick="commentForm('<!--{$oHomefresh['homefresh_id']}-->');" class="homefreshcomment_div"><!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->我也来说一句<!--</lang>-->
 									</div>

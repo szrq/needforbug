@@ -66,7 +66,7 @@ class HomefreshController extends InitController{
 	}
 
 	public function get_newcomment($nId){
-		return HomefreshcommentModel::F('homefresh_id=? AND homefreshcomment_status=1 AND homefreshcomment_auditpass=1',$nId)->limit(0,5)->order('homefreshcomment_id DESC')->getAll();
+		return HomefreshcommentModel::F('homefresh_id=? AND homefreshcomment_status=1 AND homefreshcomment_auditpass=1',$nId)->limit(0,4)->order('homefreshcomment_id DESC')->getAll();
 	}
 
 	public function add(){

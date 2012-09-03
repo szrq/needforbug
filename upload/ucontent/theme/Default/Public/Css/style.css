@@ -34,12 +34,17 @@ Tags: admin, light
 /* 评论相关 */
 .homefreshcomment_div{border:1px solid #CCC;padding:2px 2px;width:99%;}
 .homefreshcomment_form{}
-.homefreshcomment_form .homefreshcommentform_area{width:99%;height:200px;}
+.homefreshcomment_form .homefreshcommentform_area{width:99%;height:80px;}
 .homefreshcomment_item{position:relative;}
 .homefreshcomment_avatar{position:absolute;top:0px;margin-right:10px;}
 .homefreshcomment_avatar img{width:32px;height:32px;}
 .homefreshcomment_content{position:relative;padding-left:50px;}
 .homefreshcommentform_btn{margin-left:92%;}
+.homefreshcommentlist_box{padding:5px 5px;}
+.homefreshcomment_view{}
+/* 新鲜事查看 */
+#homefreshviewcomment_box{margin-top:30px;}
+.homefreshviewcommentlist_box{margin-top:10px;}
 [/CURSCRIPT]
 
 /**===============================
