@@ -58,11 +58,13 @@ class UcenterController extends InitController{
 		}
 
 		$arrData=$oHomefreshComment->toArray();
-		$arrData['homefreshcomment_content']=G::subString(strip_tags($arrData['homefreshcomment_content']),0,$GLOBALS['_cache_']['home_option']['homefresh_list_substring_num']);
+		$arrData['homefreshcomment_content']=G::subString(strip_tags($arrData['homefreshcomment_content']),0,80);
 		$arrData['comment_name']=UserModel::getUsernameById($oHomefreshComment->user_id);
 		$arrData['create_dateline']=Core_Extend::timeFormat($arrData['create_dateline']);
 		$arrData['avatar']=Core_Extend::avatar($arrData['user_id'],'small');
+		$arrData['url']=Dyhb::U('home://space@?id='.$arrData['user_id']);
 		$arrData['num']=$nHomefreshcomment;
+
 		$this->A($arrData,'评论成功',1);
 	}
 }

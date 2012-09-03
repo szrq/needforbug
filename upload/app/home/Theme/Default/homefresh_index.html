@@ -40,68 +40,82 @@ function goodnum(id){
 		}
 	});
 }
-var currentid='';
-function comment(id){
-	if(sds()===false){
-	return false;
-	}
-	currentid=id;
-	$("#id_"+id).css("display","none");
-	$("#id2_"+id).css("display","block");
-	
-	$("#id2_"+id).html($("#comment_box").html());
 
-		$('.comment_box_s').autoResize({
-			onResize : function() {
-			$(this).css({opacity:0.8});
-		},
-		animateCallback : function() {
-			$(this).css({opacity:1});
-		},
-		animateDuration : 300,
-		extraSpace : 0
+var nCurrentHomefreshid='';
+
+function commentForm(id){
+	if($("#homefreshcommentform_"+nCurrentHomefreshid+' .homefreshcommentform_area').val()){
+		needforbugConfirm(D.L('你确定要放弃正在编辑的评论?','AppJs'),function(){
+			$("#homefreshcommentdiv_"+nCurrentHomefreshid).css("display","block");
+			$("#homefreshcommentform_"+nCurrentHomefreshid).css("display","none");
+			homefreshcommentSwitchform(id);
+			return true;
+		},function(){
+			$(".homefreshcommentform_area").focus();
+			return true;
 		});
 
-	$(".comment_box_s").focus();
-}
-
-function sds(){
-	if($("#id2_"+currentid+' .comment_box_s').val()){
-		if(confirm('你确定要放弃正在编辑的评论?')===true){
-			$("#id_"+currentid).css("display","block");
-			$("#id2_"+currentid).css("display","none");
-			return true;
-		}else{
-			$(".comment_box_s").focus();
-			return false;
-		}
+		return false;
 	}
-	$("#id_"+currentid).css("display","block");
-	$("#id2_"+currentid).css("display","none");
+
+	$("#homefreshcommentdiv_"+nCurrentHomefreshid).css("display","block");
+	$("#homefreshcommentform_"+nCurrentHomefreshid).css("display","none");
+	homefreshcommentSwitchform(id);
+
 	return true;
 }
 
-function commentSubmit(){
-	var value=$("#id2_"+currentid+' .comment_box_s').val();
-	if(value==""){
-		alert('评论不能为空');
-		return false;
-	}
-	Dyhb.AjaxSend(D.U('home://ucenter/deal'),"ajax=1&content="+encodeURIComponent(value)+"&id="+currentid,'',function(data,status){
-		$("#id_"+currentid).css("display","block");
-		$("#id2_"+currentid).css("display","none");
-		$("#id2_"+currentid).html("");
-		$("#homefreshcommentlist_"+currentid).append(
-			'<div style="position:relative;">
-				<div style="position:absolute;top:0px;margin-right:10px;"><img src="'+data.avatar+'" class="thumbnail" width="32px" height="32px"/>
-				</div>
-				<div style="position:relative;padding-left:50px;">'+data.comment_name+':'+data.homefreshcomment_content+'<br/>'+data.create_dateline+'</div>
-			</div>
-			<div class="clear"></div>');
-		$("#comment"+currentid).html(data.num);
+function homefreshcommentSwitchform(id){
+	$("#homefreshcommentdiv_"+id).css("display","none");
+	$("#homefreshcommentform_"+id).css("display","block");
+
+	$("#homefreshcommentform_"+id).html($("#homefreshcommentform_box").html());
+		
+	$('.homefreshcommentform_area').autoResize({
+		onResize:function(){
+			$(this).css({opacity:0.8});
+		},
+		animateCallback:function(){
+			$(this).css({opacity:1});
+		},
+		animateDuration:300,
+		extraSpace:0,
+		min:'200px'
 	});
+
+	$(".homefreshcommentform_area").focus();
+
+	nCurrentHomefreshid=id;
 }
 
+function homefreshcommentSubmit(){
+	var value=$("#homefreshcommentform_"+nCurrentHomefreshid+' .homefreshcommentform_area').val();
+	if(value==""){
+		needforbugAlert(D.L('评论不能为空','AppJs'),'',3);
+		return false;
+	}
+
+	Dyhb.AjaxSend(D.U('home://ucenter/deal'),"ajax=1&content="+encodeURIComponent(value)+"&id="+nCurrentHomefreshid,'',function(data,status){
+		$("#homefreshcommentdiv_"+nCurrentHomefreshid).css("display","block");
+		$("#homefreshcommentform_"+nCurrentHomefreshid).css("display","none");
+		$("#homefreshcommentform_"+nCurrentHomefreshid).html("");
+
+		$("#homefreshcommentlist_"+nCurrentHomefreshid).append(
+			'<div class="homefreshcomment_item">
+				<div class="homefreshcomment_avatar">
+					<img src="'+data.avatar+'" class="thumbnail"/>
+				</div>
+				<div class="homefreshcomment_content">
+					<a href="'+data.url+'">'+data.comment_name+'</a>:'+data.homefreshcomment_content+'<br/>'+
+					data.create_dateline+
+				'</div>
+			</div>
+			<div class="clear"></div>'
+		);
+
+		$("#homefreshcomment_"+nCurrentHomefreshid).html(data.num);
+	});
+}
 <!--{/script}-->
 
 		<ul class="breadcrumb">
@@ -167,9 +181,9 @@ function commentSubmit(){
 					</ul>
 				</div>
 				<div class="message-box">
-					<div id="comment_box" class="none">
-						<textarea class="comment_box_s" style="width:99%;"></textarea><br />
-						<input class="btn btn-success" type="button" value="提交" onclick="commentSubmit();" style="margin-left:92%;"/>
+					<div id="homefreshcommentform_box" class="none">
+						<textarea class="homefreshcommentform_area"></textarea><br />
+						<input class="btn btn-success homefreshcommentform_btn" type="button" value="提交" onclick="homefreshcommentSubmit();"/>
 					</div>
 					<!--{if is_array($arrHomefreshs)}-->
 					<table class="table">
@@ -195,7 +209,7 @@ function commentSubmit(){
 									<div class="homefresh-count">
 										<a href="javascript:void(0);" onclick="goodnum('<!--{$oHomefresh['homefresh_id']}-->');"><!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->赞<!--</lang>-->(<span id="goodnum_<!--{$oHomefresh['homefresh_id']}-->" style="<!--{if in_array($oHomefresh['homefresh_id'],$arrGoodCookie)}-->color:#4A4A4A;<!--{/if}-->"><!--{$oHomefresh['homefresh_goodnum']}--></span>)</a>
 										<span class="pipe">|</span>
-										<a href="<!--{:Dyhb::U('home://fresh@?id='.$oHomefresh['homefresh_id'])}-->#comments"><!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->评论<!--</lang>-->(<span id="comment<!--{$oHomefresh['homefresh_id']}-->"><!--{$oHomefresh['homefresh_commentnum']}--></span>)</a>
+										<a href="<!--{:Dyhb::U('home://fresh@?id='.$oHomefresh['homefresh_id'])}-->#comments"><!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->评论<!--</lang>-->(<span id="homefreshcomment_<!--{$oHomefresh['homefresh_id']}-->"><!--{$oHomefresh['homefresh_commentnum']}--></span>)</a>
 										<span class="pipe">|</span>
 										<a href="<!--{:Dyhb::U('home://fresh@?id='.$oHomefresh['homefresh_id'])}-->" title="<!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->阅读全文<!--</lang>-->"><i class="icon-eye-open"></i></a>
 									</div>
@@ -204,18 +218,20 @@ function commentSubmit(){
 									<div id="homefreshcommentlist_<!--{$oHomefresh['homefresh_id']}-->" style="padding:10px 5px;">
 										<!--{~$arrHomefreshcomments=$TheController->get_newcomment($oHomefresh['homefresh_id'])}-->
 										<!--<foreach for=arrHomefreshcomments value=oHomefreshcomment>-->
-										<div style="position:relative;">
-											<div style="position:absolute;top:0px;margin-right:10px;"><img src="<!--{:Core_Extend::avatar($oHomefreshcomment['user_id'],'small')}-->" class="thumbnail" width="32px" height="32px"/>
+										<div class="homefreshcomment_item">
+											<div class="homefreshcomment_avatar"><img src="<!--{:Core_Extend::avatar($oHomefreshcomment['user_id'],'small')}-->" class="thumbnail" />
 											</div>
-											<div style="position:relative;padding-left:50px;"><a href="<!--{:Dyhb::U('home://space@?id='.$oHomefreshcomment['user_id'])}-->"><!--{$oHomefreshcomment->user_id|UserModel+getUsernameById}--></a>:<!--{$oHomefreshcomment->homefreshcomment_content|G+subString=0,80}--><br/><!--{$oHomefreshcomment->create_dateline|Core_Extend+timeFormat}--></div>
+											<div class="homefreshcomment_content">
+												<a href="<!--{:Dyhb::U('home://space@?id='.$oHomefreshcomment['user_id'])}-->"><!--{$oHomefreshcomment->user_id|UserModel+getUsernameById}--></a>:
+												<!--{$oHomefreshcomment->homefreshcomment_content|G+subString=0,80}--><br/><!--{$oHomefreshcomment->create_dateline|Core_Extend+timeFormat}-->
+											</div>
 										</div>
 										<div class="clear"></div>
 										<!--</foreach>-->
 									</div>
-
-									<div id="id_<!--{$oHomefresh['homefresh_id']}-->" onclick="comment('<!--{$oHomefresh['homefresh_id']}-->');" style="border:1px solid #CCC;padding:2px 2px;width:99%;"><!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->我也来说一句<!--</lang>-->
+									<div id="homefreshcommentdiv_<!--{$oHomefresh['homefresh_id']}-->" onclick="commentForm('<!--{$oHomefresh['homefresh_id']}-->');" class="homefreshcomment_div"><!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->我也来说一句<!--</lang>-->
 									</div>
-									<div id="id2_<!--{$oHomefresh['homefresh_id']}-->">
+									<div id="homefreshcommentform_<!--{$oHomefresh['homefresh_id']}-->" class="homefreshcomment_form">
 									</div>
 								</td>
 							</tr>
