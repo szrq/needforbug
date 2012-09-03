@@ -16,7 +16,8 @@
       animateDuration: 150,
       animateCallback: function () {},
       extraSpace: 20,
-      limit: 1000
+      limit: 1000,
+      min:50
     },
     options);
  
@@ -74,6 +75,12 @@
           $(this).css('overflow-y', '');
           return;
         }
+        
+        // 设置最小高度
+        if(scrollTop < settings.min){
+          scrollTop = settings.min;
+        }
+
         // Fire off callback:
         settings.onResize.call(this);
  
@@ -84,7 +91,7 @@
         settings.animateDuration, settings.animateCallback) : toChange.height(scrollTop);
       };
  
-      // Bind namespaced handlers to appropriate events:
+      // Bind namespaced handlers to appropriate events:(在原插件上新绑定几个事件)
       textarea.unbind('.dynSiz').bind('keyup.dynSiz', updateSize).bind('keydown.dynSiz', updateSize).bind('change.dynSiz', updateSize).bind('paste.dynSiz', updateSize).bind('input.dynSiz', updateSize).bind('propertychange.dynSiz', updateSize);
     });
  
