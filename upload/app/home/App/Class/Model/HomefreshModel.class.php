@@ -54,7 +54,11 @@ class HomefreshModel extends CommonModel{
 		return HomecommentModel::F('homefresh_id=?',$nHomefreshId)->all()->getCounts();
 	}	
 	
-	public function safeInput(){
+	public function safeInput(){		
+		if(isset($_POST['homefresh_title'])){
+			$_POST['homefresh_title']=G::cleanJs($_POST['homefresh_title']);
+		}
+
 		if(isset($_POST['homefresh_message'])){
 			$_POST['homefresh_message']=G::cleanJs($_POST['homefresh_message']);
 		}

@@ -101,7 +101,7 @@ function showHomefreshtitle(){
 						<textarea class="homefreshcommentform_area"></textarea><br />
 						<input type="hidden" name="homefreshcomment_name" id="homefreshcomment_name" value="<!--{$GLOBALS['___login___']['user_name']}-->">
 						<input type="hidden" name="homefreshcomment_email" id="homefreshcomment_email" value="<!--{$GLOBALS['___login___']['user_email']}-->">
-						<input type="hidden" name="homefreshcomment_url" id="homefreshcomment_url" value="<!--{:UserprofileModel::getUserprofileById(1)}-->">
+						<input type="hidden" name="homefreshcomment_url" id="homefreshcomment_url" value="<!--{:UserprofileModel::getUserprofileById($GLOBALS['___login___']['user_id'])}-->">
 						<div class="homefreshcommentform_btn">
 							<input class="btn" type="button" value="<!--<lang package='Template/Homefresh'>-->取消<!--</lang>-->" onclick="homefreshcommentCancel();"/>&nbsp;
 							<input class="btn btn-success" type="button" value="<!--<lang package='Template/Homefresh'>-->提交<!--</lang>-->" onclick="homefreshcommentSubmit();"/>
@@ -144,7 +144,7 @@ function showHomefreshtitle(){
 											</div>
 											<div class="homefreshcomment_content">
 												<a href="<!--{:Dyhb::U('home://space@?id='.$oHomefreshcomment['user_id'])}-->"><!--{$oHomefreshcomment->user_id|UserModel+getUsernameById}--></a>:
-												<!--{$oHomefreshcomment->homefreshcomment_content|G+subString=0,80}--><br/><!--{$oHomefreshcomment->create_dateline|Core_Extend+timeFormat}-->
+												<!--{$oHomefreshcomment->homefreshcomment_content|G+subString=0,80}--><br/><em class="homefreshcomment_date"><!--{$oHomefreshcomment->create_dateline|Core_Extend+timeFormat}--></em>
 											</div>
 										</div>
 										<div class="clear"></div>

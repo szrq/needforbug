@@ -359,7 +359,7 @@ class Model implements IModel,IModelCallback,ArrayAccess{
 	}
 
 	protected function makePostData(){
-		foreach($this->_arrProp as $sField =>$value){
+		foreach($this->_arrProp as $sField=>$value){
 			$sPostName=$this->getPostName($sField);
 			if(!isset($this->_arrChangedProp[$sField]) && isset($_POST[$sPostName])){
 				$value=trim($_POST[$sPostName]);

@@ -186,7 +186,7 @@ class HomefreshController extends InitController{
 		}
 
 		// 评论名字检测
-		$sCommentName=trim(G::getGpc('homefreshcomment_name','P'));
+		$sCommentName=trim(G::getGpc('homefreshcomment_name'));
 		if(empty($sCommentName)){
 			$this->E(Dyhb::L('评论名字不能为空','Controller/Homefresh'));
 		}
@@ -198,7 +198,7 @@ class HomefreshController extends InitController{
 		}
 
 		// 评论内容长度检测
-		$sCommentContent=trim(G::getGpc('homefreshcomment_content','P'));
+		$sCommentContent=trim(G::getGpc('homefreshcomment_content'));
 		$nCommentMinLen=intval($arrOptions['comment_min_len']);
 		if($nCommentMinLen && strlen($sCommentContent)<$nCommentMinLen){
 			$this->E(Dyhb::L('评论内容最少的字节数为 %d','Controller/Homefresh',null,$nCommentMinLen));
@@ -297,6 +297,8 @@ class HomefreshController extends InitController{
 		}
 
 		// 保存评论数据
+		$_POST=array_merge($_POST,$_GET);
+		$oHomefreshcomment->safeInput();
 		$oHomefreshcomment->save(0);
 
 		if($oHomefreshcomment->isError()){
@@ -306,9 +308,9 @@ class HomefreshController extends InitController{
 			$this->send_cookie($oHomefreshcomment);
 
 			// 更新评论数量
-			$oHomefresh=HomefreshModel::F('homefresh_id=?',intval(G::getGpc('homefresh_id','P')))->getOne();
+			$oHomefresh=HomefreshModel::F('homefresh_id=?',intval(G::getGpc('homefresh_id')))->getOne();
 			if(!empty($oHomefresh['homefresh_id'])){
-				$nHomefreshcommentnum=HomefreshcommentModel::F('homefreshcomment_status=1 AND homefreshcomment_auditpass=1 AND homefresh_id=?',intval(G::getGpc('homefresh_id','P')))->all()->getCounts();
+				$nHomefreshcommentnum=HomefreshcommentModel::F('homefreshcomment_status=1 AND homefreshcomment_auditpass=1 AND homefresh_id=?',intval(G::getGpc('homefresh_id')))->all()->getCounts();
 
 				$oHomefresh->homefresh_commentnum=$nHomefreshcommentnum;
 				$oHomefresh->save(0,'update');
@@ -331,7 +333,7 @@ class HomefreshController extends InitController{
 			$arrCommentData['create_dateline']=Core_Extend::timeFormat($arrCommentData['create_dateline']);
 			$arrCommentData['avatar']=Core_Extend::avatar($arrCommentData['user_id'],'small');
 			$arrCommentData['url']=Dyhb::U('home://space@?id='.$arrCommentData['user_id']);
-			$arrCommentData['num']=$nHomefreshcomment;
+			$arrCommentData['num']=$oHomefresh->homefresh_commentnum;
 		}else{
 			$arrCommentData['jumpurl']=Dyhb::U('home://fresh@?id='.$oHomefreshcomment->homefresh_id.'&extra=new'.$oHomefreshcomment['homefreshcomment_id']).
 				'#comment-'.$oHomefreshcomment['homefreshcomment_id'];

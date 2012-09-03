@@ -103,7 +103,7 @@ var nCurrentHomefreshid='';
 
 function commentForm(id){
 	if($("#homefreshcommentform_"+nCurrentHomefreshid+' .homefreshcommentform_area').val()){
-		needforbugConfirm(D.L('你确定要放弃正在编辑的评论?','AppJs'),function(){
+		needforbugConfirm(D.L('你确定要放弃正在编辑的评论?','Js/Comment_Js'),function(){
 			$("#homefreshcommentdiv_"+nCurrentHomefreshid).css("display","block");
 			$("#homefreshcommentform_"+nCurrentHomefreshid).css("display","none");
 			$("#homefreshcommentform_"+nCurrentHomefreshid+' .homefreshcommentform_area').val('');
@@ -149,7 +149,7 @@ function homefreshcommentSwitchform(id){
 
 function homefreshcommentCancel(){
 	if($("#homefreshcommentform_"+nCurrentHomefreshid+' .homefreshcommentform_area').val()){
-		needforbugConfirm(D.L('你确定要放弃正在编辑的评论?','AppJs'),function(){
+		needforbugConfirm(D.L('你确定要放弃正在编辑的评论?','Js/Comment_Js'),function(){
 			$("#homefreshcommentdiv_"+nCurrentHomefreshid).css("display","block");
 			$("#homefreshcommentform_"+nCurrentHomefreshid).css("display","none");
 			$("#homefreshcommentform_"+nCurrentHomefreshid+' .homefreshcommentform_area').val('');
@@ -170,13 +170,20 @@ function homefreshcommentCancel(){
 
 function homefreshcommentSubmit(){
 	var value=$("#homefreshcommentform_"+nCurrentHomefreshid+' .homefreshcommentform_area').val();
-
+	var comment_name=$.trim($('#homefreshcomment_name').val());
+	var comment_email=$.trim($("#homefreshcomment_email").val());
+	var comment_url=$.trim($("#homefreshcomment_url").val());
+	
 	var bResult=commentCheckForm(value);
 	if(bResult===false){
 		return false;
 	}
 
-	Dyhb.AjaxSend(D.U('home://ucenter/add_homefreshcomment'),"ajax=1&homefreshcomment_content="+encodeURIComponent(value)+"&homefresh_id="+nCurrentHomefreshid+'&quick=1','',function(data,status){
+	var sUrlParameter="ajax=1&quick=1&homefreshcomment_content="+encodeURIComponent(value)+
+		"&homefresh_id="+nCurrentHomefreshid+'&homefreshcomment_name='+encodeURIComponent(comment_name)+
+		'&homefreshcomment_email='+encodeURIComponent(comment_email)+'&homefreshcomment_url='+encodeURIComponent(comment_url);
+
+	Dyhb.AjaxSend(D.U('home://ucenter/add_homefreshcomment'),sUrlParameter,'',function(data,status){
 		if(status==1){
 			$("#homefreshcommentdiv_"+nCurrentHomefreshid).css("display","block");
 			$("#homefreshcommentform_"+nCurrentHomefreshid).css("display","none");
@@ -189,7 +196,7 @@ function homefreshcommentSubmit(){
 					'</div>'+
 					'<div class="homefreshcomment_content">'+
 						'<a href="'+data.url+'">'+data.comment_name+'</a>:'+data.homefreshcomment_content+'<br/>'+
-						data.create_dateline+
+						'<em class="homefreshcomment_date">'+data.create_dateline+'</em>'+
 					'</div>'+
 				'</div>'+
 				'<div class="clear"></div>'

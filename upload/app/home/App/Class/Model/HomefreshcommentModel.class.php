@@ -59,4 +59,10 @@ class HomefreshcommentModel extends CommonModel{
 		return G::getIp();
 	}
 
+	public function safeInput(){
+		if(isset($_POST['homefreshcomment_content'])){
+			$_POST['homefreshcomment_content']=G::html($_POST['homefreshcomment_content']);
+		}
+	}
+
 }
