@@ -145,9 +145,9 @@ function homefreshcommentSubmit(){
 									<td>
 										<label class="checkbox">
 											<input type="checkbox" name="synchronized-to-sign" value="1"/>&nbsp;<!--<lang package='Template/Homefresh'>-->同步到个人签名<!--</lang>-->
+											<span class="pipe">|</span>
+											<a href="javascript:void(0);" onclick="showHomefreshtitle();"><!--<lang package='Template/Homefresh'>-->标题<!--</lang>--></a>
 										</label>
-										<span class="pipe">|</span>
-										<a href="javascript:void(0);" onclick="showHomefreshtitle();"><!--<lang package='Template/Homefresh'>-->标题<!--</lang>--></a>
 									</td>
 									<td rowspan="2" style="width:70px;">
 										<input type="hidden" name="ajax" value="1">
@@ -227,12 +227,12 @@ function homefreshcommentSubmit(){
 										</div>
 										<div class="clear"></div>
 										<!--</foreach>-->
-										<!--{if is_array($arrHomefreshcomments)}-->
-										<div class="homefreshcomment_view">
-											<a href="<!--{:Dyhb::U('home://fresh@?id='.$oHomefresh['homefresh_id'])}-->#comments"><!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->查看全部评论<!--</lang>-->&raquo;</a>
-										</div>
-										<!--{/if}-->
 									</div>
+									<!--{if is_array($arrHomefreshcomments)}-->
+									<div class="homefreshcomment_view">
+										<a href="<!--{:Dyhb::U('home://fresh@?id='.$oHomefresh['homefresh_id'])}-->#comments"><!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->查看全部评论<!--</lang>-->&raquo;</a>
+									</div>
+									<!--{/if}-->
 									<div id="homefreshcommentdiv_<!--{$oHomefresh['homefresh_id']}-->" onclick="commentForm('<!--{$oHomefresh['homefresh_id']}-->');" class="homefreshcomment_div"><!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->我也来说一句<!--</lang>-->
 									</div>
 									<div id="homefreshcommentform_<!--{$oHomefresh['homefresh_id']}-->" class="homefreshcomment_form">
