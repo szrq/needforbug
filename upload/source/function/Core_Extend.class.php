@@ -224,7 +224,9 @@ class Core_Extend{
 		$oSyscacheModel->save(0,'replace');
 
 		$bAllowMem && self::memory('delete',$sCacheName);
-		$bIsFilecache && @unlink(NEEDFORBUG_PATH.'/data/~runtime/cache_/~@'.$sCacheName.'.php');
+
+		$sCachefile=NEEDFORBUG_PATH.'/data/~runtime/cache_/~@'.$sCacheName.'.php';
+		$bIsFilecache && (is_file($sCachefile) && @unlink($sCachefile));
 	}
 
 	public static function memory($sAction,$sKey='',$Value=''){
