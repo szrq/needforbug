@@ -323,8 +323,19 @@ class HomefreshController extends InitController{
 		}
 
 		$arrCommentData=$oHomefreshcomment->toArray();
-		$arrCommentData['jumpurl']=Dyhb::U('home://fresh@?id='.$oHomefreshcomment->homefresh_id.'&extra=new'.$oHomefreshcomment['homefreshcomment_id']).
-			'#comment-'.$oHomefreshcomment['homefreshcomment_id'];
+
+		$nQuick=intval(G::getGpc('quick','G'));
+		if($nQuick==1){
+			$arrCommentData['homefreshcomment_content']=G::subString(strip_tags($arrCommentData['homefreshcomment_content']),0,80);
+			$arrCommentData['comment_name']=UserModel::getUsernameById($oHomefreshcomment->user_id);
+			$arrCommentData['create_dateline']=Core_Extend::timeFormat($arrCommentData['create_dateline']);
+			$arrCommentData['avatar']=Core_Extend::avatar($arrCommentData['user_id'],'small');
+			$arrCommentData['url']=Dyhb::U('home://space@?id='.$arrCommentData['user_id']);
+			$arrCommentData['num']=$nHomefreshcomment;
+		}else{
+			$arrCommentData['jumpurl']=Dyhb::U('home://fresh@?id='.$oHomefreshcomment->homefresh_id.'&extra=new'.$oHomefreshcomment['homefreshcomment_id']).
+				'#comment-'.$oHomefreshcomment['homefreshcomment_id'];
+		}
 			
 		$this->A($arrCommentData,Dyhb::L('添加新鲜事评论成功','Controller/Homefresh'),1);
 	}

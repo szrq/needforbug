@@ -33,7 +33,8 @@ class UcenterController extends InitController{
 	}
 	
 	public function deal(){
-		$sContent=trim(G::getGpc('content','G'));
+		
+		/*$sContent=trim(G::getGpc('content','G'));
 		$nId=intval(G::getGpc('id','G'));
 
 		if(empty($sContent)||empty($nId)){
@@ -65,6 +66,6 @@ class UcenterController extends InitController{
 		$arrData['url']=Dyhb::U('home://space@?id='.$arrData['user_id']);
 		$arrData['num']=$nHomefreshcomment;
 
-		$this->A($arrData,'评论成功',1);
+		$this->A($arrData,'评论成功',1);*/
 	}
 }

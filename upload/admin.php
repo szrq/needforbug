@@ -9,6 +9,7 @@ if(!file_exists('data/Install.lock.php')){
 
 //error_reporting(E_ERROR|E_PARSE|E_STRICT);
 error_reporting(E_ALL);
+define('NEEDFORBUG_DEBUG',TRUE);
 
 /** Defined the version of needforbug */
 define('NEEDFORBUG_SERVER_VERSION','1.0');

@@ -24,4 +24,14 @@ class UserprofileModel extends CommonModel{
 		return ModelMeta::instance(__CLASS__);
 	}
 
+	static public function getUserprofileById($nUserId,$sField='userprofile_site'){
+		$oUserprofile=UserprofileModel::F('user_id=?',$nUserId)->query();
+
+		if(empty($oUserprofile['user_id'])){
+			return null;
+		}
+		
+		return $oUserprofile[$sField];
+	}
+
 }

@@ -2,8 +2,6 @@
 
 <!--{:Core_Extend::editorInclude()}-->
 
-<script src="<!--{:__PUBLIC__}-->/js/jquery/autoresize/jquery.autoresize.js"></script>
-
 <!--{script}-->
 $(function(){
 	editor=loadEditorThin('homefresh_message');
@@ -31,92 +29,10 @@ function addHomefresh(){
 function showHomefreshtitle(){
 	$('#homefresh-title-box').toggle('fast');
 }
-
-function goodnum(id){
-	Dyhb.AjaxSend(D.U('home://ucenter/update_homefreshgoodnum'),'ajax=1&id='+id,'',function(data,status,info){
-		if(status==1){
-			$('#goodnum_'+id).text(data.num);
-			$('#goodnum_'+id).css("color","#4A4A4A");
-		}
-	});
-}
-
-var nCurrentHomefreshid='';
-
-function commentForm(id){
-	if($("#homefreshcommentform_"+nCurrentHomefreshid+' .homefreshcommentform_area').val()){
-		needforbugConfirm(D.L('你确定要放弃正在编辑的评论?','AppJs'),function(){
-			$("#homefreshcommentdiv_"+nCurrentHomefreshid).css("display","block");
-			$("#homefreshcommentform_"+nCurrentHomefreshid).css("display","none");
-			homefreshcommentSwitchform(id);
-			return true;
-		},function(){
-			$(".homefreshcommentform_area").focus();
-			return true;
-		});
-
-		return false;
-	}
-
-	$("#homefreshcommentdiv_"+nCurrentHomefreshid).css("display","block");
-	$("#homefreshcommentform_"+nCurrentHomefreshid).css("display","none");
-	homefreshcommentSwitchform(id);
-
-	return true;
-}
-
-function homefreshcommentSwitchform(id){
-	$("#homefreshcommentdiv_"+id).css("display","none");
-	$("#homefreshcommentform_"+id).css("display","block");
-
-	$("#homefreshcommentform_"+id).html($("#homefreshcommentform_box").html());
-		
-	$('.homefreshcommentform_area').autoResize({
-		onResize:function(){
-			$(this).css({opacity:0.8});
-		},
-		animateCallback:function(){
-			$(this).css({opacity:1});
-		},
-		animateDuration:300,
-		extraSpace:0,
-		min:'80px'
-	});
-
-	$(".homefreshcommentform_area").focus();
-
-	nCurrentHomefreshid=id;
-}
-
-function homefreshcommentSubmit(){
-	var value=$("#homefreshcommentform_"+nCurrentHomefreshid+' .homefreshcommentform_area').val();
-	if(value==""){
-		needforbugAlert(D.L('评论不能为空','AppJs'),'',3);
-		return false;
-	}
-
-	Dyhb.AjaxSend(D.U('home://ucenter/deal'),"ajax=1&content="+encodeURIComponent(value)+"&id="+nCurrentHomefreshid,'',function(data,status){
-		$("#homefreshcommentdiv_"+nCurrentHomefreshid).css("display","block");
-		$("#homefreshcommentform_"+nCurrentHomefreshid).css("display","none");
-		$("#homefreshcommentform_"+nCurrentHomefreshid).html("");
-
-		$("#homefreshcommentlist_"+nCurrentHomefreshid).append(
-			'<div class="homefreshcomment_item">
-				<div class="homefreshcomment_avatar">
-					<img src="'+data.avatar+'" class="thumbnail"/>
-				</div>
-				<div class="homefreshcomment_content">
-					<a href="'+data.url+'">'+data.comment_name+'</a>:'+data.homefreshcomment_content+'<br/>'+
-					data.create_dateline+
-				'</div>
-			</div>
-			<div class="clear"></div>'
-		);
-
-		$("#homefreshcomment_"+nCurrentHomefreshid).html(data.num);
-	});
-}
 <!--{/script}-->
+
+<script src="<!--{:__PUBLIC__}-->/js/jquery/autoresize/jquery.autoresize.js"></script>
+<script src="<!--{:__APPPUB__}-->/Js/comment.js"></script>
 
 		<ul class="breadcrumb">
 			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
@@ -183,7 +99,13 @@ function homefreshcommentSubmit(){
 				<div class="message-box">
 					<div id="homefreshcommentform_box" class="none">
 						<textarea class="homefreshcommentform_area"></textarea><br />
-						<input class="btn btn-success homefreshcommentform_btn" type="button" value="提交" onclick="homefreshcommentSubmit();"/>
+						<input type="hidden" name="homefreshcomment_name" id="homefreshcomment_name" value="<!--{$GLOBALS['___login___']['user_name']}-->">
+						<input type="hidden" name="homefreshcomment_email" id="homefreshcomment_email" value="<!--{$GLOBALS['___login___']['user_email']}-->">
+						<input type="hidden" name="homefreshcomment_url" id="homefreshcomment_url" value="<!--{:UserprofileModel::getUserprofileById(1)}-->">
+						<div class="homefreshcommentform_btn">
+							<input class="btn" type="button" value="<!--<lang package='Template/Homefresh'>-->取消<!--</lang>-->" onclick="homefreshcommentCancel();"/>&nbsp;
+							<input class="btn btn-success" type="button" value="<!--<lang package='Template/Homefresh'>-->提交<!--</lang>-->" onclick="homefreshcommentSubmit();"/>
+						</div>
 					</div>
 					<!--{if is_array($arrHomefreshs)}-->
 					<table class="table">
@@ -201,7 +123,7 @@ function homefreshcommentSubmit(){
 									</div>
 								</td>
 								<td>
-								<h4><a href="<!--{:Dyhb::U('home://space@?id='.$oHomefresh['user_id'])}-->"><!--{$oHomefresh:user:user_name}--></a>&nbsp;<!--<lang package='Template/Homefresh'>-->于<!--</lang>-->&nbsp;<!--{$oHomefresh['create_dateline']|Core_Extend+timeFormat}-->&nbsp;<!--<lang package='Template/Homefresh'>-->发布<!--</lang>-->
+									<h4><a href="<!--{:Dyhb::U('home://space@?id='.$oHomefresh['user_id'])}-->"><!--{$oHomefresh:user:user_name}--></a>&nbsp;<!--<lang package='Template/Homefresh'>-->于<!--</lang>-->&nbsp;<!--{$oHomefresh['create_dateline']|Core_Extend+timeFormat}-->&nbsp;<!--<lang package='Template/Homefresh'>-->发布<!--</lang>-->
 									</h4>
 									<div class="homefresh-content">
 										<!--{$oHomefresh['homefresh_message']|strip_tags|G+subString=0,$GLOBALS['_cache_']['home_option']['homefresh_list_substring_num']}-->
