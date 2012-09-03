@@ -21,7 +21,31 @@ function addHomefresh(){
 		$("#submit_button").val("<!--<lang package='__COMMON_LANG__@Template/Common'>-->发布<!--</lang>-->");
 		
 		if(status==1){
-			window.location.reload();
+			$("#homefreshlist_box").prepend(
+				'<tr>'+
+					'<td style="width:48px;">'+
+						'<div style="text-align:center;">'+
+							'<a href="'+data.space+'"><img src="'+data.avatar+'" class="thumbnail" /></a>'+
+						'</div>'+
+					'</td>'+
+					'<td>'+
+						'<h4><a href="'+data.space+'">'+data.user_name+'</a>&nbsp;<!--<lang package='Template/Homefresh'>-->于<!--</lang>-->&nbsp;'+data.create_dateline+'&nbsp;<!--<lang package='Template/Homefresh'>-->发布<!--</lang>-->'+
+						'</h4>'+
+						'<div class="homefresh-content">'+data.homefresh_message+'</div>'+
+						'<div class="homefresh-count">'+
+							'<a href="javascript:void(0);" onclick="goodnum(\''+data.homefresh_id+'\');"><!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->赞<!--</lang>-->(<span id="goodnum_'+data.homefresh_id+'">'+data.homefresh_goodnum+'</span>)</a>'+
+							'<span class="pipe">|</span>'+
+							'<a href="'+data.url+'#comments"><!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->评论<!--</lang>-->(<span id="homefreshcomment_'+data.homefresh_id+'">'+data.homefresh_commentnum+'</span>)</a>'+
+							'<span class="pipe">|</span>'+
+							'<a href="'+data.url+'" title="<!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->阅读全文<!--</lang>-->"><i class="icon-eye-open"></i></a>'+
+						'</div>'+
+						'<div id="homefreshcommentlist_'+data.homefresh_id+'" class="homefreshcommentlist_box">'+
+						'</div>'+
+						'<div id="homefreshcommentdiv_'+data.homefresh_id+'" onclick="commentForm(\''+data.homefresh_id+'\');" class="homefreshcomment_div"><!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->我也来说一句<!--</lang>--></div>'+
+						'<div id="homefreshcommentform_'+data.homefresh_id+'" class="homefreshcomment_form"></div>'+
+					'</td>'+
+				'</tr>'
+			);
 		}
 	});
 }
@@ -114,7 +138,7 @@ function showHomefreshtitle(){
 								<th colspan="2"><!--<lang package='Template/Homefresh'>-->大家正在说<!--</lang>--></th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody id="homefreshlist_box">
 							<!--<foreach for=arrHomefreshs value=oHomefresh>-->
 							<tr>
 								<td style="width:48px;">
@@ -129,7 +153,7 @@ function showHomefreshtitle(){
 										<!--{$oHomefresh['homefresh_message']|strip_tags|G+subString=0,$GLOBALS['_cache_']['home_option']['homefresh_list_substring_num']}-->
 									</div>
 									<div class="homefresh-count">
-										<a href="javascript:void(0);" onclick="goodnum('<!--{$oHomefresh['homefresh_id']}-->');"><!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->赞<!--</lang>-->(<span id="goodnum_<!--{$oHomefresh['homefresh_id']}-->" style="<!--{if in_array($oHomefresh['homefresh_id'],$arrGoodCookie)}-->color:#4A4A4A;<!--{/if}-->"><!--{$oHomefresh['homefresh_goodnum']}--></span>)</a>
+										<a href="javascript:void(0);" onclick="goodnum('<!--{$oHomefresh['homefresh_id']}-->');"><!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->赞<!--</lang>-->(<span id="goodnum_<!--{$oHomefresh['homefresh_id']}-->" <!--{if in_array($oHomefresh['homefresh_id'],$arrGoodCookie)}-->style="color:#4A4A4A;"<!--{/if}-->><!--{$oHomefresh['homefresh_goodnum']}--></span>)</a>
 										<span class="pipe">|</span>
 										<a href="<!--{:Dyhb::U('home://fresh@?id='.$oHomefresh['homefresh_id'])}-->#comments"><!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->评论<!--</lang>-->(<span id="homefreshcomment_<!--{$oHomefresh['homefresh_id']}-->"><!--{$oHomefresh['homefresh_commentnum']}--></span>)</a>
 										<span class="pipe">|</span>

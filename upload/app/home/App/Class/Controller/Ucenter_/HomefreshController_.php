@@ -102,8 +102,16 @@ class HomefreshController extends InitController{
 					$this->E($oUser->getErrorMessage());
 				}
 			}
-			
-			$this->S(Dyhb::L('添加新鲜事成功','Controller/Homefresh'));
+
+			$arrHomefreshData=$oHomefresh->toArray();
+			$arrHomefreshData['space']=Dyhb::U('home://space@?id='.$oHomefresh['user_id']);
+			$arrHomefreshData['avatar']=Core_Extend::avatar($oHomefresh['user_id'],'small');
+			$arrHomefreshData['user_name']=$oHomefresh->user->user_name;
+			$arrHomefreshData['create_dateline']=Core_Extend::timeFormat($oHomefresh['create_dateline']);
+			$arrHomefreshData['homefresh_message']=G::subString(strip_tags($oHomefresh['homefresh_message']),0,$GLOBALS['_cache_']['home_option']['homefresh_list_substring_num']);
+			$arrHomefreshData['url']=Dyhb::U('home://fresh@?id='.$oHomefresh['homefresh_id']);
+
+			$this->A($arrHomefreshData,Dyhb::L('添加新鲜事成功','Controller/Homefresh'),1);
 		}
 	}
 
