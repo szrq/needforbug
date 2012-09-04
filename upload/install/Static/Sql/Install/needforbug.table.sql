@@ -214,9 +214,9 @@ CREATE TABLE `#@__friend` (
 
 DROP TABLE IF EXISTS `#@__homefresh`;
 CREATE TABLE `#@__homefresh` (
-  `homefresh_id` mediumint(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '新鲜事ID',
+  `homefresh_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '新鲜事ID',
   `homefresh_title` varchar(300) NOT NULL COMMENT '新鲜事标题',
-  `user_id` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '用户',
+  `user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '用户',
   `homefresh_username` varchar(15) NOT NULL DEFAULT '' COMMENT '用户名',
   `homefresh_from` varchar(20) NOT NULL DEFAULT '' COMMENT '来源',
   `create_dateline` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
@@ -240,17 +240,17 @@ CREATE TABLE `#@__homefresh` (
 
 DROP TABLE IF EXISTS `#@__homefreshcomment`;
 CREATE TABLE `#@__homefreshcomment` (
-  `homefreshcomment_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '评论ID',
+  `homefreshcomment_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '评论ID',
   `create_dateline` int(10) NOT NULL COMMENT '创建时间',
   `update_dateline` int(10) NOT NULL COMMENT '更新时间',
-  `user_id` mediumint(8) NOT NULL DEFAULT '0' COMMENT '用户ID，在线用户评论',
+  `user_id` int(10) NOT NULL DEFAULT '0' COMMENT '用户ID，在线用户评论',
   `homefreshcomment_name` varchar(25) NOT NULL COMMENT '名字',
   `homefreshcomment_content` text NOT NULL COMMENT '内容',
   `homefreshcomment_email` varchar(300) NOT NULL COMMENT '邮件',
   `homefreshcomment_url` varchar(300) NOT NULL COMMENT 'URL',
   `homefreshcomment_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否显示',
   `homefreshcomment_ip` varchar(16) NOT NULL COMMENT 'IP',
-  `homefreshcomment_parentid` mediumint(8) NOT NULL DEFAULT '0' COMMENT '父级ID',
+  `homefreshcomment_parentid` int(10) NOT NULL DEFAULT '0' COMMENT '父级ID',
   `homefreshcomment_isreplymail` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否邮件通知，通知给评论者',
   `homefreshcomment_ismobile` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否为手机评论',
   `homefreshcomment_auditpass` tinyint(1) NOT NULL DEFAULT '1' COMMENT '审核是否通过',
@@ -261,7 +261,7 @@ CREATE TABLE `#@__homefreshcomment` (
   KEY `create_dateline` (`create_dateline`),
   KEY `update_dateline` (`update_dateline`),
   KEY `homefreshcomment_status` (`homefreshcomment_status`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 

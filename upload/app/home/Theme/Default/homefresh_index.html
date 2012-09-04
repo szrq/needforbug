@@ -1,5 +1,7 @@
 <!--<include file="Core_Extend::template('header')" />-->
 
+<script src="<!--{:__PUBLIC__}-->/js/jquery/jquery.insertcontent.js"></script>
+
 <!--{:Core_Extend::editorInclude()}-->
 
 <!--{script}-->
@@ -126,6 +128,7 @@ function showHomefreshtitle(){
 						<input type="hidden" name="homefreshcomment_name" id="homefreshcomment_name" value="<!--{$GLOBALS['___login___']['user_name']}-->">
 						<input type="hidden" name="homefreshcomment_email" id="homefreshcomment_email" value="<!--{$GLOBALS['___login___']['user_email']}-->">
 						<input type="hidden" name="homefreshcomment_url" id="homefreshcomment_url" value="<!--{:UserprofileModel::getUserprofileById($GLOBALS['___login___']['user_id'])}-->">
+						<input type="hidden" name="homefreshcomment_parentid" id="homefreshcomment_parentid" value="0">
 						<div class="homefreshcommentform_btn">
 							<input class="btn" type="button" value="<!--<lang package='Template/Homefresh'>-->取消<!--</lang>-->" onclick="homefreshcommentCancel();"/>&nbsp;
 							<input class="btn btn-success" type="button" value="<!--<lang package='Template/Homefresh'>-->提交<!--</lang>-->" onclick="homefreshcommentSubmit();"/>
@@ -165,7 +168,7 @@ function showHomefreshtitle(){
 									<!--{/if}-->
 									<div id="homefreshcommentlist_<!--{$oHomefresh['homefresh_id']}-->" class="homefreshcommentlist_box">
 										<!--<foreach for=arrHomefreshcomments value=oHomefreshcomment>-->
-										<div class="homefreshcomment_item" id="homefreshcommentitem_<!--{$oHomefresh['homefresh_id']}-->">
+										<div class="homefreshcomment_item" id="homefreshcommentitem_<!--{$oHomefreshcomment['homefreshcomment_id']}-->">
 											<div class="homefreshcomment_avatar"><img src="<!--{:Core_Extend::avatar($oHomefreshcomment['user_id'],'small')}-->" class="thumbnail" />
 											</div>
 											<div class="homefreshcomment_content">
@@ -173,35 +176,28 @@ function showHomefreshtitle(){
 												<!--{$oHomefreshcomment->homefreshcomment_content|G+subString=0,80}--><br/><em class="homefreshcomment_date"><!--{$oHomefreshcomment->create_dateline|Core_Extend+timeFormat}--></em>
 												<span class="pipe">|</span>
 												<a href="javascript:void(0);" onclick="childcommentForm('<!--{$oHomefresh['homefresh_id']}-->','<!--{$oHomefreshcomment['homefreshcomment_id']}-->');">回复</a>
-
-	<div class="homefreshchildcommentlist_box">
-	<div class="homefreshcomment_item homefreshcomment_itemchild" id="homefreshcommentitem_123">
-	<div class="homefreshcomment_avatar">
-		<img src="/needforbug/upload/Public/images/avatar/noavatar_small.gif" class="thumbnail" />
-	</div>
-	<div class="homefreshcomment_content">
-		<a href="/needforbug/upload/index.php/space/1">admin</a>:测试一下，哈哈<br/>
-		<em class="homefreshcomment_date">10 分钟前</em>
-	</div>
-</div>
-<div class="clear"></div><div class="homefreshcomment_item" id="homefreshcommentitem_123">
-	<div class="homefreshcomment_avatar">
-		<img src="/needforbug/upload/Public/images/avatar/noavatar_small.gif" class="thumbnail" />
-	</div>
-	<div class="homefreshcomment_content">
-		<a href="/needforbug/upload/index.php/space/1">admin</a>:测试一下，哈哈<br/>
-		<em class="homefreshcomment_date">10 分钟前</em>
-	</div>
-</div>
-<div class="clear"></div></div>
+												<!--{~$arrHomefreshchildcomments=$TheController->get_newchildcomment($oHomefresh['homefresh_id'],$oHomefreshcomment['homefreshcomment_id'])}-->
+												<div id="homefreshchildcommentlist_<!--{$oHomefreshcomment['homefreshcomment_id']}-->" class="homefreshchildcommentlist_box">
+													<!--<foreach for=arrHomefreshchildcomments value=oHomefreshchildcomment>-->
+													<div class="homefreshcomment_item homefreshcomment_itemchild" id="homefreshcommentitem_<!--{$oHomefreshchildcomment['homefreshcomment_id']}-->">
+														<div class="homefreshcomment_avatar">
+															<img src="<!--{:Core_Extend::avatar($oHomefreshchildcomment['user_id'],'small')}-->" class="thumbnail" />
+														</div>
+														<div class="homefreshcomment_content">
+															<a href="<!--{:Dyhb::U('home://space@?id='.$oHomefreshchildcomment['user_id'])}-->"><!--{$oHomefreshchildcomment->user_id|UserModel+getUsernameById}--></a>:
+															<!--{$oHomefreshchildcomment->homefreshcomment_content|G+subString=0,80}--><br/><em class="homefreshcomment_date"><!--{$oHomefreshchildcomment->create_dateline|Core_Extend+timeFormat}--></em>
+															<span class="pipe">|</span>
+															<a href="javascript:void(0);" onclick="childcommentForm('<!--{$oHomefresh['homefresh_id']}-->','<!--{$oHomefreshchildcomment['homefreshcomment_parentid']}-->',1,'<!--{$oHomefreshcomment:user:user_name}-->');"><!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->回复<!--</lang>--></a>
+														</div>
+													</div>
+													<div class="clear"></div>
+													<!--</foreach>-->
+												</div>
 												<div id="homefreshchildcommentform_<!--{$oHomefreshcomment['homefreshcomment_id']}-->" class="homefreshcomment_form">
 												</div>
 											</div>
 										</div>
-										<!--{if $key!=count($arrHomefreshcomments)-1}-->
-										<hr/>
-										<!--{/if}-->
-										<div class="clear"></div>
+										<div class="clear homefreshcommentitem_separator"></div>
 										<!--</foreach>-->
 									</div>
 									<!--{if is_array($arrHomefreshcomments)}-->

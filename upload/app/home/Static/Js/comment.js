@@ -104,10 +104,6 @@ var nCurrentHomefreshcommentid='';
 var bCurrentHomefreshcommentopen=false;
 
 function commentForm(id){
-	if(bCurrentHomefreshcommentopen===true){
-		homefreshchildcommentCancel();
-	}
-
 	if($("#homefreshcommentform_"+nCurrentHomefreshid+' .homefreshcommentform_area').val()){
 		needforbugConfirm(D.L('你确定要放弃正在编辑的评论?','Js/Comment_Js'),function(){
 			$("#homefreshcommentdiv_"+nCurrentHomefreshid).css("display","block");
@@ -122,6 +118,26 @@ function commentForm(id){
 		});
 
 		return false;
+	}
+
+	if($("#homefreshchildcommentform_"+nCurrentHomefreshcommentid+' .homefreshcommentform_area').val()){
+		needforbugConfirm(D.L('你确定要放弃正在编辑的评论?','Js/Comment_Js'),function(){
+			$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid).css("display","none");
+			$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid+' .homefreshcommentform_area').val('');
+			$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid).html('');
+			bCurrentHomefreshcommentopen=false;
+			homefreshcommentSwitchform(id);
+			return true;
+		},function(){
+			$(".homefreshcommentform_area").focus();
+			return true;
+		});
+
+		return false;
+	}
+
+	if(bCurrentHomefreshcommentopen===true){
+		homefreshchildcommentCancel();
 	}
 
 	$("#homefreshcommentdiv_"+nCurrentHomefreshid).css("display","block");
@@ -184,10 +200,16 @@ function homefreshcommentCancel(){
 }
 
 function homefreshcommentSubmit(){
-	var value=$("#homefreshcommentform_"+nCurrentHomefreshid+' .homefreshcommentform_area').val();
 	var comment_name=$.trim($('#homefreshcomment_name').val());
 	var comment_email=$.trim($("#homefreshcomment_email").val());
 	var comment_url=$.trim($("#homefreshcomment_url").val());
+	var comment_parentid=$.trim($("#homefreshcomment_parentid").val());
+	
+	if(comment_parentid>0){
+		var value=$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid+' .homefreshcommentform_area').val();
+	}else{
+		var value=$("#homefreshcommentform_"+nCurrentHomefreshid+' .homefreshcommentform_area').val();
+	}
 	
 	var bResult=commentCheckForm(value);
 	if(bResult===false){
@@ -196,26 +218,48 @@ function homefreshcommentSubmit(){
 
 	var sUrlParameter="ajax=1&quick=1&homefreshcomment_content="+encodeURIComponent(value)+
 		"&homefresh_id="+nCurrentHomefreshid+'&homefreshcomment_name='+encodeURIComponent(comment_name)+
-		'&homefreshcomment_email='+encodeURIComponent(comment_email)+'&homefreshcomment_url='+encodeURIComponent(comment_url);
+		'&homefreshcomment_email='+encodeURIComponent(comment_email)+'&homefreshcomment_url='+encodeURIComponent(comment_url)+'&homefreshcomment_parentid='+comment_parentid;
 
 	Dyhb.AjaxSend(D.U('home://ucenter/add_homefreshcomment'),sUrlParameter,'',function(data,status){
 		if(status==1){
-			$("#homefreshcommentdiv_"+nCurrentHomefreshid).css("display","block");
-			$("#homefreshcommentform_"+nCurrentHomefreshid).css("display","none");
-			$("#homefreshcommentform_"+nCurrentHomefreshid).html("");
-
-			$("#homefreshcommentlist_"+nCurrentHomefreshid).append(
-				'<div class="homefreshcomment_item">'+
+			var sCommentReply='<div class="homefreshcomment_item">'+
 					'<div class="homefreshcomment_avatar">'+
 						'<img src="'+data.avatar+'" class="thumbnail"/>'+
 					'</div>'+
 					'<div class="homefreshcomment_content">'+
 						'<a href="'+data.url+'">'+data.comment_name+'</a>:'+data.homefreshcomment_content+'<br/>'+
 						'<em class="homefreshcomment_date">'+data.create_dateline+'</em>'+
+						'<span class="pipe">|</span>';
+			
+			if(comment_parentid>0){
+				sCommentReply+='<a href="javascript:void(0);" onclick="childcommentForm(\''+data.homefresh_id+'\',\''+comment_parentid+'\',\'1\',\''+data.comment_name+'\');">'+D.L('回复','Js/Comment_Js')+'</a>';
+			}else{
+				sCommentReply+='<a href="javascript:void(0);" onclick="childcommentForm(\''+data.homefresh_id+'\',\''+data.homefreshcomment_id+'\');">'+D.L('回复','Js/Comment_Js')+'</a>'+
+					'<div id="homefreshchildcommentlist_'+data.homefreshcomment_id+'" class="homefreshchildcommentlist_box">'+
 					'</div>'+
+					'<div id="homefreshchildcommentform_'+data.homefreshcomment_id+'" class="homefreshcomment_form">'+
+					'</div>';
+			}
+			
+			sCommentReply+='</div>'+
 				'</div>'+
-				'<div class="clear"></div>'
-			);
+				'<div class="clear"></div>';
+			
+			if(comment_parentid>0){
+				$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid).css("display","none");
+				$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid+' .homefreshcommentform_area').val('');
+				$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid).html('');
+
+				$("#homefreshchildcommentlist_"+nCurrentHomefreshcommentid).append(sCommentReply);
+
+				bCurrentHomefreshcommentopen=false;
+			}else{
+				$("#homefreshcommentdiv_"+nCurrentHomefreshid).css("display","block");
+				$("#homefreshcommentform_"+nCurrentHomefreshid).css("display","none");
+				$("#homefreshcommentform_"+nCurrentHomefreshid).html("");
+
+				$("#homefreshcommentlist_"+nCurrentHomefreshid).append(sCommentReply);
+			}
 
 			$("#homefreshcomment_"+nCurrentHomefreshid).html(data.num);
 		}
@@ -223,18 +267,19 @@ function homefreshcommentSubmit(){
 }
 
 /** 子评论提交 */
-function childcommentForm(id,commentid){
-	if(commentid==nCurrentHomefreshid && bCurrentHomefreshcommentopen===true){
+function childcommentForm(id,commentid,childComment,username){
+	if(childComment!=1 && commentid==nCurrentHomefreshcommentid && bCurrentHomefreshcommentopen===true){
 		homefreshchildcommentCancel();
 		return false;
 	}
 
-	/*if($("#homefreshcommentform_"+nCurrentHomefreshid+' .homefreshcommentform_area').val()){
+	if($("#homefreshcommentform_"+nCurrentHomefreshid+' .homefreshcommentform_area').val()){
 		needforbugConfirm(D.L('你确定要放弃正在编辑的评论?','Js/Comment_Js'),function(){
 			$("#homefreshcommentdiv_"+nCurrentHomefreshid).css("display","block");
 			$("#homefreshcommentform_"+nCurrentHomefreshid).css("display","none");
 			$("#homefreshcommentform_"+nCurrentHomefreshid+' .homefreshcommentform_area').val('');
-			homefreshcommentSwitchform(id);
+			$("#homefreshcommentform_"+nCurrentHomefreshid).html('');
+			homefreshchildcommentSwitchform(id,commentid,username);
 			return true;
 		},function(){
 			$(".homefreshcommentform_area").focus();
@@ -242,7 +287,22 @@ function childcommentForm(id,commentid){
 		});
 
 		return false;
-	}*/
+	}
+	
+	if($("#homefreshchildcommentform_"+nCurrentHomefreshcommentid+' .homefreshcommentform_area').val()){
+		needforbugConfirm(D.L('你确定要放弃正在编辑的评论?','Js/Comment_Js'),function(){
+			$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid).css("display","none");
+			$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid+' .homefreshcommentform_area').val('');
+			$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid).html('');
+			homefreshchildcommentSwitchform(id,commentid,username);
+			return true;
+		},function(){
+			$(".homefreshcommentform_area").focus();
+			return true;
+		});
+
+		return false;
+	}
 
 	$("#homefreshcommentdiv_"+nCurrentHomefreshid).css("display","block");
 	$("#homefreshcommentform_"+nCurrentHomefreshid).css("display","none");
@@ -253,12 +313,16 @@ function childcommentForm(id,commentid){
 	$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid+' .homefreshcommentform_area').val('');
 	$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid).html('');
 	
-	homefreshchildcommentSwitchform(id,commentid);
+	homefreshchildcommentSwitchform(id,commentid,username);
 
 	return true;
 }
 
-function homefreshchildcommentSwitchform(id,commentid){
+function childcommentAt(commentid,username){
+	$("#homefreshchildcommentform_"+commentid+' .homefreshcommentform_area').insertAtCaret('@'+username+' ');
+}
+
+function homefreshchildcommentSwitchform(id,commentid,username){
 	$("#homefreshchildcommentform_"+commentid).css("display","block");
 	$("#homefreshchildcommentform_"+commentid).html($("#homefreshcommentform_box").html());
 		
@@ -280,14 +344,21 @@ function homefreshchildcommentSwitchform(id,commentid){
 	nCurrentHomefreshcommentid=commentid;
 
 	bCurrentHomefreshcommentopen=true;
+
+	$('#homefreshcomment_parentid').val(commentid);
+	
+	if(username){
+		childcommentAt(commentid,username);
+	}
 }
 
 function homefreshchildcommentCancel(){
-	/*if($("#homefreshcommentform_"+nCurrentHomefreshid+' .homefreshcommentform_area').val()){
+	if($('#homefreshchildcommentform_'+nCurrentHomefreshcommentid+' .homefreshcommentform_area').val()){
 		needforbugConfirm(D.L('你确定要放弃正在编辑的评论?','Js/Comment_Js'),function(){
-			$("#homefreshcommentdiv_"+nCurrentHomefreshid).css("display","block");
-			$("#homefreshcommentform_"+nCurrentHomefreshid).css("display","none");
-			$("#homefreshcommentform_"+nCurrentHomefreshid+' .homefreshcommentform_area').val('');
+			$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid).css("display","none");
+			$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid+' .homefreshcommentform_area').val('');
+			$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid).html('');
+			bCurrentHomefreshcommentopen=false;
 			return true;
 		},function(){
 			$(".homefreshcommentform_area").focus();
@@ -295,12 +366,7 @@ function homefreshchildcommentCancel(){
 		});
 
 		return false;
-	}*/
-
-	$("#homefreshcommentdiv_"+nCurrentHomefreshid).css("display","block");
-	$("#homefreshcommentform_"+nCurrentHomefreshid).css("display","none");
-	$("#homefreshcommentform_"+nCurrentHomefreshid+' .homefreshcommentform_area').val('');
-	$("#homefreshcommentform_"+nCurrentHomefreshid).html('');
+	}
 	
 	$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid).css("display","none");
 	$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid+' .homefreshcommentform_area').val('');

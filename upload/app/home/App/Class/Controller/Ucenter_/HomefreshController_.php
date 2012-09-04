@@ -66,7 +66,17 @@ class HomefreshController extends InitController{
 	}
 
 	public function get_newcomment($nId){
-		return HomefreshcommentModel::F('homefresh_id=? AND homefreshcomment_status=1 AND homefreshcomment_auditpass=1',$nId)->limit(0,4)->order('homefreshcomment_id DESC')->getAll();
+		return HomefreshcommentModel::F(
+				'homefresh_id=? AND homefreshcomment_status=1 AND
+				homefreshcomment_auditpass=1 AND homefreshcomment_parentid=0',$nId
+			)->limit(0,4)->order('homefreshcomment_id DESC')->getAll();
+	}
+
+	public function get_newchildcomment($nId,$nCommentid){
+		return HomefreshcommentModel::F(
+				'homefresh_id=? AND homefreshcomment_status=1 AND
+				homefreshcomment_auditpass=1 AND homefreshcomment_parentid=?',$nId,$nCommentid
+			)->limit(0,4)->order('homefreshcomment_id DESC')->getAll();
 	}
 
 	public function add(){
