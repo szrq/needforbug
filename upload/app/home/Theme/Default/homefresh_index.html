@@ -41,7 +41,7 @@ function addHomefresh(){
 						'</div>'+
 						'<div id="homefreshcommentlist_'+data.homefresh_id+'" class="homefreshcommentlist_box">'+
 						'</div>'+
-						'<div id="homefreshcommentdiv_'+data.homefresh_id+'" onclick="commentForm(\''+data.homefresh_id+'\');" class="homefreshcomment_div"><!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->我也来说一句<!--</lang>--></div>'+
+						'<div id="homefreshcommentdiv_'+data.homefresh_id+'" onclick="commentForm(\''+data.homefresh_id+'\');" class="homefreshcomment_div" style="color:gray;"><!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->我也来说一句<!--</lang>--></div>'+
 						'<div id="homefreshcommentform_'+data.homefresh_id+'" class="homefreshcomment_form"></div>'+
 					'</td>'+
 				'</tr>'
@@ -179,7 +179,7 @@ function showHomefreshtitle(){
 										<a href="<!--{:Dyhb::U('home://fresh@?id='.$oHomefresh['homefresh_id'])}-->#comments"><!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->查看全部评论<!--</lang>-->&raquo;</a>
 									</div>
 									<!--{/if}-->
-									<div id="homefreshcommentdiv_<!--{$oHomefresh['homefresh_id']}-->" onclick="commentForm('<!--{$oHomefresh['homefresh_id']}-->');" class="homefreshcomment_div"><!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->我也来说一句<!--</lang>-->
+									<div id="homefreshcommentdiv_<!--{$oHomefresh['homefresh_id']}-->" onclick="commentForm('<!--{$oHomefresh['homefresh_id']}-->');" class="homefreshcomment_div" style="color:gray"><!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->我也来说一句<!--</lang>-->
 									</div>
 									<div id="homefreshcommentform_<!--{$oHomefresh['homefresh_id']}-->" class="homefreshcomment_form">
 									</div>
