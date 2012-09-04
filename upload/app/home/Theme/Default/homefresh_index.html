@@ -160,7 +160,9 @@ function showHomefreshtitle(){
 										<a href="<!--{:Dyhb::U('home://fresh@?id='.$oHomefresh['homefresh_id'])}-->" title="<!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->阅读全文<!--</lang>-->"><i class="icon-eye-open"></i></a>
 									</div>
 									<!--{~$arrHomefreshcomments=$TheController->get_newcomment($oHomefresh['homefresh_id'])}-->
-									<!--{if is_array($arrHomefreshcomments)}--><hr/><!--{/if}-->
+									<!--{if is_array($arrHomefreshcomments)}-->
+									<div class="homefreshcommentlist_headerarrow"></div>
+									<!--{/if}-->
 									<div id="homefreshcommentlist_<!--{$oHomefresh['homefresh_id']}-->" class="homefreshcommentlist_box">
 										<!--<foreach for=arrHomefreshcomments value=oHomefreshcomment>-->
 										<div class="homefreshcomment_item" id="homefreshcommentitem_<!--{$oHomefresh['homefresh_id']}-->">
@@ -169,8 +171,36 @@ function showHomefreshtitle(){
 											<div class="homefreshcomment_content">
 												<a href="<!--{:Dyhb::U('home://space@?id='.$oHomefreshcomment['user_id'])}-->"><!--{$oHomefreshcomment->user_id|UserModel+getUsernameById}--></a>:
 												<!--{$oHomefreshcomment->homefreshcomment_content|G+subString=0,80}--><br/><em class="homefreshcomment_date"><!--{$oHomefreshcomment->create_dateline|Core_Extend+timeFormat}--></em>
+												<span class="pipe">|</span>
+												<a href="javascript:void(0);" onclick="childcommentForm('<!--{$oHomefresh['homefresh_id']}-->','<!--{$oHomefreshcomment['homefreshcomment_id']}-->');">回复</a>
+
+	<div class="homefreshchildcommentlist_box">
+	<div class="homefreshcomment_item homefreshcomment_itemchild" id="homefreshcommentitem_123">
+	<div class="homefreshcomment_avatar">
+		<img src="/needforbug/upload/Public/images/avatar/noavatar_small.gif" class="thumbnail" />
+	</div>
+	<div class="homefreshcomment_content">
+		<a href="/needforbug/upload/index.php/space/1">admin</a>:测试一下，哈哈<br/>
+		<em class="homefreshcomment_date">10 分钟前</em>
+	</div>
+</div>
+<div class="clear"></div><div class="homefreshcomment_item" id="homefreshcommentitem_123">
+	<div class="homefreshcomment_avatar">
+		<img src="/needforbug/upload/Public/images/avatar/noavatar_small.gif" class="thumbnail" />
+	</div>
+	<div class="homefreshcomment_content">
+		<a href="/needforbug/upload/index.php/space/1">admin</a>:测试一下，哈哈<br/>
+		<em class="homefreshcomment_date">10 分钟前</em>
+	</div>
+</div>
+<div class="clear"></div></div>
+												<div id="homefreshchildcommentform_<!--{$oHomefreshcomment['homefreshcomment_id']}-->" class="homefreshcomment_form">
+												</div>
 											</div>
 										</div>
+										<!--{if $key!=count($arrHomefreshcomments)-1}-->
+										<hr/>
+										<!--{/if}-->
 										<div class="clear"></div>
 										<!--</foreach>-->
 									</div>
