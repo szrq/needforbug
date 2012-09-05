@@ -17,7 +17,7 @@ Tags: admin, light
 /* 主容器 */
 .homefresh-box{ table-layout:fixed; word-break: break-all; overflow:hidden;}
 .homefresh-box .max-limit-doing{ margin:5px 70px 0px 0px; }
-.homefresh-content{ table-layout:fixed; word-break: break-all; overflow:hidden;padding:5px 10px 5px 10px;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;margin-top:5px;}
+.homefresh-content{table-layout:fixed; word-break: break-all; overflow:hidden;margin:10px 0px;padding:5px 10px 5px 10px;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;margin-top:5px;}
 .homefresh-content:hover{background:{INTERVAL_LINE_COLOR};}
 .homefresh-count{margin:5px;}
 .homefresh-count a{font-size:12px;}
@@ -45,9 +45,9 @@ Tags: admin, light
 .homefreshcommentform_btn{text-align:right;}
 .homefreshcommentlist_headerarrow{background:#FFF url('{IMG_DIR}/arrow_bg.png') no-repeat 20px 0px;height:6px;margin-left:-15px;margin-bottom:5px;}
 .homefreshcommentlist_box{padding:3px 3px 0px 3px;}
-.homefreshcomment_view{margin-bottom:10px;margin-top:5px;}
+.homefreshcomment_view{margin-bottom:10px;margin-top:2px;}
 .homefreshcomment_date{}
-.homefreshcommentitem_separator{width:100%;margin-top:10px;border-bottom:1px dashed {INTERVAL_LINE_COLOR};}
+.homefreshcommentitem_separator{width:100%;margin-top:9px;margin-bottom:8px;border-bottom:1px dashed {INTERVAL_LINE_COLOR};}
 .homefreshchildcommentlist_box{margin-top:15px;}
 /* 新鲜事查看 */
 #homefreshviewcomment_box{margin-top:30px;}
