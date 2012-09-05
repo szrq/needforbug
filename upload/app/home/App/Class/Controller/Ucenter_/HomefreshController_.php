@@ -70,7 +70,7 @@ class HomefreshController extends InitController{
 		return HomefreshcommentModel::F(
 				'homefresh_id=? AND homefreshcomment_status=1 AND
 				homefreshcomment_auditpass=1 AND homefreshcomment_parentid=0',$nId
-			)->limit(0,4)->order('homefreshcomment_id DESC')->getAll();
+			)->limit(0,$GLOBALS['_cache_']['home_option']['homefreshcomment_limit_num'])->order('homefreshcomment_id DESC')->getAll();
 	}
 
 	public function get_newchildcomment($nId,$nCommentid,$bAll=false){
@@ -82,7 +82,7 @@ class HomefreshController extends InitController{
 		if($bAll===true){
 			return $oHomefreshcommentSelect->getAll();
 		}else{
-			return $oHomefreshcommentSelect->limit(0,4)->getAll();
+			return $oHomefreshcommentSelect->limit(0,$GLOBALS['_cache_']['home_option']['homefreshchildcomment_limit_num'])->getAll();
 		}
 	}
 

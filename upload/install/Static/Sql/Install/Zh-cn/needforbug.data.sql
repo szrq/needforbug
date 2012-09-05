@@ -90,7 +90,9 @@ INSERT INTO `#@__homeoption` (`homeoption_name`, `homeoption_value`) VALUES
 ('audit_comment', '0'),
 ('seccode_comment_status', '1'),
 ('comment_mail_to_admin', '0'),
-('comment_mail_to_author', '0');
+('comment_mail_to_author', '0'),
+('homefreshcomment_limit_num', '4'),
+('homefreshchildcomment_limit_num', '4');
 
 -- --------------------------------------------------------
 

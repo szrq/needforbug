@@ -27,6 +27,13 @@ class HomemainController extends InitController{
 
 		foreach($arrOptions as $sKey=>$val){
 			$val=trim($val);
+			
+			if(in_array($sKey,array('homefreshcomment_limit_num','homefreshchildcomment_limit_num'))){
+				if($val<1){
+					$val=4;
+				}
+			}
+			
 			$oOptionModel=HomeoptionModel::F('homeoption_name=?',$sKey)->getOne();
 			$oOptionModel->homeoption_value=G::html($val);
 			$oOptionModel->save(0,'update');
