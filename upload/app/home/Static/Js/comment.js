@@ -373,7 +373,9 @@ function homefreshchildcommentCancel(){
 			$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid).css("display","none");
 			$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid+' .homefreshcommentform_area').val('');
 			$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid).html('');
-			$("#homefreshcommentform_box").css("display","block");
+			if(nHomefreshviewcomment==1){
+				$("#homefreshcommentform_box").css("display","block");
+			}
 			bCurrentHomefreshcommentopen=false;
 			return true;
 		},function(){
@@ -388,9 +390,40 @@ function homefreshchildcommentCancel(){
 	$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid+' .homefreshcommentform_area').val('');
 	$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid).html('');
 
-	$("#homefreshcommentform_box").css("display","block");
+	if(nHomefreshviewcomment==1){
+		$("#homefreshcommentform_box").css("display","block");
+	}
 	
 	bCurrentHomefreshcommentopen=false;
 
 	return true;
+}
+
+/** 子评论分页 */
+$globalbody=(window.opera)?(document.compatMode=="CSS1Compat"?$('html'):$('body')):$('html,body');
+
+function homefreshcommentAjaxpage(nHomefreshcomentId){
+	$('#pagination_'+nHomefreshcomentId+' a').live('click', function(e){
+		e.preventDefault();
+		$.ajax({
+			type: "GET",
+			url: $(this).attr('href'),
+			beforeSend: function(){
+				$('#pagination_<!--{$oHomefreshcommentList['homefreshcomment_id']}-->').remove();
+				$('#homefreshchildcommentlist_<!--{$oHomefreshcommentList['homefreshcomment_id']}-->').remove();
+				$('#loading-comments').slideDown();
+				$body.animate({scrollTop: $('#homefreshchildcommentlisttitle_<!--{$oHomefreshcommentList['homefreshcomment_id']}-->').offset().top - 65}, 800 );
+			},
+			dataType: "html",
+			success: function(out){
+		
+				result = $(out).find('#homefreshchildcommentlist_<!--{$oHomefreshcommentList['homefreshcomment_id']}-->');
+				nextlink = $(out).find('#pagination_<!--{$oHomefreshcommentList['homefreshcomment_id']}-->');
+				$('#loading-comments').slideUp('fast');
+				  
+				$('#loading-comments').after(result.fadeIn(500));
+				$('#pagination_<!--{$oHomefreshcommentList['homefreshcomment_id']}-->').html(nextlink);
+			}
+		});
+	});
 }

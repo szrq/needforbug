@@ -77,7 +77,7 @@ class IoPage extends Page{
 			return self::$_oDefaultDbIns;
 		}
 
-		$oPage=new self($sIoPath,$nSize,$nPage,$arrOption,$sPageUrl) ;
+		$oPage=new self($sIoPath,$nSize,$nPage,$arrOption,$sPageUrl);
 		if($bDefaultIns){
 			self::$_oDefaultDbIns=$oPage;
 		}

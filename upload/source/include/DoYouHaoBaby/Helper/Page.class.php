@@ -17,6 +17,7 @@ class Page{
 	protected $_nPageLimit;
 	protected $_bPageSkip=false;
 	protected static $_oDefaultDbIns=null;
+	protected $_sPagename='page';
 
 	protected function __construct($nCount=0,$nSize=1,$nPage=1){
 		// 总记录数量
@@ -86,11 +87,20 @@ class Page{
 		return $oPage;
 	}
 
-	public function P($Id='pagenav',$sTyle='span',$sCurrent='current',$sDisabled='disabled'){
+	public function P($Id='pagenav',$sTyle='span',$sCurrent='current',$sDisabled='disabled',$sPagename='page'){
 		$sStr='';
 
+		if(!empty($sPagename)){
+			$this->_sPagename=$sPagename;
+		}
+
 		if(!empty($Id)){
-			$sStr='<div id="'.$Id.'" class="'.$Id.'">';
+			// 增加分页条自定义CSS样式
+			$arrIddata=explode('@',$Id);
+			$Id=$arrIddata[0];
+			$sClass=isset($arrIddata[1])?$arrIddata[1]:$Id;
+
+			$sStr='<div id="'.$Id.'" class="'.$sClass.'">';
 		}
 
 		if($sTyle=='li'){
@@ -198,18 +208,18 @@ class Page{
 	}
 
 	protected function pageReplace($nPage){
-		$sPageUrl=$_SERVER['REQUEST_URI'].(strpos($_SERVER['REQUEST_URI'],'?') ? '&' : '?').$this->_sParameter;
+		$sPageUrl=$_SERVER['REQUEST_URI'].(strpos($_SERVER['REQUEST_URI'],'?')?'&':'?').$this->_sParameter;
 
 		$arrParse=parse_url($sPageUrl);
 		if(isset($arrParse['query'])){// 分析URL
 			$arrParams=array();
 			parse_str($arrParse['query'],$arrParams);
-			unset($arrParams['page']);
+			unset($arrParams[$this->_sPagename]);
 			$sPageUrl= $arrParse['path'].'?'.http_build_query($arrParams);
 		}
 
 		$sPageUrl=str_replace(array("%2F","%3D","%3F"),array('/','=','?'),$sPageUrl);
-		$sPageUrl.=(substr($sPageUrl,-1,1)!='?'?'&':'').'page='.$nPage;
+		$sPageUrl.=(substr($sPageUrl,-1,1)!='?'?'&':'').$this->_sPagename.'='.$nPage;
 
 		return $sPageUrl;
 	}
