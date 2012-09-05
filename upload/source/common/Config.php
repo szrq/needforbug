@@ -24,4 +24,9 @@ unset($arrGlobalConfig['FRONT_TPL_DIR']);
 $arrAppConfigs['LANG']=$arrGlobalConfig['FRONT_LANGUAGE_DIR'];
 unset($arrGlobalConfig['FRONT_LANGUAGE_DIR']);
 
+// CSS资源配置
+if(is_file(APP_PATH.'/App/Config/Curscript.php')){
+	$arrAppConfigs['_CURSCRIPT_']=(array)require(APP_PATH.'/App/Config/Curscript.php');
+}
+
 return array_merge($arrAppConfigs,$arrGlobalConfig);

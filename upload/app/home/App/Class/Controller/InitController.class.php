@@ -9,27 +9,14 @@ class InitController extends Controller{
 	public function init__(){
 		parent::init__();
 
-		Core_Extend::loadCache('option');
-		Core_Extend::loadCache('nav');
+		// 应用配置
 		Core_Extend::loadCache('home_option');
 
-		Core_Extend::loginInformation();
-
-		$this->defineCurscript();
+		//前端初始化
 		Core_Extend::initFront();
-		Core_Extend::loadCache('lang');
-		
+
+		// 404
 		Core_Extend::page404($this);
-	}
-
-	public function defineCurscript(){
-		$arrModulecachelist=array(
-			'index'=>'public::index',
-			'pm'=>'pm',
-			'userhome'=>'ucenter',
-		);
-
-		Core_Extend::defineCurscript($arrModulecachelist);
 	}
 	
 	public function is_login(){

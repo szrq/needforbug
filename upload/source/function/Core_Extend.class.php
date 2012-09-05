@@ -657,6 +657,16 @@ NEEDFORBUG;
 	}
 
 	static public function initFront(){
+		// 配置&菜单&登陆信息
+		Core_Extend::loadCache('option');
+		Core_Extend::loadCache('nav');
+		Core_Extend::loginInformation();
+		
+		// CSS资源定义
+		if(isset($GLOBALS['_commonConfig_']['_CURSCRIPT_'])){
+			Core_Extend::defineCurscript($GLOBALS['_commonConfig_']['_CURSCRIPT_']);
+		}
+		
 		// 读取当前的主题样式
 		$sStyleCachepath=self::getCurstyleCachepath();
 		$arrMustFile=array('style.css','common.css','style.php');
@@ -692,6 +702,9 @@ NEEDFORBUG;
 		if(isset($_GET['t'])){
 			Dyhb::cookie('template',NULL,-1);
 		}
+		
+		// 读取语言缓存
+		Core_Extend::loadCache('lang');
 	}
 
 	static public function loadCss(){
