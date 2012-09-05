@@ -83,7 +83,9 @@ class PublicController extends InitController{
 			}
 			$nValuePos=strpos($sValue,',');
 			if($nValuePos<=4){
-				$sValue=G::subString($sValue,5);
+				$sValue=G::subString($sValue,$nValuePos);
+				$sValue=G::subString($sValue,0,-6);
+				$sValue=trim($sValue,',');
 			}
 			$arrTipsTxt[]=$sValue;
 		}
