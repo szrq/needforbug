@@ -102,7 +102,7 @@ function showHomefreshtitle(){
 								</tr>
 								<!--{if $nDisplaySeccode==1}-->
 								<tr>
-									<td>
+									<td><hr />
 										<label class="control-label" for="seccode"><!--<lang package='__COMMON_LANG__@Template/Common'>-->验证码<!--</lang>--></label>
 										<p><input class="input-small" name="seccode" id="seccode" type="text" value=""></p>
 										<p class="help-block"><span id="seccodeImage"><img style="cursor:pointer" onclick="updateSeccode()" src="<!--{:Dyhb::U('home://public/seccode')}-->" /></span></p>
@@ -130,9 +130,23 @@ function showHomefreshtitle(){
 						<input type="hidden" name="homefreshcomment_url" id="homefreshcomment_url" value="<!--{:UserprofileModel::getUserprofileById($GLOBALS['___login___']['user_id'])}-->">
 						<input type="hidden" name="homefreshcomment_parentid" id="homefreshcomment_parentid" value="0">
 						<div class="homefreshcommentform_btn">
-							<input class="btn" type="button" value="<!--<lang package='Template/Homefresh'>-->取消<!--</lang>-->" onclick="homefreshcommentCancel();"/>&nbsp;
-							<input class="btn btn-success" type="button" value="<!--<lang package='Template/Homefresh'>-->提交<!--</lang>-->" onclick="homefreshcommentSubmit();"/>
+							<div class="left">
+								<label class="checkbox">
+									<input type="checkbox" name="homefreshcomment_isreplymail" id="homefreshcomment_isreplymail" value="1">&nbsp;回复时邮件通知
+								</label>
+							</div>
+							<div class="right">
+								<input class="btn" type="button" value="<!--<lang package='Template/Homefresh'>-->取消<!--</lang>-->" onclick="homefreshcommentCancel();"/>&nbsp;
+								<input class="btn btn-success" type="button" value="<!--<lang package='Template/Homefresh'>-->提交<!--</lang>-->" onclick="homefreshcommentSubmit();"/>
+							</div>
 						</div>
+						<div class="clear"></div>
+						<!--{if $nDisplayCommentSeccode==1}-->
+						<hr/>
+						<label class="control-label" for="seccode"><!--<lang package='__COMMON_LANG__@Template/Common'>-->验证码<!--</lang>--></label>
+						<p><input class="input-small" name="seccode" id="homefreshcomment_seccode" type="text" value="" onblur="setSeccode(this.value);"></p>
+						<p class="help-block"><span id="seccodeImage"><img style="cursor:pointer" onclick="updateSeccode()" src="<!--{:Dyhb::U('home://ucenter/seccode')}-->" /></span></p>
+						<!--{/if}-->
 					</div>
 					<!--{if is_array($arrHomefreshs)}-->
 					<table class="table">

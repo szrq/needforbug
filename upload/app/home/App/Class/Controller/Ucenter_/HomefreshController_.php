@@ -61,6 +61,7 @@ class HomefreshController extends InitController{
 		$this->assign('arrHomefreshs',$arrHomefreshs);
 		$this->assign('sPageNavbar',$oPage->P('pagination','li','active'));
 		$this->assign('nDisplaySeccode',$GLOBALS['_option_']['seccode_publish_status']);
+		$this->assign('nDisplayCommentSeccode',$GLOBALS['_cache_']['home_option']['seccode_comment_status']);
 		
 		$this->display('homefresh+index');
 	}

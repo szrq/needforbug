@@ -103,6 +103,7 @@ var nCurrentHomefreshid='';
 var nCurrentHomefreshcommentid='';
 var nCurrentHomefreshchildcommentid='';
 var bCurrentHomefreshcommentopen=false;
+var sCommentSeccode='';
 
 function commentForm(id){
 	if($("#homefreshcommentform_"+nCurrentHomefreshid+' .homefreshcommentform_area').val()){
@@ -148,6 +149,10 @@ function commentForm(id){
 	homefreshcommentSwitchform(id);
 
 	return true;
+}
+
+function setSeccode(sValue){
+	sCommentSeccode=sValue;
 }
 
 function homefreshcommentSwitchform(id){
@@ -205,6 +210,7 @@ function homefreshcommentSubmit(){
 	var comment_email=$.trim($("#homefreshcomment_email").val());
 	var comment_url=$.trim($("#homefreshcomment_url").val());
 	var comment_parentid=$.trim($("#homefreshcomment_parentid").val());
+	var comment_isreplymail=$("#homefreshcomment_isreplymail").val();
 	
 	if(comment_parentid>0){
 		var value=$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid+' .homefreshcommentform_area').val();
@@ -219,7 +225,8 @@ function homefreshcommentSubmit(){
 
 	var sUrlParameter="ajax=1&quick=1&homefreshcomment_content="+encodeURIComponent(value)+
 		"&homefresh_id="+nCurrentHomefreshid+'&homefreshcomment_name='+encodeURIComponent(comment_name)+
-		'&homefreshcomment_email='+encodeURIComponent(comment_email)+'&homefreshcomment_url='+encodeURIComponent(comment_url)+'&homefreshcomment_parentid='+comment_parentid;
+		'&homefreshcomment_email='+encodeURIComponent(comment_email)+'&homefreshcomment_url='+
+		encodeURIComponent(comment_url)+'&homefreshcomment_parentid='+comment_parentid+'homefreshcomment_isreplaymail='+comment_isreplymail+'&seccode='+sCommentSeccode;
 
 	Dyhb.AjaxSend(D.U('home://ucenter/add_homefreshcomment'),sUrlParameter,'',function(data,status){
 		if(status==1){
