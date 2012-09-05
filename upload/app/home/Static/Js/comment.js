@@ -101,6 +101,7 @@ function goodnum(id){
 
 var nCurrentHomefreshid='';
 var nCurrentHomefreshcommentid='';
+var nCurrentHomefreshchildcommentid='';
 var bCurrentHomefreshcommentopen=false;
 
 function commentForm(id){
@@ -267,8 +268,8 @@ function homefreshcommentSubmit(){
 }
 
 /** 子评论提交 */
-function childcommentForm(id,commentid,childComment,username){
-	if(childComment!=1 && commentid==nCurrentHomefreshcommentid && bCurrentHomefreshcommentopen===true){
+function childcommentForm(id,commentid,childComment,username,childcommentid){
+	if(childcommentid==nCurrentHomefreshchildcommentid && commentid==nCurrentHomefreshcommentid && bCurrentHomefreshcommentopen===true){
 		homefreshchildcommentCancel();
 		return false;
 	}
@@ -279,7 +280,7 @@ function childcommentForm(id,commentid,childComment,username){
 			$("#homefreshcommentform_"+nCurrentHomefreshid).css("display","none");
 			$("#homefreshcommentform_"+nCurrentHomefreshid+' .homefreshcommentform_area').val('');
 			$("#homefreshcommentform_"+nCurrentHomefreshid).html('');
-			homefreshchildcommentSwitchform(id,commentid,username);
+			homefreshchildcommentSwitchform(id,commentid,username,childcommentid);
 			return true;
 		},function(){
 			$(".homefreshcommentform_area").focus();
@@ -294,7 +295,7 @@ function childcommentForm(id,commentid,childComment,username){
 			$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid).css("display","none");
 			$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid+' .homefreshcommentform_area').val('');
 			$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid).html('');
-			homefreshchildcommentSwitchform(id,commentid,username);
+			homefreshchildcommentSwitchform(id,commentid,username,childcommentid);
 			return true;
 		},function(){
 			$(".homefreshcommentform_area").focus();
@@ -313,7 +314,7 @@ function childcommentForm(id,commentid,childComment,username){
 	$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid+' .homefreshcommentform_area').val('');
 	$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid).html('');
 	
-	homefreshchildcommentSwitchform(id,commentid,username);
+	homefreshchildcommentSwitchform(id,commentid,username,childcommentid);
 
 	return true;
 }
@@ -322,7 +323,9 @@ function childcommentAt(commentid,username){
 	$("#homefreshchildcommentform_"+commentid+' .homefreshcommentform_area').insertAtCaret('@'+username+' ');
 }
 
-function homefreshchildcommentSwitchform(id,commentid,username){
+function homefreshchildcommentSwitchform(id,commentid,username,childcommentid){
+	$("#homefreshcommentform_box").css("display","none");
+
 	$("#homefreshchildcommentform_"+commentid).css("display","block");
 	$("#homefreshchildcommentform_"+commentid).html($("#homefreshcommentform_box").html());
 		
@@ -342,6 +345,7 @@ function homefreshchildcommentSwitchform(id,commentid,username){
 
 	nCurrentHomefreshid=id;
 	nCurrentHomefreshcommentid=commentid;
+	nCurrentHomefreshchildcommentid=childcommentid;
 
 	bCurrentHomefreshcommentopen=true;
 
@@ -358,6 +362,7 @@ function homefreshchildcommentCancel(){
 			$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid).css("display","none");
 			$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid+' .homefreshcommentform_area').val('');
 			$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid).html('');
+			$("#homefreshcommentform_box").css("display","block");
 			bCurrentHomefreshcommentopen=false;
 			return true;
 		},function(){
@@ -371,6 +376,8 @@ function homefreshchildcommentCancel(){
 	$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid).css("display","none");
 	$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid+' .homefreshcommentform_area').val('');
 	$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid).html('');
+
+	$("#homefreshcommentform_box").css("display","block");
 	
 	bCurrentHomefreshcommentopen=false;
 

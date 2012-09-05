@@ -15,9 +15,33 @@
 										</td>
 										<td><h5><a href="<!--{:Dyhb::U('home://space@?id='.$oHomefreshcommentList['user_id'])}-->"><!--{$oHomefreshcommentList:user:user_name}--></a>&nbsp;<!--<lang package='Template/Homefresh'>-->于<!--</lang>-->&nbsp;<!--{$oHomefreshcommentList['create_dateline']|Core_Extend+timeFormat}-->&nbsp;<!--<lang package='__COMMON_LANG__@Template/Common'>-->发布<!--</lang>-->
 											</h5>
-											<hr/>
 											<div class="homefreshcomment-content">
 												<!--{$oHomefreshcommentList['homefreshcomment_content']|nl2br}-->
+												<span class="pipe">|</span>
+												<a href="javascript:void(0);" onclick="childcommentForm('<!--{$oHomefreshcommentList['homefresh_id']}-->','<!--{$oHomefreshcommentList['homefreshcomment_id']}-->');">回复</a><br/>
+												<!--{~$arrHomefreshchildcomments=$TheController->get_newchildcomment($oHomefresh['homefresh_id'],$oHomefreshcommentList['homefreshcomment_id'],true)}-->
+												<div id="homefreshchildcommentlist_<!--{$oHomefreshcommentList['homefreshcomment_id']}-->" class="homefreshchildcommentlist_box">
+													<!--{if count($arrHomefreshchildcomments)>0}-->
+													<div class="homefreshcommentitem_separator"></div>
+													<!--{/if}-->
+													<!--<foreach for=arrHomefreshchildcomments value=oHomefreshchildcomment>-->
+													<a name="comment-<!--{$oHomefreshchildcomment['homefreshcomment_id']}-->"></a>
+													<div class="homefreshcomment_item homefreshcomment_itemchild" id="homefreshcommentitem_<!--{$oHomefreshchildcomment['homefreshcomment_id']}-->">
+														<div class="homefreshcomment_avatar">
+															<img src="<!--{:Core_Extend::avatar($oHomefreshchildcomment['user_id'],'small')}-->" class="thumbnail" />
+														</div>
+														<div class="homefreshcomment_content">
+															<a href="<!--{:Dyhb::U('home://space@?id='.$oHomefreshchildcomment['user_id'])}-->"><!--{$oHomefreshchildcomment->user_id|UserModel+getUsernameById}--></a>:
+															<!--{$oHomefreshchildcomment->homefreshcomment_content|nl2br}--><br/><em class="homefreshcomment_date"><!--{$oHomefreshchildcomment->create_dateline|Core_Extend+timeFormat}--></em>
+															<span class="pipe">|</span>
+															<a href="javascript:void(0);" onclick="childcommentForm('<!--{$oHomefresh['homefresh_id']}-->','<!--{$oHomefreshchildcomment['homefreshcomment_parentid']}-->',1,'<!--{$oHomefreshchildcomment:user:user_name}-->','<!--{$oHomefreshchildcomment['homefreshcomment_id']}-->');"><!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->回复<!--</lang>--></a>
+														</div>
+													</div>
+													<div class="clear"></div>
+													<!--</foreach>-->
+												</div>
+												<div id="homefreshchildcommentform_<!--{$oHomefreshcommentList['homefreshcomment_id']}-->" class="homefreshcomment_form">
+												</div>
 											</div>
 										</td>
 									</tr>
@@ -28,6 +52,7 @@
 							<p><!--<lang package='Template/Homefresh'>-->暂时没有发现任何评论<!--</lang>--></p>
 							<!--{/if}-->
 						</div>
+						<hr/>
 
 						<!--{$sPageNavbar}-->
 					</div>
