@@ -31,6 +31,7 @@ return array(
 '625fb26b4b3340f7872b411f401e754c'=>"取消",
 '939d5345ad4345dbaabe14798f6ac0f1'=>"提交",
 '1edff073d48e05b9e79bb7516da23a6e'=>"回复",
+'f013ea9dcba3f5ca1278aa850931fec8'=>"加载中",
 )
 
 ?>

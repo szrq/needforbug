@@ -1,23 +1,3 @@
-<!--{script}-->
-$body=(window.opera)?(document.compatMode=="CSS1Compat"?$('html'):$('body')):$('html,body');
-<!--{/script}-->
-
-<!--{style}-->
-/**===============================
-           分页条
-================================*/
-.pagenav {padding:3px;margin:3px;text-align: center;}
-.pagenav a {color: #77BACE;background:#f5f5f5;border: #dedfde 1px solid; padding:2px 6px 2px 6px; margin-right: 3px; text-decoration: none;-moz-border-radius: 2px;-khtml-border-radius: 2px;-webkit-border-radius: 2px;border-radius: 2px;}
-.pagenav a:hover {color: #fff; background-image: none; background-color: #77BACE;border: #000 1px solid;}
-.pagenav a:active {color: #fff; background-image: none; background-color: #77BACE;border: #000 1px solid;}
-.pagenav span.current {font-weight: bold;color: #77BACE;background-color: #eee; border: #77BACE 2px solid;padding:2px 6px 2px 6px; margin-right: 3px; -moz-border-radius: 2px;-khtml-border-radius: 2px;-webkit-border-radius: 2px;border-radius: 2px;}
-.pagenav span.disabled {color: #77BACE; background-color: #f5f5f5; border: #eee 1px solid;padding:2px 6px 2px 6px;margin-right: 3px; -moz-border-radius: 2px;-khtml-border-radius: 2px;-webkit-border-radius: 2px;border-radius: 2px;}
-<!--{style}-->
-
-<!--{style}-->
-													#loading-comments {display: none; width: 100%; height: 45px; background: #a0d536; text-align: center; color: #fff; font-size: 22px; line-height: 45px; }
-													<!--{/style}-->
-					
 					<div id="homefreshviewcomment_box">
 						<a name="comments"></a>
 						<h3><!--<lang package='Template/Homefresh'>-->总评论数<!--</lang>-->(<!--{$nTotalHomefreshcomment}-->)</h3>
@@ -38,41 +18,15 @@ $body=(window.opera)?(document.compatMode=="CSS1Compat"?$('html'):$('body')):$('
 											<div class="homefreshcomment-content">
 												<!--{$oHomefreshcommentList['homefreshcomment_content']|nl2br}-->
 												<span class="pipe">|</span>
-												<a href="javascript:void(0);" onclick="childcommentForm('<!--{$oHomefreshcommentList['homefresh_id']}-->','<!--{$oHomefreshcommentList['homefreshcomment_id']}-->');">回复</a><br/>
+												<a href="javascript:void(0);" onclick="childcommentForm('<!--{$oHomefreshcommentList['homefresh_id']}-->','<!--{$oHomefreshcommentList['homefreshcomment_id']}-->');"><!--<lang package='Template/Homefresh'>-->回复<!--</lang>--></a><br/>
 												<!--{~$arrHomefreshchildcommentData=$TheController->get_newchildcomment($oHomefresh['homefresh_id'],$oHomefreshcommentList['homefreshcomment_id'],true,intval(G::getGpc('commentpage','G')))}-->
 												<!--{~$arrHomefreshchildcomments=$arrHomefreshchildcommentData[0]}-->
 												<!--{~$sHomefreshchildcommentPageNavbar=$arrHomefreshchildcommentData[1]}-->
-												<div id="homefreshchildcommentlisttitle_<!--{$oHomefreshcommentList['homefreshcomment_id']}-->">title</div>
-																									<!--{script}-->
-													
-
-
-$('#pagination_<!--{$oHomefreshcommentList['homefreshcomment_id']}--> a').live('click', function(e){
-    e.preventDefault();
-    $.ajax({
-        type: "GET",
-        url: $(this).attr('href'),
-        beforeSend: function(){
-            $('#pagination_<!--{$oHomefreshcommentList['homefreshcomment_id']}-->').remove();
-            $('#homefreshchildcommentlist_<!--{$oHomefreshcommentList['homefreshcomment_id']}-->').remove();
-            $('#loading-comments').slideDown();
-            $body.animate({scrollTop: $('#homefreshchildcommentlisttitle_<!--{$oHomefreshcommentList['homefreshcomment_id']}-->').offset().top - 65}, 800 );
-        },
-        dataType: "html",
-        success: function(out){
-	
-            result = $(out).find('#homefreshchildcommentlist_<!--{$oHomefreshcommentList['homefreshcomment_id']}-->');
-            nextlink = $(out).find('#pagination_<!--{$oHomefreshcommentList['homefreshcomment_id']}-->');
-            $('#loading-comments').slideUp('fast');
-			  
-            $('#loading-comments').after(result.fadeIn(500));
-			$('#pagination_<!--{$oHomefreshcommentList['homefreshcomment_id']}-->').html(nextlink);
-        }
-    });
-});
-													<!--{/script}-->
-													
-													<div id="loading-comments"><span>Loading...</span></div>
+												<div id="homefreshchildcommentlistheader_<!--{$oHomefreshcommentList['homefreshcomment_id']}-->"></div>
+												<!--{script}-->
+												homefreshcommentAjaxpage('<!--{$oHomefreshcommentList['homefreshcomment_id']}-->');
+												<!--{/script}-->
+												<div id="loadinghomefreshchildcomments_<!--{$oHomefreshcommentList['homefreshcomment_id']}-->" class="loadinghomefreshchildcomments"><span><!--<lang package='Template/Homefresh'>-->加载中<!--</lang>-->...</span></div>
 												<div id="homefreshchildcommentlist_<!--{$oHomefreshcommentList['homefreshcomment_id']}-->" class="homefreshchildcommentlist_box">
 													<!--{if count($arrHomefreshchildcomments)>0}-->
 													<div class="homefreshcommentitem_separator"></div>

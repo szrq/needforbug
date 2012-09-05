@@ -400,30 +400,32 @@ function homefreshchildcommentCancel(){
 }
 
 /** 子评论分页 */
-$globalbody=(window.opera)?(document.compatMode=="CSS1Compat"?$('html'):$('body')):$('html,body');
+$oGlobalBody=(window.opera)?(document.compatMode=="CSS1Compat"?$('html'):$('body')):$('html,body');
 
-function homefreshcommentAjaxpage(nHomefreshcomentId){
-	$('#pagination_'+nHomefreshcomentId+' a').live('click', function(e){
+function homefreshcommentAjaxpage(nHomefreshcomentId2){
+	var nHomefreshcomentId=nHomefreshcomentId2;
+	
+	$('#pagination_'+nHomefreshcomentId+' a').live('click',function(e){
 		e.preventDefault();
 		$.ajax({
 			type: "GET",
 			url: $(this).attr('href'),
 			beforeSend: function(){
-				$('#pagination_<!--{$oHomefreshcommentList['homefreshcomment_id']}-->').remove();
-				$('#homefreshchildcommentlist_<!--{$oHomefreshcommentList['homefreshcomment_id']}-->').remove();
-				$('#loading-comments').slideDown();
-				$body.animate({scrollTop: $('#homefreshchildcommentlisttitle_<!--{$oHomefreshcommentList['homefreshcomment_id']}-->').offset().top - 65}, 800 );
+				$('#pagination_'+nHomefreshcomentId).remove();
+				$('#homefreshchildcommentlist_'+nHomefreshcomentId).remove();
+				$('#loadinghomefreshchildcomments_'+nHomefreshcomentId).slideDown();
+				$oGlobalBody.animate({scrollTop: $('#homefreshchildcommentlistheader_'+nHomefreshcomentId).offset().top-65},800);
 			},
 			dataType: "html",
 			success: function(out){
-		
-				result = $(out).find('#homefreshchildcommentlist_<!--{$oHomefreshcommentList['homefreshcomment_id']}-->');
-				nextlink = $(out).find('#pagination_<!--{$oHomefreshcommentList['homefreshcomment_id']}-->');
-				$('#loading-comments').slideUp('fast');
-				  
-				$('#loading-comments').after(result.fadeIn(500));
-				$('#pagination_<!--{$oHomefreshcommentList['homefreshcomment_id']}-->').html(nextlink);
+				oResult=$(out).find('#homefreshchildcommentlist_'+nHomefreshcomentId);
+				sNextlink = $(out).find('#pagination_'+nHomefreshcomentId);
+				$('#loadinghomefreshchildcomments_'+nHomefreshcomentId).slideUp('fast');
+				$('#loadinghomefreshchildcomments_'+nHomefreshcomentId).after(oResult.fadeIn(500));
+				$('#pagination_'+nHomefreshcomentId).html(sNextlink);
 			}
 		});
 	});
+
+	
 }
