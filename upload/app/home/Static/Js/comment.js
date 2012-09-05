@@ -210,7 +210,11 @@ function homefreshcommentSubmit(){
 	var comment_email=$.trim($("#homefreshcomment_email").val());
 	var comment_url=$.trim($("#homefreshcomment_url").val());
 	var comment_parentid=$.trim($("#homefreshcomment_parentid").val());
-	var comment_isreplymail=$("#homefreshcomment_isreplymail").val();
+	var comment_isreplymail=$("#homefreshcomment_isreplymail:checked").val();
+
+	if(typeof(comment_isreplymail)!="undefined" || comment_isreplymail!=null){
+		comment_isreplymail=0;
+	}
 	
 	if(comment_parentid>0){
 		var value=$("#homefreshchildcommentform_"+nCurrentHomefreshcommentid+' .homefreshcommentform_area').val();
