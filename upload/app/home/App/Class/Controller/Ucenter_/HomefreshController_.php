@@ -44,6 +44,8 @@ class HomefreshController extends InitController{
 				}
 				break;
 		}
+
+
 		
 		$arrOptionData=$GLOBALS['_cache_']['home_option'];
 
@@ -66,17 +68,27 @@ class HomefreshController extends InitController{
 		$this->display('homefresh+index');
 	}
 
-	public function get_newcomment($nId){
+	public function get_newcomment($nId,$nUserid){
+		if($GLOBALS['___login___']['user_id']!=$nUserid){
+			$sHomefreshcommentAuditpass=' AND homefreshcomment_auditpass=1 ';
+		}else{
+			$sHomefreshcommentAuditpass='';
+		}
+		
 		return HomefreshcommentModel::F(
-				'homefresh_id=? AND homefreshcomment_status=1 AND
-				homefreshcomment_auditpass=1 AND homefreshcomment_parentid=0',$nId
+				'homefresh_id=? AND homefreshcomment_status=1 '.$sHomefreshcommentAuditpass.' AND homefreshcomment_parentid=0',$nId
 			)->limit(0,$GLOBALS['_cache_']['home_option']['homefreshcomment_limit_num'])->order('homefreshcomment_id DESC')->getAll();
 	}
 
-	public function get_newchildcomment($nId,$nCommentid,$bAll=false,$nCommentpage=1){
+	public function get_newchildcomment($nId,$nCommentid,$nUserid,$bAll=false,$nCommentpage=1){
+		if($GLOBALS['___login___']['user_id']!=$nUserid){
+			$sHomefreshcommentAuditpass=' AND homefreshcomment_auditpass=1 ';
+		}else{
+			$sHomefreshcommentAuditpass='';
+		}
+		
 		$oHomefreshcommentSelect=HomefreshcommentModel::F(
-				'homefresh_id=? AND homefreshcomment_status=1 AND
-				homefreshcomment_auditpass=1 AND homefreshcomment_parentid=?',$nId,$nCommentid
+				'homefresh_id=? AND homefreshcomment_status=1 '.$sHomefreshcommentAuditpass.' AND homefreshcomment_parentid=?',$nId,$nCommentid
 			)->order('homefreshcomment_id DESC');
 
 		if($bAll===true){
@@ -89,8 +101,7 @@ class HomefreshController extends InitController{
 			$oPage=Page::RUN($nTotalHomefreshcommentNum,$GLOBALS['_cache_']['home_option']['homefreshchildcomment_list_num'],$nCommentpage,false);
 
 			$arrHomefreshcomments=HomefreshcommentModel::F(
-				'homefresh_id=? AND homefreshcomment_status=1 AND
-				homefreshcomment_auditpass=1 AND homefreshcomment_parentid=?',$nId,$nCommentid
+				'homefresh_id=? AND homefreshcomment_status=1 '.$sHomefreshcommentAuditpass.' AND homefreshcomment_parentid=?',$nId,$nCommentid
 				)->order('homefreshcomment_id DESC')->limit($oPage->returnPageStart(),$GLOBALS['_cache_']['home_option']['homefreshchildcomment_list_num'])->getAll();
 
 			return array($arrHomefreshcomments,$oPage->P('pagination_'.$nCommentid.'@pagenav','span','current','disabled','commentpage_'.$nCommentid),$nTotalHomefreshcommentNum<$GLOBALS['_cache_']['home_option']['homefreshchildcomment_list_num']?false:true);
@@ -385,6 +396,7 @@ class HomefreshController extends InitController{
 			$arrCommentData['avatar']=Core_Extend::avatar($arrCommentData['user_id'],'small');
 			$arrCommentData['url']=Dyhb::U('home://space@?id='.$arrCommentData['user_id']);
 			$arrCommentData['num']=$oHomefresh->homefresh_commentnum;
+			$arrCommentData['viewurl']=Dyhb::U('home://fresh@?id='.$arrCommentData['homefresh_id'].'&isolation_commentid='.$arrCommentData['homefreshcomment_id']);
 		}else{
 			$nPage=intval(G::getGpc('page'));
 

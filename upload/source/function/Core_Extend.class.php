@@ -16,6 +16,9 @@ class Core_Extend{
 			$GLOBALS['___login___']=false;
 		}else{
 			$GLOBALS['___login___']=$arrUserData;
+
+			// 读取用户统计信息
+			$GLOBALS['___login___']['usercount']=UsercountModel::F('user_id=?',$arrUserData['user_id'])->asArray()->getOne();
 		}
 
 		return $arrUserData;

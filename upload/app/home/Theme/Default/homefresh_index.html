@@ -179,7 +179,7 @@ var nHomefreshviewcomment=0;
 										<span class="pipe">|</span>
 										<a href="<!--{:Dyhb::U('home://fresh@?id='.$oHomefresh['homefresh_id'])}-->" title="<!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->阅读全文<!--</lang>-->"><i class="icon-eye-open"></i></a>
 									</div>
-									<!--{~$arrHomefreshcomments=$TheController->get_newcomment($oHomefresh['homefresh_id'])}-->
+									<!--{~$arrHomefreshcomments=$TheController->get_newcomment($oHomefresh['homefresh_id'],$oHomefresh['user_id'])}-->
 									<!--{if is_array($arrHomefreshcomments)}-->
 									<div class="homefreshcommentlist_headerarrow"></div>
 									<!--{/if}-->
@@ -194,7 +194,7 @@ var nHomefreshviewcomment=0;
 												<span class="pipe">|</span>
 												<a href="<!--{:Dyhb::U('home://fresh@?id='.$oHomefreshcomment->homefresh_id.'&isolation_commentid='.$oHomefreshcomment->homefreshcomment_id)}-->"><!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->查看<!--</lang>--></a>&nbsp;
 												<a href="javascript:void(0);" onclick="childcommentForm('<!--{$oHomefresh['homefresh_id']}-->','<!--{$oHomefreshcomment['homefreshcomment_id']}-->');"><!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->回复<!--</lang>--></a>
-												<!--{~$arrHomefreshchildcomments=$TheController->get_newchildcomment($oHomefresh['homefresh_id'],$oHomefreshcomment['homefreshcomment_id'])}-->
+												<!--{~$arrHomefreshchildcomments=$TheController->get_newchildcomment($oHomefresh['homefresh_id'],$oHomefreshcomment['homefreshcomment_id'],$oHomefresh['user_id'])}-->
 												<div id="homefreshchildcommentlist_<!--{$oHomefreshcomment['homefreshcomment_id']}-->" class="homefreshchildcommentlist_box">
 													<!--<foreach for=arrHomefreshchildcomments value=oHomefreshchildcomment>-->
 													<div class="homefreshcomment_item homefreshcomment_itemchild" id="homefreshcommentitem_<!--{$oHomefreshchildcomment['homefreshcomment_id']}-->">

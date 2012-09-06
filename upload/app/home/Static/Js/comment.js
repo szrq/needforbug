@@ -242,6 +242,8 @@ function homefreshcommentSubmit(){
 						'<a href="'+data.url+'">'+data.comment_name+'</a>:'+data.homefreshcomment_content+'<br/>'+
 						'<em class="homefreshcomment_date">'+data.create_dateline+'</em>'+
 						'<span class="pipe">|</span>';
+
+			sCommentReply+='<a href="'+data.viewurl+'">'+D.L('查看','Js/Comment_Js')+'</a>&nbsp;';
 			
 			if(comment_parentid>0){
 				sCommentReply+='<a href="javascript:void(0);" onclick="childcommentForm(\''+data.homefresh_id+'\',\''+comment_parentid+'\',\'1\',\''+data.comment_name+'\');">'+D.L('回复','Js/Comment_Js')+'</a>';
