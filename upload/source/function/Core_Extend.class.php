@@ -505,12 +505,19 @@ class Core_Extend{
 	}
 
 	static public function editorInclude(){
+		$arrLangmap=array(
+			'Zh-cn'=>'zh_CN',
+			'Zh-tw'=>'zh_TW',
+			'En-us'=>'en',
+			'Ar'=>'ar',
+		);
+
 		$sPublic=__PUBLIC__;
-		$sKindeditorLang=file_exists(NEEDFORBUG_PATH.'/Public/js/editor/kindeditor/lang/'.LANG_NAME.'.js')?LANG_NAME:'Zh-cn';
+		$sKindeditorLang=is_file(NEEDFORBUG_PATH.'/Public/js/editor/kindeditor/lang/'.$arrLangmap[LANG_NAME].'.js')?$arrLangmap[LANG_NAME]:'zh_CN';
 
 		return <<<NEEDFORBUG
+		<script type="text/javascript">var sEditorLang='{$sKindeditorLang}';</script>
 		<script src="{$sPublic}/js/editor/kindeditor/kindeditor-min.js" type="text/javascript"></script>
-<script charset="utf-8" src="{$sPublic}/js/editor/kindeditor/lang/{$sKindeditorLang}.js"></script>
 NEEDFORBUG;
 	}
 
