@@ -136,13 +136,13 @@ section#main {width: 100%;min-height: 500px;float: left;margin-top: 25px;}
 .warning{ padding: 8px 35px 8px 14px;margin-bottom: 18px;color: #c09853; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5); background-color: #fcf8e3;border: 1px solid #fbeed5; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px;}
 
  /* 操作条 */
-.row-actions a,.row-actions  span{color:#f5fafe;}
-.row-actions-display .row-actions .edit a{ color:#aedbfb; }
+.row-actions a,.row-actions span{color:#f5fafe;margin-right:5px;text-decoration:underline;}
+.row-actions-display .row-actions .edit a{ color:#77BACE; }
 .row-actions-display .row-actions .delete a{ color:#fb98af;}
-.row-actions-display .row-actions .view a{ color:#a9e2f7;}
-.row-actions-display .row-actions .hide a{ color:#c9c9f0;}
+.row-actions-display .row-actions .view a{ color:#77BACE;}
+.row-actions-display .row-actions .hide a{ color:#77BACE; }
 .row-actions-display .row-actions span{ color:#e2e2ff; }
-.row-actions-display .row-actions a:hover{ text-decoration:none;}
+.row-actions-display .row-actions a:hover{ color:#000; }
 
 /* 滑动条 */
 ul.tabs {margin: 3px 10px 0 0;padding: 0;float: right;list-style: none;height: 24px; /*--Set height of tabs--*/
