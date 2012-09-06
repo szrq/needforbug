@@ -74,33 +74,26 @@ class HomefreshController extends InitController{
 	}
 
 	public function get_newchildcomment($nId,$nCommentid,$bAll=false,$nCommentpage=1){
-	
-
 		$oHomefreshcommentSelect=HomefreshcommentModel::F(
 				'homefresh_id=? AND homefreshcomment_status=1 AND
 				homefreshcomment_auditpass=1 AND homefreshcomment_parentid=?',$nId,$nCommentid
 			)->order('homefreshcomment_id DESC');
 
 		if($bAll===true){
-
-		if($nCommentpage<1){
-		$nCommentpage=1;
-		}
+			if($nCommentpage<1){
+				$nCommentpage=1;
+			}
 
 			$nTotalHomefreshcommentNum=$oHomefreshcommentSelect->All()->getCounts();
-			//echo $nTotalHomefreshcommentNum;
 
 			$oPage=Page::RUN($nTotalHomefreshcommentNum,4,$nCommentpage,false);
-//G::dump($oPage->P('pagination','li','active'));
+
 			$arrHomefreshcomments=HomefreshcommentModel::F(
 				'homefresh_id=? AND homefreshcomment_status=1 AND
 				homefreshcomment_auditpass=1 AND homefreshcomment_parentid=?',$nId,$nCommentid
 				)->order('homefreshcomment_id DESC')->limit($oPage->returnPageStart(),4)->getAll();
-//if(G::getGpc('page','G')>1){
-	//echo 'page'.G::getGpc('page','G');
-//}else{
-			return array($arrHomefreshcomments,$oPage->P('pagination_'.$nCommentid.'@pagenav','span','current','disabled','commentpage'));
-//}
+
+			return array($arrHomefreshcomments,$oPage->P('pagination_'.$nCommentid.'@pagenav','span','current','disabled','commentpage'),$nTotalHomefreshcommentNum<4?false:true);
 		}else{
 			return $oHomefreshcommentSelect->limit(0,$GLOBALS['_cache_']['home_option']['homefreshchildcomment_limit_num'])->getAll();
 		}

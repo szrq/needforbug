@@ -20,18 +20,16 @@
 												<span class="pipe">|</span>
 												<a href="javascript:void(0);" onclick="childcommentForm('<!--{$oHomefreshcommentList['homefresh_id']}-->','<!--{$oHomefreshcommentList['homefreshcomment_id']}-->');"><!--<lang package='Template/Homefresh'>-->回复<!--</lang>--></a><br/>
 												<!--{~$arrHomefreshchildcommentData=$TheController->get_newchildcomment($oHomefresh['homefresh_id'],$oHomefreshcommentList['homefreshcomment_id'],true,intval(G::getGpc('commentpage','G')))}-->
-												<!--{~$arrHomefreshchildcomments=$arrHomefreshchildcommentData[0]}-->
-												<!--{~$sHomefreshchildcommentPageNavbar=$arrHomefreshchildcommentData[1]}-->
 												<div id="homefreshchildcommentlistheader_<!--{$oHomefreshcommentList['homefreshcomment_id']}-->"></div>
 												<!--{script}-->
 												homefreshcommentAjaxpage('<!--{$oHomefreshcommentList['homefreshcomment_id']}-->');
 												<!--{/script}-->
 												<div id="loadinghomefreshchildcomments_<!--{$oHomefreshcommentList['homefreshcomment_id']}-->" class="loadinghomefreshchildcomments"><span><!--<lang package='Template/Homefresh'>-->加载中<!--</lang>-->...</span></div>
 												<div id="homefreshchildcommentlist_<!--{$oHomefreshcommentList['homefreshcomment_id']}-->" class="homefreshchildcommentlist_box">
-													<!--{if count($arrHomefreshchildcomments)>0}-->
+													<!--{if count($arrHomefreshchildcommentData[0])>0}-->
 													<div class="homefreshcommentitem_separator"></div>
 													<!--{/if}-->
-													<!--<foreach for=arrHomefreshchildcomments value=oHomefreshchildcomment>-->
+													<!--<foreach for="arrHomefreshchildcommentData[0]" value=oHomefreshchildcomment>-->
 													<a name="comment-<!--{$oHomefreshchildcomment['homefreshcomment_id']}-->"></a>
 													<div class="homefreshcomment_item homefreshcomment_itemchild" id="homefreshcommentitem_<!--{$oHomefreshchildcomment['homefreshcomment_id']}-->">
 														<div class="homefreshcomment_avatar">
@@ -47,8 +45,9 @@
 													<div class="clear"></div>
 													<!--</foreach>-->
 
-													<!--{$sHomefreshchildcommentPageNavbar}-->
-												
+													<!--{if $arrHomefreshchildcommentData[2]}-->
+													<!--{$arrHomefreshchildcommentData[1]}-->
+													<!--{/if}-->
 												</div>
 												<div id="homefreshchildcommentform_<!--{$oHomefreshcommentList['homefreshcomment_id']}-->" class="homefreshcomment_form">
 												</div>
