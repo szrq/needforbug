@@ -92,7 +92,8 @@ INSERT INTO `#@__homeoption` (`homeoption_name`, `homeoption_value`) VALUES
 ('comment_mail_to_admin', '0'),
 ('comment_mail_to_author', '0'),
 ('homefreshcomment_limit_num', '4'),
-('homefreshchildcomment_limit_num', '4');
+('homefreshchildcomment_limit_num', '4'),
+('homefreshchildcomment_list_num', '4');
 
 -- --------------------------------------------------------
 
