@@ -86,12 +86,12 @@ class HomefreshController extends InitController{
 
 			$nTotalHomefreshcommentNum=$oHomefreshcommentSelect->All()->getCounts();
 
-			$oPage=Page::RUN($nTotalHomefreshcommentNum,4,$nCommentpage,false);
+			$oPage=Page::RUN($nTotalHomefreshcommentNum,$GLOBALS['_cache_']['home_option']['homefreshchildcomment_list_num'],$nCommentpage,false);
 
 			$arrHomefreshcomments=HomefreshcommentModel::F(
 				'homefresh_id=? AND homefreshcomment_status=1 AND
 				homefreshcomment_auditpass=1 AND homefreshcomment_parentid=?',$nId,$nCommentid
-				)->order('homefreshcomment_id DESC')->limit($oPage->returnPageStart(),4)->getAll();
+				)->order('homefreshcomment_id DESC')->limit($oPage->returnPageStart(),$GLOBALS['_cache_']['home_option']['homefreshchildcomment_list_num'])->getAll();
 
 			return array($arrHomefreshcomments,$oPage->P('pagination_'.$nCommentid.'@pagenav','span','current','disabled','commentpage'),$nTotalHomefreshcommentNum<4?false:true);
 		}else{

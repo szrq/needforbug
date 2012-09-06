@@ -28,7 +28,7 @@ class HomemainController extends InitController{
 		foreach($arrOptions as $sKey=>$val){
 			$val=trim($val);
 			
-			if(in_array($sKey,array('homefreshcomment_limit_num','homefreshchildcomment_limit_num'))){
+			if(in_array($sKey,array('homefreshcomment_limit_num','homefreshchildcomment_limit_num','homefreshchildcomment_list_num'))){
 				if($val<1){
 					$val=4;
 				}

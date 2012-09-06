@@ -71,6 +71,11 @@ function option(){
 						<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Homeoption'>-->这里的评论数量为新鲜事列表的子评论数量，程序支持二级评论<!--</lang>--></div>
 					</fieldset>
 					<fieldset>
+						<label for="homefreshchildcomment_list_num"><!--<lang package='__APP_ADMIN_LANG__@Template/Homeoption'>-->新鲜事最新子评论每页分页数量<!--</lang>--></label>
+						<input type="text" id="homefreshchildcomment_list_num" name="options[homefreshchildcomment_list_num]" value="<!--{$arrOptions['homefreshchildcomment_list_num']}-->"/>
+						<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Homeoption'>-->程序支持二级评论，二级评论可以Ajax分页，这里为其每页分页数量<!--</lang>--></div>
+					</fieldset>
+					<fieldset>
 						<label for="comment_repeat_check"><!--<lang package='__APP_ADMIN_LANG__@Template/Homeoption'>-->评论是否验证重复数据<!--</lang>--></label>
 						<input type="radio" name="options[comment_repeat_check]" value="1" <!--{if $arrOptions['comment_repeat_check']==1}-->checked="checked"<!--{/if}-->/><!--<lang package='Template/Default/Common'>-->是<!--</lang>-->
 						<input type="radio" name="options[comment_repeat_check]" value="0" <!--{if $arrOptions['comment_repeat_check']==0}-->checked="checked"<!--{/if}-->/><!--<lang package='Template/Default/Common'>-->否<!--</lang>-->
