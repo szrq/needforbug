@@ -93,7 +93,7 @@ class HomefreshController extends InitController{
 				homefreshcomment_auditpass=1 AND homefreshcomment_parentid=?',$nId,$nCommentid
 				)->order('homefreshcomment_id DESC')->limit($oPage->returnPageStart(),$GLOBALS['_cache_']['home_option']['homefreshchildcomment_list_num'])->getAll();
 
-			return array($arrHomefreshcomments,$oPage->P('pagination_'.$nCommentid.'@pagenav','span','current','disabled','commentpage_'.$nCommentid),$nTotalHomefreshcommentNum<4?false:true);
+			return array($arrHomefreshcomments,$oPage->P('pagination_'.$nCommentid.'@pagenav','span','current','disabled','commentpage_'.$nCommentid),$nTotalHomefreshcommentNum<$GLOBALS['_cache_']['home_option']['homefreshchildcomment_list_num']?false:true);
 		}else{
 			return $oHomefreshcommentSelect->limit(0,$GLOBALS['_cache_']['home_option']['homefreshchildcomment_limit_num'])->getAll();
 		}
@@ -379,7 +379,7 @@ class HomefreshController extends InitController{
 
 		$nQuick=intval(G::getGpc('quick','G'));
 		if($nQuick==1){
-			$arrCommentData['homefreshcomment_content']=G::subString(strip_tags($arrCommentData['homefreshcomment_content']),0,80);
+			$arrCommentData['homefreshcomment_content']=G::subString(strip_tags($arrCommentData['homefreshcomment_content']),0,$GLOBALS['_cache_']['home_option']['homefreshcomment_substring_num']);
 			$arrCommentData['comment_name']=UserModel::getUsernameById($oHomefreshcomment->user_id);
 			$arrCommentData['create_dateline']=Core_Extend::timeFormat($arrCommentData['create_dateline']);
 			$arrCommentData['avatar']=Core_Extend::avatar($arrCommentData['user_id'],'small');
