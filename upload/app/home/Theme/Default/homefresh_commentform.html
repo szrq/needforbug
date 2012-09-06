@@ -25,6 +25,7 @@
 							<!--{/if}-->
 							<input type="hidden" name="homefreshcomment_parentid" id="homefreshcomment_parentid" value="0">
 							<input type="hidden" name="ajax" value="1" />
+							<input type="hidden" name="page" value="<!--{if isset($_GET['page'])}--><!--{$_GET['page']}--><!--{/if}-->"/>
 							<input type="hidden" name="homefresh_id" value="<!--{$oHomefresh['homefresh_id']}-->"/>
 							<button id="comment-submit" type="button" onclick="commentSubmit();" class="btn btn-success">提交评论</button>
 						</form>

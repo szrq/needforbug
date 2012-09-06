@@ -402,9 +402,7 @@ function homefreshchildcommentCancel(){
 /** 子评论分页 */
 $oGlobalBody=(window.opera)?(document.compatMode=="CSS1Compat"?$('html'):$('body')):$('html,body');
 
-function homefreshcommentAjaxpage(nHomefreshcomentId2){
-	var nHomefreshcomentId=nHomefreshcomentId2;
-	
+function homefreshcommentAjaxpage(nHomefreshcomentId){
 	$('#pagination_'+nHomefreshcomentId+' a').live('click',function(e){
 		e.preventDefault();
 		$.ajax({
@@ -425,7 +423,5 @@ function homefreshcommentAjaxpage(nHomefreshcomentId2){
 				$('#pagination_'+nHomefreshcomentId).html(sNextlink);
 			}
 		});
-	});
-
-	
+	});	
 }

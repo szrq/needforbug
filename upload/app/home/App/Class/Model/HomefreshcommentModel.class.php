@@ -65,4 +65,47 @@ class HomefreshcommentModel extends CommonModel{
 		}
 	}
 
+	static public function getParentCommentsPage($nFinecommentid,$nHomefreshcommentParentid=0,$nEveryCommentnum=1){
+		$arrWhere['homefreshcomment_status']=1;
+		$arrWhere['homefreshcomment_parentid']=$nHomefreshcommentParentid;
+		$arrWhere['homefreshcomment_auditpass']=1;
+		
+		// 查找当前评论的记录
+		$nTheSearchKey='';
+
+		$arrHomefreshcommentLists=self::F()->where($arrWhere)->all()->order('`homefreshcomment_id` DESC')->query();
+		foreach($arrHomefreshcommentLists as $nKey=>$oHomefreshcommentList){
+			if($oHomefreshcommentList['homefreshcomment_id']==$nFinecommentid){
+				$nTheSearchKey=$nKey+1;
+			}
+		}
+
+		$nPage=ceil($nTheSearchKey/$nEveryCommentnum);
+		if($nPage<1){
+			$nPage=1;
+		}
+
+		return $nPage;
+	}
+
+	static public function getCommenturlByid($nCommentnumId){
+		// 判断评论是否存在
+		$oTryHomefreshcomment=HomefreshcommentModel::F('homefreshcomment_id=? AND homefreshcomment_auditpass=1 AND homefreshcomment_status=1',$nCommentnumId)->getOne();
+		if(empty($oTryHomefreshcomment['homefreshcomment_id'])){
+			return false;
+		}
+
+		// 分析出父级评论所在的分页值
+		$nPage=self::getParentCommentsPage($oTryHomefreshcomment['homefreshcomment_parentid']==0?$nCommentnumId:$oTryHomefreshcomment['homefreshcomment_parentid'],0,$GLOBALS['_cache_']['home_option']['homefreshcomment_list_num']);
+
+		// 分析出子评论所在分页值
+		if($oTryHomefreshcomment['homefreshcomment_parentid']>0){
+			$nCommentPage=self::getParentCommentsPage($nCommentnumId,$oTryHomefreshcomment['homefreshcomment_parentid'],$GLOBALS['_cache_']['home_option']['homefreshchildcomment_list_num']);
+		}else{
+			$nCommentPage=1;
+		}
+
+		return Dyhb::U('home://fresh@?id='.$oTryHomefreshcomment['homefresh_id'].($nPage>1?'&page='.$nPage:'').($nCommentPage>1?'&commentpage_'.$oTryHomefreshcomment['homefreshcomment_parentid'].'='.$nCommentPage:'')).'#comment-'.$nCommentnumId;
+	}
+
 }

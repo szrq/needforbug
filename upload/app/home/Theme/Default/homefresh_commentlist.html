@@ -19,7 +19,7 @@
 												<!--{$oHomefreshcommentList['homefreshcomment_content']|nl2br}-->
 												<span class="pipe">|</span>
 												<a href="javascript:void(0);" onclick="childcommentForm('<!--{$oHomefreshcommentList['homefresh_id']}-->','<!--{$oHomefreshcommentList['homefreshcomment_id']}-->');"><!--<lang package='Template/Homefresh'>-->回复<!--</lang>--></a><br/>
-												<!--{~$arrHomefreshchildcommentData=$TheController->get_newchildcomment($oHomefresh['homefresh_id'],$oHomefreshcommentList['homefreshcomment_id'],true,intval(G::getGpc('commentpage','G')))}-->
+												<!--{~$arrHomefreshchildcommentData=$TheController->get_newchildcomment($oHomefresh['homefresh_id'],$oHomefreshcommentList['homefreshcomment_id'],true,intval(G::getGpc('commentpage_'.$oHomefreshcommentList['homefreshcomment_id'],'G')))}-->
 												<div id="homefreshchildcommentlistheader_<!--{$oHomefreshcommentList['homefreshcomment_id']}-->"></div>
 												<!--{script}-->
 												homefreshcommentAjaxpage('<!--{$oHomefreshcommentList['homefreshcomment_id']}-->');

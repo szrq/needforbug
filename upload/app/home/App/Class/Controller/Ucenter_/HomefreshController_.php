@@ -93,7 +93,7 @@ class HomefreshController extends InitController{
 				homefreshcomment_auditpass=1 AND homefreshcomment_parentid=?',$nId,$nCommentid
 				)->order('homefreshcomment_id DESC')->limit($oPage->returnPageStart(),$GLOBALS['_cache_']['home_option']['homefreshchildcomment_list_num'])->getAll();
 
-			return array($arrHomefreshcomments,$oPage->P('pagination_'.$nCommentid.'@pagenav','span','current','disabled','commentpage'),$nTotalHomefreshcommentNum<4?false:true);
+			return array($arrHomefreshcomments,$oPage->P('pagination_'.$nCommentid.'@pagenav','span','current','disabled','commentpage_'.$nCommentid),$nTotalHomefreshcommentNum<4?false:true);
 		}else{
 			return $oHomefreshcommentSelect->limit(0,$GLOBALS['_cache_']['home_option']['homefreshchildcomment_limit_num'])->getAll();
 		}
@@ -157,6 +157,20 @@ class HomefreshController extends InitController{
 			$this->E(Dyhb::L('新鲜事不存在或者被屏蔽了','Controller/Homefresh'));
 		}
 
+		$arrOptionData=$GLOBALS['_cache_']['home_option'];
+
+		// 判断邮件等外部地址过来的查找评论地址
+		$nIsolationCommentid=intval(G::getGpc('isolation_commentid','G'));
+		if($nIsolationCommentid){
+			$result=HomefreshcommentModel::getCommenturlByid($nIsolationCommentid);
+			if($result===false){
+				$this->E('该条评论已被删除、屏蔽或者尚未通过审核');
+			}
+
+			G::urlGoTo($result);
+			exit();
+		}
+
 		$oHomefresh->homefresh_viewnum=$oHomefresh->homefresh_viewnum+1;
 		$oHomefresh->save(0,'update');
 
@@ -167,8 +181,6 @@ class HomefreshController extends InitController{
 		$sHomefreshtitle=$oHomefresh->homefresh_title?$oHomefresh->homefresh_title:G::subString(strip_tags($oHomefresh['homefresh_message']),0,30);
 
 		// 读取评论列表
-		$arrOptionData=$GLOBALS['_cache_']['home_option'];
-
 		$arrWhere=array();
 		$arrWhere['homefreshcomment_parentid']=0;
 		$arrWhere['homefreshcomment_status']=1;
@@ -374,7 +386,9 @@ class HomefreshController extends InitController{
 			$arrCommentData['url']=Dyhb::U('home://space@?id='.$arrCommentData['user_id']);
 			$arrCommentData['num']=$oHomefresh->homefresh_commentnum;
 		}else{
-			$arrCommentData['jumpurl']=Dyhb::U('home://fresh@?id='.$oHomefreshcomment->homefresh_id.'&extra=new'.$oHomefreshcomment['homefreshcomment_id']).
+			$nPage=intval(G::getGpc('page'));
+
+			$arrCommentData['jumpurl']=Dyhb::U('home://fresh@?id='.$oHomefreshcomment->homefresh_id.($nPage>=2?'&page='.$nPage:'').'&extra=new'.$oHomefreshcomment['homefreshcomment_id']).
 				'#comment-'.$oHomefreshcomment['homefreshcomment_id'];
 		}
 			
@@ -448,7 +462,7 @@ class HomefreshController extends InitController{
 		$sMessage.="-----------------------------------------------------{$sLine}";
 		$sMessage.=$oCommentModel->homefreshcomment_content."{$sLine}{$sLine}";
 		$sMessage.=Dyhb::L('请进入下面链接查看留言','Controller/Homefresh').":{$sLine}";
-		$sMessage.=$GLOBALS['_option_']['site_url'].'/index.php?app=home&c=ucenter&a=view&id='.$oCommentModel->homefresh_id."{$sLine}";
+		$sMessage.=$GLOBALS['_option_']['site_url'].'/index.php?app=home&c=ucenter&a=view&id='.$oCommentModel->homefresh_id.'&isolation_commentid='.$oCommentModel['homefreshcomment_id']."{$sLine}";
 		$sMessage.="-----------------------------------------------------{$sLine}";
 		$sMessage.=Dyhb::L('名字','Controller/Homefresh').':'.$oCommentModel->homefreshcomment_name."{$sLine}";
 		
@@ -485,7 +499,7 @@ class HomefreshController extends InitController{
 		$sMessage.="【".$oCommentModel->homefreshcomment_name."】".Dyhb::L('回复说','Controller/Homefresh').":{$sLine}";
 		$sMessage.=$oCommentNew->homefreshcomment_content."{$sLine}{$sLine}";
 		$sMessage.=Dyhb::L('请进入下面链接查看留言','Controller/Homefresh').":{$sLine}";
-		$sMessage.=$GLOBALS['_option_']['site_url'].'/index.php?app=home&c=ucenter&a=view&id='.$oCommentModel->homefresh_id."{$sLine}";
+		$sMessage.=$GLOBALS['_option_']['site_url'].'/index.php?app=home&c=ucenter&a=view&id='.$oCommentModel->homefresh_id.'&isolation_commentid='.$oCommentModel['homefreshcomment_id']."{$sLine}";
 		$sMessage.="-----------------------------------------------------{$sLine}";
 		$sMessage.=Dyhb::L('名字','Controller/Homefresh').':'.$oCommentModel->homefreshcomment_name."{$sLine}";
 		
