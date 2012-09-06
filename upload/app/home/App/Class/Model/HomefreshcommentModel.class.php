@@ -65,21 +65,24 @@ class HomefreshcommentModel extends CommonModel{
 		}
 	}
 
-	static public function getParentCommentsPage($nFinecommentid,$nHomefreshcommentParentid=0,$nEveryCommentnum=1){
+	static public function getParentCommentsPage($nFinecommentid,$nHomefreshcommentParentid=0,$nEveryCommentnum=1,$nHomefreshid){
 		$arrWhere['homefreshcomment_status']=1;
 		$arrWhere['homefreshcomment_parentid']=$nHomefreshcommentParentid;
 		$arrWhere['homefreshcomment_auditpass']=1;
+		$arrWhere['homefresh_id']=1;
 		
 		// 查找当前评论的记录
 		$nTheSearchKey='';
 
 		$arrHomefreshcommentLists=self::F()->where($arrWhere)->all()->order('`homefreshcomment_id` DESC')->query();
+		G::dump($arrHomefreshcommentLists);
+		
 		foreach($arrHomefreshcommentLists as $nKey=>$oHomefreshcommentList){
 			if($oHomefreshcommentList['homefreshcomment_id']==$nFinecommentid){
 				$nTheSearchKey=$nKey+1;
 			}
 		}
-
+G::dump($nTheSearchKey);
 		$nPage=ceil($nTheSearchKey/$nEveryCommentnum);
 		if($nPage<1){
 			$nPage=1;
@@ -96,11 +99,11 @@ class HomefreshcommentModel extends CommonModel{
 		}
 
 		// 分析出父级评论所在的分页值
-		$nPage=self::getParentCommentsPage($oTryHomefreshcomment['homefreshcomment_parentid']==0?$nCommentnumId:$oTryHomefreshcomment['homefreshcomment_parentid'],0,$GLOBALS['_cache_']['home_option']['homefreshcomment_list_num']);
+		$nPage=self::getParentCommentsPage($oTryHomefreshcomment['homefreshcomment_parentid']==0?$nCommentnumId:$oTryHomefreshcomment['homefreshcomment_parentid'],0,$GLOBALS['_cache_']['home_option']['homefreshcomment_list_num'],$oTryHomefreshcomment['homefresh_id']);
 
 		// 分析出子评论所在分页值
 		if($oTryHomefreshcomment['homefreshcomment_parentid']>0){
-			$nCommentPage=self::getParentCommentsPage($nCommentnumId,$oTryHomefreshcomment['homefreshcomment_parentid'],$GLOBALS['_cache_']['home_option']['homefreshchildcomment_list_num']);
+			$nCommentPage=self::getParentCommentsPage($nCommentnumId,$oTryHomefreshcomment['homefreshcomment_parentid'],$GLOBALS['_cache_']['home_option']['homefreshchildcomment_list_num'],$oTryHomefreshcomment['homefresh_id']);
 		}else{
 			$nCommentPage=1;
 		}

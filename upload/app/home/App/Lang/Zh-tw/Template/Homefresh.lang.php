@@ -40,6 +40,7 @@ return array(
 '4fc5bd6d4252a0eb481c5b3d4f9aecb3'=>"郵件地址",
 '93a4386c617a56b2ce1059918ef14466'=>"選填",
 'f55c8a0df16ab5b8563839f73f9b96dc'=>"個人主頁",
+'607e7a4f377fa66b0b28ce318aab841f'=>"查看",
 )
 
 ?>
