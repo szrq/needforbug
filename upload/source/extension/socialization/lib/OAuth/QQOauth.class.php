@@ -2,6 +2,8 @@
 /* [NeedForBug!] (C)Dianniu From 2010.
    腾讯QQ社会化登录($)*/
 
+!defined('DYHB_PATH') && exit;
+
 class QQOauth{}
 
 /**
@@ -459,9 +461,9 @@ function gotoAuthorizeURL($appid, $appkey,$keys,$callback)
 {
     ////构造请求URL
     //跳转到QQ登录页的接口地址, 不要更改!!
-    $redirect = "http://openapi.qzone.qq.com/oauth/qzoneoauth_authorize?oauth_consumer_key=$appid&";      
+    $redirect = "http://openapi.qzone.qq.com/oauth/qzoneoauth_authorize?oauth_consumer_key={$appid}&";      
     $redirect .= "oauth_token=".$keys["oauth_token"]."&oauth_callback=".rawurlencode($callback);
-    header("Location:$redirect");
+    header("Location:{$redirect}");
 	die;
 }
 
