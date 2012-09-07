@@ -1,5 +1,7 @@
 <!--<include file="Core_Extend::template('header')" />-->
 
+<script src="<!--{:__ROOT__}-->/source/extension/socialization/static/js/socia.js"></script>
+
 		<ul class="breadcrumb">
 			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
 			<li><a href="<!--{:Dyhb::U('home://spaceadmin/index')}-->"><!--<lang package='Template/Spaceadmin'>-->用户资料<!--</lang>--></a> <span class="divider">/</span></li>
@@ -10,7 +12,16 @@
 		
 		<div class="row">
 			<div class="span12">
-				
+				<div>
+					<!--<foreach for=arrBindeds value=arrBinded>-->
+					<p><!--{$arrBinded['name']}-->&nbsp;
+					<!--{if $arrBinded['socia_user']}-->
+						<a href="DLTClient.php?dltact=unbind&vendor=<!--{$arrBinded['site']}-->">解除绑定</a>
+					<!--{d*else}-->
+						<a href="javascript:sociaWinopen('<!--{:Sociaconfig::getInstance()->LoginUrl}--><!--{$arrBinded['site']}-->')">绑定</a>
+					<!--{/if}-->
+					</p>
+					<!--</foreach>-->
 			</div>
 		</div><!--/row-->
 

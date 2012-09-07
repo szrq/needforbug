@@ -91,7 +91,7 @@ class Socialocal{
 	}
 	
 	public function getBinded($nUserid,$sVendor=''){
-		$oSocaiuser=SociauserModel::F('user_id=?'.($sVendor?" AND sociauser_vendor={$sVendor}":''),$nUserid)->getOne();
+		$oSociauser=SociauserModel::F('user_id=?'.($sVendor?" AND sociauser_vendor={$sVendor}":''),$nUserid)->getAll();
 		return $oSociauser;
 	}
 

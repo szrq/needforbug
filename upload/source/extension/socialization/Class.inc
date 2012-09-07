@@ -1,0 +1,1 @@
+a:7:{s:7:"QQOauth";s:27:"lib/oauth/QQOauth.class.php";s:11:"Sociaconfig";s:25:"lib/Sociaconfig.class.php";s:10:"Socialocal";s:24:"lib/Socialocal.class.php";s:14:"SociauserModel";s:28:"lib/SociauserModel.class.php";s:11:"SociaVendor";s:25:"lib/SociaVendor.class.php";s:8:"VendorQQ";s:29:"lib/vendor/VendorQQ.class.php";s:5:"Socia";s:15:"Socia.class.php";}
