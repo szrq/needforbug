@@ -18,7 +18,20 @@
 											<div class="homefreshcomment-content">
 												<!--{$oHomefreshcommentList['homefreshcomment_content']|nl2br}-->
 												<span class="pipe">|</span>
-												<a href="javascript:void(0);" onclick="childcommentForm('<!--{$oHomefreshcommentList['homefresh_id']}-->','<!--{$oHomefreshcommentList['homefreshcomment_id']}-->');"><!--<lang package='Template/Homefresh'>-->回复<!--</lang>--></a><br/>
+												<a href="javascript:void(0);" onclick="childcommentForm('<!--{$oHomefreshcommentList['homefresh_id']}-->','<!--{$oHomefreshcommentList['homefreshcomment_id']}-->');"><!--<lang package='Template/Homefresh'>-->回复<!--</lang>--></a>
+												<!--{if $bAuditpass===true}-->
+												&nbsp;
+												<!--{if $oHomefreshcommentList['homefreshcomment_auditpass']==0}-->
+												<span class="label label-success">
+													<a href="javascript:void(0);" onclick="homefreshcommentAudit('<!--{$oHomefreshcommentList['homefreshcomment_id']}-->','1');"><!--<lang package='Template/Homefresh'>-->审核<!--</lang>--></a>
+												</span>
+												<!--{d*else}-->
+												<span class="label label-warning">
+													<a href="javascript:void(0);" onclick="homefreshcommentAudit('<!--{$oHomefreshcommentList['homefreshcomment_id']}-->','0');"><!--<lang package='Template/Homefresh'>-->屏蔽<!--</lang>--></a>
+												</span>
+												<!--{/if}-->
+												<!--{/if}-->
+												<br/>
 												<!--{~$arrHomefreshchildcommentData=$TheController->get_newchildcomment($oHomefresh['homefresh_id'],$oHomefreshcommentList['homefreshcomment_id'],$oHomefresh['user_id'],true,intval(G::getGpc('commentpage_'.$oHomefreshcommentList['homefreshcomment_id'],'G')))}-->
 												<div id="homefreshchildcommentlistheader_<!--{$oHomefreshcommentList['homefreshcomment_id']}-->"></div>
 												<!--{script}-->
@@ -40,6 +53,18 @@
 															<!--{$oHomefreshchildcomment->homefreshcomment_content|nl2br}--><br/><em class="homefreshcomment_date"><!--{$oHomefreshchildcomment->create_dateline|Core_Extend+timeFormat}--></em>
 															<span class="pipe">|</span>
 															<a href="javascript:void(0);" onclick="childcommentForm('<!--{$oHomefresh['homefresh_id']}-->','<!--{$oHomefreshchildcomment['homefreshcomment_parentid']}-->',1,'<!--{$oHomefreshchildcomment:user:user_name}-->','<!--{$oHomefreshchildcomment['homefreshcomment_id']}-->');"><!--<lang package='__COMMON_LANG__@Template/Homefresh'>-->回复<!--</lang>--></a>
+															<!--{if $bAuditpass===true}-->
+															&nbsp;
+															<!--{if $oHomefreshchildcomment['homefreshcomment_auditpass']==0}-->
+															<span class="label label-success">
+																<a href="javascript:void(0);" onclick="homefreshcommentAudit('<!--{$oHomefreshchildcomment['homefreshcomment_id']}-->','1');"><!--<lang package='Template/Homefresh'>-->审核<!--</lang>--></a>
+															</span>
+															<!--{d*else}-->
+															<span class="label label-warning">
+																<a href="javascript:void(0);" onclick="homefreshcommentAudit('<!--{$oHomefreshchildcomment['homefreshcomment_id']}-->','0');"><!--<lang package='Template/Homefresh'>-->屏蔽<!--</lang>--></a>
+															</span>
+															<!--{/if}-->
+															<!--{/if}-->
 														</div>
 													</div>
 													<div class="clear"></div>

@@ -64,5 +64,23 @@ class HomefreshModel extends CommonModel{
 		}
 	}
 	
+	public function updateHomefreshcommentnum($nHomefreshid){
+		$nHomefreshid=intval($nHomefreshid);
+
+		$oHomefresh=HomefreshModel::F('homefresh_id=?',$nHomefreshid)->getOne();
+		if(!empty($oHomefresh['homefresh_id'])){
+			$nHomefreshcommentnum=HomefreshcommentModel::F('homefreshcomment_status=1 AND homefreshcomment_auditpass=1 AND homefresh_id=?',$nHomefreshid)->all()->getCounts();
+
+			$oHomefresh->homefresh_commentnum=$nHomefreshcommentnum;
+			$oHomefresh->save(0,'update');
+
+			if($oHomefresh->isError()){
+				$this->setErrorMessage($oHomefresh->getErrorMessage());
+				return false;
+			}
+		}
+
+		return true;
+	}
 
 }

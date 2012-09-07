@@ -199,6 +199,9 @@ class HomefreshController extends InitController{
 		
 		if($GLOBALS['___login___']['user_id']!=$oHomefresh['user_id']){
 			$arrWhere['homefreshcomment_auditpass']=1;
+			$this->assign('bAuditpass',false);
+		}else{
+			$this->assign('bAuditpass',true);
 		}
 
 		$nTotalRecord=HomefreshcommentModel::F()->where($arrWhere)->all()->getCounts();
@@ -370,16 +373,11 @@ class HomefreshController extends InitController{
 			$this->send_cookie($oHomefreshcomment);
 
 			// 更新评论数量
-			$oHomefresh=HomefreshModel::F('homefresh_id=?',intval(G::getGpc('homefresh_id')))->getOne();
-			if(!empty($oHomefresh['homefresh_id'])){
-				$nHomefreshcommentnum=HomefreshcommentModel::F('homefreshcomment_status=1 AND homefreshcomment_auditpass=1 AND homefresh_id=?',intval(G::getGpc('homefresh_id')))->all()->getCounts();
+			$oHomefresh=Dyhb::instance('HomefreshModel');
+			$oHomefresh->updateHomefreshcommentnum(intval(G::getGpc('homefresh_id')));
 
-				$oHomefresh->homefresh_commentnum=$nHomefreshcommentnum;
-				$oHomefresh->save(0,'update');
-
-				if($oHomefresh->isError()){
-					$oHomefresh->getErrorMessage();
-				}
+			if($oHomefresh->isError()){
+				$oHomefresh->getErrorMessage();
 			}
 
 			// 邮件通知
@@ -405,6 +403,33 @@ class HomefreshController extends InitController{
 		}
 			
 		$this->A($arrCommentData,Dyhb::L('添加新鲜事评论成功','Controller/Homefresh'),1);
+	}
+
+	public function audit(){
+		$nId=intval(G::getGpc('id','G'));
+		$nStatus=intval(G::getGpc('status','G'));
+
+		$oHomefreshcomment=HomefreshcommentModel::F('homefreshcomment_id=? AND homefreshcomment_status=1',$nId)->getOne();
+		if(empty($oHomefreshcomment['homefreshcomment_id'])){
+			$this->E(Dyhb::L('待操作的评论不存在或者已被系统屏蔽','Controller/Homefresh'));
+		}
+
+		$oHomefreshcomment->homefreshcomment_auditpass=$nStatus;
+		$oHomefreshcomment->save(0,'update');
+
+		if($oHomefreshcomment->isError()){
+			$this->E($oHomefreshcomment->getErrorMessage());
+		}
+
+		// 更新评论数量
+		$oHomefresh=Dyhb::instance('HomefreshModel');
+		$oHomefresh->updateHomefreshcommentnum($oHomefreshcomment['homefresh_id']);
+
+		if($oHomefresh->isError()){
+			$oHomefresh->getErrorMessage();
+		}
+
+		$this->S(Dyhb::L('评论操作成功','Controller/Homefresh'));
 	}
 
 	public function send_cookie($oCommentModel){

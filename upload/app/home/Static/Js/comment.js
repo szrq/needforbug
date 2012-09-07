@@ -401,6 +401,14 @@ function homefreshchildcommentCancel(){
 	return true;
 }
 
+function homefreshcommentAudit(nCommentid,nStatus){
+	Dyhb.AjaxSend(D.U('home://ucenter/audit_homefreshcomment?id='+nCommentid+'&status='+nStatus),'ajax=1','',function(data,status){
+		if(status==1){
+			window.location.reload();
+		}
+	});
+}
+
 /** 子评论分页 */
 $oGlobalBody=(window.opera)?(document.compatMode=="CSS1Compat"?$('html'):$('body')):$('html,body');
 

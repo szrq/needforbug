@@ -126,31 +126,6 @@ var nHomefreshviewcomment=0;
 					</ul>
 				</div>
 				<div class="message-box">
-					<div id="homefreshcommentform_box" class="none">
-						<textarea class="homefreshcommentform_area"></textarea><br />
-						<input type="hidden" name="homefreshcomment_name" id="homefreshcomment_name" value="<!--{$GLOBALS['___login___']['user_name']}-->">
-						<input type="hidden" name="homefreshcomment_email" id="homefreshcomment_email" value="<!--{$GLOBALS['___login___']['user_email']}-->">
-						<input type="hidden" name="homefreshcomment_url" id="homefreshcomment_url" value="<!--{:UserprofileModel::getUserprofileById($GLOBALS['___login___']['user_id'])}-->">
-						<input type="hidden" name="homefreshcomment_parentid" id="homefreshcomment_parentid" value="0">
-						<div class="homefreshcommentform_btn">
-							<div class="left">
-								<label class="checkbox">
-									<input type="checkbox" name="homefreshcomment_isreplymail" id="homefreshcomment_isreplymail" value="1">&nbsp;回复时邮件通知
-								</label>
-							</div>
-							<div class="right">
-								<input class="btn" type="button" value="<!--<lang package='Template/Homefresh'>-->取消<!--</lang>-->" onclick="homefreshcommentCancel();"/>&nbsp;
-								<input class="btn btn-success" type="button" value="<!--<lang package='Template/Homefresh'>-->提交<!--</lang>-->" onclick="homefreshcommentSubmit();"/>
-							</div>
-						</div>
-						<div class="clear"></div>
-						<!--{if $nDisplayCommentSeccode==1}-->
-						<hr/>
-						<label class="control-label" for="seccode"><!--<lang package='__COMMON_LANG__@Template/Common'>-->验证码<!--</lang>--></label>
-						<p><input class="input-small" name="seccode" id="homefreshcomment_seccode" type="text" value="" onblur="setSeccode(this.value);"></p>
-						<p class="help-block"><span id="seccodeImage"><img style="cursor:pointer" onclick="updateSeccode()" src="<!--{:Dyhb::U('home://ucenter/seccode')}-->" /></span></p>
-						<!--{/if}-->
-					</div>
 					<!--{if is_array($arrHomefreshs)}-->
 					<table class="table">
 						<thead>
@@ -233,6 +208,31 @@ var nHomefreshviewcomment=0;
 							<!--</foreach>-->
 						</tbody>
 					</table>
+					<div id="homefreshcommentform_box" class="none">
+						<textarea class="homefreshcommentform_area"></textarea><br />
+						<input type="hidden" name="homefreshcomment_name" id="homefreshcomment_name" value="<!--{$GLOBALS['___login___']['user_name']}-->">
+						<input type="hidden" name="homefreshcomment_email" id="homefreshcomment_email" value="<!--{$GLOBALS['___login___']['user_email']}-->">
+						<input type="hidden" name="homefreshcomment_url" id="homefreshcomment_url" value="<!--{:UserprofileModel::getUserprofileById($GLOBALS['___login___']['user_id'])}-->">
+						<input type="hidden" name="homefreshcomment_parentid" id="homefreshcomment_parentid" value="0">
+						<div class="homefreshcommentform_btn">
+							<div class="left">
+								<label class="checkbox">
+									<input type="checkbox" name="homefreshcomment_isreplymail" id="homefreshcomment_isreplymail" value="1">&nbsp;回复时邮件通知
+								</label>
+							</div>
+							<div class="right">
+								<input class="btn" type="button" value="<!--<lang package='Template/Homefresh'>-->取消<!--</lang>-->" onclick="homefreshcommentCancel();"/>&nbsp;
+								<input class="btn btn-success" type="button" value="<!--<lang package='Template/Homefresh'>-->提交<!--</lang>-->" onclick="homefreshcommentSubmit();"/>
+							</div>
+						</div>
+						<div class="clear"></div>
+						<!--{if $nDisplayCommentSeccode==1}-->
+						<hr/>
+						<label class="control-label" for="seccode"><!--<lang package='__COMMON_LANG__@Template/Common'>-->验证码<!--</lang>--></label>
+						<p><input class="input-small" name="seccode" id="homefreshcomment_seccode" type="text" value="" onblur="setSeccode(this.value);"></p>
+						<p class="help-block"><span id="seccodeImage"><img style="cursor:pointer" onclick="updateSeccode()" src="<!--{:Dyhb::U('home://ucenter/seccode')}-->" /></span></p>
+						<!--{/if}-->
+					</div>
 					<!--{d*else}-->
 					<p><!--<lang package='Template/Homefresh'>-->暂时没有发现任何新鲜事<!--</lang>--></p>
 					<!--{/if}-->

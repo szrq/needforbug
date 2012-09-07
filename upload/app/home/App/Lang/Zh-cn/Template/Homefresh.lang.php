@@ -41,6 +41,8 @@ return array(
 '93a4386c617a56b2ce1059918ef14466'=>"选填",
 'f55c8a0df16ab5b8563839f73f9b96dc'=>"个人主页",
 '607e7a4f377fa66b0b28ce318aab841f'=>"查看",
+'cf13b1a67881f454af469aa874f087e5'=>"审核",
+'dd4e0b578815e67ded9ed035af6ccac0'=>"屏蔽",
 )
 
 ?>
