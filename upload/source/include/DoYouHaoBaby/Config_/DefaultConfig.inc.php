@@ -79,4 +79,6 @@ return array(
 	'LANG_SWITCH'=>TRUE,
 	'LANG'=>'zh-cn',
 	'URL_DOMAIN'=>'',
+	'_ROUTER_'=>array(),
+	'_HTML_'=>array(),
 );

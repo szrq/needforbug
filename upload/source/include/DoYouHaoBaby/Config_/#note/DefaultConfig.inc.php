@@ -93,4 +93,6 @@ return array(
 	'LANG_SWITCH'=>TRUE,// 是否允许切换语言包
 	'LANG'=>'zh-cn',// 当前语言环境
 	'URL_DOMAIN'=>'',// 域名，不为空将会被写入到生产的网址中，后面不能添加‘/’
+	'_ROUTER_'=>array(), // 路由配置
+	'_HTML_'=>array(), // HTML 静态化
 );
