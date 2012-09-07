@@ -1,5 +1,8 @@
 					<div id="homefreshcommentform_box">
 						<h3><!--<lang package='Template/Homefresh'>-->发表评论<!--</lang>--></h3>
+						<!--{if $GLOBALS['_cache_']['home_option']['audit_comment']==1}-->
+						<div class="alert"><!--<lang package='Template/Homefresh'>-->系统开启了评论审核功能，你发表的评论只有新鲜事的作者审核通过了才能够显示<!--</lang>--></div>
+						<!--{/if}-->
 						<form class="well" method="post" name="homefresh-commentform" action="<!--{:Dyhb::U('home://ucenter/add_homefreshcomment')}-->" id="homefresh-commentform">
 							<!--{if $GLOBALS['___login___']===false}-->
 							<label><!--<lang package='Template/Homefresh'>-->用户昵称<!--</lang>--><em class="red">*</em></label>

@@ -209,6 +209,9 @@ var nHomefreshviewcomment=0;
 						</tbody>
 					</table>
 					<div id="homefreshcommentform_box" class="none">
+						<!--{if $GLOBALS['_cache_']['home_option']['audit_comment']==1}-->
+						<div class="alert"><!--<lang package='Template/Homefresh'>-->系统开启了评论审核功能，你发表的评论只有新鲜事的作者审核通过了才能够显示<!--</lang>--></div>
+						<!--{/if}-->
 						<textarea class="homefreshcommentform_area"></textarea><br />
 						<input type="hidden" name="homefreshcomment_name" id="homefreshcomment_name" value="<!--{$GLOBALS['___login___']['user_name']}-->">
 						<input type="hidden" name="homefreshcomment_email" id="homefreshcomment_email" value="<!--{$GLOBALS['___login___']['user_email']}-->">
