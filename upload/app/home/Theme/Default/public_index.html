@@ -1,4 +1,6 @@
 <!--<include file="Core_Extend::template('header')" />-->
+
+<script src="<!--{:__ROOT__}-->/source/extension/socialization/static/js/socia.js"></script>
 	
 		<ul class="breadcrumb">
 			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>--></li>
@@ -95,7 +97,7 @@
 						</p>
 					</form>
 					<hr/>
-					<a style="border-bottom: none;" href="#"><img style="margin-left: 10px; vertical-align: middle;" src="<!--{:__PUBLIC__}-->/images/common/login/logo_style1.png" /></a>
+					<a style="border-bottom: none;" href="javascript:void(0);" onclick="sociaWinopen('<!--{:Dyhb::U('home://public/socia_login?type=qq')}-->','sociaWin','900','550');"><img style="margin-left: 10px; vertical-align: middle;" src="<!--{:__PUBLIC__}-->/images/common/login/logo_style1.png" /></a>
 					<!--{d*else}-->
 					<h3><a href="<!--{:Dyhb::U('home://ucenter/index')}-->"><!--<lang package='Template/Public'>-->返回个人中心<!--</lang>--></a></h3>
 					<table class="table">
