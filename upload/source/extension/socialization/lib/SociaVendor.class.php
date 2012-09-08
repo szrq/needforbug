@@ -22,7 +22,7 @@ class SociaVendor{
 
 		// get KEYID from config
 		$this->_sAppid=Sociaconfig::getKeys('KEYID',$sVender);
-		if(!$this->_aAppid){
+		if(!$this->_sAppid){
 			Dyhb::E($sVender.' KEYID NOT EXISTS');
 		}
 

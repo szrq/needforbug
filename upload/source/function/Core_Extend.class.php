@@ -515,8 +515,10 @@ class Core_Extend{
 			'Ar'=>'ar',
 		);
 
+		$sLangname=LANG_NAME?LANG_NAME:'Zh-cn';
+
 		$sPublic=__PUBLIC__;
-		$sKindeditorLang=is_file(NEEDFORBUG_PATH.'/Public/js/editor/kindeditor/lang/'.$arrLangmap[LANG_NAME].'.js')?$arrLangmap[LANG_NAME]:'zh_CN';
+		$sKindeditorLang=is_file(NEEDFORBUG_PATH.'/Public/js/editor/kindeditor/lang/'.$arrLangmap[$sLangname].'.js')?$arrLangmap[$sLangname]:'zh_CN';
 
 		return <<<NEEDFORBUG
 		<script type="text/javascript">var sEditorLang='{$sKindeditorLang}';</script>

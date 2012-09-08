@@ -50,7 +50,7 @@ $oConfig->LOGO=array(
 );
 
 // 客户端文件
-$sBaseurl=$GLOBALS['_option_']['site_url'].'/index.php?app=home&c=socia&a=index';
+$sBaseurl=$GLOBALS['_option_']['site_url'].'/index.php?app=home&c=spaceadmin&a=socia_account';
 $oConfig->BaseUrl=$sBaseurl;
 $oConfig->LoginUrl=$sBaseurl.'&action=login&vendor=';// 登录条链接地址
 $oConfig->CallBack=$sBaseurl.'&action=callback&vendor=';// 回调地址

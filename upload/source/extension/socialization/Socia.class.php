@@ -27,6 +27,14 @@ class Socia{
 		self::$_oConfig=Sociaconfig::getInstance();
 	}
 
+	static function getInstance($sVendor='',$sLocal=''){
+		if(!self::$_oInstance){
+			self::$_oInstance=new self($sVendor,$sLocal);
+		}
+
+		return self::$_oInstance;
+	}
+
 	public function setVendor($sVendor=''){
 		if($sVendor){
 			$this->_oVendor=new $sVendor();
@@ -83,6 +91,15 @@ class Socia{
 		}
 
 		return $arrResult;
+	}
+
+	public function login($sVendor=''){
+		return $this->gotoLoginPage();
+	}
+
+	public function gotoLoginPage(){
+		self::clearCookie();
+		return $this->_oVendor->gotoLoginPage();
 	}
 
 }

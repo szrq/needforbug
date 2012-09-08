@@ -34,7 +34,7 @@ class Sociaconfig{
 	}
 
 	public static function getKeys($sType,$sName,$bDefault=FALSE){
-		$arrValues=self::getInstance()->$_arrType;
+		$arrValues=self::getInstance()->$sType;
 
 		if($arrValues && !empty($arrValues[$sName])){
 			return $arrValues[$sName];

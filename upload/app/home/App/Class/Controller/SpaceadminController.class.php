@@ -44,6 +44,10 @@ class SpaceadminController extends InitController{
 		Core_Extend::doControllerAction('Spaceadmin@Socia','index');
 	}
 
+	public function socia_account(){
+		Core_Extend::doControllerAction('Spaceadmin@Socia','account');
+	}
+
 	public function tag(){
 		Core_Extend::doControllerAction('Spaceadmin@Hometag','index');
 	}

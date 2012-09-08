@@ -144,7 +144,7 @@ function do_get($url, $appid, $appkey, $access_token, $access_token_secret, $ope
     $url      .= "?".$normalized_str."&"."oauth_signature=".rawurlencode($signature);
 
     //echo "$url\n";
-    return file_get_contents($url);
+    return file_get_urlcontents($url);
 }
 
 /**
@@ -183,7 +183,7 @@ function do_multi_post($url, $appid, $appkey, $access_token, $access_token_secre
             //echo "upload file error $filevalue['error']\n";
             //exit;
         } 
-        $params[$filename] = file_get_contents($filevalue["tmp_name"]);
+        $params[$filename]=file_get_urlcontents($filevalue["tmp_name"]);
     }
 
     //对参数按照字母升序做序列化
@@ -315,7 +315,7 @@ function get_request_token($appid, $appkey)
     //echo "$sigstr\n";
     //echo "$url\n";
 
-    return file_get_contents($url);
+    return file_get_urlcontents($url);
 }
 
 /**
@@ -402,7 +402,7 @@ function get_access_token($appid, $appkey, $request_token, $request_token_secret
 	//构造请求url
     $url      .= $normalized_str."&"."oauth_signature=".rawurlencode($signature);
 
-    return file_get_contents($url);
+    return file_get_urlcontents($url);
 }
   
 /**
@@ -467,12 +467,11 @@ function gotoAuthorizeURL($appid, $appkey,$keys,$callback)
 	die;
 }
 
-function file_get_contents($url)
-{
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE); 
-    curl_setopt($ch, CURLOPT_POST, FALSE); 
-    curl_setopt($ch, CURLOPT_URL, $url);
-    $ret = curl_exec($ch);
-    return $ret;
+function file_get_urlcontents($url){
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE); 
+	curl_setopt($ch, CURLOPT_POST, FALSE); 
+	curl_setopt($ch, CURLOPT_URL, $url);
+	$ret = curl_exec($ch);
+	return $ret;
 }
