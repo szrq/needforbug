@@ -11,39 +11,24 @@ class SociaController extends Controller{
 
 	public function index(){
 		Socia::clearCookie();
+		Core_Extend::loadCache('sociatype');
 
-		$oSocialocal=Dyhb::instance('Socia');
-		$arrBindeds=$oSocialocal->getBinded($GLOBALS['___login___']['user_id']);
+		$arrBindeds=$GLOBALS['_cache_']['sociatype'];
+		$arrBindedData=array();
 
+		$arrSociausers=SociauserModel::F('user_id=?',$GLOBALS['___login___']['user_id'])->getAll();
+		if(is_array($arrSociausers)){
+			foreach($arrSociausers as $oSociauser){
+				if(isset($arrBindeds[$oSociauser['sociauser_vendor']])){
+					$arrBindedData[]=$oSociauser['sociauser_vendor'];
+				}
+			}
+		}
+
+		$this->assign('arrBindedData',$arrBindedData);
 		$this->assign('arrBindeds',$arrBindeds);
 
 		$this->display('spaceadmin+socia');
-	}
-
-	public function account(){
-		require_once(NEEDFORBUG_PATH.'/source/extension/socialization/Socia.class.php');
-		
-		$sAction=trim(G::getGpc('action','G'));
-		$sVendor=trim(G::getGpc('vendor','G'));
-
-		if(empty($sAction)){
-			$sAction='showBars';
-		}
-
-		if(empty($sVendor)){
-			$sVendor='';
-		}else{
-			$sVendor='Vendor' .$sVendor;
-		}
-
-		$oSocia=Socia::getInstance($sVendor);
-		if(!method_exists($oSocia,$sAction)){
-			$this->E(sprintf('Method %s not exists',$sAction));
-		}
-
-		$return=$oSocia->$sAction($sVendor);
-
-		G::dump($return);
 	}
 
 }

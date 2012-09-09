@@ -12,6 +12,8 @@ class Socia{
 	protected $_sErrorMessage;
 
 	public function __construct($sVendor=''){
+		Core_Extend::loadCache('sociatype');
+		
 		$this->setVendor($sVendor);
 		$this->setLocal();
 	}

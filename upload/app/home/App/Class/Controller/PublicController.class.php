@@ -26,6 +26,10 @@ class PublicController extends InitController{
 		Core_Extend::doControllerAction('Public@Login','bind');
 	}
 
+	public function socia_unbind(){
+		Core_Extend::doControllerAction('Public@Login','unbind');
+	}
+
 	public function sociabind_again(){
 		Core_Extend::doControllerAction('Public@Login','bind_again');
 	}

@@ -33,6 +33,7 @@ return array(
 '68051bf4aa2743b030984b694628ee9c'=>"数据库",
 'dbdfad95e7bedabe13b0e2b316d1b6df'=>"登录记录",
 '16cd4823ca64b0c6b0a5086bb9dda25a'=>"申诉审核",
+'834fb14933185be9d10d1cfd4011ff23'=>"社会化帐号",
 )
 
 ?>

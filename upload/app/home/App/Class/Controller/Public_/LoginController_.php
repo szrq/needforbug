@@ -25,7 +25,7 @@ class LoginController extends Controller{
 		$sVendor=trim(G::getGpc('vendor','G'));
 
 		$oSocia=Dyhb::instance('Socia',$sVendor);
-		$oSocia->login();		
+		$oSocia->login();
 		
 		if($oSocia->isError()){
 			$this->E($oSocia->getErrorMessage());
@@ -56,6 +56,15 @@ class LoginController extends Controller{
 		$this->assign('sRandPassword',G::randString(10));
 
 		$this->display('public+sociabind');
+	}
+
+	public function unbind(){
+		$sVendor=trim(G::getGpc('vendor','G'));
+
+		SociauserModel::M()->deleteWhere(array('sociauser_vendor'=>$sVendor,'user_id'=>$GLOBALS['___login___']['user_id']));
+
+		$this->assign('__JumpUrl__',Dyhb::U('home://ucenter/index'));
+		$this->S(Dyhb::L('帐号解除绑定成功','Controller/Public'));
 	}
 
 	public function bind_again(){
@@ -108,7 +117,13 @@ class LoginController extends Controller{
 
 			// 如果第三方网站已登录，则进行绑定
 			if(Socia::getUser()){
-				Socia::bind();
+				// 绑定社会化登录数据，以便于下次直接调用
+				$oSociauser=Dyhb::instance('SociauserModel');
+				$oSociauser->processBind($oLoginUser['user_id']);
+
+				if($oSociauser->isError()){
+					$this->E($oSociauser->getErrorMessage());
+				}
 			}
 
 			$this->A(array('url'=>$sUrl),Dyhb::L('Hello %s,你成功登录','Controller/Public',null,$sUserName),1);

@@ -621,5 +621,27 @@ class Cache_Extend{
 		
 		Core_Extend::saveSyscache('lang', $arrData);
 	}
+
+	public static function updateCacheSociatype(){
+		$arrData=array();
+
+		$arrSociatypes=SociatypeModel::F('sociatype_status=?',1)->order('create_dateline ASC')->getAll();
+		if(is_array($arrSociatypes)){
+			foreach($arrSociatypes as $oSociatype){
+				$arrData[$oSociatype['sociatype_identifier']]=array(
+					'sociatype_id'=>$oSociatype['sociatype_id'],
+					'sociatype_identifier'=>$oSociatype['sociatype_identifier'],
+					'sociatype_title'=>$oSociatype['sociatype_title'],
+					'sociatype_appid'=>$oSociatype['sociatype_appid'],
+					'sociatype_appkey'=>$oSociatype['sociatype_appkey'],
+					'sociatype_callback'=>$oSociatype['sociatype_callback'],
+					'sociatype_scope'=>$oSociatype['sociatype_scope'],
+					'sociatype_logo'=>__ROOT__.'/source/extension/socialization/static/images/'.$oSociatype['sociatype_logo'],
+				);
+			}
+		}
+
+		Core_Extend::saveSyscache('sociatype',$arrData);
+	}
 	
 }

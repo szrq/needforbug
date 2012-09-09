@@ -19,13 +19,8 @@ class SociauserlocalController extends InitController{
 
 		// 本地用户已绑定
 		if($nUserbinded){
-
 			if($nUserlocal){
-			
-
-				$oSociauserModel=SociauserModel::F('user_id=?',$nUserlocal)->getOne();
-				
-				echo "<img src=\"".$oSociauserModel->sociauser_img."\"/>";
+				$this->U('home://ucenter/index');
 			}else{
 				$this->localLogin($nUserbinded);
 			}
@@ -33,43 +28,32 @@ class SociauserlocalController extends InitController{
 			if($nUserlocal){
 				// 本地用户已登录，进行绑定处理
 				$oSociauser->processBind($nUserlocal);
+				$this->U('home://ucenter/index');
 			}else{
 				// 前往绑定页面，注册新用户或者使用已有帐号登录完成后再次转向绑定页面
 				$this->U('home://public/socia_bind');
 			}
 		}
 	}
-  public function localLogin($nUserid)
-  {
-    $oUser=UserModel::F('user_id=?',$nUserid)->getOne();
 
-	if(!empty($oUser['user_id'])){
-		$oUserModel=Dyhb::instance('UserModel');
-		UserModel::M()->changeSettings('encode_type','cleartext');
-		$oUserModel->checkLogin($oUser['user_name'],$oUser['user_password'],false,'home');
-		UserModel::M()->changeSettings('encode_type','authcode');
+	public function localLogin($nUserid){
+		$oUser=UserModel::F('user_id=?',$nUserid)->getOne();
+
+		if(!empty($oUser['user_id'])){
+			$oUserModel=Dyhb::instance('UserModel');
+			UserModel::M()->changeSettings('encode_type','cleartext');
+			$oUserModel->checkLogin($oUser['user_name'],$oUser['user_password'],false,'home');
+			UserModel::M()->changeSettings('encode_type','authcode');
 		
-		if($oUserModel->isError()){
-			$this->E($oUserModel->getErrorMessage());
+			if($oUserModel->isError()){
+				$this->E($oUserModel->getErrorMessage());
+			}
+
+			$this->assign('__JumpUrl__',Dyhb::U('home://ucenter/index'));
+			$this->S(Dyhb::L('Hello %s,你成功登录','Controller/Public',null,$oUser['user_name']));
+		}else{
+			return false;
 		}
-
-		$this->assign('__JumpUrl__',Dyhb::U('home://ucenter/index'));
-		$this->S(Dyhb::L('Hello %s,你成功登录','Controller/Public',null,$oUser['user_name']));
-	}else{
-		return false;
 	}
-	
-	/*$sql="select * from user where id='{$uid}'";
-    $result=$this->db->select($sql);
-    if($result)
-    {
-      $_SESSION['user']=array('id'=>$result[0]['id'],'name'=>$result[0]['user_name']);
-      return TRUE;
-    }else{
-      return FALSE;
-    }*/
-    
-  }
-
 
 }

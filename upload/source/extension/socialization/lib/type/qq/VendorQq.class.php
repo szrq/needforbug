@@ -30,19 +30,19 @@ class VendorQq extends Vendor{
 		$sCookieState=Dyhb::cookie('_socia_state_');
 		$this->_oOauth->callback($sAppid,$sAppkey,$sCallback,$sCookieState);
 
-		//if($this->_oOauth->isError()){
-			//$this->setErrorMessage($this->_oOauth->getErrorMessage());
-			//return false;
-		//}
+		if($this->_oOauth->isError()){
+			$this->setErrorMessage($this->_oOauth->getErrorMessage());
+			return false;
+		}
 	}
 
 	public function getOpenid(){
 		$this->_oOauth->getOpenid();
 
-		//if($this->_oOauth->isError()){
-			//$this->setErrorMessage($this->_oOauth->getErrorMessage());
-			//return false;
-		//}
+		if($this->_oOauth->isError()){
+			$this->setErrorMessage($this->_oOauth->getErrorMessage());
+			return false;
+		}
 	}
 
 	public function getUserInfo($sAppid){
@@ -51,29 +51,16 @@ class VendorQq extends Vendor{
 
 		$arrUser=$this->_oOauth->getUserInfo($sAppid);
 
-		//if($this->_oOauth->isError()){
-			//$this->setErrorMessage($this->_oOauth->getErrorMessage());
-			//return false;
-		//}
-
-		// 模拟返回成功数据
-		$arrData["ret"]=0;
-		$arrData["msg"]="";
-		$arrData["nickname"]="小牛哥Dyhb";
-		$arrData["figureurl"]="http://qzapp.qlogo.cn/qzapp/100303001/A3A62D6B7CFB589E2D76D2E2EE787273/30";
-		$arrData ["figureurl_1"]="http://qzapp.qlogo.cn/qzapp/100303001/A3A62D6B7CFB589E2D76D2E2EE787273/50";
-		$arrData["figureurl_2"]="http://qzapp.qlogo.cn/qzapp/100303001/A3A62D6B7CFB589E2D76D2E2EE787273/100";
-		$arrData["gender"]="男";
-		$arrData["vip"]="0";
-		$arrData["level"]="0";
-
-		$arrUser=$arrData;
+		if($this->_oOauth->isError()){
+			$this->setErrorMessage($this->_oOauth->getErrorMessage());
+			return false;
+		}
 
 		return $arrUser;
 	}
 
 	public function gotoLoginPage(){
-		$this->login($this->_sAppid,$this->_arrConfig['scope'],$this->_sCallback);
+		$this->login($this->_sAppid,$this->_arrConfig['sociatype_scope'],$this->_sCallback);
 	}
 
 	public function getAccessToken(){
@@ -88,8 +75,7 @@ class VendorQq extends Vendor{
 
 			$arrSaveData=array();
 			$arrSaveData['sociauser_appid']=$this->_sAppid;
-			//$arrSaveData['sociauser_openid']=Dyhb::cookie('_socia_openid_');
-			$arrSaveData['sociauser_openid']='123343434343434';
+			$arrSaveData['sociauser_openid']=Dyhb::cookie('_socia_openid_');
 			$arrSaveData['sociauser_vendor']=$this->_sVendor;
 			$arrSaveData['sociauser_keys']=$this->_sSecid;
 			$arrSaveData['sociauser_gender']=$arrQquser['gender'];

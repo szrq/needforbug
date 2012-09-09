@@ -14,12 +14,12 @@
 			<div class="span12">
 				<div>
 					<!--<foreach for=arrBindeds value=arrBinded>-->
-					<p><!--{$arrBinded['name']}-->&nbsp;
-					<!--{if $arrBinded['socia_user']}-->
-						<a href="DLTClient.php?dltact=unbind&vendor=<!--{$arrBinded['site']}-->">解除绑定</a>
-					<!--{d*else}-->
-						<a href="javascript:sociaWinopen('<!--{:Sociaconfig::getInstance()->LoginUrl}--><!--{$arrBinded['site']}-->')">绑定</a>
-					<!--{/if}-->
+					<p><img src="<!--{$arrBinded['sociatype_logo']}-->" />&nbsp;<!--{$arrBinded['sociatype_title']}-->&nbsp;
+						<!--{if in_array($arrBinded['sociatype_identifier'],$arrBindedData)}-->
+						<a href="javascript:sociaWinopen('<!--{:Dyhb::U('home://public/socia_unbind?vendor='.$arrBinded['sociatype_identifier'])}-->')">取消绑定</a>
+						<!--{d*else}-->
+						<a href="javascript:sociaWinopen('<!--{:Dyhb::U('home://public/socia_login?vendor='.$arrBinded['sociatype_identifier'])}-->')">绑定</a>
+						<!--{/if}-->
 					</p>
 					<!--</foreach>-->
 			</div>

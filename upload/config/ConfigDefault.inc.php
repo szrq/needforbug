@@ -68,14 +68,4 @@ return array(
 	'FRONT_LANGUAGE_DIR'=>'Zh-cn',
 	'ADMIN_LANGUAGE_DIR'=>'Zh-cn',
 	'LANG_SWITCH'=>TRUE,//前台专用，后台自动重写为TRUE
-
-	// 社会化帐号登录
-	'SOCIA'=>array(
-		'qq'=>array(
-			'appid'=>'100303001',// 申请到的appid
-			'appkey'=>'2c8a05c6c7930f7bd0d481a8462c7db0',// 申请到的appkey
-			'callback'=>'http://bbs.doyouhaobaby.net/index.php?app=home&c=public&a=socia_callback&vendor=qq',// QQ登录成功后跳转的地址,{你的域名}/index.php?app=home&c=public&a=socia_callback&vendor=qq
-			'scope'=>'get_user_info,add_share,list_album,add_album,upload_pic,add_topic,add_one_blog,add_weibo',// QQ授权api接口.按需调用
-		),
-	),
 );

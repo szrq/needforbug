@@ -19,6 +19,7 @@ return array(
 '6506a9ecaaf11ed618ec205394c1d5ce'=>"注册成功",
 'b7d06a94d1e163f3c6d8fcebbb9fafc0'=>"你尚未登录社会化帐号",
 '1974fe534902795d1816eb6ec1a1370b'=>"绑定成功",
+'3fa33019b606a02be27aaf52ab790ba3'=>"帐号解除绑定成功",
 )
 
 ?>

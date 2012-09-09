@@ -63,7 +63,7 @@ function complete(data,status){
 		<article class="module width_full">
 			<header><h3 class="tabs_involved"><!--<if condition="empty( $nId )" >--><!--<lang package='Template/Default/Node'>-->添加节点<!--</lang>--><!--<else/>--><!--<lang package='Template/Default/Node'>-->编辑节点<!--</lang>--><!--</if>--></h3>
 				<ul class="tabs">
-					<!--<if condition="!empty( $oValue:nodegroup:nodegroup_name )">
+					<!--<if condition="isset( $oValue ) && !empty( $oValue:nodegroup:nodegroup_name )">-->
 					<li><a href="<!--{:Dyhb::U('node/index?nodegroup_id='.$oValue->nodegroup_id)}-->"><!--{$oValue:nodegroup:nodegroup_name}--></a>
 					<!--</if>-->
 					<li class="active"><a href="<!--{:Dyhb::U('node/index')}-->"><!--<lang package='Template/Default/Node'>-->节点列表<!--</lang>--></a></li>
