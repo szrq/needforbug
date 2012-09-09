@@ -97,7 +97,9 @@
 						</p>
 					</form>
 					<hr/>
-					<a style="border-bottom: none;" href="javascript:void(0);" onclick="sociaWinopen('<!--{:Dyhb::U('home://public/socia_login?vendor=qq')}-->','sociaWin','900','550');"><img style="margin-left: 10px; vertical-align: middle;" src="<!--{:__PUBLIC__}-->/images/common/login/logo_style1.png" /></a>
+					<!--<foreach for=arrBindeds value=arrBinded>-->
+					<a style="border-bottom: none;" href="javascript:void(0);" onclick="sociaWinopen('<!--{:Dyhb::U('home://public/socia_login?vendor='.$arrBinded['sociatype_identifier'])}-->','sociaWin','900','550');"><img style="margin:0px 10px 5px 10px; vertical-align: middle;" src="<!--{$arrBinded['sociatype_logo']}-->" /></a>
+					<!--</foreach>-->
 					<!--{d*else}-->
 					<h3><a href="<!--{:Dyhb::U('home://ucenter/index')}-->"><!--<lang package='Template/Public'>-->返回个人中心<!--</lang>--></a></h3>
 					<table class="table">

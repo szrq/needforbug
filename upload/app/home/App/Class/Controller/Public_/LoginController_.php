@@ -15,9 +15,12 @@ class LoginController extends Controller{
 			$this->E(Dyhb::L('你已经登录','Controller/Public'));
 		}
 
+		Core_Extend::loadCache('sociatype');
+
 		$this->assign('nDisplaySeccode',$GLOBALS['_option_']['seccode_login_status']);
 		$this->assign('nRememberTime',$GLOBALS['_option_']['remember_time']);
-		
+		$this->assign('arrBindeds',$GLOBALS['_cache_']['sociatype']);
+
 		$this->display('public+login');
 	}
 
