@@ -55,14 +55,14 @@ class Socia{
 		$arrKeys=self::getKeys();
 		
 		$arrUser=$this->_oVendor->getUser();
-		
+	
 		if($this->_oVendor->isError()){
 			$this->setErrorMessage($this->_oVendor->getErrorMessage());
 			return false;
 		}
 
 		if($arrUser){
-			$this->setUser($arrUser);
+			self::setUser($arrUser);
 		}
 
 		return $arrUser;
@@ -80,7 +80,6 @@ class Socia{
 
 	public function bind(){
 		if(!self::getUser()){
-			$this->setErrorMessage('Login Failed');
 			return false;
 		}
 

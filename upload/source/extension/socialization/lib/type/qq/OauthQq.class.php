@@ -39,7 +39,7 @@ class OauthQq extends Oauth{
 				$nRpos=strrpos($sResponse,")");
 				$sResponse=substr($sResponse,$nLpos+1,$nRpos-$nLpos-1);
 				$oMsg=json_decode($sResponse);
-				if(isset($msg->error)){
+				if(isset($oMsg->error)){
 					$sErrorMessage="<h5>Error:</h5>".$oMsg->error;
 					$sErrorMessage.="<h5>Msg :</h5>".$oMsg->error_description;
 					
