@@ -6468,6 +6468,7 @@ abstract class ModelBehavior implements IModelCallback{
 	public function bind(){
 		$this->addStaticMethod_('isBehaviorError',array($this,'isError')); // 判断模式扩展扩展是否出错
 		$this->addStaticMethod_('getBehaviorErrorMessage',array($this,'getErrorMessage')); // 获取模式扩展的错误信息
+		$this->addStaticMethod_('changeSettings',array($this,'changeSettings'));
 	}
 	public function unbind(){
 		foreach($this->_arrDynamicMethods as $sMethodName){// 移除插件的动态方法
@@ -6500,13 +6501,17 @@ abstract class ModelBehavior implements IModelCallback{
 		$this->_arrEventHandlers[]=array($nEventType,$Callback);
 	}
 	protected function setPropGetter_($sPropName,$Callback,$arrCustomParameters=array()){
-		$this->_oMeta->setPropGetter($sPropName, $Callback,$arrCustomParameters);
+		$this->_oMeta->setPropGetter($sPropName,$Callback,$arrCustomParameters);
 		$this->_arrGetters[]=$sPropName;
 	}
 	protected function setPropSetter_($sPropName,$Callback,$arrCustomParameters=array()){
 		$this->_oMeta->setPropSetter($sPropName,$Callback,$arrCustomParameters);
 		$this->_arrSetters[]=$sPropName;
 	}
+	public function changeSettings($sName,$sValue){
+		$this->_arrSettings[$sName]=$sValue;
+	}
+	
 	public function setIsError($bIsError=false){
 		$bOldValue=$this->_bIsError;
 		$this->_bIsError=$bIsError;

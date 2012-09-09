@@ -4,7 +4,7 @@
 /** 登陆相关 */
 function login_handle(data,status){
 	if(status==1){
-		window.location=data.url;
+		setTimeout("window.location=data.url;",1000);
 	}
 }
 

@@ -22,6 +22,14 @@ class PublicController extends InitController{
 		Core_Extend::doControllerAction('Public@Login','callback');
 	}
 
+	public function socia_bind(){
+		Core_Extend::doControllerAction('Public@Login','bind');
+	}
+
+	public function sociabind_again(){
+		Core_Extend::doControllerAction('Public@Login','bind_again');
+	}
+
 	public function check_login(){
 		Core_Extend::doControllerAction('Public@Login','check_login');
 	}

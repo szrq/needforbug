@@ -283,8 +283,10 @@ class PmController extends InitController{
 			$this->E(Dyhb::L('你没有指定要删除的短消息','Controller/Pm'));
 		}
 		
-		foreach($arrPmIds as $nPmId){
-			$this->del_one_pm($nPmId,$GLOBALS['___login___']['user_id'],0);
+		if(is_array($arrPmIds)){
+			foreach($arrPmIds as $nPmId){
+				$this->del_one_pm($nPmId,$GLOBALS['___login___']['user_id'],0);
+			}
 		}
 		
 		$this->S(Dyhb::L('删除短消息成功','Controller/Pm'));
@@ -328,8 +330,10 @@ class PmController extends InitController{
 			$this->E(Dyhb::L('你没有指定要删除的短消息','Controller/Pm'));
 		}
 		
-		foreach($arrPmIds as $nPmId){
-			$this->del_my_one_pm($nPmId,$GLOBALS['___login___']['user_id']);
+		if($arrPmIds){
+			foreach($arrPmIds as $nPmId){
+				$this->del_my_one_pm($nPmId,$GLOBALS['___login___']['user_id']);
+			}
 		}
 		
 		$this->S(Dyhb::L('删除短消息成功','Controller/Pm'));
@@ -342,8 +346,10 @@ class PmController extends InitController{
 			$this->E(Dyhb::L('你没有指定要标记的短消息','Controller/Pm'));
 		}
 		
-		foreach($arrPmIds as $nPmId){
-			$this->read_system_message_($nPmId);
+		if($arrPmIds){
+			foreach($arrPmIds as $nPmId){
+				$this->read_system_message_($nPmId);
+			}
 		}
 		
 		$this->S(Dyhb::L('标记短消息已读成功','Controller/Pm'));
@@ -352,8 +358,10 @@ class PmController extends InitController{
 	public function delete_systempm(){
 		$arrPmIds=G::getGpc('pmid','P');
 
-		foreach($arrPmIds as $nPmId){
-				$this->delete_system_message_($nPmId);
+		if(is_array($arrPmIds)){
+			foreach($arrPmIds as $nPmId){
+					$this->delete_system_message_($nPmId);
+			}
 		}
 
 		$this->S(Dyhb::L('删除系统短消息成功','Controller/Pm'));

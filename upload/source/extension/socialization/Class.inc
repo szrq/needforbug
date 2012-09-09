@@ -1,1 +1,1 @@
-a:1:{s:8:"VendorQq";s:29:"lib/wendor/VendorQq.class.php";}
+a:7:{s:24:"SociauserlocalController";s:42:"lib/mvc/SociauserlocalController.class.php";s:14:"SociauserModel";s:32:"lib/mvc/SociauserModel.class.php";s:5:"Oauth";s:25:"lib/oauth/Oauth.class.php";s:7:"OauthQq";s:27:"lib/oauth/OauthQq.class.php";s:6:"Vendor";s:27:"lib/wendor/Vendor.class.php";s:8:"VendorQq";s:29:"lib/wendor/VendorQq.class.php";s:5:"Socia";s:15:"Socia.class.php";}

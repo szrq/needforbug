@@ -4,100 +4,108 @@
 
 !defined('DYHB_PATH') && exit;
 
-class VendorQq{
+class VendorQq extends Vendor{
 
-	public function login($sAppid,$sScope,$sCallback){
-		$GLOBALS['socia']['qq']['state']=md5(uniqid(rand(),TRUE));
+	const NAME='qq';
+	protected $_oOauth=null;
 
-		Dyhb::cookie('_socia_state_',$GLOBALS['socia']['qq']['state']);
-
-		$sLoginurl="https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=".$sAppid.
-			"&redirect_uri=" . urlencode($sCallback).
-			"&state=".$GLOBALS['socia']['qq']['state'].
-			"&scope=".$sScope;
-
-		G::urlGoTo($sLoginurl);
+	public function __construct(){
+		parent::__construct(self::NAME);
+		$this->_oOauth=new OauthQq();
 	}
 
-	public function callback(){
-		$sCookieState=Dyhb::cookie('_socia_state_');
-		$sState=trim(G::getGpc('state','G'));
-		$sCode=trim(G::getGpc('code','G'));
-		
-		if(!empty($sCookieState) && $sState==$sCookieState){
-			if(empty($sCode)){
-				$this->E('Empty code');
-			}
-			
-			$sTokenurl="https://graph.qq.com/oauth2.0/token?grant_type=authorization_code&".
-				"client_id=".$GLOBALS['socia']['qq']["appid"]."&redirect_uri=".urlencode($GLOBALS['socia']['qq']["callback"]).
-				"&client_secret=".$GLOBALS['socia']['qq']["appkey"]."&code=".$sCode;
+	public function login($sAppid,$sScope,$sCallback){
+		$sState=md5(uniqid(rand(),TRUE));
+		Dyhb::cookie('_socia_state_',$sState);
 
-			$sResponse=file_get_contents($sTokenurl);
-			if(strpos($sResponse,"callback")!==false){
-				$nLpos=strpos($sResponse,"(");
-				$nRpos=strrpos($sResponse,")");
-				$sResponse=substr($sResponse,$nLpos+1,$nRpos-$nLpos-1);
-				$oMsg=json_decode($sResponse);
-				if(isset($msg->error)){
-					$sErrorMessage="<h3>error:</h3>".$oMsg->error;
-					$sErrorMessage.="<h3>msg :</h3>".$oMsg->error_description;
-					
-					$this->E($sErrorMessage);
-				}
-			}
+		$this->_oOauth->login($sAppid,$sScope,$sCallback,$sState);
 
-			$arrParams=array();
-			parse_str($sResponse,$arrParams);
-
-			if(!isset($arrParams['access_token'])){
-				Dyhb::E('access_token is empty');
-			}
-
-			Dyhb::cookie("access_token",$arrParams['access_token']);
-
-		}else {
-			Dyhb::E("The state does not match. You may be a victim of CSRF.");
+		if($this->_oOauth->isError()){
+			$this->setErrorMessage($this->_oOauth->getErrorMessage());
+			return false;
 		}
+	}
+
+	public function callback($sAppid,$sAppkey,$sCallback){
+		$sCookieState=Dyhb::cookie('_socia_state_');
+		$this->_oOauth->callback($sAppid,$sAppkey,$sCallback,$sCookieState);
+
+		//if($this->_oOauth->isError()){
+			//$this->setErrorMessage($this->_oOauth->getErrorMessage());
+			//return false;
+		//}
 	}
 
 	public function getOpenid(){
-		$sAccesstoken=Dyhb::cookie("access_token");
-		$sGraphurl="https://graph.qq.com/oauth2.0/me?access_token=".$sAccesstoken;
+		$this->_oOauth->getOpenid();
 
-		$sStr=file_get_contents($sGraphurl);
-		if (strpos($sStr,"callback")!==false){
-			$nLpos=strpos($sStr,"(");
-			$nRpos=strrpos($sStr,")");
-			$sStr=substr($sStr,$nLpos+1,$nRpos-$nLpos-1);
-		}
-
-		$oUser=json_decode($sStr);
-		if (isset($oUser->error)){
-			$sErrorMessage="<h3>error:</h3>".$oUser->error;
-			$sErrorMessage.="<h3>msg:</h3>".$oUser->error_description;
-			
-			Dyhb::E($sErrorMessage);
-		}
-
-		// set openid to cookie
-		Dyhb::cookie('_socia_openid_',$oUser->openid);
+		//if($this->_oOauth->isError()){
+			//$this->setErrorMessage($this->_oOauth->getErrorMessage());
+			//return false;
+		//}
 	}
 
-	public function getUserInfo(){
-		$sAccesstoken=Dyhb::cookie('access_token');
-		$sOpenid=Dyhb::cookie('_socia_openid_');
+	public function getUserInfo($sAppid){
+		$this->getAccessToken();
+		$this->getOpenid();
 
-		$sGetuserinfo="https://graph.qq.com/user/get_user_info?".
-			"access_token=".$sAccesstoken.
-			"&oauth_consumer_key=".$GLOBALS['socia']['qq']["appid"].
-			"&openid=".$sOpenid.
-			"&format=json";
+		$arrUser=$this->_oOauth->getUserInfo($sAppid);
 
-		$info=file_get_contents($sGetuserinfo);
-		$info=json_decode($info,true);
+		//if($this->_oOauth->isError()){
+			//$this->setErrorMessage($this->_oOauth->getErrorMessage());
+			//return false;
+		//}
 
-		return $info;
+		// 模拟返回成功数据
+		$arrData["ret"]=0;
+		$arrData["msg"]="";
+		$arrData["nickname"]="小牛哥Dyhb";
+		$arrData["figureurl"]="http://qzapp.qlogo.cn/qzapp/100303001/A3A62D6B7CFB589E2D76D2E2EE787273/30";
+		$arrData ["figureurl_1"]="http://qzapp.qlogo.cn/qzapp/100303001/A3A62D6B7CFB589E2D76D2E2EE787273/50";
+		$arrData["figureurl_2"]="http://qzapp.qlogo.cn/qzapp/100303001/A3A62D6B7CFB589E2D76D2E2EE787273/100";
+		$arrData["gender"]="男";
+		$arrData["vip"]="0";
+		$arrData["level"]="0";
+
+		$arrUser=$arrData;
+
+		return $arrUser;
+	}
+
+	public function gotoLoginPage(){
+		$this->login($this->_sAppid,$this->_arrConfig['scope'],$this->_sCallback);
+	}
+
+	public function getAccessToken(){
+		$this->callback($this->_sAppid,$this->_sSecid,$this->_sCallback);
+	}
+
+	public function showUser($keys=array()){
+		$arrQquser=$this->getUserInfo($this->_sAppid);
+
+		if($arrQquser && $arrQquser['ret']==0){
+			$arrKeys=Socia::getKeys();
+
+			$arrSaveData=array();
+			$arrSaveData['sociauser_appid']=$this->_sAppid;
+			//$arrSaveData['sociauser_openid']=Dyhb::cookie('_socia_openid_');
+			$arrSaveData['sociauser_openid']='123343434343434';
+			$arrSaveData['sociauser_vendor']=$this->_sVendor;
+			$arrSaveData['sociauser_keys']=$this->_sSecid;
+			$arrSaveData['sociauser_gender']=$arrQquser['gender'];
+			$arrSaveData['sociauser_name']=$arrQquser['nickname'];
+			$arrSaveData['sociauser_nikename']=$arrQquser['nickname'];
+			$arrSaveData['sociauser_desc']=$arrQquser['msg'];
+			$arrSaveData['sociauser_img']=$arrQquser['figureurl'];
+			$arrSaveData['sociauser_img1']=$arrQquser['figureurl_1'];
+			$arrSaveData['sociauser_img2']=$arrQquser['figureurl_2'];
+			$arrSaveData['sociauser_vip']=$arrQquser['vip'];
+			$arrSaveData['sociauser_level']=$arrQquser['level'];
+			
+			return $arrSaveData;
+		}
+
+		return FALSE;
 	}
 
 }

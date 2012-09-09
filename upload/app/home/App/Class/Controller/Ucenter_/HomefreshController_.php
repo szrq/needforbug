@@ -3,48 +3,10 @@
    用户新鲜事控制器($)*/
 
 !defined('DYHB_PATH') && exit;
-// 导入社会化登录组件
-Dyhb::import(NEEDFORBUG_PATH.'/source/extension/socialization');
-
-// 申请到的appid
-$arrData["appid"]='100303001';
-
-// 申请到的appkey
-$arrData["appkey"]="2c8a05c6c7930f7bd0d481a8462c7db0";
-
-// QQ登录成功后跳转的地址,请确保地址真实可用，否则会导致登录失败。
-$arrData["callback"]="http://bbs.doyouhaobaby.net/index.php?app=home&c=public&a=socia_callback&type=qq";
-
-// QQ授权api接口.按需调用
-$arrData["scope"]="get_user_info,add_share,list_album,add_album,upload_pic,add_topic,add_one_blog,add_weibo";
-
-$GLOBALS['socia']['qq']=$arrData;
-
 
 class HomefreshController extends InitController{
 
 	public function index(){
-		  $arrData["ret"]=0;
-  $arrData["msg"]="";
-  $arrData["nickname"]="小牛哥Dyhb";
-  $arrData["figureurl"]="http://qzapp.qlogo.cn/qzapp/100303001/A3A62D6B7CFB589E2D76D2E2EE787273/30";
-  $arrData ["figureurl_1"]="http://qzapp.qlogo.cn/qzapp/100303001/A3A62D6B7CFB589E2D76D2E2EE787273/50";
-  $arrData["figureurl_2"]="http://qzapp.qlogo.cn/qzapp/100303001/A3A62D6B7CFB589E2D76D2E2EE787273/100";
-  $arrData["gender"]="男";
-  $arrData["vip"]="0";
-  $arrData["level"]="0";
-
-  $arrData['appid']=$GLOBALS['socia']['qq']['appid'];
-  $arrData['appkey']=$GLOBALS['socia']['qq']['appkey'];
-$arrData['vendor']='qq';
-//G::dump( $arrData);
-
-$oSociaModel=Dyhb::instance('SociauserModel');
-$oSociaModel->setUser( $arrData);
-$oSociaModel->bind();
-	
-
-		
 		$arrWhere=array();
 		
 		$sType=trim(G::getGpc('type','G'));
@@ -83,8 +45,6 @@ $oSociaModel->bind();
 				break;
 		}
 
-
-		
 		$arrOptionData=$GLOBALS['_cache_']['home_option'];
 
 		$sGoodCookie=Dyhb::cookie('homefresh_goodnum');

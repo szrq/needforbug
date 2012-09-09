@@ -4,6 +4,9 @@
 
 !defined('DYHB_PATH') && exit;
 
+// 导入社会化登录组件
+Dyhb::import(NEEDFORBUG_PATH.'/source/extension/socialization');
+
 class RegisterController extends Controller{
 
 	public function index(){
@@ -115,6 +118,27 @@ class RegisterController extends Controller{
 			$oUserCount->save(0);
 
 			$this->cache_site_();
+
+			// 判断是否绑定社会化帐号
+			if(G::getGpc('sociabind','P')==1){
+				// 绑定社会化登录数据，以便于下次直接调用
+				$oSociauser=Dyhb::instance('SociauserModel');
+				$oSociauser->processBind($oUser['user_id']);
+
+				if($oSociauser->isError()){
+					$this->E($oSociauser->getErrorMessage());
+				}
+
+				$arrData=$oUser->toArray();
+				$arrData['jumpurl']=Dyhb::U('home://public/sociabind_again');
+
+				$arrSociauser=SociauserModel::F('user_id=?',$arrData['user_id'])->asArray()->getOne();
+				Socia::setUser($arrSociauser);
+				
+				$this->A($arrData,Dyhb::L('绑定成功','Controller/Public'),1);
+
+				exit();
+			}
 
 			$this->A($oUser->toArray(),Dyhb::L('注册成功','Controller/Public'),1);
 		}

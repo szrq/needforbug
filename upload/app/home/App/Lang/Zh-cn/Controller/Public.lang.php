@@ -16,6 +16,9 @@ return array(
 'adfb20e4ebcda3233e8ce973a1645e6e'=>"登出成功",
 '56f87d4084aa142751697c421d1fca7b'=>"已经登出",
 'b4e4f17b43c22cb85674aebe00e8c25d'=>"清理登录痕迹成功",
+'6506a9ecaaf11ed618ec205394c1d5ce'=>"注册成功",
+'b7d06a94d1e163f3c6d8fcebbb9fafc0'=>"你尚未登录社会化帐号",
+'1974fe534902795d1816eb6ec1a1370b'=>"绑定成功",
 )
 
 ?>

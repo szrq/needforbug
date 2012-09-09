@@ -32,7 +32,7 @@
   'GUEST_AUTH_ON' => false,
   'GUEST_AUTH_ID' => 0,
   'RBAC_ERROR_PAGE' => '',
-  'TIME_ZONE' => 'Asia/Shanghai',
+  'TIME_ZONE' => 'Zulu',
   'TEMPLATE_TAG_NOTE' => true,
   'APP_DEVELOP' => 0,
   'FRONT_TPL_DIR' => 'Default',
@@ -47,5 +47,15 @@
   'ADMIN_LANG_DIR' => 'Zh-cn',
   'FRONT_LANG_DIR' => 'Zh-cn',
   'LANG_SWITCH' => true,
+  'SOCIA' => 
+  array (
+    'qq' => 
+    array (
+      'appid' => '100303001',
+      'appkey' => '2c8a05c6c7930f7bd0d481a8462c7db0',
+      'callback' => 'http://bbs.doyouhaobaby.net/index.php?app=home&c=public&a=socia_callback&vendor=qq',
+      'scope' => 'get_user_info,add_share,list_album,add_album,upload_pic,add_topic,add_one_blog,add_weibo',
+    ),
+  ),
 )
 ?>

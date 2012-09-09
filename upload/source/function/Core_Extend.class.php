@@ -547,7 +547,9 @@ NEEDFORBUG;
 			$sApp=strtolower($sApp);
 
 			$sAppConfigcachefile=NEEDFORBUG_PATH.'/data/~runtime/'.$sApp.'/Config.php';
-			@unlink($sAppConfigcachefile);
+			if(is_file($sAppConfigcachefile)){
+				@unlink($sAppConfigcachefile);
+			}
 
 			if($bCleanCookie===true){
 				Dyhb::cookie('template',null,-1);
