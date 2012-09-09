@@ -2470,7 +2470,7 @@ CREATE TABLE IF NOT EXISTS `needforbug_sociatype` (
   PRIMARY KEY (`sociatype_id`),
   KEY `status` (`sociatype_status`),
   KEY `create_dateline` (`create_dateline`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- 转存表中的数据 `needforbug_sociatype`
