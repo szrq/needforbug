@@ -57,7 +57,7 @@
 							<td><input type="checkbox" name="key" value="<!--{$value:user_id}-->"></td>
 							<td><!--{$value:user_id}--></td>
 							<td class="user-icon"><a href="javascript:edit('<!--{$value:user_id}-->')">
-								<img src="<!--{:Core_Extend::avatar( $value->user_id,'small' )}-->"/>
+								<img src="<!--{:Core_Extend::avatar( $value->user_id,'small' )}-->" width="48px" height="48px"/>
 							</a>
 							<td><!--{$value:user_name}--> <a href="<!--{:Dyhb::U('user/show?id='.$value['user_id'])}-->"><!--<lang package='Template/Default/User'>-->详情<!--</lang>--></a>
 								<div class="row-actions">

@@ -125,7 +125,7 @@ $(function(){
 					<thead>
 						<tr>
 							<td style="text-align:center;">
-								<a href="<!--{:Dyhb::U('home://space@?id='.$nId.'&type=avatar')}-->"><img src="<!--{:Core_Extend::avatar( $nId,'small' )}-->" class="thumbnail"/></a>
+								<a href="<!--{:Dyhb::U('home://space@?id='.$nId.'&type=avatar')}-->"><img src="<!--{:Core_Extend::avatar( $nId,'small' )}-->" width="48px" height="48px" class="thumbnail"/></a>
 							</td>
 							<td>
 								<label class="control-label" for="email-input"><i class="icon-retweet"></i>&nbsp;<!--<lang package='Template/Space'>-->与用户 Email 交流<!--</lang>--></label>
@@ -172,7 +172,7 @@ $(function(){
 						<!--<foreach for=arrFriends value=oFriend>-->
 						<li class="span1">
 							<div class="thumbnail">
-								<a href="<!--{:Dyhb::U('home://space@?id='.$oFriend['friend_friendid'])}-->"><img src="<!--{:Core_Extend::avatar( $oFriend['friend_friendid'],'small' )}-->" title="<!--<lang package='Template/Space'>-->好友<!--</lang>--> <!--{$oFriend['friend_friendusername']}-->" alt="<!--<lang package='Template/Space'>-->好友<!--</lang>--> <!--{$oFriend['friend_friendusername']}-->"></a>
+								<a href="<!--{:Dyhb::U('home://space@?id='.$oFriend['friend_friendid'])}-->"><img src="<!--{:Core_Extend::avatar( $oFriend['friend_friendid'],'small' )}-->" width="48px" height="48px" title="<!--<lang package='Template/Space'>-->好友<!--</lang>--> <!--{$oFriend['friend_friendusername']}-->" alt="<!--<lang package='Template/Space'>-->好友<!--</lang>--> <!--{$oFriend['friend_friendusername']}-->"></a>
 								<a rel="tooltip" title="<!--<lang package='Template/Space'>-->好友<!--</lang>--> <!--{$oFriend['friend_friendusername']}-->" href="<!--{:Dyhb::U('home://space@?id='.$oFriend['friend_friendid'])}-->"><h5 style="text-align:center;"><!--{:G::subString(UserModel::getUsernameById($oFriend['friend_friendid']),0,6)}--></h5></a>
 							</div>
 						</li>

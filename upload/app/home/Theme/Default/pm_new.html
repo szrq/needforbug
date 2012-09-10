@@ -44,7 +44,7 @@ $(document).ready(function(){
 					<tbody>
 						<tr id="pm_<!--{$oPm:pm_id}-->" class="pmlist-odd">
 							<td width="60px">
-								<a href="<!--{:Dyhb::U('home://space@?id='.$oPm->pm_msgfromid)}-->" target="_blank"><img src="<!--{:Core_Extend::avatar( $oPm->pm_msgfromid,'small' )}-->" class="thumbnail" /></a>
+								<a href="<!--{:Dyhb::U('home://space@?id='.$oPm->pm_msgfromid)}-->" target="_blank"><img src="<!--{:Core_Extend::avatar( $oPm->pm_msgfromid,'small' )}-->" width="48px" height="48px" class="thumbnail" /></a>
 							</td>
 							<td>
 								<!--{if $oPm['pm_subject']}--><a href="<!--{:Dyhb::U('home://pm/show?id='.$oPm->pm_id)}-->"><h5><!--{$oPm['pm_subject']}--></h5></a><!--{/if}-->

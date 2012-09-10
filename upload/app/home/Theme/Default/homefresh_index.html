@@ -138,7 +138,7 @@ var nHomefreshviewcomment=0;
 							<tr>
 								<td style="width:48px;">
 									<div style="text-align:center;">
-										<a href="<!--{:Dyhb::U('home://space@?id='.$oHomefresh['user_id'])}-->"><img src="<!--{:Core_Extend::avatar($oHomefresh['user_id'],'small')}-->" class="thumbnail" /></a>
+										<a href="<!--{:Dyhb::U('home://space@?id='.$oHomefresh['user_id'])}-->"><img src="<!--{:Core_Extend::avatar($oHomefresh['user_id'],'small')}-->" width="48px" height="48px" class="thumbnail" /></a>
 									</div>
 								</td>
 								<td>
@@ -161,7 +161,7 @@ var nHomefreshviewcomment=0;
 									<div id="homefreshcommentlist_<!--{$oHomefresh['homefresh_id']}-->" class="homefreshcommentlist_box">
 										<!--<foreach for=arrHomefreshcomments value=oHomefreshcomment>-->
 										<div class="homefreshcomment_item" id="homefreshcommentitem_<!--{$oHomefreshcomment['homefreshcomment_id']}-->">
-											<div class="homefreshcomment_avatar"><img src="<!--{:Core_Extend::avatar($oHomefreshcomment['user_id'],'small')}-->" class="thumbnail" />
+											<div class="homefreshcomment_avatar"><img src="<!--{:Core_Extend::avatar($oHomefreshcomment['user_id'],'small')}-->" width="48px" height="48px" class="thumbnail" />
 											</div>
 											<div class="homefreshcomment_content">
 												<a href="<!--{:Dyhb::U('home://space@?id='.$oHomefreshcomment['user_id'])}-->"><!--{$oHomefreshcomment->user_id|UserModel+getUsernameById}--></a>:
@@ -174,7 +174,7 @@ var nHomefreshviewcomment=0;
 													<!--<foreach for=arrHomefreshchildcomments value=oHomefreshchildcomment>-->
 													<div class="homefreshcomment_item homefreshcomment_itemchild" id="homefreshcommentitem_<!--{$oHomefreshchildcomment['homefreshcomment_id']}-->">
 														<div class="homefreshcomment_avatar">
-															<img src="<!--{:Core_Extend::avatar($oHomefreshchildcomment['user_id'],'small')}-->" class="thumbnail" />
+															<img src="<!--{:Core_Extend::avatar($oHomefreshchildcomment['user_id'],'small')}-->" width="48px" height="48px" class="thumbnail" />
 														</div>
 														<div class="homefreshcomment_content">
 															<a href="<!--{:Dyhb::U('home://space@?id='.$oHomefreshchildcomment['user_id'])}-->"><!--{$oHomefreshchildcomment->user_id|UserModel+getUsernameById}--></a>:
