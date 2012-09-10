@@ -41,7 +41,7 @@ class FileCache{
 		$sCacheFilePath=$this->getCacheFilePath($sCacheName,$arrOptions);
 
 		clearstatcache();
-		if(!file_exists($sCacheFilePath)){ 
+		if(!is_file($sCacheFilePath)){ 
 			return false; 
 		}
 

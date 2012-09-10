@@ -39,9 +39,9 @@ class AppconfigtoolController extends InitController{
 			'app_name'=>Dyhb::L('全局后台','Controller/Appconfigtool'),
 			'logo'=>__ROOT__.'/admin/logo.png',
 			'config_file'=>'{NEEDFORBUG_PATH}/'.$sConfigfile,
-			'config_file_exist'=>file_exists(NEEDFORBUG_PATH.'/'.$sConfigfile)?true:false,
+			'config_file_exist'=>is_file(NEEDFORBUG_PATH.'/'.$sConfigfile)?true:false,
 			'config_cache_file'=>'{NEEDFORBUG_PATH}/'.$sConfigcachefile,
-			'config_cache_file_exist'=>file_exists(NEEDFORBUG_PATH.'/'.$sConfigcachefile)?true:false,
+			'config_cache_file_exist'=>is_file(NEEDFORBUG_PATH.'/'.$sConfigcachefile)?true:false,
 		);
 
 		$arrLists=AppModel::F()->where($arrWhere)->all()->order('app_id DESC')->limit($oPage->returnPageStart(),$nEverynum)->query();
@@ -56,9 +56,9 @@ class AppconfigtoolController extends InitController{
 					'app_name'=>$oList['app_name'],
 					'logo'=>Core_Extend::appLogo($oList['app_identifier']),
 					'config_file'=>'{NEEDFORBUG_PATH}/'.$sConfigfile,
-					'config_file_exist'=>file_exists(NEEDFORBUG_PATH.'/'.$sConfigfile)?true:false,
+					'config_file_exist'=>is_file(NEEDFORBUG_PATH.'/'.$sConfigfile)?true:false,
 					'config_cache_file'=>'{NEEDFORBUG_PATH}/'.$sConfigcachefile,
-					'config_cache_file_exist'=>file_exists(NEEDFORBUG_PATH.'/'.$sConfigcachefile)?true:false,
+					'config_cache_file_exist'=>is_file(NEEDFORBUG_PATH.'/'.$sConfigcachefile)?true:false,
 				);
 			}
 		}

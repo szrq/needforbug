@@ -91,7 +91,7 @@ class Core_Extend{
 		
 		$sPath=G::getAvatar($nUid,$sType);
 
-		return file_exists(NEEDFORBUG_PATH.'/data/avatar/'.$sPath)?
+		return is_file(NEEDFORBUG_PATH.'/data/avatar/'.$sPath)?
 			__ROOT__.'/data/avatar/'.$sPath:
 			__PUBLIC__.'/images/avatar/noavatar_'.($sType=='origin'?'big':$sType).'.gif';
 	}
@@ -103,7 +103,7 @@ class Core_Extend{
 
 		$arrAvatarInfo=array();
 
-		$arrAvatarInfo['exist']=file_exists(NEEDFORBUG_PATH.'/data/avatar/'.G::getAvatar($nUserId,'big'))?true:false;
+		$arrAvatarInfo['exist']=is_file(NEEDFORBUG_PATH.'/data/avatar/'.G::getAvatar($nUserId,'big'))?true:false;
 		$arrAvatarInfo['origin']=Core_Extend::avatar($nUserId,'origin');
 		$arrAvatarInfo['big']=Core_Extend::avatar($nUserId,'big');
 		$arrAvatarInfo['middle']=Core_Extend::avatar($nUserId,'middle');
@@ -133,7 +133,7 @@ class Core_Extend{
 		$sClass=$sClassController.'_.php';
 		$sFilepath.=($arrValue?implode('/',$arrValue).'/':'').$sClass;
 
-		if(!file_exists($sFilepath)){
+		if(!is_file($sFilepath)){
 			Dyhb::E(sprintf('Include Controller %s failed',$sFilepath));
 		}
 
@@ -278,7 +278,7 @@ class Core_Extend{
 	static public function appLogo($sApp,$bHtml=false){
 		$sLogo='';
 		
-		if(file_exists(NEEDFORBUG_PATH.'/app/'.$sApp.'/logo.png')){
+		if(is_file(NEEDFORBUG_PATH.'/app/'.$sApp.'/logo.png')){
 			$sLogo=__ROOT__.'/app/'.$sApp.'/logo.png';
 		}else{
 			$sLogo=__ROOT__.'/app/logo.png';
@@ -684,7 +684,7 @@ NEEDFORBUG;
 		}
 
 		foreach(array('png','gif','jpg','jpeg') as $sExt){
-			if(file_exists(NEEDFORBUG_PATH.'/'.$sPreviewPath.'/'.$sTemplate."/{$sPreview}.{$sExt}")){
+			if(is_file(NEEDFORBUG_PATH.'/'.$sPreviewPath.'/'.$sTemplate."/{$sPreview}.{$sExt}")){
 				return __ROOT__.'/'.$sPreviewPath.'/'.$sTemplate."/{$sPreview}.{$sExt}";
 				continue;
 			}
@@ -724,7 +724,7 @@ NEEDFORBUG;
 		$GLOBALS['_style_']=(array)(include $sStyleCachepath.'/style.php');
 		define('DOYOUHAOBABY_TEMPLATE_BASE',$GLOBALS['_style_']['doyouhaobaby_template_base']);
 
-		if(defined('CURSCRIPT') && !file_exists($sStyleCachepath.'/scriptstyle_'.APP_NAME.'_'.CURSCRIPT.'.css')){
+		if(defined('CURSCRIPT') && !is_file($sStyleCachepath.'/scriptstyle_'.APP_NAME.'_'.CURSCRIPT.'.css')){
 			$sContent=$GLOBALS['_curscript_']='';
 			$sContent=file_get_contents($sStyleCachepath.'/style.css');
 			if(is_file($sStyleCachepath.'/'.APP_NAME.'_'.'style.css')){
@@ -755,7 +755,7 @@ NEEDFORBUG;
 		$sScriptCss='';
 		$sScriptCss='<link rel="stylesheet" type="text/css" href="'.$sStyleCacheurl.'/common.css?'.$GLOBALS['_style_']['verhash']."\" />";
 		
-		if(file_exists($sStyleCachepath.'/'.APP_NAME.'_common.css')){
+		if(is_file($sStyleCachepath.'/'.APP_NAME.'_common.css')){
 			$sScriptCss.='<link rel="stylesheet" type="text/css" href="'.$sStyleCacheurl.'/'.APP_NAME.'_common.css?'.$GLOBALS['_style_']['verhash']."\" />";
 		}
 
@@ -767,7 +767,7 @@ NEEDFORBUG;
 				$sCurrentT=$GLOBALS['_style_']['_current_style_'];
 			}
 		}
-		if(!empty($sCurrentT) && file_exists($sStyleCachepath.'/t_'.$sCurrentT.'.css')){
+		if(!empty($sCurrentT) && is_file($sStyleCachepath.'/t_'.$sCurrentT.'.css')){
 			$sScriptCss.='<link rel="stylesheet" id="extend_style" type="text/css" href="'.$sStyleCacheurl.'/t_'.$sCurrentT.'.css?'.$GLOBALS['_style_']['verhash']."\" />";
 			$GLOBALS['_extend_style_']=$sCurrentT;
 		}else{

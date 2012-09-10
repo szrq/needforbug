@@ -299,7 +299,7 @@ class UploadFile{
 	}
 
 	protected function writeSafeFile($sFileStoreDir){
-		if(!file_exists($sFileStoreDir.'/index.html')){
+		if(!is_file($sFileStoreDir.'/index.html')){
 			file_put_contents($sFileStoreDir.'/index.html',
 				" ");
 		}

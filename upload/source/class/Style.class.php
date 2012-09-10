@@ -14,13 +14,13 @@ class Style{
 		$arrBrokenStyles=array();
 
 		foreach((array)$arrCurrentStyles as $sStyle){
-			$sStylePath=file_exists($sStyle.'/Public/Css/style.css')?$sStyle.'/Public/Css/style.css':$sStyle.'/Public/Css/style_append.css';
+			$sStylePath=is_file($sStyle.'/Public/Css/style.css')?$sStyle.'/Public/Css/style.css':$sStyle.'/Public/Css/style_append.css';
 
 			$arrTemps=Dyhb::normalize(G::tidyPath($sStyle),'/');
 			$sStyleDir=end($arrTemps);
 			unset($arrTemps);
 
-			if(!file_exists($sStylePath)){
+			if(!is_file($sStylePath)){
 				$arrBrokenStyles[]=array('Name'=>$sStyleDir,'Path'=>str_replace(G::tidyPath(NEEDFORBUG_PATH),'{NEEDFORBUG_PATH}',G::tidyPath($sStylePath)),'Description'=>Dyhb::L('主题样式表丢失','__COMMON_LANG__@Class/Style'));
 				continue;
 			}
@@ -53,7 +53,7 @@ class Style{
 
 			foreach($arrPreviews as $sKey=>$sType){
 				foreach(array('png','gif','jpg','jpeg') as $sExt){
-					if(file_exists("{$sStylesheet}/needforbug_preview{$sType}.{$sExt}")){
+					if(is_file("{$sStylesheet}/needforbug_preview{$sType}.{$sExt}")){
 						$arrPreviews[$sKey]="needforbug_preview{$sKey}.{$sExt}";
 					}
 				}

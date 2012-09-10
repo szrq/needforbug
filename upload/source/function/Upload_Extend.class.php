@@ -73,13 +73,13 @@ class Upload_Extend{
 		$sFile=NEEDFORBUG_PATH.'/data/upload/'.$sType.'/'.$sUrl;
 		$sDir=dirname($sFile);
 
-		if(file_exists($sFile)){
+		if(is_file($sFile)){
 			@unlink($sFile);
 		}
 		
 		$arrFiles=G::listDir($sDir,false,true);
 		if(count($arrFiles)==1 && $arrFiles[0]=='index.html'){
-			if(file_exists($sDir.'/index.html')){
+			if(is_file($sDir.'/index.html')){
 				@unlink($sDir.'/index.html');
 			}
 

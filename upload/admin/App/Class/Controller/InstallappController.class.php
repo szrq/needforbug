@@ -42,7 +42,7 @@ class InstallappController extends InitController{
 	public function import_app(){
 		$sName=G::getGpc('name','G');
 		
-		if(file_exists(NEEDFORBUG_PATH.'/app/'.$sName.'/app.xml')){
+		if(is_file(NEEDFORBUG_PATH.'/app/'.$sName.'/app.xml')){
 			$sImportTxt=file_get_contents(NEEDFORBUG_PATH.'/app/'.$sName.'/app.xml');
 			$arrAppData=Xml::xmlUnserialize(trim($sImportTxt));
 			$arrAppData=$arrAppData['root']['data'];
@@ -150,7 +150,7 @@ class InstallappController extends InitController{
 	public function import_install_or_uninstall($sOperation,$sName){
 		$bFinish=FALSE;
 
-		if(file_exists(NEEDFORBUG_PATH.'/app/'.$sName.'/app.xml')){
+		if(is_file(NEEDFORBUG_PATH.'/app/'.$sName.'/app.xml')){
 			$arrAppData=Xml::xmlUnserialize(file_get_contents(NEEDFORBUG_PATH.'/app/'.$sName.'/app.xml'));
 			$arrAppData=$arrAppData['root']['data'];
 
@@ -163,7 +163,7 @@ class InstallappController extends InitController{
 			if(!empty($sFilename) && preg_match('/^[\w\.]+$/',$sFilename)){
 				$sFilename=NEEDFORBUG_PATH.'/app/'.$sName.'/'.$sFilename;
 		
-				if(file_exists($sFilename)){
+				if(is_file($sFilename)){
 					include_once $sFilename;
 				}else{
 					$bFinish=TRUE;

@@ -18,7 +18,7 @@ define('__UTHEME__',__ROOT__.'/ucontent/theme/'.TEMPLATE_NAME);
 define('__UTHEMEPUB__',__ROOT__.'/ucontent/theme/'.TEMPLATE_NAME.'/Public');
 
 /** 定义应用的公用消息图片目录 */
-if(TEMPLATE_NAME==='default' || !file_exists(NEEDFORBUG_PATH.'/ucontent/theme/'.TEMPLATE_NAME.'/Public/Images/loader.gif')){
+if(TEMPLATE_NAME==='default' || !is_file(NEEDFORBUG_PATH.'/ucontent/theme/'.TEMPLATE_NAME.'/Public/Images/loader.gif')){
 	define('__MESSAGE_IMG_PATH__',__ROOT__.'/ucontent/theme/Default/Public/Images');
 }else{
 	define('__MESSAGE_IMG_PATH__',__ROOT__.'/ucontent/theme/'.TEMPLATE_NAME.'/Public/Images');

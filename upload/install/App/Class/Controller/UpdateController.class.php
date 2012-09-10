@@ -15,7 +15,7 @@ class UpdateController extends Controller{
 	public function check_update(){
 		$this->_sUpdatefile=NEEDFORBUG_PATH.'/data/Update.lock.php';
 
-		if(file_exists($this->_sUpdatefile)){
+		if(is_file($this->_sUpdatefile)){
 			$this->E(Dyhb::L("程序已运行升级，如果你确定要重新升级（可能出现错误），请先从FTP中删除 %s",'Controller/Update',null,str_replace(G::tidyPath(NEEDFORBUG_PATH),'{NEEDFORBUG_PATH}',G::tidyPath($this->_sUpdatefile))));
 		}
 	}

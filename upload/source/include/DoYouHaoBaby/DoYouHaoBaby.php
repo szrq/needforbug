@@ -6,7 +6,7 @@
 define('DYHB_PATH',str_replace('\\','/',dirname(__FILE__)));
 
 if(defined('DYHB_THIN') && DYHB_THIN===true){
-	if(file_exists(DYHB_PATH.'/~DoYouHaoBaby.php')){
+	if(is_file(DYHB_PATH.'/~DoYouHaoBaby.php')){
 		exit('Please load the ~DoYouHaoBaby.php instead of DoYouHaoBaby.php');
 	}else{
 		require_once(DYHB_PATH.'/Base.php');

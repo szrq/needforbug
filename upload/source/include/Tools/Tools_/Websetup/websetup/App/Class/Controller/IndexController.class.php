@@ -77,7 +77,7 @@ class IndexController extends InitController{
 
 		$arrDefaultConfig=(array)include(DYHB_PATH.'/Config_/DefaultConfig.inc.php');  // 系统惯性配置
 		$arrCustomConfig=array();
-		if(file_exists($sDyhbWebsetupApp."/App/Config/Config.php")){// 自定义配置
+		if(is_file($sDyhbWebsetupApp."/App/Config/Config.php")){// 自定义配置
 			$arrCustomConfig =(array)include($sDyhbWebsetupApp.'/App/Config/Config.php');
 		}
 

@@ -32,7 +32,7 @@ if(!defined('APP_RUNTIME_PATH')){
 
 //[RUNTIME]
 /** 系统核心编译文件 */
-if(file_exists(DYHB_PATH.'/~DoYouHaoBaby.php')){
+if(is_file(DYHB_PATH.'/~DoYouHaoBaby.php')){
 	require_once(DYHB_PATH.'/~DoYouHaoBaby.php');
 }else{
 	require_once(DYHB_PATH.'/Common_/InitRuntime.inc.php');

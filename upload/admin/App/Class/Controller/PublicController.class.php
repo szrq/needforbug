@@ -62,7 +62,7 @@ class PublicController extends InitController{
 		$this->assign('arrVersionInfo',$arrVersionInfo);
 
 		// 版权信息
-		if(file_exists(APP_PATH."/App/Lang/".LANG_NAME."/LICENSE.MD")){
+		if(is_file(APP_PATH."/App/Lang/".LANG_NAME."/LICENSE.MD")){
 			$sCopyTxt=nl2br(file_get_contents(APP_PATH."/App/Lang/".LANG_NAME."/LICENSE.MD"));
 		}else{
 			$sCopyTxt=nl2br(file_get_contents(APP_PATH."/LICENSE.MD"));
@@ -71,7 +71,7 @@ class PublicController extends InitController{
 
 		// 提示消息
 		$arrTipsTxt=array();
-		if(file_exists(APP_PATH."/App/Lang/".LANG_NAME."/Tips.MD")){
+		if(is_file(APP_PATH."/App/Lang/".LANG_NAME."/Tips.MD")){
 			$tipsTxt=nl2br(file_get_contents(APP_PATH."/App/Lang/".LANG_NAME."/Tips.MD"));
 		}else{
 			$tipsTxt=nl2br(file_get_contents(APP_PATH."/App/Lang/Tips.MD"));

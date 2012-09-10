@@ -91,7 +91,7 @@ class CreateController extends InitController{
 			),!$bModel
 		);
 
-		if(file_exists($sPath)){
+		if(is_file($sPath)){
 			$this->E(Dyhb::L('%s:%s已经存在！','app',null,$sTypeName,$sPath));
 		}
 
@@ -259,7 +259,7 @@ class {$sControllerName}{$sTypeValue[0]} extends {$sTypeValue[0]}{
 			}
 
 			$sBlockPath=APP_PATH.'/Static/Blocks/block_'.$sBlock.'.php';
-			if(file_exists($sBlockPath)){
+			if(is_file($sBlockPath)){
 				G::includeFile($sBlockPath);
 				$sFunction='block_'.$sBlock;
 				if(function_exists($sFunction)){

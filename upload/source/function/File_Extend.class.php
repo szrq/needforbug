@@ -7,7 +7,7 @@
 class File_Extend{
 
 	static public function fileModeInfo($sFilePath){
-		if(!file_exists($sFilePath)){// 如果不存在，则不可读、不可写、不可改
+		if(!is_file($sFilePath)){// 如果不存在，则不可读、不可写、不可改
 			return false;
 		}
 

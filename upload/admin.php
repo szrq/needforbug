@@ -3,7 +3,7 @@
    Needforbug 后台入口文件($)*/
 
 /** 是否需要安装 */
-if(!file_exists('data/Install.lock.php')){
+if(!is_file('data/Install.lock.php')){
 	header("location:install/index.php");
 }
 

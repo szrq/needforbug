@@ -185,7 +185,7 @@ class Image{
 	static public function imageWaterMark($sBackgroundPath,$nWaterPos=0,$arrWaterArgs,$bDeleteBackgroupPath=true){
 		$bIsWaterImage=FALSE;
 
-		if(!empty($sBackgroundPath) && file_exists($sBackgroundPath)){// 读取背景图片
+		if(!empty($sBackgroundPath) && is_file($sBackgroundPath)){// 读取背景图片
 			$arrBackgroundInfo=@getimagesize($sBackgroundPath);
 			$nGroundWidth=$arrBackgroundInfo[0]; // 取得背景图片的宽
 			$nGroundHeight=$arrBackgroundInfo[1]; // 取得背景图片的高
@@ -204,7 +204,7 @@ class Image{
 		}
 
 		@imagealphablending($oBackgroundIm,true);// 设定图像的混色模式
-		if(!empty($sBackgroundPath) && file_exists($sBackgroundPath)){
+		if(!empty($sBackgroundPath) && is_file($sBackgroundPath)){
 			if($arrWaterArgs['type']=='img' && !empty($arrWaterArgs['path'])){
 				$bIsWaterImage=TRUE;
 				$nSet=0;

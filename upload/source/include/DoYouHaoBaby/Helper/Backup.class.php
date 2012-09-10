@@ -228,7 +228,7 @@ class Backup{
 	}
 
 	public function getTablesList($sPath){
-		if(!file_exists($sPath)){
+		if(!is_file($sPath)){
 			$this->_sErrorMessage=sprintf('%s is not exists !',$sPath);
 			return false;
 		}

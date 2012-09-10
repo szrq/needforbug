@@ -403,7 +403,7 @@ class Cache_Extend{
 					foreach($arrStyleDirs as $sStyleDir){
 						$sExtendStylefile=$sStyleExtendDir.'/'.$sStyleDir.'/style.css';
 
-						if(file_exists($sExtendStylefile)){
+						if(is_file($sExtendStylefile)){
 							$sContent=file_get_contents($sExtendStylefile);
 
 							if(preg_match('/\[name\](.+?)\[\/name\]/i',$sContent,$arrResult1) &&
@@ -516,16 +516,16 @@ class Cache_Extend{
 				foreach($arrCssData as $sCss){
 					if($sType=='@'){
 						$sCssfile=NEEDFORBUG_PATH.'/ucontent/theme/'.ucfirst($arrData['doyouhaobaby_template_base']).'/Public/Css/'.$sCss.'.css';
-						!file_exists($sCssfile) && $sCssfile=NEEDFORBUG_PATH.'/ucontent/theme/Default/Public/Css/'.$sCss.'.css';
+						!is_file($sCssfile) && $sCssfile=NEEDFORBUG_PATH.'/ucontent/theme/Default/Public/Css/'.$sCss.'.css';
 					}elseif(strpos($sExtra,'t_')===0){
 						$sCssfile=NEEDFORBUG_PATH.'/ucontent/theme/'.ucfirst($arrData['doyouhaobaby_template_base']).'/Public/Style/'.$sCss.'/style.css';
-						!file_exists($sCssfile) && NEEDFORBUG_PATH.'/ucontent/theme/Default/Public/Style/'.$sCss.'/style.css';
+						!is_file($sCssfile) && NEEDFORBUG_PATH.'/ucontent/theme/Default/Public/Style/'.$sCss.'/style.css';
 					}else{
 						$sCssfile=NEEDFORBUG_PATH.'/app/'.$sType.'/Theme/'.ucfirst($arrData['doyouhaobaby_template_base']).'/Public/Css/'.$sCss.'.css';
-						!file_exists($sCssfile) && NEEDFORBUG_PATH.'/app/'.$sType.'/Theme/Default/Public/Css/'.$sCss.'.css';
+						!is_file($sCssfile) && NEEDFORBUG_PATH.'/app/'.$sType.'/Theme/Default/Public/Css/'.$sCss.'.css';
 					}
 
-					if(file_exists($sCssfile)){
+					if(is_file($sCssfile)){
 						$sCssData.=file_get_contents($sCssfile);
 					}
 				}

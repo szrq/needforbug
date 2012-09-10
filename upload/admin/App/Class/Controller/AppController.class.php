@@ -60,7 +60,7 @@ class AppController extends InitController{
 			}
 			
 			$sControllerPath=NEEDFORBUG_PATH.'/app/'.$arrAppModel['app_identifier'].'/App/Class/Controller/Admin/'.$sController.'_.php';
-			if(file_exists($sControllerPath)){
+			if(is_file($sControllerPath)){
 				require_once($sControllerPath);
 				$oController=null;
 				eval('$oController=Dyhb::instance(\''.$sController.'\');');

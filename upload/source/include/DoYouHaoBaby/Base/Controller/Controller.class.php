@@ -124,7 +124,7 @@ class Controller{
 				'errorbig'=>'Public/Images/error_big.gif'
 			);
 
-			$bExists=file_exists(TEMPLATE_PATH.'/Public/Images/loader.gif')?true:false;
+			$bExists=is_file(TEMPLATE_PATH.'/Public/Images/loader.gif')?true:false;
 			foreach($arrMessageImg as $sKey=>$sMessageImg){
 				$arrMessageImg[$sKey]=$bExists===true?__TMPL__.'/'.$arrMessageImg[$sKey]:__THEME__.'/Default/'.$arrMessageImg[$sKey];
 			}

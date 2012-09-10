@@ -405,7 +405,7 @@ class StyleController extends InitController{
 					foreach($arrStyleDirs as $sStyleDir){
 						$sExtendStylefile=$sStyleExtendDir.'/'.$sStyleDir.'/style.css';
 
-						if(file_exists($sExtendStylefile)){
+						if(is_file($sExtendStylefile)){
 							$sContent=file_get_contents($sExtendStylefile);
 
 							if(preg_match('/\[name\](.+?)\[\/name\]/i',$sContent,$arrResult1) &&
@@ -545,7 +545,7 @@ class StyleController extends InitController{
 	public function preview(){
 		$nId=intval(G::getGpc('id','G'));
 
-		if(!file_exists(NEEDFORBUG_PATH.'/data/~runtime/style_/'.$nId.'/common.css')){
+		if(!is_file(NEEDFORBUG_PATH.'/data/~runtime/style_/'.$nId.'/common.css')){
 			$this->update_css(false);
 		}
 

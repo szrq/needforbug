@@ -575,7 +575,7 @@ class Seccode{
 			$sSeccodeRoot=$this->_sDataPath.'/gif';
 			$arrDirs=opendir($sSeccodeRoot);
 			while(($sDir=readdir($arrDirs))!==false){
-				if($sDir!='.' && $sDir!='..' && file_exists($sSeccodeRoot.'/'.$sDir.'/9.gif')){
+				if($sDir!='.' && $sDir!='..' && is_file($sSeccodeRoot.'/'.$sDir.'/9.gif')){
 					$arrSeccodeDir[]=$sDir;
 				}
 			}
@@ -584,7 +584,7 @@ class Seccode{
 		$nWidthTotal=0;
 		for($nI=0;$nI<=3;$nI++){
 			$this->_sImCodeFile=$arrSeccodeDir?$sSeccodeRoot.$arrSeccodeDir[array_rand($arrSeccodeDir)].'/'.strtolower( $nSeccode[$nI]).'.gif':'';// 获取创建字体的图片
-			if(!empty( $this->_sImCodeFile) && file_exists($this->_sImCodeFile)){
+			if(!empty( $this->_sImCodeFile) && is_file($this->_sImCodeFile)){
 				$arrFont[$nI]['file']=$this->_sImCodeFile;
 				$arrFont[$nI]['data']=getimagesize( $this->_sImCodeFile);
 				$arrFont[$nI]['width']=$arrFont[$nI]['data'][0]+mt_rand(0,6)-4;

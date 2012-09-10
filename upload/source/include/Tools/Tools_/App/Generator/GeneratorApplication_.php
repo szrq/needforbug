@@ -134,7 +134,7 @@ class GeneratorApplication{
 					$sTargetFilePath=$sTarget.$file;
 				}
 
-				if(file_exists($sTargetFilePath)){
+				if(is_file($sTargetFilePath)){
 					continue;
 				}
 

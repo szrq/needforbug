@@ -21,7 +21,7 @@ class IndexController extends Controller{
 		$sInstallLockfile=NEEDFORBUG_PATH.'/data/Install.lock.php';
 		$sUpdateLockfile=NEEDFORBUG_PATH.'/data/Update.lock.php';
 
-		if(file_exists($sInstallLockfile) && file_exists($sUpdateLockfile)){
+		if(is_file($sInstallLockfile) && is_file($sUpdateLockfile)){
 			$this->E(Dyhb::L("程序已经锁定，既不需要安装也不需要升级，如有需要请删除安装锁定文件 %s 或者升级锁定文件 %s",'Controller/Common'),null,$sInstallLockfile,$sUpdateLockfile);
 		}
 	}
@@ -29,7 +29,7 @@ class IndexController extends Controller{
 	public function check_install(){
 		$this->_sLockfile=NEEDFORBUG_PATH.'/data/Install.lock.php';
 
-		if(file_exists($this->_sLockfile)){
+		if(is_file($this->_sLockfile)){
 			$this->E(Dyhb::L("程序已运行安装，如果你确定要重新安装，请先从FTP中删除 %s",'Controller/Install',null,str_replace(G::tidyPath(NEEDFORBUG_PATH),'{NEEDFORBUG_PATH}',G::tidyPath($this->_sLockfile))));
 		}
 	}
@@ -63,7 +63,7 @@ class IndexController extends Controller{
 		$this->check_install();
 
 		// 版权信息
-		if(file_exists(APP_PATH."/App/Lang/".LANG_NAME."/LICENSE.MD")){
+		if(is_file(APP_PATH."/App/Lang/".LANG_NAME."/LICENSE.MD")){
 			$sCopyTxt=nl2br(file_get_contents(APP_PATH."/App/Lang/".LANG_NAME."/LICENSE.MD"));
 		}else{
 			$sCopyTxt=nl2br(file_get_contents(APP_PATH."/App/Lang/LICENSE.MD"));
