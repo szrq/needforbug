@@ -150,6 +150,8 @@ class HomefreshController extends InitController{
 			$arrHomefreshData['homefresh_message']=G::subString(strip_tags($oHomefresh['homefresh_message']),0,$GLOBALS['_cache_']['home_option']['homefresh_list_substring_num']);
 			$arrHomefreshData['url']=Dyhb::U('home://fresh@?id='.$oHomefresh['homefresh_id']);
 
+			$this->cache_site_();
+			
 			$this->A($arrHomefreshData,Dyhb::L('添加新鲜事成功','Controller/Homefresh'),1);
 		}
 	}
@@ -400,6 +402,8 @@ class HomefreshController extends InitController{
 				'#comment-'.$oHomefreshcomment['homefreshcomment_id'];
 		}
 			
+		$this->cache_site_();
+		
 		$this->A($arrCommentData,Dyhb::L('添加新鲜事评论成功','Controller/Homefresh'),1);
 	}
 
@@ -590,6 +594,13 @@ class HomefreshController extends InitController{
 		$arrData['num']=$oHomefresh->homefresh_goodnum;
 
 		$this->A($arrData,Dyhb::L('赞','Controller/Homefresh').'+1',1,1);
+	}
+
+	protected function cache_site_(){
+		if(!Dyhb::classExists('Cache_Extend')){
+			require_once(Core_Extend::includeFile('function/Cache_Extend'));
+		}
+		Cache_Extend::updateCacheSite();
 	}
 
 }
