@@ -707,6 +707,60 @@ CREATE TABLE `#@__session` (
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `needforbug_sociatype`
+--
+
+DROP TABLE IF EXISTS `#@__sociatype`;
+CREATE TABLE `#@__sociatype` (
+  `sociatype_id` tinyint(3) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `sociatype_title` varchar(35) NOT NULL COMMENT '标题',
+  `sociatype_identifier` varchar(32) NOT NULL COMMENT '社会化帐号唯一标识',
+  `sociatype_appid` varchar(80) NOT NULL COMMENT '应用ID',
+  `sociatype_appkey` varchar(100) NOT NULL COMMENT 'KEY',
+  `sociatype_callback` varchar(325) NOT NULL COMMENT '回调',
+  `sociatype_scope` varchar(200) NOT NULL COMMENT '允许的权限',
+  `sociatype_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态',
+  `create_dateline` int(10) NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`sociatype_id`),
+  KEY `status` (`sociatype_status`),
+  KEY `create_dateline` (`create_dateline`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `needforbug_sociauser`
+--
+
+DROP TABLE IF EXISTS `#@__sociauser`;
+CREATE TABLE `#@__sociauser` (
+  `sociauser_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `sociauser_appid` varchar(64) NOT NULL COMMENT '第三方应用ID',
+  `sociauser_openid` char(32) NOT NULL DEFAULT '' COMMENT '用户绑定Openid值',
+  `user_id` varchar(16) NOT NULL COMMENT '本站用户ID',
+  `sociauser_vendor` varchar(20) NOT NULL DEFAULT '' COMMENT '第三方网站名称',
+  `sociauser_keys` text NOT NULL COMMENT '密钥',
+  `sociauser_name` varchar(32) NOT NULL DEFAULT '' COMMENT '名称',
+  `sociauser_nikename` varchar(32) NOT NULL DEFAULT '' COMMENT '昵称',
+  `sociauser_desc` varchar(100) NOT NULL DEFAULT '' COMMENT '简介',
+  `sociauser_url` varchar(100) NOT NULL DEFAULT '' COMMENT '主页',
+  `sociauser_img` varchar(100) NOT NULL DEFAULT '' COMMENT '头像',
+  `sociauser_img1` varchar(100) NOT NULL COMMENT '头像2',
+  `sociauser_img2` varchar(100) NOT NULL COMMENT '头像3',
+  `sociauser_gender` varchar(10) NOT NULL DEFAULT '' COMMENT '性别',
+  `sociauser_email` varchar(30) NOT NULL DEFAULT '' COMMENT '邮箱',
+  `sociauser_location` varchar(20) NOT NULL DEFAULT '' COMMENT '所在地',
+  `sociauser_vip` tinyint(3) NOT NULL COMMENT 'vip',
+  `sociauser_level` tinyint(3) NOT NULL DEFAULT '0' COMMENT '级别',
+  `create_dateline` int(10) NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`sociauser_id`),
+  KEY `user_id` (`user_id`),
+  KEY `create_dateline` (`create_dateline`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `needforbug_slide`
 --
 
