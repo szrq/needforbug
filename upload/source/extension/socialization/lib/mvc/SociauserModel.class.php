@@ -27,7 +27,7 @@ class SociauserModel extends CommonModel{
 			return false;
 		}
 
-		$oSociauser=self::F('sociauser_appid=? AND sociauser_vendor=? AND sociauser_openid=?',$arrUser['sociauser_appid'],$arrUser['sociauser_vendor'],$arrUser['sociauser_openid'])->getOne();
+		$oSociauser=self::F('sociauser_vendor=? AND sociauser_openid=?',$arrUser['sociauser_vendor'],$arrUser['sociauser_openid'])->getOne();
 		
 		if(!empty($oSociauser['sociauser_id'])){
 			return $oSociauser['user_id'];
@@ -46,7 +46,14 @@ class SociauserModel extends CommonModel{
 		}
 
 		$arrUser=Socia::getUser();
+		if(empty($arrUser)){
+			return false;
+		}
 
+		if($this->checkBinded()){
+			return false;
+		}
+		
 		$arrUser['user_id']=$nUserid;
 
 		$oSociauser=new SociauserModel($arrUser);
