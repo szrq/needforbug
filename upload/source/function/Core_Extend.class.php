@@ -78,8 +78,8 @@ class Core_Extend{
 		return G::checkSeccode($sSeccode);
 	}
 	
-	static public function avatar($nUid='',$sType='middle'){
-		if($GLOBALS['___login___']['socia_login']===true){
+	static public function avatar($nUid,$sType='middle'){
+		if($GLOBALS['___login___']['socia_login']===true && $GLOBALS['___login___']['user_id']==$nUid){
 			if($sType=='big' || $sType=='origin'){
 				return $GLOBALS['___login___']['socia']['sociauser_img2'];
 			}elseif($sType=='small'){
