@@ -95,7 +95,7 @@ INSERT INTO `#@__homeoption` (`homeoption_name`, `homeoption_value`) VALUES
 ('homefreshchildcomment_limit_num', '4'),
 ('homefreshchildcomment_list_num', '4'),
 ('homefreshcomment_substring_num', '80'),
-('homefreshtitle_substring_num', '30'),;
+('homefreshtitle_substring_num', '30');
 
 -- --------------------------------------------------------
 
