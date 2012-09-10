@@ -16,6 +16,9 @@ class OauthQq extends Oauth{
 			"&state=".$sState.
 			"&scope=".$sScope;
 
+		// 标识QQ登录
+		Dyhb::cookie('SOCIA_LOGIN',1);
+
 		G::urlGoTo($sLoginurl);
 	}
 
@@ -28,11 +31,6 @@ class OauthQq extends Oauth{
 		}
 		
 		if(!empty($sCookieState) && $sState==$sCookieState){
-			//if(empty($sCode)){
-				//$this->setErrorMessage('Empty QQ callback code');
-				//return false;
-			//}
-			
 			$sTokenurl="https://graph.qq.com/oauth2.0/token?grant_type=authorization_code&".
 				"client_id=".$sAppid."&redirect_uri=".urlencode($sCallback).
 				"&client_secret=".$sAppkey."&code=".$sCode;

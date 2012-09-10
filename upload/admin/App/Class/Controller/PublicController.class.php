@@ -226,6 +226,9 @@ class PublicController extends InitController{
 			}
 			UserModel::M()->replaceSession($arrUserData['session_hash'],$arrUserData['user_id'],$arrUserData['session_auth_key']);
 			UserModel::M()->logout();
+
+			Dyhb::cookie('SOCIA_LOGIN',NULL,-1);
+
 			$this->assign("__JumpUrl__",Dyhb::U('public/login'));
 			$this->S(Dyhb::L('登出成功','Controller/Public'));
 		}else{

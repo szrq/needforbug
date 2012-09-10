@@ -19,6 +19,23 @@ class Core_Extend{
 
 			// 读取用户统计信息
 			$GLOBALS['___login___']['usercount']=UsercountModel::F('user_id=?',$arrUserData['user_id'])->asArray()->getOne();
+
+			$GLOBALS['___login___']['socia_login']=false;
+
+			// 如果用户使用社会化帐号直接登录
+			if(Dyhb::cookie('SOCIA_LOGIN')==1){
+				if(!Dyhb::classExists('SociauserModel')){
+					require_once(NEEDFORBUG_PATH.'/source/extension/socialization/lib/mvc/SociauserModel.class.php');
+				}
+
+				$arrSociauser=SociauserModel::F('user_id=?',$arrUserData['user_id'])->asArray()->getOne();
+				if($arrSociauser){
+					$arrSociauser['logo']=__ROOT__.'/source/extension/socialization/static/images/'.$arrSociauser['sociauser_vendor'].'/'.$arrSociauser['sociauser_vendor'].'.gif';
+					
+					$GLOBALS['___login___']['socia']=$arrSociauser;
+					$GLOBALS['___login___']['socia_login']=true;
+				}
+			}
 		}
 
 		return $arrUserData;
@@ -62,6 +79,16 @@ class Core_Extend{
 	}
 	
 	static public function avatar($nUid='',$sType='middle'){
+		if($GLOBALS['___login___']['socia_login']===true){
+			if($sType=='big' || $sType=='origin'){
+				return $GLOBALS['___login___']['socia']['sociauser_img2'];
+			}elseif($sType=='small'){
+				return $GLOBALS['___login___']['socia']['sociauser_img'];
+			}else{
+				return $GLOBALS['___login___']['socia']['sociauser_img1'];
+			}
+		}
+		
 		$sPath=G::getAvatar($nUid,$sType);
 
 		return file_exists(NEEDFORBUG_PATH.'/data/avatar/'.$sPath)?

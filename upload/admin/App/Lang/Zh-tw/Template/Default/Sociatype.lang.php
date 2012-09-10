@@ -19,10 +19,10 @@ return array(
 '39d5cb1aaa401920fb482b683b1a9d31'=>"社會化帳號允許的權限",
 '00ab32ca9fb9e277b28147d26806b846'=>"這裡是你允許用戶的權限",
 'd28813bbd0f11b7fb695e10bd4bd1886'=>"社會化帳號LOGO",
-'cf664d4ac0f4ff5f969f553c8a624ad5'=>"社會化帳號綁定的LOGO地址，請將設計好的圖標放置到source/extension/socialization/static/images中",
 '882b5cc989f95e79ea19fa8547749e30'=>"編輯社會化帳號",
 '0185041263b4194daf3bcef601c191c4'=>"社會化唯一值",
 '09acd951826f4c7eaac09c177280e489'=>"社會化帳號的唯一值，請勿修改",
+'e6cd9505018b518768973435811144b7'=>"社會化帳號綁定的LOGO，請將設計好的圖標放置到source/extension/socialization/static/images中",
 )
 
 ?>

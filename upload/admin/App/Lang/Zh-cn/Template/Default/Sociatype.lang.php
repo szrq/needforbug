@@ -19,10 +19,10 @@ return array(
 '39d5cb1aaa401920fb482b683b1a9d31'=>"社会化帐号允许的权限",
 '00ab32ca9fb9e277b28147d26806b846'=>"这里是你允许用户的权限",
 'd28813bbd0f11b7fb695e10bd4bd1886'=>"社会化帐号LOGO",
-'cf664d4ac0f4ff5f969f553c8a624ad5'=>"社会化帐号绑定的LOGO地址，请将设计好的图标放置到source/extension/socialization/static/images中",
 '882b5cc989f95e79ea19fa8547749e30'=>"编辑社会化帐号",
 '0185041263b4194daf3bcef601c191c4'=>"社会化唯一值",
 '09acd951826f4c7eaac09c177280e489'=>"社会化帐号的唯一值，请勿修改",
+'e6cd9505018b518768973435811144b7'=>"社会化帐号绑定的LOGO，请将设计好的图标放置到source/extension/socialization/static/images中",
 )
 
 ?>

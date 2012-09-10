@@ -41,6 +41,7 @@ function complete(data,status){
 			<div class="module_content">
 				<ul>
 					<li><!--<lang package='Template/Default/Sociatype'>-->您可以在这里添加或编辑社会化帐号<!--</lang>--></li>
+					<li><!--<lang package='Template/Default/Sociatype'>-->社会化帐号绑定的LOGO，请将设计好的图标放置到source/extension/socialization/static/images中<!--</lang>--></li>
 				</ul>
 			</div>
 		</article>
@@ -90,11 +91,6 @@ function complete(data,status){
 						<label for="sociatype_scope"><!--<lang package='Template/Default/Sociatype'>-->社会化帐号允许的权限<!--</lang>--></label>
 						<input type="text" name="sociatype_scope" id="sociatype_scope" size="40" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:sociatype_scope}--><!--</if>-->"/>
 						<div class="description"><!--<lang package='Template/Default/Sociatype'>-->这里是你允许用户的权限<!--</lang>--></div>
-					</fieldset>
-					<fieldset>
-						<label for="sociatype_logo"><!--<lang package='Template/Default/Sociatype'>-->社会化帐号LOGO<!--</lang>--></label>
-						<input type="text" name="sociatype_logo" id="sociatype_logo" size="40" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:sociatype_logo}--><!--</if>-->"/>
-						<div class="description"><!--<lang package='Template/Default/Sociatype'>-->社会化帐号绑定的LOGO地址，请将设计好的图标放置到source/extension/socialization/static/images中<!--</lang>--></div>
 					</fieldset>
 				</div>
 				<footer>

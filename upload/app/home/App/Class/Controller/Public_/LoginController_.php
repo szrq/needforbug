@@ -143,6 +143,8 @@ class LoginController extends Controller{
 			UserModel::M()->logout();
 
 			$GLOBALS['___login___']=false;
+
+			Dyhb::cookie('SOCIA_LOGIN',NULL,-1);
 	
 			$this->assign("__JumpUrl__",Dyhb::U('home://public/login'));
 			$this->S(Dyhb::L('登出成功','Controller/Public'));

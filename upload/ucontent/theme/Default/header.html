@@ -155,11 +155,16 @@
 						</ul>
 						<!--{d*else}-->
 						<a class="btn dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);">
+							<!--{if $GLOBALS['___login___']['socia_login']===true}-->
+							<img src="<!--{$GLOBALS['___login___']['socia']['logo']}-->"/>&nbsp;
+							<!--{$GLOBALS['___login___']['socia']['sociauser_name']}-->
+							<!--{d*else}-->
 							<i class="icon-user"></i>&nbsp;
 							<!--{if $GLOBALS['___login___']['user_nikename']}-->
 								<!--{$GLOBALS['___login___']['user_nikename']}-->
 							<!--{d*else}-->
 								<!--{$GLOBALS['___login___']['user_name']}-->
+							<!--{/if}-->
 							<!--{/if}-->
 							<span class="caret"></span>
 						</a>
