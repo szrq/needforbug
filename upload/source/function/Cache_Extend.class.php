@@ -290,6 +290,8 @@ class Cache_Extend{
 	public static function updateCacheSite(){
 		$arrData=array();
 
+		$arrData['homefresh']=HomefreshModel::F()->all()->getCounts();
+		$arrData['homefreshcomment']=HomefreshcommentModel::F()->all()->getCounts();
 		$arrData['app']=AppModel::F()->all()->getCounts();
 		$arrData['user']=UserModel::F()->all()->getCounts();
 		$arrData['adminuser']=UserModel::F()->where(array('user_id'=>array('IN',Dyhb::C('ADMIN_USERID'))))->all()->getCounts();
