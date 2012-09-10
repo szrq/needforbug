@@ -60,4 +60,12 @@ class SociauserModel extends CommonModel{
 		Socia::clearCookie();
 	}
 
+	public function safeInput(){
+		$_POST['sociauser_appid']=G::html($_POST['sociauser_appid']);
+		$_POST['sociauser_openid']=G::html($_POST['sociauser_openid']);
+		$_POST['sociauser_name']=G::html($_POST['sociauser_name']);
+		$_POST['sociauser_nikename']=G::html($_POST['sociauser_nikename']);
+		$_POST['sociauser_desc']=G::html($_POST['sociauser_desc']);
+	}
+
 }

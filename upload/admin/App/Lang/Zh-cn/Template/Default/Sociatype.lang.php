@@ -4,7 +4,6 @@ return array(
 'dcb0c8219b7264880a512f91903a4dd6'=>"社会化帐号列表",
 'f549c2efa3265b6c81094f9d8d3e3458'=>"你在这里可以设置社会化帐号的链接配置",
 'a9a23dbf62690f31e18bca90d803df75'=>"社会化帐号标题",
-'08981f36870e18ab47236ee1fc26bd49'=>"衔接列表",
 'aa742fea81d6d6486fc4d022a26866e7'=>"社会化帐号AppID",
 '38bcf51c48b14b853800e6a369854d5f'=>"社会化帐号AppKEY",
 '5d544835909dd0ff6cd82b3d53b5ce3a'=>"新增社会化帐号必须在source/extension/socialization/lib/type下面开发好社会化帐号处理代码",

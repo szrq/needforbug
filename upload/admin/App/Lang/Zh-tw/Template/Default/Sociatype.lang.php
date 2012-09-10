@@ -4,7 +4,6 @@ return array(
 'dcb0c8219b7264880a512f91903a4dd6'=>"社會化帳號列表",
 'f549c2efa3265b6c81094f9d8d3e3458'=>"你在這裡可以設置社會化帳號的鏈接配置",
 'a9a23dbf62690f31e18bca90d803df75'=>"社會化帳號標題",
-'08981f36870e18ab47236ee1fc26bd49'=>"銜接列表",
 'aa742fea81d6d6486fc4d022a26866e7'=>"社會化帳號AppID",
 '38bcf51c48b14b853800e6a369854d5f'=>"社會化帳號AppKEY",
 '5d544835909dd0ff6cd82b3d53b5ce3a'=>"新增社會化帳號必須在source/extension/socialization/lib/type下面開發好社會化帳號處理代碼",

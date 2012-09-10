@@ -35,7 +35,10 @@
 		</article>
 		
 		<article class="module width_full">
-			<header><h3 class="tabs_involved"><!--<lang package='Template/Default/Sociatype'>-->衔接列表<!--</lang>--></h3>
+			<header><h3 class="tabs_involved"><!--<lang package='Template/Default/Sociatype'>-->社会化帐号列表<!--</lang>--></h3>
+				<ul class="tabs">
+					<li class="<!--{if !isset($_GET['nodegroup_id'])}-->active<!--{/if}-->"><a href="<!--{:Dyhb::U('sociauser/index')}-->"><!--<lang package='Template/Default/Sociauser'>-->社会化用户绑定列表<!--</lang>--></a></li>
+				</ul>
 			</header>
 			<div class="module_content">
 				<table class="tablesorter" cellspacing="0" id="checkList">
