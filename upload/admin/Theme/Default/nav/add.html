@@ -80,7 +80,7 @@ function complete(data,status){
 						<select name="nav_parentid" id="nav_parentid">
 							<option value="0" <!--<if condition="!isset($oValue) || (isset( $oValue ) && !$oValue['nav_parentid'])">-->selected<!--</if>-->><!--<lang package='Template/Default/Nav'>-->主导航<!--</lang>--></option>
 							<!--<foreach for=arrNavs>-->
-							<!--{if $oValue['nav_id']!=$value['nav_id']}-->
+							<!--{if !isset($oValue) || (isset($oValue) && $oValue['nav_id']!=$value['nav_id'])}-->
 							<option value="<!--{$value['nav_id']}-->" <!--{if isset( $oValue ) && $value['nav_id']==$oValue->nav_parentid}-->selected<!--{/if}-->><!--{$value['nav_name']}--></option>
 							<!--{/if}-->
 							<!--</foreach>-->
@@ -91,7 +91,7 @@ function complete(data,status){
 					<fieldset>
 						<label for="nav_title"><!--<lang package='Template/Default/Nav'>-->导航说明<!--</lang>--></label>
 						<input type="text" name="nav_title" id="nav_title" size="40" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:nav_title}--><!--</if>-->"/>
-						<div class="description"><!--<lang package='Template/Default/Nav'>-->导航的说明会在鼠标移动到其上面时显示<!--</lang>--><!--</lang>--></div>
+						<div class="description"><!--<lang package='Template/Default/Nav'>-->导航的说明会在鼠标移动到其上面时显示<!--</lang>--></div>
 					</fieldset>
 					<fieldset>
 						<label for="nav_status"><!--<lang package='Template/Default/Common'>-->状态<!--</lang>--></label>

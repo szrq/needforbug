@@ -274,6 +274,12 @@ class Url{
 		$sPathInfo=&$_SERVER['PATH_INFO'];
 		if($GLOBALS['_commonConfig_']['URL_PATHINFO_MODEL']==2){
 			$arrPaths=explode($GLOBALS['_commonConfig_']['URL_PATHINFO_DEPR'],trim($sPathInfo,'/'));
+
+			if($arrPaths[0]=='app'){
+				array_shift($arrPaths);
+				$arrPathInfo['app']=array_shift($arrPaths);
+			}
+
 			if(!isset($_GET['c'])){// 还没有定义模块名称
 				$arrPathInfo['c']=array_shift($arrPaths);
 			}

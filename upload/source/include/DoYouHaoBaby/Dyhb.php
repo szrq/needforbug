@@ -578,7 +578,7 @@ class Dyhb{
 				}
 				$sStr=substr($sStr,0,-1);
 
-				$sUrl=__APP__.$sDepr.$sRoute.(APP_NAME!==$sApp?$sDepr.'app'.$sDepr.$sApp:'').$sStr;
+				$sUrl=__APP__.(APP_NAME!==$sApp?$sDepr.'app'.$sDepr.$sApp:'').$sDepr.$sRoute.$sStr;
 			}else{
 				$sStr=$sDepr;
 				foreach($arrParams as $sVar=>$sVal){
@@ -586,7 +586,7 @@ class Dyhb{
 				}
 				$sStr=substr($sStr,0,-1);
 
-				$sUrl=__APP__.$sDepr.$sModule.$sDepr.$sAction.(APP_NAME!==$sApp?$sDepr.'app'.$sDepr.$sApp:'').$sStr;
+				$sUrl=__APP__.(APP_NAME!==$sApp?$sDepr.'app'.$sDepr.$sApp:'').$sDepr.$sModule.$sDepr.$sAction.$sStr;
 			}
 
 			if($bSuffix && $GLOBALS['_commonConfig_']['URL_HTML_SUFFIX']){

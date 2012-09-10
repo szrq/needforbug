@@ -25,8 +25,8 @@ if(isset($_GET['app'])){
 	if(!empty($_SERVER['PATH_INFO'])){
 		$arrPathinfos=explode('/',trim($_SERVER['PATH_INFO'],'/'));
 
-		if(isset($arrPathinfos[3]) && $arrPathinfos[2]=='app'){
-			$sAppName=$arrPathinfos[3];
+		if(isset($arrPathinfos[0]) && $arrPathinfos[0]=='app'){
+			$sAppName=$arrPathinfos[1];
 		}else{
 			$sAppName='home';
 		}

@@ -99,6 +99,12 @@ class Router{
 		}else{
 			$sPathInfo=&$_SERVER['PATH_INFO'];
 			$arrPaths=explode($GLOBALS['_commonConfig_']['URL_PATHINFO_DEPR'],trim($sPathInfo,'/'));
+			
+			if($arrPaths[0]=='app'){
+				array_shift($arrPaths);
+				$_GET['app']=array_shift($arrPaths);
+			}
+
 			$sRouteName=array_shift($arrPaths);
 		}
 
@@ -144,7 +150,11 @@ class Router{
 		$sDepr=$GLOBALS['_commonConfig_']['URL_PATHINFO_DEPR'];
 		$sRegx=trim($sPathInfo,'/');
 		$arrPaths=array_filter(explode($sDepr,trim(str_ireplace(strtolower($sRouteName),'',$sRegx),$sDepr)));
-
+		if($arrPaths[0]=='app'){
+			array_shift($arrPaths);
+			$arrVar['app']=array_shift($arrPaths);
+		}
+		
 		if(!empty($arrRule[1]) && in_array($arrRule[1],$arrPaths)){
 			foreach($arrPaths as $nKey=>$sValue){
 				if($sValue==$arrRule[1]){
@@ -176,6 +186,12 @@ class Router{
 		$sPathInfo=&$_SERVER['PATH_INFO'];
 		$sDepr=$GLOBALS['_commonConfig_']['URL_PATHINFO_DEPR'];
 		$sRegx=trim($sPathInfo,'/');
+		$sRegx=explode($sDepr,$sRegx);
+		if($sRegx[0]=='app'){
+			array_shift($sRegx);
+			$_GET['app']=array_shift($sRegx);
+			$sRegx=implode($sDepr,$sRegx);
+		}
 		$sRegx=ltrim($sRegx,strtolower(rtrim($sRouteName,'@')));
 
 		$sTheRegex=array_shift($arrRule);
