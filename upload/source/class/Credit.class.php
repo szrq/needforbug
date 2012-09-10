@@ -70,7 +70,8 @@ class Credit{
 					case 1:
 					case 4:
 						if($arrRule['creditrule_cycletype']==1){
-							if($arrRulelog['update_dateline']<CURRENT_TIMESTAMP && $arrRule['creditrule_rewardnum']){
+							$nToday=strtotime(date('Y-m-d',CURRENT_TIMESTAMP));
+							if($arrRulelog['update_dateline']<$nToday && $arrRule['creditrule_rewardnum']){
 								$arrRulelog['creditrulelog_cyclenum']=0;
 								$bNewcycle=true;
 							}
@@ -101,7 +102,7 @@ class Credit{
 
 						if($arrRulelog['creditrulelog_starttime']){
 							if($arrRule['creditrule_cycletype']==2){
-								$nStart=CURRENT_TIMESTAMP;
+								$nStart=strtotime(date('Y-m-d H:00:00',$arrRulelog['creditrulelog_starttime']));
 								$nNextcycle=$nStart+$arrRule['creditrule_cycletime']*3600;
 							}else{
 								$nNextcycle=$arrRulelog['creditrulelog_starttime']+$arrRule['creditrule_cycletime']*60;
@@ -123,7 +124,7 @@ class Credit{
 							);
 
 							$bUpdateCredit=true;
-						}elseif(CURRENT_TIMSTAMP>=$nNextcycle){
+						}elseif(CURRENT_TIMESTAMP>=$nNextcycle){
 							$bNewcycle=true;
 							$arrLog=array(
 								'creditrulelog_cyclenum'=>"creditrulelog_cyclenum={$nCoef}",

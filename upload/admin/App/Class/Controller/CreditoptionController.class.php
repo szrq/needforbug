@@ -50,6 +50,8 @@ class CreditoptionController extends OptionController{
 
 		unset($_POST['options']['extend_credit']);
 
+		$this->cache_creditrule();
+		
 		parent::update_option();
 	}
 
@@ -118,10 +120,19 @@ class CreditoptionController extends OptionController{
 		$oCreditruleModel->save(0,'update');
 
 		if(!$oCreditruleModel->isError()){
+			$this->cache_creditrule();
+
 			$this->S(Dyhb::L('数据更新成功','Controller/Common'));
 		}else{
 			$this->E($oCreditruleModel->getErrorMessage());
 		}
+	}
+
+	protected function cache_creditrule(){
+		if(!Dyhb::classExists('Cache_Extend')){
+			require_once(Core_Extend::includeFile('function/Cache_Extend'));
+		}
+		Cache_Extend::updateCacheCreditrule();
 	}
 
 }
