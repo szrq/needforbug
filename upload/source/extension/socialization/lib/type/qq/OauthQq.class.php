@@ -22,12 +22,16 @@ class OauthQq extends Oauth{
 	public function callback($sAppid,$sAppkey,$sCallback,$sCookieState){
 		$sState=trim(G::getGpc('state','G'));
 		$sCode=trim(G::getGpc('code','G'));
+
+		if(Socia::getUser()){
+			return true;
+		}
 		
 		if(!empty($sCookieState) && $sState==$sCookieState){
-			if(empty($sCode)){
-				$this->setErrorMessage('Empty QQ callback code');
-				return false;
-			}
+			//if(empty($sCode)){
+				//$this->setErrorMessage('Empty QQ callback code');
+				//return false;
+			//}
 			
 			$sTokenurl="https://graph.qq.com/oauth2.0/token?grant_type=authorization_code&".
 				"client_id=".$sAppid."&redirect_uri=".urlencode($sCallback).

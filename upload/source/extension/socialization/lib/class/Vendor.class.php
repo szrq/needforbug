@@ -44,7 +44,6 @@ class Vendor{
 	}
 
 	public function getUser(){
-		$this->getAccessToken();
 		return $this->showUser();
 	}
 

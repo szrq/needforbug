@@ -40,9 +40,7 @@ class SociauserModel extends CommonModel{
 		return $GLOBALS['___login___']===FALSE?FALSE:$GLOBALS['___login___']['user_id'];
 	}
 
-
-
-public function processBind($nUserid){
+	public function processBind($nUserid){
 		if(empty($nUserid)){
 			return FALSE;
 		}
@@ -59,8 +57,7 @@ public function processBind($nUserid){
 			return false;
 		}
 
-		  Socia::clearCookie();
-	  }
-
+		Socia::clearCookie();
+	}
 
 }

@@ -16,12 +16,13 @@
 					<!--<foreach for=arrBindeds value=arrBinded>-->
 					<p><img src="<!--{$arrBinded['sociatype_logo']}-->" />&nbsp;<!--{$arrBinded['sociatype_title']}-->&nbsp;
 						<!--{if in_array($arrBinded['sociatype_identifier'],$arrBindedData)}-->
-						<a href="javascript:sociaWinopen('<!--{:Dyhb::U('home://public/socia_unbind?vendor='.$arrBinded['sociatype_identifier'])}-->')">取消绑定</a>
+						<a href="javascript:sociaWinopen('<!--{:Dyhb::U('home://public/socia_unbind?vendor='.$arrBinded['sociatype_identifier'])}-->')"><!--<lang package='Template/Spaceadmin'>-->取消绑定<!--</lang>--></a>
 						<!--{d*else}-->
-						<a href="javascript:sociaWinopen('<!--{:Dyhb::U('home://public/socia_login?vendor='.$arrBinded['sociatype_identifier'])}-->')">绑定</a>
+						<a href="javascript:sociaWinopen('<!--{:Dyhb::U('home://public/socia_login?vendor='.$arrBinded['sociatype_identifier'])}-->')"><!--<lang package='Template/Spaceadmin'>-->绑定<!--</lang>--></a>
 						<!--{/if}-->
 					</p>
 					<!--</foreach>-->
+				</div>
 			</div>
 		</div><!--/row-->
 
