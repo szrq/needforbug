@@ -72,6 +72,7 @@ return array(
 	'URL_HTML_SUFFIX'=>'',// 伪静态后缀
 	'NOT_ALLOWED_EMPTYCONTROL_VIEW'=>FALSE,// 是否允许不存在模块的时候直接调用视图
 	'NOT_ALLOWED_EMPTYACTION_VIEW'=>FALSE,// 是否允许不存在方法的时候直接调用视图
+	'DEFAULT_APP'=>'home',// 默认应用
 	'DEFAULT_CONTROL'=>'index',// 默认控制器
 	'DEFAULT_ACTION'=>'index',// 默认方法
 	'LOG_RECORD'=>FALSE,// 默认不记录日志
