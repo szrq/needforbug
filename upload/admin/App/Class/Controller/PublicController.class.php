@@ -4,6 +4,12 @@
 
 !defined('DYHB_PATH') && exit;
 
+/** 导入Home模型 */
+Dyhb::import(NEEDFORBUG_PATH.'/app/home/App/Class/Model');
+
+/** 定义Home的语言包 */
+define('__APP_ADMIN_LANG__',NEEDFORBUG_PATH.'/app/home/App/Lang/Admin');
+
 class PublicController extends InitController{
 
 	public function is_login(){
@@ -22,6 +28,8 @@ class PublicController extends InitController{
 		$arrStaticInfo=array(
 			array(Dyhb::L('用户数量','Controller/Public'),$GLOBALS['_cache_']['site']['user'],Dyhb::U('user/index')),
 			array(Dyhb::L('应用数量','Controller/Public'),$GLOBALS['_cache_']['site']['app'],Dyhb::U('app/index')),
+			array(Dyhb::L('新鲜事数量','Controller/Public'),$GLOBALS['_cache_']['site']['homefresh'],Dyhb::U('app/index')),
+			array(Dyhb::L('评论数量','Controller/Public'),$GLOBALS['_cache_']['site']['homefreshcomment'],Dyhb::U('app/index')),
 		);
 		$this->assign('arrStaticInfo',$arrStaticInfo);
 
