@@ -638,10 +638,10 @@ class Cache_Extend{
 					'sociatype_appkey'=>$oSociatype['sociatype_appkey'],
 					'sociatype_callback'=>$oSociatype['sociatype_callback'],
 					'sociatype_scope'=>$oSociatype['sociatype_scope'],
-					'sociatype_logo'=>__ROOT__.'/source/extension/socialization/static/images/'.$oSociatype['sociatype_identifier'].'/qq_login.gif',
-					'sociatype_icon'=>__ROOT__.'/source/extension/socialization/static/images/'.$oSociatype['sociatype_identifier'].'/qq.gif',
-					'sociatype_bind'=>__ROOT__.'/source/extension/socialization/static/images/'.$oSociatype['sociatype_identifier'].'/qq_bind.gif',
-					'sociatype_bindsmall'=>__ROOT__.'/source/extension/socialization/static/images/'.$oSociatype['sociatype_identifier'].'/qq_bind_small.gif',
+					'sociatype_logo'=>__ROOT__.'/source/extension/socialization/static/images/'.$oSociatype['sociatype_identifier'].'/'.$oSociatype['sociatype_identifier'].'_login.gif',
+					'sociatype_icon'=>__ROOT__.'/source/extension/socialization/static/images/'.$oSociatype['sociatype_identifier'].'/'.$oSociatype['sociatype_identifier'].'.gif',
+					'sociatype_bind'=>__ROOT__.'/source/extension/socialization/static/images/'.$oSociatype['sociatype_identifier'].'/'.$oSociatype['sociatype_identifier'].'_bind.gif',
+					'sociatype_bindsmall'=>__ROOT__.'/source/extension/socialization/static/images/'.$oSociatype['sociatype_identifier'].'/'.$oSociatype['sociatype_identifier'].'_bind_small.gif',
 				);
 			}
 		}

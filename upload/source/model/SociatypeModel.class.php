@@ -53,8 +53,8 @@ class SociatypeModel extends CommonModel{
 			$sSociatypeIdentifierInfo=trim($arrSociatypeIdentifier['sociatype_identifier']);
 		}
 
-		if($sSociatypeIdentifie!=$sSociatypeIdentifierInfo){
-			$arrResult=self::F()->getBysociatype_identifier($sSociatypeIdentifie)->toArray();
+		if($sSociatypeIdentifier!=$sSociatypeIdentifierInfo){
+			$arrResult=self::F()->getBysociatype_identifier($sSociatypeIdentifier)->toArray();
 			if(!empty($arrResult['sociatype_id'])){
 				return false;
 			}else{
