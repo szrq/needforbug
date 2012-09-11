@@ -4,7 +4,7 @@
 
 !defined('DYHB_PATH') && exit;
 
-class BlogcategoryModel extends CommonModel{
+class BlogcategoryModel extends Model{
 
 	static public function init__(){
 		return array(

@@ -4,12 +4,14 @@
 
 !defined('DYHB_PATH') && exit;
 
-class PublicController extends Controller{
+class PublicController extends InitController{
 
 	public function index(){
-
-		
-		$this->display();
+		if(G::getGpc('type')=='new'){
+			$this->display('public+new');
+		}else{
+			$this->display();
+		}
 	}
 
 	public function create(){
