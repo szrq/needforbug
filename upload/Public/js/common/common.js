@@ -373,3 +373,7 @@ function setExtendstyle(sExtendstyle,sCss){
 		}
 	});
 }
+
+function showSocialogin(){
+	$('#socailogin_more').toggle('fast');
+}

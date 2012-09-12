@@ -144,3 +144,9 @@ table thead th .order_asc { padding-right: 8px; background: url({IMG_DIR}/order_
            Ajax分页加载消息框
 ================================*/
 .loadinghomefreshchildcomments{display:none;background:{LIGHT_TEXTCOLOR};text-align:center;width: 100%; color: #FFF; font-size: 22px; height:45px;line-height:45px }
+
+/**===============================
+           社会化登录框
+================================*/
+.socialogin_box{text-align:center;}
+.socialogin_content{text-align:center;width:300px;margin:auto;}

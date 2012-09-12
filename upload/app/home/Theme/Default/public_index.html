@@ -47,7 +47,7 @@
 					<div id="home_slidebox" class="slideBox">
 						<ul class="items">
 							<!--<foreach for=arrSlides value=arrSlide>-->
-							<li><a href="<!--{$arrSlide['slide_url']}-->" title="<!--{$arrSlide['slide_title']}-->"><img  style="width:100%;height:300px;" src="<!--{$arrSlide['slide_img']}-->"></a></li>
+							<li><a href="<!--{$arrSlide['slide_url']}-->" title="<!--{$arrSlide['slide_title']}-->"><img style="width:100%;height:300px;" src="<!--{$arrSlide['slide_img']}-->"></a></li>
 							<!--</foreach>-->
 						</ul>
 					</div>
@@ -98,12 +98,26 @@
 							<a href="<!--{:Dyhb::U('home://public/register')}-->"><!--<lang package='__COMMON_LANG__@Template/Common'>-->新用户注册<!--</lang>--></a>
 							<span class="pipe">|</span>
 							<a href="<!--{:Dyhb::U('home://public/clear')}-->"><!--<lang package='__COMMON_LANG__@Template/Common'>-->清除痕迹<!--</lang>--></a>
+							<!--{if count($arrBindeds)>=3}-->
+							<span class="pipe">|</span>
+							<a href="javascript:void(0);" onclick="showSocialogin();"><!--<lang package='__COMMON_LANG__@Template/Common'>-->社交帐号<!--</lang>--></a>
+							<!--{/if}-->
 						</p>
 					</form>
 					<hr/>
-					<!--<foreach for=arrBindeds value=arrBinded>-->
-					<a style="border-bottom: none;" href="javascript:void(0);" onclick="sociaWinopen('<!--{:Dyhb::U('home://public/socia_login?vendor='.$arrBinded['sociatype_identifier'])}-->');"><img style="margin:0px 10px 5px 10px; vertical-align: middle;" src="<!--{$arrBinded['sociatype_logo']}-->" /></a>
-					<!--</foreach>-->
+					<div class="socialogin_box">
+						<div class="socialogin_content" style="margin-left:-20px;">
+							<!--<foreach for=arrBindeds value=arrBinded>-->
+							<!--{if $i==3}-->
+							<div id="socailogin_more" class="none">
+							<!--{/if}-->
+							<a style="border-bottom: none;" href="javascript:void(0);" onclick="sociaWinopen('<!--{:Dyhb::U('home://public/socia_login?vendor='.$arrBinded['sociatype_identifier'])}-->');"><img style="margin:0px 3px 5px 3px; vertical-align: middle;" src="<!--{$arrBinded['sociatype_logo']}-->" /></a>
+							<!--{if $i>=3 && $i==count($arrBindeds)}-->
+							</div>
+							<!--{/if}-->
+							<!--</foreach>-->
+						</div>
+					</div>
 					<!--{d*else}-->
 					<h3><a href="<!--{:Dyhb::U('home://ucenter/index')}-->"><!--<lang package='Template/Public'>-->返回个人中心<!--</lang>--></a></h3>
 					<table class="table">

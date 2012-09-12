@@ -73,12 +73,26 @@
 							<a href="<!--{:Dyhb::U('home://public/register')}-->"><!--<lang package='__COMMON_LANG__@Template/Common'>-->新用户注册<!--</lang>--></a>
 							<span class="pipe">|</span>
 							<a href="<!--{:Dyhb::U('home://public/clear')}-->"><!--<lang package='__COMMON_LANG__@Template/Common'>-->清除痕迹<!--</lang>--></a>
-							<!--<foreach for=arrBindeds value=arrBinded>-->
-							<a style="border-bottom: none;" href="javascript:void(0);" onclick="sociaWinopen('<!--{:Dyhb::U('home://public/socia_login?vendor='.$arrBinded['sociatype_identifier'])}-->');"><img style="margin:0px 10px 5px 10px; vertical-align: middle;" src="<!--{$arrBinded['sociatype_logo']}-->" /></a>
-							<!--</foreach>-->
+							<!--{if count($arrBindeds)>=3}-->
+							<span class="pipe">|</span>
+							<a href="javascript:void(0);" onclick="showSocialogin();"><!--<lang package='__COMMON_LANG__@Template/Common'>-->社交帐号<!--</lang>--></a>
+							<!--{/if}-->
 						</div>
 					</fieldset>
 				</form>
+				<div class="socialogin_box">
+					<div class="socialogin_content">
+						<!--<foreach for=arrBindeds value=arrBinded>-->
+						<!--{if $i==3}-->
+						<div id="socailogin_more" class="none">
+						<!--{/if}-->
+						<a style="border-bottom: none;" href="javascript:void(0);" onclick="sociaWinopen('<!--{:Dyhb::U('home://public/socia_login?vendor='.$arrBinded['sociatype_identifier'])}-->');"><img style="margin:0px 3px 5px 3px; vertical-align: middle;" src="<!--{$arrBinded['sociatype_logo']}-->" /></a>
+						<!--{if $i>=3 && $i==count($arrBindeds)}-->
+						</div>
+						<!--{/if}-->
+						<!--</foreach>-->
+					</div>
+				</div>
 			</div>
 			<div class="span5">
 				<h3><!--<lang package='Template/Public'>-->没有帐号？请立刻注册<!--</lang>--></h3>

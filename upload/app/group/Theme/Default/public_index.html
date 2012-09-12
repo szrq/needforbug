@@ -1,760 +1,731 @@
 <!--<include file="Core_Extend::template('header')" />-->
 
-<link href="http://bmforum.net/images/bsd12/styles.css" rel="stylesheet">
-
-
+<link rel="stylesheet" href="http://tiyan.phpwind.net/nextwind/themes/site/default/css/dev/core.css2?v=0.3.6" />
+<link rel="stylesheet" href="http://tiyan.phpwind.net/nextwind/themes/site/default/css/dev/common.css2?v=0.3.6" />
 
 		<ul class="breadcrumb">
 			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
-			<li><a href="?type=new">群组</a></li>
+			<li><a href="<!--{:Dyhb::U('group://public/index')}-->">群组</a></li>
 		</ul>
 
 		<div class="row">
-			<div class="span12">
-				
-<table cellpadding="5" cellspacing="1" border="0" class="tableborder" align="center">
-<tr>
-<td class="announcement" colspan="5">
-<span class="categoryfontcolor_normal"><a href="announcesys.php">公告</a></span></td>
-</tr>
-<tr>
-<td style="padding-left:0px;padding-right:0px;">
-<div id="announcement_c" class="backtdbottom">
-<ul class="line"><li>
-<span class='jiazhongcolor'><strong><a href="announcesys.php?job=read&amp;msg=1">为了获得更好的效果，请使用 Chrome 等现代浏览器浏览</a></strong></span> (2012-04-03 00:01)
-</li><li>
-<span class='jiazhongcolor'><strong><a href="announcesys.php?job=read&amp;msg=2">BMForum 寻求用户对功能重新布局的建议</a></strong></span> (2008-06-08 14:48)
-</li><li>
-<span class='jiazhongcolor'><strong><a href="announcesys.php?job=read&amp;msg=3">BMForum Myna 6.0 当前新亮点</a></strong></span> (2007-10-09 20:44)
-</li><li>
-<span class='jiazhongcolor'><strong><a href="announcesys.php?job=read&amp;msg=4">BMForum 新版首页试运行中</a></strong></span> (2006-12-17 17:18)
-</li><li>
-<span class='jiazhongcolor'><strong><a href="announcesys.php?job=read&amp;msg=5">BMForum 开发组期待你的加入</a></strong></span> (2006-02-05 11:00)
-</li><li>
-<span class='jiazhongcolor'><strong><a href="announcesys.php?job=read&amp;msg=6">对采用BMForum的政府和大型论坛提供付费技术支持优惠政策</a></strong></span> (2006-01-19 16:03)
-</li></ul>
-</div>
-</td>
-</tr>
-</table>
-<script>
-$(function(){
-var _wrap=$('ul.line');
-var _interval=4000;
-var _moving;
-_wrap.hover(function(){
-clearInterval(_moving);
-},function(){
-_moving=setInterval(function(){
-var _field=_wrap.find('li:first');
-var _h=_field.height();
-_field.animate({marginTop:-_h+'px'},600,function(){
-_field.css('marginTop',0).appendTo(_wrap);
-})
-},_interval)
-}).trigger('mouseleave');
-});
-</script><script type="text/javascript">
-//<![CDATA[ 
-function adminjump(list) { 
-var myindex1  = list.selectedIndex;  
-var newwindow = list.options[myindex1].value; 
-if (newwindow != "") { var msgwindow = window.open(newwindow,"",""); }
+			<div class="span8">
+				<div class="row">
+					<div class="span4"> 
+						<script src="<!--{:__PUBLIC__}-->/js/jquery/kinslideshow/js/jquery.kinslideshow-1.1.js" type="text/javascript"></script>
+						<!--{script}-->
+						$(function(){
+							$("#group_slide_show").KinSlideshow({
+								mouseEvent:"mouseover"	,
+								moveStyle:"right",
+								titleBar:{titleBar_height:30,titleBar_bgColor:"#08355c",titleBar_alpha:0.5},
+								titleFont:{TitleFont_size:12,TitleFont_color:"#FFFFFF",TitleFont_weight:"normal"},
+								btn:{btn_bgColor:"#FFFFFF",btn_bgHoverColor:"#1072aa",btn_fontColor:"#000000",
+									btn_fontHoverColor:"#FFFFFF",btn_borderColor:"#cccccc",
+									btn_borderHoverColor:"#1188c0",btn_borderWidth:1}
+							});
+						})
+						<!--{/script}-->
+						<div id="group_slide_show" style="visibility:hidden;">
+							<a href="#" target="_blank"><img src="<!--{:__PUBLIC__}-->/js/jquery/kinslideshow/images/1.jpg" alt="这是标题一" style="width:100%;height:210px;"/></a>
+							<a href="#" target="_blank"><img src="<!--{:__PUBLIC__}-->/js/jquery/kinslideshow/images/2.jpg" alt="这是标题二" style="width:100%;height:210px;"/></a>
+							<a href="#" target="_blank"><img src="<!--{:__PUBLIC__}-->/js/jquery/kinslideshow/images/3.jpg" alt="这是标题三" style="width:100%;height:210px;"/></a>
+						</div>
+					</div>
+					<!--{style}-->
+
+.tmode_list li{
+	line-height:26px;
+	height:26px;
+	overflow:hidden;
 }
-//]]>>
-</script><br />
-<table border="0" cellspacing="0" cellpadding="0" align="center" class="tableborder">
-<tr>
-<td class="noptd">
-<table cellpadding="4" cellspacing="1" width="100%" border="0">
-<tr>
-<td colspan="7" class="announcement">
-<span class="categoryfontcolor_normal"><div style='display:inline;float:left;'><a href="index.php?cateid=1106559916">
-<img src='http://bmforum.net/images/bsd12/category.gif' border="0" alt="" />新版论坛<img src='http://bmforum.net/images/bsd12/category.gif' alt="" border="0" />
-</a></div><div style='display:inline;float:right;'></div></span>
-</td>
-</tr>
-<tr class="indexalign2">
-<td width="*" class="tablebg" colspan="2">
-<span class="titlefontcolor">讨论区名称</span></td>
-<td width="40" class="tablebg">
-<span class="titlefontcolor">主题</span></td>
-<td width="40" class="tablebg">
-<span class="titlefontcolor">回复</span></td>
-<td width="168" class="tablebg">
-<span class="titlefontcolor">最后更新</span></td>
-</tr><tr align="center" valign="middle" class="forumcoloronecolor">
-<td width="26" class="border_bottom_forum">
-<a onfocus="this.blur()" href="forums.php?forumid=1106559915"><img src='http://bmforum.net/images/bsd12/forum.gif' border="0" alt="" /></a></td>
-<td width="*" align="left" class="border_bottom_forum">
-<table width="100%" cellpadding="1">
-<tr>
-<td width="*" rowspan="2"></td>
-<td width="1" rowspan="2"></td>
-<td width="100%" height="10"><span class='forumnamelink'><a onfocus='this.blur();' href="forums_1106559915">新论坛筹备区</a></span> (5)
-</td>
-</tr>
-<tr>
-<td valign="top"><span class="forumdescolor">欢迎大家讨论新版论坛，我们会在这里提供第一消息，也希望大家多提宝贵建议。</span> </td>
-</tr>
-</table>
-</td>
-<td width="40" valign="middle" align="center" class="border_bottom_forum">
-<span class="cau">58</span></td>
-<td width="40" valign="middle" align="center" class="border_bottom_forum">
-<span class="cau">211</span></td>
-<td width="168" align="right" class="border_bottom_forum">
-<table width="100%" align="right">
-<tr>
-<td width="2%" align="right">&nbsp;</td>
-<td class="indexsummaryalgin"><a title="RE:6.5不知道什么时候发布，都隔了很久很久 PW9 DX2.5都有了！ - 21sta" href="topic_170165_last#postend">RE:6.5不知道什么时..</a><br />2012-09-09 04:05</td>
-</tr>
-</table>
-</td>
-</tr></table>
-</td>
-</tr>
-</table><br />
-<table border="0" cellspacing="0" cellpadding="0" align="center" class="tableborder">
-<tr>
-<td class="noptd">
-<table cellpadding="4" cellspacing="1" width="100%" border="0">
-<tr>
-<td colspan="3" class="announcement">
-<span class="categoryfontcolor_normal"><div style='display:inline;float:left;'><a href="index.php?cateid=1089537213">
-<img src='http://bmforum.net/images/bsd12/category.gif' border="0" alt="" />BMForum 讨论专区 Discussing BMForum<img src='http://bmforum.net/images/bsd12/category.gif' border="0" alt="" />
-</a></div><div style='display:inline;float:right;'></div></span></td>
-</tr><tr align="center" valign="middle" class="forumcolortwo_noalign backtdbottom"><td style="table-layout: fixed;word-wrap: break-word;" width="33%" class="forumcoloronecolor" align="left">
-<table width="100%" cellpadding="0" title="提出关于 BMForum 功能、创意，以及推广等方面的设想和建议">
-<tr>
-<td width="*"><img src="http://bmforum.net/images/bsd12/forum.gif" border="0" alt="" /></td>
-<td width="*"></td>
-<td width="100%" style="padding-left:2px;"><strong><span class='forumnamelink'><a onfocus='this.blur();' title="提出关于 BMForum 功能、创意，以及推广等方面的设想和建议" href="forums_1106559898">发展建议 Advice</a></span></strong> (5)<br />
-<span class="forumdescolor">主题 430 / 回复 1341</span> <br /></td>
-</tr>
-</table>
-</td><td style="table-layout: fixed;word-wrap: break-word;" width="33%" class="forumcoloronecolor" align="left">
-<table width="100%" cellpadding="0" title="一切关于数据库版 BMForum 的安装使用疑难解答.">
-<tr>
-<td width="*"><img src="http://bmforum.net/images/bsd12/forum.gif" border="0" alt="" /></td>
-<td width="*"></td>
-<td width="100%" style="padding-left:2px;"><strong><span class='forumnamelink'><a onfocus='this.blur();' title="一切关于数据库版 BMForum 的安装使用疑难解答." href="forums_82">安装使用 Installing</a></span></strong> (5)<br />
-<span class="forumdescolor">主题 3357 / 回复 11175</span> <br /></td>
-</tr>
-</table>
-</td><td style="table-layout: fixed;word-wrap: break-word;" width="33%" class="forumcoloronecolor" align="left">
-<table width="100%" cellpadding="0" title="报告、反馈 BMForum 现存和可能的 Bug！如果是使用上的问题，请发到 安装使用版。">
-<tr>
-<td width="*"><img src="http://bmforum.net/images/bsd12/forum.gif" border="0" alt="" /></td>
-<td width="*"></td>
-<td width="100%" style="padding-left:2px;"><strong><span class='forumnamelink'><a onfocus='this.blur();' title="报告、反馈 BMForum 现存和可能的 Bug！如果是使用上的问题，请发到 安装使用版。" href="forums_1106559899">Bug 报告 Report</a></span></strong> (5)<br />
-<span class="forumdescolor">主题 399 / 回复 987</span> <br /></td>
-</tr>
-</table>
-</td></tr><tr align="center" valign="middle" class="forumcolortwo_noalign backtdbottom"><td style="table-layout: fixed;word-wrap: break-word;" width="33%" class="forumcoloronecolor" align="left">
-<table width="100%" cellpadding="0" title="PHP,MySQL,Apache 等环境架设方案，交流，讨论。">
-<tr>
-<td width="*"><img src="http://bmforum.net/images/bsd12/forum.gif" border="0" alt="" /></td>
-<td width="*"></td>
-<td width="100%" style="padding-left:2px;"><strong><span class='forumnamelink'><a onfocus='this.blur();' title="PHP,MySQL,Apache 等环境架设方案，交流，讨论。" href="forums_1106559905">环境架设 Environment</a></span></strong> (5)<br />
-<span class="forumdescolor">主题 73 / 回复 144</span> <br /></td>
-</tr>
-</table>
-</td><td style="table-layout: fixed;word-wrap: break-word;" width="33%" class="forumcoloronecolor" align="left">
-<table width="100%" cellpadding="0" title="其他论坛到 BMForum 数据转换互帮互助，问题解答专栏。">
-<tr>
-<td width="*"><img src="http://bmforum.net/images/bsd12/forum.gif" border="0" alt="" /></td>
-<td width="*"></td>
-<td width="100%" style="padding-left:2px;"><strong><span class='forumnamelink'><a onfocus='this.blur();' title="其他论坛到 BMForum 数据转换互帮互助，问题解答专栏。" href="forums_1106559907">数据转换 - 大家帮助大家 - Converting</a></span></strong> (5)<br />
-<span class="forumdescolor">主题 105 / 回复 171</span> <br /></td>
-</tr>
-</table>
-</td><td style="table-layout: fixed;word-wrap: break-word;" width="33%" class="forumcoloronecolor" align="left">
-<table width="100%" cellpadding="0" title="Discussing BMForum in your language!">
-<tr>
-<td width="*"><img src="http://bmforum.net/images/bsd12/forum.gif" border="0" alt="" /></td>
-<td width="*"></td>
-<td width="100%" style="padding-left:2px;"><strong><span class='forumnamelink'><a onfocus='this.blur();' title="Discussing BMForum in your language!" href="forums_86">多重語言 International</a></span></strong> (25)<br />
-<span class="forumdescolor">主题 118 / 回复 371</span> <br /></td>
-</tr>
-</table>
-</td></tr></table>
-</td>
-</tr>
-</table><br />
-<table border="0" cellspacing="0" cellpadding="0" align="center" class="tableborder">
-<tr>
-<td class="noptd">
-<table cellpadding="4" cellspacing="1" width="100%" border="0">
-<tr>
-<td colspan="7" class="announcement">
-<span class="categoryfontcolor_normal"><div style='display:inline;float:left;'><a href="index.php?cateid=1106559891">
-<img src='http://bmforum.net/images/bsd12/category.gif' border="0" alt="" />资源区 Resources<img src='http://bmforum.net/images/bsd12/category.gif' alt="" border="0" />
-</a></div><div style='display:inline;float:right;'></div></span>
-</td>
-</tr>
-<tr class="indexalign2">
-<td width="*" class="tablebg" colspan="2">
-<span class="titlefontcolor">讨论区名称</span></td>
-<td width="40" class="tablebg">
-<span class="titlefontcolor">主题</span></td>
-<td width="40" class="tablebg">
-<span class="titlefontcolor">回复</span></td>
-<td width="168" class="tablebg">
-<span class="titlefontcolor">最后更新</span></td>
-</tr><tr align="center" valign="middle" class="forumcoloronecolor">
-<td width="26" class="border_bottom_forum">
-<a onfocus="this.blur()" href="forums.php?forumid=4"><img src='http://bmforum.net/images/bsd12/forum.gif' border="0" alt="" /></a></td>
-<td width="*" align="left" class="border_bottom_forum">
-<table width="100%" cellpadding="1">
-<tr>
-<td width="*" rowspan="2"></td>
-<td width="1" rowspan="2"></td>
-<td width="100%" height="10"><span class='forumnamelink'><a onfocus='this.blur();' href="forums_4">论坛发布 Release</a></span> (15)
-</td>
-</tr>
-<tr>
-<td valign="top"><span class="forumdescolor">BMForum 程序和补丁发布 PHP论坛下载(BMForum PHP论坛 完全免费!)</span> <br /><strong>子论坛:</strong> <a href="forums_79">文档说明 Documents</a>, <a href="forums_1106559892">内部测试 Alpha Testing</a></td>
-</tr>
-</table>
-</td>
-<td width="40" valign="middle" align="center" class="border_bottom_forum">
-<span class="cau">217</span></td>
-<td width="40" valign="middle" align="center" class="border_bottom_forum">
-<span class="cau">1943</span></td>
-<td width="168" align="right" class="border_bottom_forum">
-<table width="100%" align="right">
-<tr>
-<td width="2%" align="right">&nbsp;</td>
-<td class="indexsummaryalgin"><a title="RE:BMForum 6.5 内部测试版 - 21sta" href="topic_170125_last#postend">RE:BMForum 6..</a><br />2012-08-24 01:16</td>
-</tr>
-</table>
-</td>
-</tr><tr align="center" valign="middle" class="forumcoloronecolor">
-<td width="26" class="border_bottom_forum">
-<a onfocus="this.blur()" href="forums.php?forumid=80"><img src='http://bmforum.net/images/bsd12/forum.gif' border="0" alt="" /></a></td>
-<td width="*" align="left" class="border_bottom_forum">
-<table width="100%" cellpadding="1">
-<tr>
-<td width="*" rowspan="2"></td>
-<td width="1" rowspan="2"></td>
-<td width="100%" height="10"><span class='forumnamelink'><a onfocus='this.blur();' href="forums_80">风格讨论区 Templates</a></span> (10)
-</td>
-</tr>
-<tr>
-<td valign="top"><span class="forumdescolor">探讨风格模板制作经验，提出对风格模板的建议</span> <br /><strong>子论坛:</strong> <a href="forums_85">精选风格区 Best Skins</a></td>
-</tr>
-</table>
-</td>
-<td width="40" valign="middle" align="center" class="border_bottom_forum">
-<span class="cau">811</span></td>
-<td width="40" valign="middle" align="center" class="border_bottom_forum">
-<span class="cau">10284</span></td>
-<td width="168" align="right" class="border_bottom_forum">
-<table width="100%" align="right">
-<tr>
-<td width="2%" align="right">&nbsp;</td>
-<td class="indexsummaryalgin"><a title="RE:一个风格效果图，喜欢的朋友可以看一下 - link007" href="topic_120927_last#postend">RE:一个风格效果图，喜..</a><br />2012-05-18 17:08</td>
-</tr>
-</table>
-</td>
-</tr><tr align="center" valign="middle" class="forumcoloronecolor">
-<td width="26" class="border_bottom_forum">
-<a onfocus="this.blur()" href="forums.php?forumid=2"><img src='http://bmforum.net/images/bsd12/forum.gif' border="0" alt="" /></a></td>
-<td width="*" align="left" class="border_bottom_forum">
-<table width="100%" cellpadding="1">
-<tr>
-<td width="*" rowspan="2"></td>
-<td width="1" rowspan="2"></td>
-<td width="100%" height="10"><span class='forumnamelink'><a onfocus='this.blur();' href="forums_2">个性插件 Plug-ins</a></span> (10)
-</td>
-</tr>
-<tr>
-<td valign="top"><span class="forumdescolor">超酷的BMForum 插件，你不想试试么？</span> <br /><strong>子论坛:</strong> <a href="forums_89">精选插件区 Best Plug-ins</a></td>
-</tr>
-</table>
-</td>
-<td width="40" valign="middle" align="center" class="border_bottom_forum">
-<span class="cau">1933</span></td>
-<td width="40" valign="middle" align="center" class="border_bottom_forum">
-<span class="cau">11517</span></td>
-<td width="168" align="right" class="border_bottom_forum">
-<table width="100%" align="right">
-<tr>
-<td width="2%" align="right">&nbsp;</td>
-<td class="indexsummaryalgin"><a title="RE:论坛广告点击奖励插件 - acesse" href="topic_137354_last#postend">RE:论坛广告点击奖励插..</a><br />2012-02-11 11:46</td>
-</tr>
-</table>
-</td>
-</tr><tr align="center" valign="middle" class="forumcoloronecolor">
-<td width="26" class="border_bottom_forum">
-<a onfocus="this.blur()" href="forums.php?forumid=1106559896"><img src='http://bmforum.net/images/bsd12/forum.gif' border="0" alt="" /></a></td>
-<td width="*" align="left" class="border_bottom_forum">
-<table width="100%" cellpadding="1">
-<tr>
-<td width="*" rowspan="2"></td>
-<td width="1" rowspan="2"></td>
-<td width="100%" height="10"><span class='forumnamelink'><a onfocus='this.blur();' href="forums_1106559896">论坛服务 Business Service</a></span> (5)
-</td>
-</tr>
-<tr>
-<td valign="top"><span class="forumdescolor">提供论坛商业技术支持服务，为论坛商业用户和有高级技术支持需求的用户提供周到服务。</span> </td>
-</tr>
-</table>
-</td>
-<td width="40" valign="middle" align="center" class="border_bottom_forum">
-<span class="cau">23</span></td>
-<td width="40" valign="middle" align="center" class="border_bottom_forum">
-<span class="cau">65</span></td>
-<td width="168" align="right" class="border_bottom_forum">
-<table width="100%" align="right">
-<tr>
-<td width="2%" align="right">&nbsp;</td>
-<td class="indexsummaryalgin"><a title="RE:关于本论坛整合问题 - 5568904" href="topic_160264_last#postend">RE:关于本论坛整合问题..</a><br />2011-06-27 18:47</td>
-</tr>
-</table>
-</td>
-</tr><tr align="center" valign="middle" class="forumcoloronecolor">
-<td width="26" class="border_bottom_forum">
-<a onfocus="this.blur()" href="forums.php?forumid=70"><img src='http://bmforum.net/images/bsd12/forum.gif' border="0" alt="" /></a></td>
-<td width="*" align="left" class="border_bottom_forum">
-<table width="100%" cellpadding="1">
-<tr>
-<td width="*" rowspan="2"></td>
-<td width="1" rowspan="2"></td>
-<td width="100%" height="10"><span class='forumnamelink'><a onfocus='this.blur();' href="forums_70">功能测试 Test Zone</a></span> (5)
-</td>
-</tr>
-<tr>
-<td valign="top"><span class="forumdescolor">测试论坛功能区</span> </td>
-</tr>
-</table>
-</td>
-<td width="40" valign="middle" align="center" class="border_bottom_forum">
-<span class="cau">466</span></td>
-<td width="40" valign="middle" align="center" class="border_bottom_forum">
-<span class="cau">738</span></td>
-<td width="168" align="right" class="border_bottom_forum">
-<table width="100%" align="right">
-<tr>
-<td width="2%" align="right">&nbsp;</td>
-<td class="indexsummaryalgin"><a title="ceshi a !! - hker" href="topic_170040_last#postend">ceshi a !!</a><br />2012-05-03 21:17</td>
-</tr>
-</table>
-</td>
-</tr></table>
-</td>
-</tr>
-</table><br />
-<table border="0" cellspacing="0" cellpadding="0" align="center" class="tableborder">
-<tr>
-<td class="noptd">
-<table cellpadding="4" cellspacing="1" width="100%" border="0">
-<tr>
-<td colspan="7" class="announcement">
-<span class="categoryfontcolor_normal"><div style='display:inline;float:left;'><a href="index.php?cateid=1082278839">
-<img src='http://bmforum.net/images/bsd12/category.gif' border="0" alt="" />互动交流区 Interaction<img src='http://bmforum.net/images/bsd12/category.gif' alt="" border="0" />
-</a></div><div style='display:inline;float:right;'></div></span>
-</td>
-</tr>
-<tr class="indexalign2">
-<td width="*" class="tablebg" colspan="2">
-<span class="titlefontcolor">讨论区名称</span></td>
-<td width="40" class="tablebg">
-<span class="titlefontcolor">主题</span></td>
-<td width="40" class="tablebg">
-<span class="titlefontcolor">回复</span></td>
-<td width="168" class="tablebg">
-<span class="titlefontcolor">最后更新</span></td>
-</tr><tr align="center" valign="middle" class="forumcoloronecolor">
-<td width="26" class="border_bottom_forum">
-<a onfocus="this.blur()" href="forums.php?forumid=71"><img src='http://bmforum.net/images/bsd12/forum.gif' border="0" alt="" /></a></td>
-<td width="*" align="left" class="border_bottom_forum">
-<table width="100%" cellpadding="1">
-<tr>
-<td width="*" rowspan="2"></td>
-<td width="1" rowspan="2"></td>
-<td width="100%" height="10"><span class='forumnamelink'><a onfocus='this.blur();' href="forums_71">建站讨论 Web Sites Building</a></span> (5)
-</td>
-</tr>
-<tr>
-<td valign="top"><span class="forumdescolor">交流网站建设技术和经验(开发技术及网页美工设计等),讨论各类网络资源的合理利用和分享.</span> </td>
-</tr>
-</table>
-</td>
-<td width="40" valign="middle" align="center" class="border_bottom_forum">
-<span class="cau">1130</span></td>
-<td width="40" valign="middle" align="center" class="border_bottom_forum">
-<span class="cau">2575</span></td>
-<td width="168" align="right" class="border_bottom_forum">
-<table width="100%" align="right">
-<tr>
-<td width="2%" align="right">&nbsp;</td>
-<td class="indexsummaryalgin"><a title="交互式多媒体网站：谷歌SEO常见错误 - 1942442104" href="topic_170164_last#postend">交互式多媒体网站：谷歌S..</a><br />2012-09-07 18:04</td>
-</tr>
-</table>
-</td>
-</tr><tr align="center" valign="middle" class="forumcoloronecolor">
-<td width="26" class="border_bottom_forum">
-<a onfocus="this.blur()" href="forums.php?forumid=6"><img src='http://bmforum.net/images/bsd12/forum.gif' border="0" alt="" /></a></td>
-<td width="*" align="left" class="border_bottom_forum">
-<table width="100%" cellpadding="1">
-<tr>
-<td width="*" rowspan="2"></td>
-<td width="1" rowspan="2"></td>
-<td width="100%" height="10"><span class='forumnamelink'><a onfocus='this.blur();' href="forums_6">资讯 下载 News and Downloads</a></span> (5)
-</td>
-</tr>
-<tr>
-<td valign="top"><span class="forumdescolor">下载最新软件、音乐、电影等等超人气文件，最新科技资讯尽在此处。</span> </td>
-</tr>
-</table>
-</td>
-<td width="40" valign="middle" align="center" class="border_bottom_forum">
-<span class="cau">1234</span></td>
-<td width="40" valign="middle" align="center" class="border_bottom_forum">
-<span class="cau">2179</span></td>
-<td width="168" align="right" class="border_bottom_forum">
-<table width="100%" align="right">
-<tr>
-<td width="2%" align="right">&nbsp;</td>
-<td class="indexsummaryalgin"><a title="RE: - 50174356" href="topic_168529_last#postend">RE:</a><br />2012-01-13 11:18</td>
-</tr>
-</table>
-</td>
-</tr><tr align="center" valign="middle" class="forumcoloronecolor">
-<td width="26" class="border_bottom_forum">
-<a onfocus="this.blur()" href="forums.php?forumid=1106559897"><img src='http://bmforum.net/images/bsd12/forum_lock.gif' border="0" alt="" /></a></td>
-<td width="*" align="left" class="border_bottom_forum">
-<table width="100%" cellpadding="1">
-<tr>
-<td width="*" rowspan="2"></td>
-<td width="1" rowspan="2"></td>
-<td width="100%" height="10"><span class='forumnamelink'><a onfocus='this.blur();' href="forums_1106559897">梦游科技 MEYU</a></span> (5)
-</td>
-</tr>
-<tr>
-<td valign="top"><span class="forumdescolor">5年的运营经验,华人海内外运营(中英文客服) / 全权拥有服务器硬件, 并非租用自其它IDC </span> </td>
-</tr>
-</table>
-</td>
-<td width="40" valign="middle" align="center" class="border_bottom_forum">
-<span class="cau">8</span></td>
-<td width="40" valign="middle" align="center" class="border_bottom_forum">
-<span class="cau">22</span></td>
-<td width="168" align="right" class="border_bottom_forum">
-<table width="100%" align="right">
-<tr>
-<td width="2%" align="right">&nbsp;</td>
-<td class="indexsummaryalgin"><a title="RE:贵站主机实在是电信访问有点慢 - chinacc" href="topic_130367_last#postend">RE:贵站主机实在是电信..</a><br />2007-02-22 12:01</td>
-</tr>
-</table>
-</td>
-</tr><tr align="center" valign="middle" class="forumcoloronecolor">
-<td width="26" class="border_bottom_forum">
-<a onfocus="this.blur()" href="forums.php?forumid=1106559917"><img src='http://bmforum.net/images/bsd12/forum.gif' border="0" alt="" /></a></td>
-<td width="*" align="left" class="border_bottom_forum">
-<table width="100%" cellpadding="1">
-<tr>
-<td width="*" rowspan="2"></td>
-<td width="1" rowspan="2"></td>
-<td width="100%" height="10"><span class='forumnamelink'><a onfocus='this.blur();' href="forums_1106559917">招聘信息 Jobs</a></span> (5)
-</td>
-</tr>
-<tr>
-<td valign="top"><span class="forumdescolor">可以在这里发表有关于PHP等互联网人才的招聘信息</span> </td>
-</tr>
-</table>
-</td>
-<td width="40" valign="middle" align="center" class="border_bottom_forum">
-<span class="cau">33</span></td>
-<td width="40" valign="middle" align="center" class="border_bottom_forum">
-<span class="cau">95</span></td>
-<td width="168" align="right" class="border_bottom_forum">
-<table width="100%" align="right">
-<tr>
-<td width="2%" align="right">&nbsp;</td>
-<td class="indexsummaryalgin"><a title="RE:杰薄斯贸易（上海）有限公司 �诚聘 PHP - ilovejamy" href="topic_170101_last#postend">RE:杰薄斯贸易（上海）..</a><br />2012-07-24 15:45</td>
-</tr>
-</table>
-</td>
-</tr></table>
-</td>
-</tr>
-</table><br />
-<table border="0" cellspacing="0" cellpadding="0" align="center" class="tableborder">
-<tr>
-<td class="noptd">
-<table cellpadding="4" cellspacing="1" width="100%" border="0">
-<tr>
-<td colspan="7" class="announcement">
-<span class="categoryfontcolor_normal"><div style='display:inline;float:left;'><a href="index.php?cateid=1106559904">
-<img src='http://bmforum.net/images/bsd12/category.gif' border="0" alt="" />休闲区 Relax Zone<img src='http://bmforum.net/images/bsd12/category.gif' alt="" border="0" />
-</a></div><div style='display:inline;float:right;'>区版主: <a href="profile.php?job=show&amp;target=jeanswest">jeanswest</a></div></span>
-</td>
-</tr>
-<tr class="indexalign2">
-<td width="*" class="tablebg" colspan="2">
-<span class="titlefontcolor">讨论区名称</span></td>
-<td width="40" class="tablebg">
-<span class="titlefontcolor">主题</span></td>
-<td width="40" class="tablebg">
-<span class="titlefontcolor">回复</span></td>
-<td width="168" class="tablebg">
-<span class="titlefontcolor">最后更新</span></td>
-</tr><tr align="center" valign="middle" class="forumcoloronecolor">
-<td width="26" class="border_bottom_forum">
-<a onfocus="this.blur()" href="forums.php?forumid=10"><img src='http://bmforum.net/images/bsd12/forum.gif' border="0" alt="" /></a></td>
-<td width="*" align="left" class="border_bottom_forum">
-<table width="100%" cellpadding="1">
-<tr>
-<td width="*" rowspan="2"></td>
-<td width="1" rowspan="2"></td>
-<td width="100%" height="10"><span class='forumnamelink'><a onfocus='this.blur();' href="forums_10">闲聊茶馆 General Discussion</a></span> (5)
-</td>
-</tr>
-<tr>
-<td valign="top"><span class="forumdescolor">海阔天空，谈天论地；影音时尚，互动交流。</span> </td>
-</tr>
-</table>
-</td>
-<td width="40" valign="middle" align="center" class="border_bottom_forum">
-<span class="cau">3462</span></td>
-<td width="40" valign="middle" align="center" class="border_bottom_forum">
-<span class="cau">23</span></td>
-<td width="168" align="right" class="border_bottom_forum">
-<table width="100%" align="right">
-<tr>
-<td width="2%" align="right">&nbsp;</td>
-<td class="indexsummaryalgin"><a title="人太少了啊。 - Mr.dodo" href="topic_170158_last#postend">人太少了啊。</a><br />2012-08-28 20:06</td>
-</tr>
-</table>
-</td>
-</tr><tr align="center" valign="middle" class="forumcoloronecolor">
-<td width="26" class="border_bottom_forum">
-<a onfocus="this.blur()" href="forums.php?forumid=1106559901"><img src='http://bmforum.net/images/bsd12/forum.gif' border="0" alt="" /></a></td>
-<td width="*" align="left" class="border_bottom_forum">
-<table width="100%" cellpadding="1">
-<tr>
-<td width="*" rowspan="2"></td>
-<td width="1" rowspan="2"></td>
-<td width="100%" height="10"><span class='forumnamelink'><a onfocus='this.blur();' href="forums_1106559901">文字心情 - 文字和小说 Emotion</a></span> (5)
-</td>
-</tr>
-<tr>
-<td valign="top"><span class="forumdescolor">吐出心声，分享你我的快乐和忧愁。</span> </td>
-</tr>
-</table>
-</td>
-<td width="40" valign="middle" align="center" class="border_bottom_forum">
-<span class="cau">100</span></td>
-<td width="40" valign="middle" align="center" class="border_bottom_forum">
-<span class="cau">189</span></td>
-<td width="168" align="right" class="border_bottom_forum">
-<table width="100%" align="right">
-<tr>
-<td width="2%" align="right">&nbsp;</td>
-<td class="indexsummaryalgin"><a title="我心甘情愿，你幸福快乐就好 - anmo2012" href="topic_170060_last#postend">我心甘情愿，你幸福快乐就..</a><br />2012-05-26 11:28</td>
-</tr>
-</table>
-</td>
-</tr><tr align="center" valign="middle" class="forumcoloronecolor">
-<td width="26" class="border_bottom_forum">
-<a onfocus="this.blur()" href="forums.php?forumid=1106559902"><img src='http://bmforum.net/images/bsd12/forum.gif' border="0" alt="" /></a></td>
-<td width="*" align="left" class="border_bottom_forum">
-<table width="100%" cellpadding="1">
-<tr>
-<td width="*" rowspan="2"></td>
-<td width="1" rowspan="2"></td>
-<td width="100%" height="10"><span class='forumnamelink'><a onfocus='this.blur();' href="forums_1106559902">音乐旷野 Music Zone</a></span> (5)
-</td>
-</tr>
-<tr>
-<td valign="top"><span class="forumdescolor">流行音乐园地，音乐MP3，音乐MP3创作，音乐MP3欣赏，音乐MP3下载。</span> </td>
-</tr>
-</table>
-</td>
-<td width="40" valign="middle" align="center" class="border_bottom_forum">
-<span class="cau">152</span></td>
-<td width="40" valign="middle" align="center" class="border_bottom_forum">
-<span class="cau">87</span></td>
-<td width="168" align="right" class="border_bottom_forum">
-<table width="100%" align="right">
-<tr>
-<td width="2%" align="right">&nbsp;</td>
-<td class="indexsummaryalgin"><a title="乐天乐团《活着》：活出我精彩 - ms133" href="topic_170010_last#postend">乐天乐团《活着》：活出我..</a><br />2012-04-17 21:02</td>
-</tr>
-</table>
-</td>
-</tr><tr align="center" valign="middle" class="forumcoloronecolor">
-<td width="26" class="border_bottom_forum">
-<a onfocus="this.blur()" href="forums.php?forumid=1106559903"><img src='http://bmforum.net/images/bsd12/forum.gif' border="0" alt="" /></a></td>
-<td width="*" align="left" class="border_bottom_forum">
-<table width="100%" cellpadding="1">
-<tr>
-<td width="*" rowspan="2"></td>
-<td width="1" rowspan="2"></td>
-<td width="100%" height="10"><span class='forumnamelink'><a onfocus='this.blur();' href="forums_1106559903">图片密码 Pictures</a></span> (5)
-</td>
-</tr>
-<tr>
-<td valign="top"><span class="forumdescolor">展示你的精品图片</span> </td>
-</tr>
-</table>
-</td>
-<td width="40" valign="middle" align="center" class="border_bottom_forum">
-<span class="cau">49</span></td>
-<td width="40" valign="middle" align="center" class="border_bottom_forum">
-<span class="cau">147</span></td>
-<td width="168" align="right" class="border_bottom_forum">
-<table width="100%" align="right">
-<tr>
-<td width="2%" align="right">&nbsp;</td>
-<td class="indexsummaryalgin"><a title="RE:小弟初来论坛，发组靓妹求支持 - link007" href="topic_167858_last#postend">RE:小弟初来论坛，发组..</a><br />2012-05-18 17:10</td>
-</tr>
-</table>
-</td>
-</tr></table>
-</td>
-</tr>
-</table><br />
-<table border="0" cellspacing="0" cellpadding="0" align="center" class="tableborder">
-<tr>
-<td class="noptd">
-<table cellpadding="4" cellspacing="1" width="100%" border="0">
-<tr>
-<td colspan="7" class="announcement">
-<span class="categoryfontcolor_normal"><div style='display:inline;float:left;'><a href="index.php?cateid=1038109521">
-<img src='http://bmforum.net/images/bsd12/category.gif' border="0" alt="" />蓝魔事务厅 Forum Managing<img src='http://bmforum.net/images/bsd12/category.gif' alt="" border="0" />
-</a></div><div style='display:inline;float:right;'></div></span>
-</td>
-</tr>
-<tr class="indexalign2">
-<td width="*" class="tablebg" colspan="2">
-<span class="titlefontcolor">讨论区名称</span></td>
-<td width="40" class="tablebg">
-<span class="titlefontcolor">主题</span></td>
-<td width="40" class="tablebg">
-<span class="titlefontcolor">回复</span></td>
-<td width="168" class="tablebg">
-<span class="titlefontcolor">最后更新</span></td>
-</tr><tr align="center" valign="middle" class="forumcoloronecolor">
-<td width="26" class="border_bottom_forum">
-<a onfocus="this.blur()" href="forums.php?forumid=14"><img src='http://bmforum.net/images/bsd12/forum.gif' border="0" alt="" /></a></td>
-<td width="*" align="left" class="border_bottom_forum">
-<table width="100%" cellpadding="1">
-<tr>
-<td width="*" rowspan="2"></td>
-<td width="1" rowspan="2"></td>
-<td width="100%" height="10"><span class='forumnamelink'><a onfocus='this.blur();' href="forums_14">论坛公告 Bulletin</a></span> (5)
-</td>
-</tr>
-<tr>
-<td valign="top"><span class="forumdescolor">论坛公告区，最新论坛资讯，论坛变动。</span> </td>
-</tr>
-</table>
-</td>
-<td width="40" valign="middle" align="center" class="border_bottom_forum">
-<span class="cau">51</span></td>
-<td width="40" valign="middle" align="center" class="border_bottom_forum">
-<span class="cau">380</span></td>
-<td width="168" align="right" class="border_bottom_forum">
-<table width="100%" align="right">
-<tr>
-<td width="2%" align="right">&nbsp;</td>
-<td class="indexsummaryalgin"><a title="支持 - a5446179" href="topic_165332_last#postend">支持</a><br />2012-02-02 15:07</td>
-</tr>
-</table>
-</td>
-</tr><tr align="center" valign="middle" class="forumcoloronecolor">
-<td width="26" class="border_bottom_forum">
-<a onfocus="this.blur()" href="forums.php?forumid=13"><img src='http://bmforum.net/images/bsd12/forum.gif' border="0" alt="" /></a></td>
-<td width="*" align="left" class="border_bottom_forum">
-<table width="100%" cellpadding="1">
-<tr>
-<td width="*" rowspan="2"></td>
-<td width="1" rowspan="2"></td>
-<td width="100%" height="10"><span class='forumnamelink'><a onfocus='this.blur();' href="forums_13">众议院 Boule</a></span> (5)
-</td>
-</tr>
-<tr>
-<td valign="top"><span class="forumdescolor">事务、意见、建议、申请</span> </td>
-</tr>
-</table>
-</td>
-<td width="40" valign="middle" align="center" class="border_bottom_forum">
-<span class="cau">528</span></td>
-<td width="40" valign="middle" align="center" class="border_bottom_forum">
-<span class="cau">2221</span></td>
-<td width="168" align="right" class="border_bottom_forum">
-<table width="100%" align="right">
-<tr>
-<td width="2%" align="right">&nbsp;</td>
-<td class="indexsummaryalgin"><a title="RE: - msxcms" href="topic_166750_last#postend">RE:</a><br />2011-06-17 21:26</td>
-</tr>
-</table>
-</td>
-</tr></table>
-</td>
-</tr>
-</table><br /><table border="0" cellspacing="0" cellpadding="0" align="center" class="tableborder">
-<tr>
-<td class="noptd">
-<table cellpadding="4" cellspacing="1" width="100%" border="0"><tr>
-<td class='announcement'>
-<span class="categoryfontcolor_normal"><strong>联盟论坛&nbsp;-&nbsp;<span class="categoryfontcolor_normal"><a href="misc.php?p=lmcode">论坛联盟代码</a></span></strong></span></td>
-</tr>
-<tr class="forumcolorone_align">
-<td class='forum_border_one_3' style="width:100%;word-wrap: break-all;">
-<span class="jiazhongcolor"><strong>图片连接</strong></span>
-<div style='width:100%' id='simgnow'> <a href='http://www.bmforum.net' target='_blank'><img width='88' height='31' title='BMForum - 提供用于个人、企业的高效论坛系统，保持技术领先，多项技术创新，始终保持与国际接轨，引领产业前沿。' src='http://www.bmforum.net/logo8.gif' border='0' /></a>&nbsp;<a href='http://www.92pal.com' target='_blank'><img width='88' height='31' title='仙灵岛 - 仙剑奇侠传 - 仙剑奇侠传，提供最新、最全、最好的仙剑奇侠传！' src='http://www.92pal.com/logo8.gif' border='0' /></a>&nbsp;<a href='http://bbs.52poke.com/bbs' target='_blank'><img width='88' height='31' title='52POKE - PokEmon Zone - 神奇宝贝部落 - 52POKE - PokEmon Zone - 神奇宝贝部落' src='http://bbs.52poke.com/logo8.gif' border='0' /></a>&nbsp;<a href='http://www.people.com.cn/' target='_blank'><img width='88' height='31' title='人民网房产论坛 - 人民网房产论坛，维护人民房权！' src='http://www.bmforum.com/cache/rmw.gif' border='0' /></a>&nbsp;<a href='http://www.ownd.net' target='_blank'><img width='88' height='31' title='拥有资源站 OWND.net - BMForum MX升级包官方网站，软件、影视、动漫资源下载' src='http://www.bmforum.com/cache/ownd.gif' border='0' /></a>&nbsp;<a href='http://host.ownd.net' target='_blank'><img width='88' height='31' title='拥有空间站 - 虚拟主机提供商,BMForum 合作空间' src='http://www.bmforum.com/cache/host.gif' border='0' /></a>&nbsp;<a href='http://www.bo-blog.com' target='_blank'><img width='88' height='31' title='Bo-Blog - Bo-blog' src='http://www.bmforum.com/cache/boblog.gif' border='0' /></a>&nbsp;<a href='http://www.chinahtml.com/' target='_blank'><img width='88' height='31' title='ChinaHTML - ChinaHTML' src='http://www.bmforum.com/cache/chinahtml.gif' border='0' /></a>&nbsp;</div>
-</td>
-</tr>
-<tr class="forumcolorone_align">
-<td class='forum_border_one_3' style="width:100%;word-wrap: break-all;">
-<span class="jiazhongcolor"><strong>文字连接</strong></span>
-<div style='width:100%' id='stextnow'> <a title='织梦建站论坛 - 织梦建站论坛' href='http://www.17zm.net/forum/' target='_blank'>织梦建站论坛</a>&nbsp;<a title='CcChen Profile - CcChen的简介' href='http://www.cnzen.com' target='_blank'>CcChen Profile</a>&nbsp;<a title='小猪的窝 - 小猪的日记本' href='http://ezo.biz/b' target='_blank'>小猪的窝</a>&nbsp;<a title='PHPII - PHPII' href='http://www.phpii.com' target='_blank'>PHPII</a>&nbsp;<a title='NGsky - 合作媒体' href='http://www.ngsky.com' target='_blank'>NGsky</a>&nbsp;<a title='成网科技 - 成网科技' href='http://www.it28.com' target='_blank'>成网科技</a>&nbsp;</div>
-</td>
-</tr>
-</table>
-</td>
-</tr>
-</table><div id="onlinelist">
-<br />
-<script type="text/javascript">
-//<![CDATA[ 
-var online_show_anti="show";
-//]]>>
-</script>
-<table border="0" cellspacing="0" cellpadding="0" align="center" class="tableborder">
-<tr>
-<td class="noptd">
-<table cellpadding="4" cellspacing="1" width="100%" border="0">
-<tr class="tile_back_online">
-<td class='announcement'>
-<strong>
-<a name="onlinearea"></a><span class="categoryfontcolor_normal"><a href="misc.php?p=viewonline" >在线统计</a></span><span class="categoryfontcolor_normal">&nbsp;-</span>
-<span class="categoryfontcolor_normal"><a onclick="bmb_ajax_preprocess('index.php','?','0');" href="#onlinearea">
-有 <strong>1</strong> 位用户 (<strong>0</strong> 位隐身) 和 <strong>167</strong> 位访客，共<strong>168</strong>人在线 | 最高纪录 <strong>9886</strong> 于 2006-10-27 19:45</a></span>
-</strong></td>
-</tr></table>
-</td>
-</tr>
-</table>
-</div><br />
-<table border="0" align="center" cellpadding="5" cellspacing="1" class="bmbnewstyle_withoutwidth">
-<tr>
-<td class="forumcolorone_ex">
-<img alt="今日无新贴" src="http://bmforum.net/images/bsd12/forum.gif" /> 没有新贴
-<img alt="今日有新贴" src="http://bmforum.net/images/bsd12/forum_new.gif" /> 有新贴
-<img alt="讨论组已关闭" src="http://bmforum.net/images/bsd12/forum_lock.gif" /> 只读版块/精华区
-</td>
-</tr>
-</table><center><table align="center">
-	<tr>
-		<td width="100%"> </td>
-	</tr>
-</table>
+
+.tmode_list_sort ul{
+	background:url(<!--{:__TMPLPUB__}-->/Images/sort.png) 0 7px no-repeat;
+}
+.tmode_list_sort ul li{
+	padding-left:20px;
+}
+
+.tmode_list_line li{
+	border-bottom:1px dotted #ccc;
+	line-height:25px;
+	height:25px;
+}
+
+.num {
+    color: #999999;
+    line-height: 18px;
+    text-align: center;
+    width: 140px;text-align:center;
+}
+.num span {
+    background: none repeat scroll 0 0 #fbf6f6;
+	-webkit-border-radius:3px 3px 3px 3px;
+	-moz-border-radius:3px 3px 3px 3px;
+    border-radius: 3px 3px 3px 3px;
+    display: block;
+    float: right;
+    height: 36px;
+    margin: 0 0 0 10px;
+    overflow: hidden;
+    padding: 4px 0;
+    width: 54px;
+}
+.num em {
+    display: block;
+    font-weight: 700;
+}
+.info,.info a {
+    color: #999999;
+}
+ .info span {
+    margin-right: 10px;
+}
+.title {
+    padding-bottom: 5px;
+}
+ .subject {
+    padding: 10px 0 !important;
+}
+ .subject em {
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+ .author {
+    width: 55px;
+}
+ .author a {
+    display: block;
+    height: 45px;
+    overflow: hidden;
+    width: 45px;
+}
+				<!--{/style}-->
+					<div class="span4">
+						<div style="margin-left:-30px;" class="tmode_list tmode_list_sort tmode_list_line">
+							<ul>
+								<li><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=23&amp;fid=10">意见、建议、问题请到相应版块提交</a></li>
+								<li><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=24&amp;fid=10">我是刚来体验PW9的</a></li>
+								<li><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=25&amp;fid=10">视频</a></li>
+								<li><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=26&amp;fid=10">我发个梯子来看看</a></li>
+								<li><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=27&amp;fid=12">发现目前体验站的功能还有很多没有完成</a></li>
+								<li><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=26&amp;fid=10">我发个梯子来看看</a></li>
+								<li><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=27&amp;fid=12">发现目前体验站的功能还有很多没有完成</a></li>
+								<li><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=27&amp;fid=12">发现目前体验站的功能还有很多没有完成</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<br/>
+								
+						
+						
+						<div id="topic_list_box">
+
+<ul class="nav nav-tabs"><li class="active"><a href="<!--{:Dyhb::U('group://public/index')}-->">新帖</a></li><li ><a href="<!--{:Dyhb::U('group://public/group')}-->">小组</a></li></ul>
+							<table width="100%" class="table" summary="帖子列表">
+								<thead>
+								
+									<tr>
+										<th>发帖人</th>
+										<th colspan="2" style="text-align:right;"><a href="">浏览</a><span class="pipe">|</span> <a href="">回复</a></th>
+									</tr>
+								</thead>
+								<tbody>
+								<tr>
+									<td class="author"><a class="J_user_card_show" data-uid="292" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=292"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/02/292_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="小鸡爷爷" /></a></td>
+									<td class="subject">
+										<p class="title">
+											<span class="posts_icon"><i class="icon_topichot" title="热门帖"></i></span>
+											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=10" class="st">[体验说明]</a>
+											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=1801&fid=10" class="st" style="color:#C00000" title="【致站长】为什么体验站这么烂，官方还要开放给大家测试">【致站长】为什么体验站这么烂，官方还要开放给大家测试</a>
+										</p>
+										<p class="info">
+											楼主：<a class="J_user_card_show" data-uid="292" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=292">小鸡爷爷</a><span>
+2012-06-27</span>
+											最后回复：<a class="J_user_card_show" data-uid="2383" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=2383">扶摇侠客</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=1801&page=e" aria-label="最后回复时间">
+09-11 09:50</a></span>
+										</p>
+									</td>
+									<td class="num" style="text-align:center;">
+										<span>回复<em>265</em></span>
+										<span>浏览<em>3868</em></span>
+									</td>
+								</tr>
+								<tr>
+									<td class="author"><a class="J_user_card_show" data-uid="432" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=432"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/04/432_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="初见" /></a></td>
+									<td class="subject">
+										<p class="title">
+											<span class="posts_icon"><i class="icon_topic" title="普通帖"></i></span>
+											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=10" class="st">[体验说明]</a>
+											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3651&fid=10" class="st" style="" title="说一句，9.0绝对不会爆吧的，有图为证">说一句，9.0绝对不会爆吧的，有图为证</a>
+<span class="posts_icon"><i class="icon_img" title="图片帖"></i></span>
+										</p>
+										<p class="info">
+											楼主：<a class="J_user_card_show" data-uid="432" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=432">初见</a><span>
+2012-09-10</span>
+											最后回复：<a class="J_user_card_show" data-uid="572" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=572">留影</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3651&page=e" aria-label="最后回复时间">
+09-11 09:45</a></span>
+										</p>
+									</td>
+									<td class="num">
+										<span>回复<em>9</em></span>
+										<span>浏览<em>152</em></span>
+									</td>
+								</tr>
+								<tr>
+									<td class="author"><a class="J_user_card_show" data-uid="984" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=984"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/09/984_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="myhzwl" /></a></td>
+									<td class="subject">
+										<p class="title">
+											<span class="posts_icon"><i class="icon_topicnew" title="新帖"></i></span>
+											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=10" class="st">[体验说明]</a>
+											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3673&fid=10" class="st" style="" title="pw 9bate版 官方会使用吗">pw 9bate版 官方会使用吗</a>
+										</p>
+										<p class="info">
+											楼主：<a class="J_user_card_show" data-uid="984" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=984">myhzwl</a><span>
+2012-09-11</span>
+											最后回复：<a class="J_user_card_show" data-uid="2059" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=2059">231241251251</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3673&page=e" aria-label="最后回复时间">
+09-11 09:40</a></span>
+										</p>
+									</td>
+									<td class="num">
+										<span>回复<em>3</em></span>
+										<span>浏览<em>19</em></span>
+									</td>
+								</tr>
+								<tr>
+									<td class="author"><a class="J_user_card_show" data-uid="356" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=356"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/03/356_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="阿牛哥" /></a></td>
+									<td class="subject">
+										<p class="title">
+											<span class="posts_icon"><i class="icon_topic" title="普通帖"></i></span>
+											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=13" class="st">[聊天灌水]</a>
+											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3669&fid=13" class="st" style="" title="大家来跟上，来祝福明日PW9神化，快来，">大家来跟上，来祝福明日PW9神化，快来，</a>
+<span class="posts_icon"><i class="icon_img" title="图片帖"></i></span>
+										</p>
+										<p class="info">
+											楼主：<a class="J_user_card_show" data-uid="356" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=356">阿牛哥</a><span>
+2012-09-11</span>
+											最后回复：<a class="J_user_card_show" data-uid="1915" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1915">村长707</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3669&page=e" aria-label="最后回复时间">
+09-11 09:33</a></span>
+										</p>
+									</td>
+									<td class="num">
+										<span>回复<em>4</em></span>
+										<span>浏览<em>50</em></span>
+									</td>
+								</tr>
+								<tr>
+									<td class="author"><a class="J_user_card_show" data-uid="2265" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=2265"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/22/2265_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="haoduomu" /></a></td>
+									<td class="subject">
+										<p class="title">
+											<span class="posts_icon"><i class="icon_topic" title="普通帖"></i></span>
+											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=13" class="st">[聊天灌水]</a>
+											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3568&fid=13" class="st" style="" title="9.0很不错，果然是简练，希望保持住～～～">9.0很不错，果然是简练，希望保持住～～～</a>
+										</p>
+										<p class="info">
+											楼主：<a class="J_user_card_show" data-uid="2265" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=2265">haoduomu</a><span>
+2012-09-08</span>
+											最后回复：<a class="J_user_card_show" data-uid="1915" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1915">村长707</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3568&page=e" aria-label="最后回复时间">
+09-11 09:26</a></span>
+										</p>
+									</td>
+									<td class="num">
+										<span>回复<em>8</em></span>
+										<span>浏览<em>162</em></span>
+									</td>
+								</tr>
+								<tr>
+									<td class="author"><a class="J_user_card_show" data-uid="2372" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=2372"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/23/2372_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="ganjun" /></a></td>
+									<td class="subject">
+										<p class="title">
+											<span class="posts_icon"><i class="icon_topic" title="普通帖"></i></span>
+											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=10" class="st">[体验说明]</a>
+											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3664&fid=10" class="st" style="" title="看着有点像百度贴吧，不像论坛">看着有点像百度贴吧，不像论坛</a>
+										</p>
+										<p class="info">
+											楼主：<a class="J_user_card_show" data-uid="2372" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=2372">ganjun</a><span>
+2012-09-11</span>
+											最后回复：<a class="J_user_card_show" data-uid="1915" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1915">村长707</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3664&page=e" aria-label="最后回复时间">
+09-11 09:25</a></span>
+										</p>
+									</td>
+									<td class="num">
+										<span>回复<em>4</em></span>
+										<span>浏览<em>45</em></span>
+									</td>
+								</tr>
+								<tr>
+									<td class="author"><a class="J_user_card_show" data-uid="2378" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=2378"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/23/2378_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="abcdfyh" /></a></td>
+									<td class="subject">
+										<p class="title">
+											<span class="posts_icon"><i class="icon_topic" title="普通帖"></i></span>
+											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=10" class="st">[体验说明]</a>
+											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3672&fid=10" class="st" style="" title="测试测试测试">测试测试测试</a>
+										</p>
+										<p class="info">
+											楼主：<a class="J_user_card_show" data-uid="2378" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=2378">abcdfyh</a><span>
+2012-09-11</span>
+											最后回复：<a class="J_user_card_show" data-uid="2378" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=2378">abcdfyh</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3672&page=e" aria-label="最后回复时间">
+09-11 09:23</a></span>
+										</p>
+									</td>
+									<td class="num">
+										<span>回复<em>0</em></span>
+										<span>浏览<em>1</em></span>
+									</td>
+								</tr>
+								<tr>
+									<td class="author"><a class="J_user_card_show" data-uid="1341" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1341"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/13/1341_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="宁波在线" /></a></td>
+									<td class="subject">
+										<p class="title">
+											<span class="posts_icon"><i class="icon_topichot" title="热门帖"></i></span>
+											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=10" class="st">[体验说明]</a>
+											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=2943&fid=10" class="st" style="" title="9.0一测再测，新增BUG一大堆，产品经理呢？！能在9-12号推出前大清查一次BUG吗。">9.0一测再测，新增BUG一大堆，产品经理呢？！能在...</a>
+										</p>
+										<p class="info">
+											楼主：<a class="J_user_card_show" data-uid="1341" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1341">宁波在线</a><span>
+2012-08-31</span>
+											最后回复：<a class="J_user_card_show" data-uid="2379" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=2379">oldmoon</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=2943&page=e" aria-label="最后回复时间">
+09-11 09:20</a></span>
+										</p>
+									</td>
+									<td class="num">
+										<span>回复<em>66</em></span>
+										<span>浏览<em>1463</em></span>
+									</td>
+								</tr>
+								<tr>
+									<td class="author"><a class="J_user_card_show" data-uid="580" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=580"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/05/580_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="乐沙网" /></a></td>
+									<td class="subject">
+										<p class="title">
+											<span class="posts_icon"><i class="icon_topic" title="普通帖"></i></span>
+											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=10" class="st">[体验说明]</a>
+											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3671&fid=10" class="st" style="" title="论坛好像可以运行代码">论坛好像可以运行代码</a>
+										</p>
+										<p class="info">
+											楼主：<a class="J_user_card_show" data-uid="580" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=580">乐沙网</a><span>
+2012-09-11</span>
+											最后回复：<a class="J_user_card_show" data-uid="506" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=506">cabbage</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3671&page=e" aria-label="最后回复时间">
+09-11 09:08</a></span>
+										</p>
+									</td>
+									<td class="num">
+										<span>回复<em>1</em></span>
+										<span>浏览<em>25</em></span>
+									</td>
+								</tr>
+								<tr>
+									<td class="author"><a class="J_user_card_show" data-uid="393" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=393"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/03/393_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="adidea" /></a></td>
+									<td class="subject">
+										<p class="title">
+											<span class="posts_icon"><i class="icon_topichot" title="热门帖"></i></span>
+											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=13" class="st">[聊天灌水]</a>
+											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3354&fid=13" class="st" style="" title="phpwind9.0即将在9.12日发布beta版本">phpwind9.0即将在9.12日发布beta版本</a>
+										</p>
+										<p class="info">
+											楼主：<a class="J_user_card_show" data-uid="393" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=393">adidea</a><span>
+2012-09-05</span>
+											最后回复：<a class="J_user_card_show" data-uid="334" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=334">Bine</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3354&page=e" aria-label="最后回复时间">
+09-11 07:58</a></span>
+										</p>
+									</td>
+									<td class="num">
+										<span>回复<em>55</em></span>
+										<span>浏览<em>921</em></span>
+									</td>
+								</tr>
+								<tr>
+									<td class="author"><a class="J_user_card_show" data-uid="335" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=335"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/03/335_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="英雄之地" /></a></td>
+									<td class="subject">
+										<p class="title">
+											<span class="posts_icon"><i class="icon_topic" title="普通帖"></i></span>
+											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=12" class="st">[界面建议]</a>
+											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3670&fid=12" class="st" style="" title="新版如果不支持新浪微博登录，有些...">新版如果不支持新浪微博登录，有些...</a>
+										</p>
+										<p class="info">
+											楼主：<a class="J_user_card_show" data-uid="335" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=335">英雄之地</a><span>
+2012-09-11</span>
+											最后回复：<a class="J_user_card_show" data-uid="335" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=335">英雄之地</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3670&page=e" aria-label="最后回复时间">
+09-11 07:57</a></span>
+										</p>
+									</td>
+									<td class="num">
+										<span>回复<em>0</em></span>
+										<span>浏览<em>19</em></span>
+									</td>
+								</tr>
+								<tr>
+									<td class="author"><a class="J_user_card_show" data-uid="890" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=890"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/08/890_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="wangwei1686" /></a></td>
+									<td class="subject">
+										<p class="title">
+											<span class="posts_icon"><i class="icon_topic" title="普通帖"></i></span>
+											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=12" class="st">[界面建议]</a>
+											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=1349&fid=12" class="st" style="" title="关于论坛的【个人空间】，论坛第一，空间要排第二重要">关于论坛的【个人空间】，论坛第一，空间要排第二重要</a>
+										</p>
+										<p class="info">
+											楼主：<a class="J_user_card_show" data-uid="890" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=890">wangwei1686</a><span>
+2012-06-01</span>
+											最后回复：<a class="J_user_card_show" data-uid="1658" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1658">quante</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=1349&page=e" aria-label="最后回复时间">
+09-11 05:20</a></span>
+										</p>
+									</td>
+									<td class="num">
+										<span>回复<em>10</em></span>
+										<span>浏览<em>125</em></span>
+									</td>
+								</tr>
+								<tr>
+									<td class="author"><a class="J_user_card_show" data-uid="1667" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1667"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/16/1667_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="beyond" /></a></td>
+									<td class="subject">
+										<p class="title">
+											<span class="posts_icon"><i class="icon_topic" title="普通帖"></i></span>
+											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=12" class="st">[界面建议]</a>
+											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3668&fid=12" class="st" style="" title="１２３">１２３</a>
+										</p>
+										<p class="info">
+											楼主：<a class="J_user_card_show" data-uid="1667" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1667">beyond</a><span>
+2012-09-11</span>
+											最后回复：<a class="J_user_card_show" data-uid="1667" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1667">beyond</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3668&page=e" aria-label="最后回复时间">
+09-11 05:18</a></span>
+										</p>
+									</td>
+									<td class="num">
+										<span>回复<em>0</em></span>
+										<span>浏览<em>3</em></span>
+									</td>
+								</tr>
+								<tr>
+									<td class="author"><a class="J_user_card_show" data-uid="1667" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1667"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/16/1667_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="beyond" /></a></td>
+									<td class="subject">
+										<p class="title">
+											<span class="posts_icon"><i class="icon_topic" title="普通帖"></i></span>
+											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=12" class="st">[界面建议]</a>
+											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3667&fid=12" class="st" style="" title="１２３">１２３</a>
+										</p>
+										<p class="info">
+											楼主：<a class="J_user_card_show" data-uid="1667" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1667">beyond</a><span>
+2012-09-11</span>
+											最后回复：<a class="J_user_card_show" data-uid="1667" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1667">beyond</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3667&page=e" aria-label="最后回复时间">
+09-11 05:18</a></span>
+										</p>
+									</td>
+									<td class="num">
+										<span>回复<em>0</em></span>
+										<span>浏览<em>2</em></span>
+									</td>
+								</tr>
+								<tr>
+									<td class="author"><a class="J_user_card_show" data-uid="2372" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=2372"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/23/2372_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="ganjun" /></a></td>
+									<td class="subject">
+										<p class="title">
+											<span class="posts_icon"><i class="icon_topic" title="普通帖"></i></span>
+											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=12" class="st">[界面建议]</a>
+											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3663&fid=12" class="st" style="" title="不会玩这怎么看者不像论坛呢">不会玩这怎么看者不像论坛呢</a>
+										</p>
+										<p class="info">
+											楼主：<a class="J_user_card_show" data-uid="2372" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=2372">ganjun</a><span>
+2012-09-11</span>
+											最后回复：<a class="J_user_card_show" data-uid="1667" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1667">beyond</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3663&page=e" aria-label="最后回复时间">
+09-11 05:17</a></span>
+										</p>
+									</td>
+									<td class="num">
+										<span>回复<em>3</em></span>
+										<span>浏览<em>29</em></span>
+									</td>
+								</tr>
+								<tr>
+									<td class="author"><a class="J_user_card_show" data-uid="1658" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1658"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/16/1658_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="quante" /></a></td>
+									<td class="subject">
+										<p class="title">
+											<span class="posts_icon"><i class="icon_topic" title="普通帖"></i></span>
+											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=12" class="st">[界面建议]</a>
+											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3666&fid=12" class="st" style="" title="关注PHPWIND9移动设备UI相关">关注PHPWIND9移动设备UI相关</a>
+										</p>
+										<p class="info">
+											楼主：<a class="J_user_card_show" data-uid="1658" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1658">quante</a><span>
+2012-09-11</span>
+											最后回复：<a class="J_user_card_show" data-uid="1658" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1658">quante</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3666&page=e" aria-label="最后回复时间">
+09-11 05:14</a></span>
+										</p>
+									</td>
+									<td class="num">
+										<span>回复<em>0</em></span>
+										<span>浏览<em>21</em></span>
+									</td>
+								</tr>
+								<tr>
+									<td class="author"><a class="J_user_card_show" data-uid="811" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=811"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/08/811_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="wuyiming" /></a></td>
+									<td class="subject">
+										<p class="title">
+											<span class="posts_icon"><i class="icon_topic" title="普通帖"></i></span>
+											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=12" class="st">[界面建议]</a>
+											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=740&fid=12" class="st" style="" title="提个小建议，去掉博客功能">提个小建议，去掉博客功能</a>
+										</p>
+										<p class="info">
+											楼主：<a class="J_user_card_show" data-uid="811" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=811">wuyiming</a><span>
+2012-05-29</span>
+											最后回复：<a class="J_user_card_show" data-uid="1658" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1658">quante</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=740&page=e" aria-label="最后回复时间">
+09-11 05:05</a></span>
+										</p>
+									</td>
+									<td class="num">
+										<span>回复<em>12</em></span>
+										<span>浏览<em>97</em></span>
+									</td>
+								</tr>
+								<tr>
+									<td class="author"><a class="J_user_card_show" data-uid="2373" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=2373"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/23/2373_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="ttt111" /></a></td>
+									<td class="subject">
+										<p class="title">
+											<span class="posts_icon"><i class="icon_topic" title="普通帖"></i></span>
+											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=12" class="st">[界面建议]</a>
+											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3665&fid=12" class="st" style="" title="文档编辑器测试">文档编辑器测试</a>
+										</p>
+										<p class="info">
+											楼主：<a class="J_user_card_show" data-uid="2373" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=2373">ttt111</a><span>
+2012-09-11</span>
+											最后回复：<a class="J_user_card_show" data-uid="2373" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=2373">ttt111</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3665&page=e" aria-label="最后回复时间">
+09-11 04:40</a></span>
+										</p>
+									</td>
+									<td class="num">
+										<span>回复<em>0</em></span>
+										<span>浏览<em>10</em></span>
+									</td>
+								</tr>
+								<tr>
+									<td class="author"><a class="J_user_card_show" data-uid="786" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=786"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/07/786_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="www.isouxun.com" /></a></td>
+									<td class="subject">
+										<p class="title">
+											<span class="posts_icon"><i class="icon_topic" title="普通帖"></i></span>
+											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=13" class="st">[聊天灌水]</a>
+											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3655&fid=13" class="st" style="" title="做人要厚道：说喜欢P9的，还2天就发布了，请下载支持！">做人要厚道：说喜欢P9的，还2天就发布了，请下载支持...</a>
+										</p>
+										<p class="info">
+											楼主：<a class="J_user_card_show" data-uid="786" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=786">www.isouxun.com</a><span>
+2012-09-10</span>
+											最后回复：<a class="J_user_card_show" data-uid="1635" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1635">木马风云</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3655&page=e" aria-label="最后回复时间">
+09-11 00:27</a></span>
+										</p>
+									</td>
+									<td class="num">
+										<span>回复<em>7</em></span>
+										<span>浏览<em>69</em></span>
+									</td>
+								</tr>
+								<tr>
+									<td class="author"><a class="J_user_card_show" data-uid="1915" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1915"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/19/1915_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="村长707" /></a></td>
+									<td class="subject">
+										<p class="title">
+											<span class="posts_icon"><i class="icon_topic" title="普通帖"></i></span>
+											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=10" class="st">[体验说明]</a>
+											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3218&fid=10" class="st" style="" title="四五个月前看到的PW，到今天再看到他时，没有发现有什么变化的">四五个月前看到的PW，到今天再看到他时，没有发现有什...</a>
+										</p>
+										<p class="info">
+											楼主：<a class="J_user_card_show" data-uid="1915" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1915">村长707</a><span>
+2012-09-02</span>
+											最后回复：<a class="J_user_card_show" data-uid="1635" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1635">木马风云</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3218&page=e" aria-label="最后回复时间">
+09-11 00:23</a></span>
+										</p>
+									</td>
+									<td class="num">
+										<span>回复<em>18</em></span>
+										<span>浏览<em>203</em></span>
+									</td>
+								</tr>
+								</tbody>
+							</table>
+						</div>
+
+<div id="pagination" class="pagination"><ul><li class="disabled"><a href="javascript:void(0);">Total:123</a></li><li class="active"><a href="javascript:void(0);">1</a></li><a href="/needforbug/upload/index.php/ucenter/index?page=2" title="Page 2">2</a><a href="/needforbug/upload/index.php/ucenter/index?page=3" title="Page 3">3</a><a href="/needforbug/upload/index.php/ucenter/index?page=4" title="Page 4">4</a><a href="/needforbug/upload/index.php/ucenter/index?page=5" title="Page 5">5</a><a href="/needforbug/upload/index.php/ucenter/index?page=2" title="Next" >Next &#8250;</a><a href="/needforbug/upload/index.php/ucenter/index?page=9" title="Last" >Last &raquo;</a></ul></div>
+			</div>
+			<div class="span4">
+<!--{style}-->
+
+
+
+.group_sidebar_item .box_title{
+	padding:7px 15px;
+	border-bottom:1px solid #e8e8e8;
+	font-size:12px;
+	color:#666;
+}
+
+
+.tags_hot{
+	padding:15px 0;
+}
+.tags_hot h2{
+	font-size:14px;
+	margin-bottom:15px;
+}
+.tags_hot li{
+	float:left;
+	margin:0 5px 5px 0;
+}
+.tags_hot li a{
+	float:left;
+	line-height:24px;
+	height:24px;
+	display:block;
+	background:#f6f6f6;
+	padding:0 8px;
+	color:#333333;
+	text-decoration:none;
+	border-radius: 3px;
+	white-space:nowrap;
+}
+.tags_hot li a:hover{
+	background:#999999;
+	color:#fff;
+}
+li {
+    list-style: none outside none;
+}
+
+/*甯栧瓙鍒楄〃*/
+.titles {
+    word-wrap: break-word;
+}
+.titles li {
+    border-bottom: 1px dashed #CCCCCC;
+    color: #999999;
+    overflow: hidden;
+    padding: 6px 0;
+}
+.titles h3 {
+    color: #666666;
+    float: left;
+	font-size:12px;
+	margin:0;
+}
+.titles-r-grey {
+    color: #999999;
+    float: right;
+}
+.titles-b {
+    color: #999999;
+    overflow: hidden;
+    width: 100%;
+	margin:0;
+}
+.titles-b-l {
+    float: left;
+}
+.titles-b a {
+    color: #999999;
+}
+<!--{/style}-->
+
+			<div id="group_sidebar">
+			<div class="group_sidebar_item group_sidebar_login">
+		
+<div class="well" style="height:260px;">
+					<h3><!--<lang package='Template/Public'>-->用户登录<!--</lang>--></h3>
+					<form class="form-horizontal" method='post' name="login_form" id="login_form">
+						<label><div id="result" class="none"></div></label>
+						<p><label for="user_name"><!--<lang package='Template/Public'>-->用户名/E-mail<!--</lang>--></label>
+							<input class="span3" id="user_name" name="user_name" type="text" value="">
+						</p>
+						<p><label for="user_name"><!--<lang package='Template/Public'>-->密码<!--</lang>--></label>
+							<input class="span3" id="user_password" name="user_password" type="password" value="">
+						</p>
+						<p><label class="checkbox">
+								<input id="remember_me" type="checkbox" name="remember_me" value="1" onclick="rememberme();"/><!--<lang package='__COMMON_LANG__@Template/Common'>-->记住我<!--</lang>-->
+								<span class="pipe">|</span>
+								<a href="<!--{:Dyhb::U('home://getpassword/index')}-->" class="resetpassword-link"><!--<lang package='__COMMON_LANG__@Template/Common'>-->忘记密码?<!--</lang>--></a>
+							</label>
+						</p>
+						<div id="remember_time" class="none">
+							<label for="remember_time"><!--<lang package='__COMMON_LANG__@Template/Common'>-->COOKIE有效期<!--</lang>--> <span class="pipe">|</span> <a href="javascript:void(0);" onclick="rememberme(1);"><i class="icon-remove"></i>&nbsp;<!--<lang package='__COMMON_LANG__@Template/Common'>-->关闭<!--</lang>--></a></label>
+							<select name="remember_time">
+								<option value="0" <!--{if $nRememberTime==0}-->selected<!--{/if}-->><!--<lang package='__COMMON_LANG__@Common'>-->及时<!--</lang>--></option>
+								<option value="3600" <!--{if $nRememberTime==3600}-->selected<!--{/if}-->><!--<lang package='__COMMON_LANG__@Common'>-->一小时<!--</lang>--></option>
+								<option value="86400" <!--{if $nRememberTime==86400}-->selected<!--{/if}-->><!--<lang package='__COMMON_LANG__@Common'>-->一天<!--</lang>--></option>
+								<option value="604800" <!--{if $nRememberTime==604800}-->selected<!--{/if}-->><!--<lang package='__COMMON_LANG__@Common'>-->一星期<!--</lang>--></option>
+								<option value="2592000" <!--{if $nRememberTime==2592000}-->selected<!--{/if}-->><!--<lang package='__COMMON_LANG__@Common'>-->一月<!--</lang>--></option>
+								<option value="31536000" <!--{if $nRememberTime==31536000}-->selected<!--{/if}-->><!--<lang package='__COMMON_LANG__@Common'>-->一年<!--</lang>--></option>
+							</select>
+							<p class="help-block">
+								<i class=" icon-info-sign"></i>&nbsp;<!--<lang package='__COMMON_LANG__@Template/Common'>-->注意在网吧等共同场所请不要记住我<!--</lang>-->
+							</p>
+						</div>
+						<!--{if $nDisplaySeccode==1}-->
+						<label for="user_name"><!--<lang package='__COMMON_LANG__@Template/Common'>-->验证码<!--</lang>--></label>
+							<input class="input-small" name="seccode" id="seccode" type="text" value="">
+							<p class="help-block">
+								<span id="seccodeImage"><img style="cursor:pointer" onclick="updateSeccode()" src="<!--{:Dyhb::U('home://public/seccode')}-->" /></span>
+							</p>
+						<!--{/if}-->
+						<div class="space"></div>
+						<p><input type="hidden" name="ajax" value="1">
+							<button type="button" class="btn btn-success" onClick="Dyhb.AjaxSubmit('login_form','<!--{:Dyhb::U('home://public/check_login')}-->','result',login_handle);"><!--<lang package='__COMMON_LANG__@Template/Common'>-->登录<!--</lang>--></button>&nbsp;
+							<a href="<!--{:Dyhb::U('home://public/register')}-->"><!--<lang package='__COMMON_LANG__@Template/Common'>-->新用户注册<!--</lang>--></a>
+							<span class="pipe">|</span>
+							<a href="<!--{:Dyhb::U('home://public/clear')}-->"><!--<lang package='__COMMON_LANG__@Template/Common'>-->清除痕迹<!--</lang>--></a>
+							<!--{if count($arrBindeds)>=3}-->
+							<span class="pipe">|</span>
+							<a href="javascript:void(0);" onclick="showSocialogin();"><!--<lang package='__COMMON_LANG__@Template/Common'>-->社交帐号<!--</lang>--></a>
+							<!--{/if}-->
+						</p>
+					</form>
+					<hr/>
+					<div class="socialogin_box">
+						<div class="socialogin_content" style="margin-left:-20px;">
+							<!--<foreach for=arrBindeds value=arrBinded>-->
+							<!--{if $i==3}-->
+							<div id="socailogin_more" class="none">
+							<!--{/if}-->
+							<a style="border-bottom: none;" href="javascript:void(0);" onclick="sociaWinopen('<!--{:Dyhb::U('home://public/socia_login?vendor='.$arrBinded['sociatype_identifier'])}-->');"><img style="margin:0px 3px 5px 3px; vertical-align: middle;" src="<!--{$arrBinded['sociatype_logo']}-->" /></a>
+							<!--{if $i>=3 && $i==count($arrBindeds)}-->
+							</div>
+							<!--{/if}-->
+							<!--</foreach>-->
+						</div>
+					</div>
+
+	</div>
+	<div class="group_sidebar_item">
+			<h2 class="box_title">热门帖子</h2>
+			<ul class="titles">
+<li>
+<h3><a href="#" target="_blank">sdfsdfds意见反馈集中贴</a></h3>
+<span class="titles-r-grey">290</span>
+<p class="titles-b">
+<span class="titles-b-l">来自：<a title="dfsfdsf" target="_blank" href="#">dfsfsdf</a>&nbsp;小组</span>
+</p>
+</li>
+<li>
+<h3><a href="#" target="_blank">sdfsdf意见反馈集中贴</a></h3>
+<span class="titles-r-grey">290</span>
+<p class="titles-b">
+<span class="titles-b-l">来自：<a title="sdfsdfsdf" target="_blank" href="#">fsdfsdf</a>&nbsp;小组</span>
+</p>
+</li>
+</ul>
+
+		</div>
+<div class="group_sidebar_item">
+	<h2 class="box_title">热门标签</h2>
+	<div class="tags_hot">
+	<ul class="cc">
+		<li><a href="http://tiyan.phpwind.net/nextwind/index.php?m=tag&a=view&id=32" class="title">测试</a></li>
+		<li><a href="http://tiyan.phpwind.net/nextwind/index.php?m=tag&a=view&id=237" class="title">演示话题1</a></li>
+		<li><a href="http://tiyan.phpwind.net/nextwind/index.php?m=tag&a=view&id=238" class="title">演示话题2</a></li>
+		<li><a href="http://tiyan.phpwind.net/nextwind/index.php?m=tag&a=view&id=254" class="title">PHPWInd 9.0</a></li>
+		<li><a href="http://tiyan.phpwind.net/nextwind/index.php?m=tag&a=view&id=263" class="title">苹果iphone4s</a></li>
+		<li><a href="http://tiyan.phpwind.net/nextwind/index.php?m=tag&a=view&id=268" class="title">减肥，我坚持每天记录自己的体重</a></li>
+		<li><a href="http://tiyan.phpwind.net/nextwind/index.php?m=tag&a=view&id=289" class="title">解放思想</a></li>
+		<li><a href="http://tiyan.phpwind.net/nextwind/index.php?m=tag&a=view&id=295" class="title">8.7升级包会有吗</a></li>
+		<li><a href="http://tiyan.phpwind.net/nextwind/index.php?m=tag&a=view&id=297" class="title">测试一下话题</a></li>
+		<li><a href="http://tiyan.phpwind.net/nextwind/index.php?m=tag&a=view&id=298" class="title">灌水</a></li>
+	</ul>
+	</div>
+</div>
+			</div>
 			</div>
 		</div>
 
