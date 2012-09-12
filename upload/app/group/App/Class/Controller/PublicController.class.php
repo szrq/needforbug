@@ -21,4 +21,8 @@ class PublicController extends InitController{
 		$this->display('public+group');
 	}
 
+	public function add(){
+		$this->display('public+add');
+	}
+
 }
