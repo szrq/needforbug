@@ -1,7 +1,7 @@
 <?php
 /** DoYouHaoBaby Framework Lang File, Do not to modify it! */
 return array(
-'954e07426aa5566ddc24d43d99ae883b'=>"发布帖子成功",
+'ebe172c2fb5eabcec395124d6d99ab96'=>"你没有登录",
 )
 
 ?>

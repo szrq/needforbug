@@ -6,6 +6,19 @@
 $(function(){
 	editor=loadEditorThin('grouptopic_content');
 });
+
+function grouptopicSubmit(){
+	$("#submit_button").attr("disabled", "disabled");
+	$("#submit_button").val( 'add...' );
+	$("#grouptopic_content").val(editor.html());
+	Dyhb.AjaxSubmit('grouptopic_form','<!--{:Dyhb::U('group://grouptopic/add_topic')}-->','',function(data,status){
+		$("#submit_button").attr("disabled", false);
+		$("#submit_button").val( '发布帖子' );
+		if(status==1){
+			alert('hello');
+		}
+	});
+}
 <!--{/script}-->
 
 <!--{style}-->
@@ -24,21 +37,37 @@ $(function(){
 					<li class="active"><a href="javascript:void(0);">发布帖子</a></li>
 				</ul>
 			</div>
-			<form class="form-horizontal2" method='post' name="grouptopic_form" id="grouptopic_form" enctype="multipart/form-data">
+			<form method='post' name="grouptopic_form" id="grouptopic_form" enctype="multipart/form-data">
 				<div class="span10">
 					<label>帖子标题</label>
-					<input type="text" class="span8" placeholder="请输入标题">
+					<input type="text" name="grouptopic_title" id="grouptopic_title" class="span8" placeholder="请输入标题">
 					<span></span>
 					<label>帖子内容</label>
 					<textarea name="grouptopic_content" id="grouptopic_content" style="height:350px;width:100%;padding:0;margin:0;"></textarea>
 					<div class="grouptopic_tabs">
 						<ul id="grouptopic_tabcontent" class="nav nav-tabs">
-							<li class="active"><a href="#readperm" data-toggle="tab">阅读权限</a></li>
+							<li class="active"><a href="#grouptopiccategory" data-toggle="tab">帖子分类</a></li>
+							<li><a href="#readperm" data-toggle="tab">阅读权限</a></li>
 							<li><a href="#price" data-toggle="tab">售价</a></li>
 							<li><a href="#tags" data-toggle="tab">帖子标签</a></li>
 						</ul>
 						<div id="grouptopic_tabcontent" class="tab-content">
 							<div class="tab-pane fade in active alert alert-success" id="readperm">
+								<table cellspacing="0" cellpadding="0">
+									<tr>
+										<td class="grouptopictabs_title">帖子分类&nbsp;</td>
+										<td><select name="grouptopiccategory_id" id="grouptopiccategory_id">
+												<option value="0">默认未分类</option>
+												<!--<foreach for=arrGrouptopiccategorys value=oGrouptopiccategory>-->
+												<option value="<!--{$oGrouptopiccategory['grouptopiccategory_id']}-->"><!--{$oGrouptopiccategory['grouptopiccategory_name']}--></option>
+												<!--</foreach>-->
+											</select>&nbsp;
+											<span class="grouptopictabs_description">不选择为默认未分类</span>
+										</td>
+									</tr>
+								</table>
+							</div>
+							<div class="tab-pane fade alert alert-success" id="readperm">
 								<table cellspacing="0" cellpadding="0">
 									<tr>
 										<td class="grouptopictabs_title">阅读权限&nbsp;</td>
@@ -121,7 +150,8 @@ $(function(){
 				<div class="span12" style="margin-top:-20px;">
 					<div class="form-actions">
 						<input type="hidden" name="ajax" value="1">
-						<button type="button" class="btn btn-success" onClick="Dyhb.AjaxSubmit('grouptopic_form','<!--{:Dyhb::U('home://public/check_login')}-->','result',login_handle);">发表帖子</button>&nbsp;
+						<input type="hidden" name="group_id" value="<!--{$nGroupid}-->">
+						<button type="button" name="submit_button" id="submit_button" class="btn btn-success" onClick="grouptopicSubmit();">发表帖子</button>&nbsp;
 						<a href="<!--{:Dyhb::U('group://public/index')}-->" class="btn"><!--<lang package='__COMMON_LANG__@Template/Common'>-->取消<!--</lang>--></a>
 					</div>
 				</div>

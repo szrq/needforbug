@@ -15,6 +15,7 @@ class GrouptopicModel extends CommonModel{
 			'attr_protected'=>'grouptopic_id',
 			'autofill'=>array(
 				array('user_id','userId','create','callback'),
+				array('grouptopic_username','userName','create','callback'),
 			),
 			'check'=>array(
 			),
@@ -37,6 +38,12 @@ class GrouptopicModel extends CommonModel{
 		$nUserId=$GLOBALS['___login___']['user_id'];
 
 		return $nUserId>0?$nUserId:0;
+	}	
+	
+	protected function userName(){
+		$sUserName=$GLOBALS['___login___']['user_name'];
+
+		return $sUserName?$sUserName:Dyhb::L('佚名','Model/Grouptopic');
 	}
 
 }
