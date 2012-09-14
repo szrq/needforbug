@@ -4,7 +4,7 @@
 /** 登录回调 */
 function login_handle(data,status){
 	if(status==1){
-		sUrl=data.url;
+		sUrl=D.U('group://public/index');
 		setTimeout("window.location=sUrl;",1000);
 	}
 }
