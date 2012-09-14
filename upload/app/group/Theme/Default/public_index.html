@@ -618,12 +618,116 @@ li {
 .titles-b a {
     color: #999999;
 }
+
+.group_sidebar_userinfo{
+	padding:15px 0 0;
+}
+.group_sidebar_userinfo dl{
+	overflow:hidden;
+	margin-bottom:10px;
+	padding:0 15px;
+}
+.group_sidebar_userinfo dt{
+	float:left;
+	width:72px;
+	margin-right:18px;
+	position:relative;
+}
+
+.group_sidebar_userinfo dt img{
+	vertical-align:top;
+}
+.group_sidebar_userinfo dt a span,
+.group_sidebar_userinfo dt a b{
+	display:none;
+	height:20px;
+	width:100%;
+	position:absolute;
+	left:0;
+	bottom:0;
+}
+.group_sidebar_userinfo dt a b{
+	filter:alpha(opacity=60);-moz-opacity:0.6;opacity:0.6;
+	background:#000;
+}
+.group_sidebar_userinfo dt a span{
+	text-align:center;
+	color:#fff;
+}
+.group_sidebar_userinfo dt a:hover span,
+.group_sidebar_userinfo dt a:hover b{
+	display:block;
+}
+
+.group_sidebar_userinfo dd{
+	overflow:hidden;
+}
+
+.group_sidebar_userinfo .name{
+	margin-bottom:10px;
+	line-height:normal;
+}
+.group_sidebar_userinfo .name a{
+	font-size:14px;
+	font-weight:700;
+	color:#333;
+}
+
+.group_sidebar_userinfo .level{
+	color:#666;
+	margin-bottom:10px;
+}
+.group_sidebar_userinfo .level a{
+	color:#666;
+}
+
+
+.group_sidebar_userinfo .num{
+	padding:0 0 15px 5px;
+	height:40px;
+}
+.group_sidebar_userinfo .num ul{
+	float:left;
+}
+.group_sidebar_userinfo .num li{
+	width:50px;
+	height:45px;
+	padding-left:10px;
+	float:left;
+	border-right:1px solid #dde9f0;
+}
+.group_sidebar_userinfo .num li.tail{
+	border:0 none;
+}
+.group_sidebar_userinfo .num em{
+	display:block;
+	color:#666;
+}
+.group_sidebar_userinfo .num span{
+	font-size:18px;
+	line-height:25px;
+	font-weight:700;
+}
+.group_sidebar_userinfo .num a:hover{
+	text-decoration:none;
+}
+.cc{
+	zoom:1;
+}
+.cc:after{
+	content:'\20';
+	display:block;
+	height:0;
+	clear:both;
+	visibility: hidden;
+}
+
 <!--{/style}-->
 
 			<div id="group_sidebar">
-			<div class="group_sidebar_item group_sidebar_login">
-		
-<div class="well" style="height:260px;">
+			<div class="group_sidebar_item <!--{if $GLOBALS['___login___']===FALSE}-->group_sidebar_login<!--{d*else}-->group_sidebar_userinfo<!--{/if}-->">
+				<!--{if $GLOBALS['___login___']===FALSE}-->
+				<div class="well" style="height:260px;">
 					<h3><!--<lang package='Template/Public'>-->用户登录<!--</lang>--></h3>
 					<form class="form-horizontal" method='post' name="login_form" id="login_form">
 						<label><div id="result" class="none"></div></label>
@@ -686,8 +790,26 @@ li {
 							<!--</foreach>-->
 						</div>
 					</div>
-
-	</div>
+				</div>
+				<!--{d*else}-->
+				<dl class="cc">
+					<dt><a href="http://tiyan.phpwind.net/nextwind/index.php?m=profile&c=avatar&_left=avatar"><img class="J_avatar" src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/25/2553_middle.jpg" data-type="middle" width="72" height="72" alt="doyouhaobaby" /><b></b><span>修改头像</span></a>
+					</dt>
+					<dd>
+						<p class="name"><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=2553" class="username current">doyouhaobaby</a></p>
+						<p class="level">头衔：<a href="http://tiyan.phpwind.net/nextwind/index.php?m=profile&c=right&_left=right">平民</a></p>
+						<p class="level_img"><img src="http://tiyan.phpwind.net/nextwind/res/images/level/21.gif" alt="平民" /></p>
+					</dd>
+				</dl>
+				<div class="num">
+					<ul class="cc">
+						<li><a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=follow"><span>0</span><em>关注</em></a></li>
+						<li><a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=fans"><span>10</span><em>粉丝</em></a></li>
+						<li class="tail"><a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=article"><span>5</span><em>帖子</em></a></li>
+					</ul>
+				</div>
+				<!--{/if}-->
+			</div>
 	<div class="group_sidebar_item">
 			<h2 class="box_title">热门帖子</h2>
 			<ul class="titles">
