@@ -4,10 +4,6 @@
 
 级别设置 = 正在做
 
-前台查看新鲜事
-
-前台新鲜事评论
-
 用户提醒
 
 防灌水相关功能开发，EMAIL验证等等
@@ -15,9 +11,3 @@
 在线时间功能开发
 
 保存测试邮件模板和恢复测试模板
-
-新鲜事评论用户审核
-
-对file_exits采用is_file来判断，因为以前没有注意到将它视为了文件判断方式，但是它确实文件夹判断方式和文件都可以，这样可能造成一些意想不到的错误。所以，我们后面将会修正这个问题。
-
-http://localhost/needforbug/upload/index.php?app=home&c=public&a=socia_callback&vendor=qq&code=4AB283D8556CBEC871E2D4F3D5C74678&state=919c01eacfa2f664a7b54d446c56aa3b

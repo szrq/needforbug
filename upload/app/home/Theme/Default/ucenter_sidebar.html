@@ -6,7 +6,7 @@ body{height:100%;overflow:auto;}
 <![endif]-->
 
 			<div class="span3">
-				<div style="padding: 8px 0;">
+				<div class="well" style="padding: 8px 0;">
 					<div class="userinfo">
 						<div class="userpic">
 							<span id="my-face">
@@ -23,12 +23,17 @@ body{height:100%;overflow:auto;}
 								<!--{/if}--></h6>
 							<p><!--<lang package='Template/Ucenter'>-->积分<!--</lang>-->&nbsp;<a href="<!--{:Dyhb::U('home://spaceadmin/rating')}-->"><!--{$GLOBALS['___login___']['usercount']['usercount_extendcredit1']}--></a></p>
 							<p><!--<lang package='Template/Ucenter'>-->金币<!--</lang>-->&nbsp;<a href="<!--{:Dyhb::U('home://spaceadmin/rating')}-->"><!--{$GLOBALS['___login___']['usercount']['usercount_extendcredit2']}--></a></p>
-						 </div>
+						</div>
+						<div class="user_follow">
+							<span><a href="#"><strong><!--{$GLOBALS['___login___']['usercount']['usercount_friends']}--></strong><br />关注</a></span>
+							<span><a href="#"><strong><!--{$GLOBALS['___login___']['usercount']['usercount_fans']}--></strong><br />粉丝</a></span>
+							<span><a href="#"><strong id="homefresh_count"><!--{$GLOBALS['_cache_']['site']['homefresh']}--></strong><br />新鲜事</a></span>
+						</div>
 					</div>
 
 					<ul class="nav nav-list">
 						<li class="nav-header"><!--<lang package='Template/Ucenter'>-->我的地盘<!--</lang>--></li>
-						<li><a href="<!--{:Dyhb::U('home://spaceadmin/base')}-->"><i class="icon-cog"></i>&nbsp;<!--<lang package='Template/Ucenter'>-->修改资料<!--</lang>--></a></li>
+						<li><a href="<!--{:Dyhb::U('home://spaceadmin/index')}-->"><i class="icon-cog"></i>&nbsp;<!--<lang package='Template/Ucenter'>-->修改资料<!--</lang>--></a></li>
 						<li><a href="<!--{:Dyhb::U('home://spaceadmin/tag')}-->"><i class="icon-tags"></i>&nbsp;<!--<lang package='Template/Ucenter'>-->我的标签<!--</lang>--></a></li>
 						<li class="nav-header"><!--<lang package='Template/Ucenter'>-->我的成长<!--</lang>--></li>
 						<li><a href="<!--{:Dyhb::U('home://friend/index')}-->"><i class="icon-user"></i>&nbsp;<!--<lang package='Template/Ucenter'>-->我的好友<!--</lang>--></a></li>

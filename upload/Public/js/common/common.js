@@ -373,3 +373,17 @@ function setExtendstyle(sExtendstyle,sCss){
 		}
 	});
 }
+
+/** 登陆相关 */
+function rememberme(close){
+	var sStyle='block';
+	if(close==1){
+		sStyle='none';
+	}
+
+	document.getElementById('remember_time').style.display=sStyle;
+}
+
+function showSocialogin(){
+	$('#socailogin_more').toggle('fast');
+}

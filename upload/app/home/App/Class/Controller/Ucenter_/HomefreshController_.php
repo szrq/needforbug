@@ -7,6 +7,8 @@
 class HomefreshController extends InitController{
 
 	public function index(){
+		Core_Extend::loadCache('site');
+		
 		$arrWhere=array();
 		
 		$sType=trim(G::getGpc('type','G'));
@@ -181,6 +183,8 @@ class HomefreshController extends InitController{
 			G::urlGoTo($result);
 			exit();
 		}
+
+		Core_Extend::loadCache('site');
 
 		$oHomefresh->homefresh_viewnum=$oHomefresh->homefresh_viewnum+1;
 		$oHomefresh->save(0,'update');

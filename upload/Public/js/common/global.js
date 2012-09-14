@@ -146,6 +146,7 @@ function showDistrict(sContainer,oElems,nTotallevel,nChangelevel,sContainertype)
 function loadEditor(name){
 	var editor=KindEditor.create('textarea[name="'+name+'"]',{
 		langType:sEditorLang,
+		resizeType:1,
 		allowPreviewEmoticons:false,
 		allowImageUpload:false,
 		allowFlashUpload:false,
@@ -163,6 +164,7 @@ function loadEditor(name){
 function loadEditorThin(name){
 	var editor=KindEditor.create('textarea[name="'+name+'"]',{
 		langType:sEditorLang,
+		resizeType:1,
 		allowPreviewEmoticons:false,
 		allowImageUpload:false,
 		allowFlashUpload:false,

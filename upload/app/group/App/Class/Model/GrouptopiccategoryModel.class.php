@@ -41,4 +41,8 @@ class GrouptopiccategoryModel extends CommonModel{
 		$_POST['grouptopiccategory_name']=G::html($_POST['grouptopiccategory_name']);
 	}
 
+	public function grouptopiccategoryByGroupid($nGroupid){
+		return self::F('group_id=?',$nGroupid)->order('grouptopiccategory_sort DESC')->getAll();
+	}
+
 }

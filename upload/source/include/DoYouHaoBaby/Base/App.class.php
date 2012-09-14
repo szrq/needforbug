@@ -194,6 +194,9 @@ class App{
 			$sLangSet=ucfirst(strtolower($_GET['l']));
 		}elseif($sCookieName){
 			$sLangSet=Dyhb::cookie($sCookieName);
+			if(empty($sLangSet)){
+				$sLangSet=ucfirst(strtolower($GLOBALS['_commonConfig_']['LANG']));
+			}
 		}elseif($GLOBALS['_commonConfig_']['AUTO_ACCEPT_LANGUAGE'] && isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])){
 			preg_match('/^([a-z\-]+)/i', $_SERVER['HTTP_ACCEPT_LANGUAGE'],$arrMatches);
 			$sLangSet=ucfirst(strtolower($arrMatches[1]));

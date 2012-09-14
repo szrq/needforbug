@@ -10,7 +10,7 @@ class InitController extends Controller{
 		parent::init__();
 
 		// 应用配置
-		Core_Extend::loadCache('home_option');
+		Core_Extend::loadCache('group_option');
 
 		//前端初始化
 		Core_Extend::initFront();
