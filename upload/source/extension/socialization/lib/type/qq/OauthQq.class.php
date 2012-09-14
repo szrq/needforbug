@@ -16,9 +16,6 @@ class OauthQq extends Oauth{
 			"&state=".$sState.
 			"&scope=".$sScope;
 
-		// 标识QQ登录
-		Dyhb::cookie('SOCIA_LOGIN',1);
-
 		G::urlGoTo($sLoginurl);
 	}
 

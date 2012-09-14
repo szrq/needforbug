@@ -37,11 +37,11 @@ class VendorWeibo extends Vendor{
 			$arrKeys['redirect_uri']=$this->_arrConfig['sociatype_callback'];
 			
 			try{
-				$sToken=$this->_oOauth->getAccessToken('code',$arrKeys);
+				$arrToken=$this->_oOauth->getAccessToken('code',$arrKeys);
 
-				if(isset($sToken['error_code']) && $sToken['error_code']>0){
-					$sErrorMessage="<h5>Error:</h5>".$sToken['error_code'];
-					$sErrorMessage.="<h5>Msg :</h5>".$sToken['error'];
+				if(isset($arrToken['error_code']) && $arrToken['error_code']>0){
+					$sErrorMessage="<h5>Error:</h5>".$arrToken['error_code'];
+					$sErrorMessage.="<h5>Msg :</h5>".$arrToken['error'];
 
 					$this->setErrorMessage($sErrorMessage);
 					return false;
@@ -52,9 +52,9 @@ class VendorWeibo extends Vendor{
 			}
 		}
 
-		if ($sToken) {
-			Dyhb::cookie("_socia_access_token_",$sToken);
-			Dyhb::cookie('_socia_weibojs_'.$this->_oOauth->client_id,http_build_query($sToken));
+		if($arrToken){
+			Dyhb::cookie("_socia_access_token_",$arrToken);
+			Dyhb::cookie('weibojs_'.$this->_oOauth->client_id,http_build_query($arrToken));
 		}
 	}
 
@@ -64,7 +64,9 @@ class VendorWeibo extends Vendor{
 		}
 		
 		try{
-			$oClient=new SaeTClientV2($this->_arrConfig['sociatype_appid'],$this->_arrConfig['sociatype_appkey'],Dyhb::cookie("_socia_access_token_"));
+			$arrToken=Dyhb::cookie("_socia_access_token_");
+
+			$oClient=new SaeTClientV2($this->_arrConfig['sociatype_appid'],$this->_arrConfig['sociatype_appkey'],$arrToken['access_token']);
 			$ms=$oClient->home_timeline();
 			$arrUidget=$oClient->get_uid();
 
@@ -79,7 +81,7 @@ class VendorWeibo extends Vendor{
 			$nUid=$arrUidget['uid'];
 			$arrUserMessage=$oClient->show_user_by_id($nUid);
 
-			return $arrUser;
+			return $arrUserMessage;
 		}catch(OAuthException $e){
 			$this->setErrorMessage($e->getMessage());
 			return false;
@@ -95,25 +97,25 @@ class VendorWeibo extends Vendor{
 	}
 
 	public function showUser($keys=array()){
-		$arrQquser=$this->getUserInfo($this->_sAppid);
+		$arrWeibouser=$this->getUserInfo($this->_sAppid);
 
-		if($arrQquser && $arrQquser['ret']==0){
+		if($arrWeibouser && $arrWeibouser['id']){
 			$arrKeys=Socia::getKeys();
 
 			$arrSaveData=array();
 			$arrSaveData['sociauser_appid']=$this->_sAppid;
-			$arrSaveData['sociauser_openid']=Dyhb::cookie('_socia_openid_');
+			$arrSaveData['sociauser_openid']=$arrWeibouser['id'];
 			$arrSaveData['sociauser_vendor']=$this->_sVendor;
 			$arrSaveData['sociauser_keys']=$this->_sSecid;
-			$arrSaveData['sociauser_gender']=$arrQquser['gender'];
-			$arrSaveData['sociauser_name']=$arrQquser['nickname'];
-			$arrSaveData['sociauser_nikename']=$arrQquser['nickname'];
-			$arrSaveData['sociauser_desc']=$arrQquser['msg'];
-			$arrSaveData['sociauser_img']=$arrQquser['figureurl'];
-			$arrSaveData['sociauser_img1']=$arrQquser['figureurl_1'];
-			$arrSaveData['sociauser_img2']=$arrQquser['figureurl_2'];
-			$arrSaveData['sociauser_vip']=$arrQquser['vip'];
-			$arrSaveData['sociauser_level']=$arrQquser['level'];
+			$arrSaveData['sociauser_gender']=$arrWeibouser['gender']=='m'?'男':'女';
+			$arrSaveData['sociauser_name']=$arrWeibouser['name'];
+			$arrSaveData['sociauser_nikename']=$arrWeibouser['screen_name'];
+			$arrSaveData['sociauser_desc']=$arrWeibouser['description'];
+			$arrSaveData['sociauser_img']=$arrWeibouser['profile_image_url'];
+			$arrSaveData['sociauser_img1']=$arrWeibouser['avatar_large'];
+			$arrSaveData['sociauser_img2']=$arrWeibouser['avatar_large'];
+			$arrSaveData['sociauser_vip']='0';
+			$arrSaveData['sociauser_level']='0';
 			
 			return $arrSaveData;
 		}
