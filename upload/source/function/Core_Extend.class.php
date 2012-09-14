@@ -291,10 +291,9 @@ class Core_Extend{
 		}
 	}
 
-	static public function includeFile($sFileName,$sApp=null){
+	static public function includeFile($sFileName,$sApp=null,$sType='_.php'){
 		if(!empty($sApp)){
-			$sIncludeFile='/app/'.$sApp.'/App/Class/Extension/'.$sFileName;
-			$sType='_.php';
+			$sIncludeFile='/app/'.$sApp.'/App/Class/'.($sType=='_.php'?'Extendsion/':'').$sFileName;
 		}else{
 			$sIncludeFile='/source/'.$sFileName;
 			$sType='.class.php';
@@ -734,7 +733,12 @@ NEEDFORBUG;
 
 			$sCssCurScripts=$GLOBALS['_curscript_'];
 			$sCssCurScripts=preg_replace(array('/\s*([,;:\{\}])\s*/','/[\t\n\r]/','/\/\*.+?\*\//'),array('\\1','',''),$sCssCurScripts);
-			if(!file_put_contents($sStyleCachepath.'/scriptstyle_'.APP_NAME.'_'.CURSCRIPT.'.css',stripslashes($sCssCurScripts))){
+			$sCssCurScripts=trim(stripslashes($sCssCurScripts));
+			if($sCssCurScripts==''){
+				$sCssCurScripts=' ';
+			}
+
+			if(!file_put_contents($sStyleCachepath.'/scriptstyle_'.APP_NAME.'_'.CURSCRIPT.'.css',$sCssCurScripts)){
 				Dyhb::E(Dyhb::L('无法写入缓存文件,请检查缓存目录 %s 的权限是否为0777','__COMMON_LANG__@Function/Cache_Extend',null,$sStyleCachepath));
 			}
 		}
@@ -785,7 +789,7 @@ NEEDFORBUG;
 	}
 	
 	static public function cssVarTags($sCurScript,$sContent){
-		$GLOBALS['_curscript_'].=in_array(APP_NAME.'::'.CURSCRIPT,Dyhb::normalize(explode(',',trim($sCurScript))))?$sContent:'';
+		$GLOBALS['_curscript_'].=defined('CURSCRIPT_FORCE') || in_array(APP_NAME.'::'.CURSCRIPT,Dyhb::normalize(explode(',',trim($sCurScript))))?$sContent:'';
 	}
 
 	static public function getStyleId($nId=0){
@@ -814,6 +818,11 @@ NEEDFORBUG;
 		foreach($arrModulecachelist as $sKey=>$sCache){
 			$arrCaches=explode(',',$sCache);
 			foreach($arrCaches as $sValue){
+				if(strpos($sValue,'@')===0){
+					define('CURSCRIPT_FORCE',TRUE);
+					$sValue=ltrim($sValue,'@');
+				}
+				
 				if(strpos($sValue,'::') && MODULE_NAME.'::'.ACTION_NAME==$sValue){
 					define('CURSCRIPT',$sKey);
 					continue;
