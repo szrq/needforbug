@@ -145,6 +145,10 @@ class LoginController extends Controller{
 			$GLOBALS['___login___']=false;
 
 			Dyhb::cookie('SOCIA_LOGIN',NULL,-1);
+			Dyhb::cookie('SOCIA_LOGIN_TYPE',NULL,-1);
+			Dyhb::cookie("_socia_access_token_",NULL,-1);
+			Dyhb::cookie('_socia_openid_',NULL,-1);
+			Dyhb::cookie('_socia_state_',NULL,-1);
 	
 			$this->assign("__JumpUrl__",Dyhb::U('home://public/login'));
 			$this->S(Dyhb::L('登出成功','Controller/Public'));

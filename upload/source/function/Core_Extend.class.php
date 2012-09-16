@@ -23,12 +23,12 @@ class Core_Extend{
 			$GLOBALS['___login___']['socia_login']=false;
 
 			// 如果用户使用社会化帐号直接登录
-			if(Dyhb::cookie('SOCIA_LOGIN')==1){
+			if(Dyhb::cookie('SOCIA_LOGIN')==1 && Dyhb::cookie('SOCIA_LOGIN_TYPE')){
 				if(!Dyhb::classExists('SociauserModel')){
 					require_once(NEEDFORBUG_PATH.'/source/extension/socialization/lib/mvc/SociauserModel.class.php');
 				}
 
-				$arrSociauser=SociauserModel::F('user_id=?',$arrUserData['user_id'])->asArray()->getOne();
+				$arrSociauser=SociauserModel::F('user_id=? AND sociauser_vendor=?',$arrUserData['user_id'],Dyhb::cookie('SOCIA_LOGIN_TYPE'))->asArray()->getOne();
 				if($arrSociauser){
 					$arrSociauser['logo']=__ROOT__.'/source/extension/socialization/static/images/'.$arrSociauser['sociauser_vendor'].'/'.$arrSociauser['sociauser_vendor'].'.gif';
 					

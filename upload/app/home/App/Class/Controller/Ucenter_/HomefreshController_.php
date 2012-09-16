@@ -153,6 +153,9 @@ class HomefreshController extends InitController{
 			$arrHomefreshData['url']=Dyhb::U('home://fresh@?id='.$oHomefresh['homefresh_id']);
 
 			$this->cache_site_();
+
+			Core_Extend::loadCache('site');
+			$arrHomefreshData['homefresh_num']=$GLOBALS['_cache_']['site']['homefresh'];
 			
 			$this->A($arrHomefreshData,Dyhb::L('添加新鲜事成功','Controller/Homefresh'),1);
 		}
