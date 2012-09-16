@@ -68,6 +68,10 @@ class HomefreshController extends InitController{
 		$this->display('homefresh+index');
 	}
 
+	public function index_title_(){
+		return '用户中心';
+	}
+
 	public function get_newcomment($nId,$nUserid){
 		if($GLOBALS['___login___']['user_id']!=$nUserid){
 			$sHomefreshcommentAuditpass=' AND homefreshcomment_auditpass=1 ';
@@ -219,6 +223,8 @@ class HomefreshController extends InitController{
 		// 取得个人主页
 		$oUserprofile=UserprofileModel::F('user_id=?',$GLOBALS['___login___']['user_id'])->getOne();
 
+		$this->_sHomefreshtitle=$sHomefreshtitle;
+		
 		$this->assign('oHomefresh',$oHomefresh);
 		$this->assign('sHomefreshtitle',$sHomefreshtitle);
 		$this->assign('nTotalHomefreshcomment',$nTotalRecord);
@@ -228,6 +234,12 @@ class HomefreshController extends InitController{
 		$this->assign('nDisplaySeccode',$GLOBALS['_cache_']['home_option']['seccode_comment_status']);
 
 		$this->display('homefresh+view');
+	}
+
+	public $_oHomefresh=null;
+
+	public function view_title_(){
+		return $this->_sHomefreshtitle;
 	}
 
 	public function add_comment(){

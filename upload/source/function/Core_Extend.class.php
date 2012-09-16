@@ -48,6 +48,18 @@ class Core_Extend{
 		}
 	}
 
+	static public function title($oController){
+		$page=intval(G::getGpc('page','G'));
+		$page=$page>1?" | 第 {$page} 页":'';
+		
+		$sTitleAction=ACTION_NAME.'_title_';
+		if(method_exists($oController,$sTitleAction)){
+			return $oController->{$sTitleAction}().' | '.$GLOBALS['_option_']['site_name'].$page;
+		}else{
+			return $GLOBALS['_option_']['site_name'].$page;
+		}
+	}
+
 	static public function seccode(){
 		$arrOption=array(
 			'seccode_image_width_size'=>$GLOBALS['_option_']['seccode_image_width_size'],

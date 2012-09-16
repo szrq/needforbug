@@ -29,7 +29,7 @@
 					<tbody>
 						<!--<foreach for=arrHomehelps value=oHomehelp>-->
 						<tr>
-							<td>[<!--{if $oHomehelp['homehelpcategory_id']}--><a href="<!--{:Dyhb::U('home://homehelp/index?cid='.$oHomehelp['homehelpcategory_id'])}-->"><!--{$oHomehelp:homehelpcategory:homehelpcategory_name}--></a><!--{d*else}--><!--<lang package='Template/Homehelp'>-->未分类<!--</lang>--><!--{/if}-->]<a href="<!--{:Dyhb::U('home://homehelp/show?id='.$oHomehelp['homehelp_id'])}-->"><!--{$oHomehelp:homehelp_title}--></a></td>
+							<td>[<!--{if $oHomehelp['homehelpcategory_id']}--><a href="<!--{:Dyhb::U('home://homehelp/index?cid='.$oHomehelp['homehelpcategory_id'])}-->"><!--{$oHomehelp:homehelpcategory:homehelpcategory_name}--></a><!--{d*else}--><!--<lang package='Template/Homehelp'>-->未分类<!--</lang>--><!--{/if}-->]<a href="<!--{:Dyhb::U('home://help@?id='.$oHomehelp['homehelp_id'])}-->"><!--{$oHomehelp:homehelp_title}--></a></td>
 							<td><!--{$oHomehelp:create_dateline|Core_Extend+timeFormat}--></td>
 						</tr>
 						<!--</foreach>-->
