@@ -23,6 +23,10 @@ class RegisterController extends Controller{
 
 		$this->display('public+register');
 	}
+
+	public function register_title_(){
+		return '注册';
+	}
 	
 	public function check_user(){
 		$sUserName=trim(strtolower(G::getGpc('user_name')));

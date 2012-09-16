@@ -24,6 +24,10 @@ class LoginController extends Controller{
 		$this->display('public+login');
 	}
 
+	public function login_title_(){
+		return '登录';
+	}
+
 	public function socia(){
 		$sVendor=trim(G::getGpc('vendor','G'));
 
@@ -59,6 +63,10 @@ class LoginController extends Controller{
 		$this->assign('sRandPassword',G::randString(10));
 
 		$this->display('public+sociabind');
+	}
+
+	public function socia_bind_title_(){
+		return '社会化绑定';
 	}
 
 	public function unbind(){
