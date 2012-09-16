@@ -11,6 +11,7 @@ class GrouptopicModel extends CommonModel{
 			'table_name'=>'grouptopic',
 			'props'=>array(
 				'grouptopic_id'=>array('readonly'=>true),
+				'grouptopiccategory'=>array(Db::BELONGS_TO=>'GrouptopiccategoryModel','source_key'=>'grouptopiccategory_id','target_key'=>'grouptopiccategory_id'),
 			),
 			'attr_protected'=>'grouptopic_id',
 			'autofill'=>array(

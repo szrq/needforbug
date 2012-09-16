@@ -1,0 +1,1320 @@
+<!--<include file="Core_Extend::template('header')" />-->
+
+<link rel="stylesheet" href="http://tiyan.phpwind.net/nextwind/themes/site/default/css/dev/core.css2?v=0.3.7" />
+<link rel="stylesheet" href="http://tiyan.phpwind.net/nextwind/themes/site/default/css/dev/common.css2?v=0.3.7" />
+<link href="http://tiyan.phpwind.net/nextwind/themes/site/default/css/dev/forum.css2?v=0.3.7" rel="stylesheet" />
+	<link href="http://tiyan.phpwind.net/nextwind/themes/site/default/css/dev/editor_content.css2?v=0.3.7" rel="stylesheet" />
+
+		<ul class="breadcrumb">
+			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
+			<li><a href="<!--{:Dyhb::U('group://public/index')}-->">群组</a>&nbsp;<span class="divider">/</span>&nbsp;</li>
+			<li>查看帖子</li>
+		</ul>
+
+<!--{style}-->
+.floor{
+	margin-top:10px;
+	padding-bottom:10px;
+}
+.floor_left{
+	vertical-align:top;
+	width:140px;
+}
+/*用于返回与楼层同宽*/
+.floor_left_none{
+	width:140px;
+}
+.floor_right{
+	vertical-align:top;
+	padding:10px 20px;
+	border-bottom:0 none;
+}
+.floor_bottom{
+	border-top:0 none;
+	vertical-align:bottom;
+	padding:0 20px;
+}
+
+.editor_content{
+	min-height:100px;
+}
+
+/*
+===================
+阅读页楼层左侧用户信息
+===================
+*/
+.floor_info{
+	padding:0 0 30px;
+}
+/*用户名*/
+.floor_info .name{
+	padding:5px 0;
+}
+.floor_info .name a{
+	font-weight:700;
+	color:#333;
+}
+/*头像*/
+.floor_info .face{
+	width:100px;
+	height:100px;
+	margin-bottom:5px;
+}
+/*等级图标*/
+.floor_info .level{
+	margin-bottom:10px;
+}
+/*积分数据*/
+.floor_info .integral{
+	margin-bottom:8px;
+}
+.floor_info .integral li{
+	padding-bottom:2px;
+	height:18px;
+	overflow:hidden;
+}
+.floor_info .integral em{
+	padding-left:2px;
+	float:left;
+	width:60px;
+}
+.floor_info .integral span{
+	display:block;
+	width:70px;
+	height:18px;
+	float:left;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+}
+.floor_info .integral a{
+	color:#333;
+}
+/*操作：发邮件/加关注*/
+.floor_info .operate{
+	margin-bottom:12px;
+}
+.floor_info .operate a{
+	display:inline-block;
+	line-height:20px;
+	height:20px;
+	color:#999;
+	background:url(../../images/forum/operate.png) no-repeat;
+}
+.floor_info .operate a:hover{
+	color:#333;
+	text-decoration:none;
+}
+.floor_info .operate .follow{
+	background-position:0 6px;
+	margin-right:9px;
+	padding-left:12px;
+}
+.floor_info .operate .message{
+	background-position:0 -25px;
+	padding-left:16px;
+}
+/*用户拥有勋章*/
+.floor_info .medal{
+	overflow:hidden;
+	padding-bottom:7px;
+}
+.floor_info .medal ul{
+	margin-left:-3px;
+}
+.floor_info .medal li{
+	float:left;
+	margin:0 0 0 3px; 
+	height:33px;
+}
+
+
+
+<!--{/style}-->
+
+		<div class="row">
+			<div class="span12">
+				<div class="read_page####" id="J_posts_list####">
+					<div class="floor clear J_read_floor###" id="read_0">
+						<table width="100%" style="table-layout:fixed;" class="floor_table######">
+							<tr>
+								<td rowspan="2" class="floor_left">
+									<div class="floor_info">
+										<!--头像-->
+										<div class="face"><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=292" class="J_user_card_show" data-uid="292" target="_blank"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/02/292_middle.jpg" class="J_avatar" data-type="middle" width="100" height="100" alt="小鸡爷爷"></a></div>
+										<!--用户名-->
+										<div class="name"><span class="man_unol" title="离线"></span><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=292" class="J_user_card_show" data-uid="292">小鸡爷爷</a></div>
+										<!--相关数据-->
+										<ul class="clear integral">
+											<li><em>头衔</em><span>phpwind公公</span></li>
+										</ul>
+										<!--发私信加关注-->
+										<div class="operate clear">
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?c=follow&a=add&uid=292" class="follow J_read_follow">加关注</a>
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=message&c=message&a=pop&username=小鸡爷爷" class="message J_send_msg_pop" data-name="小鸡爷爷">写私信</a>
+										</div>
+										<!--等级-->
+										<div class="level">
+											<img src="http://tiyan.phpwind.net/nextwind/res/images/level/14.gif" alt="phpwind公公">
+										</div>
+										<!--勋章-->
+										<div class="medal">
+											<ul class="clear">
+												<li><a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=medal"><img src="http://tiyan.phpwind.net/nextwind/res/images/medal/icon/shequjumin.gif" title="社区居民" width="30" height="30" alt="社区居民" /></a></li>
+												<li><a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=medal"><img src="http://tiyan.phpwind.net/nextwind/res/images/medal/icon/shequmingxing.gif" title="社区明星" width="30" height="30" alt="社区明星" /></a></li>
+												<li><a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=medal"><img src="http://tiyan.phpwind.net/nextwind/res/images/medal/icon/zuiaishafa.gif" title="最爱沙发" width="30" height="30" alt="最爱沙发" /></a></li>
+												<li><a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=medal"><img src="http://tiyan.phpwind.net/nextwind/res/images/medal/icon/xihuandaren.gif" title="喜欢达人" width="30" height="30" alt="喜欢达人" /></a></li>
+											</ul>
+										</div>
+										<!--禁止及编辑入口-->
+										<!--广告位-->
+										
+										<!--信息栏结束-->
+									</div>
+								</td>
+								<td class="floor_right">
+									<div class="fl"><div class="floor_arrow"><em></em><span></span></div></div>
+									<div class="floor_title">
+										<div class="post_num">
+											<ul class="cc">
+												<li>阅读：<em>4986</em></li>
+												<li>回复：<em id="topicRepliesNum">319</em></li>
+											</ul>
+										</div>
+										<h1 id="J_post_title">
+						【致站长】为什么体验站这么烂，官方还要开放给大家测试</h1>
+									</div>
+									<div class="floor_top_tips clear">
+										<span class="lou J_floor_copy" title="复制此楼地址"
+						 data-type="main"
+						 data-hash="read_0">楼主<sup>#</sup></span>
+										<a href="javascript:;" class="more_down" id="J_read_moredown">更多</a>
+										<div id="J_read_moredown_list" class="core_menu" style="display:none;">
+											<ul class="core_menu_list">
+												<li><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=1801&fid=10&uid=292">只看楼主</a></li>
+												<li><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=1801&fid=10&desc=1">倒序阅读</a></li>
+											</ul>
+										</div>
+										<span class="fl">发布于：2012-06-27 21:39				</span>
+									</div>
+									
+									<div id="J_read_main">
+														<div id="J_read_tag_wrap" class="read_tag_list">
+										</div>			
+										<!--=========话题编辑=========-->
+										<div id="J_read_tag_edit" class="mb10 clear" style="display:none;">
+											<form id="J_read_tag_form" action="http://tiyan.phpwind.net/nextwind/index.php?m=tag&a=editReadTag&tid=1801" method="post">
+												<div class="user_select_input J_user_tag_wrap fl mr10">
+													<ul class="fl J_user_tag_ul"></ul>
+													<input class="J_user_tag_input" data-name="tagnames[]" type="text" />
+												</div>
+												<button id="J_read_tag_sub" class="btn btn_submit">保存</button>
+											<input type='hidden' name='csrf_token' value='650b3f2c21f81f2b'/></form>
+										</div>
+										<div class="fr">
+										<!--开始右侧广告位-->
+											
+										<!--结束右侧广告位-->
+										</div>
+										<div class="editor_content">
+						差不多算是深夜了，还看到这么多站长在体验我们新版，真的，内心很感激，很欣慰。对于9.0，大家给予了很多的鼓励和支持，在此谢谢大家。但是也看到了部分站长的真实反馈，对于体验站存在的各种问题和不足。在此，我们想跟大家沟通下。
+						<br />
+						<br />
+						<br /><b><font size="3"> 1. phpwind 9.0 最重大的改变是什么？</font></b>
+						<br /><font size="3">答案是：云平台！9.0之后phpwind会重点发展云平台应用中心，我们会提供丰富的模板插件给大家。基于Phpwind 9.0，您可将你的网站打造成论坛、博客、文章站、商城、分类信息、房产等各种网站类型。</font>
+						<br /><b><font size="3"> 2. phpwind 9.0 产品的最大特色是什么？</font></b>
+						<br /><font size="3">答案是：高度的互动和丰富的内容形式，phpwind官方会做好最基础的用户互动和内容生产、展示和组织。</font>
+						<br /><b><font size="3"> 3. phpwind 9.0 技术对打的亮点是什么？</font></b>
+						<br /><font size="3">答案：轻、快、多变。轻架构、高效率、phpwind会一如既往的保持“快”的技术优势。多变指的则是丰富的接口，可保证实现各种网站类型和其他产品接入。</font>
+						<br />
+						<br />
+						<br />
+						<br /><b><font size="4"><span style="color:#c00000 ">最后一点，也是大家现在疑问最大的一点，为什么现在产品bug这么多，功能这么不全，还是要开放给大家体验来测试？</span></font></b>
+						<br /><font size="4">其实挺好理解的，我们开放体验站和发布alpha包不是让大家来测试bug的，而是让大家来体验新版的产品理念，查看代码结构。不然我们完全没必要，在这个时候放出一个漏洞百出的产品来给世界嘲笑。</font>
+						<br /><font size="3">
+						<br /></font><font size="4">我们希望phpwind9.0是大家一起参与开发的，9.0会在大家一点一滴的建议中共同成长起来，这才是我们的目的，这才是我们共同的9.0~<span style="color:#c00000 ">这也是Phpwind做事的态度！</span></font>
+						<br /> 
+						<br />
+						<br />
+						<br /><b>感谢各位参与测试的站长哦！~谢谢！</b>				</div>
+										<div class="edit_log">[小鸡爷爷于2012-06-27 21:40编辑了帖子]</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="box_wrap floor_bottom" valign="bottom">
+									<a role="button" rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=like&c=mylike&a=doLike&typeid=1&fromid=1801" data-tid="1801" data-pid="0" data-fid="10" class="icon_read_like J_like_btn" data-role="main">
+										<span>喜欢</span><em class="J_like_count">346</em>
+									</a>
+									<div style="" id="J_read_like_list" class="read_like_list cc">
+										<h4 class="J_read_like_tit">最新喜欢：</h4>
+										<a class="J_user_card_show" data-uid="3482" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=3482"><img  class="J_avatar" src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/34/3482_middle.jpg" data-type="small" width="50" height="50" alt="vivicc" /><span title="vivicc">vivicc</span></a>
+										<a class="J_user_card_show" data-uid="1809" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1809"><img  class="J_avatar" src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/18/1809_middle.jpg" data-type="small" width="50" height="50" alt="aiopio" /><span title="aiopio">aiopio</span></a>
+										<a class="J_user_card_show" data-uid="3478" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=3478"><img  class="J_avatar" src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/34/3478_middle.jpg" data-type="small" width="50" height="50" alt="zhouhongjby" /><span title="zhouhongjby">zhouhong...</span></a>
+										<a class="J_user_card_show" data-uid="2276" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=2276"><img  class="J_avatar" src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/22/2276_middle.jpg" data-type="small" width="50" height="50" alt="oceans2" /><span title="oceans2">oceans2</span></a>
+										<a class="J_user_card_show" data-uid="1422" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1422"><img  class="J_avatar" src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/14/1422_middle.jpg" data-type="small" width="50" height="50" alt="chuny" /><span title="chuny">chuny</span></a>
+										<a class="J_user_card_show" data-uid="335" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=335"><img  class="J_avatar" src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/03/335_middle.jpg" data-type="small" width="50" height="50" alt="英雄之地" /><span title="英雄之地">英雄之地</span></a>
+										<a class="J_user_card_show" data-uid="3357" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=3357"><img  class="J_avatar" src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/33/3357_middle.jpg" data-type="small" width="50" height="50" alt="h1" /><span title="h1">h1</span></a>
+										<a class="J_user_card_show" data-uid="3352" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=3352"><img  class="J_avatar" src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/33/3352_middle.jpg" data-type="small" width="50" height="50" alt="iffeeling" /><span title="iffeeling">iffeelin...</span></a>
+										<a class="J_user_card_show" data-uid="3337" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=3337"><img  class="J_avatar" src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/33/3337_middle.jpg" data-type="small" width="50" height="50" alt="verbo2009" /><span title="verbo2009">verbo200...</span></a>
+										<a class="J_user_card_show" data-uid="3336" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=3336"><img  class="J_avatar" src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/33/3336_middle.jpg" data-type="small" width="50" height="50" alt="158602800" /><span title="158602800">15860280...</span></a>
+									</div>
+										<div id="app_read_floor_0"></div>
+										<div id="cloudwind_read_content"></div>
+										<div class="signature" style="max-height:200px;"></div>
+									<!--快速回复-->
+									<div class="reply_quick cc">
+										<div class="hd">
+											<h2>快速回复...</h2>
+										</div>
+										<div class="ct">
+											<textarea name="atc_content" id="J_reply_quick_ta" class="J_at_user_textarea" placeholder="我也说两句"></textarea>
+										</div>
+										<div class="ft cc" id="J_reply_ft" style="display:none;">
+											<div class="operate">
+												<a href="" class="a_face J_insert_emotions" data-emotiontarget="#J_reply_quick_ta">表情</a>
+											</div>
+											<button type="submit" data-tid="1801" data-action="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=post&a=doreply&_getHtml=1" class="btn btn_submit disabled" disabled="disabled" id="J_reply_quick_btn">回复</button>
+											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=post&a=reply&tid=1801">进入高级模式&gt;&gt;</a>
+										</div>
+									</div>
+									<!--快速回复结束-->
+
+									<div class="floor_bottom_tips cc">
+										<span class="fr">
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=report&a=report&type=thread&type_id=1801" data-pid="0" class="mr10 J_report J_qlogin_trigger">举报</a>
+										</span>
+									</div>
+									<div style="display:none;" class="J_reply_wrap" id="J_reply_wrap_0"><div class="pop_loading"></div></div>
+								</td>
+							</tr>
+						</table>
+						</div>
+														<a name="5440"></a>
+										<div id="cloudwind_read_readfloor_5440"></div>
+						<div class="floor cc J_read_floor" id="read_5440">
+						<table width="100%" style="table-layout:fixed;" class="floor_table">
+							<tr>
+								<td rowspan="2" class="floor_left">
+									<div class="floor_info">
+										<!--头像-->
+										<div class="face"><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=473" class="J_user_card_show" data-uid="473" target="_blank"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/04/473_middle.jpg" class="J_avatar" data-type="middle" width="100" height="100" alt="andycheung"></a></div>
+										<!--用户名-->
+										<div class="name"><span class="man_unol" title="离线"></span><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=473" class="J_user_card_show" data-uid="473">andycheung</a></div>
+										<!--相关数据-->
+										<ul class="cc integral">
+											<li><em>头衔</em><span>平民</span></li>
+										</ul>
+										<!--发私信加关注-->
+										<div class="operate cc">
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?c=follow&a=add&uid=473" class="follow J_read_follow">加关注</a>
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=message&c=message&a=pop&username=andycheung" class="message J_send_msg_pop" data-name="andycheung">写私信</a>
+										</div>
+										<!--等级-->
+										<div class="level">
+											<img src="http://tiyan.phpwind.net/nextwind/res/images/level/14.gif" alt="平民">
+										</div>
+										<!--勋章-->
+										<!--禁止及编辑入口-->
+										<!--广告位-->
+										
+										<!--信息栏结束-->
+									</div>
+								</td>
+								<td class="box_wrap floor_right">
+									<div class="fl"><div class="floor_arrow"><em></em><span></span></div></div>
+									<div class="floor_top_tips cc">
+										<span class="lou J_floor_copy" title="复制此楼地址"
+						 data-hash="read_5440">1楼<sup>#</sup></span>
+										<span class="fl">发布于：2012-06-27 21:43				</span>
+									</div>
+									
+									<div id="J_read_main">
+														<div class="fr">
+										<!--开始右侧广告位-->
+											
+										<!--结束右侧广告位-->
+										</div>
+										<div class="editor_content">
+						喜欢你，嫁给我吧。				</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="box_wrap floor_bottom" valign="bottom">
+										<div id="app_read_floor_1"></div>
+										<div class="signature" style="max-height:200px;"></div>
+
+									<div class="floor_bottom_tips cc">
+										<span class="fr">
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=report&a=report&type=post&type_id=5440" data-pid="5440" class="mr10 J_report J_qlogin_trigger">举报</a>
+										</span>
+										<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=post&a=fastreply&tid=1801&pid=5440" data-pid="5440" class="a_reply J_read_reply" data-topped="false">回复<span style="">(11)</span></a>
+										<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=like&c=mylike&a=doLike&typeid=2&fromid=5440" data-tid="1801" data-pid="5440" data-fid="10" class="a_like J_like_btn">喜欢</a>
+										<a style="" class="J_like_user_btn a_like_num" data-pid="5440" href="http://tiyan.phpwind.net/nextwind/index.php?m=like&c=like&a=getLast&typeid=2&fromid=5440">10</a>
+									</div>
+									<div style="display:none;" class="J_reply_wrap" id="J_reply_wrap_5440"><div class="pop_loading"></div></div>
+								</td>
+							</tr>
+						</table>
+						</div>
+														<a name="5441"></a>
+										<div id="cloudwind_read_readfloor_5441"></div>
+						<div class="floor cc J_read_floor" id="read_5441">
+						<table width="100%" style="table-layout:fixed;" class="floor_table">
+							<tr>
+								<td rowspan="2" class="floor_left">
+									<div class="floor_info">
+										<!--头像-->
+										<div class="face"><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=779" class="J_user_card_show" data-uid="779" target="_blank"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/07/779_middle.jpg" class="J_avatar" data-type="middle" width="100" height="100" alt="chinaoc"></a></div>
+										<!--用户名-->
+										<div class="name"><span class="man_unol" title="离线"></span><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=779" class="J_user_card_show" data-uid="779">chinaoc</a></div>
+										<!--相关数据-->
+										<ul class="cc integral">
+											<li><em>头衔</em><span>新手</span></li>
+										</ul>
+										<!--发私信加关注-->
+										<div class="operate cc">
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?c=follow&a=add&uid=779" class="follow J_read_follow">加关注</a>
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=message&c=message&a=pop&username=chinaoc" class="message J_send_msg_pop" data-name="chinaoc">写私信</a>
+										</div>
+										<!--等级-->
+										<div class="level">
+											<img src="http://tiyan.phpwind.net/nextwind/res/images/level/14.gif" alt="新手">
+										</div>
+										<!--勋章-->
+										<!--禁止及编辑入口-->
+										<!--广告位-->
+										
+										<!--信息栏结束-->
+									</div>
+								</td>
+								<td class="box_wrap floor_right">
+									<div class="fl"><div class="floor_arrow"><em></em><span></span></div></div>
+									<div class="floor_top_tips cc">
+										<span class="lou J_floor_copy" title="复制此楼地址"
+						 data-hash="read_5441">2楼<sup>#</sup></span>
+										<span class="fl">发布于：2012-06-27 21:44				</span>
+									</div>
+									
+									<div id="J_read_main">
+														<div class="fr">
+										<!--开始右侧广告位-->
+											
+										<!--结束右侧广告位-->
+										</div>
+										<div class="editor_content">
+						只要 不断收集意见 完善   会很好的				</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="box_wrap floor_bottom" valign="bottom">
+										<div id="app_read_floor_2"></div>
+										<div class="signature" style="max-height:200px;"></div>
+
+									<div class="floor_bottom_tips cc">
+										<span class="fr">
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=report&a=report&type=post&type_id=5441" data-pid="5441" class="mr10 J_report J_qlogin_trigger">举报</a>
+										</span>
+										<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=post&a=fastreply&tid=1801&pid=5441" data-pid="5441" class="a_reply J_read_reply" data-topped="false">回复<span style="display:none">(0)</span></a>
+										<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=like&c=mylike&a=doLike&typeid=2&fromid=5441" data-tid="1801" data-pid="5441" data-fid="10" class="a_like J_like_btn">喜欢</a>
+										<a style="" class="J_like_user_btn a_like_num" data-pid="5441" href="http://tiyan.phpwind.net/nextwind/index.php?m=like&c=like&a=getLast&typeid=2&fromid=5441">1</a>
+									</div>
+									<div style="display:none;" class="J_reply_wrap" id="J_reply_wrap_5441"><div class="pop_loading"></div></div>
+								</td>
+							</tr>
+						</table>
+						</div>
+														<a name="5442"></a>
+										<div id="cloudwind_read_readfloor_5442"></div>
+						<div class="floor cc J_read_floor" id="read_5442">
+						<table width="100%" style="table-layout:fixed;" class="floor_table">
+							<tr>
+								<td rowspan="2" class="floor_left">
+									<div class="floor_info">
+										<!--头像-->
+										<div class="face"><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=463" class="J_user_card_show" data-uid="463" target="_blank"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/04/463_middle.jpg" class="J_avatar" data-type="middle" width="100" height="100" alt="其宾"></a></div>
+										<!--用户名-->
+										<div class="name"><span class="man_unol" title="离线"></span><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=463" class="J_user_card_show" data-uid="463">其宾</a></div>
+										<!--相关数据-->
+										<ul class="cc integral">
+											<li><em>头衔</em><span>新手</span></li>
+										</ul>
+										<!--发私信加关注-->
+										<div class="operate cc">
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?c=follow&a=add&uid=463" class="follow J_read_follow">加关注</a>
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=message&c=message&a=pop&username=其宾" class="message J_send_msg_pop" data-name="其宾">写私信</a>
+										</div>
+										<!--等级-->
+										<div class="level">
+											<img src="http://tiyan.phpwind.net/nextwind/res/images/level/14.gif" alt="新手">
+										</div>
+										<!--勋章-->
+										<!--禁止及编辑入口-->
+										<!--广告位-->
+										
+										<!--信息栏结束-->
+									</div>
+								</td>
+								<td class="box_wrap floor_right">
+									<div class="fl"><div class="floor_arrow"><em></em><span></span></div></div>
+									<div class="floor_top_tips cc">
+										<span class="lou J_floor_copy" title="复制此楼地址"
+						 data-hash="read_5442">3楼<sup>#</sup></span>
+										<span class="fl">发布于：2012-06-27 21:44				</span>
+									</div>
+									
+									<div id="J_read_main">
+														<div class="fr">
+										<!--开始右侧广告位-->
+											
+										<!--结束右侧广告位-->
+										</div>
+										<div class="editor_content">
+						比较关心的是什么时候能出个正式使用的版本？哪怕是个简化基础版...				</div>
+										<div class="edit_log">[其宾于2012-06-27 21:45编辑了帖子]</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="box_wrap floor_bottom" valign="bottom">
+										<div id="app_read_floor_3"></div>
+										<div class="signature" style="max-height:200px;"></div>
+
+									<div class="floor_bottom_tips cc">
+										<span class="fr">
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=report&a=report&type=post&type_id=5442" data-pid="5442" class="mr10 J_report J_qlogin_trigger">举报</a>
+										</span>
+										<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=post&a=fastreply&tid=1801&pid=5442" data-pid="5442" class="a_reply J_read_reply" data-topped="false">回复<span style="">(2)</span></a>
+										<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=like&c=mylike&a=doLike&typeid=2&fromid=5442" data-tid="1801" data-pid="5442" data-fid="10" class="a_like J_like_btn">喜欢</a>
+										<a style="display:none" class="J_like_user_btn a_like_num" data-pid="5442" href="http://tiyan.phpwind.net/nextwind/index.php?m=like&c=like&a=getLast&typeid=2&fromid=5442">0</a>
+									</div>
+									<div style="display:none;" class="J_reply_wrap" id="J_reply_wrap_5442"><div class="pop_loading"></div></div>
+								</td>
+							</tr>
+						</table>
+						</div>
+														<a name="5444"></a>
+										<div id="cloudwind_read_readfloor_5444"></div>
+						<div class="floor cc J_read_floor" id="read_5444">
+						<table width="100%" style="table-layout:fixed;" class="floor_table">
+							<tr>
+								<td rowspan="2" class="floor_left">
+									<div class="floor_info">
+										<!--头像-->
+										<div class="face"><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=253" class="J_user_card_show" data-uid="253" target="_blank"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/02/253_middle.jpg" class="J_avatar" data-type="middle" width="100" height="100" alt="test007"></a></div>
+										<!--用户名-->
+										<div class="name"><span class="man_unol" title="离线"></span><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=253" class="J_user_card_show" data-uid="253">test007</a></div>
+										<!--相关数据-->
+										<ul class="cc integral">
+											<li><em>头衔</em><span>一测元勋</span></li>
+										</ul>
+										<!--发私信加关注-->
+										<div class="operate cc">
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?c=follow&a=add&uid=253" class="follow J_read_follow">加关注</a>
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=message&c=message&a=pop&username=test007" class="message J_send_msg_pop" data-name="test007">写私信</a>
+										</div>
+										<!--等级-->
+										<div class="level">
+											<img src="http://tiyan.phpwind.net/nextwind/res/images/level/14.gif" alt="一测元勋">
+										</div>
+										<!--勋章-->
+										<!--禁止及编辑入口-->
+										<!--广告位-->
+										
+										<!--信息栏结束-->
+									</div>
+								</td>
+								<td class="box_wrap floor_right">
+									<div class="fl"><div class="floor_arrow"><em></em><span></span></div></div>
+									<div class="floor_top_tips cc">
+										<span class="lou J_floor_copy" title="复制此楼地址"
+						 data-hash="read_5444">4楼<sup>#</sup></span>
+										<span class="fl">发布于：2012-06-27 21:44				</span>
+									</div>
+									
+									<div id="J_read_main">
+														<div class="fr">
+										<!--开始右侧广告位-->
+											
+										<!--结束右侧广告位-->
+										</div>
+										<div class="editor_content">
+						当初在南京的那个会场好像看到小鸡鸡了，只是目前体验站真的太烂了。。				</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="box_wrap floor_bottom" valign="bottom">
+										<div id="app_read_floor_4"></div>
+										<div class="signature" style="max-height:200px;"></div>
+
+									<div class="floor_bottom_tips cc">
+										<span class="fr">
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=report&a=report&type=post&type_id=5444" data-pid="5444" class="mr10 J_report J_qlogin_trigger">举报</a>
+										</span>
+										<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=post&a=fastreply&tid=1801&pid=5444" data-pid="5444" class="a_reply J_read_reply" data-topped="false">回复<span style="">(2)</span></a>
+										<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=like&c=mylike&a=doLike&typeid=2&fromid=5444" data-tid="1801" data-pid="5444" data-fid="10" class="a_like J_like_btn">喜欢</a>
+										<a style="" class="J_like_user_btn a_like_num" data-pid="5444" href="http://tiyan.phpwind.net/nextwind/index.php?m=like&c=like&a=getLast&typeid=2&fromid=5444">1</a>
+									</div>
+									<div style="display:none;" class="J_reply_wrap" id="J_reply_wrap_5444"><div class="pop_loading"></div></div>
+								</td>
+							</tr>
+						</table>
+						</div>
+														<a name="5445"></a>
+										<div id="cloudwind_read_readfloor_5445"></div>
+						<div class="floor cc J_read_floor" id="read_5445">
+						<table width="100%" style="table-layout:fixed;" class="floor_table">
+							<tr>
+								<td rowspan="2" class="floor_left">
+									<div class="floor_info">
+										<!--头像-->
+										<div class="face"><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=896" class="J_user_card_show" data-uid="896" target="_blank"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/08/896_middle.jpg" class="J_avatar" data-type="middle" width="100" height="100" alt="fylmc"></a></div>
+										<!--用户名-->
+										<div class="name"><span class="man_unol" title="离线"></span><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=896" class="J_user_card_show" data-uid="896">fylmc</a></div>
+										<!--相关数据-->
+										<ul class="cc integral">
+											<li><em>头衔</em><span>二测元勋</span></li>
+										</ul>
+										<!--发私信加关注-->
+										<div class="operate cc">
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?c=follow&a=add&uid=896" class="follow J_read_follow">加关注</a>
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=message&c=message&a=pop&username=fylmc" class="message J_send_msg_pop" data-name="fylmc">写私信</a>
+										</div>
+										<!--等级-->
+										<div class="level">
+											<img src="http://tiyan.phpwind.net/nextwind/res/images/level/14.gif" alt="二测元勋">
+										</div>
+										<!--勋章-->
+										<div class="medal">
+											<ul class="cc">
+												<li><a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=medal"><img src="http://tiyan.phpwind.net/nextwind/res/images/medal/icon/shequjumin.gif" title="社区居民" width="30" height="30" alt="社区居民" /></a></li>
+											</ul>
+										</div>
+										<!--禁止及编辑入口-->
+										<!--广告位-->
+										
+										<!--信息栏结束-->
+									</div>
+								</td>
+								<td class="box_wrap floor_right">
+									<div class="fl"><div class="floor_arrow"><em></em><span></span></div></div>
+									<div class="floor_top_tips cc">
+										<span class="lou J_floor_copy" title="复制此楼地址"
+						 data-hash="read_5445">5楼<sup>#</sup></span>
+										<span class="fl">发布于：2012-06-27 21:45				</span>
+									</div>
+									
+									<div id="J_read_main">
+														<div class="fr">
+										<!--开始右侧广告位-->
+											
+										<!--结束右侧广告位-->
+										</div>
+										<div class="editor_content">
+						来晚了，强烈支持9.0				</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="box_wrap floor_bottom" valign="bottom">
+										<div id="app_read_floor_5"></div>
+										<div class="signature" style="max-height:200px;"></div>
+
+									<div class="floor_bottom_tips cc">
+										<span class="fr">
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=report&a=report&type=post&type_id=5445" data-pid="5445" class="mr10 J_report J_qlogin_trigger">举报</a>
+										</span>
+										<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=post&a=fastreply&tid=1801&pid=5445" data-pid="5445" class="a_reply J_read_reply" data-topped="false">回复<span style="display:none">(0)</span></a>
+										<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=like&c=mylike&a=doLike&typeid=2&fromid=5445" data-tid="1801" data-pid="5445" data-fid="10" class="a_like J_like_btn">喜欢</a>
+										<a style="display:none" class="J_like_user_btn a_like_num" data-pid="5445" href="http://tiyan.phpwind.net/nextwind/index.php?m=like&c=like&a=getLast&typeid=2&fromid=5445">0</a>
+									</div>
+									<div style="display:none;" class="J_reply_wrap" id="J_reply_wrap_5445"><div class="pop_loading"></div></div>
+								</td>
+							</tr>
+						</table>
+						</div>
+														<a name="5447"></a>
+										<div id="cloudwind_read_readfloor_5447"></div>
+						<div class="floor cc J_read_floor" id="read_5447">
+						<table width="100%" style="table-layout:fixed;" class="floor_table">
+							<tr>
+								<td rowspan="2" class="floor_left">
+									<div class="floor_info">
+										<!--头像-->
+										<div class="face"><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=908" class="J_user_card_show" data-uid="908" target="_blank"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/09/908_middle.jpg" class="J_avatar" data-type="middle" width="100" height="100" alt="qqq"></a></div>
+										<!--用户名-->
+										<div class="name"><span class="man_unol" title="离线"></span><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=908" class="J_user_card_show" data-uid="908">qqq</a></div>
+										<!--相关数据-->
+										<ul class="cc integral">
+											<li><em>头衔</em><span>平民</span></li>
+										</ul>
+										<!--发私信加关注-->
+										<div class="operate cc">
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?c=follow&a=add&uid=908" class="follow J_read_follow">加关注</a>
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=message&c=message&a=pop&username=qqq" class="message J_send_msg_pop" data-name="qqq">写私信</a>
+										</div>
+										<!--等级-->
+										<div class="level">
+											<img src="http://tiyan.phpwind.net/nextwind/res/images/level/14.gif" alt="平民">
+										</div>
+										<!--勋章-->
+										<div class="medal">
+											<ul class="cc">
+												<li><a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=medal"><img src="http://tiyan.phpwind.net/nextwind/res/images/medal/icon/shequjumin.gif" title="社区居民" width="30" height="30" alt="社区居民" /></a></li>
+											</ul>
+										</div>
+										<!--禁止及编辑入口-->
+										<!--广告位-->
+										
+										<!--信息栏结束-->
+									</div>
+								</td>
+								<td class="box_wrap floor_right">
+									<div class="fl"><div class="floor_arrow"><em></em><span></span></div></div>
+									<div class="floor_top_tips cc">
+										<span class="lou J_floor_copy" title="复制此楼地址"
+						 data-hash="read_5447">6楼<sup>#</sup></span>
+										<span class="fl">发布于：2012-06-27 21:45				</span>
+									</div>
+									
+									<div id="J_read_main">
+														<div class="fr">
+										<!--开始右侧广告位-->
+											
+										<!--结束右侧广告位-->
+										</div>
+										<div class="editor_content">
+						还需要功能建议吗?				</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="box_wrap floor_bottom" valign="bottom">
+										<div id="app_read_floor_6"></div>
+										<div class="signature" style="max-height:200px;"></div>
+
+									<div class="floor_bottom_tips cc">
+										<span class="fr">
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=report&a=report&type=post&type_id=5447" data-pid="5447" class="mr10 J_report J_qlogin_trigger">举报</a>
+										</span>
+										<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=post&a=fastreply&tid=1801&pid=5447" data-pid="5447" class="a_reply J_read_reply" data-topped="false">回复<span style="">(1)</span></a>
+										<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=like&c=mylike&a=doLike&typeid=2&fromid=5447" data-tid="1801" data-pid="5447" data-fid="10" class="a_like J_like_btn">喜欢</a>
+										<a style="display:none" class="J_like_user_btn a_like_num" data-pid="5447" href="http://tiyan.phpwind.net/nextwind/index.php?m=like&c=like&a=getLast&typeid=2&fromid=5447">0</a>
+									</div>
+									<div style="display:none;" class="J_reply_wrap" id="J_reply_wrap_5447"><div class="pop_loading"></div></div>
+								</td>
+							</tr>
+						</table>
+						</div>
+														<a name="5448"></a>
+										<div id="cloudwind_read_readfloor_5448"></div>
+						<div class="floor cc J_read_floor" id="read_5448">
+						<table width="100%" style="table-layout:fixed;" class="floor_table">
+							<tr>
+								<td rowspan="2" class="floor_left">
+									<div class="floor_info">
+										<!--头像-->
+										<div class="face"><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=662" class="J_user_card_show" data-uid="662" target="_blank"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/06/662_middle.jpg" class="J_avatar" data-type="middle" width="100" height="100" alt="chenhui1221"></a></div>
+										<!--用户名-->
+										<div class="name"><span class="man_unol" title="离线"></span><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=662" class="J_user_card_show" data-uid="662">chenhui1221</a></div>
+										<!--相关数据-->
+										<ul class="cc integral">
+											<li><em>头衔</em><span>新手</span></li>
+										</ul>
+										<!--发私信加关注-->
+										<div class="operate cc">
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?c=follow&a=add&uid=662" class="follow J_read_follow">加关注</a>
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=message&c=message&a=pop&username=chenhui1221" class="message J_send_msg_pop" data-name="chenhui1221">写私信</a>
+										</div>
+										<!--等级-->
+										<div class="level">
+											<img src="http://tiyan.phpwind.net/nextwind/res/images/level/14.gif" alt="新手">
+										</div>
+										<!--勋章-->
+										<!--禁止及编辑入口-->
+										<!--广告位-->
+										
+										<!--信息栏结束-->
+									</div>
+								</td>
+								<td class="box_wrap floor_right">
+									<div class="fl"><div class="floor_arrow"><em></em><span></span></div></div>
+									<div class="floor_top_tips cc">
+										<span class="lou J_floor_copy" title="复制此楼地址"
+						 data-hash="read_5448">7楼<sup>#</sup></span>
+										<span class="fl">发布于：2012-06-27 21:46				</span>
+									</div>
+									
+									<div id="J_read_main">
+														<div class="fr">
+										<!--开始右侧广告位-->
+											
+										<!--结束右侧广告位-->
+										</div>
+										<div class="editor_content">
+						我急需体验版，试试，看看代码				</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="box_wrap floor_bottom" valign="bottom">
+										<div id="app_read_floor_7"></div>
+										<div class="signature" style="max-height:200px;"></div>
+
+									<div class="floor_bottom_tips cc">
+										<span class="fr">
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=report&a=report&type=post&type_id=5448" data-pid="5448" class="mr10 J_report J_qlogin_trigger">举报</a>
+										</span>
+										<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=post&a=fastreply&tid=1801&pid=5448" data-pid="5448" class="a_reply J_read_reply" data-topped="false">回复<span style="display:none">(0)</span></a>
+										<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=like&c=mylike&a=doLike&typeid=2&fromid=5448" data-tid="1801" data-pid="5448" data-fid="10" class="a_like J_like_btn">喜欢</a>
+										<a style="display:none" class="J_like_user_btn a_like_num" data-pid="5448" href="http://tiyan.phpwind.net/nextwind/index.php?m=like&c=like&a=getLast&typeid=2&fromid=5448">0</a>
+									</div>
+									<div style="display:none;" class="J_reply_wrap" id="J_reply_wrap_5448"><div class="pop_loading"></div></div>
+								</td>
+							</tr>
+						</table>
+						</div>
+														<a name="5449"></a>
+										<div id="cloudwind_read_readfloor_5449"></div>
+						<div class="floor cc J_read_floor" id="read_5449">
+						<table width="100%" style="table-layout:fixed;" class="floor_table">
+							<tr>
+								<td rowspan="2" class="floor_left">
+									<div class="floor_info">
+										<!--头像-->
+										<div class="face"><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=293" class="J_user_card_show" data-uid="293" target="_blank"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/02/293_middle.jpg" class="J_avatar" data-type="middle" width="100" height="100" alt="梦丫头"></a></div>
+										<!--用户名-->
+										<div class="name"><span class="man_unol" title="离线"></span><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=293" class="J_user_card_show" data-uid="293">梦丫头</a></div>
+										<!--相关数据-->
+										<ul class="cc integral">
+											<li><em>头衔</em><span>一测元勋</span></li>
+										</ul>
+										<!--发私信加关注-->
+										<div class="operate cc">
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?c=follow&a=add&uid=293" class="follow J_read_follow">加关注</a>
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=message&c=message&a=pop&username=梦丫头" class="message J_send_msg_pop" data-name="梦丫头">写私信</a>
+										</div>
+										<!--等级-->
+										<div class="level">
+											<img src="http://tiyan.phpwind.net/nextwind/res/images/level/14.gif" alt="一测元勋">
+										</div>
+										<!--勋章-->
+										<!--禁止及编辑入口-->
+										<!--广告位-->
+										
+										<!--信息栏结束-->
+									</div>
+								</td>
+								<td class="box_wrap floor_right">
+									<div class="fl"><div class="floor_arrow"><em></em><span></span></div></div>
+									<div class="floor_top_tips cc">
+										<span class="lou J_floor_copy" title="复制此楼地址"
+						 data-hash="read_5449">8楼<sup>#</sup></span>
+										<span class="fl">发布于：2012-06-27 21:47				</span>
+									</div>
+									
+									<div id="J_read_main">
+														<div class="fr">
+										<!--开始右侧广告位-->
+											
+										<!--结束右侧广告位-->
+										</div>
+										<div class="editor_content">
+						再加油吧				</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="box_wrap floor_bottom" valign="bottom">
+										<div id="app_read_floor_8"></div>
+										<div class="signature" style="max-height:200px;"></div>
+
+									<div class="floor_bottom_tips cc">
+										<span class="fr">
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=report&a=report&type=post&type_id=5449" data-pid="5449" class="mr10 J_report J_qlogin_trigger">举报</a>
+										</span>
+										<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=post&a=fastreply&tid=1801&pid=5449" data-pid="5449" class="a_reply J_read_reply" data-topped="false">回复<span style="display:none">(0)</span></a>
+										<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=like&c=mylike&a=doLike&typeid=2&fromid=5449" data-tid="1801" data-pid="5449" data-fid="10" class="a_like J_like_btn">喜欢</a>
+										<a style="display:none" class="J_like_user_btn a_like_num" data-pid="5449" href="http://tiyan.phpwind.net/nextwind/index.php?m=like&c=like&a=getLast&typeid=2&fromid=5449">0</a>
+									</div>
+									<div style="display:none;" class="J_reply_wrap" id="J_reply_wrap_5449"><div class="pop_loading"></div></div>
+								</td>
+							</tr>
+						</table>
+						</div>
+														<a name="5450"></a>
+										<div id="cloudwind_read_readfloor_5450"></div>
+						<div class="floor cc J_read_floor" id="read_5450">
+						<table width="100%" style="table-layout:fixed;" class="floor_table">
+							<tr>
+								<td rowspan="2" class="floor_left">
+									<div class="floor_info">
+										<!--头像-->
+										<div class="face"><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=370" class="J_user_card_show" data-uid="370" target="_blank"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/03/370_middle.jpg" class="J_avatar" data-type="middle" width="100" height="100" alt="铁皮"></a></div>
+										<!--用户名-->
+										<div class="name"><span class="man_unol" title="离线"></span><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=370" class="J_user_card_show" data-uid="370">铁皮</a></div>
+										<!--相关数据-->
+										<ul class="cc integral">
+											<li><em>头衔</em><span>phpwind公公</span></li>
+										</ul>
+										<!--发私信加关注-->
+										<div class="operate cc">
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?c=follow&a=add&uid=370" class="follow J_read_follow">加关注</a>
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=message&c=message&a=pop&username=铁皮" class="message J_send_msg_pop" data-name="铁皮">写私信</a>
+										</div>
+										<!--等级-->
+										<div class="level">
+											<img src="http://tiyan.phpwind.net/nextwind/res/images/level/14.gif" alt="phpwind公公">
+										</div>
+										<!--勋章-->
+										<!--禁止及编辑入口-->
+										<!--广告位-->
+										
+										<!--信息栏结束-->
+									</div>
+								</td>
+								<td class="box_wrap floor_right">
+									<div class="fl"><div class="floor_arrow"><em></em><span></span></div></div>
+									<div class="floor_top_tips cc">
+										<span class="lou J_floor_copy" title="复制此楼地址"
+						 data-hash="read_5450">9楼<sup>#</sup></span>
+										<span class="fl">发布于：2012-06-27 21:49				</span>
+									</div>
+									
+									<div id="J_read_main">
+														<div class="fr">
+										<!--开始右侧广告位-->
+											
+										<!--结束右侧广告位-->
+										</div>
+										<div class="editor_content">
+						需要需要，会改的				</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="box_wrap floor_bottom" valign="bottom">
+										<div id="app_read_floor_9"></div>
+										<div class="signature" style="max-height:200px;"></div>
+
+									<div class="floor_bottom_tips cc">
+										<span class="fr">
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=report&a=report&type=post&type_id=5450" data-pid="5450" class="mr10 J_report J_qlogin_trigger">举报</a>
+										</span>
+										<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=post&a=fastreply&tid=1801&pid=5450" data-pid="5450" class="a_reply J_read_reply" data-topped="false">回复<span style="">(1)</span></a>
+										<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=like&c=mylike&a=doLike&typeid=2&fromid=5450" data-tid="1801" data-pid="5450" data-fid="10" class="a_like J_like_btn">喜欢</a>
+										<a style="" class="J_like_user_btn a_like_num" data-pid="5450" href="http://tiyan.phpwind.net/nextwind/index.php?m=like&c=like&a=getLast&typeid=2&fromid=5450">3</a>
+									</div>
+									<div style="display:none;" class="J_reply_wrap" id="J_reply_wrap_5450"><div class="pop_loading"></div></div>
+								</td>
+							</tr>
+						</table>
+						</div>
+														<a name="5451"></a>
+										<div id="cloudwind_read_readfloor_5451"></div>
+						<div class="floor cc J_read_floor" id="read_5451">
+						<table width="100%" style="table-layout:fixed;" class="floor_table">
+							<tr>
+								<td rowspan="2" class="floor_left">
+									<div class="floor_info">
+										<!--头像-->
+										<div class="face"><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=356" class="J_user_card_show" data-uid="356" target="_blank"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/03/356_middle.jpg" class="J_avatar" data-type="middle" width="100" height="100" alt="阿牛哥"></a></div>
+										<!--用户名-->
+										<div class="name"><span class="man_unol" title="离线"></span><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=356" class="J_user_card_show" data-uid="356">阿牛哥</a></div>
+										<!--相关数据-->
+										<ul class="cc integral">
+											<li><em>头衔</em><span>新手</span></li>
+										</ul>
+										<!--发私信加关注-->
+										<div class="operate cc">
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?c=follow&a=add&uid=356" class="follow J_read_follow">加关注</a>
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=message&c=message&a=pop&username=阿牛哥" class="message J_send_msg_pop" data-name="阿牛哥">写私信</a>
+										</div>
+										<!--等级-->
+										<div class="level">
+											<img src="http://tiyan.phpwind.net/nextwind/res/images/level/14.gif" alt="新手">
+										</div>
+										<!--勋章-->
+										<div class="medal">
+											<ul class="cc">
+												<li><a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=medal"><img src="http://tiyan.phpwind.net/nextwind/res/images/medal/icon/shequjumin.gif" title="社区居民" width="30" height="30" alt="社区居民" /></a></li>
+												<li><a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=medal"><img src="http://tiyan.phpwind.net/nextwind/res/images/medal/icon/zhongshihuiyuan.gif" title="忠实会员" width="30" height="30" alt="忠实会员" /></a></li>
+												<li><a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=medal"><img src="http://tiyan.phpwind.net/nextwind/res/images/medal/icon/yuanchuangxieshou.gif" title="原创写手" width="30" height="30" alt="原创写手" /></a></li>
+												<li><a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=medal"><img src="http://tiyan.phpwind.net/nextwind/res/images/medal/icon/zhuixingyizu.gif" title="追星一族" width="30" height="30" alt="追星一族" /></a></li>
+											</ul>
+										</div>
+										<!--禁止及编辑入口-->
+										<!--广告位-->
+										
+										<!--信息栏结束-->
+									</div>
+								</td>
+								<td class="box_wrap floor_right">
+									<div class="fl"><div class="floor_arrow"><em></em><span></span></div></div>
+									<div class="floor_top_tips cc">
+										<span class="lou J_floor_copy" title="复制此楼地址"
+						 data-hash="read_5451">10楼<sup>#</sup></span>
+										<span class="fl">发布于：2012-06-27 21:50				</span>
+									</div>
+									
+									<div id="J_read_main">
+														<div class="fr">
+										<!--开始右侧广告位-->
+											
+										<!--结束右侧广告位-->
+										</div>
+										<div class="editor_content">
+						喜欢,爱听,好,几时能出来正式的				</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="box_wrap floor_bottom" valign="bottom">
+										<div id="app_read_floor_10"></div>
+										<div class="signature" style="max-height:200px;">甘肃生活网 http://www.gansulife.com/</div>
+
+									<div class="floor_bottom_tips cc">
+										<span class="fr">
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=report&a=report&type=post&type_id=5451" data-pid="5451" class="mr10 J_report J_qlogin_trigger">举报</a>
+										</span>
+										<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=post&a=fastreply&tid=1801&pid=5451" data-pid="5451" class="a_reply J_read_reply" data-topped="false">回复<span style="">(2)</span></a>
+										<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=like&c=mylike&a=doLike&typeid=2&fromid=5451" data-tid="1801" data-pid="5451" data-fid="10" class="a_like J_like_btn">喜欢</a>
+										<a style="display:none" class="J_like_user_btn a_like_num" data-pid="5451" href="http://tiyan.phpwind.net/nextwind/index.php?m=like&c=like&a=getLast&typeid=2&fromid=5451">0</a>
+									</div>
+									<div style="display:none;" class="J_reply_wrap" id="J_reply_wrap_5451"><div class="pop_loading"></div></div>
+								</td>
+							</tr>
+						</table>
+						</div>
+														<a name="5470"></a>
+										<div id="cloudwind_read_readfloor_5470"></div>
+						<div class="floor cc J_read_floor" id="read_5470">
+						<table width="100%" style="table-layout:fixed;" class="floor_table">
+							<tr>
+								<td rowspan="2" class="floor_left">
+									<div class="floor_info">
+										<!--头像-->
+										<div class="face"><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=326" class="J_user_card_show" data-uid="326" target="_blank"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/03/326_middle.jpg" class="J_avatar" data-type="middle" width="100" height="100" alt="haixiao91"></a></div>
+										<!--用户名-->
+										<div class="name"><span class="man_unol" title="离线"></span><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=326" class="J_user_card_show" data-uid="326">haixiao91</a></div>
+										<!--相关数据-->
+										<ul class="cc integral">
+											<li><em>头衔</em><span>平民</span></li>
+										</ul>
+										<!--发私信加关注-->
+										<div class="operate cc">
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?c=follow&a=add&uid=326" class="follow J_read_follow">加关注</a>
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=message&c=message&a=pop&username=haixiao91" class="message J_send_msg_pop" data-name="haixiao91">写私信</a>
+										</div>
+										<!--等级-->
+										<div class="level">
+											<img src="http://tiyan.phpwind.net/nextwind/res/images/level/14.gif" alt="平民">
+										</div>
+										<!--勋章-->
+										<div class="medal">
+											<ul class="cc">
+												<li><a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=medal"><img src="http://tiyan.phpwind.net/nextwind/res/images/medal/icon/shequjumin.gif" title="社区居民" width="30" height="30" alt="社区居民" /></a></li>
+												<li><a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=medal"><img src="http://tiyan.phpwind.net/nextwind/res/images/medal/icon/shequmingxing.gif" title="社区明星" width="30" height="30" alt="社区明星" /></a></li>
+												<li><a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=medal"><img src="http://tiyan.phpwind.net/nextwind/res/images/medal/icon/zhuixingyizu.gif" title="追星一族" width="30" height="30" alt="追星一族" /></a></li>
+											</ul>
+										</div>
+										<!--禁止及编辑入口-->
+										<!--广告位-->
+										
+										<!--信息栏结束-->
+									</div>
+								</td>
+								<td class="box_wrap floor_right">
+									<div class="fl"><div class="floor_arrow"><em></em><span></span></div></div>
+									<div class="floor_top_tips cc">
+										<span class="lou J_floor_copy" title="复制此楼地址"
+						 data-hash="read_5470">11楼<sup>#</sup></span>
+										<span class="fl">发布于：2012-06-27 22:09				</span>
+									</div>
+									
+									<div id="J_read_main">
+														<div class="fr">
+										<!--开始右侧广告位-->
+											
+										<!--结束右侧广告位-->
+										</div>
+										<div class="editor_content">
+						期待云平台的开放~				</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="box_wrap floor_bottom" valign="bottom">
+										<div id="app_read_floor_11"></div>
+										<div class="signature" style="max-height:200px;">我是传说中的微博@小9仔 ~欢迎关注我喽~</div>
+
+									<div class="floor_bottom_tips cc">
+										<span class="fr">
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=report&a=report&type=post&type_id=5470" data-pid="5470" class="mr10 J_report J_qlogin_trigger">举报</a>
+										</span>
+										<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=post&a=fastreply&tid=1801&pid=5470" data-pid="5470" class="a_reply J_read_reply" data-topped="false">回复<span style="display:none">(0)</span></a>
+										<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=like&c=mylike&a=doLike&typeid=2&fromid=5470" data-tid="1801" data-pid="5470" data-fid="10" class="a_like J_like_btn">喜欢</a>
+										<a style="display:none" class="J_like_user_btn a_like_num" data-pid="5470" href="http://tiyan.phpwind.net/nextwind/index.php?m=like&c=like&a=getLast&typeid=2&fromid=5470">0</a>
+									</div>
+									<div style="display:none;" class="J_reply_wrap" id="J_reply_wrap_5470"><div class="pop_loading"></div></div>
+								</td>
+							</tr>
+						</table>
+						</div>
+														<a name="5471"></a>
+										<div id="cloudwind_read_readfloor_5471"></div>
+						<div class="floor cc J_read_floor" id="read_5471">
+						<table width="100%" style="table-layout:fixed;" class="floor_table">
+							<tr>
+								<td rowspan="2" class="floor_left">
+									<div class="floor_info">
+										<!--头像-->
+										<div class="face"><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=545" class="J_user_card_show" data-uid="545" target="_blank"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/05/545_middle.jpg" class="J_avatar" data-type="middle" width="100" height="100" alt="duomi524"></a></div>
+										<!--用户名-->
+										<div class="name"><span class="man_unol" title="离线"></span><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=545" class="J_user_card_show" data-uid="545">duomi524</a></div>
+										<!--相关数据-->
+										<ul class="cc integral">
+											<li><em>头衔</em><span>平民</span></li>
+										</ul>
+										<!--发私信加关注-->
+										<div class="operate cc">
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?c=follow&a=add&uid=545" class="follow J_read_follow">加关注</a>
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=message&c=message&a=pop&username=duomi524" class="message J_send_msg_pop" data-name="duomi524">写私信</a>
+										</div>
+										<!--等级-->
+										<div class="level">
+											<img src="http://tiyan.phpwind.net/nextwind/res/images/level/14.gif" alt="平民">
+										</div>
+										<!--勋章-->
+										<!--禁止及编辑入口-->
+										<!--广告位-->
+										
+										<!--信息栏结束-->
+									</div>
+								</td>
+								<td class="box_wrap floor_right">
+									<div class="fl"><div class="floor_arrow"><em></em><span></span></div></div>
+									<div class="floor_top_tips cc">
+										<span class="lou J_floor_copy" title="复制此楼地址"
+						 data-hash="read_5471">12楼<sup>#</sup></span>
+										<span class="fl">发布于：2012-06-27 22:09				</span>
+									</div>
+									
+									<div id="J_read_main">
+														<div class="fr">
+										<!--开始右侧广告位-->
+											
+										<!--结束右侧广告位-->
+										</div>
+										<div class="editor_content">
+						理解，这个好的开始哟				</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="box_wrap floor_bottom" valign="bottom">
+										<div id="app_read_floor_12"></div>
+										<div class="signature" style="max-height:200px;"></div>
+
+									<div class="floor_bottom_tips cc">
+										<span class="fr">
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=report&a=report&type=post&type_id=5471" data-pid="5471" class="mr10 J_report J_qlogin_trigger">举报</a>
+										</span>
+										<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=post&a=fastreply&tid=1801&pid=5471" data-pid="5471" class="a_reply J_read_reply" data-topped="false">回复<span style="display:none">(0)</span></a>
+										<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=like&c=mylike&a=doLike&typeid=2&fromid=5471" data-tid="1801" data-pid="5471" data-fid="10" class="a_like J_like_btn">喜欢</a>
+										<a style="" class="J_like_user_btn a_like_num" data-pid="5471" href="http://tiyan.phpwind.net/nextwind/index.php?m=like&c=like&a=getLast&typeid=2&fromid=5471">1</a>
+									</div>
+									<div style="display:none;" class="J_reply_wrap" id="J_reply_wrap_5471"><div class="pop_loading"></div></div>
+								</td>
+							</tr>
+						</table>
+						</div>
+														<a name="5474"></a>
+										<div id="cloudwind_read_readfloor_5474"></div>
+						<div class="floor cc J_read_floor" id="read_5474">
+						<table width="100%" style="table-layout:fixed;" class="floor_table">
+							<tr>
+								<td rowspan="2" class="floor_left">
+									<div class="floor_info">
+										<!--头像-->
+										<div class="face"><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=399" class="J_user_card_show" data-uid="399" target="_blank"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/03/399_middle.jpg" class="J_avatar" data-type="middle" width="100" height="100" alt="retitan"></a></div>
+										<!--用户名-->
+										<div class="name"><span class="man_unol" title="离线"></span><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=399" class="J_user_card_show" data-uid="399">retitan</a></div>
+										<!--相关数据-->
+										<ul class="cc integral">
+											<li><em>头衔</em><span>二测元勋</span></li>
+										</ul>
+										<!--发私信加关注-->
+										<div class="operate cc">
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?c=follow&a=add&uid=399" class="follow J_read_follow">加关注</a>
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=message&c=message&a=pop&username=retitan" class="message J_send_msg_pop" data-name="retitan">写私信</a>
+										</div>
+										<!--等级-->
+										<div class="level">
+											<img src="http://tiyan.phpwind.net/nextwind/res/images/level/14.gif" alt="二测元勋">
+										</div>
+										<!--勋章-->
+										<!--禁止及编辑入口-->
+										<!--广告位-->
+										
+										<!--信息栏结束-->
+									</div>
+								</td>
+								<td class="box_wrap floor_right">
+									<div class="fl"><div class="floor_arrow"><em></em><span></span></div></div>
+									<div class="floor_top_tips cc">
+										<span class="lou J_floor_copy" title="复制此楼地址"
+						 data-hash="read_5474">13楼<sup>#</sup></span>
+										<span class="fl">发布于：2012-06-27 22:12				</span>
+									</div>
+									
+									<div id="J_read_main">
+														<div class="fr">
+										<!--开始右侧广告位-->
+											
+										<!--结束右侧广告位-->
+										</div>
+										<div class="editor_content">
+						知道了，跟我理解的差不多，先让有经验，接受能力强的站长，接受这种理念，慢慢传播这种思想和方法				</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="box_wrap floor_bottom" valign="bottom">
+										<div id="app_read_floor_13"></div>
+										<div class="signature" style="max-height:200px;">二测元勋了，哈哈，高兴啊，不知道什么时候能下载啊。</div>
+
+									<div class="floor_bottom_tips cc">
+										<span class="fr">
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=report&a=report&type=post&type_id=5474" data-pid="5474" class="mr10 J_report J_qlogin_trigger">举报</a>
+										</span>
+										<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=post&a=fastreply&tid=1801&pid=5474" data-pid="5474" class="a_reply J_read_reply" data-topped="false">回复<span style="">(2)</span></a>
+										<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=like&c=mylike&a=doLike&typeid=2&fromid=5474" data-tid="1801" data-pid="5474" data-fid="10" class="a_like J_like_btn">喜欢</a>
+										<a style="" class="J_like_user_btn a_like_num" data-pid="5474" href="http://tiyan.phpwind.net/nextwind/index.php?m=like&c=like&a=getLast&typeid=2&fromid=5474">1</a>
+									</div>
+									<div style="display:none;" class="J_reply_wrap" id="J_reply_wrap_5474"><div class="pop_loading"></div></div>
+								</td>
+							</tr>
+						</table>
+						</div>
+														<a name="5479"></a>
+										<div id="cloudwind_read_readfloor_5479"></div>
+						<div class="floor cc J_read_floor" id="read_5479">
+						<table width="100%" style="table-layout:fixed;" class="floor_table">
+							<tr>
+								<td rowspan="2" class="floor_left">
+									<div class="floor_info">
+										<!--头像-->
+										<div class="face"><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=551" class="J_user_card_show" data-uid="551" target="_blank"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/05/551_middle.jpg" class="J_avatar" data-type="middle" width="100" height="100" alt="beer"></a></div>
+										<!--用户名-->
+										<div class="name"><span class="man_unol" title="离线"></span><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=551" class="J_user_card_show" data-uid="551">beer</a></div>
+										<!--相关数据-->
+										<ul class="cc integral">
+											<li><em>头衔</em><span>侠客</span></li>
+										</ul>
+										<!--发私信加关注-->
+										<div class="operate cc">
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?c=follow&a=add&uid=551" class="follow J_read_follow">加关注</a>
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=message&c=message&a=pop&username=beer" class="message J_send_msg_pop" data-name="beer">写私信</a>
+										</div>
+										<!--等级-->
+										<div class="level">
+											<img src="http://tiyan.phpwind.net/nextwind/res/images/level/14.gif" alt="侠客">
+										</div>
+										<!--勋章-->
+										<div class="medal">
+											<ul class="cc">
+												<li><a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=medal"><img src="http://tiyan.phpwind.net/nextwind/res/images/medal/icon/shequjumin.gif" title="社区居民" width="30" height="30" alt="社区居民" /></a></li>
+												<li><a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=medal"><img src="http://tiyan.phpwind.net/nextwind/res/images/medal/icon/zuiaishafa.gif" title="最爱沙发" width="30" height="30" alt="最爱沙发" /></a></li>
+												<li><a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=medal"><img src="http://tiyan.phpwind.net/nextwind/res/images/medal/icon/yuanchuangxieshou.gif" title="原创写手" width="30" height="30" alt="原创写手" /></a></li>
+											</ul>
+										</div>
+										<!--禁止及编辑入口-->
+										<!--广告位-->
+										
+										<!--信息栏结束-->
+									</div>
+								</td>
+								<td class="box_wrap floor_right">
+									<div class="fl"><div class="floor_arrow"><em></em><span></span></div></div>
+									<div class="floor_top_tips cc">
+										<span class="lou J_floor_copy" title="复制此楼地址"
+						 data-hash="read_5479">14楼<sup>#</sup></span>
+										<span class="fl">发布于：2012-06-27 22:14				</span>
+									</div>
+									
+									<div id="J_read_main">
+														<div class="fr">
+										<!--开始右侧广告位-->
+											
+										<!--结束右侧广告位-->
+										</div>
+										<div class="editor_content">
+						嗯，这个版本确实功能很有效果，不过什么时候给个体验包试试啊				</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="box_wrap floor_bottom" valign="bottom">
+										<div id="app_read_floor_14"></div>
+										<div class="signature" style="max-height:200px;">养生堂 www.yangshengt.com</div>
+
+									<div class="floor_bottom_tips cc">
+										<span class="fr">
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=report&a=report&type=post&type_id=5479" data-pid="5479" class="mr10 J_report J_qlogin_trigger">举报</a>
+										</span>
+										<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=post&a=fastreply&tid=1801&pid=5479" data-pid="5479" class="a_reply J_read_reply" data-topped="false">回复<span style="">(4)</span></a>
+										<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=like&c=mylike&a=doLike&typeid=2&fromid=5479" data-tid="1801" data-pid="5479" data-fid="10" class="a_like J_like_btn">喜欢</a>
+										<a style="" class="J_like_user_btn a_like_num" data-pid="5479" href="http://tiyan.phpwind.net/nextwind/index.php?m=like&c=like&a=getLast&typeid=2&fromid=5479">3</a>
+									</div>
+									<div style="display:none;" class="J_reply_wrap" id="J_reply_wrap_5479"><div class="pop_loading"></div></div>
+								</td>
+							</tr>
+						</table>
+						</div>
+														<!--上一主题下一主题-->
+										<div class="floor_page">
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=read&a=next&tid=1801" class="next" title="下一主题">下一主题</a>
+											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=read&a=pre&tid=1801" class="pre" title="上一主题">上一主题</a>
+										</div>
+										<div class="floor">
+											<table width="100%" style="table-layout:fixed;">
+												<tr>
+													<td class="floor_left_none">
+													</td>
+													<td>
+														<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=post&fid=10" id="J_read_post_btn" class="btn_post">发帖</a>
+														<!-- 锁定时间 -->
+														<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=post&a=reply&tid=1801" data-referer="true" class="btn_replay mr10">回复</a>
+						<div class="J_page_wrap" data-key="true">
+							<div class="pages fl" style="margin-right:3px;">
+								<a href="" class="pages_pre">&laquo; 返回列表</a>
+							</div>
+							<div class="pages">
+								<strong>1</strong>
+								<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=1801&fid=10&&page=2">2</a>
+								<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=1801&fid=10&&page=3">3</a>
+								<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=1801&fid=10&&page=4">4</a>
+								<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=1801&fid=10&&page=22">22...</a>
+								<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=1801&fid=10&&page=2" class="pages_next J_pages_next">下一页&nbsp;&raquo;</a>
+							</div>
+						</div>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div style="display:none;left:50%;margin:-11px 0 0 411px;" class="btn_post_menu" id="J_read_post_types">
+							<ul>
+								<li><a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=post&fid=10" data-referer="true" class="">普通帖</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+<!--<include file="Core_Extend::template('footer')" />-->
