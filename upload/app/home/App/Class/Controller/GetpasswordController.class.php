@@ -18,6 +18,14 @@ class GetpasswordController extends InitController{
 		return '找回密码';
 	}
 
+	public function index_keywords_(){
+		return $this->index_title_();
+	}
+
+	public function index_description_(){
+		return $this->index_title_();
+	}
+
 	public function email(){
 		if(UserModel::M()->isLogin()){
 			$this->U('home://spaceadmin/password');
@@ -114,6 +122,14 @@ class GetpasswordController extends InitController{
 
 	public function reset_title_(){
 		return '密码重置';
+	}
+
+	public function reset_keywords_(){
+		return $this->reset_title_();
+	}
+
+	public function reset_description_(){
+		return $this->reset_title_();
 	}
 
 	public function change_pass(){

@@ -19,6 +19,8 @@ class AvatarController extends Controller{
 			$this->assign('oUserInfo',$oUserInfo);
 		}
 
+		$this->_oUserInfo=$oUserInfo;
+
 		$arrAvatarInfo=array();
 		$arrAvatarInfo=Core_Extend::avatars($GLOBALS['___login___']['user_id']);
 
@@ -28,8 +30,18 @@ class AvatarController extends Controller{
 		$this->display('space+avatar');
 	}
 
+	public $_oUserInfo=null;
+
 	public function index_title_(){
-		return '我的头像';
+		return $this->_oUserInfo['user_name'].' - '.'我的头像';
+	}
+
+	public function index_keywords_(){
+		return $this->index_title_();
+	}
+
+	public function index_description_(){
+		return $this->index_title_();
 	}
 
 }

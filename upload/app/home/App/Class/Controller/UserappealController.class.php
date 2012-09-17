@@ -18,6 +18,14 @@ class UserappealController extends InitController{
 		return '用户申诉';
 	}
 
+	public function index_keywords_(){
+		return $this->index_title_();
+	}
+
+	public function index_description_(){
+		return $this->index_title_();
+	}
+
 	public function get_progress(){
 		if(ACTION_NAME==='index'){
 			return 25;
@@ -62,6 +70,14 @@ class UserappealController extends InitController{
 
 	public function step2_title_(){
 		return '填写联系方式';
+	}
+
+	public function step2_keywords_(){
+		return $this->step2_title_();
+	}
+
+	public function step2_description_(){
+		return $this->step2_title_();
 	}
 
 	public function step3(){
@@ -160,6 +176,14 @@ class UserappealController extends InitController{
 		return '填写申诉资料';
 	}
 
+	public function step3_keywords_(){
+		return $this->step3_title_();
+	}
+
+	public function step3_description_(){
+		return $this->step3_title_();
+	}
+
 	public function step4(){
 		if(UserModel::M()->isLogin()){
 			$this->U('home://ucenter/index');
@@ -192,7 +216,6 @@ class UserappealController extends InitController{
 		if($oUser->user_status==0){
 			$this->E(Dyhb::L('该账户已经被禁止','Controller/Userappeal'));
 		}
-
 
 		if($nEmaillink!=1){
 			if(empty($sHashcode)){
@@ -235,6 +258,14 @@ class UserappealController extends InitController{
 
 	public function step4_title_(){
 		return '获取申诉回执编号';
+	}
+
+	public function step4_keywords_(){
+		return $this->step4_title_();
+	}
+
+	public function step4_description_(){
+		return $this->step4_title_();
 	}
 	
 	public function tocomputer(){
@@ -370,6 +401,14 @@ class UserappealController extends InitController{
 		return '查询申诉进度';
 	}
 
+	public function schedule_keywords_(){
+		return $this->schedule_title_();
+	}
+
+	public function schedule_description_(){
+		return $this->schedule_title_();
+	}
+
 	public function schedule_result(){
 		if(UserModel::M()->isLogin()){
 			$this->U('home://ucenter/index');
@@ -405,6 +444,14 @@ class UserappealController extends InitController{
 
 	public function schedule_result_title_(){
 		return '申诉结果';
+	}
+
+	public function schedule_result_keywords_(){
+		return $this->schedule_result_title_();
+	}
+
+	public function schedule_result_description_(){
+		return $this->schedule_result_title_();
 	}
 	
 	public function retrieve(){

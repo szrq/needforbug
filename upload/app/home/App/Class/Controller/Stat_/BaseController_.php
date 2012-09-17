@@ -17,5 +17,13 @@ class BaseController extends Controller{
 	public function index_title_(){
 		return '基本概况';
 	}
+
+	public function index_keywords_(){
+		return $this->index_title_();
+	}
+
+	public function index_description_(){
+		return $this->index_title_();
+	}
 	
 }

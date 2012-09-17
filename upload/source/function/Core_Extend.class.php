@@ -60,6 +60,33 @@ class Core_Extend{
 		}
 	}
 
+	static public function keywords($oController){
+		$page=intval(G::getGpc('page','G'));
+		$page=$page>1?",第 {$page} 页":'';
+
+		$sKeywordsAction=ACTION_NAME.'_keywords_';
+		if(method_exists($oController,$sKeywordsAction)){
+			return $oController->{$sKeywordsAction}().','.$GLOBALS['_option_']['site_name'].$page;
+		}else{
+			return '';
+		}
+	}
+
+	static public function description($oController){
+		$page=intval(G::getGpc('page','G'));
+		$page=$page>1?" | 第 {$page} 页":'';
+
+		$sDescriptionAction=ACTION_NAME.'_description_';
+		if(method_exists($oController,$sDescriptionAction)){
+			$sDescription=trim(strip_tags($oController->{$sDescriptionAction}()));
+			$sDescription=preg_replace('/\s(?=\s)/','',$sDescription);// 接着去掉两个空格以上的
+			$sDescription=preg_replace('/[\n\r\t]/','',$sDescription);// 最后将非空格替换为一个空格
+			return G::subString($sDescription,0,300).$page;
+		}else{
+			return $GLOBALS['_option_']['site_name'].$page;
+		}
+	}
+
 	static public function seccode(){
 		$arrOption=array(
 			'seccode_image_width_size'=>$GLOBALS['_option_']['seccode_image_width_size'],

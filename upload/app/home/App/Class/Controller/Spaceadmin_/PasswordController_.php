@@ -18,6 +18,14 @@ class PasswordController extends Controller{
 		return '修改密码';
 	}
 
+	public function password_keywords_(){
+		return $this->password_title_();
+	}
+
+	public function password_description_(){
+		return $this->password_title_();
+	}
+
 	public function change(){
 		if($GLOBALS['_option_']['seccode_changepassword_status']==1){
 			$this->check_seccode(true);

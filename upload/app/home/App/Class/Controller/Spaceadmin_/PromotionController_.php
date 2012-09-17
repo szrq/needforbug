@@ -19,4 +19,12 @@ class PromotionController extends Controller{
 		return '访问推广';
 	}
 
+	public function promotion_keywords_(){
+		return $this->promotion_title_();
+	}
+
+	public function promotion_description_(){
+		return $this->promotion_title_();
+	}
+
 }

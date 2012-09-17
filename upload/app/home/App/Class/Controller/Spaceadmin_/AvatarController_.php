@@ -22,6 +22,14 @@ class AvatarController extends Controller{
 		return '修改头像';
 	}
 
+	public function avatar_keywords_(){
+		return $this->avatar_title_();
+	}
+
+	public function avatar_description_(){
+		return $this->avatar_title_();
+	}
+
 	public function upload(){
 		if(!isset($_FILES['image'])){
 			$this->assign('__JumpUrl__',Dyhb::U('spaceadmin/avatar'));
@@ -53,6 +61,14 @@ class AvatarController extends Controller{
 
 	public function avatar_upload_title_(){
 		return '裁剪头像';
+	}
+
+	public function avatar_upload_keywords_(){
+		return $this->avatar_upload_title_();
+	}
+
+	public function avatar_upload_description_(){
+		return $this->avatar_upload_title_();
 	}
 
 	public function save_crop(){

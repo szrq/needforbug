@@ -62,6 +62,14 @@ class InformationController extends Controller{
 		return '修改资料';
 	}
 
+	public function index_keywords_(){
+		return $this->index_title_();
+	}
+
+	public function index_description_(){
+		return $this->index_title_();
+	}
+
 	public function change(){
 		if($GLOBALS['_option_']['seccode_changeinformation_status']==1){
 			$this->check_seccode(true);

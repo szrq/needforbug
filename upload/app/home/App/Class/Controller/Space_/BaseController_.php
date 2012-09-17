@@ -44,6 +44,8 @@ class BaseController extends Controller{
 		// 视图
 		$arrProfileSetting=Profile_Extend::getProfileSetting();
 
+		$this->_oUserInfo=$oUserInfo;
+
 		$this->assign('arrBases',$arrProfileSetting[0]);
 		$this->assign('arrContacts',$arrProfileSetting[1]);
 		$this->assign('arrEdus',$arrProfileSetting[2]);
@@ -57,8 +59,18 @@ class BaseController extends Controller{
 		$this->display('space+index');
 	}
 
+	public $_oUserInfo=null;
+
 	public function index_title_(){
-		return '个人空间';
+		return $this->_oUserInfo['user_name'].' - '.'个人空间';
+	}
+
+	public function index_keywords_(){
+		return $this->index_title_();
+	}
+
+	public function index_description_(){
+		return $this->index_title_();
 	}
 
 }

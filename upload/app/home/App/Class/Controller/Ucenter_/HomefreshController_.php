@@ -73,6 +73,14 @@ class HomefreshController extends InitController{
 		return '用户中心';
 	}
 
+	public function index_keywords_(){
+		return $this->index_title_();
+	}
+
+	public function index_description_(){
+		return $this->index_title_();
+	}
+
 	public function get_myhomefreshnum(){
 		$oHomefresh=Dyhb::instance('HomefreshModel');
 		return $oHomefresh->getHomefreshnumByUserid($GLOBALS['___login___']['user_id']);
@@ -217,9 +225,10 @@ class HomefreshController extends InitController{
 			$this->assign('bAuditpass',true);
 		}
 
+		$this->_oHomefresh=$oHomefresh;
+
 		$nTotalRecord=HomefreshcommentModel::F()->where($arrWhere)->all()->getCounts();
 		$oPage=Page::RUN($nTotalRecord,$arrOptionData['homefreshcomment_list_num'],G::getGpc('page','G'));
-
 		$arrHomefreshcommentLists=HomefreshcommentModel::F()->where($arrWhere)->all()->order('`create_dateline` DESC')->limit($oPage->returnPageStart(),$arrOptionData['homefreshcomment_list_num'])->getAll();
 
 		// 取得个人主页
@@ -245,6 +254,18 @@ class HomefreshController extends InitController{
 
 	public function view_title_(){
 		return $this->_sHomefreshtitle;
+	}
+
+	public function view_keywords_(){
+		return $this->view_title_();
+	}
+
+	public function view_description_(){
+		if(G::getGpc('page','G')>1){
+			return $this->view_title_();
+		}else{
+			return $this->_oHomefresh['homefresh_message'];
+		}
 	}
 
 	public function add_comment(){
