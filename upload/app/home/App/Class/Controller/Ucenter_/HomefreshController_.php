@@ -7,8 +7,6 @@
 class HomefreshController extends InitController{
 
 	public function index(){
-		Core_Extend::loadCache('site');
-		
 		$arrWhere=array();
 		
 		$sType=trim(G::getGpc('type','G'));
@@ -56,20 +54,28 @@ class HomefreshController extends InitController{
 		// 新鲜事
 		$arrWhere['homefresh_status']=1;
 		$nTotalRecord=HomefreshModel::F()->where($arrWhere)->all()->getCounts();
-
 		$oPage=Page::RUN($nTotalRecord,$arrOptionData['homefresh_list_num'],G::getGpc('page','G'));
-
 		$arrHomefreshs=HomefreshModel::F()->where($arrWhere)->order('create_dateline DESC')->limit($oPage->returnPageStart(),$arrOptionData['homefresh_list_num'])->getAll();
+
+		// 我的新鲜事数量
+		$nMyhomefreshnum=$this->get_myhomefreshnum();
+
 		$this->assign('arrHomefreshs',$arrHomefreshs);
 		$this->assign('sPageNavbar',$oPage->P('pagination','li','active'));
 		$this->assign('nDisplaySeccode',$GLOBALS['_option_']['seccode_publish_status']);
 		$this->assign('nDisplayCommentSeccode',$GLOBALS['_cache_']['home_option']['seccode_comment_status']);
+		$this->assign('nMyhomefreshnum',$nMyhomefreshnum);
 		
 		$this->display('homefresh+index');
 	}
 
 	public function index_title_(){
 		return '用户中心';
+	}
+
+	public function get_myhomefreshnum(){
+		$oHomefresh=Dyhb::instance('HomefreshModel');
+		return $oHomefresh->getHomefreshnumByUserid($GLOBALS['___login___']['user_id']);
 	}
 
 	public function get_newcomment($nId,$nUserid){
@@ -157,8 +163,6 @@ class HomefreshController extends InitController{
 			$arrHomefreshData['url']=Dyhb::U('home://fresh@?id='.$oHomefresh['homefresh_id']);
 
 			$this->cache_site_();
-
-			Core_Extend::loadCache('site');
 			$arrHomefreshData['homefresh_num']=$GLOBALS['_cache_']['site']['homefresh'];
 			
 			$this->A($arrHomefreshData,Dyhb::L('添加新鲜事成功','Controller/Homefresh'),1);
@@ -191,8 +195,6 @@ class HomefreshController extends InitController{
 			exit();
 		}
 
-		Core_Extend::loadCache('site');
-
 		$oHomefresh->homefresh_viewnum=$oHomefresh->homefresh_viewnum+1;
 		$oHomefresh->save(0,'update');
 
@@ -222,8 +224,10 @@ class HomefreshController extends InitController{
 
 		// 取得个人主页
 		$oUserprofile=UserprofileModel::F('user_id=?',$GLOBALS['___login___']['user_id'])->getOne();
-
 		$this->_sHomefreshtitle=$sHomefreshtitle;
+
+		// 我的新鲜事数量
+		$nMyhomefreshnum=$this->get_myhomefreshnum();
 		
 		$this->assign('oHomefresh',$oHomefresh);
 		$this->assign('sHomefreshtitle',$sHomefreshtitle);
@@ -232,6 +236,7 @@ class HomefreshController extends InitController{
 		$this->assign('arrHomefreshcommentLists',$arrHomefreshcommentLists);
 		$this->assign('sUsersite',$oUserprofile['userprofile_site']);
 		$this->assign('nDisplaySeccode',$GLOBALS['_cache_']['home_option']['seccode_comment_status']);
+		$this->assign('nMyhomefreshnum',$nMyhomefreshnum);
 
 		$this->display('homefresh+view');
 	}
