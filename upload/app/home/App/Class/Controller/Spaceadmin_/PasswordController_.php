@@ -14,6 +14,10 @@ class PasswordController extends Controller{
 		$this->display('spaceadmin+password');
 	}
 
+	public function password_title_(){
+		return '修改密码';
+	}
+
 	public function change(){
 		if($GLOBALS['_option_']['seccode_changepassword_status']==1){
 			$this->check_seccode(true);

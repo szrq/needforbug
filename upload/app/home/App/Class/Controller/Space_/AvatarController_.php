@@ -28,4 +28,8 @@ class AvatarController extends Controller{
 		$this->display('space+avatar');
 	}
 
+	public function index_title_(){
+		return '我的头像';
+	}
+
 }

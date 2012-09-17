@@ -50,4 +50,8 @@ class RatingController extends Controller{
 		$this->display('space+rating');
 	}
 
+	public function index_title_(){
+		return '积分';
+	}
+
 }

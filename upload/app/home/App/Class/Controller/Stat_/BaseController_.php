@@ -13,5 +13,9 @@ class BaseController extends Controller{
 
 		$this->display('stat+base');
 	}
+
+	public function index_title_(){
+		return '基本概况';
+	}
 	
 }

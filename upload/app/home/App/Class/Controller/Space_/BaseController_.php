@@ -57,4 +57,8 @@ class BaseController extends Controller{
 		$this->display('space+index');
 	}
 
+	public function index_title_(){
+		return '个人空间';
+	}
+
 }
