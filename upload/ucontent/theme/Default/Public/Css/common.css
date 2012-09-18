@@ -31,8 +31,8 @@ p{ table-layout:fixed; word-break: break-all; overflow:hidden;}
 .clear,.clearfix{display:inline-block;}
 *html.clearfix,*html.clear{height:1%;}
 .clearfix{display: block;}
-.left{ float:left; }
-.right{ float:right; }
+.left{ float:left !important;display:inline;}
+.right{ float:right !important;display:inline; }
 
 /**===============================
            部分颜色块重写和大小约束

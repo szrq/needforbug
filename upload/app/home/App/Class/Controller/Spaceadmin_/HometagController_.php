@@ -19,6 +19,18 @@ class HometagController extends Controller{
 		$this->display('spaceadmin+tag');
 	}
 
+	public function tag_title_(){
+		return '用户标签';
+	}
+
+	public function tag_keywords_(){
+		return $this->tag_title_();
+	}
+
+	public function tag_description_(){
+		return $this->tag_title_();
+	}
+
 	public function add(){
 		$nUserId=$GLOBALS['___login___']['user_id'];
 		$sHometagName=G::getGpc('hometag_name');

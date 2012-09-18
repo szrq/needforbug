@@ -5,7 +5,5 @@
 !defined('DYHB_PATH') && exit;
 
 return array(
-	'space'=>array('space/index','id'),
-	'fresh'=>array('ucenter/view','id'),
-	'help'=>array('homehelp/show','id'),
+	'topic'=>array('grouptopic/view','id'),
 );

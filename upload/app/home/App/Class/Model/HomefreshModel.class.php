@@ -83,4 +83,8 @@ class HomefreshModel extends CommonModel{
 		return true;
 	}
 
+	public function getHomefreshnumByUserid($nUserid){
+		return HomefreshModel::F('user_id=? AND homefresh_status=1',$nUserid)->all()->getCounts();
+	}
+
 }

@@ -127,420 +127,47 @@
 <ul class="nav nav-tabs"><li class="active"><a href="<!--{:Dyhb::U('group://public/index')}-->">新帖</a></li><li ><a href="<!--{:Dyhb::U('group://public/group')}-->">小组</a></li></ul>
 							<table width="100%" class="table" summary="帖子列表">
 								<thead>
-								
 									<tr>
 										<th>发帖人</th>
 										<th colspan="2" style="text-align:right;"><a href="">浏览</a><span class="pipe">|</span> <a href="">回复</a></th>
 									</tr>
 								</thead>
 								<tbody>
+								<!--<foreach for=arrGrouptopics value=oGrouptopic>-->
 								<tr>
-									<td class="author"><a class="J_user_card_show" data-uid="292" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=292"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/02/292_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="小鸡爷爷" /></a></td>
+									<td class="author"><a class="J_user_card_show" data-uid="292" href="<!--{:Dyhb::U('home://space@?id='.$oGrouptopic->user_id)}-->"><img src="<!--{:Core_Extend::avatar($oGrouptopic['user_id'],'small')}-->" width="45px" height="45px" class="thumbnail2" alt="<!--{$oGrouptopic->grouptopic_username}-->" /></a></td>
 									<td class="subject">
 										<p class="title">
-											<span class="posts_icon"><i class="icon_topichot" title="热门帖"></i></span>
-											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=10" class="st">[体验说明]</a>
-											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=1801&fid=10" class="st" style="color:#C00000" title="【致站长】为什么体验站这么烂，官方还要开放给大家测试">【致站长】为什么体验站这么烂，官方还要开放给大家测试</a>
+											<!--{if $oGrouptopic->grouptopiccategory_id>0}-->
+											<a href="#" class="st">[<!--{$oGrouptopic->grouptopiccategory->grouptopiccategory_name}-->]</a>
+											<!--{d*else}-->
+											<a href="#" class="st">[默认分类]</a>
+											<!--{/if}-->
+											<a href="<!--{:Dyhb::U('group://topic@?id='.$oGrouptopic->grouptopic_id)}-->" class="st" style="color:#C00000" title="<!--{$oGrouptopic->grouptopic_title}-->"><!--{$oGrouptopic->grouptopic_title|G+subString=0,26}--></a>
 										</p>
 										<p class="info">
-											楼主：<a class="J_user_card_show" data-uid="292" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=292">小鸡爷爷</a><span>
-2012-06-27</span>
-											最后回复：<a class="J_user_card_show" data-uid="2383" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=2383">扶摇侠客</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=1801&page=e" aria-label="最后回复时间">
+											楼主：<a class="J_user_card_show" data-uid="292" href="<!--{:Dyhb::U('home://space@?id='.$oGrouptopic->user_id)}-->"><!--{$oGrouptopic->grouptopic_username}--></a><span>
+<!--{$oGrouptopic->create_dateline|Core_Extend+timeFormat}--></span>
+											<span class="pipe">|</span>
+											<!--{if $oGrouptopic->grouptopic_comments>0}-->
+											最后回复：<a class="J_user_card_show" data-uid="2383" href="#">扶摇侠客</a><span><a href="#" aria-label="最后回复时间">
 09-11 09:50</a></span>
+											<!--{d*else}-->
+											<span>暂无回复</span>
+											<!--{/if}-->
 										</p>
 									</td>
 									<td class="num" style="text-align:center;">
-										<span>回复<em>265</em></span>
-										<span>浏览<em>3868</em></span>
+										<span>回复<em><!--{$oGrouptopic->grouptopic_comments}--></em></span>
+										<span>浏览<em><!--{$oGrouptopic->grouptopic_views}--></em></span>
 									</td>
 								</tr>
-								<tr>
-									<td class="author"><a class="J_user_card_show" data-uid="432" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=432"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/04/432_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="初见" /></a></td>
-									<td class="subject">
-										<p class="title">
-											<span class="posts_icon"><i class="icon_topic" title="普通帖"></i></span>
-											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=10" class="st">[体验说明]</a>
-											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3651&fid=10" class="st" style="" title="说一句，9.0绝对不会爆吧的，有图为证">说一句，9.0绝对不会爆吧的，有图为证</a>
-<span class="posts_icon"><i class="icon_img" title="图片帖"></i></span>
-										</p>
-										<p class="info">
-											楼主：<a class="J_user_card_show" data-uid="432" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=432">初见</a><span>
-2012-09-10</span>
-											最后回复：<a class="J_user_card_show" data-uid="572" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=572">留影</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3651&page=e" aria-label="最后回复时间">
-09-11 09:45</a></span>
-										</p>
-									</td>
-									<td class="num">
-										<span>回复<em>9</em></span>
-										<span>浏览<em>152</em></span>
-									</td>
-								</tr>
-								<tr>
-									<td class="author"><a class="J_user_card_show" data-uid="984" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=984"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/09/984_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="myhzwl" /></a></td>
-									<td class="subject">
-										<p class="title">
-											<span class="posts_icon"><i class="icon_topicnew" title="新帖"></i></span>
-											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=10" class="st">[体验说明]</a>
-											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3673&fid=10" class="st" style="" title="pw 9bate版 官方会使用吗">pw 9bate版 官方会使用吗</a>
-										</p>
-										<p class="info">
-											楼主：<a class="J_user_card_show" data-uid="984" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=984">myhzwl</a><span>
-2012-09-11</span>
-											最后回复：<a class="J_user_card_show" data-uid="2059" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=2059">231241251251</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3673&page=e" aria-label="最后回复时间">
-09-11 09:40</a></span>
-										</p>
-									</td>
-									<td class="num">
-										<span>回复<em>3</em></span>
-										<span>浏览<em>19</em></span>
-									</td>
-								</tr>
-								<tr>
-									<td class="author"><a class="J_user_card_show" data-uid="356" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=356"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/03/356_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="阿牛哥" /></a></td>
-									<td class="subject">
-										<p class="title">
-											<span class="posts_icon"><i class="icon_topic" title="普通帖"></i></span>
-											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=13" class="st">[聊天灌水]</a>
-											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3669&fid=13" class="st" style="" title="大家来跟上，来祝福明日PW9神化，快来，">大家来跟上，来祝福明日PW9神化，快来，</a>
-<span class="posts_icon"><i class="icon_img" title="图片帖"></i></span>
-										</p>
-										<p class="info">
-											楼主：<a class="J_user_card_show" data-uid="356" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=356">阿牛哥</a><span>
-2012-09-11</span>
-											最后回复：<a class="J_user_card_show" data-uid="1915" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1915">村长707</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3669&page=e" aria-label="最后回复时间">
-09-11 09:33</a></span>
-										</p>
-									</td>
-									<td class="num">
-										<span>回复<em>4</em></span>
-										<span>浏览<em>50</em></span>
-									</td>
-								</tr>
-								<tr>
-									<td class="author"><a class="J_user_card_show" data-uid="2265" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=2265"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/22/2265_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="haoduomu" /></a></td>
-									<td class="subject">
-										<p class="title">
-											<span class="posts_icon"><i class="icon_topic" title="普通帖"></i></span>
-											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=13" class="st">[聊天灌水]</a>
-											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3568&fid=13" class="st" style="" title="9.0很不错，果然是简练，希望保持住～～～">9.0很不错，果然是简练，希望保持住～～～</a>
-										</p>
-										<p class="info">
-											楼主：<a class="J_user_card_show" data-uid="2265" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=2265">haoduomu</a><span>
-2012-09-08</span>
-											最后回复：<a class="J_user_card_show" data-uid="1915" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1915">村长707</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3568&page=e" aria-label="最后回复时间">
-09-11 09:26</a></span>
-										</p>
-									</td>
-									<td class="num">
-										<span>回复<em>8</em></span>
-										<span>浏览<em>162</em></span>
-									</td>
-								</tr>
-								<tr>
-									<td class="author"><a class="J_user_card_show" data-uid="2372" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=2372"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/23/2372_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="ganjun" /></a></td>
-									<td class="subject">
-										<p class="title">
-											<span class="posts_icon"><i class="icon_topic" title="普通帖"></i></span>
-											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=10" class="st">[体验说明]</a>
-											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3664&fid=10" class="st" style="" title="看着有点像百度贴吧，不像论坛">看着有点像百度贴吧，不像论坛</a>
-										</p>
-										<p class="info">
-											楼主：<a class="J_user_card_show" data-uid="2372" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=2372">ganjun</a><span>
-2012-09-11</span>
-											最后回复：<a class="J_user_card_show" data-uid="1915" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1915">村长707</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3664&page=e" aria-label="最后回复时间">
-09-11 09:25</a></span>
-										</p>
-									</td>
-									<td class="num">
-										<span>回复<em>4</em></span>
-										<span>浏览<em>45</em></span>
-									</td>
-								</tr>
-								<tr>
-									<td class="author"><a class="J_user_card_show" data-uid="2378" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=2378"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/23/2378_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="abcdfyh" /></a></td>
-									<td class="subject">
-										<p class="title">
-											<span class="posts_icon"><i class="icon_topic" title="普通帖"></i></span>
-											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=10" class="st">[体验说明]</a>
-											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3672&fid=10" class="st" style="" title="测试测试测试">测试测试测试</a>
-										</p>
-										<p class="info">
-											楼主：<a class="J_user_card_show" data-uid="2378" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=2378">abcdfyh</a><span>
-2012-09-11</span>
-											最后回复：<a class="J_user_card_show" data-uid="2378" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=2378">abcdfyh</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3672&page=e" aria-label="最后回复时间">
-09-11 09:23</a></span>
-										</p>
-									</td>
-									<td class="num">
-										<span>回复<em>0</em></span>
-										<span>浏览<em>1</em></span>
-									</td>
-								</tr>
-								<tr>
-									<td class="author"><a class="J_user_card_show" data-uid="1341" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1341"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/13/1341_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="宁波在线" /></a></td>
-									<td class="subject">
-										<p class="title">
-											<span class="posts_icon"><i class="icon_topichot" title="热门帖"></i></span>
-											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=10" class="st">[体验说明]</a>
-											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=2943&fid=10" class="st" style="" title="9.0一测再测，新增BUG一大堆，产品经理呢？！能在9-12号推出前大清查一次BUG吗。">9.0一测再测，新增BUG一大堆，产品经理呢？！能在...</a>
-										</p>
-										<p class="info">
-											楼主：<a class="J_user_card_show" data-uid="1341" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1341">宁波在线</a><span>
-2012-08-31</span>
-											最后回复：<a class="J_user_card_show" data-uid="2379" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=2379">oldmoon</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=2943&page=e" aria-label="最后回复时间">
-09-11 09:20</a></span>
-										</p>
-									</td>
-									<td class="num">
-										<span>回复<em>66</em></span>
-										<span>浏览<em>1463</em></span>
-									</td>
-								</tr>
-								<tr>
-									<td class="author"><a class="J_user_card_show" data-uid="580" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=580"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/05/580_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="乐沙网" /></a></td>
-									<td class="subject">
-										<p class="title">
-											<span class="posts_icon"><i class="icon_topic" title="普通帖"></i></span>
-											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=10" class="st">[体验说明]</a>
-											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3671&fid=10" class="st" style="" title="论坛好像可以运行代码">论坛好像可以运行代码</a>
-										</p>
-										<p class="info">
-											楼主：<a class="J_user_card_show" data-uid="580" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=580">乐沙网</a><span>
-2012-09-11</span>
-											最后回复：<a class="J_user_card_show" data-uid="506" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=506">cabbage</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3671&page=e" aria-label="最后回复时间">
-09-11 09:08</a></span>
-										</p>
-									</td>
-									<td class="num">
-										<span>回复<em>1</em></span>
-										<span>浏览<em>25</em></span>
-									</td>
-								</tr>
-								<tr>
-									<td class="author"><a class="J_user_card_show" data-uid="393" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=393"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/03/393_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="adidea" /></a></td>
-									<td class="subject">
-										<p class="title">
-											<span class="posts_icon"><i class="icon_topichot" title="热门帖"></i></span>
-											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=13" class="st">[聊天灌水]</a>
-											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3354&fid=13" class="st" style="" title="phpwind9.0即将在9.12日发布beta版本">phpwind9.0即将在9.12日发布beta版本</a>
-										</p>
-										<p class="info">
-											楼主：<a class="J_user_card_show" data-uid="393" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=393">adidea</a><span>
-2012-09-05</span>
-											最后回复：<a class="J_user_card_show" data-uid="334" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=334">Bine</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3354&page=e" aria-label="最后回复时间">
-09-11 07:58</a></span>
-										</p>
-									</td>
-									<td class="num">
-										<span>回复<em>55</em></span>
-										<span>浏览<em>921</em></span>
-									</td>
-								</tr>
-								<tr>
-									<td class="author"><a class="J_user_card_show" data-uid="335" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=335"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/03/335_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="英雄之地" /></a></td>
-									<td class="subject">
-										<p class="title">
-											<span class="posts_icon"><i class="icon_topic" title="普通帖"></i></span>
-											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=12" class="st">[界面建议]</a>
-											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3670&fid=12" class="st" style="" title="新版如果不支持新浪微博登录，有些...">新版如果不支持新浪微博登录，有些...</a>
-										</p>
-										<p class="info">
-											楼主：<a class="J_user_card_show" data-uid="335" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=335">英雄之地</a><span>
-2012-09-11</span>
-											最后回复：<a class="J_user_card_show" data-uid="335" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=335">英雄之地</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3670&page=e" aria-label="最后回复时间">
-09-11 07:57</a></span>
-										</p>
-									</td>
-									<td class="num">
-										<span>回复<em>0</em></span>
-										<span>浏览<em>19</em></span>
-									</td>
-								</tr>
-								<tr>
-									<td class="author"><a class="J_user_card_show" data-uid="890" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=890"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/08/890_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="wangwei1686" /></a></td>
-									<td class="subject">
-										<p class="title">
-											<span class="posts_icon"><i class="icon_topic" title="普通帖"></i></span>
-											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=12" class="st">[界面建议]</a>
-											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=1349&fid=12" class="st" style="" title="关于论坛的【个人空间】，论坛第一，空间要排第二重要">关于论坛的【个人空间】，论坛第一，空间要排第二重要</a>
-										</p>
-										<p class="info">
-											楼主：<a class="J_user_card_show" data-uid="890" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=890">wangwei1686</a><span>
-2012-06-01</span>
-											最后回复：<a class="J_user_card_show" data-uid="1658" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1658">quante</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=1349&page=e" aria-label="最后回复时间">
-09-11 05:20</a></span>
-										</p>
-									</td>
-									<td class="num">
-										<span>回复<em>10</em></span>
-										<span>浏览<em>125</em></span>
-									</td>
-								</tr>
-								<tr>
-									<td class="author"><a class="J_user_card_show" data-uid="1667" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1667"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/16/1667_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="beyond" /></a></td>
-									<td class="subject">
-										<p class="title">
-											<span class="posts_icon"><i class="icon_topic" title="普通帖"></i></span>
-											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=12" class="st">[界面建议]</a>
-											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3668&fid=12" class="st" style="" title="１２３">１２３</a>
-										</p>
-										<p class="info">
-											楼主：<a class="J_user_card_show" data-uid="1667" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1667">beyond</a><span>
-2012-09-11</span>
-											最后回复：<a class="J_user_card_show" data-uid="1667" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1667">beyond</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3668&page=e" aria-label="最后回复时间">
-09-11 05:18</a></span>
-										</p>
-									</td>
-									<td class="num">
-										<span>回复<em>0</em></span>
-										<span>浏览<em>3</em></span>
-									</td>
-								</tr>
-								<tr>
-									<td class="author"><a class="J_user_card_show" data-uid="1667" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1667"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/16/1667_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="beyond" /></a></td>
-									<td class="subject">
-										<p class="title">
-											<span class="posts_icon"><i class="icon_topic" title="普通帖"></i></span>
-											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=12" class="st">[界面建议]</a>
-											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3667&fid=12" class="st" style="" title="１２３">１２３</a>
-										</p>
-										<p class="info">
-											楼主：<a class="J_user_card_show" data-uid="1667" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1667">beyond</a><span>
-2012-09-11</span>
-											最后回复：<a class="J_user_card_show" data-uid="1667" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1667">beyond</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3667&page=e" aria-label="最后回复时间">
-09-11 05:18</a></span>
-										</p>
-									</td>
-									<td class="num">
-										<span>回复<em>0</em></span>
-										<span>浏览<em>2</em></span>
-									</td>
-								</tr>
-								<tr>
-									<td class="author"><a class="J_user_card_show" data-uid="2372" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=2372"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/23/2372_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="ganjun" /></a></td>
-									<td class="subject">
-										<p class="title">
-											<span class="posts_icon"><i class="icon_topic" title="普通帖"></i></span>
-											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=12" class="st">[界面建议]</a>
-											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3663&fid=12" class="st" style="" title="不会玩这怎么看者不像论坛呢">不会玩这怎么看者不像论坛呢</a>
-										</p>
-										<p class="info">
-											楼主：<a class="J_user_card_show" data-uid="2372" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=2372">ganjun</a><span>
-2012-09-11</span>
-											最后回复：<a class="J_user_card_show" data-uid="1667" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1667">beyond</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3663&page=e" aria-label="最后回复时间">
-09-11 05:17</a></span>
-										</p>
-									</td>
-									<td class="num">
-										<span>回复<em>3</em></span>
-										<span>浏览<em>29</em></span>
-									</td>
-								</tr>
-								<tr>
-									<td class="author"><a class="J_user_card_show" data-uid="1658" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1658"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/16/1658_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="quante" /></a></td>
-									<td class="subject">
-										<p class="title">
-											<span class="posts_icon"><i class="icon_topic" title="普通帖"></i></span>
-											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=12" class="st">[界面建议]</a>
-											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3666&fid=12" class="st" style="" title="关注PHPWIND9移动设备UI相关">关注PHPWIND9移动设备UI相关</a>
-										</p>
-										<p class="info">
-											楼主：<a class="J_user_card_show" data-uid="1658" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1658">quante</a><span>
-2012-09-11</span>
-											最后回复：<a class="J_user_card_show" data-uid="1658" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1658">quante</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3666&page=e" aria-label="最后回复时间">
-09-11 05:14</a></span>
-										</p>
-									</td>
-									<td class="num">
-										<span>回复<em>0</em></span>
-										<span>浏览<em>21</em></span>
-									</td>
-								</tr>
-								<tr>
-									<td class="author"><a class="J_user_card_show" data-uid="811" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=811"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/08/811_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="wuyiming" /></a></td>
-									<td class="subject">
-										<p class="title">
-											<span class="posts_icon"><i class="icon_topic" title="普通帖"></i></span>
-											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=12" class="st">[界面建议]</a>
-											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=740&fid=12" class="st" style="" title="提个小建议，去掉博客功能">提个小建议，去掉博客功能</a>
-										</p>
-										<p class="info">
-											楼主：<a class="J_user_card_show" data-uid="811" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=811">wuyiming</a><span>
-2012-05-29</span>
-											最后回复：<a class="J_user_card_show" data-uid="1658" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1658">quante</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=740&page=e" aria-label="最后回复时间">
-09-11 05:05</a></span>
-										</p>
-									</td>
-									<td class="num">
-										<span>回复<em>12</em></span>
-										<span>浏览<em>97</em></span>
-									</td>
-								</tr>
-								<tr>
-									<td class="author"><a class="J_user_card_show" data-uid="2373" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=2373"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/23/2373_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="ttt111" /></a></td>
-									<td class="subject">
-										<p class="title">
-											<span class="posts_icon"><i class="icon_topic" title="普通帖"></i></span>
-											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=12" class="st">[界面建议]</a>
-											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3665&fid=12" class="st" style="" title="文档编辑器测试">文档编辑器测试</a>
-										</p>
-										<p class="info">
-											楼主：<a class="J_user_card_show" data-uid="2373" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=2373">ttt111</a><span>
-2012-09-11</span>
-											最后回复：<a class="J_user_card_show" data-uid="2373" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=2373">ttt111</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3665&page=e" aria-label="最后回复时间">
-09-11 04:40</a></span>
-										</p>
-									</td>
-									<td class="num">
-										<span>回复<em>0</em></span>
-										<span>浏览<em>10</em></span>
-									</td>
-								</tr>
-								<tr>
-									<td class="author"><a class="J_user_card_show" data-uid="786" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=786"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/07/786_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="www.isouxun.com" /></a></td>
-									<td class="subject">
-										<p class="title">
-											<span class="posts_icon"><i class="icon_topic" title="普通帖"></i></span>
-											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=13" class="st">[聊天灌水]</a>
-											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3655&fid=13" class="st" style="" title="做人要厚道：说喜欢P9的，还2天就发布了，请下载支持！">做人要厚道：说喜欢P9的，还2天就发布了，请下载支持...</a>
-										</p>
-										<p class="info">
-											楼主：<a class="J_user_card_show" data-uid="786" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=786">www.isouxun.com</a><span>
-2012-09-10</span>
-											最后回复：<a class="J_user_card_show" data-uid="1635" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1635">木马风云</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3655&page=e" aria-label="最后回复时间">
-09-11 00:27</a></span>
-										</p>
-									</td>
-									<td class="num">
-										<span>回复<em>7</em></span>
-										<span>浏览<em>69</em></span>
-									</td>
-								</tr>
-								<tr>
-									<td class="author"><a class="J_user_card_show" data-uid="1915" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1915"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/19/1915_small.jpg" onerror="this.onerror=null;this.src='http://tiyan.phpwind.net/nextwind/res/images/face/face_small.jpg'" width="45" height="45" alt="村长707" /></a></td>
-									<td class="subject">
-										<p class="title">
-											<span class="posts_icon"><i class="icon_topic" title="普通帖"></i></span>
-											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=thread&fid=10" class="st">[体验说明]</a>
-											<a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3218&fid=10" class="st" style="" title="四五个月前看到的PW，到今天再看到他时，没有发现有什么变化的">四五个月前看到的PW，到今天再看到他时，没有发现有什...</a>
-										</p>
-										<p class="info">
-											楼主：<a class="J_user_card_show" data-uid="1915" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1915">村长707</a><span>
-2012-09-02</span>
-											最后回复：<a class="J_user_card_show" data-uid="1635" href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=1635">木马风云</a><span><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=3218&page=e" aria-label="最后回复时间">
-09-11 00:23</a></span>
-										</p>
-									</td>
-									<td class="num">
-										<span>回复<em>18</em></span>
-										<span>浏览<em>203</em></span>
-									</td>
-								</tr>
+								<!--</foreach>-->
 								</tbody>
 							</table>
 						</div>
 
-<div id="pagination" class="pagination"><ul><li class="disabled"><a href="javascript:void(0);">Total:123</a></li><li class="active"><a href="javascript:void(0);">1</a></li><a href="/needforbug/upload/index.php/ucenter/index?page=2" title="Page 2">2</a><a href="/needforbug/upload/index.php/ucenter/index?page=3" title="Page 3">3</a><a href="/needforbug/upload/index.php/ucenter/index?page=4" title="Page 4">4</a><a href="/needforbug/upload/index.php/ucenter/index?page=5" title="Page 5">5</a><a href="/needforbug/upload/index.php/ucenter/index?page=2" title="Next" >Next &#8250;</a><a href="/needforbug/upload/index.php/ucenter/index?page=9" title="Last" >Last &raquo;</a></ul></div>
+			<!--{$sPageNavbar}-->
 			</div>
 			<div class="span4">
 <!--{style}-->
@@ -811,8 +438,10 @@ li {
 							<p>金币&nbsp;<a href="<!--{:Dyhb::U('home://spaceadmin/rating')}-->"><!--{$GLOBALS['___login___']['usercount']['usercount_extendcredit2']}--></a></p>
 						</div>
 						<div class="user_follow">
-							<span><a href="#"><strong><!--{$GLOBALS['___login___']['usercount']['usercount_friends']}--></strong><br />关注</a></span>
-							<span><a href="#"><strong><!--{$GLOBALS['___login___']['usercount']['usercount_fans']}--></strong><br />粉丝</a></span>
+							<span><a href="#"><strong><!--{$GLOBALS['___login___']['usercount']['usercount_friends']}--></strong></a><br />关注</span>
+							<span><a href="#"><strong><!--{$GLOBALS['___login___']['usercount']['usercount_fans']}--></strong></a><br />粉丝</span>
+							<span><a href="#"><strong><!--{$GLOBALS['___login___']['usercount']['usercount_friends']}--></strong></a><br />主题</span>
+							<span><a href="#"><strong><!--{$GLOBALS['___login___']['usercount']['usercount_fans']}--></strong></a><br />帖子</span>
 						</div>
 						<div class="user_profile">
 							<table class="table">

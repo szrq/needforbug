@@ -23,12 +23,12 @@ class Core_Extend{
 			$GLOBALS['___login___']['socia_login']=false;
 
 			// 如果用户使用社会化帐号直接登录
-			if(Dyhb::cookie('SOCIA_LOGIN')==1){
+			if(Dyhb::cookie('SOCIA_LOGIN')==1 && Dyhb::cookie('SOCIA_LOGIN_TYPE')){
 				if(!Dyhb::classExists('SociauserModel')){
 					require_once(NEEDFORBUG_PATH.'/source/extension/socialization/lib/mvc/SociauserModel.class.php');
 				}
 
-				$arrSociauser=SociauserModel::F('user_id=?',$arrUserData['user_id'])->asArray()->getOne();
+				$arrSociauser=SociauserModel::F('user_id=? AND sociauser_vendor=?',$arrUserData['user_id'],Dyhb::cookie('SOCIA_LOGIN_TYPE'))->asArray()->getOne();
 				if($arrSociauser){
 					$arrSociauser['logo']=__ROOT__.'/source/extension/socialization/static/images/'.$arrSociauser['sociauser_vendor'].'/'.$arrSociauser['sociauser_vendor'].'.gif';
 					
@@ -45,6 +45,45 @@ class Core_Extend{
 		$arrAllMethod=get_class_methods($oThis);
 		if(!in_array(ACTION_NAME,$arrAllMethod)){
 			$oThis->page404();
+		}
+	}
+
+	static public function title($oController){
+		$page=intval(G::getGpc('page','G'));
+		$page=$page>1?" | 第 {$page} 页":'';
+		
+		$sTitleAction=ACTION_NAME.'_title_';
+		if(method_exists($oController,$sTitleAction)){
+			return $oController->{$sTitleAction}().' | '.$GLOBALS['_option_']['site_name'].$page;
+		}else{
+			return $GLOBALS['_option_']['site_name'].$page;
+		}
+	}
+
+	static public function keywords($oController){
+		$page=intval(G::getGpc('page','G'));
+		$page=$page>1?",第 {$page} 页":'';
+
+		$sKeywordsAction=ACTION_NAME.'_keywords_';
+		if(method_exists($oController,$sKeywordsAction)){
+			return $oController->{$sKeywordsAction}().','.$GLOBALS['_option_']['site_name'].$page;
+		}else{
+			return '';
+		}
+	}
+
+	static public function description($oController){
+		$page=intval(G::getGpc('page','G'));
+		$page=$page>1?" | 第 {$page} 页":'';
+
+		$sDescriptionAction=ACTION_NAME.'_description_';
+		if(method_exists($oController,$sDescriptionAction)){
+			$sDescription=trim(strip_tags($oController->{$sDescriptionAction}()));
+			$sDescription=preg_replace('/\s(?=\s)/','',$sDescription);// 接着去掉两个空格以上的
+			$sDescription=preg_replace('/[\n\r\t]/','',$sDescription);// 最后将非空格替换为一个空格
+			return G::subString($sDescription,0,300).$page;
+		}else{
+			return $GLOBALS['_option_']['site_name'].$page;
 		}
 	}
 

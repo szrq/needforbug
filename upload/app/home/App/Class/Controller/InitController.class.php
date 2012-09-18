@@ -50,7 +50,6 @@ class InitController extends Controller{
 	
 	public function page404(){
 		header("HTTP/1.0 404 Not Found");
-		
 		$this->display('404');
 		exit();
 	}

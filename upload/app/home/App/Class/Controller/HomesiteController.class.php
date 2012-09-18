@@ -16,16 +16,64 @@ class HomesiteController extends InitController{
 		$this->site_('aboutus');
 	}
 
+	public function aboutus_title_(){
+		return '关于我们';
+	}
+
+	public function aboutus_keywords_(){
+		return $this->aboutus_title_();
+	}
+
+	public function aboutus_description_(){
+		return $this->aboutus_title_();
+	}
+
 	public function contactus(){
 		$this->site_('contactus');
+	}
+
+	public function contactus_title_(){
+		return '联系我们';
+	}
+
+	public function contactus_keywords_(){
+		return $this->contactus_title_();
+	}
+
+	public function contactus_description_(){
+		return $this->contactus_title_();
 	}
 
 	public function agreement(){
 		$this->site_('agreement');
 	}
 
+	public function agreement_title_(){
+		return '用户协议';
+	}
+
+	public function agreement_keywords_(){
+		return $this->agreement_title_();
+	}
+
+	public function agreement_description_(){
+		return $this->agreement_title_();
+	}
+
 	public function privacy(){
 		$this->site_('privacy');
+	}
+
+	public function privacy_title_(){
+		return '隐私声明';
+	}
+
+	public function privacy_keywords_(){
+		return $this->privacy_title_();
+	}
+
+	public function privacy_description_(){
+		return $this->privacy_title_();
 	}
 
 	protected function site_($sName){

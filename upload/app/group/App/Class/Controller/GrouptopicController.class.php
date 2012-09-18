@@ -20,4 +20,8 @@ class GrouptopicController extends InitController{
 		Core_Extend::doControllerAction('Grouptopic@Addtopic','index');
 	}
 
+	public function view(){
+		Core_Extend::doControllerAction('Grouptopic@View','index');
+	}
+
 }

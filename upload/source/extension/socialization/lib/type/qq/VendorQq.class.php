@@ -29,6 +29,7 @@ class VendorQq extends Vendor{
 	public function callback($sAppid,$sAppkey,$sCallback){
 		$sCookieState=Dyhb::cookie('_socia_state_');
 		$this->_oOauth->callback($sAppid,$sAppkey,$sCallback,$sCookieState);
+		$this->getOpenid();
 
 		if($this->_oOauth->isError()){
 			$this->setErrorMessage($this->_oOauth->getErrorMessage());
@@ -46,8 +47,9 @@ class VendorQq extends Vendor{
 	}
 
 	public function getUserInfo($sAppid){
-		$this->getAccessToken();
-		$this->getOpenid();
+		if(($this->getAccessToken()===false)){
+			return false;
+		}
 
 		$arrUser=$this->_oOauth->getUserInfo($sAppid);
 
@@ -64,7 +66,7 @@ class VendorQq extends Vendor{
 	}
 
 	public function getAccessToken(){
-		$this->callback($this->_sAppid,$this->_sSecid,$this->_sCallback);
+		return $this->callback($this->_sAppid,$this->_sSecid,$this->_sCallback);
 	}
 
 	public function showUser($keys=array()){

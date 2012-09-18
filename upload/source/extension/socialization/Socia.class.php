@@ -65,6 +65,10 @@ class Socia{
 			self::setUser($arrUser);
 		}
 
+		// 标识社会化登录
+		Dyhb::cookie('SOCIA_LOGIN',1);
+		Dyhb::cookie('SOCIA_LOGIN_TYPE',$arrUser['sociauser_vendor']);
+
 		return $arrUser;
 	}
 

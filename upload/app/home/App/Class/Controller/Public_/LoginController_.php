@@ -24,6 +24,18 @@ class LoginController extends Controller{
 		$this->display('public+login');
 	}
 
+	public function login_title_(){
+		return '登录';
+	}
+
+	public function login_keywords_(){
+		return $this->login_title_();
+	}
+
+	public function login_description_(){
+		return $this->login_title_();
+	}
+
 	public function socia(){
 		$sVendor=trim(G::getGpc('vendor','G'));
 
@@ -59,6 +71,18 @@ class LoginController extends Controller{
 		$this->assign('sRandPassword',G::randString(10));
 
 		$this->display('public+sociabind');
+	}
+
+	public function socia_bind_title_(){
+		return '社会化绑定';
+	}
+
+	public function socia_bind_keywords_(){
+		return $this->socia_bind_title_();
+	}
+
+	public function socia_bind_description_(){
+		return $this->socia_bind_title_();
 	}
 
 	public function unbind(){
@@ -145,6 +169,10 @@ class LoginController extends Controller{
 			$GLOBALS['___login___']=false;
 
 			Dyhb::cookie('SOCIA_LOGIN',NULL,-1);
+			Dyhb::cookie('SOCIA_LOGIN_TYPE',NULL,-1);
+			Dyhb::cookie("_socia_access_token_",NULL,-1);
+			Dyhb::cookie('_socia_openid_',NULL,-1);
+			Dyhb::cookie('_socia_state_',NULL,-1);
 	
 			$this->assign("__JumpUrl__",Dyhb::U('home://public/login'));
 			$this->S(Dyhb::L('登出成功','Controller/Public'));

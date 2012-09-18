@@ -42,12 +42,28 @@ class RatingController extends Controller{
 			$arrRatings=$GLOBALS['_cache_']['rating'];
 		}
 
+		$this->_oUserInfo=$oUserInfo;
+
 		$this->assign('nId',$nId);
 		$this->assign('nCId',$nCId);
 		$this->assign('arrRatings',$arrRatings);
 		$this->assign('arrRatinggroups',$arrRatinggroups);
 
 		$this->display('space+rating');
+	}
+
+	public $_oUserInfo=null;
+
+	public function index_title_(){
+		return $this->_oUserInfo['user_name'].' - '.'积分';
+	}
+
+	public function index_keywords_(){
+		return $this->index_title_();
+	}
+
+	public function index_description_(){
+		return $this->index_title_();
 	}
 
 }

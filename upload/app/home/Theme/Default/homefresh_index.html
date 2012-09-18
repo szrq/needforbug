@@ -23,6 +23,8 @@ function addHomefresh(){
 		$("#submit_button").val("<!--<lang package='__COMMON_LANG__@Template/Common'>-->发布<!--</lang>-->");
 		
 		if(status==1){
+			$("#homefresh_count").text(data.homefresh_num);
+			
 			$("#homefreshlist_box").prepend(
 				'<tr>'+
 					'<td style="width:48px;">'+

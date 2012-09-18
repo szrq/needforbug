@@ -47,6 +47,22 @@ class FriendController extends InitController{
 		
 		$this->display('friend+index');
 	}
+
+	public function index_title_(){
+		if(G::getGpc('type','G')=='fan'){
+			return '我的粉丝';
+		}else{
+			return '我的好友';
+		}
+	}
+
+	public function index_keywords_(){
+		return $this->index_title_();
+	}
+
+	public function index_description_(){
+		return $this->index_title_();
+	}
 	
 	public function add(){
 		$nUserId=intval(G::getGpc('uid'));

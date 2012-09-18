@@ -15,4 +15,16 @@ class PromotionController extends Controller{
 		$this->display('spaceadmin+promotion');
 	}
 
+	public function promotion_title_(){
+		return '访问推广';
+	}
+
+	public function promotion_keywords_(){
+		return $this->promotion_title_();
+	}
+
+	public function promotion_description_(){
+		return $this->promotion_title_();
+	}
+
 }

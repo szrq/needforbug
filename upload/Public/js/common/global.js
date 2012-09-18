@@ -170,7 +170,7 @@ function loadEditorThin(name){
 		allowFlashUpload:false,
 		allowMediaUpload:false,
 		allowFileManager:false,
-		items:['source','|','bold','forecolor','hilitecolor','italic','underline',
+		items:['source','|','formatblock','fontname','fontsize','|','bold','forecolor','hilitecolor','italic','underline',
 		'removeformat','|','link','unlink','image','|','fullscreen'],
 		newlineTag:'<p>'
 	});

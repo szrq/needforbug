@@ -84,7 +84,7 @@ Tags: admin, light
 .userinfo .user_name a span,.userinfo .user_name a span{font-size:12px;margin:0;}
 .userinfo .user_name p a {}
 .userinfo .user_follow{padding:0}
-.userinfo .user_follow a:link,.userinfo .user_follow a:visited{color:#8a8a8a}
+.userinfo .user_follow a:link,.userinfo .user_follow a:visited{}
 .userinfo .user_follow span{display:inline-block;width:45px;*width:45px;text-align:center;padding:5px 0;margin:1px 0 0 0}
 [/CURSCRIPT]
 

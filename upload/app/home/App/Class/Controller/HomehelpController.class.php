@@ -14,6 +14,7 @@ class HomehelpController extends InitController{
 			$nId=0;
 		}else{
 			$arrWhere['homehelpcategory_id']=$nId;
+			$this->_oHomehelpcategory=HomehelpcategoryModel::F('homehelpcategory_id=?',$nId)->getOne();
 		}
 
 		Core_Extend::loadCache('home_option');
@@ -32,6 +33,20 @@ class HomehelpController extends InitController{
 		$this->homehelpcategory_();
 
 		$this->display('homehelp+list');
+	}
+
+	public $_oHomehelpcategory=null;
+
+	public function index_title_(){
+		return '帮助中心'.($this->_oHomehelpcategory?' - '.$this->_oHomehelpcategory['homehelpcategory_name']:'');
+	}
+
+	public function index_keywords_(){
+		return $this->_oHomehelpcategory?$this->_oHomehelpcategory['homehelpcategory_name']:'帮助中心';
+	}
+
+	public function index_description_(){
+		return $this->index_keywords_();
 	}
 
 	public function show(){
@@ -53,6 +68,8 @@ class HomehelpController extends InitController{
 			$oHomehelp->setAutofill(false);
 			$oHomehelp->save(0,'update');
 
+			$this->_oHomehelp=$oHomehelp;
+
 			if($oHomehelp->isError()){
 				$this->E($oHomehelp->getErrorMessage());
 			}
@@ -61,6 +78,20 @@ class HomehelpController extends InitController{
 		}else{
 			$this->E(Dyhb::L('你指定的帮助不存在','Controller/Homehelp'));
 		}
+	}
+
+	public $_oHomehelp=null;
+
+	public function show_title_(){
+		return $this->_oHomehelp['homehelp_title'].($this->_oHomehelp->homehelpcategory_id>0?' - '.$this->_oHomehelp->homehelpcategory->homehelpcategory_name:'');
+	}
+
+	public function show_description_(){
+		return $this->_oHomehelp['homehelp_content'];
+	}
+
+	public function show_keywords_(){
+		return $this->_oHomehelp['homehelp_title'];
 	}
 
 	public function homehelpcategory_(){

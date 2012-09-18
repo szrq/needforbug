@@ -33,5 +33,17 @@ class UserlistController extends Controller{
 		
 		$this->display('stat+userlist');
 	}
+
+	public function userlist_title_(){
+		return '会员列表';
+	}
+
+	public function userlist_keywords_(){
+		return $this->userlist_title_();
+	}
+
+	public function userlist_description_(){
+		return $this->userlist_title_();
+	}
 	
 }
