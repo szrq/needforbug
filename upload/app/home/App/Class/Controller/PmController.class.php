@@ -61,6 +61,18 @@ class PmController extends InitController{
 		
 		$this->display('pm+new');
 	}
+
+	public function pmnew_title_(){
+		return '新建短消息';
+	}
+
+	public function pmnew_keywords_(){
+		return $this->pmnew_title_();
+	}
+
+	public function pmnew_description_(){
+		return $this->pmnew_title_();
+	}
 	
 	public function sendpm(){
 		$this->check_pm();
@@ -238,6 +250,35 @@ class PmController extends InitController{
 		$this->assign('sFormAction',$sFormAction);
 
 		$this->display('pm+index');
+	}
+
+	public function index_title_(){
+		$sType=trim(G::getGpc('type','G'));
+		switch($sType){
+			case 'new':
+				return '未读短消息';
+				break;
+			case 'user':
+				return '私人短消息';
+				break;
+			case 'my':
+				return '已发短消息';
+				break;
+			case 'systemnew':
+				return '未读公共短消息';
+				break;
+			case 'system':
+				return '公共短消息';
+				break;
+		}
+	}
+
+	public function index_keywords_(){
+		return $this->index_title_();
+	}
+
+	public function index_description_(){
+		return $this->index_title_();
 	}
 
 	public function del_one_pm($nId='',$nUserId='',$nFromId=''){
@@ -485,6 +526,18 @@ class PmController extends InitController{
 		}
 		
 		$this->display('pm+message');
+	}
+
+	public function show_title_(){
+		return '短消息聊天';
+	}
+
+	public function show_keywords_(){
+		return $this->show_title_();
+	}
+
+	public function show_description_(){
+		return $this->show_title_();
 	}
 	
 	public function truncatepm(){

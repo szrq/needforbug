@@ -28,6 +28,14 @@ class LoginController extends Controller{
 		return '登录';
 	}
 
+	public function login_keywords_(){
+		return $this->login_title_();
+	}
+
+	public function login_description_(){
+		return $this->login_title_();
+	}
+
 	public function socia(){
 		$sVendor=trim(G::getGpc('vendor','G'));
 
@@ -67,6 +75,14 @@ class LoginController extends Controller{
 
 	public function socia_bind_title_(){
 		return '社会化绑定';
+	}
+
+	public function socia_bind_keywords_(){
+		return $this->socia_bind_title_();
+	}
+
+	public function socia_bind_description_(){
+		return $this->socia_bind_title_();
 	}
 
 	public function unbind(){

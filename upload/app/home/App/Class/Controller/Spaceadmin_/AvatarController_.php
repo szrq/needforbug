@@ -18,6 +18,18 @@ class AvatarController extends Controller{
 		$this->display('spaceadmin+avatar');
 	}
 
+	public function avatar_title_(){
+		return '修改头像';
+	}
+
+	public function avatar_keywords_(){
+		return $this->avatar_title_();
+	}
+
+	public function avatar_description_(){
+		return $this->avatar_title_();
+	}
+
 	public function upload(){
 		if(!isset($_FILES['image'])){
 			$this->assign('__JumpUrl__',Dyhb::U('spaceadmin/avatar'));
@@ -45,6 +57,18 @@ class AvatarController extends Controller{
 		$this->assign('arrPhotoInfo',reset($arrPhotoInfo));
 
 		$this->display('spaceadmin+avatarupload');
+	}
+
+	public function avatar_upload_title_(){
+		return '裁剪头像';
+	}
+
+	public function avatar_upload_keywords_(){
+		return $this->avatar_upload_title_();
+	}
+
+	public function avatar_upload_description_(){
+		return $this->avatar_upload_title_();
 	}
 
 	public function save_crop(){

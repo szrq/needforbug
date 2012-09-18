@@ -31,4 +31,16 @@ class SociaController extends Controller{
 		$this->display('spaceadmin+socia');
 	}
 
+	public function socia_title_(){
+		return '社会化帐号';
+	}
+
+	public function socia_keywords_(){
+		return $this->socia_title_();
+	}
+
+	public function socia_description_(){
+		return $this->socia_title_();
+	}
+
 }
