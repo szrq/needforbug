@@ -11,8 +11,13 @@ class Group_Extend{
 			$sImgname=__ROOT__.'/data/upload/group/'.$sImgname;
 			return $sImgname;
 		}else{
-			return __APPPUB__.'/Js/Images/common/group_icon.gif';
+			return __ROOT__.'/app/group/Static/Images/group_icon.gif';
 		}
+	}
+
+	public static function getIconName($sFilename){
+		$nId=intval(G::getGpc('id'));
+		return Upload_Extend::getIconName('group',$nId).'.'.G::getExtName($sFilename,2);
 	}
 	
 }
