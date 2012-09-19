@@ -118,8 +118,7 @@ table thead th .order_asc { padding-right: 8px; background: url({IMG_DIR}/order_
 /**===============================
            回到顶部
 ================================*/
-.back-to-top{display: none;width: 18px; line-height: 1.2;
- padding: 5px 0; background-color: #000; color: #fff;
+.back-to-top{display: none;width: 18px; line-height: 1.2;padding: 5px 0; background-color: #000; color: #fff;
  font-size: 12px;text-align: center; position: fixed;_position: absolute;right: 10px;bottom: 100px; _bottom: "auto"; cursor: pointer; opacity: 0.6;filter: Alpha(opacity=60);}
 
 /**===============================

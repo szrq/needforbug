@@ -87,7 +87,7 @@ class Upload_Extend{
 		return md5(md5($sFilename).gmdate('YmdHis')).'.'.G::getExtName($sFilename,2);
 	}
 
-	public static function uploadFlash(){
+	public static function uploadFlash($bUploadFlash=true){
 		if(empty($_FILES)){
 			Dyhb::E('你没有选择任何文件');
 			return;
@@ -97,7 +97,11 @@ class Upload_Extend{
 		$arrAllAllowType=explode('|',$GLOBALS['_option_']['upload_allowed_type']);
 		$nUploadfileMaxsize=Core_Extend::getUploadSize($GLOBALS['_option_']['uploadfile_maxsize']);
 
-		$oUploadfile=new UploadFileForUploadify($nUploadfileMaxsize,$arrAllAllowType,'',NEEDFORBUG_PATH.'/data/upload/attachment'.$sUploadDir);
+		if($bUploadFlash===true){
+			$oUploadfile=new UploadFileForUploadify($nUploadfileMaxsize,$arrAllAllowType,'',NEEDFORBUG_PATH.'/data/upload/attachment'.$sUploadDir);
+		}else{
+			$oUploadfile=new UploadFile($nUploadfileMaxsize,$arrAllAllowType,'',NEEDFORBUG_PATH.'/data/upload/attachment'.$sUploadDir);
+		}
 
 		if($GLOBALS['_option_']['upload_create_thumb']==1){
 			$oUploadfile->_bThumb=true;
@@ -144,6 +148,10 @@ class Upload_Extend{
 		}
 
 		return $arrUploadids;
+	}
+
+	public static function uploadNormal(){
+		self::uploadFlash(false);
 	}
 	
 }

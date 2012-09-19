@@ -1,34 +1,30 @@
 <!--<include file="Core_Extend::template('header')" />-->
 
-<script src="<!--{:__PUBLIC__}-->/js/swfupload/swfupload-all.js"></script>
+<link href="<!--{:__PUBLIC__}-->/js/swfupload/images/style.css" rel="stylesheet" type="text/css" />
+<script src="<!--{:__PUBLIC__}-->/js/swfupload/swfupload.js"></script>
+<script src="<!--{:__PUBLIC__}-->/js/swfupload/common.js"></script>
 <script src="<!--{:__PUBLIC__}-->/js/swfupload/handlers.js"></script>
 
 <!--{script}-->
-var swfuploadL10n={
-	queue_limit_exceeded: "您已尝试过多的文件队列",
-	file_exceeds_size_limit: "该文件超过了网站的最大文件限制",
-	zero_byte_file: "此文件是空文件。请另选文件再试",
-	invalid_filetype: "您所选择的文件类型不允许。请尝试其他文件",
-	default_error: "上传时发生了一个错误。请稍后重试",
-	missing_upload_url: "发现一个配置错误。请联系服务器管理员",
-	upload_limit_exceeded: "您只能上传一个文件",
-	http_error: "HTTP 错误",
-	upload_failed: "上传失败",
-	io_error: "接口错误",
-	security_error: "安全错误",
-	file_cancelled: "文件已取消",
-	upload_stopped: "上传停止",
-	dismiss: "取消",
-	crunching: "上传中&hellip;",
-	deleted: "移除到回收站",
-	error_uploading: "发生了一个错误，上传&#8220;%s&#8221;失败"
-};
-<!--{/script}-->
+var uploadobject;
+var max_upload_size = '<!--{$nUploadfileMaxsize}-->b';
+var sUserauthkey='<!--{$sUserauthkey}-->';
+var sAdminauthkey='<!--{$sAdminauthkey}-->';
+var sHash='<!--{$sHash}-->';
+var sAuth='<!--{$sAuth}-->';
+var sAccess='<!--{$sAccess}-->';
+var sAllAllowType='<!--{$sAllAllowType}-->';
+var uploaderMode=<!--{$nUploadFileMode}-->;
+var nUploadFlashLimit=<!--{$nUploadFlashLimit}-->;
+var nUserid=<!--{$GLOBALS['___login___']['user_id']}-->;
+var nUploadIsauto=<!--{$nUploadIsauto}-->;
+var insert_attach=0;
 
-<!--{script}-->
-var uploaderMode=0;
 jQuery(document).ready(function($){
-	uploaderMode=0;
+	uploadobject = new uploadPlugin("uploadobject");
+	uploadobject.Init();
+	
+	uploaderMode=<!--{$nUploadFileMode}-->;
 	$('.upload-html-bypass a').click(function(){
 		uploaderMode=0;
 		swfuploadPreLoad();
@@ -42,51 +38,9 @@ jQuery(document).ready(function($){
 });
 <!--{/script}-->
 
-<!--{script}-->
-var swfu;
-SWFUpload.onload=function() {
-	var settings={
-		button_text: '<span class="btn btn-success">选择文件<\/span>',
-		button_text_style: '.button { text-align: center; font-weight: bold; font-family:"Lucida Grande",Verdana,Arial,"Bitstream Vera Sans",sans-serif; font-size: 11px; text-shadow: 0 1px 0 #FFFFFF; color:#464646; }',
-		button_height: "23",
-		button_width: "132",
-		button_text_top_padding: 3,
-		button_image_url: '<!--{:__UTHEMEPUB__}-->/Images/upload-fresh.png',
-		button_placeholder_id: "flash-browse-button",
-		upload_url : "<!--{:Dyhb::U('home://attachment/flash_upload')}-->",
-		flash_url : "<!--{:__PUBLIC__}-->/js/swfupload/swfupload.swf",
-		file_post_name: "Filedata",
-		file_types: "*.*",
-		post_params : {
-			'post_id' : '0', 
-			'auth_cookie' : 'admin|1348150305|71ee3aa22c9867a693c9bcd783f4b2ed', 
-			'logged_in_cookie' : 'admin|1348150305|94bd634a7f5d532dcbac6693e8ea0b0a', 
-			'_wpnonce' : '619aebc225', 
-			'type' : '', 
-			'tab' : '', 
-			'short' : '1'	
-		},
-		file_size_limit : "2097152b",
-		file_dialog_start_handler : fileDialogStart,
-		file_queued_handler : fileQueued,
-		upload_start_handler : uploadStart,
-		upload_progress_handler : uploadProgress,
-		upload_error_handler : uploadError,
-		upload_success_handler : uploadSuccess,
-		upload_complete_handler : uploadComplete,
-		file_queue_error_handler : fileQueueError,
-		file_dialog_complete_handler : fileDialogComplete,
-		swfupload_pre_load_handler: swfuploadPreLoad,
-		swfupload_load_failed_handler: swfuploadLoadFailed,
-		custom_settings : {
-			degraded_element_id : "html-upload-ui", 
-			swfupload_element_id : "flash-upload-ui"
-		},
-		debug: false
-	};
-	swfu=new SWFUpload(settings);
-};
-<!--{/script}-->
+<!--{style}-->
+#flash-upload-ui li{list-style:none;}
+<!--{/style}-->
 
 		<ul class="breadcrumb">
 			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
@@ -98,47 +52,54 @@ SWFUpload.onload=function() {
 
 		<div class="row">
 			<div class="span12">
-				<form enctype="multipart/form-data" method="post" action="" id="attach_form" name="attach_form">
-					<div id="media-upload-notice">&nbsp;</div>
-					<div id="media-upload-error">&nbsp;</div>
-					<div id="flash-upload-ui" class="hide-if-no-js">
-						<div>选择文件上传&nbsp;&nbsp;
-							<div id="flash-browse-button"></div>
-							<span><input id="cancel-upload" disabled="disabled" onclick="cancelUpload()" type="button" value="取消上传" class="button" /></span>
+				<form enctype="multipart/form-data" method="post" action="<!--{:Dyhb::U('home://attachment/normal_upload')}-->" id="attach_form" name="attach_form">
+					<span id="media-upload-error"></span>
+					<div id="flash-upload-ui" class="hide-if-no-js well <!--{if $nUploadFileMode==1}-->none<!--{/if}-->">
+
+						<div><p><h3 class="left">选择文件上传</h3>
+								<span class="clear"></span>
+							</p>
+							<div class="attachment_flash_top">
+								<ul>
+									<li id="add" style="background-position:bottom;"><span id="selectfile"></span></li>
+									<li id="upload" style="display:none;"></li>
+									<li id="delete" style="display:none;"></li>
+								</ul>
+							</div>
+							<div class="attachment_flash_mainbox" style="display:none;">
+								<table class="table" id="attachment_flash_box">
+									<thead>
+										<tr>
+											<th class="no">序号</th>
+											<th class="status">状态</th>
+											<th class="name">名称</th>
+											<th class="size">大小</th>
+											<th class="flashprogress">进度</th>
+											<th class="exec">操作</th>
+										</tr>
+									</thead>
+								</table>
+							</div>
 						</div>
-						<p class="media-upload-size">上传文件最大尺寸：2MB</p>
-						<p class="upload-flash-bypass">您正在使用的是 Flash 上传工具。遇到问题了？不妨换 <a href="/wordpress/wp-admin/media-new.php?flash=0">浏览器上传工具</a> 试试。</p>&nbsp;<p class="howto">文件上传后，您可以在下面添加标题和说明。</p>
+						<div id="messageinfo" class="alert"></div>
+						<div class="media-upload-size alert alert-success" style="margin-top:10px;">上传文件最大尺寸&nbsp;<!--{:G::changeFileSize($nUploadfileMaxsize)}-->(<!--{$nUploadfileMaxsize}-->)
+						</div>
+						<p class="upload-flash-bypass">Flash上传工具<span class="pipe">|</span><a href="?flash=0">浏览器上传工具</a></p>
 					</div>
-					<div id="html-upload-ui" class="hide-if-js">
-						<p id="async-upload-wrap">
-							<label class="screen-reader-text" for="async-upload">上传</label>
-							<input type="file" name="async-upload" id="async-upload" />
-							<input type="submit" name="html-upload" id="html-upload" class="button" value="上传"  />		<a href="#" onclick="try{top.tb_remove();}catch(e){}; return false;">取消</a>
+					<div id="html-upload-ui" class="hide-if-js well <!--{if $nUploadFileMode==0}-->none<!--{/if}-->">
+						<h3>上传</h3>
+						<p><!--<for start='1' end='$nFileInputNum'>-->
+							<input type="file" name="newfile[]">
+							<!--</for>-->
 						</p>
-						<div class="clear"></div>
-						<p class="media-upload-size">上传文件最大尺寸：2MB</p>
-						<p class="upload-html-bypass hide-if-no-js">您正在使用浏览器上传。 尝试用 <a href="/wordpress/wp-admin/media-new.php?flash=1">Flash 上传</a> 工具。</p>
+						<p><input type="submit" name="html-upload" id="html-upload" class="btn btn-success" value="上传" />&nbsp;
+							<input type="reset" class="btn" value="重置" />
+							<span class="clear"></span>
+						</p>
+						<div class="media-upload-size alert alert-success" style="margin-top:10px;">上传文件最大尺寸&nbsp;<!--{:G::changeFileSize($nUploadfileMaxsize)}-->(<!--{$nUploadfileMaxsize}-->)
+						</div>
+						<p class="upload-html-bypass hide-if-no-js">浏览器上传工具<span class="pipe">|</span><a href="?flash=1">Flash上传工具</a></p>
 					</div>
-					<!--{script}-->
-					jQuery(function($){
-						var preloaded=$(".media-item.preloaded");
-						if(preloaded.length>0) {
-							preloaded.each(function(){
-								prepareMediaItem({id:this.id.replace(/[^0-9]/g, '')},'');
-							});
-						}
-						updateMediaForm();
-						post_id = 0;
-						shortform = 1;
-					});
-					<!--{/script}-->
-					<input type="hidden" name="post_id" id="post_id" value="0" />
-					<input type="hidden" id="_wpnonce" name="_wpnonce" value="619aebc225" />
-					<input type="hidden" name="_wp_http_referer" value="/wordpress/wp-admin/media-new.php" />	
-					<div id="media-items" class="hide-if-no-js">&nbsp;</div>
-					<p class="submit">
-						<input type="submit" name="save" id="save" class="button savebutton hide-if-no-js" value="全部保存"  />
-					</p>	
 				</form>
 			</div>
 		</div>
