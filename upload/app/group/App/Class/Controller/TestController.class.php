@@ -7,6 +7,7 @@
 class TestController extends InitController{
 
 	public function index(){
+		
 		$this->display('test+index');
 	}
 
