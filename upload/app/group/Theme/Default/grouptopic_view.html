@@ -63,16 +63,16 @@
 }
 
 .floor_info .name{
-	padding:5px 0;
+	padding:5px 10px 0px 10px;
 }
 .floor_info .name a{
 	font-weight:700;
 	color:#333;
 }
 .floor_info .face{
-	width:100px;
 	height:100px;
 	margin-bottom:5px;
+	padding-left:10px;
 }
 
 .floor_info .level{
@@ -95,7 +95,7 @@
 }
 .floor_info .integral span{
 	display:block;
-	width:70px;
+	width:63px;
 	height:18px;
 	float:left;
 	overflow:hidden;
@@ -114,7 +114,6 @@
 	line-height:20px;
 	height:20px;
 	color:#999;
-	background:url(http://tiyan.phpwind.net/nextwind/themes/site/default/images/forum/operate.png) no-repeat;
 }
 .floor_info .operate a:hover{
 	color:#333;
@@ -127,7 +126,6 @@
 }
 .floor_info .operate .message{
 	background-position:0 -25px;
-	padding-left:16px;
 }
 
 .floor_info .medal{
@@ -340,6 +338,9 @@
 	padding-top:10px;
 }
 
+input, textarea, .uneditable-input {
+margin-left:-72px;
+}
 
 .reply_quick{
 	width:600px;
@@ -348,6 +349,10 @@
 .reply_quick .hd{
 	height:30px;
 }
+.reply_quick .ct{
+	text-align:left;
+}
+
 .reply_quick .hd h2{
 	font-size:14px;
 	float:left;
@@ -497,50 +502,56 @@
 	background-position:0 -150px;
 }
 
-dl.profile { margin: 5px 10px 5px 20px; }
+dl.profile { margin:0px; }
 dl { margin: 5px 0; padding: 5px 0; }
-dt { width: 70px; }
-dd { width: 100px; }
-dl.profile { margin: 5px 10px 5px 20px; }
 dt em { color: {NOTICETEXT_COLOR}; }
-dd,dt { height: 1.6em; line-height: 1.6em; float: left; overflow: hidden; font-family: Tahoma, sans-serif; }
-dt { margin-right: 5px; width: 50px; }
-dd { width: 80px; }
+dd,dt {height: 1.6em; line-height: 1.6em; float: left; overflow: hidden; font-family: Tahoma, sans-serif;font-weight:normal; }
+dt {padding-left:10px;width:60px;}
+dd { width:120px;}
+
+.clear:after,.clearfix:after{content:".";display:none;height:0;clear:both;visibility:hidden;}
+.clear,.clearfix{display:inline;}
 <!--{/style}-->
 
 		<div class="row">
 			<div class="span12">
-					<div class="floor clear" id="read_0">
-						<table width="100%" style="table-layout:fixed;">
+					<div class="floor clear" id="read_0" style="margin:0px;padding:0px;">
+						<table width="100%" style="table-layout:fixed;border:1px solid #f1f1f1;">
 							<tr>
-								<td rowspan="2" class="floor_left span2">
+								<td rowspan="2" class="floor_left span3"  style="border-right:1px solid #f1f1f1;">
 									<div class="floor_info">
 										<!--头像-->
 										<div class="face"><a href="/index.php?m=space&uid=292" class="J_user_card_show" data-uid="292" target="_blank"><img src="<!--{:Core_Extend::avatar($oGrouptopic['user_id'],'small')}-->" class="J_avatar" data-type="middle" width="100" height="100" alt="<!--{$oGrouptopic->grouptopic_username}-->"></a></div>
 										<!--用户名-->
-										<div class="name"><span class="man_unol" title="离线"></span><a href="/index.php?m=space&uid=292" class="J_user_card_show" data-uid="292"><!--{$oGrouptopic->grouptopic_username}--></a></div>
+										<div class="name"><span class="man_unol" title="离线"></span><a href="/index.php?m=space&uid=292" class="J_user_card_show" data-uid="292" style="width:62px;"><!--{$oGrouptopic->grouptopic_username}--></a>
+										</div>
+										<div class="operate clear">
+											<a rel="nofollow" href="#" style="padding-left:10px;width:60px;"><i class="icon-plus"></i>加关注</a>
+											<a rel="nofollow" href="/index.php?m=message&c=message&a=pop&username=小鸡爷爷" class="message J_send_msg_pop" data-name="小鸡爷爷" style="width:130px;"><i class="icon-envelope"></i>写私信</a>
+										</div>
 										<dl class="profile clear">
-											<dt>UID</dt><dd>5&nbsp;</dd>
-											<dt><lang package='boardTheme'>主题</lang></dt><dd>2&nbsp;</dd>
+											<dt>UID</dt><dd><!--{$oGrouptopic->grouptopic_id}-->&nbsp;</dd>
+											<dt><lang package='boardTheme'>主题</lang></dt><dd><!--{$nGrouptopic}-->&nbsp;</dd>
 											<dt><lang package='boardTheme'>回复</lang></dt><dd>3&nbsp;</dd>
-											<dt><lang package='boardTheme'>来自</lang></dt><dd>成都&nbsp;</dd>
-											<dt><lang package='boardTheme'>现居地</lang></dt><dd>成都&nbsp;</dd>
-											<dt>QQ</dt><dd><a href="http://wpa.qq.com/msgrd?V=1amp;Uin={$oBlog:user:user_qq}amp;Site=ioshenmueMenu=yes"><img src="{:IMG_DIR}/qq.gif"/></a>&nbsp;</dd>
-											<dt><lang package='boardTheme'>爱好</lang></dt><dd>打篮球&nbsp;</dd>
+											<dt><lang package='boardTheme'>来自</lang></dt><dd><!--{$oUserprofile->userprofile_birthcity}-->&nbsp;</dd>
+											<dt><lang package='boardTheme'>现居地</lang></dt><dd><!--{$oUserprofile->userprofile_residecity}-->&nbsp;</dd>
+											<dt>QQ</dt><dd><a href="#"><!--{$oUserprofile->userprofile_qq}--></a>&nbsp;</dd>
+											<dt><lang package='boardTheme'>爱好</lang></dt><dd><!--{$oUserprofile->userprofile_interest}-->&nbsp;</dd>
 											<dt><lang package='boardTheme'>工作</lang></dt><dd>学生&nbsp;</dd>
+											<dt>头衔</dt><dd>列兵</dd>
 										</dl>
 										<!--相关数据-->
-										<ul class="integral">
+										<!--<ul class="integral">
 											<li><em>头衔</em><span>列兵</span></li>
-										</ul>
-										<!--发私信加关注-->
+										</ul>-->
+										<!--发私信加关注
 										<div class="operate clear">
 											<a rel="nofollow" href="#">+加关注</a>
 											<a rel="nofollow" href="/index.php?m=message&c=message&a=pop&username=小鸡爷爷" class="message J_send_msg_pop" data-name="小鸡爷爷">写私信</a>
-										</div>
+										</div>-->
 									</div>
 								</td>
-								<td class="floor_right span10"> 
+								<td class="floor_right span9"> 
 									<div class="left"><div class="floor_arrow"><em></em><span></span></div></div>
 									<div class="floor_title">
 										<div class="post_num">
@@ -620,29 +631,38 @@ dd { width: 80px; }
 							</tr>
 						</table>
 						</div>
-						<a name="5440"></a>
-						<div id="cloudwind_read_readfloor_5440"></div>
-						<div class="floor clear J_read_floor" id="read_5440">
-						<table width="100%" style="table-layout:fixed;" class="floor_table">
+						<div style="height:1px;background-color:#52A452;margin:0px;padding:0px;"></div>
+						<div class="floor clear J_read_floor" id="read_5440" style="margin:0px;padding:0px;">
+						<table width="100%" style="table-layout:fixed;border:1px solid #f1f1f1;" class="floor_table">
 							<tr>
-								<td rowspan="2" class="floor_left span2">
+								<td rowspan="2" class="floor_left span3"  style="border-right:1px solid #f1f1f1;">
 									<div class="floor_info">
 										<!--头像-->
 										<div class="face"><a href="/index.php?m=space&uid=473" class="J_user_card_show" data-uid="473" target="_blank"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/04/473_middle.jpg" class="J_avatar" data-type="middle" width="100" height="100" alt="andycheung"></a></div>
 										<!--用户名-->
-										<div class="name"><span class="man_unol" title="离线"></span><a href="/index.php?m=space&uid=473" class="J_user_card_show" data-uid="473">andycheung</a></div>
+										<div class="name"><span class="man_unol" title="离线"></span><a href="/index.php?m=space&uid=473" class="J_user_card_show" data-uid="473">andycheung</a>
+										</div>
 										<!--相关数据-->
-										<ul class="clear integral">
-											<li><em>头衔</em><span>列兵</span></li>
-										</ul>
+										<dl class="profile clear">
+											<dt>UID</dt><dd>5&nbsp;</dd>
+											<dt><lang package='boardTheme'>主题</lang></dt><dd>2&nbsp;</dd>
+											<dt><lang package='boardTheme'>回复</lang></dt><dd>3&nbsp;</dd>
+											<dt><lang package='boardTheme'>来自</lang></dt><dd>成都&nbsp;</dd>
+											<dt><lang package='boardTheme'>现居地</lang></dt><dd>成都&nbsp;</dd>
+											<dt>QQ</dt><dd><a href="#">394578420</a>&nbsp;</dd>
+											<dt><lang package='boardTheme'>爱好</lang></dt><dd>打篮球&nbsp;</dd>
+											<dt><lang package='boardTheme'>工作</lang></dt><dd>学生&nbsp;</dd>
+											<dt>头衔</dt><dd>列兵</dd>
+										</dl>
 										<!--发私信加关注-->
 										<div class="operate clear">
-											<a rel="nofollow" href="/index.php?c=follow&a=add&uid=473" class="follow J_read_follow">加关注</a>
-											<a rel="nofollow" href="/index.php?m=message&c=message&a=pop&username=andycheung" class="message J_send_msg_pop" data-name="andycheung">写私信</a>
+											<a rel="nofollow" href="#">+加关注</a>
+											<a rel="nofollow" href="/index.php?m=message&c=message&a=pop&username=小鸡爷爷" class="message J_send_msg_pop" data-name="小鸡爷爷">写私信</a>
 										</div>
+										<!--发私信加关注-->
 									</div>
 								</td>
-								<td class="floor_right span10">
+								<td class="floor_right span9">
 									<div class="fl"><div class="floor_arrow"><em></em><span></span></div></div>
 									<div class="floor_top_tips">
 										<span class="lou J_floor_copy" title="复制此楼地址"
