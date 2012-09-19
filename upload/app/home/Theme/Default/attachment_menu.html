@@ -1,0 +1,13 @@
+		<div class="row">
+			<div class="span12">
+				<ul class="nav nav-tabs">
+					<li <!--{if ACTION_NAME==='index'}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://spaceadmin/index')}-->"><!--<lang package='Template/Attachment'>-->推荐照片<!--</lang>--></a></li>
+					<li <!--{if ACTION_NAME==='rating'}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://spaceadmin/rating')}-->"><!--<lang package='Template/Attachment'>-->推荐附件<!--</lang>--></a></li>
+					<li <!--{if ACTION_NAME==='rating'}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://spaceadmin/rating')}-->"><!--<lang package='Template/Attachment'>-->推荐专辑<!--</lang>--></a></li>
+					<li <!--{if in_array(ACTION_NAME,array('avatar','avatar_upload'))}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://spaceadmin/avatar')}-->"><!--<lang package='Template/Attachment'>-->最新专辑<!--</lang>--></a></li>
+					<li <!--{if in_array(ACTION_NAME,array('avatar','avatar_upload'))}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://spaceadmin/avatar')}-->"><!--<lang package='Template/Attachment'>-->我的专辑<!--</lang>--></a></li>
+					<li <!--{if in_array(ACTION_NAME,array('avatar','avatar_upload'))}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://spaceadmin/avatar')}-->"><!--<lang package='Template/Attachment'>-->创建新专辑<!--</lang>--></a></li>
+					<li <!--{if ACTION_NAME==='add'}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('home://attachment/add')}-->"><!--<lang package='Template/Attachment'>-->上传附件<!--</lang>--></a></li>
+				</ul>
+			</div>
+		</div>

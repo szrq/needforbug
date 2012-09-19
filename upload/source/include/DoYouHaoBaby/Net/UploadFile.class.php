@@ -127,7 +127,7 @@ class UploadFile{
 				$arrThumbPrefix=explode(',',$this->_sThumbPrefix);
 				$arrThumbSuffix=explode(',',$this->_sThumbSuffix);
 				$arrThumbFile=explode(',',$this->_sThumbFile);
-				$sThumbPath=$this->_sThumbPath?$this->_sThumbPath:$arrFile['savepath'];
+				$sThumbPath=$this->_sThumbPath?$this->_sThumbPath:dirname($arrFile['savepath']);
 
 				// 检查缩略图目录
 				if(!is_dir($sThumbPath)){
@@ -151,7 +151,9 @@ class UploadFile{
 				}
 
 				// 生成图像缩略图
-				$sRealFilename=$this->_bAutoSub?basename($arrFile['savename']):$arrFile['savename'];
+				$sRealFilename=$this->_bAutoSub?$arrFile['savename']:$arrFile['savename'];
+				$sRealFilename=G::subString($sRealFilename,0,(strripos($sRealFilename,'.')?:count($sRealFilename)));
+
 				for($nI=0,$nLen=count($arrThumbWidth);$nI<$nLen;$nI++){
 					$sThumbname=$sThumbPath.'/'.$arrThumbPrefix[$nI].$sRealFilename.$arrThumbSuffix[$nI].'.'.$arrFile['extension'];
 					if($this->_bThumbFixed===true){
@@ -290,7 +292,7 @@ class UploadFile{
 					}
 				}
 			}else{
-				$arrFoleInfo=$arrFiles;
+				$arrFileInfo=$arrFiles;
 			}
 			break;
 		}
@@ -341,9 +343,9 @@ class UploadFile{
 			if(is_array($sRule) && is_callable($sRule)){
 				$sSaveName=call_user_func_array($sRule,$arrFile);
 			}elseif(is_string($sRule) && function_exists($sRule)){// 使用函数生成一个唯一文件标识号
-				$sSaveName=$sRule();
+				$sSaveName=$sRule().G::getExtName($arrFile['name'],2);
 			}else{// 使用给定的文件名作为标识号
-				$sSaveName=$sRule.'-'.md5($arrFile['name']);
+				$sSaveName=$sRule.'-'.md5($arrFile['name']).G::getExtName($arrFile['name'],2);
 			}
 		}
 
