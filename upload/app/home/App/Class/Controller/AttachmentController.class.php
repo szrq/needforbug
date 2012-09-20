@@ -71,7 +71,7 @@ class AttachmentController extends InitController{
 		require(Core_Extend::includeFile('function/Upload_Extend'));
 
 		// 读取发送过来的COOKIE
-		$sUserauthkey=trim(G::getGcp('user_auth_key'));
+		/*$sUserauthkey=trim(G::getGcp('user_auth_key'));
 		$sAdminauthkey=trim(G::getGcp('admin_auth_key'));
 		$sHash=trim(G::getGcp('hash'));
 		$sAuth=trim(G::getGcp('auth'));
@@ -81,7 +81,7 @@ class AttachmentController extends InitController{
 		Dyhb::cookie(md5($GLOBALS['_commonConfig_']['ADMIN_AUTH_KEY']),$sAdminauthkey);
 		Dyhb::cookie($GLOBALS['_commonConfig_']['RBAC_DATA_PREFIX'].'hash',$sHash);
 		Dyhb::cookie($GLOBALS['_commonConfig_']['RBAC_DATA_PREFIX'].'auth',$sAuth);
-		Dyhb::cookie(md5(APP_NAME.MODULE_NAME.ACTION_NAME),$sAccess);
+		Dyhb::cookie(md5(APP_NAME.MODULE_NAME.ACTION_NAME),$sAccess);*/
 
 		try{
 			$arrUploadids=Upload_Extend::uploadFlash();
