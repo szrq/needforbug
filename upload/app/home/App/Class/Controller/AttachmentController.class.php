@@ -98,14 +98,15 @@ class AttachmentController extends InitController{
 		require(Core_Extend::includeFile('function/Upload_Extend'));
 
 		try{
+			$nAttachmentcategoryid=intval(G::getGpc('attachmentcategory_id'));
+
 			$sHashcode=G::randString(32);
 			Dyhb::cookie('_upload_hashcode_',$sHashcode,3600);
 
 			$arrUploadids=Upload_Extend::uploadNormal();
 			$sUploadids=implode(',',$arrUploadids);
 
-			$this->assign('__JumpUrl__',Dyhb::U('home://attachment/attachmentinfo?id='.$sUploadids.'&hash='.$sHashcode));
-			$this->assign('hashcode',$sHashcode);
+			$this->assign('__JumpUrl__',Dyhb::U('home://attachment/attachmentinfo?id='.$sUploadids.'&hash='.$sHashcode.'&cid='.$nAttachmentcategoryid));
 
 			$this->S('附件上传成功');
 		}catch(Exception $e){
@@ -117,6 +118,8 @@ class AttachmentController extends InitController{
 		require(Core_Extend::includeFile('function/Upload_Extend'));
 
 		try{
+			$_POST['attachmentcategory_id']=intval(G::getGpc('attachmentcategory_id'));
+
 			$arrUploadids=Upload_Extend::uploadFlash();
 			echo ($arrUploadids[0]);
 		}catch(Exception $e){
@@ -128,10 +131,23 @@ class AttachmentController extends InitController{
 		}
 	}
 
+	public function flashinfo(){
+		$arrUploadids=G::getGpc('attachids','P');
+		$nAttachmentcategoryid=intval(G::getGpc('attachmentcategory_id_flash'));
+
+		$sHashcode=G::randString(32);
+		Dyhb::cookie('_upload_hashcode_',$sHashcode,3600);
+
+		$sUploadids=implode(',',$arrUploadids);
+
+		$this->U('home://attachment/attachmentinfo?id='.$sUploadids.'&hash='.$sHashcode.'&cid='.$nAttachmentcategoryid);
+	}
+
 	public function attachmentinfo(){
 		$sUploadids=trim(G::getGpc('id','G'));
 		$sHashcode=trim(G::getGpc('hash','G'));
 		$sCookieHashcode=Dyhb::cookie('_upload_hashcode_');
+		$nAttachmentcategoryid=intval(G::getGpc('cid'));
 
 		if(empty($sCookieHashcode)){
 			//$this->assign('__JumpUrl__',Dyhb::U('home://attachment/add'));
@@ -149,13 +165,16 @@ class AttachmentController extends InitController{
 		}
 
 		$arrAttachments=AttachmentModel::F('user_id=? AND attachment_id in('.$sUploadids.')',$GLOBALS['___login___']['user_id'])->getAll();
+
 		$this->assign('arrAttachments',$arrAttachments);
+		$this->assign('nAttachmentcategoryid',$nAttachmentcategoryid);
 
 		$this->display('attachment+attachmentinfo');
 	}
 
 	public function attachmentinfo_save(){
 		$arrAttachments=G::getGpc('attachments','P');
+		$nAttachmentcategoryid=intval(G::getGpc('attachmentcategory_id'));
 
 		if(is_array($arrAttachments)){
 			foreach($arrAttachments as $nKey=>$arrAttachment){
@@ -171,7 +190,7 @@ class AttachmentController extends InitController{
 			}
 		}
 
-		$this->assign('__JumpUrl__',Dyhb::U('home://attachment/add'));
+		$this->assign('__JumpUrl__',Dyhb::U('home://attachment/my_attachment?cid='.$nAttachmentcategoryid));
 
 		Dyhb::cookie('_upload_hashcode_',null,-1);
 
@@ -214,6 +233,120 @@ class AttachmentController extends InitController{
 	public function get_attachment_url($oAttachment){
 		return $_SERVER['HTTP_HOST'].__ROOT__.'/data/upload/attachment/'.
 			$oAttachment['attachment_savepath'].'/'.$oAttachment['attachment_savename'];
+	}
+
+	public function my_attachmentcategory(){
+		echo '我的专辑';
+	}
+
+	public function my_attachment(){
+		$arrWhere=array();
+
+		$nAttachmentcategoryid=G::getGpc('cid','G');
+		if($nAttachmentcategoryid!==null){
+			$arrWhere['attachmentcategory_id']=intval($nAttachmentcategoryid);
+
+			// 取得专辑信息
+			$arrAttachmetncategoryinfo=array();
+			if($nAttachmentcategoryid==0){
+				$nDefaultattachmentnum=AttachmentModel::F('user_id=? AND attachmentcategory_id=0',$GLOBALS['___login___']['user_id'])->all()->getCounts();
+				$arrAttachmetncategoryinfo['totalnum']=$nDefaultattachmentnum;
+			}elseif($nAttachmentcategoryid>0){
+				$oAttachmentcategoryinfo=AttachmentcategoryModel::F('attachmentcategory_id=?',$nAttachmentcategoryid)->getOne();
+				if(!empty($oAttachmentcategoryinfo['attachmentcategory_id'])){
+					$arrAttachmetncategoryinfo=$oAttachmentcategoryinfo->toArray();
+				}else{
+					$arrAttachmetncategoryinfo=false;
+				}
+			}
+
+			$this->assign('arrAttachmetncategoryinfo',$arrAttachmetncategoryinfo);
+		}
+
+		$arrWhere['user_id']=$GLOBALS['___login___']['user_id'];
+
+		$nTotalRecord=AttachmentModel::F()->where($arrWhere)->all()->getCounts();
+		$oPage=Page::RUN($nTotalRecord,10,G::getGpc('page','G'));
+		$arrAttachments=AttachmentModel::F()->where($arrWhere)->order('create_dateline DESC')->limit($oPage->returnPageStart(),10)->getAll();
+
+		$this->assign('arrAttachments',$arrAttachments);
+		$this->assign('sPageNavbar',$oPage->P('pagination','li','active'));
+		$this->assign('nAttachmentcategoryid',$nAttachmentcategoryid);
+
+		$this->display('attachment+myattachment');
+	}
+
+	public function edit_attachment(){
+		$nAttachmentid=intval(G::getGpc('id'));
+
+		if(empty($nAttachmentid)){
+			exit('你没有选择你要编辑的附件');
+		}
+
+		$oAttachment=AttachmentModel::F('attachment_id=?',$nAttachmentid)->getOne();
+		if(empty($oAttachment['attachment_id'])){
+			exit('你要编辑的附件不存在');
+		}
+
+		if($oAttachment['user_id']!=$GLOBALS['___login___']['user_id']){
+			exit('你不能编辑别人的附件');
+		}
+
+		$this->assign('oAttachment',$oAttachment);
+
+		$this->display('attachment+editattachment');
+	}
+
+	public function edit_attachmentcategorysave(){
+		$nAttachmentid=intval(G::getGpc('attachment_id','G'));
+		$sAttachmentname=trim(G::getGpc('attachment_name','G'));
+		$sAttachmentalt=trim(G::getGpc('attachment_alt','G'));
+		$sAttachmentdescription=trim(G::getGpc('attachment_description','G'));
+
+		$oAttachment=AttachmentModel::F('attachment_id=?',$nAttachmentid)->getOne();
+		$oAttachment->attachment_name=$sAttachmentname;
+		$oAttachment->attachment_alt=$sAttachmentalt;
+		$oAttachment->attachment_description=$sAttachmentdescription;
+		$oAttachment->save(0,'update');
+
+		if($oAttachment->isError()){
+			$this->E($oAttachment->getErrorMessage());
+		}
+
+		$this->A($oAttachment->toArray(),'更新附件信息成功',1);
+	}
+
+	public function delete_attachment(){
+		$nAttachmentid=intval(G::getGpc('id','G'));
+
+		if(empty($nAttachmentid)){
+			$this->E('你没有选择你要删除的附件');
+		}
+
+		$oAttachment=AttachmentModel::F('attachment_id=?',$nAttachmentid)->getOne();
+		if(empty($oAttachment['attachment_id'])){
+			$this->E('你要删除的附件不存在');
+		}
+
+		if($oAttachment['user_id']!=$GLOBALS['___login___']['user_id']){
+			$this->E('你不能删除别人的附件');
+		}
+
+		// 删除附件图片
+		$sFilepath=NEEDFORBUG_PATH.'/data/upload/attachment/'.$oAttachment['attachment_savepath'].'/'.$oAttachment['attachment_savename'];
+		$sThumbfilepath=NEEDFORBUG_PATH.'/data/upload/attachment/'.$oAttachment['attachment_thumbpath'].'/'.$oAttachment['attachment_savename'];
+
+		if(is_file($sFilepath)){
+			@unlink($sFilepath);
+		}
+
+		if(is_file($sThumbfilepath)){
+			@unlink($sThumbfilepath);
+		}
+
+		$oAttachment->destroy();
+
+		$this->S('附件删除成功');
 	}
 
 }

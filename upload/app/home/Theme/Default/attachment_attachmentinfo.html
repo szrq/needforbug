@@ -65,7 +65,7 @@ function toggleAttachment(id){
 									</tr>
 									<tr>
 										<td>文件地址</td>
-										<td><input class="span7" value="<!--{$TheController->get_attachment_url($oAttachment)}-->" type="text"></td>
+										<td><input class="span5" value="<!--{$TheController->get_attachment_url($oAttachment)}-->" type="text" disabled="disabled"></td>
 									</tr>
 								</tbody>
 							</table>
@@ -73,8 +73,9 @@ function toggleAttachment(id){
 					</div>
 					<!--</foreach>-->
 					<div class="form-actions">
+						<input type="hidden" name="attachmentcategory_id" value="<!--{$nAttachmentcategoryid}-->"/>
 						<input type="submit" class="btn btn-success" value="保存附件信息">&nbsp;
-						<a class="btn" href="<!--{:Dyhb::U('home://public/register')}-->">我的附件</a>
+						<a class="btn" href="<!--{:Dyhb::U('home://attachment/my_attachment?cid='.$nAttachmentcategoryid)}-->">我的附件</a>
 					</div>
 				</form>
 			</div>
