@@ -151,7 +151,7 @@ class Upload_Extend{
 	}
 
 	public static function uploadNormal(){
-		self::uploadFlash(false);
+		return self::uploadFlash(false);
 	}
 	
 }
