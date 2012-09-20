@@ -873,4 +873,61 @@ NEEDFORBUG;
 		}
 	}
 
+	static public function getFileicon($sExtension,$bReturnImageIcon=false,$bReturnPath=true){
+		$arrIcons=array(
+			'image'=>array('gif','jpg','jpeg','bmp','png'),
+			'archive'=>array('zip','z','gz','gtar','rar'),
+			'audio'=>array('aif','aifc','aiff','au','kar','m3u','mid','midi',
+						'mp2','mp3','mpga','ra','ram','rm','rpm','snd','wav',
+						'wax','wma','aac'),
+			'video'=>array('asf','asx','avi','mov','movie','mpeg','mpe','mpg',
+						'mxu','qt','wm','wmv','wmx','wvx','rmvb','flv','mp4'),
+			'document'=>array('doc','pdf','ppt'),
+			'text'=>array('txt','ascii','mime'),
+			'spreadsheet'=>array('xls','et'),
+			'interactive'=>array('as','flash'),
+			'code'=>array('h','c','h','cpp','dfm','pas','frm','vbs','asp','jsp','java','class','php'),
+			'default'=>array(),
+		);
+
+		$sFileiconPath='';
+		foreach($arrIcons as $sKey=>$arrIcon){
+			if(in_array($sExtension,$arrIcon)){
+				$sFileiconPath=$sKey;
+				break;
+			}
+		}
+
+		if(empty($sFileiconPath)){
+			$sFileiconPath='default';
+		}
+
+		if($sFileiconPath=='image' && $bReturnImageIcon===false){
+			return true;
+		}
+
+		if($bReturnPath===true){
+			return __PUBLIC__.'/images/crystal/'.$sFileiconPath.'.png';
+		}else{
+			return $sFileiconPath;
+		}
+	}
+
+	static public function getAttachmentPreview($oAttachment){
+		if(empty($oAttachment['attachment_id'])){
+			return '';
+		}
+
+		$sAttachmentPreview=self::getFileicon($oAttachment['attachment_extension']);
+		if($sAttachmentPreview===true){
+			return __ROOT__.'/data/upload/attachment/'.(
+				$oAttachment['attachment_isthumb']?
+				$oAttachment['attachment_thumbpath'].'/'.$oAttachment['attachment_savename']:
+				$oAttachment['attachment_savepath'].'/'.$oAttachment['attachment_savename']
+			);
+		}else{
+			return $sAttachmentPreview;
+		}
+	}
+
 }

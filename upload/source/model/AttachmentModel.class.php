@@ -17,6 +17,7 @@ class AttachmentModel extends CommonModel{
 			'attr_protected'=>'attachment_id',
 			'autofill'=>array(
 				array('user_id','userId','create','callback'),
+				array('attachment_username','userName','create','callback'),
 			),
 		);
 	}
@@ -82,11 +83,11 @@ class AttachmentModel extends CommonModel{
 
 	protected function userId(){
 		$nUserId=intval(G::getGpc('user_id'));
-		if($nUserId<1){
-			$nUserId=$GLOBALS['___login___']['user_id'];
-		}
-
 		return $nUserId>0?$nUserId:0;
+	}
+
+	protected function userName(){
+		return G::getGpc('user_name');
 	}
 
 }

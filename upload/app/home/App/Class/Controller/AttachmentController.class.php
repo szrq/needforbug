@@ -54,6 +54,10 @@ class AttachmentController extends InitController{
 		$nUploadIsauto=$GLOBALS['_option_']['upload_isauto'];
 		$this->assign('nUploadIsauto',$nUploadIsauto);
 
+		// 附件分类
+		$arrAttachmentcategorys=$this->get_attachmentcategory();
+		$this->assign('arrAttachmentcategorys',$arrAttachmentcategorys);
+
 		$this->assign('nUploadfileMaxsize',$nUploadfileMaxsize);
 		$this->assign('nUploadFileMode',$nUploadFileMode);
 		$this->assign('sAllAllowType',$sAllAllowType);
@@ -61,7 +65,34 @@ class AttachmentController extends InitController{
 		$this->assign('nFileInputNum',$nFileInputNum);
 
 		$this->display('attachment+add');
-	}	
+	}
+
+	public function get_attachmentcategory(){
+		$oAttachmentcategory=Dyhb::instance('AttachmentcategoryModel');
+		return $oAttachmentcategory->getAttachmentcategoryByUserid($GLOBALS['___login___']['user_id']);
+	}
+
+	public function new_attachmentcategory(){
+		$this->display('attachment+newattachmentcategory');
+	}
+
+	public function new_attachmentcategorysave(){
+		$nAttachmentcategoryCompositor=intval(G::getGpc('attachmentcategory_compositor','G'));
+		$sAttachmentcategoryName=trim(G::getGpc('attachmentcategory_name','G'));
+		$sAttachmentcategoryDescription=trim(G::getGpc('attachmentcategory_description','G'));
+
+		$oAttachmentcategory=new AttachmentcategoryModel();
+		$oAttachmentcategory->attachmentcategory_compositor=$nAttachmentcategoryCompositor;
+		$oAttachmentcategory->attachmentcategory_name=$sAttachmentcategoryName;
+		$oAttachmentcategory->attachmentcategory_description=$sAttachmentcategoryDescription;
+		$oAttachmentcategory->save(0);
+
+		if($oAttachmentcategory->isError()){
+			$this->E($oAttachmentcategory->getErrorMessage());
+		}
+
+		$this->A($oAttachmentcategory->toArray(),'新增专辑成功',1);
+	}
 
 	public function normal_upload(){
 		require(Core_Extend::includeFile('function/Upload_Extend'));
@@ -101,8 +132,6 @@ class AttachmentController extends InitController{
 		$sUploadids=trim(G::getGpc('id','G'));
 		$sHashcode=trim(G::getGpc('hash','G'));
 		$sCookieHashcode=Dyhb::cookie('_upload_hashcode_');
-		
-		Dyhb::cookie('_upload_hashcode_',null,-1);
 
 		if(empty($sCookieHashcode)){
 			//$this->assign('__JumpUrl__',Dyhb::U('home://attachment/add'));
@@ -143,6 +172,8 @@ class AttachmentController extends InitController{
 		}
 
 		$this->assign('__JumpUrl__',Dyhb::U('home://attachment/add'));
+
+		Dyhb::cookie('_upload_hashcode_',null,-1);
 
 		$this->S('附件信息保存成功');
 	}

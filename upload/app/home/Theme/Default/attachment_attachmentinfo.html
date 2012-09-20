@@ -1,5 +1,21 @@
 <!--<include file="Core_Extend::template('header')" />-->
 
+<!--{script}-->
+function toggleAttachment(id){
+	if($('#attachment_action_'+id).text()=='隐藏'){
+		$('#attachment_action_'+id).text('显示');
+	}else{
+		$('#attachment_action_'+id).text('隐藏');
+	}
+
+	$('#attachment_item_'+id).toggle();
+}
+<!--{/script}-->
+
+<!--{style}-->
+.attachment_item{margin-bottom:10px;}
+<!--{/style}-->
+
 		<ul class="breadcrumb">
 			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
 			<li><a href="<!--{:Dyhb::U('home://attachment/index')}-->"><!--<lang package='Template/Attachment'>-->我的相册<!--</lang>--></a></li>
@@ -12,48 +28,54 @@
 				<form method="post" class="form-horizontal" action="<!--{:Dyhb::U('home://attachment/attachmentinfo_save')}-->" id="attachmentinfo_form" name="attachmentinfo_form">
 					<!--<foreach for=arrAttachments value=oAttachment>-->
 					<!--{~$arrAttachmentSize=$TheController->get_image_size($oAttachment)}-->
-					<a class="toggle describe-toggle-on" href="#">显示</a>
-					<a class="toggle describe-toggle-off" href="#">隐藏</a>
-					<div class="filename new"><span class="title"><!--{$oAttachment['attachment_name']}--></span></div>
-					<table class="table table-bordered table-striped">
-						<thead>
-							<tr valign="top">
-								<td width="200px"><p><a href="http://localhost/wordpress/?attachment_id=34" target="_blank"><img class="thumbnail" src="http://localhost/wordpress/wp-content/uploads/2012/09/avatar1-150x150.gif" alt=""></a>
-									</p>
-								</td>
-								<td><p><strong>文件名：</strong> <!--{$oAttachment['attachment_name']}--></p>
-									<p><strong>文件类型：</strong> <!--{$oAttachment['attachment_type']}--></p>
-									<p><strong>上传日期：</strong> <!--{$oAttachment['create_dateline']|Core_Extend+timeFormat}--></p>
-									<!--{if $arrAttachmentSize}-->
-									<p><strong>尺寸：</strong> <!--{$arrAttachmentSize[0]}-->&nbsp;×&nbsp;<!--{$arrAttachmentSize[1]}--></p>
-									<!--{/if}-->
-								</td>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>标题<em class="red">*</em></td>
-								<td><input class="span5" id="attachments[<!--{$oAttachment['attachment_id']}-->][attachment_name]" name="attachments[<!--{$oAttachment['attachment_id']}-->][attachment_name]" value="<!--{$oAttachment['attachment_name']}-->" type="text"></td>
-							</tr>
-							<tr>
-								<td>替代文本</td>
-								<td><input class="span5" id="attachments[<!--{$oAttachment['attachment_id']}-->][attachment_alt]" name="attachments[<!--{$oAttachment['attachment_id']}-->][attachment_alt]" value="<!--{$oAttachment['attachment_alt']}-->" type="text"></td>
-							</tr>
-							<tr>
-								<td>描述</td>
-								<td><textarea class="span5" id="attachments[<!--{$oAttachment['attachment_id']}-->][attachment_description]" name="attachments[<!--{$oAttachment['attachment_id']}-->][attachment_description]" rows="3"><!--{$oAttachment['attachment_description']}--></textarea></td>
-							</tr>
-							<tr>
-								<td>文件地址</td>
-								<td><input class="span7" value="<!--{$TheController->get_attachment_url($oAttachment)}-->" type="text"></td>
-							</tr>
-						</tbody>
-					</table>
+					<div class="attachment_item">
+						<div class="alert alert-success" style="margin-bottom:0px;border-bottom:none;">
+							<div class="left"><span class="title"><!--{$oAttachment['attachment_name']}--></span></div>
+							<a class="right" onclick="toggleAttachment(<!--{$oAttachment['attachment_id']}-->);" href="javascript:void(0);"><span id="attachment_action_<!--{$oAttachment['attachment_id']}-->">隐藏</span></a>
+							<span class="clear"></span>
+						</div>
+						<div id="attachment_item_<!--{$oAttachment['attachment_id']}-->">
+							<table class="table table-striped">
+								<thead>
+									<tr valign="top">
+										<td width="100px"><p><a href="#" target="_blank"><img class="thumbnail" src="<!--{:Core_Extend::getAttachmentPreview($oAttachment)}-->" alt="" width="46" height="60"></a>
+											</p>
+										</td>
+										<td><p><strong>文件名：</strong> <!--{$oAttachment['attachment_name']}--></p>
+											<p><strong>文件类型：</strong> <!--{$oAttachment['attachment_type']}--></p>
+											<p><strong>上传日期：</strong> <!--{$oAttachment['create_dateline']|Core_Extend+timeFormat}--></p>
+											<!--{if $arrAttachmentSize}-->
+											<p><strong>尺寸：</strong> <!--{$arrAttachmentSize[0]}-->&nbsp;×&nbsp;<!--{$arrAttachmentSize[1]}--></p>
+											<!--{/if}-->
+										</td>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>标题<em class="red">*</em></td>
+										<td><input class="span5" id="attachments[<!--{$oAttachment['attachment_id']}-->][attachment_name]" name="attachments[<!--{$oAttachment['attachment_id']}-->][attachment_name]" value="<!--{$oAttachment['attachment_name']}-->" type="text"></td>
+									</tr>
+									<tr>
+										<td>替代文本</td>
+										<td><input class="span5" id="attachments[<!--{$oAttachment['attachment_id']}-->][attachment_alt]" name="attachments[<!--{$oAttachment['attachment_id']}-->][attachment_alt]" value="<!--{$oAttachment['attachment_alt']}-->" type="text"></td>
+									</tr>
+									<tr>
+										<td>描述</td>
+										<td><textarea class="span5" id="attachments[<!--{$oAttachment['attachment_id']}-->][attachment_description]" name="attachments[<!--{$oAttachment['attachment_id']}-->][attachment_description]" rows="3"><!--{$oAttachment['attachment_description']}--></textarea></td>
+									</tr>
+									<tr>
+										<td>文件地址</td>
+										<td><input class="span7" value="<!--{$TheController->get_attachment_url($oAttachment)}-->" type="text"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
 					<!--</foreach>-->
 					<div class="form-actions">
-							<input type="submit" class="btn btn-success" value="保存附件信息">&nbsp;
-							<a class="btn" href="<!--{:Dyhb::U('home://public/register')}-->">我的文件</a>
-						</div>
+						<input type="submit" class="btn btn-success" value="保存附件信息">&nbsp;
+						<a class="btn" href="<!--{:Dyhb::U('home://public/register')}-->">我的附件</a>
+					</div>
 				</form>
 			</div>
 		</div>

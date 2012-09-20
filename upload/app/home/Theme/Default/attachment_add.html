@@ -14,6 +14,7 @@ var sAllAllowType='<!--{$sAllAllowType}-->';
 var uploaderMode=<!--{$nUploadFileMode}-->;
 var nUploadFlashLimit=<!--{$nUploadFlashLimit}-->;
 var nUserid=<!--{$GLOBALS['___login___']['user_id']}-->;
+var nUsername='<!--{$GLOBALS['___login___']['user_name']}-->';
 var nUploadIsauto=<!--{$nUploadIsauto}-->;
 var insert_attach=0;
 
@@ -33,6 +34,45 @@ jQuery(document).ready(function($){
 		return false;
 	});
 });
+
+var oEditNewattachmentcategory;
+
+function createAttachmentcategory(sSelectedIndex){
+	if(sSelectedIndex=='new_category'){
+		var sHtml = $.ajax({
+			url: D.U('home://attachment/new_attachmentcategory'),
+			async: false
+		}).responseText;
+
+		oEditNewattachmentcategory=needforbugAlert(sHtml,'新建专辑','',saveNewattachmentcategory,cancelNewattachmentcategory);
+	}
+}
+
+function saveNewattachmentcategory(){
+	Dyhb.AjaxSend(D.U('home://attachment/new_attachmentcategorysave'),
+		'ajax=1&attachmentcategory_compositor='+encodeURIComponent($('#new_attachmentcategory_compositor').val())+
+		'&attachmentcategory_name='+encodeURIComponent( $('#new_attachmentcategory_name').val())+
+		'&attachmentcategory_description='+encodeURIComponent( $('#new_attachmentcategory_description').val()),'',
+		function(data,status){
+			if(status==1){
+				$("#attachmentcategory_id").find("option:selected").val( data.attachmentcategory_id );
+				$("#attachmentcategory_id").find("option:selected").text( data.attachmentcategory_name );
+				oEditNewattachmentcategory.close();
+				return true;
+			}
+		}
+	);
+}
+
+function cancelNewattachmentcategory(){
+	if($('#new_attachmentcategory_name').val()!=''){
+		needforbugConfirm('你确定要放弃新建专辑?',function(){
+			oEditNewattachmentcategory.close();
+			return true;
+		});
+		return false;
+	}
+}
 <!--{/script}-->
 
 <!--{style}-->
@@ -52,7 +92,6 @@ jQuery(document).ready(function($){
 				<form enctype="multipart/form-data" method="post" action="<!--{:Dyhb::U('home://attachment/normal_upload')}-->" id="attachment_form" name="attachment_form">
 					<span id="media-upload-error"></span>
 					<div id="flash-upload-ui" class="hide-if-no-js well <!--{if $nUploadFileMode==1}-->none<!--{/if}-->">
-
 						<div><p><h3 class="left">选择文件上传</h3>
 								<span class="clear"></span>
 							</p>
@@ -89,8 +128,18 @@ jQuery(document).ready(function($){
 							<input type="file" name="newfile[]">
 							<!--</for>-->
 						</p>
-						<p>
-							<input type="hidden" name="user_id" value="<!--{$GLOBALS['___login___']['user_id']}-->"/>
+						<p><h3>附件专辑</h3>
+							<br/>
+							<select name="attachmentcategory_id" id="attachmentcategory_id" onchange="createAttachmentcategory(this.options[this.selectedIndex].value);" >
+								<option value="0" selected>请选择分类</option>
+								<!--<foreach for=arrAttachmentcategorys value=oAttachmentcategory>-->
+								<option value="<!--{$oAttachmentcategory['attachmentcategory_id']}-->" ><!--{$oAttachmentcategory['attachmentcategory_name']}--></option>
+								<!--</foreach>-->
+								<option value='new_category'>[+]新建分类</option>
+							</select>
+						</p>
+						<p><input type="hidden" name="user_id" value="<!--{$GLOBALS['___login___']['user_id']}-->"/>
+							<input type="hidden" name="user_name" value="<!--{$GLOBALS['___login___']['user_name']}-->"/>
 							<input type="submit" name="html-upload" id="html-upload" class="btn btn-success" value="上传" />&nbsp;
 							<input type="reset" class="btn" value="重置" />
 							<span class="clear"></span>

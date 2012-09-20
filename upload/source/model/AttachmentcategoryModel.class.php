@@ -13,6 +13,10 @@ class AttachmentcategoryModel extends CommonModel{
 				'attachmentcategory_id'=>array('readonly'=>true),
 			),
 			'attr_protected'=>'attachmentcategory_id',
+			'autofill'=>array(
+				array('user_id','userId','create','callback'),
+				array('attachmentcategory_username','userName','create','callback'),
+			),
 		);
 	}
 
@@ -23,6 +27,18 @@ class AttachmentcategoryModel extends CommonModel{
 
 	static function M(){
 		return ModelMeta::instance(__CLASS__);
+	}
+
+	public function getAttachmentcategoryByUserid($nUserid){
+		return self::F('user_id=?',$nUserid)->getAll();
+	}
+
+	protected function userId(){
+		return intval($GLOBALS['___login___']['user_id']);
+	}
+
+	protected function userName(){
+		return $GLOBALS['___login___']['user_name'];
 	}
 
 }
