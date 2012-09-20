@@ -8,11 +8,8 @@
 <!--{script}-->
 var uploadobject;
 var max_upload_size = '<!--{$nUploadfileMaxsize}-->b';
-var sUserauthkey='<!--{$sUserauthkey}-->';
-var sAdminauthkey='<!--{$sAdminauthkey}-->';
 var sHash='<!--{$sHash}-->';
 var sAuth='<!--{$sAuth}-->';
-var sAccess='<!--{$sAccess}-->';
 var sAllAllowType='<!--{$sAllAllowType}-->';
 var uploaderMode=<!--{$nUploadFileMode}-->;
 var nUploadFlashLimit=<!--{$nUploadFlashLimit}-->;
@@ -92,7 +89,9 @@ jQuery(document).ready(function($){
 							<input type="file" name="newfile[]">
 							<!--</for>-->
 						</p>
-						<p><input type="submit" name="html-upload" id="html-upload" class="btn btn-success" value="上传" />&nbsp;
+						<p>
+							<input type="hidden" name="user_id" value="<!--{$GLOBALS['___login___']['user_id']}-->"/>
+							<input type="submit" name="html-upload" id="html-upload" class="btn btn-success" value="上传" />&nbsp;
 							<input type="reset" class="btn" value="重置" />
 							<span class="clear"></span>
 						</p>

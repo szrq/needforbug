@@ -6,6 +6,19 @@
 
 class AttachmentController extends InitController{
 		
+	public function init__(){
+		// 读取发送过来的COOKIE
+		$sHash=trim(G::getGpc('hash'));
+		$sAuth=trim(G::getGpc('auth'));
+		if(!empty($sHash) && !empty($sAuth)){
+			Dyhb::cookie($GLOBALS['_commonConfig_']['RBAC_DATA_PREFIX'].'hash',$sHash);
+			Dyhb::cookie($GLOBALS['_commonConfig_']['RBAC_DATA_PREFIX'].'auth',$sAuth);
+		}
+
+		parent::init__();
+		$this->is_login();
+	}
+	
 	public function index(){
 		$this->display('attachment+index');
 	}
@@ -32,17 +45,11 @@ class AttachmentController extends InitController{
 		$nFileInputNum=$GLOBALS['_option_']['upload_input_num'];
 
 		// 登录使用COOKIE
-		$sUserauthkey=Dyhb::cookie(md5($GLOBALS['_commonConfig_']['USER_AUTH_KEY']));
-		$sAdminauthkey=Dyhb::cookie(md5($GLOBALS['_commonConfig_']['ADMIN_AUTH_KEY']));
 		$sHash=Dyhb::cookie($GLOBALS['_commonConfig_']['RBAC_DATA_PREFIX'].'hash');
 		$sAuth=Dyhb::cookie($GLOBALS['_commonConfig_']['RBAC_DATA_PREFIX'].'auth');
-		$sAccess=Dyhb::cookie(md5(APP_NAME.MODULE_NAME.ACTION_NAME));
 
-		$this->assign('sUserauthkey',$sUserauthkey);
-		$this->assign('sAdminauthkey',$sAdminauthkey);
 		$this->assign('sHash',$sHash);
 		$this->assign('sAuth',$sAuth);
-		$this->assign('sAccess',$sAccess);
 
 		$nUploadIsauto=$GLOBALS['_option_']['upload_isauto'];
 		$this->assign('nUploadIsauto',$nUploadIsauto);
@@ -69,19 +76,6 @@ class AttachmentController extends InitController{
 	
 	public function flash_upload(){
 		require(Core_Extend::includeFile('function/Upload_Extend'));
-
-		// 读取发送过来的COOKIE
-		/*$sUserauthkey=trim(G::getGcp('user_auth_key'));
-		$sAdminauthkey=trim(G::getGcp('admin_auth_key'));
-		$sHash=trim(G::getGcp('hash'));
-		$sAuth=trim(G::getGcp('auth'));
-		$sAccess=trim(G::getGcp('access'));
-
-		Dyhb::cookie(md5($GLOBALS['_commonConfig_']['USER_AUTH_KEY']),$sUserauthkey);
-		Dyhb::cookie(md5($GLOBALS['_commonConfig_']['ADMIN_AUTH_KEY']),$sAdminauthkey);
-		Dyhb::cookie($GLOBALS['_commonConfig_']['RBAC_DATA_PREFIX'].'hash',$sHash);
-		Dyhb::cookie($GLOBALS['_commonConfig_']['RBAC_DATA_PREFIX'].'auth',$sAuth);
-		Dyhb::cookie(md5(APP_NAME.MODULE_NAME.ACTION_NAME),$sAccess);*/
 
 		try{
 			$arrUploadids=Upload_Extend::uploadFlash();
