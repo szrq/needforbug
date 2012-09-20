@@ -148,9 +148,10 @@ class HomefreshController extends InitController{
 		}else{
 			// 判断是否将新鲜事更新到签名
 			if(G::getGpc('synchronized-to-sign','P')==1){
-				if(strlen($sMessage)>1000){
-					$sMessage=Core_Extend::htmlSubstring($sMessage,1000);
-				}
+				$sMessage=trim(strip_tags($sMessage));
+				$sMessage=preg_replace('/\s(?=\s)/','',$sMessage);// 接着去掉两个空格以上的
+				$sMessage=preg_replace('/[\n\r\t]/','',$sMessage);// 最后将非空格替换为一个空格
+				$sMessage=G::subString($sMessage,0,500);
 				
 				// 更新到前用户的签名信息
 				$oUser=UserModel::F('user_id=?',$GLOBALS['___login___']['user_id'])->getOne();
