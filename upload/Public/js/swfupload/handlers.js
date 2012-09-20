@@ -1,303 +1,318 @@
-var topWin = window.dialogArguments || opener || parent || top;
+var uploadPlugin = function (name) {
+	var swfu;
+	var Example = this;
 
-function fileDialogStart() {
-	jQuery("#media-upload-error").empty();
-}
+	this.nember = 0;
+	this.Name = name;
+	this.sysParameter = {
+		"upload_url": D.U('home://attachment/flash_upload'),
+		"file_post_name": "Filedata",
+		"post_params": {"hash":sHash,"auth":sAuth,"user_id":nUserid},
+		"http_success": [201, 201, 203],
+		"use_query_string": false,
+		"assume_success_timeout": 0,
+		"file_types": sAllAllowType,
+		"file_types_description": '所有允许分类',
+		"file_size_limit": max_upload_size,
+		"file_upload_limit": nUploadFlashLimit,
+		"debug": false,
+		"prevent_swf_caching": true,
+		"preserve_relative_urls": false,
+	};
+	this.UIParameter = {
+		"button_placeholder_id": "selectfile",
+		"button_image_url": _ROOT_ + "/Public/js/swfupload/images/add.png",
+		"button_width": 100,
+		"button_height": 27,
+		"button_text": "",
+		"button_text_style": "",
+		"button_text_left_padding": 0,
+		"button_text_top_padding": 0,
+		"button_action": SWFUpload.BUTTON_ACTION.SELECT_FILES,
+		"button_disabled": false,
+		"button_cursor": SWFUpload.CURSOR.HAND,
+		"button_window_mode": SWFUpload.WINDOW_MODE.TRANSPARENT
+	};
+	this.fileQueueError=false;
 
-// progress and success handlers for media multi uploads
-function fileQueued(fileObj) {
-	// Get rid of unused form
-	jQuery('.media-blank').remove();
-	// Collapse a single item
-	if ( jQuery('form.type-form #media-items').children().length == 1 && jQuery('.hidden', '#media-items').length > 0 ) {
-		jQuery('.describe-toggle-on').show();
-		jQuery('.describe-toggle-off').hide();
-		jQuery('.slidetoggle').slideUp(200).siblings().removeClass('hidden');
-	}
-	// Create a progress bar containing the filename
-	jQuery('#media-items').append('<div id="media-item-' + fileObj.id + '" class="media-item child-of-' + post_id + '"><div class="progress"><div class="bar"></div></div><div class="filename original"><span class="percent"></span> ' + fileObj.name + '</div></div>');
-	// Display the progress div
-	jQuery('.progress', '#media-item-' + fileObj.id).show();
+	this.Init = function () {
+		swfu = new SWFUpload({
+			upload_url: this.sysParameter.upload_url,
+			flash_url: _ROOT_ + "/Public/js/swfupload/swfupload.swf",
+			flash9_url: _ROOT_ + "/Public/js/swfupload/swfupload_fp9.swf",
+			file_post_name: this.sysParameter.file_post_name,
+			post_params: this.sysParameter.post_params,
+			use_query_string: this.sysParameter.use_query_string,
+			http_success: this.sysParameter.http_success, //表示服务端在遇到列表内的值后也会返回数据不光是200状态才能返回
+			assume_success_timeout: this.sysParameter.assume_success_timeout, //上传超时
+			file_types: this.sysParameter.file_types,
+			file_types_description: this.sysParameter.file_types_description,
+			file_size_limit: this.sysParameter.file_size_limit,
+			file_upload_limit: this.sysParameter.file_upload_limit,
+			debug: this.sysParameter.debug,
+			prevent_swf_caching: this.sysParameter.prevent_swf_caching,
+			preserve_relative_urls: this.sysParameter.preserve_relative_urls,
 
-	// Disable submit and enable cancel
-	jQuery('#insert-gallery').prop('disabled', true);
-	jQuery('#cancel-upload').prop('disabled', false);
-}
+			button_placeholder_id: this.UIParameter.button_placeholder_id,
+			button_image_url: this.UIParameter.button_image_url,
+			button_width: this.UIParameter.button_width,
+			button_height: this.UIParameter.button_height,
+			button_text: this.UIParameter.button_text,
+			button_text_style: this.UIParameter.button_text_style,
+			button_text_left_padding: this.UIParameter.button_text_left_padding,
+			button_text_top_padding: this.UIParameter.button_text_top_padding,
+			button_action: this.UIParameter.button_action,
+			button_disabled: this.UIParameter.button_disabled,
+			button_cursor: this.UIParameter.button_cursor,
+			button_window_mode: this.UIParameter.button_window_mode,
 
-function uploadStart(fileObj) {
-	try {
-		if ( typeof topWin.tb_remove != 'undefined' )
-			topWin.jQuery('#TB_overlay').unbind('click', topWin.tb_remove); 
-	} catch(e){}
-
-	return true;
-}
-
-function uploadProgress(fileObj, bytesDone, bytesTotal) {
-	// Lengthen the progress bar
-	var w = jQuery('#media-items').width() - 2, item = jQuery('#media-item-' + fileObj.id);
-	jQuery('.bar', item).width( w * bytesDone / bytesTotal );
-	jQuery('.percent', item).html( Math.ceil(bytesDone / bytesTotal * 100) + '%' );
-
-	if ( bytesDone == bytesTotal )
-		jQuery('.bar', item).html('<strong class="crunching">' + swfuploadL10n.crunching + '</strong>');
-}
-
-function prepareMediaItem(fileObj, serverData) {
-	var f = ( typeof shortform == 'undefined' ) ? 1 : 2, item = jQuery('#media-item-' + fileObj.id);
-	// Move the progress bar to 100%
-	jQuery('.bar', item).remove();
-	jQuery('.progress', item).hide();
-
-	try {
-		if ( typeof topWin.tb_remove != 'undefined' )
-			topWin.jQuery('#TB_overlay').click(topWin.tb_remove);
-	} catch(e){}
-
-	// Old style: Append the HTML returned by the server -- thumbnail and form inputs
-	if ( isNaN(serverData) || !serverData ) {
-		item.append(serverData);
-		prepareMediaItemInit(fileObj);
-	}
-	// New style: server data is just the attachment ID, fetch the thumbnail and form html from the server
-	else {
-		/*item.load('wasync-upload.php', {attachment_id:serverData, fetch:f}, function(){prepareMediaItemInit(fileObj);updateMediaForm()});*/
-	}
-}
-
-function prepareMediaItemInit(fileObj) {
-	var item = jQuery('#media-item-' + fileObj.id);
-	// Clone the thumbnail as a "pinkynail" -- a tiny image to the left of the filename
-	jQuery('.thumbnail', item).clone().attr('class', 'pinkynail toggle').prependTo(item);
-
-	// Replace the original filename with the new (unique) one assigned during upload
-	jQuery('.filename.original', item).replaceWith( jQuery('.filename.new', item) );
-
-	// Also bind toggle to the links
-	jQuery('a.toggle', item).click(function(){
-		jQuery(this).siblings('.slidetoggle').slideToggle(350, function(){
-			var w = jQuery(window).height(), t = jQuery(this).offset().top, h = jQuery(this).height(), b;
-
-			if ( w && t && h ) {
-                b = t + h;
-
-                if ( b > w && (h + 48) < w )
-                    window.scrollBy(0, b - w + 13);
-                else if ( b > w )
-                    window.scrollTo(0, t - 36);
-            }
+			swfupload_loaded_handler: this.swfupload_loaded_function, //上传组件初始化成功
+			swfupload_load_failed_handler: this.swfupload_load_failed_function, //上传组件加载失败
+			file_queued_handler: this.file_queued_function, //文件选择后
+			file_queue_error_handler: this.file_queue_error_function, //文件选择后出错
+			file_dialog_complete_handler: this.file_dialog_complete_function, //文件选择后(多少文件添加进来)
+			upload_start_handler: this.upload_start_function, //上传前
+			upload_progress_handler: this.upload_progress_function, //上传进行中
+			upload_error_handler: this.upload_error_function, //上传错误
+			upload_success_handler: this.upload_success_function, //上传成功，还没有保存
+			upload_complete_handler: this.upload_complete_function //真正上传成功，上载的数据已经保存，可又上传下一个文件了（如果有）
 		});
-		jQuery(this).siblings('.toggle').andSelf().toggle();
-		jQuery(this).siblings('a.toggle').focus();
-		return false;
-	});
 
-	// Bind AJAX to the new Delete button
-	jQuery('a.delete', item).click(function(){
-		// Tell the server to delete it. TODO: handle exceptions
-		jQuery.ajax({
-			url: 'wadmin-ajax.php',
-			type: 'post',
-			success: deleteSuccess,
-			error: deleteError,
-			id: fileObj.id,
-			data: {
-				id : this.id.replace(/[^0-9]/g, ''),
-				action : 'trash-post',
-				_ajax_nonce : this.href.replace(/^.*wpnonce=/,'')
-			}
-		});
-		return false;
-	});
+		setBotton("upload", 3);
+		setBotton("delete", 3);
 
-	// Bind AJAX to the new Undo button
-	jQuery('a.undo', item).click(function(){
-		// Tell the server to untrash it. TODO: handle exceptions
-		jQuery.ajax({
-			url: '2admin-ajax.php',
-			type: 'post',
-			id: fileObj.id,
-			data: {
-				id : this.id.replace(/[^0-9]/g,''),
-				action: 'untrash-post',
-				_ajax_nonce: this.href.replace(/^.*wpnonce=/,'')
-			},
-			success: function(data, textStatus){
-				var item = jQuery('#media-item-' + fileObj.id);
+		$("#delete").click(function () { Example.RemoveAllFile() });
 
-				if ( type = jQuery('#type-of-' + fileObj.id).val() )
-					jQuery('#' + type + '-counter').text(jQuery('#' + type + '-counter').text()-0+1);
-				if ( item.hasClass('child-of-'+post_id) )
-					jQuery('#attachments-count').text(jQuery('#attachments-count').text()-0+1);
-
-				jQuery('.filename .trashnotice', item).remove();
-				jQuery('.filename .title', item).css('font-weight','normal');
-				jQuery('a.undo', item).addClass('hidden');
-				jQuery('a.describe-toggle-on, .menu_order_input', item).show();
-				item.css( {backgroundColor:'#ceb'} ).animate( {backgroundColor: '#fff'}, { queue: false, duration: 500, complete: function(){ jQuery(this).css({backgroundColor:''}); } }).removeClass('undo');
-			}
-		});
-		return false;
-	});
-
-	// Open this item if it says to start open (e.g. to display an error)
-	jQuery('#media-item-' + fileObj.id + '.startopen').removeClass('startopen').slideToggle(500).siblings('.toggle').toggle();
-}
-
-function itemAjaxError(id, html) {
-	var item = jQuery('#media-item-' + id);
-	var filename = jQuery('.filename', item).text();
-
-	item.html('<div class="error-div">'
-				+ '<a class="dismiss" href="#">' + swfuploadL10n.dismiss + '</a>'
-				+ '<strong>' + swfuploadL10n.error_uploading.replace('%s', filename) + '</strong><br />'
-				+ html
-				+ '</div>');
-	item.find('a.dismiss').click(function(){jQuery(this).parents('.media-item').slideUp(200, function(){jQuery(this).remove();})});
-}
-
-function deleteSuccess(data, textStatus) {
-	if ( data == '-1' )
-		return itemAjaxError(this.id, 'You do not have permission. Has your session expired?');
-	if ( data == '0' )
-		return itemAjaxError(this.id, 'Could not be deleted. Has it been deleted already?');
-
-	var id = this.id, item = jQuery('#media-item-' + id);
-
-	// Decrement the counters.
-	if ( type = jQuery('#type-of-' + id).val() )
-		jQuery('#' + type + '-counter').text( jQuery('#' + type + '-counter').text() - 1 );
-	if ( item.hasClass('child-of-'+post_id) )
-		jQuery('#attachments-count').text( jQuery('#attachments-count').text() - 1 );
-
-	if ( jQuery('form.type-form #media-items').children().length == 1 && jQuery('.hidden', '#media-items').length > 0 ) {
-		jQuery('.toggle').toggle();
-		jQuery('.slidetoggle').slideUp(200).siblings().removeClass('hidden');
-	}
-
-	// Vanish it.
-	jQuery('.toggle', item).toggle();
-	jQuery('.slidetoggle', item).slideUp(200).siblings().removeClass('hidden');
-	item.css( {backgroundColor:'#faa'} ).animate( {backgroundColor:'#f4f4f4'}, {queue:false, duration:500} ).addClass('undo');
-
-	jQuery('.filename:empty', item).remove();
-	jQuery('.filename .title', item).css('font-weight','bold');
-	jQuery('.filename', item).append('<span class="trashnotice"> ' + swfuploadL10n.deleted + ' </span>').siblings('a.toggle').hide();
-	jQuery('.filename', item).append( jQuery('a.undo', item).removeClass('hidden') );
-	jQuery('.menu_order_input', item).hide();
-
-	return;
-}
-
-function deleteError(X, textStatus, errorThrown) {
-	// TODO
-}
-
-function updateMediaForm() {
-	var one = jQuery('form.type-form #media-items').children(), items = jQuery('#media-items').children();
-
-	// Just one file, no need for collapsible part
-	if ( one.length == 1 ) {
-		jQuery('.slidetoggle', one).slideDown(500).siblings().addClass('hidden').filter('.toggle').toggle();
-	}
-
-	// Only show Save buttons when there is at least one file.
-	if ( items.not('.media-blank').length > 0 )
-		jQuery('.savebutton').show();
-	else
-		jQuery('.savebutton').hide();
-
-	// Only show Gallery button when there are at least two files.
-	if ( items.length > 1 )
-		jQuery('.insert-gallery').show();
-	else
-		jQuery('.insert-gallery').hide();
-}
-
-function uploadSuccess(fileObj, serverData) {
-	// if async-upload returned an error message, place it in the media item div and return
-	if ( serverData.match('media-upload-error') ) {
-		jQuery('#media-item-' + fileObj.id).html(serverData);
-		return;
-	}
-
-	prepareMediaItem(fileObj, serverData);
-	updateMediaForm();
-
-	// Increment the counter.
-	if ( jQuery('#media-item-' + fileObj.id).hasClass('child-of-' + post_id) )
-		jQuery('#attachments-count').text(1 * jQuery('#attachments-count').text() + 1);
-}
-
-function uploadComplete(fileObj) {
-	// If no more uploads queued, enable the submit button
-	if ( swfu.getStats().files_queued == 0 ) {
-		jQuery('#cancel-upload').prop('disabled', true);
-		jQuery('#insert-gallery').prop('disabled', false);
-	}
-}
-
-
-// wp-specific error handlers
-
-// generic message
-function wpQueueError(message) {
-	jQuery('#media-upload-error').show().text(message);
-}
-
-// file-specific message
-function wpFileError(fileObj, message) {
-	var item = jQuery('#media-item-' + fileObj.id);
-	var filename = jQuery('.filename', item).text();
-
-	item.html('<div class="error-div">'
-				+ '<a class="dismiss" href="#">' + swfuploadL10n.dismiss + '</a>'
-				+ '<strong>' + swfuploadL10n.error_uploading.replace('%s', filename) + '</strong><br />'
-				+ message
-				+ '</div>');
-	item.find('a.dismiss').click(function(){jQuery(this).parents('.media-item').slideUp(200, function(){jQuery(this).remove();})});
-}
-
-function fileQueueError(fileObj, error_code, message)  {
-	// Handle this error separately because we don't want to create a FileProgress element for it.
-	if ( error_code == SWFUpload.QUEUE_ERROR.QUEUE_LIMIT_EXCEEDED ) {
-		wpQueueError(swfuploadL10n.queue_limit_exceeded);
-	}
-	else if ( error_code == SWFUpload.QUEUE_ERROR.FILE_EXCEEDS_SIZE_LIMIT ) {
-		fileQueued(fileObj);
-		wpFileError(fileObj, swfuploadL10n.file_exceeds_size_limit);
-	}
-	else if ( error_code == SWFUpload.QUEUE_ERROR.ZERO_BYTE_FILE ) {
-		fileQueued(fileObj);
-		wpFileError(fileObj, swfuploadL10n.zero_byte_file);
-	}
-	else if ( error_code == SWFUpload.QUEUE_ERROR.INVALID_FILETYPE ) {
-		fileQueued(fileObj);
-		wpFileError(fileObj, swfuploadL10n.invalid_filetype);
-	}
-	else {
-		wpQueueError(swfuploadL10n.default_error);
-	}
-}
-
-function fileDialogComplete(num_files_queued) {
-	try {
-		if (num_files_queued > 0) {
-			this.startUpload();
+		if(nUploadIsauto==0){
+			$("#upload").click(function () { Example.StartUpload() });
 		}
-	} catch (ex) {
-		this.debug(ex);
 	}
-}
 
-function switchUploader(s) {
-	var f = document.getElementById(swfu.customSettings.swfupload_element_id), h = document.getElementById(swfu.customSettings.degraded_element_id);
-	if ( s ) {
-		f.style.display = 'block';
-		h.style.display = 'none';
-	} else {
-		f.style.display = 'none';
-		h.style.display = 'block';
+	this.swfupload_loaded_function = function () {
+		setMessage("上传组件初始化成功");
+	}
+
+	this.swfupload_load_failed_function = function () {
+		setMessage("上传组件初始化失败，请确认您的浏览器已经安装了flash player插件",1);
+	}
+
+	this.file_queued_function = function (file) {
+		Example.nember++;
+		$("#attachment_flash_box").append('<tr id="tag_' + file.index + '" tag="item">' +
+			'<td class="no">' + Example.nember + '<input type="hidden" name="attachids[]" class="attachids" id="tag_attachid_' + file.index + '" value="" /></td>' +
+			'<td class="status"><img src="' + getStatusImg(0) + '" title="等待上传" /></td>' +
+			'<td class="name" title="' + file.name + '">' + file.name + '</td>' +
+			'<td class="size">' + getFormatSize(file.size) + '</td>' +
+			'<td class="flashprogress"><span id="pr"><img src="' + _ROOT_ + '/Public/js/swfupload/images/im.jpg" width="0" /></span>&nbsp;<span tag="con">0</span>%</td>'+
+			'<td class="exec"><img src="' + _ROOT_ + '/Public/js/swfupload/images/remove.png" style="cursor:pointer;" title="移除文件" onclick="' + Example.Name + '.RemoveFile(\'' + file.id + '\',this,\'' + file.index + '\');" /> '+(insert_attach==1?'<img id="insertattach_' + file.index + '" src="' + _ROOT_ + '/Public/js/swfupload/images/insert.png" style="cursor:pointer;display:none;" title="插入附件" onclick="' + Example.Name + '.InsertIn(\'' + file.index + '\');" />':'')
+			+'</td>' +
+		'</tr>');
+		//if (swfu.getStats().files_queued >= Example.sysParameter.file_upload_limit)
+		//	swfu.setButtonDisabled(true);
+		if (swfu.getStats().files_queued > 0) {
+			setBotton("upload", 0);
+			setBotton("delete", 0);
+		}
+	}
+
+	this.file_queue_error_function = function (file, code, message) {
+		switch (code) {
+			case -100:
+				setMessage("添加文件出错！您添加的文件太多，一次最多允许添加个”" + Example.sysParameter.file_upload_limit.toString() + "“文件",1);
+				this.fileQueueError=true;
+				break;
+			case -110:
+				setMessage("添加文件出错！您添加太大，最大允许添加”" + Example.sysParameter.file_size_limit + "“的文件",1);
+				this.fileQueueError=true;
+				break;
+			case -120:
+				setMessage("添加文件出错！您添加的文件是0字节",1);
+				this.fileQueueError=true;
+				break;
+			case -130:
+				setMessage("添加文件出错！您添加的文件类型不正确",1);
+				this.fileQueueError=true;
+				break;
+		}
+
+	}
+
+	this.file_dialog_complete_function = function (selected, queued, total) {
+		if (selected == 0) {
+			setMessage("请选择文件，可以多选",1);
+		} else if (queued == 0) {
+			if(this.fileQueueError===false){
+				setMessage("添加文件失败！共有0个文件入队，这可能是因为您一次选择的文件太多，或文件太大",1);
+			}
+			this.fileQueueError=false;
+		} else {
+			setMessage("添加文件成功！共有”" + total.toString() + "“个文件加入了上传列队");
+			$(".attachment_flash_mainbox").show();
+			$("#upload").show();
+			$("#delete").show();
+			jQuery('#cancel-upload').prop('disabled', false);
+
+			if(nUploadIsauto==1){
+				Example.StartUpload();
+			}
+		}
+	}
+
+	this.upload_start_function = function (file) {
+		//swfu.addPostParam("FileType", Example.sysParameter.file_types.replace(/;/gi, ","));
+		//swfu.addPostParam("FileSize", getbyte(Example.sysParameter.file_size_limit));
+		if (swfu.getStats().files_queued > 0)
+			return true;
+	}
+
+	this.upload_progress_function = function (file, bytes, total) {
+		$("#tag_" + file.index + " #pr img").attr("width", parseInt(getPercentageimg(bytes, total)).toString());
+		$("#tag_" + file.index + " #pr img").attr("height", 9);
+		$("#tag_" + file.index + " .flashprogress span[tag='con']").html(getPercentage(bytes, total).toString());
+		$("#tag_" + file.index + " .status img").attr("src", getStatusImg(1));
+		$("#tag_" + file.index + " .status img").attr("title", "正在上传文件");
+		$("#tag_" + file.index + " .exec img").attr("disabled", true);
+		$("#tag_" + file.index + " .exec img").attr("title", "文件正在上传，不可以删除");
+	}
+
+	this.upload_error_function = function (file, code, message) {
+		switch (code) {
+			case -200:
+				setMessage("上传出错！服务器错误",1);
+				break;
+			case -210:
+				setMessage("上传出错！找不到上传路径",1);
+				break;
+			case -220:
+				setMessage("上传出错！可能是上传目录没有权限",1);
+				break;
+			case -230:
+				setMessage("上传出错！安全错误，上传违反了安全约束",1);
+				break;
+			case -240:
+				setMessage("上传出错！上传文件的数量超过了限定的值",1);
+				break;
+			case -250:
+				setMessage("上传出错！尝试初始化上传时出现了错误",1);
+				break;
+			case -260:
+				setMessage("上传出错！没有找到要上传的文件",1);
+				break;
+			case -270:
+				setMessage("上传出错！未知错误",1);
+				break;
+			case -280:
+				setMessage("上传出错！取消了文件”" + file.name + "“的上传",1);
+				break;
+			case -290:
+				setMessage("上传出错！暂停了文件”" + file.name + "“的上传",1);
+				break;
+		}
+	}
+
+	this.upload_success_function = function (file, data, response) {
+		// if async-upload returned an error message, place it in the media item div and return
+		if ( data.match('upload-error') ) {
+			/*alert(data.replace('upload-error:',''));*/
+			$("#tag_" + file.index + " .flashprogress").html(data.replace('upload-error:',''));
+			return false;
+		}
+
+		//如果成功上传并写入数据库,data返回的是attach数据表里的id
+		$("#tag_attachid_" + file.index).val(data);
+		$("#insertattach_" + file.index).show();
+
+		$("#tag_" + file.index + " .status img").attr("src", getStatusImg(3));
+		$("#tag_" + file.index + " .status img").attr("title", "上传成功");
+		$("#tag_" + file.index + " .flashprogress").html("文件上传成功");
+		$("#tag_" + file.index).attr("disabled", true);
+		$("#tag_" + file.index).attr("disabled", true);
+		$("#tag_" + file.index + " .exec img").attr("disabled", false);
+		$("#tag_" + file.index + " .exec img").attr("title", "移除此上传完成的文件");
+		//$("#tag_" + file.index + " .exec #insertattach_" + file.index).attr("title", "插入附件");
+		if(insert_attach==1){
+			$("#insertattach_" + file.index).attr("title", "插入附件");
+		}
+
+		/*
+		$("#tag_" + file.index + " .status img").attr("src", getStatusImg(2));
+		$("#tag_" + file.index + " .status img").attr("title", "上传成功，正在保存");
+		$("#tag_" + file.index + " .flashprogress").html("上传成功，正在保存");
+		*/
+	}
+
+	this.upload_complete_function = function (file) {
+		if (swfu.getStats().files_queued > 0) {
+			swfu.startUpload();
+		} else {
+			swfu.setButtonDisabled(false);
+			setBotton("delete", 0);
+		}
+	}
+
+	this.InsertIn = function (index) {
+		var attachid = $("#tag_attachid_" + index).val();
+		addattach(attachid);
+	}
+
+	this.RemoveFile = function (id, obj, index) {
+		if(confirm("您确定要删除这个附件吗?")){
+			var attachid = $("#tag_attachid_" + index).val();
+			$.get( D.U('home://attachment/del_attach'), {attachid:attachid},function(data){});
+			Example.nember--;
+			$(obj).parent().parent().remove();
+			swfu.cancelUpload(id, true);
+			if (swfu.getStats().files_queued < Example.sysParameter.file_upload_limit)
+				swfu.setButtonDisabled(false);
+
+			var objfile = swfu.getFile(id);
+			if (!objfile)
+				swfu.setStats({ "successful_uploads": swfu.getStats().successful_uploads - 1 });
+
+			if (swfu.getStats().files_queued <= 0 && swfu.getStats().successful_uploads <= 0) {
+				$(".attachment_flash_mainbox").hide();
+				$("#upload").hide();
+				$("#delete").hide();
+				//setBotton("upload", 3);
+				//setBotton("delete", 3);
+			}
+		}
+	}
+
+	this.RemoveAllFile = function () {
+		if(confirm("您确定要删除所有附件吗?"))
+		{
+			var attachids = '';
+			var comma = '';
+			$('.attachment_flash_mainbox .attachids').each(function(){
+				attachids = attachids + comma + $(this).val();
+				comma = ',';
+			});
+			$.post( D.U('home://attachment/del_attach'), {attachids:attachids},function(data){});
+			Example.nember = 0;
+			for (var i = 0; i < swfu.getStats().files_queued; i++)
+				swfu.cancelUpload();
+			swfu.setStats({ "successful_uploads": 0 });
+			$(".attachment_flash_mainbox ul[tag='item']").remove();
+			swfu.setButtonDisabled(false);
+			$(".attachment_flash_mainbox").hide();
+			$("#upload").hide();
+			$("#delete").hide();
+			//setBotton("upload", 3);
+			//setBotton("delete", 3);
+		}
+	}
+
+	this.StartUpload = function () {
+		if (swfu.getStats().files_queued <= 0) {
+			setMessage('请先添加文件',1);
+			return;
+		}
+		setBotton("upload", 3);
+		setBotton("delete", 3);
+		swfu.setButtonDisabled(true);
+
+		swfu.startUpload();
 	}
 }
 
@@ -309,62 +324,12 @@ function swfuploadPreLoad() {
 	}
 }
 
-function swfuploadLoadFailed() {
-	switchUploader(0);
-	jQuery('.upload-html-bypass').hide();
-}
-
-function uploadError(fileObj, errorCode, message) {
-
-	switch (errorCode) {
-		case SWFUpload.UPLOAD_ERROR.MISSING_UPLOAD_URL:
-			wpFileError(fileObj, swfuploadL10n.missing_upload_url);
-			break;
-		case SWFUpload.UPLOAD_ERROR.UPLOAD_LIMIT_EXCEEDED:
-			wpFileError(fileObj, swfuploadL10n.upload_limit_exceeded);
-			break;
-		case SWFUpload.UPLOAD_ERROR.HTTP_ERROR:
-			wpQueueError(swfuploadL10n.http_error);
-			break;
-		case SWFUpload.UPLOAD_ERROR.UPLOAD_FAILED:
-			wpQueueError(swfuploadL10n.upload_failed);
-			break;
-		case SWFUpload.UPLOAD_ERROR.IO_ERROR:
-			wpQueueError(swfuploadL10n.io_error);
-			break;
-		case SWFUpload.UPLOAD_ERROR.SECURITY_ERROR:
-			wpQueueError(swfuploadL10n.security_error);
-			break;
-		case SWFUpload.UPLOAD_ERROR.UPLOAD_STOPPED:
-		case SWFUpload.UPLOAD_ERROR.FILE_CANCELLED:
-			jQuery('#media-item-' + fileObj.id).remove();
-			break;
-		default:
-			wpFileError(fileObj, swfuploadL10n.default_error);
+function switchUploader(s) {
+	if ( s ) {
+		$('#flash-upload-ui').show();
+		$('#html-upload-ui').hide();
+	} else {
+		$('#flash-upload-ui').hide();
+		$('#html-upload-ui').show();
 	}
 }
-
-function cancelUpload() {
-	swfu.cancelQueue();
-}
-
-// remember the last used image size, alignment and url
-jQuery(document).ready(function($){
-	$('input[type="radio"]', '#media-items').live('click', function(){
-		var tr = $(this).closest('tr');
-
-		if ( $(tr).hasClass('align') )
-			setUserSetting('align', $(this).val());
-		else if ( $(tr).hasClass('image-size') )
-			setUserSetting('imgsize', $(this).val());
-	});
-
-	$('button.button', '#media-items').live('click', function(){
-		var c = this.className || '';
-		c = c.match(/url([^ '"]+)/);
-		if ( c && c[1] ) {
-			setUserSetting('urlbutton', c[1]);
-			$(this).siblings('.urlfield').val( $(this).attr('title') );
-		}
-	});
-});

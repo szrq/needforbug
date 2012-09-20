@@ -12,20 +12,4 @@
 
 保存测试邮件模板和恢复测试模板
 
-  ["access_token"] => string(32) "2.004fj9wC0RzdBD7b209e88c8J22_CD"
-  ["remind_in"] => string(6) "125374"
-  ["expires_in"] => int(125374)
-  ["uid"] => string(10) "2696141881"
-
-  ["access_token"] => string(32) "2.004fj9wC0RzdBD7b209e88c8J22_CD"
-  ["remind_in"] => string(6) "125374"
-  ["expires_in"] => int(125374)
-  ["uid"] => string(10) "2696141881"
-
-App Key:
-44721051
-App Secret:
-439abcb8a1c15a56920600fa68e80313
-array(33) {
-  ["id"] => int(1750448150)
-  ["idstr"] => string(10) "1750448150"
+签名后台截取数量
