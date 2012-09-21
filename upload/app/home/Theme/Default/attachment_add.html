@@ -130,13 +130,18 @@ function cancelNewattachmentcategory(){
 						</div>
 						<div id="messageinfo" class="alert"></div>
 						<p><h3>附件专辑</h3>
-							<p><select name="attachmentcategory_id_flash" id="attachmentcategory_id_flash" onchange="createAttachmentcategory(this.options[this.selectedIndex].value,'attachmentcategory_id_flash');" >
-									<option value="0" selected>请选择分类</option>
-									<!--<foreach for=arrAttachmentcategorys value=oAttachmentcategory>-->
-									<option value="<!--{$oAttachmentcategory['attachmentcategory_id']}-->" ><!--{$oAttachmentcategory['attachmentcategory_name']}--></option>
-									<!--</foreach>-->
-									<option value='new_category'>[+]新建分类</option>
-								</select>
+							<select name="attachmentcategory_id_flash" id="attachmentcategory_id_flash" onchange="createAttachmentcategory(this.options[this.selectedIndex].value,'attachmentcategory_id_flash');" >
+								<option value="0" selected>请选择分类</option>
+								<!--<foreach for=arrAttachmentcategorys value=oAttachmentcategory>-->
+								<option value="<!--{$oAttachmentcategory['attachmentcategory_id']}-->" ><!--{$oAttachmentcategory['attachmentcategory_name']}--></option>
+								<!--</foreach>-->
+								<option value='new_category'>[+]新建分类</option>
+							</select>
+						</p>
+						<p><h3>允许的上传类型</h3>
+							<p><!--<foreach for=arrAllowedTypes value=sAllowedType>-->
+								<a href="<!--{:Dyhb::U('home://attachment/my_attachment?type='.$sAllowedType)}-->" class="btn btn-mini"><!--{$sAllowedType}--></a>&nbsp;
+								<!--</foreach>-->
 							</p>
 						</p>
 						<p class="none" id="flash_upload_box"><input type="button" name="flash-upload" id="flash-upload" class="btn btn-success" onclick="updateAttachmentinfo();" value="更新附件信息" />&nbsp;
@@ -153,13 +158,18 @@ function cancelNewattachmentcategory(){
 							<!--</for>-->
 						</p>
 						<p><h3>附件专辑</h3>
-							<p><select name="attachmentcategory_id" id="attachmentcategory_id" onchange="createAttachmentcategory(this.options[this.selectedIndex].value,'attachmentcategory_id');" >
-									<option value="0" selected>请选择分类</option>
-									<!--<foreach for=arrAttachmentcategorys value=oAttachmentcategory>-->
-									<option value="<!--{$oAttachmentcategory['attachmentcategory_id']}-->" ><!--{$oAttachmentcategory['attachmentcategory_name']}--></option>
-									<!--</foreach>-->
-									<option value='new_category'>[+]新建分类</option>
-								</select>
+							<select name="attachmentcategory_id" id="attachmentcategory_id" onchange="createAttachmentcategory(this.options[this.selectedIndex].value,'attachmentcategory_id');" >
+								<option value="0" selected>请选择分类</option>
+								<!--<foreach for=arrAttachmentcategorys value=oAttachmentcategory>-->
+								<option value="<!--{$oAttachmentcategory['attachmentcategory_id']}-->" ><!--{$oAttachmentcategory['attachmentcategory_name']}--></option>
+								<!--</foreach>-->
+								<option value='new_category'>[+]新建分类</option>
+							</select>
+						</p>
+						<p><h3>允许的上传类型</h3>
+							<p><!--<foreach for=arrAllowedTypes value=sAllowedType>-->
+								<a href="<!--{:Dyhb::U('home://attachment/my_attachment?type='.$sAllowedType)}-->" class="btn btn-mini"><!--{$sAllowedType}--></a>&nbsp;
+								<!--</foreach>-->
 							</p>
 						</p>
 						<p><input type="hidden" name="user_id" value="<!--{$GLOBALS['___login___']['user_id']}-->"/>

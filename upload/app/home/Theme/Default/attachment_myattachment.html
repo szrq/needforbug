@@ -71,7 +71,7 @@ function deleteAttachment(id){
 		<div class="row">
 			<div class="span12">
 				<ul class="nav nav-pills">
-					<li class="<!--{if $nAttachmentcategoryid===null}-->active<!--{/if}-->"><a href="<!--{:Dyhb::U('home://attachment/my_attachment')}-->">附件列表</a></li>
+					<li class="<!--{if $nAttachmentcategoryid===null && !G+getGpc('type','G')}-->active<!--{/if}-->"><a href="<!--{:Dyhb::U('home://attachment/my_attachment')}-->">附件列表</a></li>
 					<li class="dropdown <!--{if $nAttachmentcategoryid!==null && $arrAttachmetncategoryinfo!==false}-->active<!--{/if}-->">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);">
 							所有专辑
@@ -87,16 +87,28 @@ function deleteAttachment(id){
 							<li><a href="<!--{:Dyhb::U('home://attachment/my_attachment?cid=0')}-->">默认专辑</a></li>
 						</ul>
 					</li>
+					<li class="dropdown <!--{if G+getGpc('type','G')}-->active<!--{/if}-->">
+						<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);">
+							所有类型
+							<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu"> 
+							<!--<foreach for=arrAllowedTypes value=sAllowedType>-->
+							<li><a href="<!--{:Dyhb::U('home://attachment/my_attachment?type='.$sAllowedType)}-->"><!--{$sAllowedType}--></a></li>
+							<!--</foreach>-->
+						</ul>
+					</li>
 				</ul>
 			</div>
 			<div class="span12">
 				<!--{if is_array($arrAttachments)}-->
 				<ul class="thumbnails">
 					<!--<foreach for=arrAttachments value=oAttachment>-->
+					<!--{~$arrAttachmentSize=$TheController->get_image_size($oAttachment)}-->
 					<li class="span3" id="attachment_item_<!--{$oAttachment['attachment_id']}-->">
 						<div class="thumbnail">
 							<div class="img">
-								<img src="<!--{:Core_Extend::getAttachmentPreview($oAttachment)}-->" alt="<!--{$oAttachment['attachment_alt']}-->">
+								<img src="<!--{:Core_Extend::getAttachmentPreview($oAttachment)}-->" alt="<!--{$oAttachment['attachment_alt']}-->" <!--{if $arrAttachmentSize && $arrAttachmentSize[1]>=150}-->height="150px"<!--{/if}-->>
 							</div>
 							<div class="caption">
 								<h5 id="attachment_name_<!--{$oAttachment['attachment_id']}-->"><!--{$oAttachment['attachment_name']}--></h5>
@@ -106,7 +118,8 @@ function deleteAttachment(id){
 								<p>下载次数:&nbsp;<a href="#"><!--{$oAttachment:attachment_download}--></a></p>
 								<p>评论次数:&nbsp;<a href="#"><!--{$oAttachment:attachment_commentnum}--></a></p>
 								<p>附件大小:&nbsp;<!--{$oAttachment:attachment_size|G+changeFileSize}--></p>
-								<p><a href="javascript:void(0);" onclick="editAttachment(<!--{$oAttachment['attachment_id']}-->);" class="btn btn-primary"><i class="icon-pencil icon-white"></i>&nbsp;编辑</a>&nbsp;<a href="javascript:void(0);" onclick="deleteAttachment(<!--{$oAttachment['attachment_id']}-->);" class="btn"><i class="icon-remove"></i>&nbsp;删除</a></p>
+								<p>附件类型:&nbsp;<a href="<!--{:Dyhb::U('home://attachment/my_attachment?type='.$oAttachment['attachment_extension'])}-->"><!--{$oAttachment:attachment_extension}--></a></p>
+								<p><a href="javascript:void(0);" onclick="editAttachment(<!--{$oAttachment['attachment_id']}-->);" class="btn btn-success"><i class="icon-pencil icon-white"></i>&nbsp;编辑</a>&nbsp;<a href="javascript:void(0);" onclick="deleteAttachment(<!--{$oAttachment['attachment_id']}-->);" class="btn"><i class="icon-remove"></i>&nbsp;删除</a></p>
 							</div>
 						</div>
 					</li>

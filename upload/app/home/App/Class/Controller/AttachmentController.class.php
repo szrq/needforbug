@@ -23,6 +23,10 @@ class AttachmentController extends InitController{
 		$this->display('attachment+index');
 	}
 
+	public function get_allowed_type(){
+		return explode('|',$GLOBALS['_option_']['upload_allowed_type']);
+	}
+
 	public function add(){
 		$nUploadfileMaxsize=Core_Extend::getUploadSize($GLOBALS['_option_']['uploadfile_maxsize']);
 		$nUploadFileMode=$GLOBALS['_option_']['upload_file_mode'];
@@ -57,6 +61,10 @@ class AttachmentController extends InitController{
 		// 附件分类
 		$arrAttachmentcategorys=$this->get_attachmentcategory();
 		$this->assign('arrAttachmentcategorys',$arrAttachmentcategorys);
+
+		// 所有允许的分类
+		$arrAllowedTypes=$this->get_allowed_type();
+		$this->assign('arrAllowedTypes',$arrAllowedTypes);
 
 		$this->assign('nUploadfileMaxsize',$nUploadfileMaxsize);
 		$this->assign('nUploadFileMode',$nUploadFileMode);
@@ -207,7 +215,7 @@ class AttachmentController extends InitController{
 				$sAttachmentFilepath=NEEDFORBUG_PATH.'/data/upload/attachment/'.$oAttachment['attachment_savepath'].'/'.$oAttachment['attachment_savename'];
 
 				if(!is_file($sAttachmentFilepath)){
-					echo (sprintf('图像文件 %s 不存在',$sAttachmentFilepath));
+					echo(sprintf('图像文件 %s 不存在',$sAttachmentFilepath));
 				}
 			}
 
@@ -270,9 +278,15 @@ class AttachmentController extends InitController{
 	}
 
 	public function my_attachment(){
+		$sType=trim(G::getGpc('type','G'));
+		$nAttachmentcategoryid=G::getGpc('cid','G');
+		
 		$arrWhere=array();
 
-		$nAttachmentcategoryid=G::getGpc('cid','G');
+		if($sType){
+			$arrWhere['attachment_extension']=$sType;
+		}
+
 		if($nAttachmentcategoryid!==null){
 			$arrWhere['attachmentcategory_id']=intval($nAttachmentcategoryid);
 
@@ -298,11 +312,15 @@ class AttachmentController extends InitController{
 		// 取得附件列表
 		$nTotalRecord=AttachmentModel::F()->where($arrWhere)->all()->getCounts();
 		$oPage=Page::RUN($nTotalRecord,10,G::getGpc('page','G'));
-		$arrAttachments=AttachmentModel::F()->where($arrWhere)->order('create_dateline DESC')->limit($oPage->returnPageStart(),10)->getAll();
+		$arrAttachments=AttachmentModel::F()->where($arrWhere)->order('attachment_id DESC')->limit($oPage->returnPageStart(),10)->getAll();
 
 		// 附件分类
 		$arrAttachmentcategorys=$this->get_attachmentcategory();
 		$this->assign('arrAttachmentcategorys',$arrAttachmentcategorys);
+
+		// 所有允许的分类
+		$arrAllowedTypes=$this->get_allowed_type();
+		$this->assign('arrAllowedTypes',$arrAllowedTypes);
 
 		$this->assign('arrAttachments',$arrAttachments);
 		$this->assign('sPageNavbar',$oPage->P('pagination','li','active'));
@@ -328,6 +346,38 @@ class AttachmentController extends InitController{
 		}
 
 		$this->A($oAttachmentcategory->toArray(),'更新专辑信息成功',1);
+	}
+
+	public function delete_attachmentcategory($nId=''){
+		if(empty($nId)){
+			$nAttachmentcategoryid=intval(G::getGpc('id','G'));
+		}else{
+			$nAttachmentcategoryid=$nId;
+		}
+
+		if(empty($nAttachmentcategoryid)){
+			$this->E('你没有选择你要删除的专辑');
+		}
+
+		$oAttachmentcategory=AttachmentcategoryModel::F('attachmentcategory_id=?',$nAttachmentcategoryid)->getOne();
+		if(empty($oAttachmentcategory['attachmentcategory_id'])){
+			$this->E('你要删除的专辑不存在');
+		}
+
+		if($oAttachmentcategory['user_id']!=$GLOBALS['___login___']['user_id']){
+			$this->E('你不能删除别人的专辑');
+		}
+
+		$nTotalRecord=AttachmentModel::F('attachmentcategory_id=?',$oAttachmentcategory['attachmentcategory_id'])->all()->getCounts();
+		if($nTotalRecord>0){
+			$this->E('专辑含有照片，请先删除照片后再删除专辑');
+		}
+
+		$oAttachmentcategory->destroy();
+
+		if(!$nId){
+			$this->S('专辑删除成功');
+		}
 	}
 
 	public function edit_attachment(){
@@ -420,6 +470,57 @@ class AttachmentController extends InitController{
 		}
 			
 		$this->S('批量删除附件成功');
+	}
+
+	public function attachmentcategory(){
+		// 取得专辑列表
+		$nTotalRecord=AttachmentcategoryModel::F()->all()->getCounts();
+		$oPage=Page::RUN($nTotalRecord,10,G::getGpc('page','G'));
+		$arrAttachmentcategorys=AttachmentcategoryModel::F()->order('attachmentcategory_id DESC')->limit($oPage->returnPageStart(),10)->getAll();
+
+		$this->assign('arrAttachmentcategorys',$arrAttachmentcategorys);
+		$this->assign('sPageNavbar',$oPage->P('pagination','li','active'));
+
+		$this->display('attachment+attachmentcategory');
+	}
+
+	public function attachment(){
+		$nAttachmentcategoryid=G::getGpc('cid','G');
+		$nRecommend=intval(G::getGpc('recommend','G'));
+		$sType=trim(G::getGpc('type','G'));
+
+		$arrWhere=array();
+
+		if($nAttachmentcategoryid!==null){
+			$arrWhere['attachmentcategory_id']=intval($nAttachmentcategoryid);
+
+			// 取得专辑信息
+			$arrAttachmetncategoryinfo=array();
+			if($nAttachmentcategoryid==0){
+				$nDefaultattachmentnum=AttachmentModel::F('user_id=? AND attachmentcategory_id=0',$GLOBALS['___login___']['user_id'])->all()->getCounts();
+				$arrAttachmetncategoryinfo['totalnum']=$nDefaultattachmentnum;
+			}elseif($nAttachmentcategoryid>0){
+				$oAttachmentcategoryinfo=AttachmentcategoryModel::F('attachmentcategory_id=?',$nAttachmentcategoryid)->getOne();
+				if(!empty($oAttachmentcategoryinfo['attachmentcategory_id'])){
+					$arrAttachmetncategoryinfo=$oAttachmentcategoryinfo->toArray();
+				}else{
+					$arrAttachmetncategoryinfo=false;
+				}
+			}
+
+			$this->assign('arrAttachmetncategoryinfo',$arrAttachmetncategoryinfo);
+		}
+
+		// 取得附件列表
+		$nTotalRecord=AttachmentModel::F()->where($arrWhere)->all()->getCounts();
+		$oPage=Page::RUN($nTotalRecord,10,G::getGpc('page','G'));
+		$arrAttachments=AttachmentModel::F()->where($arrWhere)->order('attachment_id DESC')->limit($oPage->returnPageStart(),10)->getAll();
+
+		$this->assign('arrAttachments',$arrAttachments);
+		$this->assign('sPageNavbar',$oPage->P('pagination','li','active'));
+		$this->assign('nAttachmentcategoryid',$nAttachmentcategoryid);
+
+		$this->display('attachment+attachment');
 	}
 
 }

@@ -1,0 +1,102 @@
+<!--<include file="Core_Extend::template('header')" />-->
+
+<!--{style}-->
+.thumbnail .img{
+	display:block;
+	width:96%;
+	height:150px;
+	line-height:150px; 
+	overflow:hidden;
+	outline:none;
+	text-align:center;
+	border:1px solid #f0f5f8;
+	margin:2%;
+}
+<!--{/style}-->
+
+		<ul class="breadcrumb">
+			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
+			<li><a href="<!--{:Dyhb::U('home://attachment/index')}-->"><!--<lang package='Template/Attachment'>-->我的相册<!--</lang>--></a></li>
+		</ul>
+
+		<!--<include file="attachment+menu" />-->
+
+		<div class="row">
+			<div class="span12">
+				<!--{if is_array($arrAttachments)}-->
+				<ul class="thumbnails">
+					<!--<foreach for=arrAttachments value=oAttachment>-->
+					<!--{~$arrAttachmentSize=$TheController->get_image_size($oAttachment)}-->
+					<li class="span3" id="attachment_item_<!--{$oAttachment['attachment_id']}-->">
+						<div class="thumbnail">
+							<div class="img">
+								<img src="<!--{:Core_Extend::getAttachmentPreview($oAttachment)}-->" alt="<!--{$oAttachment['attachment_alt']}-->" <!--{if $arrAttachmentSize && $arrAttachmentSize[1]>=150}-->height="150px"<!--{/if}-->>
+							</div>
+							<div class="caption">
+								<h5 id="attachment_name_<!--{$oAttachment['attachment_id']}-->"><!--{$oAttachment['attachment_name']}--></h5>
+								<p id="attachment_description_<!--{$oAttachment['attachment_id']}-->"><!--{if $oAttachment['attachment_description']}--><!--{$oAttachment['attachment_description']|G+subString=0,30}--><!--{d*else}-->暂无附件描述<!--{/if}--></p>
+								<p>上传时间:&nbsp;<!--{$oAttachment['create_dateline']|Core_Extend+timeFormat}--></p>
+								<p>所属专辑:&nbsp;<a href="<!--{:Dyhb::U('home://attachment/attachment?cid='.$oAttachment['attachmentcategory_id'])}-->"><!--{if $oAttachment['attachmentcategory_id']>0}--><!--{$oAttachment:attachmentcategory:attachmentcategory_name}--><!--{d*else}-->默认专辑<!--{/if}--></a></p>
+								<p>下载次数:&nbsp;<a href="#"><!--{$oAttachment:attachment_download}--></a></p>
+								<p>评论次数:&nbsp;<a href="#"><!--{$oAttachment:attachment_commentnum}--></a></p>
+								<p>附件大小:&nbsp;<!--{$oAttachment:attachment_size|G+changeFileSize}--></p>
+								<p>上传用户:&nbsp;<a href="<!--{:Dyhb::U('home://space@?id='.$oAttachment['user_id'])}-->"><!--{$oAttachment['attachment_username']}--></a></p>
+							</div>
+						</div>
+					</li>
+					<!--</foreach>-->
+				</ul>
+				<!--{d*else}-->
+				<p>暂时没有发现任何附件</p>
+				<!--{/if}-->
+			</div>
+			<div class="span12">
+				<!--{$sPageNavbar}-->
+			</div>
+			<!--{if $nAttachmentcategoryid!==null && $arrAttachmetncategoryinfo!==false}-->
+			<div class="span12">
+				<h3>专辑信息</h3>
+				<hr/>
+				<p><table class="table table-striped">
+						<!--{if $nAttachmentcategoryid>0}-->
+						<thead>
+							<tr>
+								<th width="150px">专辑描述</th>
+								<th><a href="<!--{:Dyhb::U('home://attachment/attachment?cid='.$nAttachmentcategoryid)}-->"><!--{$arrAttachmetncategoryinfo['attachmentcategory_name']}--></a></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>创建时间</td>
+								<td><!--{$arrAttachmetncategoryinfo['create_dateline']|Core_Extend+timeFormat}--></td>
+							</tr>
+							<!--{if $arrAttachmetncategoryinfo['update_dateline']}-->
+							<tr>
+								<td>更新时间</td>
+								<td><!--{$arrAttachmetncategoryinfo['update_dateline']|Core_Extend+timeFormat}--></td>
+							</tr>
+							<!--{/if}-->
+							<tr>
+								<th width="150px">附件数量</th>
+								<th><!--{$arrAttachmetncategoryinfo['attachmentcategory_attachmentnum']}--></th>
+							</tr>
+						</tbody>
+						<!--{d*else}-->
+						<thead>
+							<tr>
+								<th width="150px">专辑描述</th>
+								<th><a href="<!--{:Dyhb::U('home://attachment/my_attachment?cid='.$nAttachmentcategoryid)}-->">默认专辑</a></th>
+							</tr>
+							<tr>
+								<th width="150px">附件数量</th>
+								<th><!--{$arrAttachmetncategoryinfo['totalnum']}--></th>
+							</tr>
+						</thead>
+						<!--{/if}-->
+					</table>
+				</p>
+			</div>
+			<!--{/if}-->
+		</div>
+
+<!--<include file="Core_Extend::template('footer')" />-->

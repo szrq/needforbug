@@ -63,6 +63,42 @@ function deleteAttachmentcategory(id){
 	});
 	return false;
 }
+
+var oEditCreateNewattachmentcategory;
+
+function createAttachmentcategory(){
+	var sHtml = $.ajax({
+		url: D.U('home://attachment/new_attachmentcategory'),
+		async: false
+	}).responseText;
+
+	oEditCreateNewattachmentcategory=needforbugAlert(sHtml,'新建专辑','',saveNewattachmentcategory,cancelNewattachmentcategory,600,200);
+}
+
+function saveNewattachmentcategory(){
+	Dyhb.AjaxSend(D.U('home://attachment/new_attachmentcategorysave'),
+		'ajax=1&attachmentcategory_compositor='+encodeURIComponent($('#new_attachmentcategory_compositor').val())+
+		'&attachmentcategory_name='+encodeURIComponent( $('#new_attachmentcategory_name').val())+
+		'&attachmentcategory_description='+encodeURIComponent( $('#new_attachmentcategory_description').val()),'',
+		function(data,status){
+			if(status==1){
+				oEditCreateNewattachmentcategory.close();
+				window.location.reload();
+				return true;
+			}
+		}
+	);
+}
+
+function cancelNewattachmentcategory(){
+	if($('#new_attachmentcategory_name').val()!=''){
+		needforbugConfirm('你确定要放弃新建专辑?',function(){
+			oEditCreateNewattachmentcategory.close();
+			return true;
+		});
+		return false;
+	}
+}
 <!--{/script}-->
 
 <!--{style}-->
@@ -87,6 +123,14 @@ function deleteAttachmentcategory(id){
 		<!--<include file="attachment+menu" />-->
 
 		<div class="row">
+			<div class="span12" style="margin-bottom:20px;">
+				<span class="right">
+					<a href="<!--{:Dyhb::U('home://attachment/add')}-->" class="btn btn-success"><i class="icon-upload icon-white"></i>&nbsp;上传照片</a>
+					<span class="pipe">|</span>
+					<a href="javascript:void(0);" onclick="createAttachmentcategory();">+新建相册</a>
+				</span>
+				<h3>我的专辑</h3>
+			</div>
 			<div class="span12">
 				<!--{if is_array($arrAttachmentcategorys)}-->
 				<ul class="thumbnails">
@@ -94,14 +138,16 @@ function deleteAttachmentcategory(id){
 					<li class="span3" id="attachmentcategory_item_<!--{$oAttachmentcategory['attachmentcategory_id']}-->">
 						<div class="thumbnail">
 							<div class="img">
-								<img src="<!--{:Core_Extend::getAttachmentcategoryPreview($oAttachmentcategory)}-->" alt="<!--{$oAttachmentcategory['attachmentcategory_name']}-->">
+								<a href="<!--{:Dyhb::U('home://attachment/my_attachment?cid='.$oAttachmentcategory['attachmentcategory_id'])}-->">
+									<img src="<!--{:Core_Extend::getAttachmentcategoryPreview($oAttachmentcategory)}-->" alt="<!--{$oAttachmentcategory['attachmentcategory_name']}-->" height="150px">
+								</a>
 							</div>
 							<div class="caption">
 								<h5 id="attachmentcategory_name_<!--{$oAttachmentcategory['attachmentcategory_id']}-->"><!--{$oAttachmentcategory['attachmentcategory_name']}--></h5>
 								<p id="attachmentcategory_description_<!--{$oAttachmentcategory['attachmentcategory_id']}-->"><!--{if $oAttachmentcategory['attachmentcategory_description']}--><!--{$oAttachmentcategory['attachmentcategory_description']|G+subString=0,30}--><!--{d*else}-->暂无附件描述<!--{/if}--></p>
 								<p>创建时间:&nbsp;<!--{$oAttachmentcategory['create_dateline']|Core_Extend+timeFormat}--></p>
-								<p>附件数量:&nbsp;<a href="#"><!--{$oAttachmentcategory:attachmentcategory_attachmentnum}--></a></p>
-								<p><a href="javascript:void(0);" onclick="editAttachmentcategory(<!--{$oAttachmentcategory['attachmentcategory_id']}-->);" class="btn btn-primary"><i class="icon-pencil icon-white"></i>&nbsp;编辑</a>&nbsp;<a href="javascript:void(0);" onclick="deleteAttachmentcategory(<!--{$oAttachmentcategory['attachmentcategory_id']}-->);" class="btn"><i class="icon-remove"></i>&nbsp;删除</a></p>
+								<p>附件数量:&nbsp;<a href="<!--{:Dyhb::U('home://attachment/my_attachment?cid='.$oAttachmentcategory['attachmentcategory_id'])}-->"><!--{$oAttachmentcategory:attachmentcategory_attachmentnum}--></a></p>
+								<p><a href="javascript:void(0);" onclick="editAttachmentcategory(<!--{$oAttachmentcategory['attachmentcategory_id']}-->);" class="btn btn-success"><i class="icon-pencil icon-white"></i>&nbsp;编辑</a>&nbsp;<a href="javascript:void(0);" onclick="<!--{if $oAttachmentcategory['attachmentcategory_attachmentnum']>0}-->javascript:void(0);<!--{d*else}-->deleteAttachmentcategory(<!--{$oAttachmentcategory['attachmentcategory_id']}-->);<!--{/if}-->" class="btn" <!--{if $oAttachmentcategory['attachmentcategory_attachmentnum']>0}-->disabled="disabled"<!--{/if}-->><i class="icon-remove"></i>&nbsp;删除</a></p>
 							</div>
 						</div>
 					</li>
