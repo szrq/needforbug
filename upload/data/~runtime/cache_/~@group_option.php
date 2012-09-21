@@ -1,1 +1,0 @@
-<?php die(); ?>a:2:{s:13:"group_isaudit";s:1:"0";s:29:"group_icon_uploadfile_maxsize";s:6:"204800";}
