@@ -53,7 +53,7 @@ function createAttachmentcategory(nSelectedIndex,sId){
 			async: false
 		}).responseText;
 
-		oEditNewattachmentcategory=needforbugAlert(sHtml,'新建专辑','',saveNewattachmentcategory,cancelNewattachmentcategory,600,300);
+		oEditNewattachmentcategory=needforbugAlert(sHtml,'新建专辑','',saveNewattachmentcategory,cancelNewattachmentcategory,600,200);
 	}else{
 		uploadobject.addPostParam( 'attachmentcategory_id', nSelectedIndex);
 	}

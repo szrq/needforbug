@@ -10,6 +10,18 @@ function toggleAttachment(id){
 
 	$('#attachment_item_'+id).toggle();
 }
+
+function saveAttachmentinfo(){
+	var nAttachmentcategory=$('#attachmentcategory_id').val();
+
+	Dyhb.AjaxSubmit('attachmentinfo_form','<!--{:Dyhb::U('home://attachment/attachmentinfo_save')}-->','',
+		function(data,status){
+			if(status==1){
+				window.location.href=D.U('home://attachment/my_attachment?cid='+nAttachmentcategory);
+			}
+		}
+	);
+}
 <!--{/script}-->
 
 <!--{style}-->
@@ -73,8 +85,9 @@ function toggleAttachment(id){
 					</div>
 					<!--</foreach>-->
 					<div class="form-actions">
-						<input type="hidden" name="attachmentcategory_id" value="<!--{$nAttachmentcategoryid}-->"/>
-						<input type="submit" class="btn btn-success" value="保存附件信息">&nbsp;
+						<input type="hidden" name="ajax" value="1"/>
+						<input type="hidden" name="attachmentcategory_id" id="attachmentcategory_id" value="<!--{$nAttachmentcategoryid}-->"/>
+						<input type="button" class="btn btn-success" onclick="saveAttachmentinfo();" value="保存附件信息">&nbsp;
 						<a class="btn" href="<!--{:Dyhb::U('home://attachment/my_attachment?cid='.$nAttachmentcategoryid)}-->">我的附件</a>
 					</div>
 				</form>

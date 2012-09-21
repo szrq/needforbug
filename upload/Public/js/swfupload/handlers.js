@@ -264,7 +264,7 @@ var uploadPlugin = function (name) {
 	this.RemoveFile = function (id, obj, index) {
 		if(confirm("您确定要删除这个附件吗?")){
 			var attachid = $("#tag_attachid_" + index).val();
-			$.get( D.U('home://attachment/del_attach'), {attachid:attachid},function(data){});
+			$.get( D.U('home://attachment/delete_attachment'), {id:attachid},function(data){});
 			Example.nember--;
 			$(obj).parent().parent().remove();
 			swfu.cancelUpload(id, true);
@@ -294,7 +294,7 @@ var uploadPlugin = function (name) {
 				attachids = attachids + comma + $(this).val();
 				comma = ',';
 			});
-			$.post( D.U('home://attachment/del_attach'), {attachids:attachids},function(data){});
+			$.post( D.U('home://attachment/delete_attachments'), {ids:attachids},function(data){});
 			Example.nember = 0;
 			for (var i = 0; i < swfu.getStats().files_queued; i++)
 				swfu.cancelUpload();

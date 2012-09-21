@@ -930,4 +930,27 @@ NEEDFORBUG;
 		}
 	}
 
+	static public function getAttachmentcategoryPreview($oAttachmentcategory){
+		if(empty($oAttachmentcategory['attachmentcategory_id'])){
+			return '';
+		}
+
+		// 已设置封面
+		if($oAttachmentcategory['attachmentcategory_cover']>0){
+			$oAttachment=AttachmentModel::F('attachment_id=?',$oAttachmentcategory['attachmentcategory_cover'])->getOne();
+			if(!empty($oAttachment['attachment_id'])){
+				return self::getAttachmentPreview($oAttachment);
+			}
+		}
+
+		// 尝试读取最新的附件
+		$oAttachment=AttachmentModel::F('attachmentcategory_id=?',$oAttachmentcategory['attachmentcategory_id'])->order('attachment_id DESC')->getOne();
+		if(!empty($oAttachment['attachment_id'])){
+			return self::getAttachmentPreview($oAttachment);
+		}
+
+		// 设置默认图片
+		return __PUBLIC__.'/images/common/default_attachmentcategory.png';
+	}
+
 }

@@ -54,6 +54,29 @@ function mb_cutstr(str,maxlen,dot){
 	return ret;
 }
 
+function subStr(str,len,elli){
+	if(!str || !len){
+		return '';
+	} 
+
+	var a=0;
+	var i=0;
+	var temp='';
+	for(i=0;i<str.length;i++){
+		if(str.charCodeAt(i)>255){
+			a+=2;
+		}else{
+			a++;
+		}
+		if(a>len){
+			return temp+elli;
+		}
+		temp+=str.charAt(i);
+	}
+
+	return str;
+}
+
 function preg_replace(search,replace,str,regswitch){
 	var regswitch=!regswitch?'ig':regswitch;
 	var len=search.length;
