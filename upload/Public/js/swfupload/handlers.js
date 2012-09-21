@@ -7,12 +7,12 @@ var uploadPlugin = function (name) {
 	this.sysParameter = {
 		"upload_url": D.U('home://attachment/flash_upload'),
 		"file_post_name": "Filedata",
-		"post_params": {"hash":sHash,"auth":sAuth,"user_id":nUserid},
+		"post_params": {"hash":sHash,"auth":sAuth,"user_id":nUserid,"user_name":sUsername,'attachmentcategory_id':nAttachmentcategoryId},
 		"http_success": [201, 201, 203],
 		"use_query_string": false,
 		"assume_success_timeout": 0,
 		"file_types": sAllAllowType,
-		"file_types_description": '所有允许分类',
+		"file_types_description": '所有允许类型',
 		"file_size_limit": max_upload_size,
 		"file_upload_limit": nUploadFlashLimit,
 		"debug": false,
@@ -86,6 +86,10 @@ var uploadPlugin = function (name) {
 		if(nUploadIsauto==0){
 			$("#upload").click(function () { Example.StartUpload() });
 		}
+	}
+
+	this.addPostParam=function(key,value){
+		swfu.addPostParam(key,value);
 	}
 
 	this.swfupload_loaded_function = function () {
@@ -233,6 +237,8 @@ var uploadPlugin = function (name) {
 		if(insert_attach==1){
 			$("#insertattach_" + file.index).attr("title", "插入附件");
 		}
+
+		$('#flash_upload_box').css({'display':'block'});
 
 		/*
 		$("#tag_" + file.index + " .status img").attr("src", getStatusImg(2));

@@ -17,6 +17,7 @@ class AttachmentModel extends CommonModel{
 			'attr_protected'=>'attachment_id',
 			'autofill'=>array(
 				array('user_id','userId','create','callback'),
+				array('attachment_username','userName','create','callback'),
 			),
 		);
 	}
@@ -59,8 +60,14 @@ class AttachmentModel extends CommonModel{
 
 		$arrUploadids=array();
 		foreach($arrUploadinfoTemps as $arrUploadinfoTemp){
-			$arrUploadinfoTemp['attachment_savepath']=str_replace(G::tidyPath(NEEDFORBUG_PATH.'/data/upload/attachment/'),'',G::tidyPath($arrUploadinfoTemp['attachment_savepath']));
-			$arrUploadinfoTemp['attachment_thumbpath']=str_replace(G::tidyPath(NEEDFORBUG_PATH.'/data/upload/attachment/'),'',G::tidyPath($arrUploadinfoTemp['attachment_thumbpath']));
+			if(!is_file($arrUploadinfoTemp['attachment_thumbpath'].'/'.$arrUploadinfoTemp['attachment_savename'])){
+				$arrUploadinfoTemp['attachment_isthumb']=0;
+				$arrUploadinfoTemp['attachment_thumbpath']='';
+				$arrUploadinfoTemp['attachment_thumbprefix']='';
+			}
+			
+			$arrUploadinfoTemp['attachment_savepath']=str_replace(G::tidyPath(NEEDFORBUG_PATH.'/data/upload/attachment').'/','',G::tidyPath($arrUploadinfoTemp['attachment_savepath']));
+			$arrUploadinfoTemp['attachment_thumbpath']=str_replace(G::tidyPath(NEEDFORBUG_PATH.'/data/upload/attachment/').'/','',G::tidyPath($arrUploadinfoTemp['attachment_thumbpath']));
 		
 			$oUpload=new self($arrUploadinfoTemp);
 			$oUpload->save(0);
@@ -76,11 +83,11 @@ class AttachmentModel extends CommonModel{
 
 	protected function userId(){
 		$nUserId=intval(G::getGpc('user_id'));
-		if($nUserId<1){
-			$nUserId=$GLOBALS['___login___']['user_id'];
-		}
-
 		return $nUserId>0?$nUserId:0;
+	}
+
+	protected function userName(){
+		return G::getGpc('user_name');
 	}
 
 }

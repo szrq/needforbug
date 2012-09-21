@@ -179,7 +179,7 @@ function loadEditorThin(name){
 }
 
 /** 对话框 */
-function needforbugAlert(sContent,sTitle,nTime,ok,cancel){
+function needforbugAlert(sContent,sTitle,nTime,ok,cancel,width,height){
 	if(!sTitle){
 		sTitle=D.L('提示信息','__COMMON_LANG__@Js/Common_Js');
 	}
@@ -207,6 +207,10 @@ function needforbugAlert(sContent,sTitle,nTime,ok,cancel){
 		cancel: cancel
 	});
 
+	if(width && height){
+		oDialog.size(width, height);
+	}
+
 	if(nTime){
 		oDialog.time(nTime*1000);
 	}
@@ -214,7 +218,7 @@ function needforbugAlert(sContent,sTitle,nTime,ok,cancel){
 	return oDialog;
 }
 
-function needforbugConfirm(sContent,ok,cancel,sTitle,nTime){
+function needforbugConfirm(sContent,ok,cancel,sTitle,nTime,width,height){
 	if(!sTitle){
 		sTitle=D.L('提示信息','__COMMON_LANG__@Js/Common_Js');
 	}
@@ -242,6 +246,10 @@ function needforbugConfirm(sContent,ok,cancel,sTitle,nTime){
 		cancelValue: D.L('取消','__COMMON_LANG__@Js/Common_Js'),
 		cancel: cancel
 	});
+
+	if(width && height){
+		oDialog.size(width, height);
+	}
 
 	if(nTime){
 		oDialog.time(nTime*1000);
