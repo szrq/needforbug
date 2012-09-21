@@ -1,0 +1,119 @@
+<!--<include file="Core_Extend::template('header')" />-->
+
+<!--{script}-->
+function subStr(str,len,elli){
+    if(!str || !len) { return ''; } 
+    var a = 0; 
+    var i = 0;  
+    var temp = '';
+    for (i=0;i< str.length;i++){
+       if (str.charCodeAt(i)>255){
+           a+=2; 
+        }else{
+           a++; 
+        }
+        if(a > len) { return temp+elli; }
+        temp += str.charAt(i);
+    } 
+    return str;
+}
+
+var oEditNewattachmentcategory;
+
+function editAttachmentcategory(id){
+	var sHtml = $.ajax({
+		url: D.U('home://attachment/edit_attachmentcategory?id='+id),
+		async: false
+	}).responseText;
+
+	oEditNewattachmentcategory=needforbugAlert(sHtml,'编辑专辑','',saveAttachmentcategory,'',600,300);
+}
+
+function saveAttachmentcategory(){
+	var id=$('#attachmentcategory_id').val();
+	Dyhb.AjaxSend(D.U('home://attachment/edit_attachmentcategorysave'),
+		'ajax=1&attachmentcategory_name='+encodeURIComponent($('#attachmentcategory_name').val())+
+		'&attachmentcategory_compositor='+encodeURIComponent( $('#attachmentcategory_compositor').val())+
+		'&attachmentcategory_name='+encodeURIComponent( $('#attachmentcategory_name').val())+
+		'&attachmentcategory_description='+encodeURIComponent( $('#attachmentcategory_description').val())+
+		'&attachmentcategory_id='+ $('#attachmentcategory_id').val(),'',
+		function(data,status){
+			if(status==1){
+				$('#attachmentcategory_name_'+id).text(data.attachmentcategory_name);
+				$('#attachmentcategory_description_'+id).text(data.attachmentcategory_description?subStr(data.attachmentcategory_description,32):'暂无附件描述');
+				oEditNewattachment.close();
+				return true;
+			}
+		}
+	);
+}
+
+function deleteAttachmentcategory(id){
+	needforbugConfirm('你确定要删除附件吗?',function(){
+		Dyhb.AjaxSend(D.U('home://attachment/delete_attachmentcategory?id='+id),
+			'ajax=1','',
+			function(data,status){
+				if(status==1){
+					$('#attachmentcategory_item_'+id).remove();
+					return true;
+				}
+			}
+		);
+		return true;
+	});
+	return false;
+}
+<!--{/script}-->
+
+<!--{style}-->
+.thumbnail .img{
+	display:block;
+	width:96%;
+	height:150px;
+	line-height:150px; 
+	overflow:hidden;
+	outline:none;
+	text-align:center;
+	border:1px solid #f0f5f8;
+	margin:2%;
+}
+<!--{/style}-->
+
+		<ul class="breadcrumb">
+			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
+			<li><a href="<!--{:Dyhb::U('home://attachment/index')}-->"><!--<lang package='Template/Attachment'>-->我的相册<!--</lang>--></a></li>
+		</ul>
+
+		<!--<include file="attachment+menu" />-->
+
+		<div class="row">
+			<div class="span12">
+				<!--{if is_array($arrAttachmentcategorys)}-->
+				<ul class="thumbnails">
+					<!--<foreach for=arrAttachmentcategorys value=oAttachmentcategory>-->
+					<li class="span3" id="attachmentcategory_item_<!--{$oAttachmentcategory['attachmentcategory_id']}-->">
+						<div class="thumbnail">
+							<div class="img">
+								<img src="<!--{:Core_Extend::getAttachmentcategoryPreview($oAttachmentcategory)}-->" alt="<!--{$oAttachmentcategory['attachmentcategory_name']}-->">
+							</div>
+							<div class="caption">
+								<h5 id="attachmentcategory_name_<!--{$oAttachmentcategory['attachmentcategory_id']}-->"><!--{$oAttachmentcategory['attachmentcategory_name']}--></h5>
+								<p id="attachmentcategory_description_<!--{$oAttachmentcategory['attachmentcategory_id']}-->"><!--{if $oAttachmentcategory['attachmentcategory_description']}--><!--{$oAttachmentcategory['attachmentcategory_description']|G+subString=0,30}--><!--{d*else}-->暂无附件描述<!--{/if}--></p>
+								<p>创建时间:&nbsp;<!--{$oAttachmentcategory['create_dateline']|Core_Extend+timeFormat}--></p>
+								<p>附件数量:&nbsp;<a href="#"><!--{$oAttachmentcategory:attachmentcategory_attachmentnum}--></a></p>
+								<p><a href="javascript:void(0);" onclick="editAttachmentcategory(<!--{$oAttachmentcategory['attachmentcategory_id']}-->);" class="btn btn-primary"><i class="icon-pencil icon-white"></i>&nbsp;编辑</a>&nbsp;<a href="javascript:void(0);" onclick="deleteAttachmentcategory(<!--{$oAttachmentcategory['attachmentcategory_id']}-->);" class="btn"><i class="icon-remove"></i>&nbsp;删除</a></p>
+							</div>
+						</div>
+					</li>
+					<!--</foreach>-->
+				</ul>
+				<!--{d*else}-->
+				<p>暂时没有发现任何附件</p>
+				<!--{/if}-->
+			</div>
+			<div class="span12">
+				<!--{$sPageNavbar}-->
+			</div>
+		</div>
+
+<!--<include file="Core_Extend::template('footer')" />-->
