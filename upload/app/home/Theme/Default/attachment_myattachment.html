@@ -71,7 +71,7 @@ function deleteAttachment(id){
 		<div class="row">
 			<div class="span12">
 				<ul class="nav nav-pills">
-					<li class="<!--{if $nAttachmentcategoryid===null && !G+getGpc('type','G')}-->active<!--{/if}-->"><a href="<!--{:Dyhb::U('home://attachment/my_attachment')}-->">附件列表</a></li>
+					<li class="<!--{if $nAttachmentcategoryid===null && !G+getGpc('type','G') && !isset($_GET['photo'])}-->active<!--{/if}-->"><a href="<!--{:Dyhb::U('home://attachment/my_attachment')}-->">附件列表</a></li>
 					<li class="dropdown <!--{if $nAttachmentcategoryid!==null && $arrAttachmetncategoryinfo!==false}-->active<!--{/if}-->">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);">
 							所有专辑
@@ -79,23 +79,26 @@ function deleteAttachment(id){
 						</a>
 						<ul class="dropdown-menu"> 
 							<!--<foreach for=arrAttachmentcategorys value=oAttachmentcategory>-->
-							<li><a href="<!--{:Dyhb::U('home://attachment/my_attachment?cid='.$oAttachmentcategory['attachmentcategory_id'])}-->"><!--{$oAttachmentcategory['attachmentcategory_name']}--></a></li>
+							<li><a href="?cid=<!--{$oAttachmentcategory['attachmentcategory_id']}-->"><!--{$oAttachmentcategory['attachmentcategory_name']}--></a></li>
 							<!--</foreach>-->
 							<!--{if is_array($arrAttachmentcategorys)}-->
 							<li class="divider"></li>
 							<!--{/if}-->
-							<li><a href="<!--{:Dyhb::U('home://attachment/my_attachment?cid=0')}-->">默认专辑</a></li>
+							<li><a href="?cid=0">默认专辑</a></li>
 						</ul>
 					</li>
-					<li class="dropdown <!--{if G+getGpc('type','G')}-->active<!--{/if}-->">
+					<li class="dropdown <!--{if G+getGpc('type','G') || isset($_GET['photo'])}-->active<!--{/if}-->">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);">
 							所有类型
 							<b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu"> 
 							<!--<foreach for=arrAllowedTypes value=sAllowedType>-->
-							<li><a href="<!--{:Dyhb::U('home://attachment/my_attachment?type='.$sAllowedType)}-->"><!--{$sAllowedType}--></a></li>
+							<li><a href="?type=<!--{$sAllowedType}-->"><!--{$sAllowedType}--></a></li>
 							<!--</foreach>-->
+							<li class="divider"></li>
+							<li><a href="?photo=1">图片</a></li>
+							<li><a href="?photo=0">附件</a></li>
 						</ul>
 					</li>
 				</ul>

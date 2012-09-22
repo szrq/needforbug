@@ -873,7 +873,7 @@ NEEDFORBUG;
 		}
 	}
 
-	static public function getFileicon($sExtension,$bReturnImageIcon=false,$bReturnPath=true){
+	static public function getFileicon($sExtension,$bReturnImageIcon=false,$bReturnPath=true,$bUrlpath=true){
 		$arrIcons=array(
 			'image'=>array('gif','jpg','jpeg','bmp','png'),
 			'archive'=>array('zip','z','gz','gtar','rar'),
@@ -907,20 +907,24 @@ NEEDFORBUG;
 		}
 
 		if($bReturnPath===true){
-			return __PUBLIC__.'/images/crystal/'.$sFileiconPath.'.png';
+			if($bUrlpath===true){
+				return __PUBLIC__.'/images/crystal/'.$sFileiconPath.'.png';
+			}else{
+				return NEEDFORBUG_PATH.'/Public/images/crystal/'.$sFileiconPath.'.png';
+			}
 		}else{
 			return $sFileiconPath;
 		}
 	}
 
-	static public function getAttachmentPreview($oAttachment){
+	static public function getAttachmentPreview($oAttachment,$bUrlpath=true){
 		if(empty($oAttachment['attachment_id'])){
 			return '';
 		}
 
-		$sAttachmentPreview=self::getFileicon($oAttachment['attachment_extension']);
+		$sAttachmentPreview=self::getFileicon($oAttachment['attachment_extension'],false,true,$bUrlpath);
 		if($sAttachmentPreview===true){
-			return __ROOT__.'/data/upload/attachment/'.(
+			return ($bUrlpath===true?__ROOT__:NEEDFORBUG_PATH).'/data/upload/attachment/'.(
 				$oAttachment['attachment_isthumb']?
 				$oAttachment['attachment_thumbpath'].'/'.$oAttachment['attachment_savename']:
 				$oAttachment['attachment_savepath'].'/'.$oAttachment['attachment_savename']
@@ -930,7 +934,7 @@ NEEDFORBUG;
 		}
 	}
 
-	static public function getAttachmentcategoryPreview($oAttachmentcategory){
+	static public function getAttachmentcategoryPreview($oAttachmentcategory,$bUrlpath=true){
 		if(empty($oAttachmentcategory['attachmentcategory_id'])){
 			return '';
 		}
@@ -939,18 +943,22 @@ NEEDFORBUG;
 		if($oAttachmentcategory['attachmentcategory_cover']>0){
 			$oAttachment=AttachmentModel::F('attachment_id=?',$oAttachmentcategory['attachmentcategory_cover'])->getOne();
 			if(!empty($oAttachment['attachment_id'])){
-				return self::getAttachmentPreview($oAttachment);
+				return self::getAttachmentPreview($oAttachment,$bUrlpath);
 			}
 		}
 
 		// 尝试读取最新的附件
 		$oAttachment=AttachmentModel::F('attachmentcategory_id=?',$oAttachmentcategory['attachmentcategory_id'])->order('attachment_id DESC')->getOne();
 		if(!empty($oAttachment['attachment_id'])){
-			return self::getAttachmentPreview($oAttachment);
+			return self::getAttachmentPreview($oAttachment,$bUrlpath);
 		}
 
 		// 设置默认图片
-		return __PUBLIC__.'/images/common/default_attachmentcategory.png';
+		if($bUrlpath===true){
+			return __PUBLIC__.'/images/common/default_attachmentcategory.png';
+		}else{
+			return NEEDFORBUG_PATH.'/Public/images/common/default_attachmentcategory.png';
+		}
 	}
 
 }

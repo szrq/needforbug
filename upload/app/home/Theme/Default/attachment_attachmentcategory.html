@@ -23,6 +23,7 @@
 					<li class="span3" id="attachmentcategory_item_<!--{$oAttachmentcategory['attachmentcategory_id']}-->">
 						<div class="thumbnail">
 							<div class="img">
+							<!--{:Core_Extend::getAttachmentcategoryPreview($oAttachmentcategory,false)}-->
 								<a href="<!--{:Dyhb::U('home://attachment/attachment?cid='.$oAttachmentcategory['attachmentcategory_id'])}-->">
 									<img src="<!--{:Core_Extend::getAttachmentcategoryPreview($oAttachmentcategory)}-->" alt="<!--{$oAttachmentcategory['attachmentcategory_name']}-->" height="150px">
 								</a>

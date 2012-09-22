@@ -280,11 +280,18 @@ class AttachmentController extends InitController{
 	public function my_attachment(){
 		$sType=trim(G::getGpc('type','G'));
 		$nAttachmentcategoryid=G::getGpc('cid','G');
+		$nPhoto=G::getGpc('photo','G');
 		
 		$arrWhere=array();
 
 		if($sType){
 			$arrWhere['attachment_extension']=$sType;
+		}
+
+		if($nPhoto=='1'){
+			$arrWhere['attachment_extension']=array('in','gif,jpeg,jpg,png,bmp');
+		}elseif($nPhoto=='0'){
+			$arrWhere['attachment_extension']=array('not in','gif,jpeg,jpg,png,bmp');
 		}
 
 		if($nAttachmentcategoryid!==null){
@@ -473,10 +480,17 @@ class AttachmentController extends InitController{
 	}
 
 	public function attachmentcategory(){
+		$nRecommend=intval(G::getGpc('recommend','G'));
+
+		$arrWhere=array();
+		if($nRecommend==1){
+			$arrWhere['attachmentcategory_recommend']=1;
+		}
+
 		// 取得专辑列表
-		$nTotalRecord=AttachmentcategoryModel::F()->all()->getCounts();
+		$nTotalRecord=AttachmentcategoryModel::F($arrWhere)->all(array())->getCounts();
 		$oPage=Page::RUN($nTotalRecord,10,G::getGpc('page','G'));
-		$arrAttachmentcategorys=AttachmentcategoryModel::F()->order('attachmentcategory_id DESC')->limit($oPage->returnPageStart(),10)->getAll();
+		$arrAttachmentcategorys=AttachmentcategoryModel::F($arrWhere)->order('attachmentcategory_id DESC')->limit($oPage->returnPageStart(),10)->getAll();
 
 		$this->assign('arrAttachmentcategorys',$arrAttachmentcategorys);
 		$this->assign('sPageNavbar',$oPage->P('pagination','li','active'));
@@ -488,8 +502,24 @@ class AttachmentController extends InitController{
 		$nAttachmentcategoryid=G::getGpc('cid','G');
 		$nRecommend=intval(G::getGpc('recommend','G'));
 		$sType=trim(G::getGpc('type','G'));
+		$nPhoto=G::getGpc('photo','G');
+		$nRecommend=intval(G::getGpc('recommend','G'));
 
 		$arrWhere=array();
+
+		if($sType){
+			$arrWhere['attachment_extension']=$sType;
+		}
+
+		if($nPhoto=='1'){
+			$arrWhere['attachment_extension']=array('in','gif,jpeg,jpg,png,bmp');
+		}elseif($nPhoto=='0'){
+			$arrWhere['attachment_extension']=array('not in','gif,jpeg,jpg,png,bmp');
+		}
+
+		if($nRecommend==1){
+			$arrWhere['attachment_recommend']=1;
+		}
 
 		if($nAttachmentcategoryid!==null){
 			$arrWhere['attachmentcategory_id']=intval($nAttachmentcategoryid);
@@ -515,6 +545,14 @@ class AttachmentController extends InitController{
 		$nTotalRecord=AttachmentModel::F()->where($arrWhere)->all()->getCounts();
 		$oPage=Page::RUN($nTotalRecord,10,G::getGpc('page','G'));
 		$arrAttachments=AttachmentModel::F()->where($arrWhere)->order('attachment_id DESC')->limit($oPage->returnPageStart(),10)->getAll();
+
+		// 附件分类
+		$arrAttachmentcategorys=$this->get_attachmentcategory();
+		$this->assign('arrAttachmentcategorys',$arrAttachmentcategorys);
+
+		// 所有允许的分类
+		$arrAllowedTypes=$this->get_allowed_type();
+		$this->assign('arrAllowedTypes',$arrAllowedTypes);
 
 		$this->assign('arrAttachments',$arrAttachments);
 		$this->assign('sPageNavbar',$oPage->P('pagination','li','active'));
