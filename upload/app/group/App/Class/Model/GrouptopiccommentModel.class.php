@@ -11,6 +11,8 @@ class GrouptopiccommentModel extends CommonModel{
 			'table_name'=>'grouptopiccomment',
 			'props'=>array(
 				'grouptopiccomment_id'=>array('readonly'=>true),
+				'grouptopic'=>array(Db::BELONGS_TO =>'GrouptopicModel','source_key'=>'grouptopic_id','target_key'=>'grouptopic_id'),
+				'user'=>array(Db::BELONGS_TO =>'UserprofileModel','source_key'=>'user_id','target_key'=>'user_id'),
 			),
 			'attr_protected'=>'grouptopiccomment_id',
 			'autofill'=>array(
