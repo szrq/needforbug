@@ -531,8 +531,8 @@ dd { width:120px;}
 										</div>
 										<dl class="profile clear">
 											<dt>UID</dt><dd><!--{$oGrouptopic->user_id}-->&nbsp;</dd>
-											<dt><lang package='boardTheme'>主题</lang></dt><dd><!--{$nGrouptopic}-->&nbsp;</dd>
-											<dt><lang package='boardTheme'>回复</lang></dt><dd>3&nbsp;</dd>
+											<dt><lang package='boardTheme'>主题</lang></dt><dd><!--{$TheController->totalTopic($oGrouptopic->user_id)}-->&nbsp;</dd>
+											<dt><lang package='boardTheme'>回复</lang></dt><dd><!--{$TheController->totalComment($oGrouptopic->user_id)}-->&nbsp;</dd>
 											<dt><lang package='boardTheme'>来自</lang></dt><dd><!--{$oUserprofile->userprofile_birthcity}-->&nbsp;</dd>
 											<dt><lang package='boardTheme'>现居地</lang></dt><dd><!--{$oUserprofile->userprofile_residecity}-->&nbsp;</dd>
 											<dt>QQ</dt><dd><a href="#"><!--{$oUserprofile->userprofile_qq}--></a>&nbsp;</dd>
@@ -650,12 +650,12 @@ dd { width:120px;}
 										</div>
 										<dl class="profile clear">
 											<dt>UID</dt><dd><!--{$oComment->user_id}-->&nbsp;</dd>
-											<dt><lang package='boardTheme'>主题</lang></dt><dd><!--{$nGrouptopic}-->&nbsp;</dd>
-											<dt><lang package='boardTheme'>回复</lang></dt><dd>3&nbsp;</dd>
-											<dt><lang package='boardTheme'>来自</lang></dt><dd><!--{$oUserprofile->userprofile_birthcity}-->&nbsp;</dd>
-											<dt><lang package='boardTheme'>现居地</lang></dt><dd><!--{$oUserprofile->userprofile_residecity}-->&nbsp;</dd>
-											<dt>QQ</dt><dd><a href="#"><!--{$oUserprofile->userprofile_qq}--></a>&nbsp;</dd>
-											<dt><lang package='boardTheme'>爱好</lang></dt><dd><!--{$oUserprofile->userprofile_interest}-->&nbsp;</dd>
+											<dt><lang package='boardTheme'>主题</lang></dt><dd><!--{$TheController->totalTopic($oComment->user_id)}-->&nbsp;</dd>
+											<dt><lang package='boardTheme'>回复</lang></dt><dd><!--{$TheController->totalComment($oComment->user_id)}-->&nbsp;</dd>
+											<dt><lang package='boardTheme'>来自</lang></dt><dd><!--{$oComment->user->userprofile_birthcity}-->&nbsp;</dd>
+											<dt><lang package='boardTheme'>现居地</lang></dt><dd><!--{$oComment->user->userprofile_residecity}-->&nbsp;</dd>
+											<dt>QQ</dt><dd><a href="#"><!--{$oComment->user->userprofile_qq}--></a>&nbsp;</dd>
+											<dt><lang package='boardTheme'>爱好</lang></dt><dd><!--{$oComment->user->userprofile_interest}-->&nbsp;</dd>
 											<dt><lang package='boardTheme'>工作</lang></dt><dd>学生&nbsp;</dd>
 											<dt>头衔</dt><dd>列兵</dd>
 										</dl>

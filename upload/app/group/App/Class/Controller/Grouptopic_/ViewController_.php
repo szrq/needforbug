@@ -13,18 +13,15 @@ class ViewController extends Controller{
 			$this->E('你访问的主题不存在或已删除');
 		}
 		$oGrouptopic->grouptopic_views=$oGrouptopic->grouptopic_views+1;
-		//$oGrouptopic->grouptopic_views=GrouptopiccommentModel::F('grouptopic_id=?',$nId)->all()->getCounts()+1;
+		$oGrouptopic->grouptopic_comments=GrouptopiccommentModel::F('grouptopic_id=?',$nId)->all()->getCounts();
 		$oGrouptopic->save(0,'update');
 		if($oGrouptopic->isError()){
 			$this->E($oGrouptopic->getErrorMessage());
 		}
-		$nGrouptopic=GrouptopicModel::F('user_id=?',$oGrouptopic->user_id)->getCounts();
-		$this->assign('nGrouptopic',$nGrouptopic);
 
 		$oUserprofile=UserprofileModel::F('user_id=?',$oGrouptopic->user_id)->getOne();
 		$this->assign('oUserprofile',$oUserprofile);
 		
-		//$nGrouptopicview=
 		//回复列表
 		$arrWhere=array();
 		$nEverynum=5;
@@ -38,6 +35,14 @@ class ViewController extends Controller{
 		
 		$this->assign('oGrouptopic',$oGrouptopic);
 		$this->display('grouptopic+view');
+	}
+
+	public function totalTopic($nUserid){
+		return	$nGrouptopic=GrouptopicModel::F('user_id=?',$nUserid)->getCounts();
+	}
+
+	public function totalComment($nUserid){
+		return	$nGrouptopic=GrouptopiccommentModel::F('user_id=?',$nUserid)->getCounts();
 	}
 
 }
