@@ -8,6 +8,7 @@ class ViewController extends Controller{
 
 	public function index(){
 		$nId=intval(G::getGpc('id','G'));
+		$nPage=intval(G::getGpc('page','G'));
 		$oGrouptopic=GrouptopicModel::F('grouptopic_id=?',$nId)->getOne();
 		if(empty($oGrouptopic->user_id)){
 			$this->E('你访问的主题不存在或已删除');
@@ -33,6 +34,7 @@ class ViewController extends Controller{
 		$this->assign('sPageNavbar',$oPage->P('pagination','li','active'));
 		$this->assign('arrComment',$arrComment);
 		
+		$this->assign('nPage',$nPage);
 		$this->assign('oGrouptopic',$oGrouptopic);
 		$this->display('grouptopic+view');
 	}
@@ -44,5 +46,8 @@ class ViewController extends Controller{
 	public function totalComment($nUserid){
 		return	$nGrouptopic=GrouptopiccommentModel::F('user_id=?',$nUserid)->getCounts();
 	}
-
+	public function totalFans($nUserid){
+		 $oUserCount=UsercountModel::F('user_id=?',$nUserid)->getOne();
+		 return $oUserCount->usercount_fans;
+	}
 }
