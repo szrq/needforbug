@@ -511,10 +511,31 @@ dd { width:120px;}
 
 .clear:after,.clearfix:after{content:".";display:none;height:0;clear:both;visibility:hidden;}
 .clear,.clearfix{display:inline;}
+.inform a {
+	color:#666666;
+}
 <!--{/style}-->
+<!--{script}-->
 
+$(document).ready(function(){
+		$("#comment_message").focus(function(){
+			$("#J_reply_ft").css("display","block");
+			$("#inform").addClass("floor_bottom_tips");
+		});
+});
+function addComment(){
+	var comment_message=$("#comment_message").val();
+	var parameter="ajax=1&comment_message="+encodeURIComponent(comment_message)+"&tid="+<!--{$oGrouptopic->grouptopic_id}-->;
+	Dyhb.AjaxSend('<!--{:Dyhb::U('group://grouptopic/add_reply')}-->',parameter,'',function(data,status){
+		if(status==1){
+			window.location.href=data.url;
+		}
+	});
+}
+<!--{/script}-->
 		<div class="row">
 			<div class="span12">
+					<!--{if $nPage <2}-->
 					<div class="floor clear" id="read_0" style="margin:0px;padding:0px;">
 						<table width="100%" style="table-layout:fixed;border:1px solid #f1f1f1;">
 							<tr>
@@ -531,24 +552,11 @@ dd { width:120px;}
 										</div>
 										<dl class="profile clear">
 											<dt>UID</dt><dd><!--{$oGrouptopic->user_id}-->&nbsp;</dd>
+											<dt><lang package='boardTheme'>关注</lang></dt><dd><!--{$TheController->totalFans($oGrouptopic->user_id)}-->&nbsp;</dd>
+											<dt><lang package='boardTheme'>粉丝</lang></dt><dd><!--{$TheController->totalFans($oGrouptopic->user_id)}-->&nbsp;</dd>
 											<dt><lang package='boardTheme'>主题</lang></dt><dd><!--{$TheController->totalTopic($oGrouptopic->user_id)}-->&nbsp;</dd>
-											<dt><lang package='boardTheme'>回复</lang></dt><dd><!--{$TheController->totalComment($oGrouptopic->user_id)}-->&nbsp;</dd>
-											<dt><lang package='boardTheme'>来自</lang></dt><dd><!--{$oUserprofile->userprofile_birthcity}-->&nbsp;</dd>
-											<dt><lang package='boardTheme'>现居地</lang></dt><dd><!--{$oUserprofile->userprofile_residecity}-->&nbsp;</dd>
-											<dt>QQ</dt><dd><a href="#"><!--{$oUserprofile->userprofile_qq}--></a>&nbsp;</dd>
-											<dt><lang package='boardTheme'>爱好</lang></dt><dd><!--{$oUserprofile->userprofile_interest}-->&nbsp;</dd>
-											<dt><lang package='boardTheme'>工作</lang></dt><dd>学生&nbsp;</dd>
 											<dt>头衔</dt><dd>列兵</dd>
 										</dl>
-										<!--相关数据-->
-										<!--<ul class="integral">
-											<li><em>头衔</em><span>列兵</span></li>
-										</ul>-->
-										<!--发私信加关注
-										<div class="operate clear">
-											<a rel="nofollow" href="#">+加关注</a>
-											<a rel="nofollow" href="/index.php?m=message&c=message&a=pop&username=小鸡爷爷" class="message J_send_msg_pop" data-name="小鸡爷爷">写私信</a>
-										</div>-->
 									</div>
 								</td>
 								<td class="floor_right span9"> 
@@ -560,7 +568,7 @@ dd { width:120px;}
 												<li>回复：<em id="topicRepliesNum"><!--{$oGrouptopic->grouptopic_comments}--></em></li>
 											</ul>
 										</div>
-										<h1 id="J_post_title"><!--{$oGrouptopic->grouptopic_title}--></h1>
+										<h1 id="J_post_title"><!--{$oGrouptopic->grouptopic_title}--><a href="">&nbsp;[编辑]</a></h1>
 									</div>
 									<div class="floor_top_tips">
 										<span class="lou J_floor_copy" title="复制此楼地址"
@@ -609,35 +617,33 @@ dd { width:120px;}
 											<h2>快速回复...</h2>
 										</div>
 										<div class="ct">
-											<textarea name="atc_content" id="J_reply_quick_ta" class="J_at_user_textarea" placeholder="我也说两句"></textarea>
+											<textarea name="comment_message" id="comment_message" placeholder="我也说两句" style="margin-bottom:0px;"></textarea>
 										</div>
-										<div class="ft clear" id="J_reply_ft" style="display:none;">
-											<div class="operate">
-												<a href="" class="a_face J_insert_emotions" data-emotiontarget="#J_reply_quick_ta">表情</a>
-											</div>
-											<button type="submit" data-tid="1801" data-action="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=post&a=doreply&_getHtml=1" class="btn btn_submit disabled" disabled="disabled" id="J_reply_quick_btn">回复</button>
-											<a href="/index.php?m=bbs&c=post&a=reply&tid=1801">进入高级模式&gt;&gt;</a>
+										<div style="float:right;" id="inform" class="inform">
+											<span class="fr">
+												<a rel="nofollow" href="/index.php?m=report&a=report&type=thread&type_id=1801" data-pid="0" class="mr10 J_report J_qlogin_trigger">举报</a>
+											</span>
+										</div>
+										<div class="ft clear" id="J_reply_ft" style="display:none;margin-right:82px;line-height:32px;">
+											<button onclick="addComment();" class="btn btn-success" style="margin:8px;padding-top:1px;padding-bottom:1px;">回复</button>
+											<a href="<!--{:Dyhb::U('group://grouptopic/reply?id='.$oGrouptopic->grouptopic_id)}-->">进入高级模式&gt;&gt;</a>
 										</div>
 									</div>
 									<!--快速回复结束-->
-
-									<div class="floor_bottom_tips clear">
-										<span class="fr">
-											<a rel="nofollow" href="/index.php?m=report&a=report&type=thread&type_id=1801" data-pid="0" class="mr10 J_report J_qlogin_trigger">举报</a>
-										</span>
-									</div>
 									<div style="display:none;" class="J_reply_wrap" id="J_reply_wrap_0"><div class="pop_loading"></div></div>
 								</td>
 							</tr>
 						</table>
 						</div>
 						<div style="height:2px;background-color:#f1f1f1;margin:0px;padding:0px;"></div>
+						<!--{/if}-->
 
 						<!--<foreach for=arrComment value=oComment>-->
+						<a name="<!--{$oComment->grouptopiccomment_id}-->"></a>
 						<div class="floor clear J_read_floor" id="read_5440" style="margin:0px;padding:0px;">
 						<table width="100%" style="table-layout:fixed;border:1px solid #f1f1f1;border-bottom:4px solid #f1f1f1;" class="floor_table">
 							<tr>
-								<td rowspan="2" class="floor_left span3"  style="border-right:1px solid #f1f1f1;padding-bottom:80px;">
+								<td rowspan="2" class="floor_left span3"  style="border-right:1px solid #f1f1f1;padding-bottom:80px;padding-top:10px;">
 									<div class="floor_info">
 										<!--头像-->
 										<div class="face"><a href="/index.php?m=space&uid=292" class="J_user_card_show" data-uid="292" target="_blank"><img src="<!--{:Core_Extend::avatar($oComment['user_id'],'small')}-->" class="J_avatar" data-type="middle" width="100" height="100" alt="<!--{$oComment->user_id|UserModel+getUsernameById}-->"></a></div>
@@ -650,13 +656,10 @@ dd { width:120px;}
 										</div>
 										<dl class="profile clear">
 											<dt>UID</dt><dd><!--{$oComment->user_id}-->&nbsp;</dd>
+											<dt><lang package='boardTheme'>关注</lang></dt><dd><!--{$TheController->totalFans($oComment->user_id)}-->&nbsp;</dd>
+											<dt><lang package='boardTheme'>粉丝</lang></dt><dd><!--{$TheController->totalFans($oComment->user_id)}-->&nbsp;</dd>
 											<dt><lang package='boardTheme'>主题</lang></dt><dd><!--{$TheController->totalTopic($oComment->user_id)}-->&nbsp;</dd>
 											<dt><lang package='boardTheme'>回复</lang></dt><dd><!--{$TheController->totalComment($oComment->user_id)}-->&nbsp;</dd>
-											<dt><lang package='boardTheme'>来自</lang></dt><dd><!--{$oComment->user->userprofile_birthcity}-->&nbsp;</dd>
-											<dt><lang package='boardTheme'>现居地</lang></dt><dd><!--{$oComment->user->userprofile_residecity}-->&nbsp;</dd>
-											<dt>QQ</dt><dd><a href="#"><!--{$oComment->user->userprofile_qq}--></a>&nbsp;</dd>
-											<dt><lang package='boardTheme'>爱好</lang></dt><dd><!--{$oComment->user->userprofile_interest}-->&nbsp;</dd>
-											<dt><lang package='boardTheme'>工作</lang></dt><dd>学生&nbsp;</dd>
 											<dt>头衔</dt><dd>列兵</dd>
 										</dl>
 									</div>
@@ -681,14 +684,15 @@ dd { width:120px;}
 							</tr>
 							<tr>
 								<td class="box_wrap floor_bottom" valign="bottom">
-										<div id="app_read_floor_1"></div>
-										<div class="signature" style="max-height:200px;"></div>
-
-									<div class="floor_bottom_tips clear">
+									<div id="app_read_floor_1"></div>
+									<div class="signature" style="max-height:200px;"></div>
+									<div style="float:right;" class="inform">
 										<span class="fr">
-											<a rel="nofollow" href="/index.php?m=report&a=report&type=post&type_id=5440" data-pid="5440" class="mr10 J_report J_qlogin_trigger">举报</a>
+											<a rel="nofollow" href="/index.php?m=report&a=report&type=thread&type_id=1801" data-pid="0" class="mr10 J_report J_qlogin_trigger">举报</a>
 										</span>
-										<a rel="nofollow" href="/index.php?m=bbs&c=post&a=fastreply&tid=1801&pid=5440" data-pid="5440" class="a_reply J_read_reply" data-topped="false">回复<span style="">(11)</span></a>
+									</div>
+									<div class="floor_bottom_tips clear">
+										<a rel="nofollow" href="/index.php?m=bbs&c=post&a=fastreply&tid=1801&pid=5440" data-pid="5440" class="a_reply J_read_reply" data-topped="false">回复<span style="">(<!--{$TheController->totalComment($oComment->user_id)}-->)</span></a>
 										<a rel="nofollow" href="/index.php?m=like&c=mylike&a=doLike&typeid=2&fromid=5440" data-tid="1801" data-pid="5440" data-fid="10" class="a_like J_like_btn">喜欢</a>
 										<a style="" class="J_like_user_btn a_like_num" data-pid="5440" href="/index.php?m=like&c=like&a=getLast&typeid=2&fromid=5440">10</a>
 									</div>
@@ -706,8 +710,8 @@ dd { width:120px;}
 									</td>
 									<td>
 										<div class="right" style="padding-top:22px;">
-												<a rel="nofollow" href="/index.php?m=bbs&c=post&fid=10" id="J_read_post_btn" class="btn btn-success" >发帖</a>&nbsp;
-												<a rel="nofollow" href="<!--{:Dyhb::U('group://grouptopic/reply?id='.$oGrouptopic->grouptopic_id)}-->" data-referer="true" class="btn btn-success">回复</a>
+												<a rel="nofollow" href="<!--{:Dyhb::U('group://grouptopic/reply?id='.$oGrouptopic->grouptopic_id)}-->" data-referer="true" class="btn btn-success">回复</a>&nbsp;
+												<a rel="nofollow" href="<!--{:Dyhb::U('group://grouptopic/add?gid='.$oGrouptopic->group_id)}-->" id="J_read_post_btn" class="btn btn-success" >发帖</a>
 										</div>
 										<div class="left" data-key="true">
 										<!--{$sPageNavbar}-->
