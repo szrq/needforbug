@@ -1,5 +1,14 @@
-<link href="<!--{:__PUBLIC__}-->/js/jquery/adgallery/img/style.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="<!--{:__PUBLIC__}-->/js/jquery/adgallery/js/jquery.ad-gallery.js"></script>
+<link href="<!--{:__PUBLIC__}-->/js/jquery/adgallery/lib/jquery.ad-gallery.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="<!--{:__PUBLIC__}-->/js/jquery/adgallery/lib/jquery.ad-gallery.js"></script>
+
+<!--{style}-->
+  #gallery {
+    padding: 2%;
+    background: #e1eef5;
+	width:96%;
+	height:600px;
+  }
+<!--{/style}-->
 
 <!--{script}-->
 $(function(){
@@ -15,19 +24,20 @@ $(function(){
 	
 	var galleries = $('.ad-gallery').adGallery(
 		{
-		start_at_index: nIndex,
-		slideshow: {
-			enable: true,
-			autostart: false,
-			speed: 5000,
-			start_label: '播放',
-			stop_label: '停止',
-			stop_on_scroll: true,
-			countdown_prefix: '(',
-			countdown_sufix: ')',
-			onStart: false,
-			onStop: false
-		},
+			start_at_index: nIndex,
+			slideshow: {
+				enable: true,
+				autostart: false,
+				speed: 5000,
+				start_label: '播放',
+				stop_label: '停止',
+				stop_on_scroll: true,
+				countdown_prefix: '(',
+				countdown_sufix: ')',
+				onStart: false,
+				onStop: false
+			}, 
+			effect: 'resize'
 		}
 	);
 	$('#switch-effect').change(
@@ -40,17 +50,6 @@ $(function(){
 	$('#toggle-slideshow').click(
 		function() {
 			galleries[0].slideshow.toggle();
-			return false;
-		}
-	);
-
-	$('#toggle-description').click(
-		function() {
-			if(!galleries[0].settings.description_wrapper) {
-				galleries[0].settings.description_wrapper = $('#descriptions');
-			} else {
-				galleries[0].settings.description_wrapper = false;
-			}
 			return false;
 		}
 	);
