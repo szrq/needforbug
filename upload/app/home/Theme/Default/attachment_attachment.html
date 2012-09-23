@@ -64,17 +64,22 @@
 					<li class="span3" id="attachment_item_<!--{$oAttachment['attachment_id']}-->">
 						<div class="thumbnail">
 							<div class="img">
-								<img src="<!--{:Core_Extend::getAttachmentPreview($oAttachment)}-->" alt="<!--{$oAttachment['attachment_alt']}-->" <!--{if $arrAttachmentSize && $arrAttachmentSize[1]>=150}-->height="150px"<!--{/if}-->>
+								<a href="<!--{:Dyhb::U('home://file@?id='.$oAttachment['attachment_id'])}-->">
+									<img src="<!--{:Core_Extend::getAttachmentPreview($oAttachment)}-->" alt="<!--{$oAttachment['attachment_alt']}-->" <!--{if $arrAttachmentSize && $arrAttachmentSize[1]>=150}-->height="150px"<!--{/if}-->>
+								</a>
 							</div>
 							<div class="caption">
-								<h5 id="attachment_name_<!--{$oAttachment['attachment_id']}-->"><!--{$oAttachment['attachment_name']}--></h5>
+								<h5 id="attachment_name_<!--{$oAttachment['attachment_id']}-->"><a href="<!--{:Dyhb::U('home://file@?id='.$oAttachment['attachment_id'])}-->"><!--{$oAttachment['attachment_name']}--></a></h5>
 								<p id="attachment_description_<!--{$oAttachment['attachment_id']}-->"><!--{if $oAttachment['attachment_description']}--><!--{$oAttachment['attachment_description']|G+subString=0,30}--><!--{d*else}-->暂无附件描述<!--{/if}--></p>
 								<p>上传时间:&nbsp;<!--{$oAttachment['create_dateline']|Core_Extend+timeFormat}--></p>
 								<p>所属专辑:&nbsp;<a href="<!--{:Dyhb::U('home://attachment/attachment?cid='.$oAttachment['attachmentcategory_id'])}-->"><!--{if $oAttachment['attachmentcategory_id']>0}--><!--{$oAttachment:attachmentcategory:attachmentcategory_name}--><!--{d*else}-->默认专辑<!--{/if}--></a></p>
 								<p>下载次数:&nbsp;<a href="#"><!--{$oAttachment:attachment_download}--></a></p>
 								<p>评论次数:&nbsp;<a href="#"><!--{$oAttachment:attachment_commentnum}--></a></p>
 								<p>附件大小:&nbsp;<!--{$oAttachment:attachment_size|G+changeFileSize}--></p>
+								<p>附件类型:&nbsp;<a href="<!--{:Dyhb::U('home://attachment/attachment?type='.$oAttachment['attachment_extension'])}-->"><!--{$oAttachment:attachment_extension}--></a></p>
 								<p>上传用户:&nbsp;<a href="<!--{:Dyhb::U('home://space@?id='.$oAttachment['user_id'])}-->"><!--{$oAttachment['attachment_username']}--></a></p>
+								<p><a href="<!--{:Dyhb::U('home://file@?id='.$oAttachment['attachment_id'])}-->" class="btn btn-success"><i class="icon-eye-open icon-white"></i>&nbsp;查看详情</a>
+								</p>
 							</div>
 						</div>
 					</li>

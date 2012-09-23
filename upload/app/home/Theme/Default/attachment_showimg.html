@@ -1,0 +1,77 @@
+<link href="<!--{:__PUBLIC__}-->/js/jquery/adgallery/img/style.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="<!--{:__PUBLIC__}-->/js/jquery/adgallery/js/jquery.ad-gallery.js"></script>
+
+<!--{script}-->
+$(function(){
+	var sHtml = $.ajax({
+		url: D.U('home://attachment/get_ajaximg&id=<!--{$oAttachment['attachment_id']}-->&cid=<!--{$oAttachment['attachmentcategory_id']}-->'),
+		async: false
+	}).responseText;
+
+	arrReturn=eval('('+sHtml+')');
+
+	$('.ad-thumb-list').html(arrReturn.content);
+	var nIndex=arrReturn.index;
+	
+	$('img.image1').data('ad-desc', 'Whoa! This description is set through elm.data("ad-desc") instead of using the longdesc attribute.<br>And it contains <strong>H</strong>ow <strong>T</strong>o <strong>M</strong>eet <strong>L</strong>adies... <em>What?</em> That aint what HTML stands for? Man...');
+	$('img.image1').data('ad-title', 'Title through $.data');
+	$('img.image4').data('ad-desc', 'This image is wider than the wrapper, so it has been scaled down');
+	$('img.image5').data('ad-desc', 'This image is higher than the wrapper, so it has been scaled down');
+
+	var galleries = $('.ad-gallery').adGallery(
+		{
+		start_at_index: nIndex,
+		slideshow: {
+			enable: true,
+			autostart: false,
+			speed: 5000,
+			start_label: '播放',
+			stop_label: '停止',
+			stop_on_scroll: true,
+			countdown_prefix: '(',
+			countdown_sufix: ')',
+			onStart: false,
+			onStop: false
+		},
+		}
+	);
+	$('#switch-effect').change(
+		function() {
+			galleries[0].settings.effect = $(this).val();
+			return false;
+		}
+	);
+
+	$('#toggle-slideshow').click(
+		function() {
+			galleries[0].slideshow.toggle();
+			return false;
+		}
+	);
+
+	$('#toggle-description').click(
+		function() {
+			if(!galleries[0].settings.description_wrapper) {
+				galleries[0].settings.description_wrapper = $('#descriptions');
+			} else {
+				galleries[0].settings.description_wrapper = false;
+			}
+			return false;
+		}
+	);
+});
+<!--{/script}-->
+
+			<div id="gallery" class="ad-gallery" style="background:#f5f5f5;">
+				<div class="ad-image-wrapper">
+				</div>
+				<div class="ad-controls">
+				</div>
+				<div class="ad-nav">
+					<div class="ad-thumbs">
+						<ul class="ad-thumb-list">
+							
+						</ul>
+					</div>
+				</div>
+			</div>

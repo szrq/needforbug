@@ -60,7 +60,7 @@ class AttachmentModel extends CommonModel{
 
 		$arrUploadids=array();
 		foreach($arrUploadinfoTemps as $arrUploadinfoTemp){
-			if(!is_file($arrUploadinfoTemp['attachment_thumbpath'].'/'.$arrUploadinfoTemp['attachment_savename'])){
+			if(!in_array($arrUploadinfoTemp['attachment_extension'],array('jpg','jpeg','gif','png','bmp')) || !is_file($arrUploadinfoTemp['attachment_thumbpath'].'/'.$arrUploadinfoTemp['attachment_savename'])){
 				$arrUploadinfoTemp['attachment_isthumb']=0;
 				$arrUploadinfoTemp['attachment_thumbpath']='';
 				$arrUploadinfoTemp['attachment_thumbprefix']='';

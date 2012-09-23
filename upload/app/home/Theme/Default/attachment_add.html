@@ -43,10 +43,7 @@ function updateAttachmentinfo(){
 
 var oEditNewattachmentcategory;
 
-var sCurrentId='';
-
 function createAttachmentcategory(nSelectedIndex,sId){
-	sCurrentId=sId;
 	if(nSelectedIndex=='new_category'){
 		var sHtml = $.ajax({
 			url: D.U('home://attachment/new_attachmentcategory'),
@@ -66,8 +63,10 @@ function saveNewattachmentcategory(){
 		'&attachmentcategory_description='+encodeURIComponent( $('#new_attachmentcategory_description').val()),'',
 		function(data,status){
 			if(status==1){
-				$("#"+sCurrentId).find("option:selected").val( data.attachmentcategory_id );
-				$("#"+sCurrentId).find("option:selected").text( data.attachmentcategory_name );
+				$("#attachmentcategory_id").find("option:selected").val( data.attachmentcategory_id );
+				$("#attachmentcategory_id").find("option:selected").text( data.attachmentcategory_name );
+				$("#attachmentcategory_id_flash").find("option:selected").val( data.attachmentcategory_id );
+				$("#attachmentcategory_id_flash").find("option:selected").text( data.attachmentcategory_name );
 				uploadobject.addPostParam ( 'attachmentcategory_id', data.attachmentcategory_id);
 				oEditNewattachmentcategory.close();
 				return true;

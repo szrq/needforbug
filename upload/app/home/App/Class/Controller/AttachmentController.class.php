@@ -236,6 +236,23 @@ class AttachmentController extends InitController{
 		}
 	}
 
+	public function get_attachmentpreview_imagesize($oAttachmentcategory){
+		$sAttachmentcategorypreview=Core_Extend::getAttachmentcategoryPreview($oAttachmentcategory,false);
+
+		$arrAttachmentcategorypreview=array();
+		$arrTempAttachmentcategorypreview=@getimagesize($sAttachmentcategorypreview);
+
+		if(empty($arrTempAttachmentcategorypreview)){
+			$arrAttachmentcategorypreview[0]=0;
+			$arrAttachmentcategorypreview[1]=0;
+		}else{
+			$arrAttachmentcategorypreview[0]=$arrTempAttachmentcategorypreview[0];
+			$arrAttachmentcategorypreview[1]=$arrTempAttachmentcategorypreview[1];
+		}
+
+		return $arrAttachmentcategorypreview;
+	}
+
 	public function get_attachment_url($oAttachment){
 		return $_SERVER['HTTP_HOST'].__ROOT__.'/data/upload/attachment/'.
 			$oAttachment['attachment_savepath'].'/'.$oAttachment['attachment_savename'];
@@ -559,6 +576,104 @@ class AttachmentController extends InitController{
 		$this->assign('nAttachmentcategoryid',$nAttachmentcategoryid);
 
 		$this->display('attachment+attachment');
+	}
+
+	public function show(){
+		$nAttachmentid=intval(G::getGpc('id','G'));
+
+		if(empty($nAttachmentid)){
+			$this->E('你没有指定要查看的附件');
+		}
+
+		$oAttachment=AttachmentModel::F('attachment_id=?',$nAttachmentid)->getOne();
+		if(empty($oAttachment['attachment_id'])){
+			$this->E('你要查看的文件不存在');
+		}
+
+		$this->assign('oAttachment',$oAttachment);
+
+		$this->display('attachment+show');
+	}
+
+	public function show_attachment($oAttachment){
+		$sAttachmentType=$this->get_attachmenttype($oAttachment);
+
+		if(in_array($sAttachmentType,array('img','swf','wmp','mp3','real','flv','url'))){
+			if(is_callable(array('AttachmentController','show_'.$sAttachmentType))){
+				call_user_func(array('AttachmentController','show_'.$sAttachmentType),$oAttachment);
+			}else{
+				Dyhb::E('callback not exist');
+			}
+		}else{
+			$this->show_download($oAttachment);
+		}
+	}
+
+	public function get_attachmenttype($oAttachment){
+		$arrAttachmentTypes=array(
+			'img'=>array('jpg','jpeg','gif','png','bmp'),
+			'swf'=>array('swf'),
+			'wmp'=>array('wma','asf','wmv'),
+			'mp3'=>array('mp3'),
+			'real'=>array('rm','rmvb','ra','ram'),
+			'flv'=>array('flv','mp4','aac'),
+			'url'=>array('html','htm','txt'),
+			'download'=>array(),
+		);
+		
+		$sAttachmentExtension=$oAttachment['attachment_extension'];
+
+		foreach($arrAttachmentTypes as $sKey=>$arrAttachmentType){
+			if(in_array($sAttachmentExtension,$arrAttachmentType)){
+				return $sKey;
+			}
+		}
+			
+		return 'download';
+	}
+
+	public function get_ajaximg(){
+		$nAttachmentid=intval(G::getGpc('id','G'));
+		$nAttachmentcategoryid=intval(G::getGpc('cid','G'));
+
+		$arrAttachments=AttachmentModel::F('user_id=? AND attachmentcategory_id=? AND attachment_extension in(\'gif\',\'jpeg\',\'jpg\',\'png\',\'bmp\')',$GLOBALS['___login___']['user_id'],$nAttachmentcategoryid)->order('attachment_id DESC')->getAll();
+
+		
+		$nIndex=0;
+		$sContent='';
+		if(is_array($arrAttachments)){
+			foreach($arrAttachments as $nKey=>$oAttachment){
+				if($nAttachmentid==$oAttachment['attachment_id']){
+					$nIndex=$nKey;
+				}
+
+				$sContent.='<li>
+						<a href="'.__ROOT__.'/data/upload/attachment/'.$oAttachment['attachment_savepath'].'/'.$oAttachment['attachment_savename'].'">
+							<img height="60px" src="'.Core_Extend::getAttachmentPreview($oAttachment).'" title="'.$oAttachment['attachment_name'].'" alt="'.$oAttachment['attachment_alt'].'" class="image'.$oAttachment['attachment_id'].'">
+						</a>
+					</li>';
+			}
+		}
+
+		exit(json_encode(array('index'=>$nIndex,'content'=>$sContent)));
+	}
+
+	public function show_img($oAttachment){
+		$this->assign('oAttachment',$oAttachment);
+		$this->display('attachment+showimg');
+	}
+
+	public function show_download($oAttachment){
+		$this->assign('sAttachmentIcon',__PUBLIC__.'/images/common/media/download.gif');
+		$this->assign('oAttachment',$oAttachment);
+		$this->display('attachment+download');
+	}
+
+	public function get_attachmentdownload_url($oAttachment,$bThumb=false){
+		return $oAttachment['attachment_isthumb'] && $bThumb===true?
+				__ROOT__.'/data/upload/attachment/'.$oAttachment['attachment_thumbpath'].'/'.
+				$oAttachment['attachment_thumbprefix'].$oAttachment['attachment_savename']:
+				__ROOT__.'/data/upload/attachment/'.$oAttachment['attachment_savepath'].'/'.$oAttachment['attachment_savename'];
 	}
 
 }

@@ -961,4 +961,12 @@ NEEDFORBUG;
 		}
 	}
 
+	static public function thumb($sFilepath,$nWidth,$nHeight){
+		if(!is_file($sFilepath)){
+			$sFilepath=NEEDFORBUG_PATH.'/Public/images/common/none.gif';
+		}
+		
+		Image::thumbGd($sFilepath,$nWidth,$nHeight);
+	}
+
 }
