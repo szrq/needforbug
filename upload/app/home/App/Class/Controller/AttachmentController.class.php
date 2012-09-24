@@ -215,7 +215,7 @@ class AttachmentController extends InitController{
 				$sAttachmentFilepath=NEEDFORBUG_PATH.'/data/upload/attachment/'.$oAttachment['attachment_savepath'].'/'.$oAttachment['attachment_savename'];
 
 				if(!is_file($sAttachmentFilepath)){
-					echo(sprintf('图像文件 %s 不存在',$sAttachmentFilepath));
+					return false;
 				}
 			}
 
@@ -240,7 +240,12 @@ class AttachmentController extends InitController{
 		$sAttachmentcategorypreview=Core_Extend::getAttachmentcategoryPreview($oAttachmentcategory,false);
 
 		$arrAttachmentcategorypreview=array();
-		$arrTempAttachmentcategorypreview=@getimagesize($sAttachmentcategorypreview);
+		if(is_file($sAttachmentcategorypreview)){
+			$arrTempAttachmentcategorypreview=@getimagesize($sAttachmentcategorypreview);
+		}else{
+			$arrAttachmentcategorypreview[0]=0;
+			$arrAttachmentcategorypreview[1]=0;
+		}
 
 		if(empty($arrTempAttachmentcategorypreview)){
 			$arrAttachmentcategorypreview[0]=0;
@@ -616,7 +621,7 @@ class AttachmentController extends InitController{
 			'wmp'=>array('wma','asf','wmv'),
 			'mp3'=>array('mp3'),
 			'real'=>array('rm','rmvb','ra','ram'),
-			'flv'=>array('flv','mp4','aac'),
+			'flv'=>array('flv','mp4'),
 			'url'=>array('html','htm','txt'),
 			'download'=>array(),
 		);
@@ -666,7 +671,7 @@ class AttachmentController extends InitController{
 	public function show_download($oAttachment){
 		$this->assign('sAttachmentIcon',__PUBLIC__.'/images/common/media/download.gif');
 		$this->assign('oAttachment',$oAttachment);
-		$this->display('attachment+download');
+		$this->display('attachment+showdownload');
 	}
 
 	public function get_attachmentdownload_url($oAttachment,$bThumb=false){
@@ -674,6 +679,57 @@ class AttachmentController extends InitController{
 				__ROOT__.'/data/upload/attachment/'.$oAttachment['attachment_thumbpath'].'/'.
 				$oAttachment['attachment_thumbprefix'].$oAttachment['attachment_savename']:
 				__ROOT__.'/data/upload/attachment/'.$oAttachment['attachment_savepath'].'/'.$oAttachment['attachment_savename'];
+	}
+
+	public function show_url($oAttachment){
+		$this->assign('oAttachment',$oAttachment);
+		$this->display('attachment+showurl');
+	}
+
+	public function show_swf($oAttachment){
+		$this->assign('sAttachmentIcon',__PUBLIC__.'/images/common/media/swf.gif');
+		$this->assign('oAttachment',$oAttachment);
+		$this->display('attachment+showswf');
+	}
+
+	public function fullplay_frame(){
+		$sFlashpath=trim(G::getGpc('url','G'));
+
+		if(empty($sFlashpath)){
+			Dyhb::E('没有指定播放的flash');
+		}
+		
+		$this->assign('sFlashpath',$sFlashpath);
+		$this->display('attachment+fullplayframe');
+	}
+
+	public function playout(){
+		$sFlashpath=trim(G::getGpc('url','G'));
+
+		if(empty($sFlashpath)){
+			Dyhb::E('没有指定播放的flash');
+		}
+		
+		$this->assign('sFlashpath',$sFlashpath);
+		$this->display('attachment+playout');
+	}
+	
+	public function show_flv($oAttachment){
+		$this->assign('sAttachmentIcon',__PUBLIC__.'/images/common/media/swf.gif');
+		$this->assign('oAttachment',$oAttachment);
+		$this->display('attachment+showflv');
+	}
+
+	public function show_wmp($oAttachment){
+		$this->assign('sAttachmentIcon',__PUBLIC__.'/images/common/media/wmp.gif');
+		$this->assign('oAttachment',$oAttachment);
+		$this->display('attachment+showwmp');
+	}
+
+	public function show_real($oAttachment){
+		$this->assign('sAttachmentIcon',__PUBLIC__.'/images/common/media/real.gif');
+		$this->assign('oAttachment',$oAttachment);
+		$this->display('attachment+showreal');
 	}
 
 }

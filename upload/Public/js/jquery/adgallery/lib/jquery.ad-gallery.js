@@ -9,7 +9,7 @@
  */
 (function($) {
   $.fn.adGallery = function(options) {
-    var defaults = { loader_image: 'loader.gif',
+    var defaults = { loader_image: _ROOT_+'/Public/js/jquery/adgallery/lib/loader.gif',
                      start_at_index: 0,
                      update_window_hash: true,
                      description_wrapper: false,
@@ -619,7 +619,7 @@
       if(image.desc.length || image.title.length) {
         var title = '';
         if(image.title.length) {
-          title = '<strong class="ad-description-title">'+ image.title +'</strong>';
+          title = '<strong class="ad-description-title"><a target="_blank" href="'+image.image+'">'+ image.title +'</a></strong>';
         };
         var desc = '';
         if(image.desc.length) {
