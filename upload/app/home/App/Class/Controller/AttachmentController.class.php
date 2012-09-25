@@ -259,7 +259,7 @@ class AttachmentController extends InitController{
 	}
 
 	public function get_attachment_url($oAttachment){
-		return $_SERVER['HTTP_HOST'].__ROOT__.'/data/upload/attachment/'.
+		return $GLOBALS['_option_']['site_url'].'/data/upload/attachment/'.
 			$oAttachment['attachment_savepath'].'/'.$oAttachment['attachment_savename'];
 	}
 
@@ -603,7 +603,7 @@ class AttachmentController extends InitController{
 	public function show_attachment($oAttachment){
 		$sAttachmentType=$this->get_attachmenttype($oAttachment);
 
-		if(in_array($sAttachmentType,array('img','swf','wmp','mp3','real','flv','url'))){
+		if(in_array($sAttachmentType,array('img','swf','wmp','mp3','qvod','flv','url'))){
 			if(is_callable(array('AttachmentController','show_'.$sAttachmentType))){
 				call_user_func(array('AttachmentController','show_'.$sAttachmentType),$oAttachment);
 			}else{
@@ -618,9 +618,9 @@ class AttachmentController extends InitController{
 		$arrAttachmentTypes=array(
 			'img'=>array('jpg','jpeg','gif','png','bmp'),
 			'swf'=>array('swf'),
-			'wmp'=>array('wma','asf','wmv'),
+			'wmp'=>array('wma','asf','wmv','avi','wav'),
 			'mp3'=>array('mp3'),
-			'real'=>array('rm','rmvb','ra','ram'),
+			'qvod'=>array('rm','rmvb','ra','ram'),
 			'flv'=>array('flv','mp4'),
 			'url'=>array('html','htm','txt'),
 			'download'=>array(),
@@ -640,8 +640,13 @@ class AttachmentController extends InitController{
 	public function get_ajaximg(){
 		$nAttachmentid=intval(G::getGpc('id','G'));
 		$nAttachmentcategoryid=intval(G::getGpc('cid','G'));
+		$nUserid=intval(G::getGpc('uid','G'));
 
-		$arrAttachments=AttachmentModel::F('user_id=? AND attachmentcategory_id=? AND attachment_extension in(\'gif\',\'jpeg\',\'jpg\',\'png\',\'bmp\')',$GLOBALS['___login___']['user_id'],$nAttachmentcategoryid)->order('attachment_id DESC')->getAll();
+		if($nUserid<1){
+			return array();
+		}
+
+		$arrAttachments=AttachmentModel::F('user_id=? AND attachmentcategory_id=? AND attachment_extension in(\'gif\',\'jpeg\',\'jpg\',\'png\',\'bmp\')',$nUserid,$nAttachmentcategoryid)->order('attachment_id DESC')->getAll();
 
 		
 		$nIndex=0;
@@ -726,10 +731,61 @@ class AttachmentController extends InitController{
 		$this->display('attachment+showwmp');
 	}
 
-	public function show_real($oAttachment){
-		$this->assign('sAttachmentIcon',__PUBLIC__.'/images/common/media/real.gif');
+	public function show_qvod($oAttachment){
+		$this->assign('sAttachmentIcon',__PUBLIC__.'/images/common/media/qvod.gif');
 		$this->assign('oAttachment',$oAttachment);
-		$this->display('attachment+showreal');
+		$this->display('attachment+showqvod');
+	}
+
+	public function show_mp3($oAttachment){
+		$this->assign('sAttachmentIcon',__PUBLIC__.'/images/common/media/mp3.gif');
+		$this->assign('oAttachment',$oAttachment);
+		$this->display('attachment+showmp3');
+	}
+
+	public function mp3list(){
+		header("Content-Type: text/xml; charset=utf-8");
+		
+		$nAttachmentcategoryid=intval(G::getGpc('cid','G'));
+		$nUserid=intval(G::getGpc('uid','G'));
+
+		echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+				<playlist version=\"1\" xmlns=\"http://xspf.org/ns/0/\">
+					<title>Ounage Playlist</title>
+					<creator>Dew</creator>
+					<link>http://www.blup.fr/</link>
+					<info>The Best Playlist</info>
+					<image>covers/0.jpg</image>
+					<trackList>";
+		
+		if($nUserid>0){
+			$arrAttachments=AttachmentModel::F('user_id=? AND attachmentcategory_id=? AND attachment_extension=?',$nUserid,$nAttachmentcategoryid,'mp3')->order('attachment_id DESC')->getAll();
+
+			if($arrAttachments){
+				foreach($arrAttachments as $oAttachment){
+					$sAttachmentcategory=$oAttachment['attachmentcategory_id']>0?$oAttachment->attachmentcategory->attachmentcategory_name:'未分类';
+					echo "<track>
+							<location>{$this->get_attachment_url($oAttachment)}</location>
+							<creator>{$oAttachment['attachment_username']}</creator>
+							<album>{$sAttachmentcategory}</album>
+							<title>{$oAttachment['attachment_name']}</title>
+							<annotation>{$oAttachment['attachment_description']}</annotation>
+							<duration>{$oAttachment['attachment_size']}</duration>
+							<image></image>
+							<info></info>
+							<link></link>
+						</track>";
+				}
+			}
+		}
+
+		echo "</trackList>
+			</playlist>";
+	}
+
+	public function get_attachmentcategory_playlist($oAttachment){
+		return $GLOBALS['_option_']['site_url'].'/index.php?app=home&c=attachment&a=mp3list&cid='.
+			$oAttachment['attachmentcategory_id'].'&uid='.$oAttachment['user_id'];
 	}
 
 }
