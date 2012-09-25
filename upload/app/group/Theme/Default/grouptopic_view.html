@@ -552,7 +552,7 @@ function addComment(){
 										</div>
 										<dl class="profile clear">
 											<dt>UID</dt><dd><!--{$oGrouptopic->user_id}-->&nbsp;</dd>
-											<dt><lang package='boardTheme'>关注</lang></dt><dd><!--{$TheController->totalFans($oGrouptopic->user_id)}-->&nbsp;</dd>
+											<dt><lang package='boardTheme'>关注</lang></dt><dd><!--{$TheController->totalFriends($oGrouptopic->user_id)}-->&nbsp;</dd>
 											<dt><lang package='boardTheme'>粉丝</lang></dt><dd><!--{$TheController->totalFans($oGrouptopic->user_id)}-->&nbsp;</dd>
 											<dt><lang package='boardTheme'>主题</lang></dt><dd><!--{$TheController->totalTopic($oGrouptopic->user_id)}-->&nbsp;</dd>
 											<dt>头衔</dt><dd>列兵</dd>
@@ -568,7 +568,7 @@ function addComment(){
 												<li>回复：<em id="topicRepliesNum"><!--{$oGrouptopic->grouptopic_comments}--></em></li>
 											</ul>
 										</div>
-										<h1 id="J_post_title"><!--{$oGrouptopic->grouptopic_title}--><a href="">&nbsp;[编辑]</a></h1>
+										<h1 id="J_post_title"><!--{$oGrouptopic->grouptopic_title}--><!--{if $oGrouptopic->user_id==$GLOBALS['___login___']['user_id']}--><a href="<!--{:Dyhb::U('group://grouptopic/edit?tid='.$oGrouptopic->grouptopic_id.'&gid='.$oGrouptopic->group_id.'&uid='.$GLOBALS['___login___']['user_id'])}-->">&nbsp;[编辑]</a><!--{/if}--></h1>
 									</div>
 									<div class="floor_top_tips">
 										<span class="lou J_floor_copy" title="复制此楼地址"
@@ -656,7 +656,7 @@ function addComment(){
 										</div>
 										<dl class="profile clear">
 											<dt>UID</dt><dd><!--{$oComment->user_id}-->&nbsp;</dd>
-											<dt><lang package='boardTheme'>关注</lang></dt><dd><!--{$TheController->totalFans($oComment->user_id)}-->&nbsp;</dd>
+											<dt><lang package='boardTheme'>关注</lang></dt><dd><!--{$TheController->totalFriends($oComment->user_id)}-->&nbsp;</dd>
 											<dt><lang package='boardTheme'>粉丝</lang></dt><dd><!--{$TheController->totalFans($oComment->user_id)}-->&nbsp;</dd>
 											<dt><lang package='boardTheme'>主题</lang></dt><dd><!--{$TheController->totalTopic($oComment->user_id)}-->&nbsp;</dd>
 											<dt><lang package='boardTheme'>回复</lang></dt><dd><!--{$TheController->totalComment($oComment->user_id)}-->&nbsp;</dd>
@@ -668,7 +668,7 @@ function addComment(){
 									<div class="fl"><div class="floor_arrow"><em></em><span></span></div></div>
 									<div class="floor_top_tips">
 										<span class="lou J_floor_copy" title="复制此楼地址"
-						 data-hash="read_5440"><!--{$i}-->楼<sup>#</sup></span>
+						 data-hash="read_5440"><!--{if empty($_GET['page'])}--><!--{$i}--><!--{d*else}--><!--{$_GET['page']*$nEverynum+$i-$nEverynum}--><!--{/if}-->楼<sup>#</sup></span>
 										<span class="fl">发布于：<!--{$oComment->create_dateline|Core_Extend+timeFormat}--></span>
 									</div>
 									
