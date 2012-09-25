@@ -119,11 +119,11 @@ class Page{
 			$sStr.=$this->home($sTyle);
 			$sStr.=$this->prev($sTyle);
 			for($nI=$this->_nPageI;$nI<=$this->_nPageUb;$nI++){
-				if($this->_nPage== $nI){
+				if($this->_nPage==$nI){
 					$sStr.="<{$sTyle} class=\"{$sCurrent}\">".($sTyle=='li'?'<a href="javascript:void(0);">':'').$nI.($sTyle=='li'?'</a>':'')."</{$sTyle}>";
 				}else{
-					$sStr.='<a href="'.$this->pageReplace($nI).'" title="'.sprintf('Page %d',$nI).'">';
-					$sStr.=$nI."</a>";
+					$sStr.=($sTyle=='li'?'<li>':'').'<a href="'.$this->pageReplace($nI).'" title="'.sprintf('Page %d',$nI).'">';
+					$sStr.=$nI."</a>".($sTyle=='li'?'</li>':'');
 				}
 			}
 
@@ -227,25 +227,25 @@ class Page{
 	protected function home($sTyle='span'){
 		// 页面不为第一页，加上超衔接
 		if($this->_nPage!=1){
-			return '<a href="'.$this->pageReplace(1).'" title="Home" >&laquo; First</a>';
+			return ($sTyle=='li'?'<li>':'').'<a href="'.$this->pageReplace(1).'" title="Home" >&laquo; First</a>'.($sTyle=='li'?'</li>':'');
 		}
 	}
 
 	protected function prev($sTyle='span'){
 		if($this->_nPage!=1){
-			return '<a href="'.$this->pageReplace($this->_nPage-1).'" title="Previous" >&#8249; Prev</a>';
+			return ($sTyle=='li'?'<li>':'').'<a href="'.$this->pageReplace($this->_nPage-1).'" title="Previous" >&#8249; Prev</a>'.($sTyle=='li'?'</li>':'');
 		}
 	}
 
 	protected function next($sTyle='span'){
-		if($this->_nPage != $this->_nPageCount){
-			return '<a href="'.$this->pageReplace($this->_nPage+1).'" title="Next" >Next &#8250;</a>';
+		if($this->_nPage!=$this->_nPageCount){
+			return ($sTyle=='li'?'<li>':'').'<a href="'.$this->pageReplace($this->_nPage+1).'" title="Next" >Next &#8250;</a>'.($sTyle=='li'?'</li>':'');
 		}
 	}
 
 	protected function last($sTyle='span'){
 		if($this->_nPage!=$this->_nPageCount){
-			return '<a href="'.$this->pageReplace($this->_nPageCount).'" title="Last" >Last &raquo;</a>';
+			return ($sTyle=='li'?'<li>':'').'<a href="'.$this->pageReplace($this->_nPageCount).'" title="Last" >Last &raquo;</a>'.($sTyle=='li'?'</li>':'');
 		}
 	}
 
