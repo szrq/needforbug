@@ -26,11 +26,12 @@ class ViewController extends Controller{
 		//回复列表
 		$arrWhere=array();
 		$nEverynum=5;
-		$arrWhere['grouptopiccoment_status']=1;
+		$arrWhere['grouptopiccomment_status']=1;
 		$arrWhere['grouptopic_id']=$oGrouptopic->grouptopic_id;
 		$nTotalComment=GrouptopiccommentModel::F()->where($arrWhere)->all()->getCounts();
 		$oPage=Page::RUN($nTotalComment,$nEverynum,G::getGpc('page','G'));
 		$arrComment=GrouptopiccommentModel::F()->where($arrWhere)->limit($oPage->returnPageStart(),$nEverynum)->getAll();
+		$this->assign('nEverynum',$nEverynum);
 		$this->assign('sPageNavbar',$oPage->P('pagination','li','active'));
 		$this->assign('arrComment',$arrComment);
 		
@@ -40,14 +41,19 @@ class ViewController extends Controller{
 	}
 
 	public function totalTopic($nUserid){
-		return	$nGrouptopic=GrouptopicModel::F('user_id=?',$nUserid)->getCounts();
+		return $nGrouptopic=GrouptopicModel::F('user_id=?',$nUserid)->getCounts();
 	}
 
 	public function totalComment($nUserid){
-		return	$nGrouptopic=GrouptopiccommentModel::F('user_id=?',$nUserid)->getCounts();
+		return $nGrouptopic=GrouptopiccommentModel::F('user_id=?',$nUserid)->getCounts();
 	}
 	public function totalFans($nUserid){
 		 $oUserCount=UsercountModel::F('user_id=?',$nUserid)->getOne();
 		 return $oUserCount->usercount_fans;
+	}
+
+	public function totalFriends($nUserid){
+		 $oUserCount=UsercountModel::F('user_id=?',$nUserid)->getOne();
+		 return $oUserCount->usercount_friends;
 	}
 }

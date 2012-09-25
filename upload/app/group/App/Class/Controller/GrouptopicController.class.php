@@ -24,6 +24,29 @@ class GrouptopicController extends InitController{
 		Core_Extend::doControllerAction('Grouptopic@View','index');
 	}
 
+	public function edit(){
+		$nTid=intval(G::getGpc('tid','G'));
+		$nUid=intval(G::getGpc('uid','G'));
+		$nGroupid=intval(G::getGpc('gid','G'));
+
+		if($nUid!=$GLOBALS['___login___']['user_id']){
+			$this->E("无法编辑他人的主题");
+		}
+		$oGrouptopic=GrouptopicModel::F('grouptopic_id=?',$nTid)->getOne();
+		if(empty($oGrouptopic->grouptopic_id)){
+			$this->E("不存在你要编辑的主题");
+		}
+		$this->assign('oGrouptopic',$oGrouptopic);
+		
+		$arrGrouptopiccategorys=array();
+		$oGrouptopiccategory=Dyhb::instance('GrouptopiccategoryModel');
+		$arrGrouptopiccategorys=$oGrouptopiccategory->grouptopiccategoryByGroupid($nGroupid);
+		$this->assign('arrGrouptopiccategorys',$arrGrouptopiccategorys);
+		$this->assign('nGroupid',$nGroupid);
+
+		$this->display('grouptopic+edit');
+	}
+
 	public function reply(){
 		$nId=intval(G::getGpc('id','G'));
 		if(empty($nId)){
@@ -34,8 +57,8 @@ class GrouptopicController extends InitController{
 		if(empty($oGrouptopic->grouptopic_id)){
 			$this->E('你访问的主题不存在');
 		}
-
 		$this->assign('oGrouptopic',$oGrouptopic);
+
 		$this->display('grouptopic+reply');
 	}
 	
@@ -76,6 +99,7 @@ class GrouptopicController extends InitController{
 		$page=ceil($nTotalComment/5);
 		
 		$sUrl=Dyhb::U('group://grouptopic/view?id='.$oGrouptopic->grouptopic_id.'&page='.$page).'#'.($oGrouptopiccomment->grouptopiccomment_id);
+
 		$this->A(array('url'=>$sUrl),'回复成功',1);
 	}
 }

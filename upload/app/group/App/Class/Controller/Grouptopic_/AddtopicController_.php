@@ -7,6 +7,8 @@
 class AddtopicController extends Controller{
 
 	public function index(){
+		$nEdit=intval(G::getGpc('edit'));
+		if($nEdit==1)
 		$oGrouptopic=new GrouptopicModel();
 		$oGrouptopic->save(0);
 
