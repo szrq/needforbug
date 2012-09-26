@@ -130,11 +130,11 @@ function cancelNewattachmentcategory(){
 						<div id="messageinfo" class="alert"></div>
 						<p><h3>附件专辑</h3>
 							<select name="attachmentcategory_id_flash" id="attachmentcategory_id_flash" onchange="createAttachmentcategory(this.options[this.selectedIndex].value,'attachmentcategory_id_flash');" >
-								<option value="0" selected>请选择分类</option>
+								<option value="0" <!--{if $nAttachmentcategoryid===false}-->selected<!--{/if}-->>请选择专辑</option>
 								<!--<foreach for=arrAttachmentcategorys value=oAttachmentcategory>-->
-								<option value="<!--{$oAttachmentcategory['attachmentcategory_id']}-->" ><!--{$oAttachmentcategory['attachmentcategory_name']}--></option>
+								<option value="<!--{$oAttachmentcategory['attachmentcategory_id']}-->" <!--{if $nAttachmentcategoryid==$oAttachmentcategory['attachmentcategory_id']}-->selected<!--{/if}-->><!--{$oAttachmentcategory['attachmentcategory_name']}--></option>
 								<!--</foreach>-->
-								<option value='new_category'>[+]新建分类</option>
+								<option value='new_category'>[+]新建专辑</option>
 							</select>
 						</p>
 						<p><h3>允许的上传类型</h3>
@@ -158,11 +158,11 @@ function cancelNewattachmentcategory(){
 						</p>
 						<p><h3>附件专辑</h3>
 							<select name="attachmentcategory_id" id="attachmentcategory_id" onchange="createAttachmentcategory(this.options[this.selectedIndex].value,'attachmentcategory_id');" >
-								<option value="0" selected>请选择分类</option>
+								<option value="0" <!--{if $nAttachmentcategoryid===false}-->selected<!--{/if}-->>请选择专辑</option>
 								<!--<foreach for=arrAttachmentcategorys value=oAttachmentcategory>-->
-								<option value="<!--{$oAttachmentcategory['attachmentcategory_id']}-->" ><!--{$oAttachmentcategory['attachmentcategory_name']}--></option>
+								<option value="<!--{$oAttachmentcategory['attachmentcategory_id']}-->" <!--{if $nAttachmentcategoryid==$oAttachmentcategory['attachmentcategory_id']}-->selected<!--{/if}-->><!--{$oAttachmentcategory['attachmentcategory_name']}--></option>
 								<!--</foreach>-->
-								<option value='new_category'>[+]新建分类</option>
+								<option value='new_category'>[+]新建专辑</option>
 							</select>
 						</p>
 						<p><h3>允许的上传类型</h3>

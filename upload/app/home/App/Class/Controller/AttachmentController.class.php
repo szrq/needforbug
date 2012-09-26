@@ -33,7 +33,7 @@ class AttachmentController extends InitController{
 		$this->assign('arrRecommendAttachmentcategorys',$arrRecommendAttachmentcategorys);
 
 		// 取得推荐附件
-		$arrRecommendAttachments=AttachmentModel::F('attachment_recommend=?',1)->order('attachment_id DESC')->limit(0,5)->getAll();
+		$arrRecommendAttachments=AttachmentModel::F('attachment_recommend=? AND attachment_extension IN (\'gif\',\'jpeg\',\'jpg\',\'png\',\'bmp\')',1)->order('attachment_id DESC')->limit(0,5)->getAll();
 		$this->assign('arrRecommendAttachments',$arrRecommendAttachments);
 		
 		$this->display('attachment+index');
@@ -43,7 +43,9 @@ class AttachmentController extends InitController{
 		return explode('|',$GLOBALS['_option_']['upload_allowed_type']);
 	}
 
-	public function add(){
+	public function add($bDialog=false){
+		$nAttachmentcategoryid=intval(G::getGpc('cid','G'));
+
 		$nUploadfileMaxsize=Core_Extend::getUploadSize($GLOBALS['_option_']['uploadfile_maxsize']);
 		$nUploadFileMode=$GLOBALS['_option_']['upload_file_mode'];
 		$sAllAllowType=$GLOBALS['_option_']['upload_allowed_type'];
@@ -82,13 +84,45 @@ class AttachmentController extends InitController{
 		$arrAllowedTypes=$this->get_allowed_type();
 		$this->assign('arrAllowedTypes',$arrAllowedTypes);
 
+		// 是否有专辑
+		if($nAttachmentcategoryid>0){
+			$oTryattachmentcategory=AttachmentcategoryModel::F('attachmentcategory_id=? AND user_id=?',$nAttachmentcategoryid,$GLOBALS['___login___']['user_id'])->getOne();
+			
+			if(empty($oTryattachmentcategory['attachmentcategory_id'])){
+				$nAttachmentcategoryid=false;
+			}else{
+				$bFound=false;
+				foreach($arrAttachmentcategorys as $oAttachmentcategory){
+					if($oAttachmentcategory['attachmentcategory_id']==$nAttachmentcategoryid){
+						$bFound=true;
+						break;
+					}
+				}
+
+				if($bFound===false){
+					$nAttachmentcategoryid=false;
+				}
+			}
+		}else{
+			$nAttachmentcategoryid=false;
+		}
+		$this->assign('nAttachmentcategoryid',$nAttachmentcategoryid);
+
 		$this->assign('nUploadfileMaxsize',$nUploadfileMaxsize);
 		$this->assign('nUploadFileMode',$nUploadFileMode);
 		$this->assign('sAllAllowType',$sAllAllowType);
 		$this->assign('nUploadFlashLimit',$nUploadFlashLimit);
 		$this->assign('nFileInputNum',$nFileInputNum);
 
-		$this->display('attachment+add');
+		if($bDialog===false){
+			$this->display('attachment+add');
+		}else{
+			$this->display('attachment+dialogadd');
+		}
+	}
+
+	public function dialog_add(){
+		$this->add(true);
 	}
 
 	public function get_attachmentcategory(){

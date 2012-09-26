@@ -280,3 +280,11 @@ function needforbugConfirm(sContent,ok,cancel,sTitle,nTime,width,height){
 
 	return oDialog;
 }
+
+/** 媒体对话框 */
+function globalAddattachment(){
+	var sUrl=D.U('home://attachment/dialog_add');
+	var sHtml='<iframe id="iframe_down" name="iframe_down" frameborder="0" style="margin: 0;width: 600px; height: 250px;overflow-x:hidden;margin:0;padding:0;" src="'+sUrl+'"></iframe>';
+
+	oEditNewattachmentcategory=needforbugAlert(sHtml,'媒体管理器','',function(){},function(){},600,250);
+}
