@@ -227,7 +227,15 @@ function needforbugAlert(sContent,sTitle,nTime,ok,cancel,width,height){
 		okValue: D.L('确定','__COMMON_LANG__@Js/Common_Js'),
 		ok: ok,
 		cancelValue: D.L('取消','__COMMON_LANG__@Js/Common_Js'),
-		cancel: cancel
+		cancel: cancel,
+		button: [{
+			value: '全屏',
+			focus: true,
+			callback: function () {
+				this.size($(document).width(),20);
+				return false;
+			}
+		}]
 	});
 
 	if(width && height){
@@ -284,7 +292,7 @@ function needforbugConfirm(sContent,ok,cancel,sTitle,nTime,width,height){
 /** 媒体对话框 */
 function globalAddattachment(){
 	var sUrl=D.U('home://attachment/dialog_add');
-	var sHtml='<iframe id="iframe_down" name="iframe_down" frameborder="0" style="margin: 0;width: 600px; height: 250px;overflow-x:hidden;margin:0;padding:0;" src="'+sUrl+'"></iframe>';
+	var sHtml='<iframe id="iframe_dialog" name="iframe_dialog" frameborder="0" style="margin: 0;width: 600px; height: 250px;overflow-x:hidden;margin:0;padding:0;" src="'+sUrl+'"></iframe>';
 
 	oEditNewattachmentcategory=needforbugAlert(sHtml,'媒体管理器','',function(){},function(){},600,250);
 }

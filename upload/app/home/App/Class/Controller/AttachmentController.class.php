@@ -122,6 +122,7 @@ class AttachmentController extends InitController{
 	}
 
 	public function dialog_add(){
+		$this->assign('bDialog',true);
 		$this->add(true);
 	}
 
