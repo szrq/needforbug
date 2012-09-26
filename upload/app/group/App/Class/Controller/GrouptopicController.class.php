@@ -47,6 +47,23 @@ class GrouptopicController extends InitController{
 		$this->display('grouptopic+edit');
 	}
 
+	public function submit_edit(){
+		$nGid=intval(G::getGpc('group_id'));
+		$nTid=intval(G::getGpc('grouptopic_id'));
+
+		$oGrouptopic=GrouptopicModel::F('group_id=? AND grouptopic_id=?',$nGid,$nTid)->getOne();
+		if(empty($oGrouptopic->group_id)){
+			$this->E('主题编辑失败');
+		}
+		$oGrouptopic->save(0,'update');
+		if($oGrouptopic->isError()){
+			$this->E($oGrouptopic->getErrorMessage());
+		}
+
+		$sUrl=Dyhb::U('group://grouptopic/view?id='.$nTid);
+		$this->A(array('url'=>$sUrl),'主题编辑成功',1);
+	}
+
 	public function reply(){
 		$nId=intval(G::getGpc('id','G'));
 		if(empty($nId)){
@@ -94,7 +111,17 @@ class GrouptopicController extends InitController{
 		$oGrouptopiccomment->grouptopiccomment_content=$sContent;
 		$oGrouptopiccomment->grouptopic_id=$nId;
 		$oGrouptopiccomment->save(0);
+		if($oGrouptopiccomment->isError()){
+			$this->E($oGrouptopiccomment->getErrorMessage());
+		}
 		
+		$oGrouptopic->grouptopic_comments=GrouptopiccommentModel::F('grouptopic_id=?',$nId)->all()->getCounts();
+		$oGrouptopic->setAutofill(false);
+		$oGrouptopic->save(0,'update');
+		if($oGrouptopic->isError()){
+			$this->E($oGrouptopic->getErrorMessage());
+		}
+
 		$nTotalComment=GrouptopiccommentModel::F('grouptopic_id=?',$oGrouptopic->grouptopic_id)->getCounts();
 		$page=ceil($nTotalComment/5);
 		

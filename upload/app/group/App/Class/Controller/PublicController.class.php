@@ -20,6 +20,9 @@ class PublicController extends InitController{
 		$this->assign('arrGrouptopics',$arrGrouptopics);
 		$this->assign('sPageNavbar',$oPage->P('pagination','li','active'));
 
+		$arrGrouptopic=GrouptopicModel::F()->order('grouptopic_comments DESC')->top(5)->get();
+		$this->assign('arrGrouptopic',$arrGrouptopic);
+
 		$this->assign('nDisplaySeccode',$GLOBALS['_option_']['seccode_login_status']);
 		$this->assign('nRememberTime',$GLOBALS['_option_']['remember_time']);
 		$this->assign('arrBindeds',$GLOBALS['_cache_']['sociatype']);

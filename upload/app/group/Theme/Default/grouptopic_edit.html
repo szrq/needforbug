@@ -11,11 +11,11 @@ function grouptopicSubmit(){
 	$("#submit_button").attr("disabled", "disabled");
 	$("#submit_button").val( 'add...' );
 	$("#grouptopic_content").val(editor.html());
-	Dyhb.AjaxSubmit('grouptopic_form','<!--{:Dyhb::U('group://grouptopic/')}-->','',function(data,status){
+	Dyhb.AjaxSubmit('grouptopic_form','<!--{:Dyhb::U('group://grouptopic/submit_edit')}-->','',function(data,status){
 		$("#submit_button").attr("disabled", false);
 		$("#submit_button").val( '发布帖子' );
 		if(status==1){
-			alert('hello');
+			window.location.href=data.url;
 		}
 	});
 }
@@ -154,6 +154,7 @@ function grouptopicSubmit(){
 					<div class="form-actions">
 						<input type="hidden" name="ajax" value="1">
 						<input type="hidden" name="group_id" value="<!--{$nGroupid}-->">
+						<input type="hidden" name="grouptopic_id" value="<!--{$oGrouptopic->grouptopic_id}-->">
 						<button type="button" name="submit_button" id="submit_button" class="btn btn-success" onClick="grouptopicSubmit();">发表帖子</button>&nbsp;
 						<a href="<!--{:Dyhb::U('group://public/index')}-->" class="btn"><!--<lang package='__COMMON_LANG__@Template/Common'>-->取消<!--</lang>--></a>
 					</div>
