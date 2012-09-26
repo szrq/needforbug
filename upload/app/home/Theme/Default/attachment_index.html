@@ -1,5 +1,20 @@
 <!--<include file="Core_Extend::template('header')" />-->
 
+<!--{style}-->
+.thumbnail .img{
+	display:block;
+	width:96%;
+	height:39px;
+	line-height:239px; 
+	overflow:hidden;
+	outline:none;
+	text-align:center;
+	border:1px solid #f0f5f8;
+	margin:2%;
+}
+<!--{/style}-->
+
+
 		<ul class="breadcrumb">
 			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
 			<li><a href="<!--{:Dyhb::U('home://attachment/index')}-->"><!--<lang package='Template/Attachment'>-->我的相册<!--</lang>--></a></li>
@@ -9,6 +24,7 @@
 
 		<div class="row">
 			<div class="span8">
+				<!--{if is_array($arrRecommendAttachmentcategorys)}-->
 				<script src="<!--{:__PUBLIC__}-->/js/jquery/kinslideshow/js/jquery.kinslideshow-1.1.js" type="text/javascript"></script>
 				<!--{script}-->
 				$(function(){
@@ -24,162 +40,45 @@
 				})
 				<!--{/script}-->
 				<div id="attachment_slide_show" style="visibility:hidden;">
-					<a href="#" target="_blank"><img src="<!--{:__PUBLIC__}-->/js/jquery/kinslideshow/images/1.jpg" alt="这是标题一" style="width:100%;height:210px;"/></a>
-					<a href="#" target="_blank"><img src="<!--{:__PUBLIC__}-->/js/jquery/kinslideshow/images/2.jpg" alt="这是标题二" style="width:100%;height:210px;"/></a>
-					<a href="#" target="_blank"><img src="<!--{:__PUBLIC__}-->/js/jquery/kinslideshow/images/3.jpg" alt="这是标题三" style="width:100%;height:210px;"/></a>
+					<!--<foreach for=arrRecommendAttachments value=oRecommendAttachment>-->
+					<a href="#" target="_blank"><img src="<!--{:__PUBLIC__}-->/js/jquery/kinslideshow/images/1.jpg" alt="这是标题一" style="width:100%;height:300px;"/></a>
+					<!--</foreach>-->
 				</div>
 				<div class="space"></div>
+				<!--{/if}-->
 				<div><ul class="thumbnails">
+						<!--<foreach for=arrAttachments value=oAttachment>-->
+						<!--{~$arrAttachmentSize=$TheController->get_image_size($oAttachment)}-->
 						<li class="span4">
 							<div class="thumbnail">
-								<img src="http://placehold.it/260x180" alt="">
+								<a href="<!--{:Dyhb::U('home://file@?id='.$oAttachment['attachment_id'])}-->">
+									<img src="<!--{:Core_Extend::getAttachmentPreview($oAttachment)}-->" alt="<!--{$oAttachment['attachment_alt']}-->" <!--{if $arrAttachmentSize && $arrAttachmentSize[1]>=239}-->height="239px"<!--{/if}-->>
+								</a>
 								<div class="caption">
-									<h5>Thumbnail label</h5>
-									<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-									<p><a href="#" class="btn btn-primary">Action</a> <a href="#" class="btn">Action</a></p>
+									<h5><a href="<!--{:Dyhb::U('home://file@?id='.$oAttachment['attachment_id'])}-->"><!--{$oAttachment['attachment_name']|G+subString=0,15}--></a></h5>
+									<p>上传时间:&nbsp;<!--{$oAttachment['create_dateline']|Core_Extend+timeFormat}--></p>
+									<p><a href="<!--{:Dyhb::U('home://file@?id='.$oAttachment['attachment_id'])}-->" class="btn btn-success"><i class="icon-eye-open icon-white"></i>&nbsp;查看详情</a>
 								</div>
 							</div>
 						</li>
-						<li class="span4">
-							<div class="thumbnail">
-								<img src="http://placehold.it/260x180" alt="">
-								<div class="caption">
-									<h5>Thumbnail label</h5>
-									<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-									<p><a href="#" class="btn btn-primary">Action</a> <a href="#" class="btn">Action</a></p>
-								</div>
-							</div>
-						</li>
-						<li class="span4">
-							<div class="thumbnail">
-								<img src="http://placehold.it/260x180" alt="">
-								<div class="caption">
-									<h5>Thumbnail label</h5>
-									<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-									<p><a href="#" class="btn btn-primary">Action</a> <a href="#" class="btn">Action</a></p>
-								</div>
-							</div>
-						</li>
-						<li class="span4">
-							<div class="thumbnail">
-								<img src="http://placehold.it/260x180" alt="">
-								<div class="caption">
-									<h5>Thumbnail label</h5>
-									<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-									<p><a href="#" class="btn btn-primary">Action</a> <a href="#" class="btn">Action</a></p>
-								</div>
-							</div>
-						</li>
-						<li class="span4">
-							<div class="thumbnail">
-								<img src="http://placehold.it/260x180" alt="">
-								<div class="caption">
-									<h5>Thumbnail label</h5>
-									<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-									<p><a href="#" class="btn btn-primary">Action</a> <a href="#" class="btn">Action</a></p>
-								</div>
-							</div>
-						</li>
-						<li class="span4">
-							<div class="thumbnail">
-								<img src="http://placehold.it/260x180" alt="">
-								<div class="caption">
-									<h5>Thumbnail label</h5>
-									<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-									<p><a href="#" class="btn btn-primary">Action</a> <a href="#" class="btn">Action</a></p>
-								</div>
-							</div>
-						</li>
-						<li class="span4">
-							<div class="thumbnail">
-								<img src="http://placehold.it/260x180" alt="">
-								<div class="caption">
-									<h5>Thumbnail label</h5>
-									<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-									<p><a href="#" class="btn btn-primary">Action</a> <a href="#" class="btn">Action</a></p>
-								</div>
-							</div>
-						</li>
-						<li class="span4">
-							<div class="thumbnail">
-								<img src="http://placehold.it/260x180" alt="">
-								<div class="caption">
-									<h5>Thumbnail label</h5>
-									<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-									<p><a href="#" class="btn btn-primary">Action</a> <a href="#" class="btn">Action</a></p>
-								</div>
-							</div>
-						</li>
-						<li class="span4">
-							<div class="thumbnail">
-								<img src="http://placehold.it/260x180" alt="">
-								<div class="caption">
-									<h5>Thumbnail label</h5>
-									<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-									<p><a href="#" class="btn btn-primary">Action</a> <a href="#" class="btn">Action</a></p>
-								</div>
-							</div>
-						</li>
-						<li class="span4">
-							<div class="thumbnail">
-								<img src="http://placehold.it/260x180" alt="">
-								<div class="caption">
-									<h5>Thumbnail label</h5>
-									<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-									<p><a href="#" class="btn btn-primary">Action</a> <a href="#" class="btn">Action</a></p>
-								</div>
-							</div>
-						</li>
-						<li class="span4">
-							<div class="thumbnail">
-								<img src="http://placehold.it/260x180" alt="">
-								<div class="caption">
-									<h5>Thumbnail label</h5>
-									<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-									<p><a href="#" class="btn btn-primary">Action</a> <a href="#" class="btn">Action</a></p>
-								</div>
-							</div>
-						</li>
-						<li class="span4">
-							<div class="thumbnail">
-								<img src="http://placehold.it/260x180" alt="">
-								<div class="caption">
-									<h5>Thumbnail label</h5>
-									<p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-									<p><a href="#" class="btn btn-primary">Action</a> <a href="#" class="btn">Action</a></p>
-								</div>
-							</div>
-						</li>
+						<!--</foreach>-->
 					</ul>
 				</div>
-				<div id="pagination" class="pagination">
-					<ul><li class="disabled"><a href="javascript:void(0);">Total:51</a></li>
-						<li class="active"><a href="javascript:void(0);">1</a></li>
-						<li><a href="/needforbug/upload/index.php/app/group/public/index?page=2" title="Page 2">2</a></li>
-						<li><a href="/needforbug/upload/index.php/app/group/public/index?page=3" title="Page 3">3</a></li>
-						<li><a href="/needforbug/upload/index.php/app/group/public/index?page=4" title="Page 4">4</a></li>
-						<li><a href="/needforbug/upload/index.php/app/group/public/index?page=5" title="Page 5">5</a></li>
-						<li><a href="/needforbug/upload/index.php/app/group/public/index?page=2" title="Next" >Next &#8250;</a></li>
-						<li><a href="/needforbug/upload/index.php/app/group/public/index?page=6" title="Last" >Last &raquo;</a></li>
-					</ul>
-				</div>
+				<!--{$sPageNavbar}-->
 			</div>
 			<div class="span4">
-			<h4>我的地盘</h4>
-			<p><ul class="nav nav-tabs nav-stacked">
-					<li class="active"><a href="#">Home</a></li>
-					<li><a href="#">Profile</a></li>
-					<li><a href="#">Messages</a></li>
-				</ul>
-				<a href="" class="btn btn-success btn-large">快来分享照片</a>
-			</p>
-			<h4>推荐专辑</h4>
-			<p><ul class="nav nav-tabs nav-stacked">
-					<li class="active"><a href="#">Home</a></li>
-					<li><a href="#">Profile</a></li>
-					<li><a href="#">Messages</a></li>
-				</ul>
-			</p>
+				<p><a href="<!--{:Dyhb::U('home://attachment/add')}-->" class="btn btn-success btn-large">快来分享照片</a></p>
+				<h4>推荐专辑</h4>
+				<!--{if is_array($arrRecommendAttachmentcategorys)}-->
+				<p><ul class="nav nav-tabs nav-stacked">
+						<!--<foreach for=arrRecommendAttachmentcategorys value=oRecommendAttachmentcategory>-->
+						<li><a href="<!--{:Dyhb::U('home://attachment/attachment?cid='.$oRecommendAttachmentcategory['attachmentcategory_id'])}-->"><!--{$oRecommendAttachmentcategory['attachmentcategory_name']}--></a></li>
+						<!--</foreach>-->
+					</ul>
+				</p>
+				<!--{d*else}-->
+				<p>暂无推荐专辑</p>
+				<!--{/if}-->
 			</div>
 		</div>
 

@@ -20,6 +20,22 @@ class AttachmentController extends InitController{
 	}
 	
 	public function index(){
+		// 取得附件列表
+		$nTotalRecord=AttachmentModel::F()->all()->getCounts();
+		$oPage=Page::RUN($nTotalRecord,10,G::getGpc('page','G'));
+		$arrAttachments=AttachmentModel::F()->order('attachment_id DESC')->limit($oPage->returnPageStart(),10)->getAll();
+
+		$this->assign('arrAttachments',$arrAttachments);
+		$this->assign('sPageNavbar',$oPage->P('pagination','li','active'));
+
+		// 取得推荐专辑
+		$arrRecommendAttachmentcategorys=AttachmentcategoryModel::F('attachmentcategory_recommend=?',1)->order('attachmentcategory_compositor DESC')->limit(0,10)->getAll();
+		$this->assign('arrRecommendAttachmentcategorys',$arrRecommendAttachmentcategorys);
+
+		// 取得推荐附件
+		$arrRecommendAttachments=AttachmentModel::F('attachment_recommend=?',1)->order('attachment_id DESC')->limit(0,5)->getAll();
+		$this->assign('arrRecommendAttachments',$arrRecommendAttachments);
+		
 		$this->display('attachment+index');
 	}
 
