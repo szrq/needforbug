@@ -471,7 +471,8 @@ margin-left:-72px;
 	padding:25px 0 20px;
 }
 .edit_log{
-	color:#666;
+	color:#cccccc;
+	margin-top:8px;
 }
 
 
@@ -604,7 +605,9 @@ function addComment(){
 										<div class="editor_content">
 											<!--{$oGrouptopic->grouptopic_content}-->
 										</div>
-										<div class="edit_log">[小鸡爷爷于2012-06-27 21:40编辑了帖子]</div>
+										<!--{if $oGrouptopic->update_dateline!=0}-->
+										<div class="edit_log"><blockquote><em>[<!--{$oGrouptopic->grouptopic_username}-->于<!--{$oGrouptopic->update_dateline|Core_Extend+timeFormat}-->编辑了帖子]</em></blockquote></div>
+										<!--{/if}-->
 									</div>
 								</td>
 							</tr>
@@ -669,7 +672,7 @@ function addComment(){
 									<div class="floor_top_tips">
 										<span class="lou J_floor_copy" title="复制此楼地址"
 						 data-hash="read_5440"><!--{if empty($_GET['page'])}--><!--{$i}--><!--{d*else}--><!--{$_GET['page']*$nEverynum+$i-$nEverynum}--><!--{/if}-->楼<sup>#</sup></span>
-										<span class="fl">发布于：<!--{$oComment->create_dateline|Core_Extend+timeFormat}--></span>
+										<span class="fl">回复于：<!--{$oComment->create_dateline|Core_Extend+timeFormat}--></span>
 									</div>
 									
 									<div id="J_read_main">

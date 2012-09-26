@@ -14,7 +14,7 @@ class ViewController extends Controller{
 			$this->E('你访问的主题不存在或已删除');
 		}
 		$oGrouptopic->grouptopic_views=$oGrouptopic->grouptopic_views+1;
-		$oGrouptopic->grouptopic_comments=GrouptopiccommentModel::F('grouptopic_id=?',$nId)->all()->getCounts();
+		$oGrouptopic->setAutofill(false);
 		$oGrouptopic->save(0,'update');
 		if($oGrouptopic->isError()){
 			$this->E($oGrouptopic->getErrorMessage());
