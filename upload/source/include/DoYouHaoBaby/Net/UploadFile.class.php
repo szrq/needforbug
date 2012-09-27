@@ -5,13 +5,15 @@
 !defined('DYHB_PATH') && exit;
 
 class UploadFile{
-	const UPLOAD_ERR_OK=0;// 文件成功上传
-	const UPLOAD_ERR_INI_SIZE=1;// 其值为 1，上传的文件超过了 php.ini 中 upload_max_filesize 选项限制的值
-	const UPLOAD_ERR_FORM_SIZE=2;// 其值为 2，上传文件的大小超过了 HTML 表单中 MAX_FILE_SIZE 选项指定的值
-	const UPLOAD_ERR_PARTIAL=3; // 其值为 3，文件只有部分被上传
-	const UPLOAD_ERR_NO_FILE=4;// 文件未上传
-	const UPLOAD_ERR_NO_TMP_DIR=6; // 其值为 6，找不到临时文件夹
-	const UPLOAD_ERR_CANT_WRITE=7;// 文件写入失败
+
+	const ERR_NOUPLOAD=1;// 文件未上传
+	const ERR_EXMAXBYTE_BY_PHP=2;// 超过限制字节数（在 php.ini 中设定）
+	const ERR_UNALLOWEXT=3;// 不允许的文件类型
+	const ERR_EXMAXBYTE=4;// 超过限制字节数
+	const ERR_STOREDIR_NOTEXIST=5;// 存储目录不存在，且 UploadFile::setAutoCreateStoreDir(false);
+	const ERR_STOREDIR_UNCREATE=6;// 无法自动创建 存储目录
+	const ERR_UNCOPY=7;// 无法将上传文件 由 临时路径拷贝至 存储路径
+	const ERR_CANCEL=8;// 上传被取消
 	static public $MAXSIZE=204800;
 	public $_nMaxSize=-1;
 	public $_bSupportMulti=true;
@@ -270,13 +272,36 @@ class UploadFile{
 			$this->_arrUploadFileInfo=$arrFileInfo;
 			return true;
 		}else{
-			$this->error(self::UPLOAD_ERR_PARTIAL);
+			$this->_sError=Dyhb::L('文件只有部分被上传','__DYHB__@NetDyhb');
 			return false;
 		}
 	}
 
+	public function cancelUpload($sInputName=null){
+		if($sInputName===null){
+			$sInputName=$this->_sLastInput;
+		}
+
+		if(is_file($this->getSavePath())){
+			unlink($this->getSavePath());
+		}
+
+		$this->deleteFileFromFileinfo($sInputName);
+		$this->_arrLastFileinfo=array();
+		$this->_sError=Dyhb::L("文件上传被取消",'__DYHB__@NetDyhb');
+	}
+
 	public function getSavePath($sInputName=null){
 		return $this->_arrLastFileinfo[($sInputName==null)?$this->_sLastInput:$sInputName];
+	}
+
+	public function deleteFileFromFileinfo($sInputName=null){
+		$sInputName=($sInputName==null)?$this->_sLastInput:$sInputName;
+
+		$arrFiles=$this->getUploadFileInfo();
+		foreach($arrFiles as $nKey=> $arrFile){
+			if(!empty($arrFile['name'])&&$arrFile['name']==$sInputName){unset($this->_arrUploadFileInfo[ $nKey ]);}// 过滤无效的上传
+		}
 	}
 
 	protected function dealFiles($arrFiles){
@@ -285,7 +310,7 @@ class UploadFile{
 		// 预处理
 		foreach($arrFiles as $arrFile){
 			if(is_array($arrFile['name'])){
-				$arrKeys=array_keys($arrFile);
+				$arrKeys=array_keys($arrFile['name']);
 				$nCount=count($arrFile['name']);
 				for($nI=0;$nI<$nCount;$nI++){
 					foreach($arrKeys as $nKey){
@@ -297,6 +322,16 @@ class UploadFile{
 			}
 			break;
 		}
+<<<<<<< HEAD
+	
+		return $arrFileInfo;
+	}
+
+	protected function writeSafeFile($sFileStoreDir){
+		if(!file_exists($sFileStoreDir.'/index.html')){
+			file_put_contents($sFileStoreDir.'/index.html',
+				" ");
+=======
 
 		// 取得未重复名字
 		$arrVariableFilename=array();
@@ -332,29 +367,35 @@ class UploadFile{
 	protected function writeSafeFile($sFileStoreDir){
 		if(!is_file($sFileStoreDir.'/index.html')){
 			file_put_contents($sFileStoreDir.'/index.html'," ");
+>>>>>>> 26b1eeb617828da3b939bcce9723fc9d5cc303ec
 		}
 	}
 
 	protected function error($nErrorNo){
 		switch($nErrorNo){
-			case self::UPLOAD_ERR_INI_SIZE:
-				$this->_sError=Dyhb::L('上传的文件超过了 php.ini 中 upload_max_filesize 选项限制的值','__DYHB__@NetDyhb').' '.ini_get('upload_max_filesize');
-				break;
-			case self::UPLOAD_ERR_FORM_SIZE:
-				$this->_sError=Dyhb::L('超过限制字节数','__DYHB__@NetDyhb');
-				break;
-			case self::UPLOAD_ERR_PARTIAL:
-				$this->_sError=Dyhb::L('文件只有部分被上传','__DYHB__@NetDyhb');
-				break;
-			case self::UPLOAD_ERR_NO_FILE:
+			case self::ERR_NOUPLOAD:
 				$this->_sError=Dyhb::L('文件未上传','__DYHB__@NetDyhb');
 				break;
-			case self::UPLOAD_ERR_NO_TMP_DIR:
-				$this->_sError=Dyhb::L('无法找到临时文件夹','__DYHB__@NetDyhb');
+			case self::ERR_EXMAXBYTE_BY_PHP:
+				$this->_sError=Dyhb::L('上传的文件超过了 php.ini 中 upload_max_filesize 选项限制的值','__DYHB__@NetDyhb');
 				break;
-			case self::UPLOAD_ERR_CANT_WRITE:
-				$this->_sError=Dyhb::L('文件写入失败','__DYHB__@NetDyhb');
+			case self::ERR_UNALLOWEXT:
+				$this->_sError=Dyhb::L('不允许的文件类型','__DYHB__@NetDyhb');
 				break;
+			case self::ERR_EXMAXBYTE:
+				$this->_sError=Dyhb::L('超过限制字节数','__DYHB__@NetDyhb');
+				break;
+			case self::ERR_STOREDIR_NOTEXIST:
+				$this->_sError=Dyhb::L('存储目录不存在，且 self::setAutoCreateStoreDir(false)','__DYHB__@NetDyhb');
+				break;
+			case self::ERR_STOREDIR_UNCREATE:
+				$this->_sError=Dyhb::L('无法自动创建 存储目录','__DYHB__@NetDyhb');
+				break;
+			case self::ERR_UNCOPY:
+				$this->_sError=Dyhb::L('无法将上传文件 由 临时路径拷贝至 存储路径','__DYHB__@NetDyhb');
+				break;
+			case self::ERR_CANCEL:
+				$this->_sError=Dyhb::L('上传被取消','__DYHB__@NetDyhb');
 			default:
 				$this->_sError=Dyhb::L('未知上传错误！','__DYHB__@NetDyhb');
 		}
@@ -380,6 +421,8 @@ class UploadFile{
 		if($this->_bAutoSub){// 使用子目录保存文件
 			$sSaveName=$this->getSubName($arrFile).'/'.$sSaveName;
 		}
+		
+		$sSaveName.='.'.$arrFile['extension'];
 
 		return $sSaveName;
 	}
@@ -405,11 +448,6 @@ class UploadFile{
 	}
 
 	protected function check($arrFile){
-		if($arrFile['error']!==0){// 文件上传失败
-			$this->error($arrFile['error']);// 捕获错误代码
-			return false;
-		}
-			
 		if(!$this->checkSize($arrFile['size'])){// 文件上传成功，进行自定义规则检查&检查文件大小
 			$this->_sError=Dyhb::L('上传文件大小不符,允许的大小为%s！','__DYHB__@NetDyhb',null,self::getReadableFileSize($this->_nMaxSize));
 			return false;
@@ -426,7 +464,12 @@ class UploadFile{
 		}
 
 		if(!$this->checkUpload($arrFile['tmp_name'])){// 检查是否合法上传
-			$this->_sError=Dyhb::L('没有选择上传文件！','__DYHB__@NetDyhb');
+			$this->error=Dyhb::L('没有选择上传文件！','__DYHB__@NetDyhb');
+			return false;
+		}
+			
+		if($arrFile['error']!==0){// 文件上传失败
+			$this->error($arrFile['error']);// 捕获错误代码
 			return false;
 		}
 
@@ -513,7 +556,7 @@ class UploadFile{
 	}
 
 	protected function checkSize($nSize){
-		return $nSize<=$this->_nMaxSize || -1==$this->_nMaxSize;
+		return ($nSize<=$this->_nMaxSize) || (-1==$this->_nMaxSize);
 	}
 
 	protected function checkUpload($sFilename){
