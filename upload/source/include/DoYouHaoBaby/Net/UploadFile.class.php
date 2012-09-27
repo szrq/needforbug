@@ -129,7 +129,7 @@ class UploadFile{
 				$arrThumbPrefix=explode(',',$this->_sThumbPrefix);
 				$arrThumbSuffix=explode(',',$this->_sThumbSuffix);
 				$arrThumbFile=explode(',',$this->_sThumbFile);
-				$sThumbPath=$this->_sThumbPath?$this->_sThumbPath:$arrFile['savepath'];
+				$sThumbPath=$this->_sThumbPath?$this->_sThumbPath:dirname($arrFile['savepath']);
 
 				// 检查缩略图目录
 				if(!is_dir($sThumbPath)){
@@ -153,7 +153,9 @@ class UploadFile{
 				}
 
 				// 生成图像缩略图
-				$sRealFilename=$this->_bAutoSub?basename($arrFile['savename']):$arrFile['savename'];
+				$sRealFilename=$this->_bAutoSub?$arrFile['savename']:$arrFile['savename'];
+				$sRealFilename=G::subString($sRealFilename,0,(strripos($sRealFilename,'.')?:count($sRealFilename)));
+
 				for($nI=0,$nLen=count($arrThumbWidth);$nI<$nLen;$nI++){
 					$sThumbname=$sThumbPath.'/'.$arrThumbPrefix[$nI].$sRealFilename.$arrThumbSuffix[$nI].'.'.$arrFile['extension'];
 					if($this->_bThumbFixed===true){
@@ -305,6 +307,7 @@ class UploadFile{
 	protected function dealFiles($arrFiles){
 		$arrFileInfo=array();
 
+		// 预处理
 		foreach($arrFiles as $arrFile){
 			if(is_array($arrFile['name'])){
 				$arrKeys=array_keys($arrFile['name']);
@@ -319,6 +322,7 @@ class UploadFile{
 			}
 			break;
 		}
+<<<<<<< HEAD
 	
 		return $arrFileInfo;
 	}
@@ -327,6 +331,43 @@ class UploadFile{
 		if(!file_exists($sFileStoreDir.'/index.html')){
 			file_put_contents($sFileStoreDir.'/index.html',
 				" ");
+=======
+
+		// 取得未重复名字
+		$arrVariableFilename=array();
+		foreach($arrFileInfo as $arrTempFileInfo){
+			if(!empty($arrTempFileInfo['name'])){
+				$arrVariableFilename[$arrTempFileInfo['name']]=$arrTempFileInfo['name'];
+			}
+		}
+		$arrVariableFilename=array_unique($arrVariableFilename);
+
+		// 取得所有上传正确的为重复数据
+		$arrNewFileinfo=array();
+		foreach($arrFileInfo as $arrTempFileInfo){
+			if(!empty($arrTempFileInfo['name']) && in_array($arrTempFileInfo['name'],$arrVariableFilename) && $arrTempFileInfo['error']==0){
+				$arrNewFileinfo[]=$arrTempFileInfo;
+				unset($arrVariableFilename[$arrTempFileInfo['name']]);
+			}
+		}
+
+		// 如果上一步有上传错误的重复表单，这里获取错误的表单信息
+		if(!empty($arrVariableFilename)){
+			foreach($arrFileInfo as $arrTempFileInfo){
+				if(!empty($arrTempFileInfo['name']) && in_array($arrTempFileInfo['name'],$arrVariableFilename) && $arrTempFileInfo['error']!=0){
+					$arrNewFileinfo[]=$arrTempFileInfo;
+					unset($arrVariableFilename[$arrTempFileInfo['name']]);
+				}
+			}
+		}
+
+		return $arrNewFileinfo;
+	}
+
+	protected function writeSafeFile($sFileStoreDir){
+		if(!is_file($sFileStoreDir.'/index.html')){
+			file_put_contents($sFileStoreDir.'/index.html'," ");
+>>>>>>> 26b1eeb617828da3b939bcce9723fc9d5cc303ec
 		}
 	}
 
@@ -371,9 +412,9 @@ class UploadFile{
 			if(is_array($sRule) && is_callable($sRule)){
 				$sSaveName=call_user_func_array($sRule,$arrFile);
 			}elseif(is_string($sRule) && function_exists($sRule)){// 使用函数生成一个唯一文件标识号
-				$sSaveName=$sRule();
+				$sSaveName=$sRule().G::getExtName($arrFile['name'],2);
 			}else{// 使用给定的文件名作为标识号
-				$sSaveName=$sRule.'-'.md5($arrFile['name']);
+				$sSaveName=$sRule.'-'.md5($arrFile['name']).G::getExtName($arrFile['name'],2);
 			}
 		}
 

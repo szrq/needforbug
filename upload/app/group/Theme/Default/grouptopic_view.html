@@ -1,9 +1,9 @@
 <!--<include file="Core_Extend::template('header')" />-->
 
-<link rel="stylesheet" href="http://tiyan.phpwind.net/nextwind/themes/site/default/css/dev/core.css2?v=0.3.7" />
-<link rel="stylesheet" href="http://tiyan.phpwind.net/nextwind/themes/site/default/css/dev/common.css2?v=0.3.7" />
-<link href="http://tiyan.phpwind.net/nextwind/themes/site/default/css/dev/forum.css2?v=0.3.7" rel="stylesheet" />
-	<link href="http://tiyan.phpwind.net/nextwind/themes/site/default/css/dev/editor_content.css2?v=0.3.7" rel="stylesheet" />
+<link rel="stylesheet" href="/themes/site/default/css/dev/core.css2?v=0.3.7" />
+<link rel="stylesheet" href="/themes/site/default/css/dev/common.css2?v=0.3.7" />
+<link href="/themes/site/default/css/dev/forum.css2?v=0.3.7" rel="stylesheet" />
+	<link href="/themes/site/default/css/dev/editor_content.css2?v=0.3.7" rel="stylesheet" />
 
 		<ul class="breadcrumb">
 			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
@@ -63,16 +63,16 @@
 }
 
 .floor_info .name{
-	padding:5px 0;
+	padding:5px 10px 0px 10px;
 }
 .floor_info .name a{
 	font-weight:700;
 	color:#333;
 }
 .floor_info .face{
-	width:100px;
 	height:100px;
 	margin-bottom:5px;
+	padding-left:10px;
 }
 
 .floor_info .level{
@@ -95,7 +95,7 @@
 }
 .floor_info .integral span{
 	display:block;
-	width:70px;
+	width:63px;
 	height:18px;
 	float:left;
 	overflow:hidden;
@@ -114,7 +114,6 @@
 	line-height:20px;
 	height:20px;
 	color:#999;
-	background:url(../../images/forum/operate.png) no-repeat;
 }
 .floor_info .operate a:hover{
 	color:#333;
@@ -127,7 +126,6 @@
 }
 .floor_info .operate .message{
 	background-position:0 -25px;
-	padding-left:16px;
 }
 
 .floor_info .medal{
@@ -201,7 +199,7 @@
 	height:13px;
 	overflow:hidden;
 	text-indent:-2000em;
-	background:url(../../images/forum/more_down.png) no-repeat;
+	background:url(http://tiyan.phpwind.net/nextwind/themes/site/default/images/forum/more_down.png) no-repeat;
 	margin:3px 20px;
 }
 .more_down:hover{
@@ -211,7 +209,7 @@
 .icon_read_like{
 	width:115px;
 	height:25px;
-	background:url(../../images/forum/like_button.png) no-repeat;
+	background:url(http://tiyan.phpwind.net/nextwind/themes/site/default/images/forum/like_button.png) no-repeat;
 	display:block;
 	margin:30px auto 20px;
 	color:#ff6600;
@@ -340,6 +338,9 @@
 	padding-top:10px;
 }
 
+input, textarea, .uneditable-input {
+margin-left:-72px;
+}
 
 .reply_quick{
 	width:600px;
@@ -348,6 +349,10 @@
 .reply_quick .hd{
 	height:30px;
 }
+.reply_quick .ct{
+	text-align:left;
+}
+
 .reply_quick .hd h2{
 	font-size:14px;
 	float:left;
@@ -377,7 +382,7 @@
 	padding-left:22px;
 	line-height:20px;
 	color:#999;
-	background:url(../../images/forum/reply_quick_icon.png) 0 3px no-repeat;
+	background:url(http://tiyan.phpwind.net/nextwind/themes/site/default/images/forum/reply_quick_icon.png) 0 3px no-repeat;
 }
 .reply_quick .operate a:hover{
 	text-decoration:none;
@@ -462,7 +467,7 @@
 
 
 .signature{
-	background:url(../../images/forum/signature.png) 0 0 no-repeat;
+	background:url(http://tiyan.phpwind.net/nextwind/themes/site/default/images/forum/signature.png) 0 0 no-repeat;
 	padding:25px 0 20px;
 }
 .edit_log{
@@ -496,50 +501,65 @@
 .btn_replay:active{
 	background-position:0 -150px;
 }
-dl.profile { margin: 5px 10px 5px 20px; }
-dl { margin: 5px 0; padding: 5px 0; }
-dt { width: 70px; }
-dd { width: 100px; }
-dl.profile { margin: 5px 10px 5px 20px; }
-dt em { color: {NOTICETEXT_COLOR}; }
-dd,dt { height: 1.6em; line-height: 1.6em; float: left; overflow: hidden; font-family: Tahoma, sans-serif; }
-dt { margin-right: 5px; width: 50px; }
-dd { width: 80px; }
-<!--{/style}-->
 
+dl.profile { margin:0px; }
+dl { margin: 5px 0; padding: 5px 0; }
+dt em { color: {NOTICETEXT_COLOR}; }
+dd,dt {height: 1.6em; line-height: 1.6em; float: left; overflow: hidden; font-family: Tahoma, sans-serif;font-weight:normal; }
+dt {padding-left:10px;width:60px;}
+dd { width:120px;}
+
+.clear:after,.clearfix:after{content:".";display:none;height:0;clear:both;visibility:hidden;}
+.clear,.clearfix{display:inline;}
+.inform a {
+	color:#666666;
+}
+<!--{/style}-->
+<!--{script}-->
+
+$(document).ready(function(){
+		$("#comment_message").focus(function(){
+			$("#J_reply_ft").css("display","block");
+			$("#inform").addClass("floor_bottom_tips");
+		});
+});
+function addComment(){
+	var comment_message=$("#comment_message").val();
+	var parameter="ajax=1&comment_message="+encodeURIComponent(comment_message)+"&tid="+<!--{$oGrouptopic->grouptopic_id}-->;
+	Dyhb.AjaxSend('<!--{:Dyhb::U('group://grouptopic/add_reply')}-->',parameter,'',function(data,status){
+		if(status==1){
+			window.location.href=data.url;
+		}
+	});
+}
+<!--{/script}-->
 		<div class="row">
 			<div class="span12">
-					<div class="floor clear" id="read_0">
-						<table width="100%" style="table-layout:fixed;">
+					<!--{if $nPage <2}-->
+					<div class="floor clear" id="read_0" style="margin:0px;padding:0px;">
+						<table width="100%" style="table-layout:fixed;border:1px solid #f1f1f1;">
 							<tr>
-								<td rowspan="2" class="floor_left span2">
+								<td rowspan="2" class="floor_left span3"  style="border-right:1px solid #f1f1f1;">
 									<div class="floor_info">
 										<!--头像-->
-										<div class="face"><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=292" class="J_user_card_show" data-uid="292" target="_blank"><img src="<!--{:Core_Extend::avatar($oGrouptopic['user_id'],'small')}-->" class="J_avatar" data-type="middle" width="100" height="100" alt="<!--{$oGrouptopic->grouptopic_username}-->"></a></div>
+										<div class="face"><a href="/index.php?m=space&uid=292" class="J_user_card_show" data-uid="292" target="_blank"><img src="<!--{:Core_Extend::avatar($oGrouptopic['user_id'],'small')}-->" class="J_avatar" data-type="middle" width="100" height="100" alt="<!--{$oGrouptopic->grouptopic_username}-->"></a></div>
 										<!--用户名-->
-										<div class="name"><span class="man_unol" title="离线"></span><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=292" class="J_user_card_show" data-uid="292"><!--{$oGrouptopic->grouptopic_username}--></a></div>
-										<dl class="profile clear">
-											<dt>UID</dt><dd>5&nbsp;</dd>
-											<dt><lang package='boardTheme'>主题</lang></dt><dd>2&nbsp;</dd>
-											<dt><lang package='boardTheme'>回复</lang></dt><dd>3&nbsp;</dd>
-											<dt><lang package='boardTheme'>来自</lang></dt><dd>成都&nbsp;</dd>
-											<dt><lang package='boardTheme'>现居地</lang></dt><dd>成都&nbsp;</dd>
-											<dt>QQ</dt><dd><a href="http://wpa.qq.com/msgrd?V=1amp;Uin={$oBlog:user:user_qq}amp;Site=ioshenmueMenu=yes"><img src="{:IMG_DIR}/qq.gif"/></a>&nbsp;</dd>
-											<dt><lang package='boardTheme'>爱好</lang></dt><dd>打篮球&nbsp;</dd>
-											<dt><lang package='boardTheme'>工作</lang></dt><dd>学生&nbsp;</dd>
-										</dl>
-										<!--相关数据-->
-										<ul class="integral">
-											<li><em>头衔</em><span>列兵</span></li>
-										</ul>
-										<!--发私信加关注-->
-										<div class="operate clear">
-											<a rel="nofollow" href="#">+加关注</a>
-											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=message&c=message&a=pop&username=小鸡爷爷" class="message J_send_msg_pop" data-name="小鸡爷爷">写私信</a>
+										<div class="name"><span class="man_unol" title="离线"></span><a href="/index.php?m=space&uid=292" class="J_user_card_show" data-uid="292" style="width:62px;"><!--{$oGrouptopic->grouptopic_username}--></a>
 										</div>
+										<div class="operate clear">
+											<a rel="nofollow" href="#" style="padding-left:10px;width:60px;"><i class="icon-plus"></i>加关注</a>
+											<a rel="nofollow" href="/index.php?m=message&c=message&a=pop&username=小鸡爷爷" class="message J_send_msg_pop" data-name="小鸡爷爷" style="width:130px;"><i class="icon-envelope"></i>写私信</a>
+										</div>
+										<dl class="profile clear">
+											<dt>UID</dt><dd><!--{$oGrouptopic->user_id}-->&nbsp;</dd>
+											<dt><lang package='boardTheme'>关注</lang></dt><dd><!--{$TheController->totalFans($oGrouptopic->user_id)}-->&nbsp;</dd>
+											<dt><lang package='boardTheme'>粉丝</lang></dt><dd><!--{$TheController->totalFans($oGrouptopic->user_id)}-->&nbsp;</dd>
+											<dt><lang package='boardTheme'>主题</lang></dt><dd><!--{$TheController->totalTopic($oGrouptopic->user_id)}-->&nbsp;</dd>
+											<dt>头衔</dt><dd>列兵</dd>
+										</dl>
 									</div>
 								</td>
-								<td class="floor_right span10"> 
+								<td class="floor_right span9"> 
 									<div class="left"><div class="floor_arrow"><em></em><span></span></div></div>
 									<div class="floor_title">
 										<div class="post_num">
@@ -548,7 +568,7 @@ dd { width: 80px; }
 												<li>回复：<em id="topicRepliesNum"><!--{$oGrouptopic->grouptopic_comments}--></em></li>
 											</ul>
 										</div>
-										<h1 id="J_post_title"><!--{$oGrouptopic->grouptopic_title}--></h1>
+										<h1 id="J_post_title"><!--{$oGrouptopic->grouptopic_title}--><a href="">&nbsp;[编辑]</a></h1>
 									</div>
 									<div class="floor_top_tips">
 										<span class="lou J_floor_copy" title="复制此楼地址"
@@ -557,8 +577,8 @@ dd { width: 80px; }
 										<a href="javascript:;" class="more_down" id="J_read_moredown">更多</a>
 										<div id="J_read_moredown_list" class="core_menu" style="display:none;">
 											<ul class="core_menu_list">
-												<li><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=1801&fid=10&uid=292">只看楼主</a></li>
-												<li><a href="http://tiyan.phpwind.net/nextwind/read.php?tid=1801&fid=10&desc=1">倒序阅读</a></li>
+												<li><a href="/read.php?tid=1801&fid=10&uid=292">只看楼主</a></li>
+												<li><a href="/read.php?tid=1801&fid=10&desc=1">倒序阅读</a></li>
 											</ul>
 										</div>
 										<span class="fl">发布于：<!--{$oGrouptopic->create_dateline|Core_Extend+timeFormat}--></span>
@@ -597,56 +617,59 @@ dd { width: 80px; }
 											<h2>快速回复...</h2>
 										</div>
 										<div class="ct">
-											<textarea name="atc_content" id="J_reply_quick_ta" class="J_at_user_textarea" placeholder="我也说两句"></textarea>
+											<textarea name="comment_message" id="comment_message" placeholder="我也说两句" style="margin-bottom:0px;"></textarea>
 										</div>
-										<div class="ft clear" id="J_reply_ft" style="display:none;">
-											<div class="operate">
-												<a href="" class="a_face J_insert_emotions" data-emotiontarget="#J_reply_quick_ta">表情</a>
-											</div>
-											<button type="submit" data-tid="1801" data-action="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=post&a=doreply&_getHtml=1" class="btn btn_submit disabled" disabled="disabled" id="J_reply_quick_btn">回复</button>
-											<a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=post&a=reply&tid=1801">进入高级模式&gt;&gt;</a>
+										<div style="float:right;" id="inform" class="inform">
+											<span class="fr">
+												<a rel="nofollow" href="/index.php?m=report&a=report&type=thread&type_id=1801" data-pid="0" class="mr10 J_report J_qlogin_trigger">举报</a>
+											</span>
+										</div>
+										<div class="ft clear" id="J_reply_ft" style="display:none;margin-right:82px;line-height:32px;">
+											<button onclick="addComment();" class="btn btn-success" style="margin:8px;padding-top:1px;padding-bottom:1px;">回复</button>
+											<a href="<!--{:Dyhb::U('group://grouptopic/reply?id='.$oGrouptopic->grouptopic_id)}-->">进入高级模式&gt;&gt;</a>
 										</div>
 									</div>
 									<!--快速回复结束-->
-
-									<div class="floor_bottom_tips clear">
-										<span class="fr">
-											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=report&a=report&type=thread&type_id=1801" data-pid="0" class="mr10 J_report J_qlogin_trigger">举报</a>
-										</span>
-									</div>
 									<div style="display:none;" class="J_reply_wrap" id="J_reply_wrap_0"><div class="pop_loading"></div></div>
 								</td>
 							</tr>
 						</table>
 						</div>
-						<a name="5440"></a>
-						<div id="cloudwind_read_readfloor_5440"></div>
-						<div class="floor clear J_read_floor" id="read_5440">
-						<table width="100%" style="table-layout:fixed;" class="floor_table">
+						<div style="height:2px;background-color:#f1f1f1;margin:0px;padding:0px;"></div>
+						<!--{/if}-->
+
+						<!--<foreach for=arrComment value=oComment>-->
+						<a name="<!--{$oComment->grouptopiccomment_id}-->"></a>
+						<div class="floor clear J_read_floor" id="read_5440" style="margin:0px;padding:0px;">
+						<table width="100%" style="table-layout:fixed;border:1px solid #f1f1f1;border-bottom:4px solid #f1f1f1;" class="floor_table">
 							<tr>
-								<td rowspan="2" class="floor_left span2">
+								<td rowspan="2" class="floor_left span3"  style="border-right:1px solid #f1f1f1;padding-bottom:80px;padding-top:10px;">
 									<div class="floor_info">
 										<!--头像-->
-										<div class="face"><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=473" class="J_user_card_show" data-uid="473" target="_blank"><img src="http://tiyan.phpwind.net/nextwind/attachment/avatar/000/00/04/473_middle.jpg" class="J_avatar" data-type="middle" width="100" height="100" alt="andycheung"></a></div>
+										<div class="face"><a href="/index.php?m=space&uid=292" class="J_user_card_show" data-uid="292" target="_blank"><img src="<!--{:Core_Extend::avatar($oComment['user_id'],'small')}-->" class="J_avatar" data-type="middle" width="100" height="100" alt="<!--{$oComment->user_id|UserModel+getUsernameById}-->"></a></div>
 										<!--用户名-->
-										<div class="name"><span class="man_unol" title="离线"></span><a href="http://tiyan.phpwind.net/nextwind/index.php?m=space&uid=473" class="J_user_card_show" data-uid="473">andycheung</a></div>
-										<!--相关数据-->
-										<ul class="clear integral">
-											<li><em>头衔</em><span>列兵</span></li>
-										</ul>
-										<!--发私信加关注-->
-										<div class="operate clear">
-											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?c=follow&a=add&uid=473" class="follow J_read_follow">加关注</a>
-											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=message&c=message&a=pop&username=andycheung" class="message J_send_msg_pop" data-name="andycheung">写私信</a>
+										<div class="name"><span class="man_unol" title="离线"></span><a href="/index.php?m=space&uid=292" class="J_user_card_show" data-uid="292" style="width:62px;"><!--{$oComment->user_id|UserModel+getUsernameById}--></a>
 										</div>
+										<div class="operate clear">
+											<a rel="nofollow" href="#" style="padding-left:10px;width:60px;"><i class="icon-plus"></i>加关注</a>
+											<a rel="nofollow" href="/index.php?m=message&c=message&a=pop&username=小鸡爷爷" class="message J_send_msg_pop" data-name="小鸡爷爷" style="width:130px;"><i class="icon-envelope"></i>写私信</a>
+										</div>
+										<dl class="profile clear">
+											<dt>UID</dt><dd><!--{$oComment->user_id}-->&nbsp;</dd>
+											<dt><lang package='boardTheme'>关注</lang></dt><dd><!--{$TheController->totalFans($oComment->user_id)}-->&nbsp;</dd>
+											<dt><lang package='boardTheme'>粉丝</lang></dt><dd><!--{$TheController->totalFans($oComment->user_id)}-->&nbsp;</dd>
+											<dt><lang package='boardTheme'>主题</lang></dt><dd><!--{$TheController->totalTopic($oComment->user_id)}-->&nbsp;</dd>
+											<dt><lang package='boardTheme'>回复</lang></dt><dd><!--{$TheController->totalComment($oComment->user_id)}-->&nbsp;</dd>
+											<dt>头衔</dt><dd>列兵</dd>
+										</dl>
 									</div>
 								</td>
-								<td class="floor_right span10">
+								<td class="floor_right span9">
 									<div class="fl"><div class="floor_arrow"><em></em><span></span></div></div>
 									<div class="floor_top_tips">
 										<span class="lou J_floor_copy" title="复制此楼地址"
-						 data-hash="read_5440">1楼<sup>#</sup></span>
-										<span class="fl">发布于：2012-06-27 21:43				</span>
+						 data-hash="read_5440"><!--{$i}-->楼<sup>#</sup></span>
+										<span class="fl">发布于：<!--{$oComment->create_dateline|Core_Extend+timeFormat}--></span>
 									</div>
 									
 									<div id="J_read_main">
@@ -655,50 +678,51 @@ dd { width: 80px; }
 											
 										<!--结束右侧广告位-->
 										</div>
-										<div class="editor_content">
-						喜欢你，嫁给我吧。				</div>
+										<div class="editor_content"><!--{$oComment->grouptopiccomment_content}--></div>
 									</div>
 								</td>
 							</tr>
 							<tr>
 								<td class="box_wrap floor_bottom" valign="bottom">
-										<div id="app_read_floor_1"></div>
-										<div class="signature" style="max-height:200px;"></div>
-
-									<div class="floor_bottom_tips clear">
+									<div id="app_read_floor_1"></div>
+									<div class="signature" style="max-height:200px;"></div>
+									<div style="float:right;" class="inform">
 										<span class="fr">
-											<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=report&a=report&type=post&type_id=5440" data-pid="5440" class="mr10 J_report J_qlogin_trigger">举报</a>
+											<a rel="nofollow" href="/index.php?m=report&a=report&type=thread&type_id=1801" data-pid="0" class="mr10 J_report J_qlogin_trigger">举报</a>
 										</span>
-										<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=post&a=fastreply&tid=1801&pid=5440" data-pid="5440" class="a_reply J_read_reply" data-topped="false">回复<span style="">(11)</span></a>
-										<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=like&c=mylike&a=doLike&typeid=2&fromid=5440" data-tid="1801" data-pid="5440" data-fid="10" class="a_like J_like_btn">喜欢</a>
-										<a style="" class="J_like_user_btn a_like_num" data-pid="5440" href="http://tiyan.phpwind.net/nextwind/index.php?m=like&c=like&a=getLast&typeid=2&fromid=5440">10</a>
+									</div>
+									<div class="floor_bottom_tips clear">
+										<a rel="nofollow" href="/index.php?m=bbs&c=post&a=fastreply&tid=1801&pid=5440" data-pid="5440" class="a_reply J_read_reply" data-topped="false">回复<span style="">(<!--{$TheController->totalComment($oComment->user_id)}-->)</span></a>
+										<a rel="nofollow" href="/index.php?m=like&c=mylike&a=doLike&typeid=2&fromid=5440" data-tid="1801" data-pid="5440" data-fid="10" class="a_like J_like_btn">喜欢</a>
+										<a style="" class="J_like_user_btn a_like_num" data-pid="5440" href="/index.php?m=like&c=like&a=getLast&typeid=2&fromid=5440">10</a>
 									</div>
 									<div style="display:none;" class="J_reply_wrap" id="J_reply_wrap_5440"><div class="pop_loading"></div></div>
 								</td>
 							</tr>
 						</table>
 						</div>
+						<!--</foreach>-->
 
-										<div class="floor">
-											<table width="100%" style="table-layout:fixed;">
-												<tr>
-													<td class="floor_left_none span2">
-													</td>
-													<td>
-														<div class="right" style="padding-top:22px;">
-														<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=post&fid=10" id="J_read_post_btn" class="btn btn-success" >发帖</a>&nbsp;
-														<a rel="nofollow" href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=post&a=reply&tid=1801" data-referer="true" class="btn btn-success">回复</a>
-														</div>
-												<div class="left" data-key="true">
-													<div id="pagination" class="pagination"><ul><li class="disabled"><a href="javascript:void(0);">Total:51</a></li><li class="active"><a href="javascript:void(0);">1</a></li><a href="/needforbug/upload/index.php/app/group/public/index?page=2" title="Page 2">2</a><a href="/needforbug/upload/index.php/app/group/public/index?page=3" title="Page 3">3</a><a href="/needforbug/upload/index.php/app/group/public/index?page=4" title="Page 4">4</a><a href="/needforbug/upload/index.php/app/group/public/index?page=5" title="Page 5">5</a><a href="/needforbug/upload/index.php/app/group/public/index?page=2" title="Next">Next ›</a><a href="/needforbug/upload/index.php/app/group/public/index?page=6" title="Last">Last »</a></ul></div>
-												</div>
+						<div class="floor">
+							<table width="100%" style="table-layout:fixed;">
+								<tr>
+									<td class="floor_left_none span3">
+									</td>
+									<td>
+										<div class="right" style="padding-top:22px;">
+												<a rel="nofollow" href="<!--{:Dyhb::U('group://grouptopic/reply?id='.$oGrouptopic->grouptopic_id)}-->" data-referer="true" class="btn btn-success">回复</a>&nbsp;
+												<a rel="nofollow" href="<!--{:Dyhb::U('group://grouptopic/add?gid='.$oGrouptopic->group_id)}-->" id="J_read_post_btn" class="btn btn-success" >发帖</a>
+										</div>
+										<div class="left" data-key="true">
+										<!--{$sPageNavbar}-->
+										</div>
 									</td>
 								</tr>
 							</table>
 						</div>
 						<div style="display:none;left:50%;margin:-11px 0 0 411px;" class="btn_post_menu" id="J_read_post_types">
 							<ul>
-								<li><a href="http://tiyan.phpwind.net/nextwind/index.php?m=bbs&c=post&fid=10" data-referer="true" class="">普通帖</a></li>
+								<li><a href="/index.php?m=bbs&c=post&fid=10" data-referer="true" class="">普通帖</a></li>
 							</ul>
 						</div>
 				</div>

@@ -54,6 +54,29 @@ function mb_cutstr(str,maxlen,dot){
 	return ret;
 }
 
+function subStr(str,len,elli){
+	if(!str || !len){
+		return '';
+	} 
+
+	var a=0;
+	var i=0;
+	var temp='';
+	for(i=0;i<str.length;i++){
+		if(str.charCodeAt(i)>255){
+			a+=2;
+		}else{
+			a++;
+		}
+		if(a>len){
+			return temp+elli;
+		}
+		temp+=str.charAt(i);
+	}
+
+	return str;
+}
+
 function preg_replace(search,replace,str,regswitch){
 	var regswitch=!regswitch?'ig':regswitch;
 	var len=search.length;
@@ -179,7 +202,7 @@ function loadEditorThin(name){
 }
 
 /** 对话框 */
-function needforbugAlert(sContent,sTitle,nTime,ok,cancel){
+function needforbugAlert(sContent,sTitle,nTime,ok,cancel,width,height){
 	if(!sTitle){
 		sTitle=D.L('提示信息','__COMMON_LANG__@Js/Common_Js');
 	}
@@ -207,6 +230,10 @@ function needforbugAlert(sContent,sTitle,nTime,ok,cancel){
 		cancel: cancel
 	});
 
+	if(width && height){
+		oDialog.size(width, height);
+	}
+
 	if(nTime){
 		oDialog.time(nTime*1000);
 	}
@@ -214,7 +241,7 @@ function needforbugAlert(sContent,sTitle,nTime,ok,cancel){
 	return oDialog;
 }
 
-function needforbugConfirm(sContent,ok,cancel,sTitle,nTime){
+function needforbugConfirm(sContent,ok,cancel,sTitle,nTime,width,height){
 	if(!sTitle){
 		sTitle=D.L('提示信息','__COMMON_LANG__@Js/Common_Js');
 	}
@@ -242,6 +269,10 @@ function needforbugConfirm(sContent,ok,cancel,sTitle,nTime){
 		cancelValue: D.L('取消','__COMMON_LANG__@Js/Common_Js'),
 		cancel: cancel
 	});
+
+	if(width && height){
+		oDialog.size(width, height);
+	}
 
 	if(nTime){
 		oDialog.time(nTime*1000);

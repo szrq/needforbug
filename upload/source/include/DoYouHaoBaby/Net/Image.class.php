@@ -83,6 +83,7 @@ class Image{
 			$sImageFun($oThumbImg,$sThumbName);
 			imagedestroy($oThumbImg);
 			imagedestroy($oSrcImg);
+
 			return $sThumbName;
 		}
 
