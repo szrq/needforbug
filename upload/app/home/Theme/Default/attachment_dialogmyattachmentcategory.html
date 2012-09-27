@@ -1,23 +1,5 @@
 <!--<include file="Core_Extend::template('cheader')" />-->
 
-<!--{script}-->
-function deleteAttachmentcategory(id){
-	needforbugConfirm('你确定要删除专辑吗?',function(){
-		Dyhb.AjaxSend(D.U('home://attachment/delete_attachmentcategory?id='+id),
-			'ajax=1','',
-			function(data,status){
-				if(status==1){
-					$('#attachmentcategory_item_'+id).remove();
-					return true;
-				}
-			}
-		);
-		return true;
-	});
-	return false;
-}
-<!--{/script}-->
-
 <!--{style}-->
 .thumbnail .img{
 	display:block;
@@ -56,14 +38,10 @@ function deleteAttachmentcategory(id){
 								</a>
 							</div>
 							<div class="caption">
-								<h5 id="attachmentcategory_name_<!--{$oAttachmentcategory['attachmentcategory_id']}-->"><a href="<!--{:Dyhb::U('home://attachment/my_attachment?cid='.$oAttachmentcategory['attachmentcategory_id'].'&dialog=1&function='.$sFunction)}-->"><!--{$oAttachmentcategory['attachmentcategory_name']|G+subString=0,8}--></a></h5>
-								<p><a href="<!--{:Dyhb::U('home://attachment/edit_attachmentcategory?id='.$oAttachmentcategory['attachmentcategory_id'].'&dialog=1&function='.$sFunction)}-->">编辑</a>
-								<!--{if $oAttachmentcategory['attachmentcategory_attachmentnum']>0}-->
-								<span class="pipe">|</span>
-								<a href="javascript:void(0);" onclick="deleteAttachmentcategory(<!--{$oAttachmentcategory['attachmentcategory_id']}-->);"><i class="icon-remove"></i>&nbsp;删除</a>
-								<!--{/if}-->
+								<h5 id="attachmentcategory_name_<!--{$oAttachmentcategory['attachmentcategory_id']}-->"><a href="<!--{:Dyhb::U('home://attachment/my_attachment?cid='.$oAttachmentcategory['attachmentcategory_id'].'&dialog=1&function='.$sFunction)}-->"><!--{$oAttachmentcategory['attachmentcategory_name']|G+subString=0,10}--></a></h5>
+								<p><a href="<!--{:Dyhb::U('home://attachment/dialog_add?cid='.$oAttachmentcategory['attachmentcategory_id'].'&dialog=1&function='.$sFunction)}-->">上传</a>&nbsp;
+								<a href="<!--{:Dyhb::U('home://attachment/edit_attachmentcategory?id='.$oAttachmentcategory['attachmentcategory_id'].'&dialog=1&function='.$sFunction)}-->">编辑</a>
 								</p>
-								<p><a href="<!--{:Dyhb::U('home://attachment/dialog_add?cid='.$oAttachmentcategory['attachmentcategory_id'].'&dialog=1&function='.$sFunction)}-->" class="btn btn-success btn-large"><i class="icon-upload icon-white"></i>&nbsp;上传</a></p>
 							</div>
 						</div>
 					</li>
