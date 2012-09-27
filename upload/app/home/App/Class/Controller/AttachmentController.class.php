@@ -122,7 +122,14 @@ class AttachmentController extends InitController{
 	}
 
 	public function dialog_add(){
+		$sFunction=trim(G::getGpc('function','G'));
+		if(empty($sFunction)){
+			$sFunction='insertContent';
+		}
+		
+		$this->assign('sFunction',$sFunction);
 		$this->assign('bDialog',true);
+
 		$this->add(true);
 	}
 
@@ -165,9 +172,12 @@ class AttachmentController extends InitController{
 			$arrUploadids=Upload_Extend::uploadNormal();
 			$sUploadids=implode(',',$arrUploadids);
 
-			$this->assign('__JumpUrl__',Dyhb::U('home://attachment/attachmentinfo?id='.$sUploadids.'&hash='.$sHashcode.'&cid='.$nAttachmentcategoryid));
-
-			$this->S('附件上传成功');
+			if(G::getGpc('dialog','P')==1){
+				G::urlGoTo(Dyhb::U('home://attachment/attachmentinfo?id='.$sUploadids.'&hash='.$sHashcode.'&cid='.$nAttachmentcategoryid.'&dialog=1&function='.G::getGpc('function','P')));
+			}else{
+				$this->assign('__JumpUrl__',Dyhb::U('home://attachment/attachmentinfo?id='.$sUploadids.'&hash='.$sHashcode.'&cid='.$nAttachmentcategoryid));
+				$this->S('附件上传成功');
+			}
 		}catch(Exception $e){
 			$this->E($e->getMessage());
 		}
@@ -207,6 +217,8 @@ class AttachmentController extends InitController{
 		$sHashcode=trim(G::getGpc('hash','G'));
 		$sCookieHashcode=Dyhb::cookie('_upload_hashcode_');
 		$nAttachmentcategoryid=intval(G::getGpc('cid'));
+		$nDialog=intval(G::getGpc('dialog'));
+		$sFunction=trim(G::getGpc('function'));
 
 		if(empty($sCookieHashcode)){
 			$this->assign('__JumpUrl__',Dyhb::U('home://attachment/add'));
@@ -227,8 +239,14 @@ class AttachmentController extends InitController{
 
 		$this->assign('arrAttachments',$arrAttachments);
 		$this->assign('nAttachmentcategoryid',$nAttachmentcategoryid);
+		$this->assign('nDialog',$nDialog);
+		$this->assign('sFunction',$sFunction);
 
-		$this->display('attachment+attachmentinfo');
+		if($nDialog==1){
+			$this->display('attachment+dialogattachmentinfo');
+		}else{
+			$this->display('attachment+attachmentinfo');
+		}
 	}
 
 	public function attachmentinfo_save(){
@@ -315,8 +333,12 @@ class AttachmentController extends InitController{
 	}
 
 	public function my_attachmentcategory(){
+		$nDialog=intval(G::getGpc('dialog','G'));
+		$sFunction=trim(G::getGpc('function','G'));
+		
 		$arrWhere=array();
 		$arrWhere['user_id']=$GLOBALS['___login___']['user_id'];
+
 
 		// 取得专辑列表
 		$nTotalRecord=AttachmentcategoryModel::F()->where($arrWhere)->all()->getCounts();
@@ -325,12 +347,20 @@ class AttachmentController extends InitController{
 
 		$this->assign('arrAttachmentcategorys',$arrAttachmentcategorys);
 		$this->assign('sPageNavbar',$oPage->P('pagination','li','active'));
+		$this->assign('nDialog',$nDialog);
+		$this->assign('sFunction',$sFunction);
 
-		$this->display('attachment+myattachmentcategory');
+		if($nDialog==1){
+			$this->display('attachment+dialogmyattachmentcategory');
+		}else{
+			$this->display('attachment+myattachmentcategory');
+		}
 	}
 
 	public function edit_attachmentcategory(){
 		$nAttachmentcategoryid=intval(G::getGpc('id'));
+		$nDialog=intval(G::getGpc('dialog','G'));
+		$sFunction=trim(G::getGpc('function','G'));
 
 		if(empty($nAttachmentcategoryid)){
 			exit('你没有选择你要编辑的专辑');
@@ -346,14 +376,22 @@ class AttachmentController extends InitController{
 		}
 
 		$this->assign('oAttachmentcategory',$oAttachmentcategory);
+		$this->assign('nDialog',$nDialog);
+		$this->assign('sFunction',$sFunction);
 
-		$this->display('attachment+editattachmentcategory');
+		if($nDialog==1){
+			$this->display('attachment+dialogeditattachmentcategory');
+		}else{
+			$this->display('attachment+editattachmentcategory');
+		}
 	}
 
 	public function my_attachment(){
 		$sType=trim(G::getGpc('type','G'));
 		$nAttachmentcategoryid=G::getGpc('cid','G');
 		$nPhoto=G::getGpc('photo','G');
+		$nDialog=intval(G::getGpc('dialog','G'));
+		$sFunction=trim(G::getGpc('function','G'));
 		
 		$arrWhere=array();
 
@@ -405,8 +443,14 @@ class AttachmentController extends InitController{
 		$this->assign('arrAttachments',$arrAttachments);
 		$this->assign('sPageNavbar',$oPage->P('pagination','li','active'));
 		$this->assign('nAttachmentcategoryid',$nAttachmentcategoryid);
+		$this->assign('nDialog',$nDialog);
+		$this->assign('sFunction',$sFunction);
 
-		$this->display('attachment+myattachment');
+		if($nDialog==1){
+			$this->display('attachment+dialogmyattachment');
+		}else{
+			$this->display('attachment+myattachment');
+		}
 	}
 
 	public function edit_attachmentcategorysave(){
@@ -426,6 +470,21 @@ class AttachmentController extends InitController{
 		}
 
 		$this->A($oAttachmentcategory->toArray(),'更新专辑信息成功',1);
+	}
+
+	public function dialog_editattachmentcategorysave(){
+		$nAttachmentcategoryid=intval(G::getGpc('attachmentcategory_id','G'));
+		$nDialog=intval(G::getGpc('dialog'));
+		$sFunction=trim(G::getGpc('function'));
+
+		$oAttachmentcategory=AttachmentcategoryModel::F('attachmentcategory_id=?',$nAttachmentcategoryid)->getOne();
+		$oAttachmentcategory->save(0,'update');
+
+		if($oAttachmentcategory->isError()){
+			$this->E($oAttachmentcategory->getErrorMessage());
+		}
+
+		G::urlGoTo(Dyhb::U('home://attachment/my_attachmentcategory?dialog=1&function='.$sFunction),1,'更新专辑信息成功');
 	}
 
 	public function delete_attachmentcategory($nId=''){
@@ -577,6 +636,8 @@ class AttachmentController extends InitController{
 		$sType=trim(G::getGpc('type','G'));
 		$nPhoto=G::getGpc('photo','G');
 		$nRecommend=intval(G::getGpc('recommend','G'));
+		$nDialog=intval(G::getGpc('dialog'));
+		$sFunction=trim(G::getGpc('function'));
 
 		$arrWhere=array();
 
@@ -630,8 +691,14 @@ class AttachmentController extends InitController{
 		$this->assign('arrAttachments',$arrAttachments);
 		$this->assign('sPageNavbar',$oPage->P('pagination','li','active'));
 		$this->assign('nAttachmentcategoryid',$nAttachmentcategoryid);
-
-		$this->display('attachment+attachment');
+		$this->assign('nDialog',$nDialog);
+		$this->assign('sFunction',$sFunction);
+		
+		if($nDialog==1){
+			$this->display('attachment+dialogattachment');
+		}else{
+			$this->display('attachment+attachment');
+		}
 	}
 
 	public function show(){

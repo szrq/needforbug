@@ -1,23 +1,6 @@
 <!--<include file="Core_Extend::template('header')" />-->
 
 <!--{script}-->
-function subStr(str,len,elli){
-    if(!str || !len) { return ''; } 
-    var a = 0; 
-    var i = 0;  
-    var temp = '';
-    for (i=0;i< str.length;i++){
-       if (str.charCodeAt(i)>255){
-           a+=2; 
-        }else{
-           a++; 
-        }
-        if(a > len) { return temp+elli; }
-        temp += str.charAt(i);
-    } 
-    return str;
-}
-
 var oEditNewattachmentcategory;
 
 function editAttachmentcategory(id){
@@ -39,7 +22,7 @@ function saveAttachmentcategory(){
 		'&attachmentcategory_id='+ $('#attachmentcategory_id').val(),'',
 		function(data,status){
 			if(status==1){
-				$('#attachmentcategory_name_'+id).text(data.attachmentcategory_name);
+				$('#attachmentcategory_name_'+id).text(subStr(data.attachmentcategory_name,15));
 				$('#attachmentcategory_description_'+id).text(data.attachmentcategory_description?subStr(data.attachmentcategory_description,32):'暂无附件描述');
 				oEditNewattachment.close();
 				return true;
@@ -49,7 +32,7 @@ function saveAttachmentcategory(){
 }
 
 function deleteAttachmentcategory(id){
-	needforbugConfirm('你确定要删除附件吗?',function(){
+	needforbugConfirm('你确定要删除专辑吗?',function(){
 		Dyhb.AjaxSend(D.U('home://attachment/delete_attachmentcategory?id='+id),
 			'ajax=1','',
 			function(data,status){
@@ -144,7 +127,7 @@ function cancelNewattachmentcategory(){
 								</a>
 							</div>
 							<div class="caption">
-								<h5 id="attachmentcategory_name_<!--{$oAttachmentcategory['attachmentcategory_id']}-->"><!--{$oAttachmentcategory['attachmentcategory_name']}--></h5>
+								<h5 id="attachmentcategory_name_<!--{$oAttachmentcategory['attachmentcategory_id']}-->"><a href="<!--{:Dyhb::U('home://attachment/my_attachment?cid='.$oAttachmentcategory['attachmentcategory_id'])}-->"><!--{$oAttachmentcategory['attachmentcategory_name']|G+subString=0,15}--></a></h5>
 								<p id="attachmentcategory_description_<!--{$oAttachmentcategory['attachmentcategory_id']}-->"><!--{if $oAttachmentcategory['attachmentcategory_description']}--><!--{$oAttachmentcategory['attachmentcategory_description']|G+subString=0,30}--><!--{d*else}-->暂无附件描述<!--{/if}--></p>
 								<p>创建时间:&nbsp;<!--{$oAttachmentcategory['create_dateline']|Core_Extend+timeFormat}--></p>
 								<p>附件数量:&nbsp;<a href="<!--{:Dyhb::U('home://attachment/my_attachment?cid='.$oAttachmentcategory['attachmentcategory_id'])}-->"><!--{$oAttachmentcategory:attachmentcategory_attachmentnum}--></a></p>

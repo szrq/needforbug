@@ -57,6 +57,10 @@ function addHomefresh(){
 function showHomefreshtitle(){
 	$('#homefresh-title-box').toggle('fast');
 }
+
+function insertHomefresh(nAttachmentid){
+	addEditorContent(editor,'[attachment]'+nAttachmentid+'[/attachment]')
+}
 <!--{/script}-->
 
 <!--{script}-->
@@ -113,7 +117,7 @@ var nHomefreshviewcomment=0;
 										<div id="homefresh-media-box" class="homefresh-media-box">
 											<a href="javascript:void(0)" onclick="" class="icon_add_face" >表情</a> 
 											<a href="javascript:void(0)" onclick="" class="icon_add_topic">话题</a> 
-											<a href="javascript:void(0)" onclick="globalAddattachment();" class="icon_add_img">媒体</a>
+											<a href="javascript:void(0)" onclick="globalAddattachment('insertHomefresh');" class="icon_add_img">媒体</a>
 											<a href="javascript:void(0)" onclick="" class="icon_add_video" >视频</a>
 											<a href="javascript:void(0)" onclick="" class="icon_add_music">音乐</a>
 										</div>

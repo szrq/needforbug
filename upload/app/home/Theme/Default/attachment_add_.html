@@ -122,7 +122,7 @@ function cancelNewattachmentcategory(){
 								<!--<foreach for=arrAttachmentcategorys value=oAttachmentcategory>-->
 								<option value="<!--{$oAttachmentcategory['attachmentcategory_id']}-->" <!--{if $nAttachmentcategoryid==$oAttachmentcategory['attachmentcategory_id']}-->selected<!--{/if}-->><!--{$oAttachmentcategory['attachmentcategory_name']}--></option>
 								<!--</foreach>-->
-								<option value='new_category'>[+]新建专辑</option>
+								<!--{if !isset($bDialog)}--><option value='new_category'>[+]新建专辑</option><!--{/if}-->
 							</select>
 						</p>
 						<p><h3>允许的上传类型</h3>
@@ -150,7 +150,7 @@ function cancelNewattachmentcategory(){
 								<!--<foreach for=arrAttachmentcategorys value=oAttachmentcategory>-->
 								<option value="<!--{$oAttachmentcategory['attachmentcategory_id']}-->" <!--{if $nAttachmentcategoryid==$oAttachmentcategory['attachmentcategory_id']}-->selected<!--{/if}-->><!--{$oAttachmentcategory['attachmentcategory_name']}--></option>
 								<!--</foreach>-->
-								<option value='new_category'>[+]新建专辑</option>
+								<!--{if !isset($bDialog)}--><option value='new_category'>[+]新建专辑</option><!--{/if}-->
 							</select>
 						</p>
 						<p><h3>允许的上传类型</h3>
@@ -160,7 +160,8 @@ function cancelNewattachmentcategory(){
 							</p>
 						</p>
 						<p><input type="hidden" name="user_id" value="<!--{$GLOBALS['___login___']['user_id']}-->"/>
-							<!--{if isset($bDialog)}--><input type="hidden" name="user_id" value="<!--{$GLOBALS['___login___']['user_id']}-->"/><!--{/if}-->
+							<!--{if isset($bDialog)}--><input type="hidden" name="dialog" value="1"/><!--{/if}-->
+							<!--{if isset($sFunction)}--><input type="hidden" name="function" value="<!--{$sFunction}-->"/><!--{/if}-->
 							<input type="hidden" name="user_name" value="<!--{$GLOBALS['___login___']['user_name']}-->"/>
 							<input type="submit" name="html-upload" id="html-upload" class="btn btn-success" value="上传" />&nbsp;
 							<input type="reset" class="btn" value="重置" />

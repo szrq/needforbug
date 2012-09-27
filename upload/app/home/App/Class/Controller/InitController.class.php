@@ -54,4 +54,26 @@ class InitController extends Controller{
 		exit();
 	}
 
+	protected function E($sMessage='',$nDisplay=3,$bAjax=FALSE){
+		if(G::getGpc('dialog')==1){
+			$this->dialog_message($sMessage);
+		}else{
+			parent::E($sMessage,$nDisplay,$bAjax);
+		}
+	}
+
+	protected function S($sMessage,$nDisplay=1,$bAjax=FALSE){
+		if(G::getGpc('dialog')==1){
+			$this->dialog_message($sMessage);
+		}else{
+			parent::S($sMessage,$nDisplay,$bAjax);
+		}
+	}
+
+	public function dialog_message($sMessage){
+		$this->assign('sMessage',$sMessage);
+		$this->display('dialog_message');
+		exit();
+	}
+
 }
