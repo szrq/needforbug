@@ -3,17 +3,17 @@
 
 <!--{style}-->
   #gallery {
-    padding: 2%;
+    padding:2%;
     background: #e1eef5;
-	width:96%;
-	height:600px;
+	width:95%;
+	height:610px;
   }
 <!--{/style}-->
 
 <!--{script}-->
 $(function(){
 	var sHtml = $.ajax({
-		url: D.U('home://attachment/get_ajaximg&id=<!--{$oAttachment['attachment_id']}-->&cid=<!--{$oAttachment['attachmentcategory_id']}-->'),
+		url: D.U('home://attachment/get_ajaximg&id=<!--{$oAttachment['attachment_id']}-->&cid=<!--{$oAttachment['attachmentcategory_id']}-->&uid=<!--{$oAttachment['user_id']}-->'),
 		async: false
 	}).responseText;
 

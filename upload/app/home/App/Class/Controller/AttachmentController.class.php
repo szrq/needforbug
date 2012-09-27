@@ -20,6 +20,22 @@ class AttachmentController extends InitController{
 	}
 	
 	public function index(){
+		// 取得附件列表
+		$nTotalRecord=AttachmentModel::F()->all()->getCounts();
+		$oPage=Page::RUN($nTotalRecord,10,G::getGpc('page','G'));
+		$arrAttachments=AttachmentModel::F()->order('attachment_id DESC')->limit($oPage->returnPageStart(),10)->getAll();
+
+		$this->assign('arrAttachments',$arrAttachments);
+		$this->assign('sPageNavbar',$oPage->P('pagination','li','active'));
+
+		// 取得推荐专辑
+		$arrRecommendAttachmentcategorys=AttachmentcategoryModel::F('attachmentcategory_recommend=?',1)->order('attachmentcategory_compositor DESC')->limit(0,10)->getAll();
+		$this->assign('arrRecommendAttachmentcategorys',$arrRecommendAttachmentcategorys);
+
+		// 取得推荐附件
+		$arrRecommendAttachments=AttachmentModel::F('attachment_recommend=? AND attachment_extension IN (\'gif\',\'jpeg\',\'jpg\',\'png\',\'bmp\')',1)->order('attachment_id DESC')->limit(0,5)->getAll();
+		$this->assign('arrRecommendAttachments',$arrRecommendAttachments);
+		
 		$this->display('attachment+index');
 	}
 
@@ -27,7 +43,9 @@ class AttachmentController extends InitController{
 		return explode('|',$GLOBALS['_option_']['upload_allowed_type']);
 	}
 
-	public function add(){
+	public function add($bDialog=false){
+		$nAttachmentcategoryid=intval(G::getGpc('cid','G'));
+
 		$nUploadfileMaxsize=Core_Extend::getUploadSize($GLOBALS['_option_']['uploadfile_maxsize']);
 		$nUploadFileMode=$GLOBALS['_option_']['upload_file_mode'];
 		$sAllAllowType=$GLOBALS['_option_']['upload_allowed_type'];
@@ -66,13 +84,46 @@ class AttachmentController extends InitController{
 		$arrAllowedTypes=$this->get_allowed_type();
 		$this->assign('arrAllowedTypes',$arrAllowedTypes);
 
+		// 是否有专辑
+		if($nAttachmentcategoryid>0){
+			$oTryattachmentcategory=AttachmentcategoryModel::F('attachmentcategory_id=? AND user_id=?',$nAttachmentcategoryid,$GLOBALS['___login___']['user_id'])->getOne();
+			
+			if(empty($oTryattachmentcategory['attachmentcategory_id'])){
+				$nAttachmentcategoryid=false;
+			}else{
+				$bFound=false;
+				foreach($arrAttachmentcategorys as $oAttachmentcategory){
+					if($oAttachmentcategory['attachmentcategory_id']==$nAttachmentcategoryid){
+						$bFound=true;
+						break;
+					}
+				}
+
+				if($bFound===false){
+					$nAttachmentcategoryid=false;
+				}
+			}
+		}else{
+			$nAttachmentcategoryid=false;
+		}
+		$this->assign('nAttachmentcategoryid',$nAttachmentcategoryid);
+
 		$this->assign('nUploadfileMaxsize',$nUploadfileMaxsize);
 		$this->assign('nUploadFileMode',$nUploadFileMode);
 		$this->assign('sAllAllowType',$sAllAllowType);
 		$this->assign('nUploadFlashLimit',$nUploadFlashLimit);
 		$this->assign('nFileInputNum',$nFileInputNum);
 
-		$this->display('attachment+add');
+		if($bDialog===false){
+			$this->display('attachment+add');
+		}else{
+			$this->display('attachment+dialogadd');
+		}
+	}
+
+	public function dialog_add(){
+		$this->assign('bDialog',true);
+		$this->add(true);
 	}
 
 	public function get_attachmentcategory(){
@@ -215,7 +266,7 @@ class AttachmentController extends InitController{
 				$sAttachmentFilepath=NEEDFORBUG_PATH.'/data/upload/attachment/'.$oAttachment['attachment_savepath'].'/'.$oAttachment['attachment_savename'];
 
 				if(!is_file($sAttachmentFilepath)){
-					echo(sprintf('图像文件 %s 不存在',$sAttachmentFilepath));
+					return false;
 				}
 			}
 
@@ -240,7 +291,12 @@ class AttachmentController extends InitController{
 		$sAttachmentcategorypreview=Core_Extend::getAttachmentcategoryPreview($oAttachmentcategory,false);
 
 		$arrAttachmentcategorypreview=array();
-		$arrTempAttachmentcategorypreview=@getimagesize($sAttachmentcategorypreview);
+		if(is_file($sAttachmentcategorypreview)){
+			$arrTempAttachmentcategorypreview=@getimagesize($sAttachmentcategorypreview);
+		}else{
+			$arrAttachmentcategorypreview[0]=0;
+			$arrAttachmentcategorypreview[1]=0;
+		}
 
 		if(empty($arrTempAttachmentcategorypreview)){
 			$arrAttachmentcategorypreview[0]=0;
@@ -254,7 +310,7 @@ class AttachmentController extends InitController{
 	}
 
 	public function get_attachment_url($oAttachment){
-		return $_SERVER['HTTP_HOST'].__ROOT__.'/data/upload/attachment/'.
+		return $GLOBALS['_option_']['site_url'].'/data/upload/attachment/'.
 			$oAttachment['attachment_savepath'].'/'.$oAttachment['attachment_savename'];
 	}
 
@@ -598,7 +654,7 @@ class AttachmentController extends InitController{
 	public function show_attachment($oAttachment){
 		$sAttachmentType=$this->get_attachmenttype($oAttachment);
 
-		if(in_array($sAttachmentType,array('img','swf','wmp','mp3','real','flv','url'))){
+		if(in_array($sAttachmentType,array('img','swf','wmp','mp3','qvod','flv','url'))){
 			if(is_callable(array('AttachmentController','show_'.$sAttachmentType))){
 				call_user_func(array('AttachmentController','show_'.$sAttachmentType),$oAttachment);
 			}else{
@@ -613,10 +669,10 @@ class AttachmentController extends InitController{
 		$arrAttachmentTypes=array(
 			'img'=>array('jpg','jpeg','gif','png','bmp'),
 			'swf'=>array('swf'),
-			'wmp'=>array('wma','asf','wmv'),
+			'wmp'=>array('wma','asf','wmv','avi','wav'),
 			'mp3'=>array('mp3'),
-			'real'=>array('rm','rmvb','ra','ram'),
-			'flv'=>array('flv','mp4','aac'),
+			'qvod'=>array('rm','rmvb','ra','ram'),
+			'flv'=>array('flv','mp4'),
 			'url'=>array('html','htm','txt'),
 			'download'=>array(),
 		);
@@ -635,8 +691,13 @@ class AttachmentController extends InitController{
 	public function get_ajaximg(){
 		$nAttachmentid=intval(G::getGpc('id','G'));
 		$nAttachmentcategoryid=intval(G::getGpc('cid','G'));
+		$nUserid=intval(G::getGpc('uid','G'));
 
-		$arrAttachments=AttachmentModel::F('user_id=? AND attachmentcategory_id=? AND attachment_extension in(\'gif\',\'jpeg\',\'jpg\',\'png\',\'bmp\')',$GLOBALS['___login___']['user_id'],$nAttachmentcategoryid)->order('attachment_id DESC')->getAll();
+		if($nUserid<1){
+			return array();
+		}
+
+		$arrAttachments=AttachmentModel::F('user_id=? AND attachmentcategory_id=? AND attachment_extension in(\'gif\',\'jpeg\',\'jpg\',\'png\',\'bmp\')',$nUserid,$nAttachmentcategoryid)->order('attachment_id DESC')->getAll();
 
 		
 		$nIndex=0;
@@ -666,7 +727,7 @@ class AttachmentController extends InitController{
 	public function show_download($oAttachment){
 		$this->assign('sAttachmentIcon',__PUBLIC__.'/images/common/media/download.gif');
 		$this->assign('oAttachment',$oAttachment);
-		$this->display('attachment+download');
+		$this->display('attachment+showdownload');
 	}
 
 	public function get_attachmentdownload_url($oAttachment,$bThumb=false){
@@ -674,6 +735,108 @@ class AttachmentController extends InitController{
 				__ROOT__.'/data/upload/attachment/'.$oAttachment['attachment_thumbpath'].'/'.
 				$oAttachment['attachment_thumbprefix'].$oAttachment['attachment_savename']:
 				__ROOT__.'/data/upload/attachment/'.$oAttachment['attachment_savepath'].'/'.$oAttachment['attachment_savename'];
+	}
+
+	public function show_url($oAttachment){
+		$this->assign('oAttachment',$oAttachment);
+		$this->display('attachment+showurl');
+	}
+
+	public function show_swf($oAttachment){
+		$this->assign('sAttachmentIcon',__PUBLIC__.'/images/common/media/swf.gif');
+		$this->assign('oAttachment',$oAttachment);
+		$this->display('attachment+showswf');
+	}
+
+	public function fullplay_frame(){
+		$sFlashpath=trim(G::getGpc('url','G'));
+
+		if(empty($sFlashpath)){
+			Dyhb::E('没有指定播放的flash');
+		}
+		
+		$this->assign('sFlashpath',$sFlashpath);
+		$this->display('attachment+fullplayframe');
+	}
+
+	public function playout(){
+		$sFlashpath=trim(G::getGpc('url','G'));
+
+		if(empty($sFlashpath)){
+			Dyhb::E('没有指定播放的flash');
+		}
+		
+		$this->assign('sFlashpath',$sFlashpath);
+		$this->display('attachment+playout');
+	}
+	
+	public function show_flv($oAttachment){
+		$this->assign('sAttachmentIcon',__PUBLIC__.'/images/common/media/swf.gif');
+		$this->assign('oAttachment',$oAttachment);
+		$this->display('attachment+showflv');
+	}
+
+	public function show_wmp($oAttachment){
+		$this->assign('sAttachmentIcon',__PUBLIC__.'/images/common/media/wmp.gif');
+		$this->assign('oAttachment',$oAttachment);
+		$this->display('attachment+showwmp');
+	}
+
+	public function show_qvod($oAttachment){
+		$this->assign('sAttachmentIcon',__PUBLIC__.'/images/common/media/qvod.gif');
+		$this->assign('oAttachment',$oAttachment);
+		$this->display('attachment+showqvod');
+	}
+
+	public function show_mp3($oAttachment){
+		$this->assign('sAttachmentIcon',__PUBLIC__.'/images/common/media/mp3.gif');
+		$this->assign('oAttachment',$oAttachment);
+		$this->display('attachment+showmp3');
+	}
+
+	public function mp3list(){
+		header("Content-Type: text/xml; charset=utf-8");
+		
+		$nAttachmentcategoryid=intval(G::getGpc('cid','G'));
+		$nUserid=intval(G::getGpc('uid','G'));
+
+		echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+				<playlist version=\"1\" xmlns=\"http://xspf.org/ns/0/\">
+					<title>Ounage Playlist</title>
+					<creator>Dew</creator>
+					<link>http://www.blup.fr/</link>
+					<info>The Best Playlist</info>
+					<image>covers/0.jpg</image>
+					<trackList>";
+		
+		if($nUserid>0){
+			$arrAttachments=AttachmentModel::F('user_id=? AND attachmentcategory_id=? AND attachment_extension=?',$nUserid,$nAttachmentcategoryid,'mp3')->order('attachment_id DESC')->getAll();
+
+			if($arrAttachments){
+				foreach($arrAttachments as $oAttachment){
+					$sAttachmentcategory=$oAttachment['attachmentcategory_id']>0?$oAttachment->attachmentcategory->attachmentcategory_name:'未分类';
+					echo "<track>
+							<location>{$this->get_attachment_url($oAttachment)}</location>
+							<creator>{$oAttachment['attachment_username']}</creator>
+							<album>{$sAttachmentcategory}</album>
+							<title>{$oAttachment['attachment_name']}</title>
+							<annotation>{$oAttachment['attachment_description']}</annotation>
+							<duration>{$oAttachment['attachment_size']}</duration>
+							<image></image>
+							<info></info>
+							<link></link>
+						</track>";
+				}
+			}
+		}
+
+		echo "</trackList>
+			</playlist>";
+	}
+
+	public function get_attachmentcategory_playlist($oAttachment){
+		return $GLOBALS['_option_']['site_url'].'/index.php?app=home&c=attachment&a=mp3list&cid='.
+			$oAttachment['attachmentcategory_id'].'&uid='.$oAttachment['user_id'];
 	}
 
 }

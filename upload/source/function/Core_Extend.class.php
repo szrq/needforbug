@@ -518,8 +518,11 @@ class Core_Extend{
 
 	static public function getUploadSize($nSize=null){
 		$nReturnSize=-1;
-		$nPhpIni=ini_get('upload_max_filesize')*1048576;
+		$nUploadmaxfilesize=intval(ini_get('upload_max_filesize'));
+		$nPostmaxsize=intval(ini_get('post_max_size'));
 		
+		$nPhpIni=($nUploadmaxfilesize<=$nPostmaxsize?$nUploadmaxfilesize:$nPostmaxsize)*1048576;
+
 		if(is_null($nSize)){
 			$nSize=$GLOBALS['_option_']['uploadfile_maxsize'];
 		}
