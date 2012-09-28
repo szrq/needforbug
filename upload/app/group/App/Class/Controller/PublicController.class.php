@@ -39,5 +39,13 @@ class PublicController extends InitController{
 	public function add(){
 		$this->display('public+add');
 	}
-
+	
+	public function userGroupid($nUserid){	
+		$oGroup=GroupModel::F('user_id=?',$nUserid)->getOne();
+		$nGid=$oGroup->group_id;
+		if(empty($oGroup->user_id)){
+			$nGid=-1;
+		}
+		return $nGid;
+	}
 }
