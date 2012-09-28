@@ -533,6 +533,23 @@ function addComment(){
 		}
 	});
 }
+function addFriend(userid){
+	Dyhb.AjaxSend('<!--{:Dyhb::U('home://friend/add')}-->','ajax=1&uid='+userid,'',function(data,status){
+		if(status==1){
+			window.location.reload();
+		}
+	});
+}
+
+function deleteFriend(friendid,fan){
+	needforbugConfirm(D.L('确实要永久删除选择项吗？','__COMMON_LANG__@Admin/Common_Js'),function(){
+		Dyhb.AjaxSend(D.U('home://friend/delete?friendid='+friendid+(fan=='1'?'&fan=1':'')),'','',function(data,status){
+			if(status==1){
+				window.location.reload();
+			}
+		});
+	});
+}
 <!--{/script}-->
 		<div class="row">
 			<div class="span12">
@@ -547,9 +564,16 @@ function addComment(){
 										<!--用户名-->
 										<div class="name"><span class="man_unol" title="离线"></span><a href="/index.php?m=space&uid=292" class="J_user_card_show" data-uid="292" style="width:62px;"><!--{$oGrouptopic->grouptopic_username}--></a>
 										</div>
+										<!--{~$nAlreadyFriendId=Core_Extend::isAlreadyFriend($oGrouptopic->user_id)}-->
 										<div class="operate clear">
+											<!--{if $nAlreadyFriendId==2}-->
+											<!--{elseif $nAlreadyFriendId==1 || $nAlreadyFriendId==4}-->
+											<a rel="nofollow" href="#" style="padding-left:10px;width:60px;">取消关注</a>
+											<a rel="nofollow" href="/index.php?m=message&c=message&a=pop&username=小鸡爷爷" class="message J_send_msg_pop" data-name="小鸡爷爷" style="width:130px;"><i class="icon-envelope"></i>写私信</a>
+											<!--{elseif $nAlreadyFriendId==3}-->
 											<a rel="nofollow" href="#" style="padding-left:10px;width:60px;"><i class="icon-plus"></i>加关注</a>
 											<a rel="nofollow" href="/index.php?m=message&c=message&a=pop&username=小鸡爷爷" class="message J_send_msg_pop" data-name="小鸡爷爷" style="width:130px;"><i class="icon-envelope"></i>写私信</a>
+											<!--{/if}-->
 										</div>
 										<dl class="profile clear">
 											<dt>UID</dt><dd><!--{$oGrouptopic->user_id}-->&nbsp;</dd>

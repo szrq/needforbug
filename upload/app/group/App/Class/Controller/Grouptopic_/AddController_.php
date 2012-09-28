@@ -8,6 +8,10 @@ class AddController extends Controller{
 
 	public function index(){
 		$nGroupid=intval(G::getGpc('gid','G'));
+		//-1用作标志还没有加入任何小组的用户
+		if($nGroupid==-1){
+			$this->E('你还没有加入小组');
+		}
 
 		$oGroup=GroupModel::F('group_id=? AND group_status=1 AND group_isaudit=1',$nGroupid)->getOne();
 		if(empty($oGroup->group_id)){

@@ -13,6 +13,7 @@ class GrouptopicModel extends CommonModel{
 				'grouptopic_id'=>array('readonly'=>true),
 				'grouptopiccategory'=>array(Db::BELONGS_TO=>'GrouptopiccategoryModel','source_key'=>'grouptopiccategory_id','target_key'=>'grouptopiccategory_id'),
 				'userprofile'=>array(Db::BELONGS_TO=>'UserprofileModel','source_key'=>'user_id','target_key'=>'user_id'),
+				'grouptopiccategory'=>array(Db::BELONGS_TO=>'GrouptopiccategoryModel','source_key'=>'group_id','target_key'=>'group_id'),
 				'grouptopiccomment'=>array(Db::HAS_MANY=>'GrouptopiccommentModel','source_key'=>'grouptopic_id','target_key'=>'grouptopic_id'),
 			),
 			'attr_protected'=>'grouptopic_id',

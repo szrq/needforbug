@@ -459,7 +459,7 @@ li {
 							</table>
 						</div>
 						<div class="user_action">
-							<a href="" class="btn btn-success btn-large">发布帖子</a>
+							<a href="<!--{:Dyhb::U('group://grouptopic/add?gid='.$TheController->userGroupid($GLOBALS['___login___']['user_id']))}-->" class="btn btn-success btn-large">发布帖子</a>
 							<span class="pipe">|</span>
 							<a href="" class="btn btn-large">领取积分</a>
 						</div>
@@ -472,11 +472,10 @@ li {
 			<ul class="titles">
 <!--<foreach for=arrGrouptopic value=oGrouptopic>-->
 <li>
-	
-<h3><a href="#" target="_blank"><!--{$oGrouptopic->grouptopic_title|G+subString=0,22}--></a></h3>
+<h3><a href="#" target="_blank"><!--{$oGrouptopic->grouptopic_title|G+subString=0,20}--></a></h3>
 <span class="titles-r-grey"><!--{$oGrouptopic->grouptopic_comments}--></span>
 <p class="titles-b">
-<span class="titles-b-l">来自：<a title="sdfsdfsdf" target="_blank" href="#"><!--{$oGrouptopic->grouptopic_username}--></a>&nbsp;小组</span>
+<span class="titles-b-l">来自：<a title="sdfsdfsdf" target="_blank" href="#"><!--{$oGrouptopic->grouptopic_username}--></a>&nbsp;<!--{$oGrouptopic->grouptopiccategory->grouptopiccategory_name}--></span>
 </p>
 </li>
 <!--</foreach>-->
