@@ -86,6 +86,7 @@ function cancelNewattachmentcategory(){
 
 <!--{style}-->
 #flash-upload-ui li{list-style:none;}
+.upload_type a{margin-bottom:5px;}
 <!--{/style}-->
 				
 				<form enctype="multipart/form-data" method="post" action="<!--{:Dyhb::U('home://attachment/normal_upload')}-->" id="attachment_form" name="attachment_form">
@@ -126,7 +127,7 @@ function cancelNewattachmentcategory(){
 							</select>
 						</p>
 						<p><h3>允许的上传类型</h3>
-							<p><!--<foreach for=arrAllowedTypes value=sAllowedType>-->
+							<p class="upload_type"><!--<foreach for=arrAllowedTypes value=sAllowedType>-->
 								<a href="<!--{:Dyhb::U('home://attachment/my_attachment?type='.$sAllowedType)}-->" class="btn btn-mini"><!--{$sAllowedType}--></a>&nbsp;
 								<!--</foreach>-->
 							</p>
@@ -154,7 +155,7 @@ function cancelNewattachmentcategory(){
 							</select>
 						</p>
 						<p><h3>允许的上传类型</h3>
-							<p><!--<foreach for=arrAllowedTypes value=sAllowedType>-->
+							<p class="upload_type"><!--<foreach for=arrAllowedTypes value=sAllowedType>-->
 								<a href="<!--{:Dyhb::U('home://attachment/my_attachment?type='.$sAllowedType)}-->" class="btn btn-mini"><!--{$sAllowedType}--></a>&nbsp;
 								<!--</foreach>-->
 							</p>
