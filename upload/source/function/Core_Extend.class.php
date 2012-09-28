@@ -1011,4 +1011,11 @@ NEEDFORBUG;
 			$oAttachment['attachment_savepath'].'/'.$oAttachment['attachment_savename'];
 	}
 
+	static public function getAttachmenturlin($oAttachment,$bThumb=false){
+		return $oAttachment['attachment_isthumb'] && $bThumb===true?
+				__ROOT__.'/data/upload/attachment/'.$oAttachment['attachment_thumbpath'].'/'.
+				$oAttachment['attachment_thumbprefix'].$oAttachment['attachment_savename']:
+				__ROOT__.'/data/upload/attachment/'.$oAttachment['attachment_savepath'].'/'.$oAttachment['attachment_savename'];
+	}
+
 }

@@ -526,7 +526,7 @@ class AttachmentController extends InitController{
 	}
 
 	public function edit_attachment(){
-		$this->E=intval(G::getGpc('id'));
+		$nAttachmentid=intval(G::getGpc('id'));
 
 		if(empty($nAttachmentid)){
 			$this->E('你没有选择你要编辑的附件');
