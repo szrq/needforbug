@@ -369,16 +369,16 @@ class AttachmentController extends InitController{
 		$sFunction=trim(G::getGpc('function','G'));
 
 		if(empty($nAttachmentcategoryid)){
-			exit('你没有选择你要编辑的专辑');
+			$this->E('你没有选择你要编辑的专辑');
 		}
 
 		$oAttachmentcategory=AttachmentcategoryModel::F('attachmentcategory_id=?',$nAttachmentcategoryid)->getOne();
 		if(empty($oAttachmentcategory['attachmentcategory_id'])){
-			exit('你要编辑的专辑不存在');
+			$this->E('你要编辑的专辑不存在');
 		}
 
 		if($oAttachmentcategory['user_id']!=$GLOBALS['___login___']['user_id']){
-			exit('你不能编辑别人的专辑');
+			$this->E('你不能编辑别人的专辑');
 		}
 
 		$this->assign('oAttachmentcategory',$oAttachmentcategory);
@@ -526,19 +526,19 @@ class AttachmentController extends InitController{
 	}
 
 	public function edit_attachment(){
-		$nAttachmentid=intval(G::getGpc('id'));
+		$this->E=intval(G::getGpc('id'));
 
 		if(empty($nAttachmentid)){
-			exit('你没有选择你要编辑的附件');
+			$this->E('你没有选择你要编辑的附件');
 		}
 
 		$oAttachment=AttachmentModel::F('attachment_id=?',$nAttachmentid)->getOne();
 		if(empty($oAttachment['attachment_id'])){
-			exit('你要编辑的附件不存在');
+			$this->E('你要编辑的附件不存在');
 		}
 
 		if($oAttachment['user_id']!=$GLOBALS['___login___']['user_id']){
-			exit('你不能编辑别人的附件');
+			$this->E('你不能编辑别人的附件');
 		}
 
 		$this->assign('oAttachment',$oAttachment);
@@ -833,7 +833,7 @@ class AttachmentController extends InitController{
 		$sFlashpath=trim(G::getGpc('url','G'));
 
 		if(empty($sFlashpath)){
-			Dyhb::E('没有指定播放的flash');
+			$this->E('没有指定播放的flash');
 		}
 		
 		$this->assign('sFlashpath',$sFlashpath);

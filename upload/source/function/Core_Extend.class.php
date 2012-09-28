@@ -983,4 +983,32 @@ NEEDFORBUG;
 		return $sContent;
 	}
 
+	static public function getAttachmenttype($oAttachment){
+		$arrAttachmentTypes=array(
+			'img'=>array('jpg','jpeg','gif','png','bmp'),
+			'swf'=>array('swf'),
+			'wmp'=>array('wma','asf','wmv','avi','wav'),
+			'mp3'=>array('mp3'),
+			'qvod'=>array('rm','rmvb','ra','ram'),
+			'flv'=>array('flv','mp4'),
+			'url'=>array('html','htm','txt'),
+			'download'=>array(),
+		);
+		
+		$sAttachmentExtension=$oAttachment['attachment_extension'];
+
+		foreach($arrAttachmentTypes as $sKey=>$arrAttachmentType){
+			if(in_array($sAttachmentExtension,$arrAttachmentType)){
+				return $sKey;
+			}
+		}
+			
+		return 'download';
+	}
+
+	static public function getAttachmenturl($oAttachment){
+		return $GLOBALS['_option_']['site_url'].'/data/upload/attachment/'.
+			$oAttachment['attachment_savepath'].'/'.$oAttachment['attachment_savename'];
+	}
+
 }
