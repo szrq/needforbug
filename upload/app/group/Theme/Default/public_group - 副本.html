@@ -1,0 +1,857 @@
+<!--<include file="Core_Extend::template('header')" />-->
+
+<link href="http://bmforum.net/images/bsd12/styles.css2" rel="stylesheet">
+
+
+
+		<ul class="breadcrumb">
+			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
+			<li><a href="<!--{:Dyhb::U('group://public/index')}-->">首页</a></li>
+		</ul>
+<ul class="nav nav-tabs"><li><a href="<!--{:Dyhb::U('group://public/index')}-->">新帖</a></li><li  class="active"><a href="<!--{:Dyhb::U('group://public/group')}-->">小组</a></li></ul>
+		
+	<!--{style}-->
+.announcement { 
+/* announcement color */
+  color:#ffffff;
+  font-weight:bold;
+  padding: 7px 14px;
+  margin: 0 0 18px;
+  background-color: #3083BE;
+  -webkit-border-radius: 3px 3px 0px 0px;
+  -moz-border-radius: 3px 3px 0px 0px;
+  border-radius: 3px 3px 0px 0px;
+}
+
+
+.categoryfontcolor_normal{
+/* no text-decoration */
+	color: #FFFFFF;
+}
+.categoryfontcolor_normal a {
+	text-decoration:none;
+	color:#FFFFFF;
+}
+.categoryfontcolor_normal a:hover {
+	text-decoration:underline;
+	color:#FFFFFF;
+}
+
+#announcement_c ul.line{margin-left:14px;width:100%; height:15px; overflow:hidden;}
+#announcement_c li{height:15px;font-size:12px; line-height:17px;list-style:none}
+
+.backtdbottom {
+	border-bottom: 1px solid #DDDDDD;
+}
+.jiazhongcolor{ /* bolder color */
+	color: #444444;
+}
+.jiazhongcolor a {
+	text-decoration:none;
+	color:#444444;
+}
+.jiazhongcolor a:hover {
+	text-decoration:underline;
+	color:#ff6600;
+}
+.noptd{
+/* for ie6 */
+  padding:0px;
+}
+.indexalign2 {
+	text-align : left;
+	background-color: #ECF3FB;
+	height: 18px;
+} .tablebg {
+	border-bottom: #DDDDDD 1px solid;
+	background-color: #F0F0F0;
+}.titlefontcolor{
+	color:#444444;
+}
+.titlefontcolor a{
+	text-decoration:none;
+	color:#444444;
+}
+.titlefontcolor a:hover {
+	text-decoration:underline;
+	color:#444444;
+}/* forum display color 1*/
+	background-color: #ffffff;
+}
+.forumcoloronecolor:hover{
+/* onmouseover forumcolor  */
+	background-color: #F0F0F0;
+}
+.forumcoloronecolor_nohover {
+	background-color: #ffffff;
+}
+.forumcoloronecoloronly {
+	background-color: #ffffff;
+	width: 100%;
+}.border_bottom_forum {
+	border-bottom: 1px solid #DDDDDD;
+}.forumdescolor{
+	color:#444444;
+}/* forum name link */
+.forumnamecolor{
+	font-family:verdana;
+	color: #444444;
+}
+.forumnamelink a {
+	text-decoration:none;
+	font-weight:bold;
+	color:#444444;
+}
+.forumnamelink a:hover {
+	font-weight:bold;
+	text-decoration:underline;
+	color:#ff6600;
+}.indexsummaryalgin {
+/* index latest post */
+	text-align: left;
+}
+
+.forum_space{margin:1px 0px}
+	<!--{/style}-->
+		
+		<div class="row">
+			<div class="span12">
+				
+				<table cellpadding="5" cellspacing="1" border="0" class="tableborder" align="left" style="width:100%;">
+					<tr>
+					<td class="announcement" colspan="5">
+					<span class="categoryfontcolor_normal"><a href="announcesys.php">公告</a></span></td>
+					</tr>
+					<tr>
+					<td style="padding-left:0px;padding-right:0px;">
+					<div id="announcement_c" class="backtdbottom">
+					<ul class="line"><li>
+					<span class='jiazhongcolor'><strong><a href="announcesys.php?job=read&amp;msg=1">为了获得更好的效果，请使用 Chrome 等现代浏览器浏览</a></strong></span> (2012-04-03 00:01)
+					</li><li>
+					<span class='jiazhongcolor'><strong><a href="announcesys.php?job=read&amp;msg=2">BMForum 寻求用户对功能重新布局的建议</a></strong></span> (2008-06-08 14:48)
+					</li><li>
+					<span class='jiazhongcolor'><strong><a href="announcesys.php?job=read&amp;msg=3">BMForum Myna 6.0 当前新亮点</a></strong></span> (2007-10-09 20:44)
+					</li><li>
+					<span class='jiazhongcolor'><strong><a href="announcesys.php?job=read&amp;msg=4">BMForum 新版首页试运行中</a></strong></span> (2006-12-17 17:18)
+					</li><li>
+					<span class='jiazhongcolor'><strong><a href="announcesys.php?job=read&amp;msg=5">BMForum 开发组期待你的加入</a></strong></span> (2006-02-05 11:00)
+					</li><li>
+					<span class='jiazhongcolor'><strong><a href="announcesys.php?job=read&amp;msg=6">对采用BMForum的政府和大型论坛提供付费技术支持优惠政策</a></strong></span> (2006-01-19 16:03)
+					</li></ul>
+					</div>
+					</td>
+					</tr>
+				</table>
+				<script>
+				$(function(){
+				var _wrap=$('ul.line');
+				var _interval=4000;
+				var _moving;
+				_wrap.hover(function(){
+				clearInterval(_moving);
+				},function(){
+				_moving=setInterval(function(){
+				var _field=_wrap.find('li:first');
+				var _h=_field.height();
+				_field.animate({marginTop:-_h+'px'},600,function(){
+				_field.css('marginTop',0).appendTo(_wrap);
+				})
+				},_interval)
+				}).trigger('mouseleave');
+				});
+				</script><script type="text/javascript">
+				//<![CDATA[ 
+				function adminjump(list) { 
+				var myindex1  = list.selectedIndex;  
+				var newwindow = list.options[myindex1].value; 
+				if (newwindow != "") { var msgwindow = window.open(newwindow,"",""); }
+				}
+				//]]>>
+				</script>
+				<div class="forum_space">&nbsp;</div>
+				<table border="0" cellspacing="0" cellpadding="0" align="left" class="tableborder" style="width:100%;">
+					<tr>
+					<td class="noptd">
+					<table cellpadding="4" cellspacing="1" width="100%" border="0">
+					<tr>
+					<td colspan="7" class="announcement">
+					<span class="categoryfontcolor_normal"><div style='display:inline;float:left;'><a href="index.php?cateid=1106559916">
+					<img src='http://bmforum.net/images/bsd12/category.gif' border="0" alt="" />新版论坛<img src='http://bmforum.net/images/bsd12/category.gif' alt="" border="0" />
+					</a></div><div style='display:inline;float:right;'></div></span>
+					</td>
+					</tr>
+					<tr class="indexalign2">
+					<td width="*" class="tablebg" colspan="2">
+					<span class="titlefontcolor">讨论区名称</span></td>
+					<td width="40" class="tablebg">
+					<span class="titlefontcolor">主题</span></td>
+					<td width="40" class="tablebg">
+					<span class="titlefontcolor">回复</span></td>
+					<td width="168" class="tablebg">
+					<span class="titlefontcolor">最后更新</span></td>
+					</tr><tr align="center" valign="middle" class="forumcoloronecolor">
+					<td width="26" class="border_bottom_forum">
+					<a onfocus="this.blur()" href="forums.php?forumid=1106559915"><img src='http://bmforum.net/images/bsd12/forum.gif' border="0" alt="" /></a></td>
+					<td width="*" align="left" class="border_bottom_forum">
+					<table width="100%" cellpadding="1">
+					<tr>
+					<td width="*" rowspan="2"></td>
+					<td width="1" rowspan="2"></td>
+					<td width="100%" height="10"><span class='forumnamelink'><a onfocus='this.blur();' href="forums_1106559915">新论坛筹备区</a></span> (9)
+					</td>
+					</tr>
+					<tr>
+					<td valign="top"><span class="forumdescolor">欢迎大家讨论新版论坛，我们会在这里提供第一消息，也希望大家多提宝贵建议。</span> </td>
+					</tr>
+					</table>
+					</td>
+					<td width="40" valign="middle" align="center" class="border_bottom_forum">
+					<span class="cau">58</span></td>
+					<td width="40" valign="middle" align="center" class="border_bottom_forum">
+					<span class="cau">211</span></td>
+					<td width="168" align="right" class="border_bottom_forum">
+					<table width="100%" align="right">
+					<tr>
+					<td width="2%" align="right">&nbsp;</td>
+					<td class="indexsummaryalgin"><a title="RE:6.5不知道什么时候发布，都隔了很久很久 PW9 DX2.5都有了！ - 21sta" href="topic_170165_last#postend">RE:6.5不知道什么时..</a><br />2012-09-09 04:05</td>
+					</tr>
+					</table>
+					</td>
+					</tr></table>
+					</td>
+					</tr>
+				</table>
+
+
+				<div class="forum_space">&nbsp;</div>
+				<table border="0" cellspacing="0" cellpadding="0" align="left" class="tableborder" style="width:100%;">
+					<tr>
+					<td class="noptd">
+					<table cellpadding="4" cellspacing="1" width="100%" border="0">
+					<tr>
+					<td colspan="3" class="announcement">
+					<span class="categoryfontcolor_normal"><div style='display:inline;float:left;'><a href="index.php?cateid=1089537213">
+					<img src='http://bmforum.net/images/bsd12/category.gif' border="0" alt="" />BMForum 讨论专区 Discussing BMForum<img src='http://bmforum.net/images/bsd12/category.gif' border="0" alt="" />
+					</a></div><div style='display:inline;float:right;'></div></span></td>
+					</tr><tr align="center" valign="middle" class="forumcolortwo_noalign backtdbottom"><td style="table-layout: fixed;word-wrap: break-word;" width="33%" class="forumcoloronecolor" align="left">
+					<table width="100%" cellpadding="0" title="提出关于 BMForum 功能、创意，以及推广等方面的设想和建议">
+					<tr>
+					<td width="*"><img src="http://bmforum.net/images/bsd12/forum.gif" border="0" alt="" /></td>
+					<td width="*"></td>
+					<td width="100%" style="padding-left:2px;"><strong><span class='forumnamelink'><a onfocus='this.blur();' title="提出关于 BMForum 功能、创意，以及推广等方面的设想和建议" href="forums_1106559898">发展建议 Advice</a></span></strong> (9)<br />
+					<span class="forumdescolor">主题 430 / 回复 1341</span> <br /></td>
+					</tr>
+					</table>
+					</td><td style="table-layout: fixed;word-wrap: break-word;" width="33%" class="forumcoloronecolor" align="left">
+					<table width="100%" cellpadding="0" title="一切关于数据库版 BMForum 的安装使用疑难解答.">
+					<tr>
+					<td width="*"><img src="http://bmforum.net/images/bsd12/forum.gif" border="0" alt="" /></td>
+					<td width="*"></td>
+					<td width="100%" style="padding-left:2px;"><strong><span class='forumnamelink'><a onfocus='this.blur();' title="一切关于数据库版 BMForum 的安装使用疑难解答." href="forums_82">安装使用 Installing</a></span></strong> (9)<br />
+					<span class="forumdescolor">主题 3357 / 回复 11175</span> <br /></td>
+					</tr>
+					</table>
+					</td><td style="table-layout: fixed;word-wrap: break-word;" width="33%" class="forumcoloronecolor" align="left">
+					<table width="100%" cellpadding="0" title="报告、反馈 BMForum 现存和可能的 Bug！如果是使用上的问题，请发到 安装使用版。">
+					<tr>
+					<td width="*"><img src="http://bmforum.net/images/bsd12/forum.gif" border="0" alt="" /></td>
+					<td width="*"></td>
+					<td width="100%" style="padding-left:2px;"><strong><span class='forumnamelink'><a onfocus='this.blur();' title="报告、反馈 BMForum 现存和可能的 Bug！如果是使用上的问题，请发到 安装使用版。" href="forums_1106559899">Bug 报告 Report</a></span></strong> (9)<br />
+					<span class="forumdescolor">主题 399 / 回复 987</span> <br /></td>
+					</tr>
+					</table>
+					</td></tr><tr align="center" valign="middle" class="forumcolortwo_noalign backtdbottom"><td style="table-layout: fixed;word-wrap: break-word;" width="33%" class="forumcoloronecolor" align="left">
+					<table width="100%" cellpadding="0" title="PHP,MySQL,Apache 等环境架设方案，交流，讨论。">
+					<tr>
+					<td width="*"><img src="http://bmforum.net/images/bsd12/forum.gif" border="0" alt="" /></td>
+					<td width="*"></td>
+					<td width="100%" style="padding-left:2px;"><strong><span class='forumnamelink'><a onfocus='this.blur();' title="PHP,MySQL,Apache 等环境架设方案，交流，讨论。" href="forums_1106559905">环境架设 Environment</a></span></strong> (9)<br />
+					<span class="forumdescolor">主题 73 / 回复 144</span> <br /></td>
+					</tr>
+					</table>
+					</td><td style="table-layout: fixed;word-wrap: break-word;" width="33%" class="forumcoloronecolor" align="left">
+					<table width="100%" cellpadding="0" title="其他论坛到 BMForum 数据转换互帮互助，问题解答专栏。">
+					<tr>
+					<td width="*"><img src="http://bmforum.net/images/bsd12/forum.gif" border="0" alt="" /></td>
+					<td width="*"></td>
+					<td width="100%" style="padding-left:2px;"><strong><span class='forumnamelink'><a onfocus='this.blur();' title="其他论坛到 BMForum 数据转换互帮互助，问题解答专栏。" href="forums_1106559907">数据转换 - 大家帮助大家 - Converting</a></span></strong> (9)<br />
+					<span class="forumdescolor">主题 105 / 回复 171</span> <br /></td>
+					</tr>
+					</table>
+					</td><td style="table-layout: fixed;word-wrap: break-word;" width="33%" class="forumcoloronecolor" align="left">
+					<table width="100%" cellpadding="0" title="Discussing BMForum in your language!">
+					<tr>
+					<td width="*"><img src="http://bmforum.net/images/bsd12/forum.gif" border="0" alt="" /></td>
+					<td width="*"></td>
+					<td width="100%" style="padding-left:2px;"><strong><span class='forumnamelink'><a onfocus='this.blur();' title="Discussing BMForum in your language!" href="forums_86">多重語言 International</a></span></strong> (45)<br />
+					<span class="forumdescolor">主题 118 / 回复 371</span> <br /></td>
+					</tr>
+					</table>
+					</td></tr></table>
+					</td>
+					</tr>
+				</table>
+				<div class="forum_space">&nbsp;</div>
+				<table border="0" cellspacing="0" cellpadding="0" align="left" class="tableborder" width="100%">
+					<tr>
+					<td class="noptd">
+					<table cellpadding="4" cellspacing="1" width="100%" border="0">
+					<tr>
+					<td colspan="7" class="announcement">
+					<span class="categoryfontcolor_normal"><div style='display:inline;float:left;'><a href="index.php?cateid=1106559891">
+					<img src='http://bmforum.net/images/bsd12/category.gif' border="0" alt="" />资源区 Resources<img src='http://bmforum.net/images/bsd12/category.gif' alt="" border="0" />
+					</a></div><div style='display:inline;float:right;'></div></span>
+					</td>
+					</tr>
+					<tr class="indexalign2">
+					<td width="*" class="tablebg" colspan="2">
+					<span class="titlefontcolor">讨论区名称</span></td>
+					<td width="40" class="tablebg">
+					<span class="titlefontcolor">主题</span></td>
+					<td width="40" class="tablebg">
+					<span class="titlefontcolor">回复</span></td>
+					<td width="168" class="tablebg">
+					<span class="titlefontcolor">最后更新</span></td>
+					</tr><tr align="center" valign="middle" class="forumcoloronecolor">
+					<td width="26" class="border_bottom_forum">
+					<a onfocus="this.blur()" href="forums.php?forumid=4"><img src='http://bmforum.net/images/bsd12/forum.gif' border="0" alt="" /></a></td>
+					<td width="*" align="left" class="border_bottom_forum">
+					<table width="100%" cellpadding="1">
+					<tr>
+					<td width="*" rowspan="2"></td>
+					<td width="1" rowspan="2"></td>
+					<td width="100%" height="10"><span class='forumnamelink'><a onfocus='this.blur();' href="forums_4">论坛发布 Release</a></span> (27)
+					</td>
+					</tr>
+					<tr>
+					<td valign="top"><span class="forumdescolor">BMForum 程序和补丁发布 PHP论坛下载(BMForum PHP论坛 完全免费!)</span> <br /><strong>子论坛:</strong> <a href="forums_79">文档说明 Documents</a>, <a href="forums_1106559892">内部测试 Alpha Testing</a></td>
+					</tr>
+					</table>
+					</td>
+					<td width="40" valign="middle" align="center" class="border_bottom_forum">
+					<span class="cau">217</span></td>
+					<td width="40" valign="middle" align="center" class="border_bottom_forum">
+					<span class="cau">1943</span></td>
+					<td width="168" align="right" class="border_bottom_forum">
+					<table width="100%" align="right">
+					<tr>
+					<td width="2%" align="right">&nbsp;</td>
+					<td class="indexsummaryalgin"><a title="RE:BMForum 6.5 内部测试版 - 21sta" href="topic_170125_last#postend">RE:BMForum 6..</a><br />2012-08-24 01:16</td>
+					</tr>
+					</table>
+					</td>
+					</tr><tr align="center" valign="middle" class="forumcoloronecolor">
+					<td width="26" class="border_bottom_forum">
+					<a onfocus="this.blur()" href="forums.php?forumid=80"><img src='http://bmforum.net/images/bsd12/forum.gif' border="0" alt="" /></a></td>
+					<td width="*" align="left" class="border_bottom_forum">
+					<table width="100%" cellpadding="1">
+					<tr>
+					<td width="*" rowspan="2"></td>
+					<td width="1" rowspan="2"></td>
+					<td width="100%" height="10"><span class='forumnamelink'><a onfocus='this.blur();' href="forums_80">风格讨论区 Templates</a></span> (18)
+					</td>
+					</tr>
+					<tr>
+					<td valign="top"><span class="forumdescolor">探讨风格模板制作经验，提出对风格模板的建议</span> <br /><strong>子论坛:</strong> <a href="forums_85">精选风格区 Best Skins</a></td>
+					</tr>
+					</table>
+					</td>
+					<td width="40" valign="middle" align="center" class="border_bottom_forum">
+					<span class="cau">811</span></td>
+					<td width="40" valign="middle" align="center" class="border_bottom_forum">
+					<span class="cau">10284</span></td>
+					<td width="168" align="right" class="border_bottom_forum">
+					<table width="100%" align="right">
+					<tr>
+					<td width="2%" align="right">&nbsp;</td>
+					<td class="indexsummaryalgin"><a title="RE:一个风格效果图，喜欢的朋友可以看一下 - link007" href="topic_120927_last#postend">RE:一个风格效果图，喜..</a><br />2012-05-18 17:08</td>
+					</tr>
+					</table>
+					</td>
+					</tr><tr align="center" valign="middle" class="forumcoloronecolor">
+					<td width="26" class="border_bottom_forum">
+					<a onfocus="this.blur()" href="forums.php?forumid=2"><img src='http://bmforum.net/images/bsd12/forum.gif' border="0" alt="" /></a></td>
+					<td width="*" align="left" class="border_bottom_forum">
+					<table width="100%" cellpadding="1">
+					<tr>
+					<td width="*" rowspan="2"></td>
+					<td width="1" rowspan="2"></td>
+					<td width="100%" height="10"><span class='forumnamelink'><a onfocus='this.blur();' href="forums_2">个性插件 Plug-ins</a></span> (18)
+					</td>
+					</tr>
+					<tr>
+					<td valign="top"><span class="forumdescolor">超酷的BMForum 插件，你不想试试么？</span> <br /><strong>子论坛:</strong> <a href="forums_89">精选插件区 Best Plug-ins</a></td>
+					</tr>
+					</table>
+					</td>
+					<td width="40" valign="middle" align="center" class="border_bottom_forum">
+					<span class="cau">1933</span></td>
+					<td width="40" valign="middle" align="center" class="border_bottom_forum">
+					<span class="cau">11517</span></td>
+					<td width="168" align="right" class="border_bottom_forum">
+					<table width="100%" align="right">
+					<tr>
+					<td width="2%" align="right">&nbsp;</td>
+					<td class="indexsummaryalgin"><a title="RE:论坛广告点击奖励插件 - acesse" href="topic_137354_last#postend">RE:论坛广告点击奖励插..</a><br />2012-02-11 11:46</td>
+					</tr>
+					</table>
+					</td>
+					</tr><tr align="center" valign="middle" class="forumcoloronecolor">
+					<td width="26" class="border_bottom_forum">
+					<a onfocus="this.blur()" href="forums.php?forumid=1106559896"><img src='http://bmforum.net/images/bsd12/forum.gif' border="0" alt="" /></a></td>
+					<td width="*" align="left" class="border_bottom_forum">
+					<table width="100%" cellpadding="1">
+					<tr>
+					<td width="*" rowspan="2"></td>
+					<td width="1" rowspan="2"></td>
+					<td width="100%" height="10"><span class='forumnamelink'><a onfocus='this.blur();' href="forums_1106559896">论坛服务 Business Service</a></span> (9)
+					</td>
+					</tr>
+					<tr>
+					<td valign="top"><span class="forumdescolor">提供论坛商业技术支持服务，为论坛商业用户和有高级技术支持需求的用户提供周到服务。</span> </td>
+					</tr>
+					</table>
+					</td>
+					<td width="40" valign="middle" align="center" class="border_bottom_forum">
+					<span class="cau">23</span></td>
+					<td width="40" valign="middle" align="center" class="border_bottom_forum">
+					<span class="cau">65</span></td>
+					<td width="168" align="right" class="border_bottom_forum">
+					<table width="100%" align="right">
+					<tr>
+					<td width="2%" align="right">&nbsp;</td>
+					<td class="indexsummaryalgin"><a title="RE:关于本论坛整合问题 - 5568904" href="topic_160264_last#postend">RE:关于本论坛整合问题..</a><br />2011-06-27 18:47</td>
+					</tr>
+					</table>
+					</td>
+					</tr><tr align="center" valign="middle" class="forumcoloronecolor">
+					<td width="26" class="border_bottom_forum">
+					<a onfocus="this.blur()" href="forums.php?forumid=70"><img src='http://bmforum.net/images/bsd12/forum.gif' border="0" alt="" /></a></td>
+					<td width="*" align="left" class="border_bottom_forum">
+					<table width="100%" cellpadding="1">
+					<tr>
+					<td width="*" rowspan="2"></td>
+					<td width="1" rowspan="2"></td>
+					<td width="100%" height="10"><span class='forumnamelink'><a onfocus='this.blur();' href="forums_70">功能测试 Test Zone</a></span> (9)
+					</td>
+					</tr>
+					<tr>
+					<td valign="top"><span class="forumdescolor">测试论坛功能区</span> </td>
+					</tr>
+					</table>
+					</td>
+					<td width="40" valign="middle" align="center" class="border_bottom_forum">
+					<span class="cau">466</span></td>
+					<td width="40" valign="middle" align="center" class="border_bottom_forum">
+					<span class="cau">738</span></td>
+					<td width="168" align="right" class="border_bottom_forum">
+					<table width="100%" align="right">
+					<tr>
+					<td width="2%" align="right">&nbsp;</td>
+					<td class="indexsummaryalgin"><a title="ceshi a !! - hker" href="topic_170040_last#postend">ceshi a !!</a><br />2012-05-03 21:17</td>
+					</tr>
+					</table>
+					</td>
+					</tr></table>
+					</td>
+					</tr>
+				</table>
+				<div class="forum_space">&nbsp;</div>
+				<table border="0" cellspacing="0" cellpadding="0" align="left" class="tableborder" width="100%">
+					<tr>
+					<td class="noptd">
+					<table cellpadding="4" cellspacing="1" width="100%" border="0">
+					<tr>
+					<td colspan="7" class="announcement">
+					<span class="categoryfontcolor_normal"><div style='display:inline;float:left;'><a href="index.php?cateid=1082278839">
+					<img src='http://bmforum.net/images/bsd12/category.gif' border="0" alt="" />互动交流区 Interaction<img src='http://bmforum.net/images/bsd12/category.gif' alt="" border="0" />
+					</a></div><div style='display:inline;float:right;'></div></span>
+					</td>
+					</tr>
+					<tr class="indexalign2">
+					<td width="*" class="tablebg" colspan="2">
+					<span class="titlefontcolor">讨论区名称</span></td>
+					<td width="40" class="tablebg">
+					<span class="titlefontcolor">主题</span></td>
+					<td width="40" class="tablebg">
+					<span class="titlefontcolor">回复</span></td>
+					<td width="168" class="tablebg">
+					<span class="titlefontcolor">最后更新</span></td>
+					</tr><tr align="center" valign="middle" class="forumcoloronecolor">
+					<td width="26" class="border_bottom_forum">
+					<a onfocus="this.blur()" href="forums.php?forumid=71"><img src='http://bmforum.net/images/bsd12/forum.gif' border="0" alt="" /></a></td>
+					<td width="*" align="left" class="border_bottom_forum">
+					<table width="100%" cellpadding="1">
+					<tr>
+					<td width="*" rowspan="2"></td>
+					<td width="1" rowspan="2"></td>
+					<td width="100%" height="10"><span class='forumnamelink'><a onfocus='this.blur();' href="forums_71">建站讨论 Web Sites Building</a></span> (9)
+					</td>
+					</tr>
+					<tr>
+					<td valign="top"><span class="forumdescolor">交流网站建设技术和经验(开发技术及网页美工设计等),讨论各类网络资源的合理利用和分享.</span> </td>
+					</tr>
+					</table>
+					</td>
+					<td width="40" valign="middle" align="center" class="border_bottom_forum">
+					<span class="cau">1130</span></td>
+					<td width="40" valign="middle" align="center" class="border_bottom_forum">
+					<span class="cau">2575</span></td>
+					<td width="168" align="right" class="border_bottom_forum">
+					<table width="100%" align="right">
+					<tr>
+					<td width="2%" align="right">&nbsp;</td>
+					<td class="indexsummaryalgin"><a title="交互式多媒体网站：谷歌SEO常见错误 - 1942442104" href="topic_170164_last#postend">交互式多媒体网站：谷歌S..</a><br />2012-09-07 18:04</td>
+					</tr>
+					</table>
+					</td>
+					</tr><tr align="center" valign="middle" class="forumcoloronecolor">
+					<td width="26" class="border_bottom_forum">
+					<a onfocus="this.blur()" href="forums.php?forumid=6"><img src='http://bmforum.net/images/bsd12/forum.gif' border="0" alt="" /></a></td>
+					<td width="*" align="left" class="border_bottom_forum">
+					<table width="100%" cellpadding="1">
+					<tr>
+					<td width="*" rowspan="2"></td>
+					<td width="1" rowspan="2"></td>
+					<td width="100%" height="10"><span class='forumnamelink'><a onfocus='this.blur();' href="forums_6">资讯 下载 News and Downloads</a></span> (9)
+					</td>
+					</tr>
+					<tr>
+					<td valign="top"><span class="forumdescolor">下载最新软件、音乐、电影等等超人气文件，最新科技资讯尽在此处。</span> </td>
+					</tr>
+					</table>
+					</td>
+					<td width="40" valign="middle" align="center" class="border_bottom_forum">
+					<span class="cau">1234</span></td>
+					<td width="40" valign="middle" align="center" class="border_bottom_forum">
+					<span class="cau">2179</span></td>
+					<td width="168" align="right" class="border_bottom_forum">
+					<table width="100%" align="right">
+					<tr>
+					<td width="2%" align="right">&nbsp;</td>
+					<td class="indexsummaryalgin"><a title="RE: - 50174356" href="topic_168529_last#postend">RE:</a><br />2012-01-13 11:18</td>
+					</tr>
+					</table>
+					</td>
+					</tr><tr align="center" valign="middle" class="forumcoloronecolor">
+					<td width="26" class="border_bottom_forum">
+					<a onfocus="this.blur()" href="forums.php?forumid=1106559897"><img src='http://bmforum.net/images/bsd12/forum_lock.gif' border="0" alt="" /></a></td>
+					<td width="*" align="left" class="border_bottom_forum">
+					<table width="100%" cellpadding="1">
+					<tr>
+					<td width="*" rowspan="2"></td>
+					<td width="1" rowspan="2"></td>
+					<td width="100%" height="10"><span class='forumnamelink'><a onfocus='this.blur();' href="forums_1106559897">梦游科技 MEYU</a></span> (9)
+					</td>
+					</tr>
+					<tr>
+					<td valign="top"><span class="forumdescolor">5年的运营经验,华人海内外运营(中英文客服) / 全权拥有服务器硬件, 并非租用自其它IDC </span> </td>
+					</tr>
+					</table>
+					</td>
+					<td width="40" valign="middle" align="center" class="border_bottom_forum">
+					<span class="cau">8</span></td>
+					<td width="40" valign="middle" align="center" class="border_bottom_forum">
+					<span class="cau">22</span></td>
+					<td width="168" align="right" class="border_bottom_forum">
+					<table width="100%" align="right">
+					<tr>
+					<td width="2%" align="right">&nbsp;</td>
+					<td class="indexsummaryalgin"><a title="RE:贵站主机实在是电信访问有点慢 - chinacc" href="topic_130367_last#postend">RE:贵站主机实在是电信..</a><br />2007-02-22 12:01</td>
+					</tr>
+					</table>
+					</td>
+					</tr><tr align="center" valign="middle" class="forumcoloronecolor">
+					<td width="26" class="border_bottom_forum">
+					<a onfocus="this.blur()" href="forums.php?forumid=1106559917"><img src='http://bmforum.net/images/bsd12/forum.gif' border="0" alt="" /></a></td>
+					<td width="*" align="left" class="border_bottom_forum">
+					<table width="100%" cellpadding="1">
+					<tr>
+					<td width="*" rowspan="2"></td>
+					<td width="1" rowspan="2"></td>
+					<td width="100%" height="10"><span class='forumnamelink'><a onfocus='this.blur();' href="forums_1106559917">招聘信息 Jobs</a></span> (9)
+					</td>
+					</tr>
+					<tr>
+					<td valign="top"><span class="forumdescolor">可以在这里发表有关于PHP等互联网人才的招聘信息</span> </td>
+					</tr>
+					</table>
+					</td>
+					<td width="40" valign="middle" align="center" class="border_bottom_forum">
+					<span class="cau">33</span></td>
+					<td width="40" valign="middle" align="center" class="border_bottom_forum">
+					<span class="cau">95</span></td>
+					<td width="168" align="right" class="border_bottom_forum">
+					<table width="100%" align="right">
+					<tr>
+					<td width="2%" align="right">&nbsp;</td>
+					<td class="indexsummaryalgin"><a title="RE:杰薄斯贸易（上海）有限公司 �诚聘 PHP - ilovejamy" href="topic_170101_last#postend">RE:杰薄斯贸易（上海）..</a><br />2012-07-24 15:45</td>
+					</tr>
+					</table>
+					</td>
+					</tr></table>
+					</td>
+					</tr>
+				</table>
+				<div class="forum_space">&nbsp;</div>
+				<table border="0" cellspacing="0" cellpadding="0" align="left" class="tableborder" width="100%">
+					<tr>
+					<td class="noptd">
+					<table cellpadding="4" cellspacing="1" width="100%" border="0">
+					<tr>
+					<td colspan="7" class="announcement">
+					<span class="categoryfontcolor_normal"><div style='display:inline;float:left;'><a href="index.php?cateid=1106559904">
+					<img src='http://bmforum.net/images/bsd12/category.gif' border="0" alt="" />休闲区 Relax Zone<img src='http://bmforum.net/images/bsd12/category.gif' alt="" border="0" />
+					</a></div><div style='display:inline;float:right;'>区版主: <a href="profile.php?job=show&amp;target=jeanswest">jeanswest</a></div></span>
+					</td>
+					</tr>
+					<tr class="indexalign2">
+					<td width="*" class="tablebg" colspan="2">
+					<span class="titlefontcolor">讨论区名称</span></td>
+					<td width="40" class="tablebg">
+					<span class="titlefontcolor">主题</span></td>
+					<td width="40" class="tablebg">
+					<span class="titlefontcolor">回复</span></td>
+					<td width="168" class="tablebg">
+					<span class="titlefontcolor">最后更新</span></td>
+					</tr><tr align="center" valign="middle" class="forumcoloronecolor">
+					<td width="26" class="border_bottom_forum">
+					<a onfocus="this.blur()" href="forums.php?forumid=10"><img src='http://bmforum.net/images/bsd12/forum.gif' border="0" alt="" /></a></td>
+					<td width="*" align="left" class="border_bottom_forum">
+					<table width="100%" cellpadding="1">
+					<tr>
+					<td width="*" rowspan="2"></td>
+					<td width="1" rowspan="2"></td>
+					<td width="100%" height="10"><span class='forumnamelink'><a onfocus='this.blur();' href="forums_10">闲聊茶馆 General Discussion</a></span> (9)
+					</td>
+					</tr>
+					<tr>
+					<td valign="top"><span class="forumdescolor">海阔天空，谈天论地；影音时尚，互动交流。</span> </td>
+					</tr>
+					</table>
+					</td>
+					<td width="40" valign="middle" align="center" class="border_bottom_forum">
+					<span class="cau">3462</span></td>
+					<td width="40" valign="middle" align="center" class="border_bottom_forum">
+					<span class="cau">23</span></td>
+					<td width="168" align="right" class="border_bottom_forum">
+					<table width="100%" align="right">
+					<tr>
+					<td width="2%" align="right">&nbsp;</td>
+					<td class="indexsummaryalgin"><a title="人太少了啊。 - Mr.dodo" href="topic_170158_last#postend">人太少了啊。</a><br />2012-08-28 20:06</td>
+					</tr>
+					</table>
+					</td>
+					</tr><tr align="center" valign="middle" class="forumcoloronecolor">
+					<td width="26" class="border_bottom_forum">
+					<a onfocus="this.blur()" href="forums.php?forumid=1106559901"><img src='http://bmforum.net/images/bsd12/forum.gif' border="0" alt="" /></a></td>
+					<td width="*" align="left" class="border_bottom_forum">
+					<table width="100%" cellpadding="1">
+					<tr>
+					<td width="*" rowspan="2"></td>
+					<td width="1" rowspan="2"></td>
+					<td width="100%" height="10"><span class='forumnamelink'><a onfocus='this.blur();' href="forums_1106559901">文字心情 - 文字和小说 Emotion</a></span> (9)
+					</td>
+					</tr>
+					<tr>
+					<td valign="top"><span class="forumdescolor">吐出心声，分享你我的快乐和忧愁。</span> </td>
+					</tr>
+					</table>
+					</td>
+					<td width="40" valign="middle" align="center" class="border_bottom_forum">
+					<span class="cau">100</span></td>
+					<td width="40" valign="middle" align="center" class="border_bottom_forum">
+					<span class="cau">189</span></td>
+					<td width="168" align="right" class="border_bottom_forum">
+					<table width="100%" align="right">
+					<tr>
+					<td width="2%" align="right">&nbsp;</td>
+					<td class="indexsummaryalgin"><a title="我心甘情愿，你幸福快乐就好 - anmo2012" href="topic_170060_last#postend">我心甘情愿，你幸福快乐就..</a><br />2012-05-26 11:28</td>
+					</tr>
+					</table>
+					</td>
+					</tr><tr align="center" valign="middle" class="forumcoloronecolor">
+					<td width="26" class="border_bottom_forum">
+					<a onfocus="this.blur()" href="forums.php?forumid=1106559902"><img src='http://bmforum.net/images/bsd12/forum.gif' border="0" alt="" /></a></td>
+					<td width="*" align="left" class="border_bottom_forum">
+					<table width="100%" cellpadding="1">
+					<tr>
+					<td width="*" rowspan="2"></td>
+					<td width="1" rowspan="2"></td>
+					<td width="100%" height="10"><span class='forumnamelink'><a onfocus='this.blur();' href="forums_1106559902">音乐旷野 Music Zone</a></span> (9)
+					</td>
+					</tr>
+					<tr>
+					<td valign="top"><span class="forumdescolor">流行音乐园地，音乐MP3，音乐MP3创作，音乐MP3欣赏，音乐MP3下载。</span> </td>
+					</tr>
+					</table>
+					</td>
+					<td width="40" valign="middle" align="center" class="border_bottom_forum">
+					<span class="cau">152</span></td>
+					<td width="40" valign="middle" align="center" class="border_bottom_forum">
+					<span class="cau">87</span></td>
+					<td width="168" align="right" class="border_bottom_forum">
+					<table width="100%" align="right">
+					<tr>
+					<td width="2%" align="right">&nbsp;</td>
+					<td class="indexsummaryalgin"><a title="乐天乐团《活着》：活出我精彩 - ms133" href="topic_170010_last#postend">乐天乐团《活着》：活出我..</a><br />2012-04-17 21:02</td>
+					</tr>
+					</table>
+					</td>
+					</tr><tr align="center" valign="middle" class="forumcoloronecolor">
+					<td width="26" class="border_bottom_forum">
+					<a onfocus="this.blur()" href="forums.php?forumid=1106559903"><img src='http://bmforum.net/images/bsd12/forum.gif' border="0" alt="" /></a></td>
+					<td width="*" align="left" class="border_bottom_forum">
+					<table width="100%" cellpadding="1">
+					<tr>
+					<td width="*" rowspan="2"></td>
+					<td width="1" rowspan="2"></td>
+					<td width="100%" height="10"><span class='forumnamelink'><a onfocus='this.blur();' href="forums_1106559903">图片密码 Pictures</a></span> (9)
+					</td>
+					</tr>
+					<tr>
+					<td valign="top"><span class="forumdescolor">展示你的精品图片</span> </td>
+					</tr>
+					</table>
+					</td>
+					<td width="40" valign="middle" align="center" class="border_bottom_forum">
+					<span class="cau">49</span></td>
+					<td width="40" valign="middle" align="center" class="border_bottom_forum">
+					<span class="cau">147</span></td>
+					<td width="168" align="right" class="border_bottom_forum">
+					<table width="100%" align="right">
+					<tr>
+					<td width="2%" align="right">&nbsp;</td>
+					<td class="indexsummaryalgin"><a title="RE:小弟初来论坛，发组靓妹求支持 - link007" href="topic_167858_last#postend">RE:小弟初来论坛，发组..</a><br />2012-05-18 17:10</td>
+					</tr>
+					</table>
+					</td>
+					</tr></table>
+					</td>
+					</tr>
+				</table>
+				<div class="forum_space">&nbsp;</div>
+				<table border="0" cellspacing="0" cellpadding="0" align="left" class="tableborder" width="100%">
+					<tr>
+					<td class="noptd">
+					<table cellpadding="4" cellspacing="1" width="100%" border="0">
+					<tr>
+					<td colspan="7" class="announcement">
+					<span class="categoryfontcolor_normal"><div style='display:inline;float:left;'><a href="index.php?cateid=1038109521">
+					<img src='http://bmforum.net/images/bsd12/category.gif' border="0" alt="" />蓝魔事务厅 Forum Managing<img src='http://bmforum.net/images/bsd12/category.gif' alt="" border="0" />
+					</a></div><div style='display:inline;float:right;'></div></span>
+					</td>
+					</tr>
+					<tr class="indexalign2">
+					<td width="*" class="tablebg" colspan="2">
+					<span class="titlefontcolor">讨论区名称</span></td>
+					<td width="40" class="tablebg">
+					<span class="titlefontcolor">主题</span></td>
+					<td width="40" class="tablebg">
+					<span class="titlefontcolor">回复</span></td>
+					<td width="168" class="tablebg">
+					<span class="titlefontcolor">最后更新</span></td>
+					</tr><tr align="center" valign="middle" class="forumcoloronecolor">
+					<td width="26" class="border_bottom_forum">
+					<a onfocus="this.blur()" href="forums.php?forumid=14"><img src='http://bmforum.net/images/bsd12/forum.gif' border="0" alt="" /></a></td>
+					<td width="*" align="left" class="border_bottom_forum">
+					<table width="100%" cellpadding="1">
+					<tr>
+					<td width="*" rowspan="2"></td>
+					<td width="1" rowspan="2"></td>
+					<td width="100%" height="10"><span class='forumnamelink'><a onfocus='this.blur();' href="forums_14">论坛公告 Bulletin</a></span> (9)
+					</td>
+					</tr>
+					<tr>
+					<td valign="top"><span class="forumdescolor">论坛公告区，最新论坛资讯，论坛变动。</span> </td>
+					</tr>
+					</table>
+					</td>
+					<td width="40" valign="middle" align="center" class="border_bottom_forum">
+					<span class="cau">51</span></td>
+					<td width="40" valign="middle" align="center" class="border_bottom_forum">
+					<span class="cau">380</span></td>
+					<td width="168" align="right" class="border_bottom_forum">
+					<table width="100%" align="right">
+					<tr>
+					<td width="2%" align="right">&nbsp;</td>
+					<td class="indexsummaryalgin"><a title="支持 - a5446179" href="topic_165332_last#postend">支持</a><br />2012-02-02 15:07</td>
+					</tr>
+					</table>
+					</td>
+					</tr><tr align="center" valign="middle" class="forumcoloronecolor">
+					<td width="26" class="border_bottom_forum">
+					<a onfocus="this.blur()" href="forums.php?forumid=13"><img src='http://bmforum.net/images/bsd12/forum.gif' border="0" alt="" /></a></td>
+					<td width="*" align="left" class="border_bottom_forum">
+					<table width="100%" cellpadding="1">
+					<tr>
+					<td width="*" rowspan="2"></td>
+					<td width="1" rowspan="2"></td>
+					<td width="100%" height="10"><span class='forumnamelink'><a onfocus='this.blur();' href="forums_13">众议院 Boule</a></span> (9)
+					</td>
+					</tr>
+					<tr>
+					<td valign="top"><span class="forumdescolor">事务、意见、建议、申请</span> </td>
+					</tr>
+					</table>
+					</td>
+					<td width="40" valign="middle" align="center" class="border_bottom_forum">
+					<span class="cau">528</span></td>
+					<td width="40" valign="middle" align="center" class="border_bottom_forum">
+					<span class="cau">2221</span></td>
+					<td width="168" align="right" class="border_bottom_forum">
+					<table width="100%" align="right">
+					<tr>
+					<td width="2%" align="right">&nbsp;</td>
+					<td class="indexsummaryalgin"><a title="RE: - msxcms" href="topic_166750_last#postend">RE:</a><br />2011-06-17 21:26</td>
+					</tr>
+					</table>
+					</td>
+					</tr></table>
+					</td>
+					</tr>
+				</table>
+
+<!--{style}-->
+.tile_back_online{
+	background-color: #3083BE;
+	width: auto;
+}
+<!--{/style}-->
+				<div class="forum_space">&nbsp;</div>
+				<div id="onlinelist">
+					<script type="text/javascript">
+					//<![CDATA[ 
+					var online_show_anti="show";
+					//]]>>
+					</script>
+					<table border="0" cellspacing="0" cellpadding="0" align="left" class="tableborder" width="100%">
+					<tr>
+					<td class="noptd">
+					<table cellpadding="4" cellspacing="1" width="100%" border="0">
+					<tr class="tile_back_online">
+					<td class='announcement'>
+					<strong>
+					<a name="onlinearea"></a><span class="categoryfontcolor_normal"><a href="misc.php?p=viewonline" >在线统计</a></span><span class="categoryfontcolor_normal">&nbsp;-</span>
+					<span class="categoryfontcolor_normal"><a onclick="bmb_ajax_preprocess('index.php','?','0');" href="#onlinearea">
+					有 <strong>1</strong> 位用户 (<strong>0</strong> 位隐身) 和 <strong>152</strong> 位访客，共<strong>153</strong>人在线 | 最高纪录 <strong>9886</strong> 于 2006-10-27 19:45</a></span>
+					</strong></td>
+					</tr></table>
+					</td>
+					</tr>
+					</table>
+					</div><br />
+					<table border="0" align="center" cellpadding="5" cellspacing="1" class="bmbnewstyle_withoutwidth">
+					<tr>
+					<td class="forumcolorone_ex">
+					<img alt="今日无新贴" src="http://bmforum.net/images/bsd12/forum.gif" /> 没有新贴
+					<img alt="今日有新贴" src="http://bmforum.net/images/bsd12/forum_new.gif" /> 有新贴
+					<img alt="讨论组已关闭" src="http://bmforum.net/images/bsd12/forum_lock.gif" /> 只读版块/精华区
+					</td>
+					</tr>
+				</table>
+				</div>
+			</div>
+		</div>
+
+<!--<include file="Core_Extend::template('footer')" />-->

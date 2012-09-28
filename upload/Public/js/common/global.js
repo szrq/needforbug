@@ -202,7 +202,7 @@ function loadEditorThin(name){
 }
 
 /** 对话框 */
-function needforbugAlert(sContent,sTitle,nTime,ok,cancel,width,height){
+function needforbugAlert(sContent,sTitle,nTime,ok,cancel,width,height,lock){
 	if(!sTitle){
 		sTitle=D.L('提示信息','__COMMON_LANG__@Js/Common_Js');
 	}
@@ -221,7 +221,6 @@ function needforbugAlert(sContent,sTitle,nTime,ok,cancel,width,height){
 
 	var oDialog=$.dialog({
 		fixed:true,
-		lock:true,
 		title:sTitle,
 		content: sContent,
 		okValue: D.L('确定','__COMMON_LANG__@Js/Common_Js'),
@@ -234,6 +233,10 @@ function needforbugAlert(sContent,sTitle,nTime,ok,cancel,width,height){
 		oDialog.size(width, height);
 	}
 
+	if(lock!=1){
+		oDialog.lock();
+	}
+
 	if(nTime){
 		oDialog.time(nTime*1000);
 	}
@@ -241,7 +244,7 @@ function needforbugAlert(sContent,sTitle,nTime,ok,cancel,width,height){
 	return oDialog;
 }
 
-function needforbugConfirm(sContent,ok,cancel,sTitle,nTime,width,height){
+function needforbugConfirm(sContent,ok,cancel,sTitle,nTime,width,height,lock){
 	if(!sTitle){
 		sTitle=D.L('提示信息','__COMMON_LANG__@Js/Common_Js');
 	}
@@ -261,7 +264,6 @@ function needforbugConfirm(sContent,ok,cancel,sTitle,nTime,width,height){
 	var oDialog=$.dialog({
 		id:'Confirm',
 		fixed:true,
-		lock:true,
 		title:sTitle,
 		content:sContent,
 		okValue: D.L('确定','__COMMON_LANG__@Js/Common_Js'),
@@ -274,6 +276,10 @@ function needforbugConfirm(sContent,ok,cancel,sTitle,nTime,width,height){
 		oDialog.size(width, height);
 	}
 
+	if(lock!=1){
+		oDialog.lock();
+	}
+
 	if(nTime){
 		oDialog.time(nTime*1000);
 	}
@@ -282,9 +288,17 @@ function needforbugConfirm(sContent,ok,cancel,sTitle,nTime,width,height){
 }
 
 /** 媒体对话框 */
-function globalAddattachment(){
-	var sUrl=D.U('home://attachment/dialog_add');
-	var sHtml='<iframe id="iframe_dialog" name="iframe_dialog" frameborder="0" style="margin: 0;width: 600px; height: 250px;overflow-x:hidden;margin:0;padding:0;" src="'+sUrl+'"></iframe>';
+function globalAddattachment(sFunction){
+	var sUrl=D.U('home://attachment/dialog_add?function='+sFunction);
+	var sHtml='<iframe id="iframe_dialog" name="iframe_dialog" frameborder="0" style="margin: 0;width: 500px; height: 200px;overflow-x:hidden;margin:0;padding:0;" src="'+sUrl+'"></iframe>';
 
-	oEditNewattachmentcategory=needforbugAlert(sHtml,'媒体管理器','',function(){},function(){},600,250);
+	oEditNewattachmentcategory=needforbugAlert(sHtml,'媒体管理器','',function(){},function(){},500,200,1);
+}
+
+function addEditorContent(oEditor,sContent){
+	if(oEditor.designMode==false){
+		needforbugAlert('请先切换到所见所得模式','',3);
+	}else{
+		oEditor.insertHtml(sContent);
+	}
 }
