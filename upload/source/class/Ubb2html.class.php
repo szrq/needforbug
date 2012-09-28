@@ -9,13 +9,13 @@ class Ubb2html{
 	public $_sContent='';
 	public $_sLoginurl='';
 	public $_sRegisterurl='';
-	public $_bOuter=false;
+	public $_nOuter=0;
 
-	public function __construct($sContent,$bOuter=false){
+	public function __construct($sContent,$nOuter=0){
 		$this->_sContent=$sContent;
 		$this->_sLoginurl=$GLOBALS['_option_']['site_url'].'/index.php?app=home&c=public&a=login';
 		$this->_sRegisterurl=$GLOBALS['_option_']['site_url'].'/index.php?app=home&c=public&a=register';
-		$this->bOuter=$bOuter;
+		$this->_nOuter=$nOuter;
 	}
 
 	public function convert($sContent=null){
@@ -49,13 +49,13 @@ class Ubb2html{
 		// URL和图像标签
 		/*$sContent=preg_replace(
 			"/\[url=([^\[]*)\]\[img(align=L| align=M| align=R)?(width=[0-9]+)?(height=[0-9]+)?\]\s*(\S+?)\s*\[\/img\]\[\/url\]/ise",
-			"Ubb_Extend::makeimgWithurl('\\1','\\2','\\3','\\4','\\5',{$this->bOuter})",
+			"Ubb_Extend::makeimgWithurl('\\1','\\2','\\3','\\4','\\5')",
 			$sContent
 		);*/
 		
 		$sContent=preg_replace(
 			"/\[img(align=L| align=M| align=R)?(width=[0-9]+)?(height=[0-9]+)?\]\s*(\S+?)\s*\[\/img\]/ise",
-			"$this->makeImg('\\1','\\2','\\3','\\4',{$this->bOuter})",
+			"{$this->makeImg('\\1','\\2','\\3','\\4')}",
 			$sContent
 		);
 /*
@@ -66,85 +66,52 @@ class Ubb2html{
 		return $sContent;
 	}
 
-	public function makeImg($sAlignCode,$sWidthCode,$sHeightCode,$sSrc,$nInRss=0){
-		$arrUrl=self::getUrlPath($sSrc,true);
-		if($arrUrl===false || (G::isImplementedTo($arrUrl[0],'IModel') && !is_file(DYHB_PATH.'/../Public/Upload/'.$arrUrl[0]['upload_savepath'].'/'.$arrUrl[0]['upload_savename']))){
-			return "<div class=\"quote mediabox\"><div class=\"quote-title\"><img src=\"".($sPublicHeader=$nInRss==1?Global_Extend::getOption('blog_url'):'')."/Images/Public/Images/Media/viewimage.gif"."\" alt=\"\"/>".G::L('损坏图片')."</div><div class=\"quote-content\">".G::L('该文件已经损坏')."</div></div>";
-		}
-		if(is_array($arrUrl)){
-			$sSrc=$arrUrl[2];
-			$sTargetSrc=$arrUrl[1];
-		}
-		else{
-			$sTargetSrc=$sSrc;
-		}
+	public function makeImg($sAlignCode,$sWidthCode,$sHeightCode,$sSrc){
 		$sAlign=str_replace(' align=','',strtolower($sAlignCode));
-		if($sAlign=='l') {$sShow=' align="left"';}
-		elseif($sAlign=='r') {$sShow=' align="right"';}
-		else {$sShow='';}
+		
+		if($sAlign=='l'){
+			$sShow=' align="left"';
+		}elseif($sAlign=='r'){
+			$sShow=' align="right"';
+		}else{
+			$sShow='';
+		}
+		
 		$nWidth=str_replace(' width=','',strtolower($sWidthCode));
-		if(!empty($nWidth)) {$sShow.=" width=\"{$nWidth}\"";}
-		else{
-			if(G::isImplementedTo($arrUrl[0],'IModel')){
-				$arrImageInfo=getimagesize(DYHB_PATH.'/../Public/Upload/'.$arrUrl[0]->upload_savepath.'/'.$arrUrl[0]->upload_savename);
-				$sShow.=self::attachwidth($arrImageInfo[0]);
-			}
+		if(!empty($nWidth)){
+			$sShow.=' width="'.$nWidth.'"';
 		}
+		
 		$nHeight=str_replace(' height=','',strtolower($sHeightCode));
-		if(!empty($nHeight)) {$sShow.=" height=\"{$nHeight}\"";}
-		if($nInRss==1 &&(substr(strtolower($sSrc),0,4)!='http')){
-			$sHeader=self::getHostHeader();
+		if(!empty($nHeight)){
+			$sShow.=' height="'.$nHeight.'"';
 		}
-		else{
-			$sHeader='';
-		}
-		$nContentAutoResizeImg=Global_Extend::getOption('content_auto_resize_img');
-		$sOnloadAct=($nInRss==0 && !empty($nContentAutoResizeImg))?" onload=\"if(this.width>{$nContentAutoResizeImg}){this.resized=true;this.width={$nContentAutoResizeImg};}\"":'';
-		if($bIsAttached==1){
-			if(G::isImplementedTo($arrUrl[0],'IModel')){
-				$sDownloadTime=" | ".G::L('已下载').'('.$arrUrl[0]->upload_download.')'.G::L('次');
-				$sFileSize=' | '.E::changeFileSize($arrUrl[0]->upload_size);
-				$sTitle="Filename:{$oUpload->upload_name} | Upload Time:".date('Y-m-d H:i:s',$arrUrl[0]->create_dateline);
-				$sComment=' | '.G::L('评论').'('.$arrUrl[0]['upload_commentnum'].')';
-				$sUploadUser=' | '.G::L('上传用户').':'.($arrUrl[0]->user->user_id?$arrUrl[0]->user->user_name:G::L('跌名'));
-			}else{
-				$sDownloadTime=$sFileSize=$sTitle=$sComment=$sUploadUser='';
-			}
-			if(Global_Extend::getOption('only_login_can_view_upload')==0 || $GLOBALS['___login___']!==false){
-				$sCode="<a href=\"{$sHeader}{$sTargetSrc}\" target=\"_blank\"><img src=\"{$sHeader}{$sSrc}\" class=\"content-insert-image\" alt=\"".G::L('在新窗口浏览此图片')."\" title=\"".G::L('在新窗口浏览此图片')." {$sTitle} {$sUploadUser} {$sComment} {$sFileSize} {$sDownloadTime}\" border=\"0\"{$sOnloadAct}{$sShow}/></a>";
-			}
-			else{
-				$sCode='<div class="locked">'.G::L('这个图片只能在登入之后查看。').G::L('请先')."<a href=\"".self::clearUrl($sHeader.G::U('register/index'))."\">".G::L('注册')."</a> ".G::L('或者')." <a href=\"".self::clearUrl($sHeader.G::U('login/index'))."\">".G::L('登录')."</a></div>";
-			}
-		}
-		else{
-			$sCode="<a href=\"{$sHeader}{$sTargetSrc}\" target=\"_blank\"><img src=\"{$sHeader}{$sSrc}\" class=\"content-insert-image\" alt=\"".G::L('在新窗口浏览此图片')."\" title=\"".G::L('在新窗口浏览此图片')."\" border=\"0\"{$sOnloadAct}{$sShow}/></a>";
-		}
+		
+		$sCode="<a href=\"{$sSrc}\" target=\"_blank\"><img src=\"{$sSrc}\" class=\"content-insert-image\" alt=\"在新窗口浏览此图片\" title=\"在新窗口浏览此图片\" border=\"0\" {$sShow}/></a>";
+		
 		return $sCode;
 	}
 
-	public function getAttachmentpath($Url,$bImg=false){
-		if(!preg_match('/^http:\/\/[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*$/',$Url)){
-			if(Global_Extend::getOption('is_hide_upload_really_path')==1){
-				if(!preg_match("/[^\d-.,]/",$Url)){
-					$oUpload=UploadModel::F('upload_id=?',$Url)->query();
-				}
-				else{
-					$oUpload=UploadModel::F('upload_savename=?',$Url)->query();
-				}
-				if(!($oUpload instanceof UploadModel)){
-					return false;
-				}
-				$sSrcPath=G::U('attachment/index?id='.Global_Extend::aidencode($oUpload['upload_id']));
-				if($bImg===true){
-					return array($oUpload,$sSrcPath,$oUpload['upload_isthumb']?G::U('attachment/index?id='.Global_Extend::aidencode($oUpload['upload_id']).'&thumb=1'):$sSrcPath);
-				}
-				else{
-					return array($oUpload,$sSrcPath);
-				}
+	public function getAttachmentpath($Url){
+		/*if(!preg_match('/^http:\/\/[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*$/',$Url)){
+			if(!preg_match("/[^\d-.,]/",$Url)){
+				$oAttachment=AttachmentModel::F('attachment_id=?',$Url)->query();
+			}else{
+				$oAttachment=AttachmentModel::F('attachment_savename=?',$Url)->query();
 			}
-			$Url=Blog_Extend::blogContentUpload($Url,$bImg);
-		}
+			
+			if(!empty($oAttachment['attachment_id'])){
+				return false;
+			}
+			
+			/*if($GLOBALS['_option_']['upload_ishide_reallypath']==1){
+				$sUrl=
+			}else{
+				
+			}*/
+			
+			/*return $oAttachment
+		}*/
 
 		return $Url;
 	}
