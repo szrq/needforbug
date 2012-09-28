@@ -38,12 +38,12 @@
 					<li class="span3" id="attachmentcategory_item_<!--{$oAttachmentcategory['attachmentcategory_id']}-->">
 						<div class="thumbnail">
 							<div class="img">
-								<a href="<!--{:Dyhb::U('home://attachment/attachment?cid='.$oAttachmentcategory['attachmentcategory_id'].'&uid='.$oAttachmentcategory['user_id'])}-->">
+								<a href="<!--{:Dyhb::U('home://attachment/attachment?cid='.$oAttachmentcategory['attachmentcategory_id'])}-->">
 									<img src="<!--{:Core_Extend::getAttachmentcategoryPreview($oAttachmentcategory)}-->" alt="<!--{$oAttachmentcategory['attachmentcategory_name']}-->" <!--{if $arrAttachmentcategorypreview[1]>=150}-->height="150px"<!--{/if}-->>
 								</a>
 							</div>
 							<div class="caption">
-								<h5 id="attachmentcategory_name_<!--{$oAttachmentcategory['attachmentcategory_id']}-->"><a href="<!--{:Dyhb::U('home://attachment/attachment?cid='.$oAttachmentcategory['attachmentcategory_id'].'&uid='.$oAttachmentcategory['user_id'])}-->"><!--{$oAttachmentcategory['attachmentcategory_name']|G+subString=0,15}--></a></h5>
+								<h5 id="attachmentcategory_name_<!--{$oAttachmentcategory['attachmentcategory_id']}-->"><a href="<!--{:Dyhb::U('home://attachment/attachment?cid='.$oAttachmentcategory['attachmentcategory_id'])}-->"><!--{$oAttachmentcategory['attachmentcategory_name']|G+subString=0,15}--></a></h5>
 								<p id="attachmentcategory_description_<!--{$oAttachmentcategory['attachmentcategory_id']}-->"><!--{if $oAttachmentcategory['attachmentcategory_description']}--><!--{$oAttachmentcategory['attachmentcategory_description']|G+subString=0,30}--><!--{d*else}-->暂无附件描述<!--{/if}--></p>
 								<p>创建时间:&nbsp;<!--{$oAttachmentcategory['create_dateline']|Core_Extend+timeFormat}--></p>
 								<p>附件数量:&nbsp;<a href="<!--{:Dyhb::U('home://attachment/attachment?cid='.$oAttachmentcategory['attachmentcategory_id'])}-->"><!--{$oAttachmentcategory:attachmentcategory_attachmentnum}--></a></p>

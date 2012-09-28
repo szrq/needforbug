@@ -203,13 +203,19 @@ class AttachmentController extends InitController{
 	public function flashinfo(){
 		$arrUploadids=G::getGpc('attachids','P');
 		$nAttachmentcategoryid=intval(G::getGpc('attachmentcategory_id_flash'));
+		$nDialog=intval(G::getGpc('dialog'));
+		$sFunction=trim(G::getGpc('function'));
 
 		$sHashcode=G::randString(32);
 		Dyhb::cookie('_upload_hashcode_',$sHashcode,3600);
 
 		$sUploadids=implode(',',$arrUploadids);
 
-		$this->U('home://attachment/attachmentinfo?id='.$sUploadids.'&hash='.$sHashcode.'&cid='.$nAttachmentcategoryid);
+		if($nDialog==1){
+			$this->U('home://attachment/attachmentinfo?id='.$sUploadids.'&hash='.$sHashcode.'&cid='.$nAttachmentcategoryid.'&dialog=1&functon='.$sFunction);
+		}else{
+			$this->U('home://attachment/attachmentinfo?id='.$sUploadids.'&hash='.$sHashcode.'&cid='.$nAttachmentcategoryid);
+		}
 	}
 
 	public function attachmentinfo(){
@@ -613,6 +619,8 @@ class AttachmentController extends InitController{
 
 	public function attachmentcategory(){
 		$nRecommend=intval(G::getGpc('recommend','G'));
+		$nDialog=intval(G::getGpc('dialog'));
+		$sFunction=trim(G::getGpc('function'));
 
 		$arrWhere=array();
 		if($nRecommend==1){
@@ -626,8 +634,14 @@ class AttachmentController extends InitController{
 
 		$this->assign('arrAttachmentcategorys',$arrAttachmentcategorys);
 		$this->assign('sPageNavbar',$oPage->P('pagination','li','active'));
+		$this->assign('nDialog',$nDialog);
+		$this->assign('sFunction',$sFunction);
 
-		$this->display('attachment+attachmentcategory');
+		if($nDialog==1){
+			$this->display('attachment+dialogattachmentcategory');
+		}else{
+			$this->display('attachment+attachmentcategory');
+		}
 	}
 
 	public function attachment(){

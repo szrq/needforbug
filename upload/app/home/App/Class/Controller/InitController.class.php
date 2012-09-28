@@ -63,7 +63,7 @@ class InitController extends Controller{
 	}
 
 	protected function S($sMessage,$nDisplay=1,$bAjax=FALSE){
-		if(G::getGpc('dialog')==1){
+		if(G::getGpc('dialog')==1 && !$this->isAjax()){
 			$this->dialog_message($sMessage);
 		}else{
 			parent::S($sMessage,$nDisplay,$bAjax);
