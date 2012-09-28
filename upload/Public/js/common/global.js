@@ -227,15 +227,7 @@ function needforbugAlert(sContent,sTitle,nTime,ok,cancel,width,height){
 		okValue: D.L('确定','__COMMON_LANG__@Js/Common_Js'),
 		ok: ok,
 		cancelValue: D.L('取消','__COMMON_LANG__@Js/Common_Js'),
-		cancel: cancel,
-		button: [{
-			value: '全屏',
-			focus: true,
-			callback: function () {
-				this.size($(document).width(),20);
-				return false;
-			}
-		}]
+		cancel: cancel
 	});
 
 	if(width && height){
