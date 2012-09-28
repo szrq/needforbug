@@ -972,4 +972,15 @@ NEEDFORBUG;
 		Image::thumbGd($sFilepath,$nWidth,$nHeight);
 	}
 
+	static public function ubb($sContent){
+		if(!Dyhb::classExists('Ubb2html')){
+			require_once(Core_Extend::includeFile('class/Ubb2html'));
+		}
+
+		$oUbb2html=Dyhb::instance('Ubb2html',$sContent);
+		$sContent=$oUbb2html->convert();
+
+		return $sContent;
+	}
+
 }

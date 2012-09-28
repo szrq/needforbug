@@ -26,4 +26,15 @@ class UploadoptionController extends OptionController{
 		$this->display();
 	}
 
+	public function show(){
+		$arrOptionData=$GLOBALS['_option_'];
+		$this->assign('arrOptions',$arrOptionData);
+
+		$this->display();
+	}
+
+	public function ubb(){
+		$this->show();
+	}
+
 }
