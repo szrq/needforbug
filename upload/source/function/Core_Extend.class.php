@@ -1018,4 +1018,21 @@ NEEDFORBUG;
 				__ROOT__.'/data/upload/attachment/'.$oAttachment['attachment_savepath'].'/'.$oAttachment['attachment_savename'];
 	}
 
+	static public function emotion(){
+		$sLangname=LANG_NAME?LANG_NAME:'Zh-cn';
+		$sLangname=strtolower($sLangname);
+		$sLangname=str_replace('-','_',$sLangname);
+
+		$sPublic=__PUBLIC__;
+		$sEmotionLang=is_file(NEEDFORBUG_PATH.'/Public/js/ffemotion/js/'.$sLangname.'.js')?$sLangname:'zh-cn';
+
+		return <<<NEEDFORBUG
+		<link href="{$sPublic}/js/ffemotion/css/emotion.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="{$sPublic}/js/ffemotion/js/{$sEmotionLang}.js"></script>
+		<script type="text/javascript" src="{$sPublic}/js/ffemotion/js/swfobject.js"></script>
+		<script type="text/javascript" src="{$sPublic}/js/ffemotion/js/emotion_data.js"></script>
+		<script type="text/javascript" src="{$sPublic}/js/ffemotion/js/emotion.js"></script>
+NEEDFORBUG;
+	}
+
 }

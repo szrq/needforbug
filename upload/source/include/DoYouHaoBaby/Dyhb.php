@@ -573,16 +573,20 @@ class Dyhb{
 				}
 
 				$sStr=$sDepr;
-				foreach($arrParams as $sVar=>$sVal){
-					$sStr.=$sVar.$sDepr.urlencode($sVal).$sDepr;
+				if(is_array($arrParams)){
+					foreach($arrParams as $sVar=>$sVal){
+						$sStr.=$sVar.$sDepr.urlencode($sVal).$sDepr;
+					}
 				}
 				$sStr=substr($sStr,0,-1);
 
 				$sUrl=__APP__.($GLOBALS['_commonConfig_']['DEFAULT_APP']!=$sApp?$sDepr.'app'.$sDepr.$sApp:'').$sDepr.$sRoute.$sStr;
 			}else{
 				$sStr=$sDepr;
-				foreach($arrParams as $sVar=>$sVal){
-					$sStr.=$sVar.$sDepr.urlencode($sVal).$sDepr;
+				if(is_array($arrParams)){
+					foreach($arrParams as $sVar=>$sVal){
+						$sStr.=$sVar.$sDepr.urlencode($sVal).$sDepr;
+					}
 				}
 				$sStr=substr($sStr,0,-1);
 
@@ -594,8 +598,10 @@ class Dyhb{
 			}
 		}else{
 			$sStr='';
-			foreach($arrParams as $sVar=>$sVal){
-				$sStr.=$sVar.'='.urlencode($sVal).'&';
+			if(is_array($arrParams)){
+				foreach($arrParams as $sVar=>$sVal){
+					$sStr.=$sVar.'='.urlencode($sVal).'&';
+				}
 			}
 			$sStr=rtrim($sStr,'&');
 

@@ -77,6 +77,14 @@ function subStr(str,len,elli){
 	return str;
 }
 
+function getObjectClass(obj) {
+	if (typeof obj!="object" || obj===null){
+		return false;
+	}else{
+		return /(\w+)\(/.exec(obj.constructor.toString())[1];
+	}
+}
+
 function preg_replace(search,replace,str,regswitch){
 	var regswitch=!regswitch?'ig':regswitch;
 	var len=search.length;
@@ -288,11 +296,12 @@ function needforbugConfirm(sContent,ok,cancel,sTitle,nTime,width,height,lock){
 }
 
 /** 媒体对话框 */
+var oEditNewattachmentcategory;
 function globalAddattachment(sFunction){
 	var sUrl=D.U('home://attachment/dialog_add?function='+sFunction);
 	var sHtml='<iframe id="iframe_dialog" name="iframe_dialog" frameborder="0" style="margin: 0;width: 500px; height: 200px;overflow-x:hidden;margin:0;padding:0;" src="'+sUrl+'"></iframe>';
 
-	oEditNewattachmentcategory=needforbugAlert(sHtml,'媒体管理器','',function(){},function(){},500,200,1);
+	oEditNewattachmentcategory=needforbugAlert(sHtml,'媒体管理器','','','',500,200,1);
 }
 
 function addEditorContent(oEditor,sContent){

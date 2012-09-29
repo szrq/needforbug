@@ -132,7 +132,7 @@ function cancelNewattachmentcategory(){
 								<p>创建时间:&nbsp;<!--{$oAttachmentcategory['create_dateline']|Core_Extend+timeFormat}--></p>
 								<p>附件数量:&nbsp;<a href="<!--{:Dyhb::U('home://attachment/my_attachment?cid='.$oAttachmentcategory['attachmentcategory_id'])}-->"><!--{$oAttachmentcategory:attachmentcategory_attachmentnum}--></a></p>
 								<p><a href="javascript:void(0);" onclick="editAttachmentcategory(<!--{$oAttachmentcategory['attachmentcategory_id']}-->);"><i class="icon-pencil"></i>&nbsp;编辑</a>
-								<!--{if $oAttachmentcategory['attachmentcategory_attachmentnum']>0}-->
+								<!--{if $oAttachmentcategory['attachmentcategory_attachmentnum']<1}-->
 								<span class="pipe">|</span>
 								<a href="javascript:void(0);" onclick="deleteAttachmentcategory(<!--{$oAttachmentcategory['attachmentcategory_id']}-->);"><i class="icon-remove"></i>&nbsp;删除</a>
 								<!--{/if}-->

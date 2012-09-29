@@ -363,6 +363,30 @@ class AttachmentController extends InitController{
 		}
 	}
 
+	public function dialog_addattachmentcategory(){
+		$nDialog=intval(G::getGpc('dialog','G'));
+		$sFunction=trim(G::getGpc('function','G'));
+
+		$this->assign('nDialog',$nDialog);
+		$this->assign('sFunction',$sFunction);
+		
+		$this->display('attachment+dialogaddattachmentcategory');
+	}
+
+	public function dialog_attachmentcategorysave(){
+		$nDialog=intval(G::getGpc('dialog','P'));
+		$sFunction=trim(G::getGpc('function','P'));
+
+		$oAttachmentcategory=new AttachmentcategoryModel();
+		$oAttachmentcategory->save(0);
+
+		if($oAttachmentcategory->isError()){
+			$this->E($oAttachmentcategory->getErrorMessage());
+		}
+
+		$this->U(Dyhb::U('home://attachment/my_attachmentcategory?dialog=1&function='.$sFunction),1,'专辑保存成功');
+	}
+
 	public function edit_attachmentcategory(){
 		$nAttachmentcategoryid=intval(G::getGpc('id'));
 		$nDialog=intval(G::getGpc('dialog','G'));

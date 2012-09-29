@@ -1,5 +1,7 @@
 <!--<include file="Core_Extend::template('header')" />-->
 
+<!--{:Core_Extend::emotion()}-->
+
 <!--{script}-->
 var nHomefreshviewcomment=1;
 <!--{/script}-->
@@ -10,6 +12,7 @@ var nHomefreshviewcomment=1;
 
 <!--{script}-->
 $(function(){
+	$('.homefresh-content').listEmotion();
 	$("#homefreshcomment_content").focus();
 	$('#homefreshcomment_content').autoResize({
 		onResize:function(){
