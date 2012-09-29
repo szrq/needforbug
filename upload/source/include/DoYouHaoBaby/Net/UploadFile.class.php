@@ -152,7 +152,7 @@ class UploadFile{
 
 				// 生成图像缩略图
 				$sRealFilename=$this->_bAutoSub?$arrFile['savename']:$arrFile['savename'];
-				$sRealFilename=G::subString($sRealFilename,0,(strripos($sRealFilename,'.')?:count($sRealFilename)));
+				$sRealFilename=strripos($sRealFilename,'.')?G::subString($sRealFilename,0,count($sRealFilename)):$sRealFilename;
 
 				for($nI=0,$nLen=count($arrThumbWidth);$nI<$nLen;$nI++){
 					$sThumbname=$sThumbPath.'/'.$arrThumbPrefix[$nI].$sRealFilename.$arrThumbSuffix[$nI].'.'.$arrFile['extension'];
