@@ -235,7 +235,7 @@ class Ubb2html{
 	
 	public function attachmentSwf($oAttachment,$nOuter=0){
 		if($nOuter==0){
-			$sTitle='<img src="'.__PUBLIC__.'/images/common/media/swf.gif"/>';
+			$sTitle='<img src="'.__PUBLIC__.'/images/common/media/swf.gif"/> ';
 			$sTitle.='<a href="'.Dyhb::U('home://file@?id='.$oAttachment['attachment_id']).'" target="_blank">Flash Player文件</a>';
 			$sTitle.=' | <a href="'.Dyhb::U('home://file@?id='.$oAttachment['attachment_id']).'#comments" target="_blank">评论('.$oAttachment['attachment_commentnum'].')</a>';
 			$sTitle.=' | <a href="'.Dyhb::U('home://space@?id='.$oAttachment['user_id']).'" target="_blank">'.$oAttachment['attachment_username'].'</a>';
@@ -251,7 +251,7 @@ class Ubb2html{
 
 	public function attachmentWmp($oAttachment,$nOuter=0){
 		if($nOuter==0){
-			$sTitle='<img src="'.__PUBLIC__.'/images/common/media/wmp.gif"/>';
+			$sTitle='<img src="'.__PUBLIC__.'/images/common/media/wmp.gif"/> ';
 			$sTitle.='<a href="'.Dyhb::U('home://file@?id='.$oAttachment['attachment_id']).'" target="_blank">Windows Media Player文件</a>';
 			$sTitle.=' | <a href="'.Dyhb::U('home://file@?id='.$oAttachment['attachment_id']).'#comments" target="_blank">评论('.$oAttachment['attachment_commentnum'].')</a>';
 			$sTitle.=' | <a href="'.Dyhb::U('home://space@?id='.$oAttachment['user_id']).'" target="_blank">'.$oAttachment['attachment_username'].'</a>';
@@ -267,7 +267,7 @@ class Ubb2html{
 
 	public function attachmentMp3($oAttachment,$nOuter=0){
 		if($nOuter==0){
-			$sTitle='<img src="'.__PUBLIC__.'/images/common/media/mp3.gif"/>';
+			$sTitle='<img src="'.__PUBLIC__.'/images/common/media/mp3.gif"/> ';
 			$sTitle.='<a href="'.Dyhb::U('home://file@?id='.$oAttachment['attachment_id']).'" target="_blank">Mp3文件</a>';
 			$sTitle.=' | <a href="'.Dyhb::U('home://file@?id='.$oAttachment['attachment_id']).'#comments" target="_blank">评论('.$oAttachment['attachment_commentnum'].')</a>';
 			$sTitle.=' | <a href="'.Dyhb::U('home://space@?id='.$oAttachment['user_id']).'" target="_blank">'.$oAttachment['attachment_username'].'</a>';
@@ -283,7 +283,7 @@ class Ubb2html{
 
 	public function attachmentQvod($oAttachment,$nOuter=0){
 		if($nOuter==0){
-			$sTitle='<img src="'.__PUBLIC__.'/images/common/media/qvod.gif"/>';
+			$sTitle='<img src="'.__PUBLIC__.'/images/common/media/qvod.gif"/> ';
 			$sTitle.='<a href="'.Dyhb::U('home://file@?id='.$oAttachment['attachment_id']).'" target="_blank">QVOD视频播放器</a>';
 			$sTitle.=' | <a href="'.Dyhb::U('home://file@?id='.$oAttachment['attachment_id']).'#comments" target="_blank">评论('.$oAttachment['attachment_commentnum'].')</a>';
 			$sTitle.=' | <a href="'.Dyhb::U('home://space@?id='.$oAttachment['user_id']).'" target="_blank">'.$oAttachment['attachment_username'].'</a>';
@@ -299,7 +299,7 @@ class Ubb2html{
 
 	public function attachmentFlv($oAttachment,$nOuter=0){
 		if($nOuter==0){
-			$sTitle='<img src="'.__PUBLIC__.'/images/common/media/swf.gif"/>';
+			$sTitle='<img src="'.__PUBLIC__.'/images/common/media/swf.gif"/> ';
 			$sTitle.='<a href="'.Dyhb::U('home://file@?id='.$oAttachment['attachment_id']).'" target="_blank">Flash Video Player文件</a>';
 			$sTitle.=' | <a href="'.Dyhb::U('home://file@?id='.$oAttachment['attachment_id']).'#comments" target="_blank">评论('.$oAttachment['attachment_commentnum'].')</a>';
 			$sTitle.=' | <a href="'.Dyhb::U('home://space@?id='.$oAttachment['user_id']).'" target="_blank">'.$oAttachment['attachment_username'].'</a>';
@@ -315,7 +315,7 @@ class Ubb2html{
 
 	public function attachmentUrl($oAttachment,$nOuter=0){
 		if($nOuter==0){
-			$sTitle='<a href="'.Dyhb::U('home://file@?id='.$oAttachment['attachment_id']).'" target="_blank">Flash Video Player文件</a>';
+			$sTitle='<a href="'.Dyhb::U('home://file@?id='.$oAttachment['attachment_id']).'" target="_blank">'.$oAttachment['attachment_extension'].'文件</a>';
 			$sTitle.=' | <a href="'.Dyhb::U('home://file@?id='.$oAttachment['attachment_id']).'#comments" target="_blank">评论('.$oAttachment['attachment_commentnum'].')</a>';
 			$sTitle.=' | <a href="'.Dyhb::U('home://space@?id='.$oAttachment['user_id']).'" target="_blank">'.$oAttachment['attachment_username'].'</a>';
 			
