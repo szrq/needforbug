@@ -53,6 +53,10 @@
 										<td>附件类型</td>
 										<td><a href="<!--{:Dyhb::U('home://attachment/attachment?type='.$oAttachment['attachment_extension'])}-->"><!--{$oAttachment['attachment_extension']}--></a></td>
 									</tr>
+									<tr>
+										<td>上传用户</td>
+										<td><a href="<!--{:Dyhb::U('home://space@?id='.$oAttachment['user_id'])}-->"><!--{$oAttachment['attachment_username']}--></a></td>
+									</tr>
 								</tbody>
 							</table>
 						</div>

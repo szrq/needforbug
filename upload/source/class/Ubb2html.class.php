@@ -111,14 +111,126 @@ class Ubb2html{
 		
 		// 解析上传附件
 		$sContent=preg_replace("/\[attachment\]\s*(\S+?)\s*\[\/attachment\]/ise","\$this->makeAttachment('\\1','{$this->_nOuter}')",$sContent);
-		
+
+		// 解析音乐和视频格式
+		$sContent=preg_replace("/\[mp3\]\s*(\S+?)\s*\[\/mp3\]/ise","\$this->makeMp3('\\1')",$sContent);
+		$sContent=preg_replace("/\[video\]\s*(\S+?)\s*\[\/video\]/ise","\$this->makeVideo('\\1')",$sContent);
+
 		return $sContent;
 	}
 
 	public function makeimgWithurl($sUrl,$sAlignCode,$sWidthCode,$sHeightCode,$sSrc){
 		return $this->makeImg($sAlignCode,$sWidthCode,$sHeightCode,$sSrc,$sUrl);
 	}
-	
+
+	public function makeMp3($sSrc){
+		$sExtName=G::getExtName($sSrc);
+
+		if(!in_array($sExtName,array('mp3','wma','wav'))){
+			return $sSrc;
+		}
+
+		if($sExtName!='mp3'){
+			$sExtName='wmp';
+		}
+
+		return call_user_func(array($this,'music'.ucfirst($sExtName)),$sSrc,$sExtName);
+	}
+
+	public function musicMp3($sSrc,$sExtName){
+		$sTitle='<img src="'.__PUBLIC__.'/images/common/media/mp3.gif"/> ';
+		$sTitle.='Mp3文件';
+
+		$sId=G::randString(6);
+		
+		$sContent="<a href=\"javascript:playmedia('player_{$sId}','mp3','".$sSrc."','240','20','');\">".basename($sSrc)."</a>
+					<div id=\"player_{$sId}\" style=\"display: none;\"></div>";
+
+		return $this->template($sTitle,$sContent);
+	}
+
+	public function musicWmp($sSrc,$sExtName){
+		$sTitle='<img src="'.__PUBLIC__.'/images/common/media/wmp.gif"/> ';
+		$sTitle.='Windows Media Player文件';
+
+		$sId=G::randString(6);
+		
+		$sContent="<a href=\"javascript:playmedia('player_{$sId}','wmp','".$sSrc."','600','405','');\">".basename($sSrc)."</a>
+					<div id=\"player_{$sId}\" style=\"display: none;\"></div>";
+
+		return $this->template($sTitle,$sContent);
+	}
+
+	public function makeVideo($sSrc){
+		$sExtName=G::getExtName($sSrc);
+
+		if(!in_array($sExtName,array('swf','asf','wmv','avi','rm','rmvb','flv','mp4'))){
+			return $sSrc;
+		}
+
+		if(in_array($sExtName,array('asf','wmv','avi'))){
+			$sExtName='wmp';
+		}
+
+		if(in_array($sExtName,array('rm','rmvb'))){
+			$sExtName='qvod';
+		}
+
+		if(in_array($sExtName,array('flv','mp4'))){
+			$sExtName='flv';
+		}
+
+		return call_user_func(array($this,'video'.ucfirst($sExtName)),$sSrc,$sExtName);
+	}
+
+	public function videoSwf($sSrc,$sExtName){
+		$sTitle='<img src="'.__PUBLIC__.'/images/common/media/swf.gif"/> ';
+		$sTitle.='Flash Player文件';
+
+		$sId=G::randString(6);
+		
+		$sContent="<a href=\"javascript:playmedia('player_{$sId}','swf','".$sSrc."','600','405','');\">".basename($sSrc)."</a>
+					<div id=\"player_{$sId}\" style=\"display: none;\"></div>";
+
+		return $this->template($sTitle,$sContent);
+	}
+
+	public function videoWmp($sSrc,$sExtName){
+		$sTitle='<img src="'.__PUBLIC__.'/images/common/media/wmp.gif"/> ';
+		$sTitle.='Windows Media Player文件';
+
+		$sId=G::randString(6);
+		
+		$sContent="<a href=\"javascript:playmedia('player_{$sId}','wmp','".$sSrc."','600','405','');\">".basename($sSrc)."</a>
+					<div id=\"player_{$sId}\" style=\"display: none;\"></div>";
+
+		return $this->template($sTitle,$sContent);
+	}
+
+	public function videoQvod($sSrc,$sExtName){
+		$sTitle='<img src="'.__PUBLIC__.'/images/common/media/qvod.gif"/> ';
+		$sTitle.='QVOD视频播放器';
+
+		$sId=G::randString(6);
+		
+		$sContent="<a href=\"javascript:playmedia('player_{$sId}','qvod','".$sSrc."','600','405','');\">".basename($sSrc)."</a>
+					<div id=\"player_{$sId}\" style=\"display: none;\"></div>";
+
+		return $this->template($sTitle,$sContent);
+	}
+
+	public function videoFlv($sSrc,$sExtName){
+		$sTitle='<img src="'.__PUBLIC__.'/images/common/media/swf.gif"/> ';
+		$sTitle.='Flash Video Player文件';
+
+		$sId=G::randString(6);
+		
+		$sContent="<a href=\"javascript:playmedia('player_{$sId}','flv','".$sSrc."','600','405','');\">".basename($sSrc)."</a>
+					<div id=\"player_{$sId}\" style=\"display: none;\"></div>";
+
+		return $this->template($sTitle,$sContent);
+	}
+
 	public function makeImg($sAlignCode,$sWidthCode,$sHeightCode,$sSrc,$sUrl=''){
 		if(empty($sUrl)){
 			$sUrl=$sSrc;

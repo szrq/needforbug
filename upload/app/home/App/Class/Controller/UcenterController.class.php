@@ -24,6 +24,18 @@ class UcenterController extends InitController{
 		Core_Extend::doControllerAction('Ucenter@Homefresh','view');
 	}
 
+	public function homefreshtopic(){
+		Core_Extend::doControllerAction('Ucenter@Homefresh','topic');
+	}	
+	
+	public function homefreshmusic(){
+		Core_Extend::doControllerAction('Ucenter@Homefresh','music');
+	}
+
+	public function homefreshvideo(){
+		Core_Extend::doControllerAction('Ucenter@Homefresh','video');
+	}
+
 	public function add_homefreshcomment(){
 		Core_Extend::doControllerAction('Ucenter@Homefresh','add_comment');
 	}

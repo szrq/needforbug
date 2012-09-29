@@ -81,6 +81,18 @@ class HomefreshController extends InitController{
 		return $this->index_title_();
 	}
 
+	public function topic(){
+		$this->display('homefresh+topic');
+	}
+
+	public function music(){
+		$this->display('homefresh+music');
+	}
+
+	public function video(){
+		$this->display('homefresh+video');
+	}
+
 	public function get_myhomefreshnum(){
 		$oHomefresh=Dyhb::instance('HomefreshModel');
 		return $oHomefresh->getHomefreshnumByUserid($GLOBALS['___login___']['user_id']);
@@ -376,7 +388,7 @@ class HomefreshController extends InitController{
 			$oUserLasthomefreshcomment=HomefreshcommentModel::F('user_id=?',$GLOBALS['___login___']['user_id'])->order('homefreshcomment_id DESC')->getOne();
 			if(!empty($oUserLasthomefreshcomment['homefreshcomment_id'])){
 				$nLastPostTime=$oUserLasthomefreshcomment['create_dateline'];
-				if(CURRENT_TIMESTAMP-$nLastPostTime <=$nCommentPostSpace){
+				if(CURRENT_TIMESTAMP-$nLastPostTime<=$nCommentPostSpace){
 					$this->E(Dyhb::L('为防止灌水,发表评论时间间隔为 %d 秒','Controller/Homefresh',null,$nCommentPostSpace));
 				}
 			}
