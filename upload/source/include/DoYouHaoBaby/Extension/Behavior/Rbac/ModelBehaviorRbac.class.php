@@ -625,7 +625,7 @@ class ModelBehaviorRbac extends ModelBehavior{
 				$sLowerAppName=strtolower($sAppName);
 				$sLowerModule=MODULE_NAME;
 				$sLowerAction=ACTION_NAME;
-				if(!isset($arrAccessList[$sLowerAppName][$sLowerAppName.'@'.$sLowerModule][$sLowerAppName.'@'.$sLowerModule.'@'.$sLowerAction])){
+				if(is_array($arrAccessList) && !isset($arrAccessList[$sLowerAppName][$sLowerAppName.'@'.$sLowerModule][$sLowerAppName.'@'.$sLowerModule.'@'.$sLowerAction])){
 					Dyhb::cookie($sAccessGuid,false,$this->_arrSettings['rbac_login_life']);
 					return false;
 				}else{
