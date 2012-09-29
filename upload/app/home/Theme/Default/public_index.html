@@ -30,27 +30,19 @@
 
 		<div class="row">
 			<div class="span8">
-				<div id="home_slidebox_container">
-					<link href="<!--{:__PUBLIC__}-->/js/jquery/slidebox/css/jquery.slideBox.css" rel="stylesheet" type="text/css" />
-					<script src="<!--{:__PUBLIC__}-->/js/jquery/slidebox/js/jquery.slideBox.min.js" type="text/javascript"></script>
-					<!--{script}-->
-					jQuery(function($){
-						$('#home_slidebox').slideBox({
-							duration:<!--{$GLOBALS['_option_']['slide_duration']}-->,
-							easing:'linear',
-							delay:<!--{$GLOBALS['_option_']['slide_delay']}-->,
-							hideClickBar:false,
-							clickBarRadius:10
-						});
-					});
-					<!--{/script}-->
-					<div id="home_slidebox" class="slideBox">
-						<ul class="items">
-							<!--<foreach for=arrSlides value=arrSlide>-->
-							<li><a href="<!--{$arrSlide['slide_url']}-->" title="<!--{$arrSlide['slide_title']}-->"><img style="height:300px;" src="<!--{$arrSlide['slide_img']}-->" class="span8"></a></li>
-							<!--</foreach>-->
-						</ul>
+				<div id="myCarousel" class="carousel slide">
+					<div class="carousel-inner">
+						<!--<foreach for=arrSlides value=arrSlide>-->
+						<div class="item <!--{if $key==0}-->active<!--{/if}-->" style="350px">
+							<img src="<!--{$arrSlide['slide_img']}-->" style="height:300px;" width="100%">
+							<div class="carousel-caption">
+								<h4><a href="<!--{$arrSlide['slide_url']}-->" title="<!--{$arrSlide['slide_title']}-->"><!--{$arrSlide['slide_title']}--></a></h4>
+							</div>
+						</div>
+						<!--</foreach>-->
 					</div>
+					<a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+					<a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
 				</div>
 			</div>
 			<div class="span4">

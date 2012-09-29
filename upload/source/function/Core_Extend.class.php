@@ -41,6 +41,16 @@ class Core_Extend{
 		return $arrUserData;
 	}
 
+	static public function isAdmin(){
+		$arrAdmins=explode(',',$GLOBALS['_commonConfig_']['ADMIN_USERID']);
+
+		if(in_array($GLOBALS['___login___']['user_id'],$arrAdmins)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 	static public function page404($oThis){
 		$arrAllMethod=get_class_methods($oThis);
 		if(!in_array(ACTION_NAME,$arrAllMethod)){

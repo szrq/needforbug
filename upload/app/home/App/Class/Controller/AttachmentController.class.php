@@ -944,4 +944,76 @@ class AttachmentController extends InitController{
 			$oAttachment['attachmentcategory_id'].'&uid='.$oAttachment['user_id'];
 	}
 
+	public function recommend_attachment(){
+		$nId=intval(G::getGpc('id','G'));
+
+		$oAttachment=AttachmentModel::F('attachment_id=?',$nId)->getOne();
+		if(empty($oAttachment['attachment_id'])){
+			$this->E('你推荐的附件不存在');
+		}
+
+		$oAttachment->attachment_recommend=1;
+		$oAttachment->save(0,'update');
+
+		if($oAttachment->isError()){
+			$this->E($oAttachment->getErrorMessage());
+		}
+
+		$this->S('附件推荐成功');
+	}
+
+	public function unrecommend_attachment(){
+		$nId=intval(G::getGpc('id','G'));
+
+		$oAttachment=AttachmentModel::F('attachment_id=?',$nId)->getOne();
+		if(empty($oAttachment['attachment_id'])){
+			$this->E('你推荐的附件不存在');
+		}
+
+		$oAttachment->attachment_recommend=0;
+		$oAttachment->save(0,'update');
+
+		if($oAttachment->isError()){
+			$this->E($oAttachment->getErrorMessage());
+		}
+
+		$this->S('附件取消推荐成功');
+	}
+
+	public function recommend_attachmentcategory(){
+		$nId=intval(G::getGpc('id','G'));
+
+		$oAttachmentcategory=AttachmentcategoryModel::F('attachmentcategory_id=?',$nId)->getOne();
+		if(empty($oAttachmentcategory['attachmentcategory_id'])){
+			$this->E('你推荐的专辑不存在');
+		}
+
+		$oAttachmentcategory->attachmentcategory_recommend=1;
+		$oAttachmentcategory->save(0,'update');
+
+		if($oAttachmentcategory->isError()){
+			$this->E($oAttachmentcategory->getErrorMessage());
+		}
+
+		$this->S('专辑推荐成功');
+	}	
+	
+	public function unrecommend_attachmentcategory(){
+		$nId=intval(G::getGpc('id','G'));
+
+		$oAttachmentcategory=AttachmentcategoryModel::F('attachmentcategory_id=?',$nId)->getOne();
+		if(empty($oAttachmentcategory['attachmentcategory_id'])){
+			$this->E('你推荐的专辑不存在');
+		}
+
+		$oAttachmentcategory->attachmentcategory_recommend=0;
+		$oAttachmentcategory->save(0,'update');
+
+		if($oAttachmentcategory->isError()){
+			$this->E($oAttachmentcategory->getErrorMessage());
+		}
+
+		$this->S('专辑取消推荐成功');
+	}
+
 }

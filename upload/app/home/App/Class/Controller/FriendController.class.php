@@ -105,5 +105,13 @@ class FriendController extends InitController{
 			$this->S(Dyhb::L('更新备注成功','Controller/Friend'));
 		}
 	}
+
+	public function search(){
+		$this->display('friend+search');
+	}
+
+	public function mayknow(){
+		$this->display('friend+mayknow');
+	}
 	
 }

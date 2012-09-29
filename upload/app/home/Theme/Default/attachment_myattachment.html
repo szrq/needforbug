@@ -125,6 +125,14 @@ function deleteAttachment(id){
 								<p>附件大小:&nbsp;<!--{$oAttachment:attachment_size|G+changeFileSize}--></p>
 								<p>附件类型:&nbsp;<a href="<!--{:Dyhb::U('home://attachment/my_attachment?type='.$oAttachment['attachment_extension'])}-->"><!--{$oAttachment:attachment_extension}--></a></p>
 								<p><a href="javascript:void(0);" onclick="editAttachment(<!--{$oAttachment['attachment_id']}-->);" class="btn btn-success"><i class="icon-pencil icon-white"></i>&nbsp;编辑</a>&nbsp;<a href="javascript:void(0);" onclick="deleteAttachment(<!--{$oAttachment['attachment_id']}-->);" class="btn"><i class="icon-remove"></i>&nbsp;删除</a></p>
+								<!--{if Core_Extend+isAdmin()}-->
+								<p class="alert alert-success"><!--{if $oAttachment['attachment_recommend']==1}-->
+									<span id="unrecommend_item_<!--{$oAttachment['attachment_id']}-->"><a href="javascript:void(0);" onclick="unrecommendAttachment('<!--{$oAttachment['attachment_id']}-->');" >取消推荐</a></span>
+									<!--{d*else}-->
+									<span id="recommend_item_<!--{$oAttachment['attachment_id']}-->"><a href="javascript:void(0);" onclick="recommendAttachment('<!--{$oAttachment['attachment_id']}-->');">推荐</a></span>
+									<!--{/if}-->
+								</p>
+								<!--{/if}-->
 							</div>
 						</div>
 					</li>

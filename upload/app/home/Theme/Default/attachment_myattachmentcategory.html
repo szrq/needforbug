@@ -82,6 +82,22 @@ function cancelNewattachmentcategory(){
 		return false;
 	}
 }
+
+function recommendAttachmentcategory(id){
+	Dyhb.AjaxSend(D.U('home://attachment/recommend_attachmentcategory?id='+id),'ajax=1','',function(data,status){
+		if(status==1){
+			$('#recommendcategory_item_'+id).html('推荐成功');
+		}
+	});
+}
+
+function unrecommendAttachmentcategory(id){
+	Dyhb.AjaxSend(D.U('home://attachment/unrecommend_attachmentcategory?id='+id),'ajax=1','',function(data,status){
+		if(status==1){
+			$('#unrecommendcategory_item_'+id).html('取消推荐成功');
+		}
+	});
+}
 <!--{/script}-->
 
 <!--{style}-->
@@ -138,6 +154,14 @@ function cancelNewattachmentcategory(){
 								<!--{/if}-->
 								</p>
 								<p><a href="<!--{:Dyhb::U('home://attachment/add?cid='.$oAttachmentcategory['attachmentcategory_id'])}-->" class="btn btn-success btn-large"><i class="icon-upload icon-white"></i>&nbsp;开始上传附件</a></p>
+								<!--{if Core_Extend+isAdmin()}-->
+								<p class="alert alert-success"><!--{if $oAttachmentcategory['attachmentcategory_recommend']==1}-->
+									<span id="unrecommendcategory_item_<!--{$oAttachmentcategory['attachmentcategory_id']}-->"><a href="javascript:void(0);" onclick="unrecommendAttachmentcategory('<!--{$oAttachmentcategory['attachmentcategory_id']}-->');" >取消推荐</a></span>
+									<!--{d*else}-->
+									<span id="recommendcategory_item_<!--{$oAttachmentcategory['attachmentcategory_id']}-->"><a href="javascript:void(0);" onclick="recommendAttachmentcategory('<!--{$oAttachmentcategory['attachmentcategory_id']}-->');">推荐</a></span>
+									<!--{/if}-->
+								</p>
+								<!--{/if}-->
 							</div>
 						</div>
 					</li>

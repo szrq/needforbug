@@ -7,8 +7,6 @@
 class AddtopicController extends Controller{
 
 	public function index(){
-		$nEdit=intval(G::getGpc('edit'));
-		if($nEdit==1)
 		$oGrouptopic=new GrouptopicModel();
 		$oGrouptopic->save(0);
 
@@ -16,7 +14,9 @@ class AddtopicController extends Controller{
 			$this->E($oGrouptopic->getErrorMessage());
 		}
 
-		$this->S(Dyhb::L('发布帖子成功','Controller/Grouptopic'));
+		$sUrl=Dyhb::U('group://grouptopic/view?id='.$oGrouptopic['grouptopic_id']);
+
+		$this->A(array('url'=>$sUrl),'发布帖子成功',1);
 	}
 
 }

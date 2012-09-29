@@ -29,4 +29,8 @@ class SpaceController extends InitController{
 		Core_Extend::doControllerAction('Space@Avatar','index');
 	}
 
+	public function feed(){
+		Core_Extend::doControllerAction('Space@Feed','index');
+	}
+
 }

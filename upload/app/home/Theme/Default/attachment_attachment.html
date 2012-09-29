@@ -1,5 +1,23 @@
 <!--<include file="Core_Extend::template('header')" />-->
 
+<!--{script}-->
+function recommendAttachment(id){
+	Dyhb.AjaxSend(D.U('home://attachment/recommend_attachment?id='+id),'ajax=1','',function(data,status){
+		if(status==1){
+			$('#recommend_item_'+id).html('推荐成功');
+		}
+	});
+}
+
+function unrecommendAttachment(id){
+	Dyhb.AjaxSend(D.U('home://attachment/unrecommend_attachment?id='+id),'ajax=1','',function(data,status){
+		if(status==1){
+			$('#unrecommend_item_'+id).html('取消推荐成功');
+		}
+	});
+}
+<!--{/script}-->
+
 <!--{style}-->
 .thumbnail .img{
 	display:block;
@@ -80,6 +98,14 @@
 								<p>上传用户:&nbsp;<a href="<!--{:Dyhb::U('home://space@?id='.$oAttachment['user_id'])}-->"><!--{$oAttachment['attachment_username']}--></a></p>
 								<p><a href="<!--{:Dyhb::U('home://file@?id='.$oAttachment['attachment_id'])}-->" class="btn btn-success"><i class="icon-eye-open icon-white"></i>&nbsp;查看详情</a>
 								</p>
+								<!--{if Core_Extend+isAdmin()}-->
+								<p class="alert alert-success"><!--{if $oAttachment['attachment_recommend']==1}-->
+									<span id="unrecommend_item_<!--{$oAttachment['attachment_id']}-->"><a href="javascript:void(0);" onclick="unrecommendAttachment('<!--{$oAttachment['attachment_id']}-->');" >取消推荐</a></span>
+									<!--{d*else}-->
+									<span id="recommend_item_<!--{$oAttachment['attachment_id']}-->"><a href="javascript:void(0);" onclick="recommendAttachment('<!--{$oAttachment['attachment_id']}-->');">推荐</a></span>
+									<!--{/if}-->
+								</p>
+								<!--{/if}-->
 							</div>
 						</div>
 					</li>

@@ -62,4 +62,12 @@ class PublicController extends InitController{
 		Core_Extend::doControllerAction('Public@Register','register_user');
 	}
 
+	public function mobile(){
+		Core_Extend::doControllerAction('Public@Mobile','index');
+	}
+
+	public function sitemap(){
+		Core_Extend::doControllerAction('Public@Sitemap','index');
+	}
+
 }

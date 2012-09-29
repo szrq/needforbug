@@ -14,6 +14,24 @@
 }
 <!--{/style}-->
 
+<!--{script}-->
+function recommendAttachmentcategory(id){
+	Dyhb.AjaxSend(D.U('home://attachment/recommend_attachmentcategory?id='+id),'ajax=1','',function(data,status){
+		if(status==1){
+			$('#recommendcategory_item_'+id).html('推荐成功');
+		}
+	});
+}
+
+function unrecommendAttachmentcategory(id){
+	Dyhb.AjaxSend(D.U('home://attachment/unrecommend_attachmentcategory?id='+id),'ajax=1','',function(data,status){
+		if(status==1){
+			$('#unrecommendcategory_item_'+id).html('取消推荐成功');
+		}
+	});
+}
+<!--{/script}-->
+
 		<ul class="breadcrumb">
 			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
 			<li><a href="<!--{:Dyhb::U('home://attachment/index')}-->"><!--<lang package='Template/Attachment'>-->我的相册<!--</lang>--></a></li>
@@ -48,6 +66,14 @@
 								<p>创建时间:&nbsp;<!--{$oAttachmentcategory['create_dateline']|Core_Extend+timeFormat}--></p>
 								<p>附件数量:&nbsp;<a href="<!--{:Dyhb::U('home://attachment/attachment?cid='.$oAttachmentcategory['attachmentcategory_id'])}-->"><!--{$oAttachmentcategory:attachmentcategory_attachmentnum}--></a></p>
 								<p>创建者:&nbsp;<a href="<!--{:Dyhb::U('home://space@?id='.$oAttachmentcategory['user_id'])}-->"><!--{$oAttachmentcategory['attachmentcategory_username']}--></a></p>
+								<!--{if Core_Extend+isAdmin()}-->
+								<p class="alert alert-success"><!--{if $oAttachmentcategory['attachmentcategory_recommend']==1}-->
+									<span id="unrecommendcategory_item_<!--{$oAttachmentcategory['attachmentcategory_id']}-->"><a href="javascript:void(0);" onclick="unrecommendAttachmentcategory('<!--{$oAttachmentcategory['attachmentcategory_id']}-->');" >取消推荐</a></span>
+									<!--{d*else}-->
+									<span id="recommendcategory_item_<!--{$oAttachmentcategory['attachmentcategory_id']}-->"><a href="javascript:void(0);" onclick="recommendAttachmentcategory('<!--{$oAttachmentcategory['attachmentcategory_id']}-->');">推荐</a></span>
+									<!--{/if}-->
+								</p>
+								<!--{/if}-->
 							</div>
 						</div>
 					</li>
