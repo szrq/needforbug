@@ -760,8 +760,8 @@ class AttachmentController extends InitController{
 		$sAttachmentType=$this->get_attachmenttype($oAttachment);
 
 		if(in_array($sAttachmentType,array('img','swf','wmp','mp3','qvod','flv','url'))){
-			if(is_callable(array('AttachmentController','show_'.$sAttachmentType))){
-				call_user_func(array('AttachmentController','show_'.$sAttachmentType),$oAttachment);
+			if(is_callable(array($this,'show_'.$sAttachmentType))){
+				call_user_func(array($this,'show_'.$sAttachmentType),$oAttachment);
 			}else{
 				Dyhb::E('callback not exist');
 			}
