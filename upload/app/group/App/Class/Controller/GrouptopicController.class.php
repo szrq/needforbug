@@ -97,7 +97,7 @@ class GrouptopicController extends InitController{
 		//回复30秒内禁止新的回复
 		$oGrouptopiccomment=GrouptopiccommentModel::F("user_id=?",$GLOBALS['___login___']['user_id'])->order('grouptopiccomment_id DESC')->getOne();
 		if((CURRENT_TIMESTAMP-$oGrouptopiccomment->create_dateline)<30){
-			$this->E((30-(CURRENT_TIMESTAMP-$oGrouptopiccomment->create_dateline)).'秒后才能回复');
+			//$this->E((30-(CURRENT_TIMESTAMP-$oGrouptopiccomment->create_dateline)).'秒后才能回复');
 		}
 	
 		//一天之内禁止重复回复
@@ -123,9 +123,9 @@ class GrouptopicController extends InitController{
 		}
 
 		$nTotalComment=GrouptopiccommentModel::F('grouptopic_id=?',$oGrouptopic->grouptopic_id)->getCounts();
-		$page=ceil($nTotalComment/5);
+		$nPage=ceil($nTotalComment/5);
 		
-		$sUrl=Dyhb::U('group://grouptopic/view?id='.$oGrouptopic->grouptopic_id.'&page='.$page).'#'.($oGrouptopiccomment->grouptopiccomment_id);
+		$sUrl=Dyhb::U('group://grouptopic/view?id='.$oGrouptopic->grouptopic_id.($nPage>1?'&page='.$nPage:'').'&extra=new'.$oGrouptopiccomment->grouptopiccomment_id).'#grouptopiccomment-'.($oGrouptopiccomment->grouptopiccomment_id);
 
 		$this->A(array('url'=>$sUrl),'回复成功',1);
 	}

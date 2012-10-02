@@ -158,8 +158,17 @@ class GroupModel extends CommonModel{
 	}
 
 	public function groupbyUserid($nUserid,$nNum=0){
-		$oGroup=GroupModel::F('user_id=?',$nUserid);
+		$arrGroupusers=GroupuserModel::F('user_id=?',$nUserid)->getAll();
+		if(!is_array($arrGroupusers)){
+			return false;
+		}
 
+		$arrGroupids=array();
+		foreach($arrGroupusers as $oGroupuser){
+			$arrGroupids[]=$oGroupuser['group_id'];
+		}
+
+		$oGroup=GroupModel::F(array('group_id'=>array('in',$arrGroupids)));
 		if($nNum>0){
 			$oGroup->limit(0,$nNum);
 		}
