@@ -568,11 +568,11 @@ function deleteFriend(friendid,fan){
 										<div class="operate clear">
 											<!--{if $nAlreadyFriendId==2}-->
 											<!--{elseif $nAlreadyFriendId==1 || $nAlreadyFriendId==4}-->
-											<a rel="nofollow" href="#" style="padding-left:10px;width:60px;">取消关注</a>
-											<a rel="nofollow" href="/index.php?m=message&c=message&a=pop&username=小鸡爷爷" class="message J_send_msg_pop" data-name="小鸡爷爷" style="width:130px;"><i class="icon-envelope"></i>写私信</a>
-											<!--{elseif $nAlreadyFriendId==3}-->
-											<a rel="nofollow" href="#" style="padding-left:10px;width:60px;"><i class="icon-plus"></i>加关注</a>
-											<a rel="nofollow" href="/index.php?m=message&c=message&a=pop&username=小鸡爷爷" class="message J_send_msg_pop" data-name="小鸡爷爷" style="width:130px;"><i class="icon-envelope"></i>写私信</a>
+											<a rel="nofollow" href="#" onclick="deleteFriend(<!--{$oComment->user_id}-->);" style="padding-left:10px;width:60px;">取消关注</a>
+											<a rel="nofollow" href="" class="message J_send_msg_pop" data-name="小鸡爷爷" style="width:130px;"><i class="icon-envelope"></i>写私信</a>
+											<!--{elseif $nAlreadyFriendId==0 || $nAlreadyFriendId==3}-->
+											<a rel="nofollow" href="#" onclick="addFriend(<!--{$oGrouptopic->user_id}-->);" style="padding-left:10px;width:60px;"><i class="icon-plus"></i>加关注</a>
+											<a rel="nofollow" href="" class="message J_send_msg_pop" data-name="小鸡爷爷" style="width:130px;"><i class="icon-envelope"></i>写私信</a>
 											<!--{/if}-->
 										</div>
 										<dl class="profile clear">
@@ -677,9 +677,16 @@ function deleteFriend(friendid,fan){
 										<!--用户名-->
 										<div class="name"><span class="man_unol" title="离线"></span><a href="/index.php?m=space&uid=292" class="J_user_card_show" data-uid="292" style="width:62px;"><!--{$oComment->user_id|UserModel+getUsernameById}--></a>
 										</div>
+										<!--{~$nAlreadyFriendId=Core_Extend::isAlreadyFriend($oComment->user_id)}-->
 										<div class="operate clear">
-											<a rel="nofollow" href="#" style="padding-left:10px;width:60px;"><i class="icon-plus"></i>加关注</a>
-											<a rel="nofollow" href="/index.php?m=message&c=message&a=pop&username=小鸡爷爷" class="message J_send_msg_pop" data-name="小鸡爷爷" style="width:130px;"><i class="icon-envelope"></i>写私信</a>
+											<!--{if $nAlreadyFriendId==2}-->
+											<!--{elseif $nAlreadyFriendId==1 || $nAlreadyFriendId==4}-->
+											<a rel="nofollow" href="#" onclick="deleteFriend(<!--{$oComment->user_id}-->);" style="padding-left:10px;width:60px;">取消关注</a>
+											<a rel="nofollow" href="" class="message J_send_msg_pop" data-name="小鸡爷爷" style="width:130px;"><i class="icon-envelope"></i>写私信</a>
+											<!--{elseif $nAlreadyFriendId==0 || $nAlreadyFriendId==3}-->
+											<a rel="nofollow" href="#" onclick="addFriend(<!--{$oComment->user_id}-->);" style="padding-left:10px;width:60px;"><i class="icon-plus"></i>加关注</a>
+											<a rel="nofollow" href="" class="message J_send_msg_pop" data-name="小鸡爷爷" style="width:130px;"><i class="icon-envelope"></i>写私信</a>
+											<!--{/if}-->
 										</div>
 										<dl class="profile clear">
 											<dt>UID</dt><dd><!--{$oComment->user_id}-->&nbsp;</dd>
