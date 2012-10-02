@@ -1,0 +1,2 @@
+<?php  /* DoYouHaoBaby Framework 模板缓存文件生成时间：2012-10-02 03:36:08  */ ?>
+<div class="homefresh_video"><p>请填写一个视频地址,支持swf,asf,wmv,avi,rm,rmvb,flv,mp4格式</p><p><input type="text" class="input-xlarge left" id="video_url" name="video_url" value=""/>&nbsp;<input type="button" class="btn btn-success" value="确定" onclick="insertHomefreshvideo($('#video_url').val());"/></p></div></div>

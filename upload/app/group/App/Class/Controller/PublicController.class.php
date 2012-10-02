@@ -31,8 +31,9 @@ class PublicController extends InitController{
 	}
 
 	public function group(){
-		$arrGroupcategorys=GroupcategoryModel::F()->getAll();
+		$arrGroupcategorys=GroupcategoryModel::F('groupcategory_parentid=?',0)->getAll();
 		$this->assign('arrGroupcategorys',$arrGroupcategorys);
+
 		$this->display('public+group');
 	}
 

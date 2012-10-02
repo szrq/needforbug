@@ -1,41 +1,22 @@
 <?php
 /* [NeedForBug!] (C)Dianniu From 2010.
-   群组首页控制器($)*/
+   群组控制器($)*/
 
 !defined('DYHB_PATH') && exit;
 
-class PublicController extends InitController{
+class GroupController extends InitController{
 
-	public function index(){
-		Core_Extend::loadCache('sociatype');
-
-		$arrWhere=array();
-		$nEverynum=10;
-		$arrWhere['grouptopic_status']=1;
-		$arrWhere['grouptopic_isaudit']=1;
-		$nTotalRecord=GrouptopicModel::F()->where($arrWhere)->all()->getCounts();
-		$oPage=Page::RUN($nTotalRecord,$nEverynum,G::getGpc('page','G'));
-
-		$arrGrouptopics=GrouptopicModel::F()->where($arrWhere)->order('create_dateline DESC')->limit($oPage->returnPageStart(),$nEverynum)->getAll();
-		$this->assign('arrGrouptopics',$arrGrouptopics);
-		$this->assign('sPageNavbar',$oPage->P('pagination','li','active'));
-
-		$arrGrouptopic=GrouptopicModel::F()->order('grouptopic_comments DESC')->top(5)->get();
-		$this->assign('arrGrouptopic',$arrGrouptopic);
-
-		$this->assign('nDisplaySeccode',$GLOBALS['_option_']['seccode_login_status']);
-		$this->assign('nRememberTime',$GLOBALS['_option_']['remember_time']);
-		$this->assign('arrBindeds',$GLOBALS['_cache_']['sociatype']);
+	public function show(){
+		$sId=trim(G::getGpc('id','G'));
 		
-		$this->display('public+index');
-	}
-
-	public function group(){
-		$this->display('public+group');
-	}
-
-	public function add(){
-		$this->display('public+add');
+		$oGroup=GroupModel::F('group_name=? AND group_status=1 AND group_isaudit=1',$sId)->getOne();
+		if(empty($oGroup['group_id'])){
+			$this->E('小组不存在或者还在审核中');
+		}
+		
+		$this->assign('oGroup',$oGroup);
+		
+		$this->display('group+show');
 	}
 
 }

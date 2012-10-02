@@ -39,6 +39,14 @@ function grouptopicSubmit(){
 			</div>
 			<form method='post' name="grouptopic_form" id="grouptopic_form" enctype="multipart/form-data">
 				<div class="span10">
+					<!--{if empty($nGroupid)}-->
+					<label>我的小组</label>
+					<select name="group_id" id="group_id">
+						<!--<foreach for=arrGroups value=oGroup>-->
+						<option value="<!--{$oGroup['group_id']}-->"><!--{$oGroup['group_nikename']}--></option>
+						<!--</foreach>-->
+					</select>
+					<!--{/if}-->
 					<label>帖子标题</label>
 					<input type="text" name="grouptopic_title" id="grouptopic_title" class="span8" placeholder="请输入标题">
 					<span></span>

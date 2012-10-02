@@ -79,6 +79,11 @@ function complete(data,status){
 						<input type="text" name="group_nikename" id="group_nikename" size="40" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:group_nikename}--><!--</if>-->"/>
 						<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Group'>-->群组别名是相对于小组名的一种昵称，且最大长达为32个字符<!--</lang>--></div>
 					</fieldset>
+					<fieldset>
+						<label for="group_listdescription"><!--<lang package='__APP_ADMIN_LANG__@Template/Group'>-->小组列表简介<!--</lang>--></label>
+						<input type="text" name="group_listdescription" id="group_listdescription" size="40" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:group_listdescription}--><!--</if>-->"/>
+						<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Group'>-->小组列表简介是小组列表一个简短的介绍，且最大长达为300个字符<!--</lang>--></div>
+					</fieldset>
 					<!--{if !isset( $oValue )}-->
 					<fieldset>
 						<label for="group_categoryid"><!--<lang package='__APP_ADMIN_LANG__@Template/Group'>-->小组分类<!--</lang>--></label>

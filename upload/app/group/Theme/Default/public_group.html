@@ -113,160 +113,90 @@
 
 .forum_space{margin:1px 0px}
 	<!--{/style}-->
-		
 		<div class="row">
 			<div class="span12">
-				
-				<table cellpadding="5" cellspacing="1" border="0" class="tableborder" align="left" style="width:100%;">
-					<tr>
-					<td class="announcement" colspan="5">
-					<span class="categoryfontcolor_normal"><a href="announcesys.php">公告</a></span></td>
-					</tr>
-					<tr>
-					<td style="padding-left:0px;padding-right:0px;">
-					<div id="announcement_c" class="backtdbottom">
-					<ul class="line"><li>
-					<span class='jiazhongcolor'><strong><a href="announcesys.php?job=read&amp;msg=1">为了获得更好的效果，请使用 Chrome 等现代浏览器浏览</a></strong></span> (2012-04-03 00:01)
-					</li><li>
-					<span class='jiazhongcolor'><strong><a href="announcesys.php?job=read&amp;msg=2">BMForum 寻求用户对功能重新布局的建议</a></strong></span> (2008-06-08 14:48)
-					</li><li>
-					<span class='jiazhongcolor'><strong><a href="announcesys.php?job=read&amp;msg=3">BMForum Myna 6.0 当前新亮点</a></strong></span> (2007-10-09 20:44)
-					</li><li>
-					<span class='jiazhongcolor'><strong><a href="announcesys.php?job=read&amp;msg=4">BMForum 新版首页试运行中</a></strong></span> (2006-12-17 17:18)
-					</li><li>
-					<span class='jiazhongcolor'><strong><a href="announcesys.php?job=read&amp;msg=5">BMForum 开发组期待你的加入</a></strong></span> (2006-02-05 11:00)
-					</li><li>
-					<span class='jiazhongcolor'><strong><a href="announcesys.php?job=read&amp;msg=6">对采用BMForum的政府和大型论坛提供付费技术支持优惠政策</a></strong></span> (2006-01-19 16:03)
-					</li></ul>
-					</div>
-					</td>
-					</tr>
-				</table>
-				<script>
-				$(function(){
-				var _wrap=$('ul.line');
-				var _interval=4000;
-				var _moving;
-				_wrap.hover(function(){
-				clearInterval(_moving);
-				},function(){
-				_moving=setInterval(function(){
-				var _field=_wrap.find('li:first');
-				var _h=_field.height();
-				_field.animate({marginTop:-_h+'px'},600,function(){
-				_field.css('marginTop',0).appendTo(_wrap);
-				})
-				},_interval)
-				}).trigger('mouseleave');
-				});
-				</script><script type="text/javascript">
-				//<![CDATA[ 
-				function adminjump(list) { 
-				var myindex1  = list.selectedIndex;  
-				var newwindow = list.options[myindex1].value; 
-				if (newwindow != "") { var msgwindow = window.open(newwindow,"",""); }
-				}
-				//]]>>
-				</script>
-
-				<!--<foreach for=arrGroupcategorys>-->
-				<div class="forum_space">&nbsp;</div>
+				<!--<foreach for=arrGroupcategorys value=oGroupcategory>-->
 				<table border="0" cellspacing="0" cellpadding="0" align="left" class="tableborder" width="100%">
 					<tr>
-					<td class="noptd">
-					<table cellpadding="4" cellspacing="1" width="100%" border="0">
-					<tr>
-					<td colspan="7" class="announcement">
-					<span class="categoryfontcolor_normal"><div style='display:inline;float:left;'><a href="index.php?cateid=1106559891">
-					<img src='http://bmforum.net/images/bsd12/category.gif' border="0" alt="" /><!--{$value['groupcategory_name']}--><img src='http://bmforum.net/images/bsd12/category.gif' alt="" border="0" />
-					</a></div>
-					<div style='display:inline;float:right;'></div></span>
-					</td>
+						<td class="noptd">
+							<table cellpadding="4" cellspacing="1" width="100%" border="0">
+								<tr>
+									<td colspan="7" class="announcement">
+										<span class="categoryfontcolor_normal">
+											<div style='display:inline;float:left;'>
+												<a href="<!--{:Dyhb::U('group://category@?id='.$oGroupcategory['groupcategory_id'])}-->">
+													<!--{$oGroupcategory['groupcategory_name']}-->
+												</a>
+											</div>
+											<div style='display:inline;float:right;'></div>
+										</span>
+									</td>
+								</tr>
+								<tr class="indexalign2">
+									<td width="*" class="tablebg" colspan="2"><span class="titlefontcolor">小组名称</span></td>
+									<td width="40" class="tablebg"><span class="titlefontcolor">主题</span></td>
+									<td width="40" class="tablebg"><span class="titlefontcolor">回复</span></td>
+									<td width="40" class="tablebg"><span class="titlefontcolor">用户</span></td>
+									<td width="168" class="tablebg"><span class="titlefontcolor">最后更新</span></td>
+								</tr>
+								<!--{~$arrGroups=$oGroupcategory->group}-->
+								<!--{if is_array($arrGroups)}-->
+								<!--<foreach for=arrGroups value=oGroup>-->
+								<tr align="center" valign="middle" class="forumcoloronecolor">
+									<td width="26" class="border_bottom_forum">
+										<a onfocus="this.blur()" href="forums.php?forumid=4">
+											<img src='<!--{:Group_Extend::getGroupIcon($oGroup['group_icon'])}-->' border="0" alt="" />
+										</a>
+									</td>
+									<td width="*" align="left" class="border_bottom_forum">
+										<table width="100%" cellpadding="1">
+											<tr>
+												<td width="*" rowspan="2"></td>
+												<td width="1" rowspan="2"></td>
+												<td width="100%" height="10"><span class='forumnamelink'><a href="<!--{:Dyhb::U('group://name@?id='.$oGroup['group_name'])}-->" href="forums_4"><!--{$oGroup:group_nikename}--></a></span> <!--{if $oGroup['group_topictodaynum']>0}-->(今日27)<!--{/if}-->
+												</td>
+											</tr>
+											<!--{if $oGroup->group_listdescription}-->
+											<tr>
+												<td valign="top"><span class="forumdescolor"><!--{$oGroup:group_listdescription}--></span></td>
+											</tr>
+											<!--{/if}-->
+										</table>
+									</td>
+									<td width="40" valign="middle" align="center" class="border_bottom_forum">
+										<span class="cau"><!--{$oGroup:group_topicnum}--></span>
+									</td>
+									<td width="40" valign="middle" align="center" class="border_bottom_forum">
+										<span class="cau"><!--{$oGroup:group_topiccomment}--></span>
+									</td>
+									<td width="40" valign="middle" align="center" class="border_bottom_forum">
+										<span class="cau"><!--{$oGroup:group_usernum}--></span>
+									</td>
+									<td width="168" align="right" class="border_bottom_forum">
+										<table width="100%" align="right">
+											<tr>
+												<td width="2%" align="right">&nbsp;</td>
+												<td class="indexsummaryalgin"><a title="RE:BMForum 6.5 内部测试版 - 21sta" href="topic_170125_last#postend">RE:BMForum 6..</a><br />2012-08-24 01:16</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+								<!--</foreach>-->
+								<!--{d*else}-->
+								<tr>
+									<td valign="middle" align="center" class="border_bottom_forum" colspan="6">
+										暂时没有发现任何小组
+									</td>
+								</tr>
+								<!--{/if}-->
+							</table>
+							<!--{if $key<=count($arrGroupcategorys)}-->
+							<div class="forum_space">&nbsp;</div>
+							<!--{/if}-->
+						</td>
 					</tr>
-					<tr class="indexalign2">
-					<td width="*" class="tablebg" colspan="2">
-					<span class="titlefontcolor">讨论区名称</span></td>
-					<td width="40" class="tablebg">
-					<span class="titlefontcolor">主题</span></td>
-					<td width="40" class="tablebg">
-					<span class="titlefontcolor">回复</span></td>
-					<td width="168" class="tablebg">
-					<span class="titlefontcolor">最后更新</span></td>
-					</tr>
-
-				<!--{~$arrGroups=$value->group}-->
-				<!--<foreach for=arrGroups value=oGroup>-->
-				<tr align="center" valign="middle" class="forumcoloronecolor">
-					<td width="26" class="border_bottom_forum">
-					<a onfocus="this.blur()" href="forums.php?forumid=4"><img src='http://bmforum.net/images/bsd12/forum.gif' border="0" alt="" /></a></td>
-					<td width="*" align="left" class="border_bottom_forum">
-					<table width="100%" cellpadding="1">
-					<tr>
-					<td width="*" rowspan="2"></td>
-					<td width="1" rowspan="2"></td>
-					<td width="100%" height="10"><span class='forumnamelink'><a onfocus='this.blur();' href="forums_4"><!--{$oGroup:group_name}--></a></span> (27)
-					</td>
-					</tr>
-					<tr>
-					<td valign="top"><span class="forumdescolor">BMForum 程序和补丁发布 PHP论坛下载(BMForum PHP论坛 完全免费!)</span> <br /><strong>子论坛:</strong> <a href="forums_79">文档说明 Documents</a>, <a href="forums_1106559892">内部测试 Alpha Testing</a></td>
-					</tr>
-					</table>
-					</td>
-					<td width="40" valign="middle" align="center" class="border_bottom_forum">
-					<span class="cau">217</span></td>
-					<td width="40" valign="middle" align="center" class="border_bottom_forum">
-					<span class="cau">1943</span></td>
-					<td width="168" align="right" class="border_bottom_forum">
-					<table width="100%" align="right">
-					<tr>
-					<td width="2%" align="right">&nbsp;</td>
-					<td class="indexsummaryalgin"><a title="RE:BMForum 6.5 内部测试版 - 21sta" href="topic_170125_last#postend">RE:BMForum 6..</a><br />2012-08-24 01:16</td>
-					</tr>
-					</table>
-					</td>
-					</tr>	
-					<!--</foreach>-->
 				</table>
 				<!--</foreach>-->
-<!--{style}-->
-.tile_back_online{
-	background-color: #3083BE;
-	width: auto;
-}
-<!--{/style}-->
-				<div class="forum_space">&nbsp;</div>
-				<div id="onlinelist">
-					<script type="text/javascript">
-					//<![CDATA[ 
-					var online_show_anti="show";
-					//]]>>
-					</script>
-					<table border="0" cellspacing="0" cellpadding="0" align="left" class="tableborder" width="100%">
-					<tr>
-					<td class="noptd">
-					<table cellpadding="4" cellspacing="1" width="100%" border="0">
-					<tr class="tile_back_online">
-					<td class='announcement'>
-					<strong>
-					<a name="onlinearea"></a><span class="categoryfontcolor_normal"><a href="misc.php?p=viewonline" >在线统计</a></span><span class="categoryfontcolor_normal">&nbsp;-</span>
-					<span class="categoryfontcolor_normal"><a onclick="bmb_ajax_preprocess('index.php','?','0');" href="#onlinearea">
-					有 <strong>1</strong> 位用户 (<strong>0</strong> 位隐身) 和 <strong>152</strong> 位访客，共<strong>153</strong>人在线 | 最高纪录 <strong>9886</strong> 于 2006-10-27 19:45</a></span>
-					</strong></td>
-					</tr></table>
-					</td>
-					</tr>
-					</table>
-					</div><br />
-					<table border="0" align="center" cellpadding="5" cellspacing="1" class="bmbnewstyle_withoutwidth">
-					<tr>
-					<td class="forumcolorone_ex">
-					<img alt="今日无新贴" src="http://bmforum.net/images/bsd12/forum.gif" /> 没有新贴
-					<img alt="今日有新贴" src="http://bmforum.net/images/bsd12/forum_new.gif" /> 有新贴
-					<img alt="讨论组已关闭" src="http://bmforum.net/images/bsd12/forum_lock.gif" /> 只读版块/精华区
-					</td>
-					</tr>
-				</table>
-				</div>
 			</div>
 		</div>
 

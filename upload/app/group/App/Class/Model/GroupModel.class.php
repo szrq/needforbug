@@ -29,6 +29,10 @@ class GroupModel extends CommonModel{
 					array('require',Dyhb::L('群组别名不能为空','__APP_ADMIN_LANG__@Model/Group')),
 					array('max_length',30,Dyhb::L('群组别名不能超过30个字符','__APP_ADMIN_LANG__@Model/Group'))
 				),
+				'group_listdescription'=>array(
+					array('require',Dyhb::L('群组列表简介不能为空','__APP_ADMIN_LANG__@Model/Group')),
+					array('max_length',300,Dyhb::L('群组列表简介不能超过300个字符','__APP_ADMIN_LANG__@Model/Group'))
+				),
 				'group_description'=>array(
 					array('require',Dyhb::L('群组简介不能为空','__APP_ADMIN_LANG__@Model/Group')),
 				),
@@ -150,8 +154,17 @@ class GroupModel extends CommonModel{
 
 	protected function userId(){
 		$nUserId=$GLOBALS['___login___']['user_id'];
-
 		return $nUserId>0?$nUserId:0;
+	}
+
+	public function groupbyUserid($nUserid,$nNum=0){
+		$oGroup=GroupModel::F('user_id=?',$nUserid);
+
+		if($nNum>0){
+			$oGroup->limit(0,$nNum);
+		}
+
+		return $oGroup->getAll();
 	}
 
 }

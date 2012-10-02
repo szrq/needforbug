@@ -6,4 +6,6 @@
 
 return array(
 	'topic'=>array('grouptopic/view','id'),
+	'category'=>array('group/index2','id'),
+	'name'=>array('group/show','id'),
 );
