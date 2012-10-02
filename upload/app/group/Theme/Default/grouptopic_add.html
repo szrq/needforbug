@@ -19,10 +19,42 @@ function grouptopicSubmit(){
 		}
 	});
 }
+
+function showMedia(){
+	$('#homefresh-media-box').toggle('fast');
+}
 <!--{/script}-->
 
 <!--{style}-->
 .grouptopic_tabs{margin-top:10px;}
+<!--{/style}-->
+
+<!--{style}-->
+.homefresh-media-box{margin:8px 0 8px 0px;}
+.icon_add_face,.icon_add_topic,.icon_add_img,.icon_add_video,.icon_add_music{
+	background-image: url('<!--{:__UTHEMEPUB__}-->/Images/homefresh_icon.png');
+	background-repeat:no-repeat;
+	width: 22px;
+	height: 22px;
+	padding:4px 0px 4px 20px;
+	line-height:22px;
+	margin-right:5px;
+}
+.icon_add_face{
+	background-position: 0px 2px;
+}
+.icon_add_topic{
+	background-position: 0px -21px;
+}
+.icon_add_img{
+	background-position: 0px -47px;
+}
+.icon_add_video{
+	background-position: 0px -73px;
+}
+.icon_add_music{
+	background-position: 0px -98px;
+}
 <!--{/style}-->
 
 		<ul class="breadcrumb">
@@ -50,7 +82,14 @@ function grouptopicSubmit(){
 					<label>帖子标题</label>
 					<input type="text" name="grouptopic_title" id="grouptopic_title" class="span8" placeholder="请输入标题">
 					<span></span>
-					<label>帖子内容</label>
+					<label>帖子内容&nbsp;(<a href="javascript:void(0);" onclick="showMedia();">媒体</a>)</label>
+					<div id="homefresh-media-box" class="homefresh-media-box none">
+						<a href="javascript:void(0);" class="face-icon icon_add_face" >表情</a> 
+						<a href="javascript:void(0);" onclick="addHomefreshtopic();" class="icon_add_topic">话题</a> 
+						<a href="javascript:void(0);" onclick="globalAddattachment('insertHomefresh');" class="icon_add_img">媒体</a>
+						<a href="javascript:void(0);" onclick="addHomefreshvideo();" class="icon_add_video" >视频</a>
+						<a href="javascript:void(0);" onclick="addHomefreshmusic();" class="icon_add_music">音乐</a>
+					</div>
 					<textarea name="grouptopic_content" id="grouptopic_content" style="height:350px;width:100%;padding:0;margin:0;"></textarea>
 					<div class="grouptopic_tabs">
 						<ul id="grouptopic_tabcontent" class="nav nav-tabs">

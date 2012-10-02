@@ -311,3 +311,49 @@ function addEditorContent(oEditor,sContent){
 		oEditor.insertHtml(sContent);
 	}
 }
+
+function insertAttachment(editor,nAttachmentid){
+	addEditorContent(editor,'[attachment]'+nAttachmentid+'[/attachment]')
+}
+
+var oEditNewmusic='';
+function addMusic(sFunction){
+	var sHtml = $.ajax({
+		url: D.U('home://ucenter/homefreshmusic?function='+sFunction),
+		async: false
+	}).responseText;
+
+	oEditNewmusic=needforbugAlert(sHtml,'插入音乐','','','',500,100);
+}
+
+function insertMusic(editor,sContent){
+	if(!sContent){
+		needforbugAlert('音乐地址不能够为空','',3);
+		return false;
+	}
+
+	sContent='[mp3]'+sContent+'[/mp3]';
+	addEditorContent(editor,sContent);
+	oEditNewmusic.close();
+}
+
+var oEditNewvideo='';
+function addVideo(sFunction){
+	var sHtml = $.ajax({
+		url: D.U('home://ucenter/homefreshvideo?function='+sFunction),
+		async: false
+	}).responseText;
+
+	oEditNewvideo=needforbugAlert(sHtml,'插入视频','','','',500,100);
+}
+
+function insertVideo(editor,sContent){
+	if(!sContent){
+		needforbugAlert('视频地址不能够为空','',3);
+		return false;
+	}
+
+	sContent='[video]'+sContent+'[/video]';
+	addEditorContent(editor,sContent);
+	oEditNewvideo.close();
+}

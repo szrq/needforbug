@@ -86,10 +86,14 @@ class HomefreshController extends InitController{
 	}
 
 	public function music(){
+		$sFunction=trim(G::getGpc('function','G'));
+		$this->assign('sFunction',$sFunction);
 		$this->display('homefresh+music');
 	}
 
 	public function video(){
+		$sFunction=trim(G::getGpc('function','G'));
+		$this->assign('sFunction',$sFunction);
 		$this->display('homefresh+video');
 	}
 

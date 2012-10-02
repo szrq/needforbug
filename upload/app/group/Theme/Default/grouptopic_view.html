@@ -91,7 +91,7 @@
 .floor_info .operate .follow{
 	background-position:0 6px;
 	margin-right:9px;
-	padding-left:12px;
+	padding-left:0px;
 }
 .floor_info .operate .message{
 	background-position:0 -25px;
@@ -477,6 +477,42 @@ margin-left:-72px;
 .inform a {
 	color:#666666;
 }
+
+.pls .tns {
+    padding: 0 10px 10px;
+}
+
+.tns {
+    padding: 10px 0;
+}
+
+.xg2 {
+    color: #666666;
+}
+.tns th {
+    border-right: 1px solid #CCCCCC;
+	font-weight:normal;
+}
+
+.tns th, .tns td {
+    font-size: 12px;
+    text-align: center;
+}
+.xi2, .xi2 a, .xi3 a {
+    color: #336699;
+}
+
+.pi {
+    padding-left: 15px;
+}
+
+.pi {
+    border-bottom: 1px dashed #CDCDCD;
+    height: 16px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    padding: 10px 0;
+}
 <!--{/style}-->
 
 <link rel="stylesheet" type="text/css" href="<!--{:__PUBLIC__}-->/js/jquery/hovercard/css/main.css"/>
@@ -543,49 +579,59 @@ function deleteFriend(friendid,fan){
 					<div class="floor clear" id="read_0" style="margin:0px;padding:0px;">
 						<table width="100%" style="table-layout:fixed;background: none repeat scroll 0 0 #FFFFFF;border: 1px solid #CDCDCD;border-bottom:none;">
 							<tr>
-								<td rowspan="2" class="floor_left span2"  style="background:none repeat scroll 0 0 #E5EDF2;border-right: 1px solid #C2D5E3;border-bottom: 1px solid #C2D5E3;">
+								<td rowspan="2" class="floor_left span2"  style="background:none repeat scroll 0 0 #E5EDF2;border-right: 1px solid #C2D5E3;border-bottom: 1px solid #C2D5E3;text-align:center;">
 									<div class="floor_info">
+										<div class="pi">
+											<div class="authi" style="margin:auto;text-align:left;width:75%;"><a class="xw1" target="_blank" href="{:Dyhb::U('home://space@?id='.$oGrouptopic['user_id'])}"><!--{$oGrouptopic->grouptopic_username}--></a>
+											</div>
+										</div>
 										<!--头像-->
 										<div class="face"><a href="/index.php?m=space&uid=292" class="J_user_card_show" data-uid="292" target="_blank"><img src="<!--{:Core_Extend::avatar($oGrouptopic['user_id'],'middle')}-->" class="bind_hover_card" bm_user_id="<!--{$oGrouptopic['user_id']}-->" target="_blank" width="120" height="120" alt="<!--{$oGrouptopic->grouptopic_username}-->"></a></div>
-										<!--用户名-->
-										<div class="name"><span class="man_unol" title="离线"></span><a href="/index.php?m=space&uid=292" class="J_user_card_show" data-uid="292" style="width:62px;"><!--{$oGrouptopic->grouptopic_username}--></a>
+										<div class="tns xg2" style="margin:auto;width:80%;text-align:left;">
+											<table cellspacing="0" cellpadding="0" width="100%" style="">
+												<tbody>
+													<tr>
+														<th><p><a class="xi2" href=""><!--{$TheController->totalTopic($oGrouptopic->user_id)}--></a></p>主题</th>
+														<th><p><a class="xi2" href="#"><!--{$TheController->totalFans($oGrouptopic->user_id)}--></a></p>听众
+														</th>
+														<td><p><a class="xi2" href=""><span title="12151">1万</span></a></p>积分</td>
+													</tr>
+												</tbody>
+											</table>
 										</div>
-										<div style="padding:0px 10px;">
-											<table>
+										<div>
+											<p style="margin:auto;width:75%;text-align:left;margin-bottom:5px;"><em style=""><a target="_blank" href="">列兵</a></em>
+											</p>
+											<p class="xg1" style="margin:auto;width:75%;text-align:left;margin-bottom:5px;color: #999999 !important;">马建军</p>
+										</div>
+										<div style="margin:auto;width:70%;">
+											<table style="text-align:left;" cellspacing="0" cellpadding="0" width="100%">
 												<tr>
-													<td width="40px">UID</td>
+													<td>UID</td>
 													<td><!--{$oGrouptopic->user_id}--></td>
 												</tr>
 												<tr>
-													<td>关注</td>
-													<td><!--{$TheController->totalFriends($oGrouptopic->user_id)}--></td>
-												</tr>
-												<tr>
-													<td>粉丝</td>
-													<td><!--{$TheController->totalFans($oGrouptopic->user_id)}--></td>
-												</tr>
-												<tr>
-													<td>主题</td>
-													<td><!--{$TheController->totalTopic($oGrouptopic->user_id)}--></td>
-												</tr>
-												<tr>
-													<td>回复</td>
+													<td>帖子</td>
 													<td><!--{$TheController->totalComment($oGrouptopic->user_id)}--></td>
 												</tr>
 												<tr>
-													<td>头衔</td>
-													<td>列兵</td>
+													<td>金币</td>
+													<td>15</td>
+												</tr>
+												<tr>
+													<td>贡献</td>
+													<td>15</td>
 												</tr>
 											</table>
 										</div>
 										<!--{~$nAlreadyFriendId=Core_Extend::isAlreadyFriend($oGrouptopic->user_id)}-->
-										<div class="operate clear">
+										<div class="operate2 " style="margin-top:10px;text-align:center;">
 											<!--{if $nAlreadyFriendId==1 || $nAlreadyFriendId==4}-->
-											<a rel="nofollow" href="#" onclick="deleteFriend(<!--{$oComment->user_id}-->);" style="padding-left:10px;width:60px;">取消关注</a>
-											<a rel="nofollow" href="" class="message J_send_msg_pop" data-name="小鸡爷爷" style="width:60px;"><i class="icon-envelope"></i>写私信</a>
+											<a rel="nofollow" href="#" onclick="deleteFriend(<!--{$oComment->user_id}-->);" style="">取消关注</a>&nbsp;
+											<a rel="nofollow" href="" style="width:30px;"><i class="icon-envelope"></i>写私信</a>
 											<!--{d*else}-->
-											<a rel="nofollow" href="#" onclick="addFriend(<!--{$oGrouptopic->user_id}-->);" style="padding-left:10px;width:60px;"><i class="icon-plus"></i>加关注</a>
-											<a rel="nofollow" href="" class="message J_send_msg_pop" data-name="小鸡爷爷" style="width:60px;"><i class="icon-envelope"></i>写私信</a>
+											<a rel="nofollow" href="#" onclick="addFriend(<!--{$oGrouptopic->user_id}-->);"><i class="icon-plus"></i>加关注</a>&nbsp;
+											<a rel="nofollow" href="" class="message J_send_msg_pop" data-name="小鸡爷爷"><i class="icon-envelope"></i>写私信</a>
 											<!--{/if}-->
 										</div>
 									</div>
@@ -644,8 +690,7 @@ function deleteFriend(friendid,fan){
 								</td>
 							</tr>
 							<tr>
-								<td class="floor_bottom" valign="bottom" style="border-bottom: 1px solid #E5EDF2;'>
-									<div class="" style=""></div>
+								<td class="floor_bottom" valign="bottom" style="border-bottom: 1px solid #E5EDF2;">
 									<!--快速回复-->
 									<div class="reply_quick clear">
 										<div class="hd">
@@ -683,49 +728,58 @@ function deleteFriend(friendid,fan){
 							<tr>
 								<td rowspan="2" class="floor_left span2"  style="padding-bottom:80px;padding-top:10px;background:none repeat scroll 0 0 #E5EDF2;border-right: 1px solid #C2D5E3;border-top: 1px solid #C2D5E3; text-align:center;" >
 									<div class="floor_info">
+										<div class="pi">
+											<div class="authi" style="margin:auto;text-align:left;width:75%;"><a class="xw1" target="_blank" href="{:Dyhb::U('home://space@?id='.$oComment['user_id'])}"><!--{$oComment->user_id|UserModel+getUsernameById}--></a>
+											</div>
+										</div>
 										<!--头像-->
 										<div class="face"><a href="/index.php?m=space&uid=292" class="J_user_card_show" data-uid="292" target="_blank"><img src="<!--{:Core_Extend::avatar($oComment['user_id'],'middle')}-->" class="J_avatar" data-type="middle" width="120" height="120" alt="<!--{$oComment->user_id|UserModel+getUsernameById}-->"></a></div>
-										<!--用户名-->
-										<div class="name"><span class="man_unol" title="离线"></span><a href="/index.php?m=space&uid=292" class="J_user_card_show" data-uid="292" style="width:62px;"><!--{$oComment->user_id|UserModel+getUsernameById}--></a>
+										<div class="tns xg2" style="margin:auto;width:80%;text-align:left;">
+											<table cellspacing="0" cellpadding="0" width="100%" style="">
+												<tbody>
+													<tr>
+														<th><p><a class="xi2" href=""><!--{$TheController->totalTopic($oComment->user_id)}--></a></p>主题</th>
+														<th><p><a class="xi2" href="#"><!--{$TheController->totalFans($oComment->user_id)}--></a></p>听众
+														</th>
+														<td><p><a class="xi2" href=""><span title="12151">1万</span></a></p>积分</td>
+													</tr>
+												</tbody>
+											</table>
 										</div>
-										<!--{~$nAlreadyFriendId=Core_Extend::isAlreadyFriend($oComment->user_id)}-->
-										<div class="operate clear">
-											<!--{if $nAlreadyFriendId==2}-->
-											<!--{elseif $nAlreadyFriendId==1 || $nAlreadyFriendId==4}-->
-											<a rel="nofollow" href="#" onclick="deleteFriend(<!--{$oComment->user_id}-->);" style="padding-left:10px;width:60px;">取消关注</a>
-											<a rel="nofollow" href="" class="message J_send_msg_pop" data-name="小鸡爷爷" style="width:130px;"><i class="icon-envelope"></i>写私信</a>
-											<!--{elseif $nAlreadyFriendId==0 || $nAlreadyFriendId==3}-->
-											<a rel="nofollow" href="#" onclick="addFriend(<!--{$oComment->user_id}-->);" style="padding-left:10px;width:60px;"><i class="icon-plus"></i>加关注</a>
-											<a rel="nofollow" href="" class="message J_send_msg_pop" data-name="小鸡爷爷" style="width:130px;"><i class="icon-envelope"></i>写私信</a>
-											<!--{/if}-->
+										<div>
+											<p style="margin:auto;width:75%;text-align:left;margin-bottom:5px;"><em style=""><a target="_blank" href="">列兵</a></em>
+											</p>
+											<p class="xg1" style="margin:auto;width:75%;text-align:left;margin-bottom:5px;color: #999999 !important;">马建军</p>
 										</div>
-										<div style="padding:0px 10px;">
-											<table>
+										<div style="margin:auto;width:70%;">
+											<table style="text-align:left;" cellspacing="0" cellpadding="0" width="100%">
 												<tr>
-													<td width="40px">UID</td>
-													<td><!--{$oComment->user_id}--></td>
+													<td>UID</td>
+													<td><!--{$oGrouptopic->user_id}--></td>
 												</tr>
 												<tr>
-													<td>关注</td>
-													<td><!--{$TheController->totalFriends($oComment->user_id)}--></td>
+													<td>帖子</td>
+													<td><!--{$TheController->totalComment($oGrouptopic->user_id)}--></td>
 												</tr>
 												<tr>
-													<td>粉丝</td>
-													<td><!--{$TheController->totalFans($oComment->user_id)}--></td>
+													<td>金币</td>
+													<td>15</td>
 												</tr>
 												<tr>
-													<td>主题</td>
-													<td><!--{$TheController->totalTopic($oComment->user_id)}--></td>
-												</tr>
-												<tr>
-													<td>回复</td>
-													<td><!--{$TheController->totalComment($oComment->user_id)}--></td>
-												</tr>
-												<tr>
-													<td>头衔</td>
-													<td>列兵</td>
+													<td>贡献</td>
+													<td>15</td>
 												</tr>
 											</table>
+										</div>
+										<!--{~$nAlreadyFriendId=Core_Extend::isAlreadyFriend($oComment->user_id)}-->
+										<div class="operate2 " style="margin-top:10px;text-align:center;">
+											<!--{if $nAlreadyFriendId==1 || $nAlreadyFriendId==4}-->
+											<a rel="nofollow" href="#" onclick="deleteFriend(<!--{$oComment->user_id}-->);" style="">取消关注</a>&nbsp;
+											<a rel="nofollow" href="" style="width:30px;"><i class="icon-envelope"></i>写私信</a>
+											<!--{d*else}-->
+											<a rel="nofollow" href="#" onclick="addFriend(<!--{$oComment->user_id}-->);"><i class="icon-plus"></i>加关注</a>&nbsp;
+											<a rel="nofollow" href="" class="message J_send_msg_pop" data-name="小鸡爷爷"><i class="icon-envelope"></i>写私信</a>
+											<!--{/if}-->
 										</div>
 									</div>
 								</td>

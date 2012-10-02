@@ -123,10 +123,6 @@ class AttachmentController extends InitController{
 
 	public function dialog_add(){
 		$sFunction=trim(G::getGpc('function','G'));
-		if(empty($sFunction)){
-			$sFunction='insertContent';
-		}
-		
 		$this->assign('sFunction',$sFunction);
 		$this->assign('bDialog',true);
 

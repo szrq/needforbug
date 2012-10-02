@@ -62,8 +62,16 @@ function showHomefreshtitle(){
 	$('#homefresh-title-box').toggle('fast');
 }
 
-function insertHomefresh(nAttachmentid){
-	addEditorContent(editor,'[attachment]'+nAttachmentid+'[/attachment]')
+function insertHomefreshattachment(nAttachmentid){
+	insertAttachment(editor,nAttachmentid);
+}
+
+function insertHomefreshmusic(sContent){
+	insertMusic(editor,sContent);
+}
+
+function insertHomefreshvideo(sContent){
+	insertVideo(editor,sContent);
 }
 
 var oEditNewhomefreshtopic='';
@@ -79,48 +87,6 @@ function addHomefreshtopic(){
 function insertHomefreshtopic(sContent){
 	addEditorContent(editor,sContent);
 	oEditNewhomefreshtopic.close();
-}
-
-var oEditNewhomefreshmusic='';
-function addHomefreshmusic(){
-	var sHtml = $.ajax({
-		url: D.U('home://ucenter/homefreshmusic'),
-		async: false
-	}).responseText;
-
-	oEditNewhomefreshmusic=needforbugAlert(sHtml,'插入音乐','','','',500,100);
-}
-
-function insertHomefreshmusic(sContent){
-	if(!sContent){
-		needforbugAlert('音乐地址不能够为空','',3);
-		return false;
-	}
-
-	sContent='[mp3]'+sContent+'[/mp3]';
-	addEditorContent(editor,sContent);
-	oEditNewhomefreshmusic.close();
-}
-
-var oEditNewhomefreshvideo='';
-function addHomefreshvideo(){
-	var sHtml = $.ajax({
-		url: D.U('home://ucenter/homefreshvideo'),
-		async: false
-	}).responseText;
-
-	oEditNewhomefreshvideo=needforbugAlert(sHtml,'插入视频','','','',500,100);
-}
-
-function insertHomefreshvideo(sContent){
-	if(!sContent){
-		needforbugAlert('视频地址不能够为空','',3);
-		return false;
-	}
-
-	sContent='[video]'+sContent+'[/video]';
-	addEditorContent(editor,sContent);
-	oEditNewhomefreshvideo.close();
 }
 <!--{/script}-->
 
@@ -178,9 +144,9 @@ var nHomefreshviewcomment=0;
 										<div id="homefresh-media-box" class="homefresh-media-box">
 											<a href="javascript:void(0);" class="face-icon icon_add_face" >表情</a> 
 											<a href="javascript:void(0);" onclick="addHomefreshtopic();" class="icon_add_topic">话题</a> 
-											<a href="javascript:void(0);" onclick="globalAddattachment('insertHomefresh');" class="icon_add_img">媒体</a>
-											<a href="javascript:void(0);" onclick="addHomefreshvideo();" class="icon_add_video" >视频</a>
-											<a href="javascript:void(0);" onclick="addHomefreshmusic();" class="icon_add_music">音乐</a>
+											<a href="javascript:void(0);" onclick="globalAddattachment('insertHomefreshattachment');" class="icon_add_img">媒体</a>
+											<a href="javascript:void(0);" onclick="addVideo('insertHomefreshvideo');" class="icon_add_video" >视频</a>
+											<a href="javascript:void(0);" onclick="addMusic('insertHomefreshmusic');" class="icon_add_music">音乐</a>
 										</div>
 										<div id="homefresh-title-box" class="none">
 											<input type="text" class="span6" name="homefresh_title" id="homefresh_title" value="">&nbsp;<!--<lang package='Template/Homefresh'>-->新鲜事标题<!--</lang>-->
