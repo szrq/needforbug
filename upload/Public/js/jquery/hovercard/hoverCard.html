@@ -1,33 +1,3 @@
-<?php
-/* [NeedForBug!] (C)Dianniu From 2010.
-   主页杂项控制器($)*/
-
-!defined('DYHB_PATH') && exit;
-
-class MiscController extends InitController{
-
-	public function district(){
-		Core_Extend::doControllerAction('Misc@District','index');
-	}
-
-	public function newpmnum(){
-		Core_Extend::doControllerAction('Misc@Newpmnum','index');
-	}
-
-	public function style(){
-		Core_Extend::doControllerAction('Misc@Style','index');
-	}
-
-	public function extendstyle(){
-		Core_Extend::doControllerAction('Misc@Extendstyle','index');
-	}
-
-	public function init_system(){
-		Core_Extend::doControllerAction('Misc@Initsystem','index');
-	}
-
-	public function avatar(){
-		echo <<<n
 <div class="bm_hover_card_content udline">
 <div class="bm_hover_card_avator"><a href="http://weibo.com/samnous"><img src="images/my_avatar.jpg" height="50" width="50" /></a></div>
 <div class="bm_hover_card_name"><a href="http://weibo.com/samnous">Jamin-IT</a><img src="images/transparent.gif" class="male" height="14" width="14" /></div>
@@ -40,7 +10,3 @@ class MiscController extends InitController{
 </div>
 </div>
 <div class="bm_hover_card_bar"><a href="http://meego123.net" class="add_follow"></a></div>
-n;
-	}
-
-}

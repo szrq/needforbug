@@ -6,6 +6,8 @@
 			<li>查看帖子</li>
 		</ul>
 
+
+
 <!--{style}-->
 .floor{
 	margin-top:10px;
@@ -477,9 +479,18 @@ margin-left:-72px;
 }
 <!--{/style}-->
 
+<link rel="stylesheet" type="text/css" href="<!--{:__PUBLIC__}-->/js/jquery/hovercard/css/main.css"/>
+<script src="<!--{:__PUBLIC__}-->/js/jquery/hovercard/js/hoverCard.js"></script>
+
 <script src="<!--{:__PUBLIC__}-->/js/jquery/autoresize/jquery.autoresize.js"></script>
 <!--{script}-->
 $(function(){
+	$(".bind_hover_card").hoverCard({
+		url:D.U('home://misc/avatar'),
+		borederRadius:true,
+		errorText:"出错后，输出自定义文本"
+	});
+	
 	$('.grouptopiccomment_message').autoResize({
 		onResize:function(){
 			$(this).css({opacity:0.8});
@@ -535,7 +546,7 @@ function deleteFriend(friendid,fan){
 								<td rowspan="2" class="floor_left span2"  style="background:none repeat scroll 0 0 #E5EDF2;border-right: 1px solid #C2D5E3;border-bottom: 1px solid #C2D5E3;">
 									<div class="floor_info">
 										<!--头像-->
-										<div class="face"><a href="/index.php?m=space&uid=292" class="J_user_card_show" data-uid="292" target="_blank"><img src="<!--{:Core_Extend::avatar($oGrouptopic['user_id'],'middle')}-->" class="J_avatar" data-type="middle" width="120" height="120" alt="<!--{$oGrouptopic->grouptopic_username}-->"></a></div>
+										<div class="face"><a href="/index.php?m=space&uid=292" class="J_user_card_show" data-uid="292" target="_blank"><img src="<!--{:Core_Extend::avatar($oGrouptopic['user_id'],'middle')}-->" class="bind_hover_card" bm_user_id="<!--{$oGrouptopic['user_id']}-->" target="_blank" width="120" height="120" alt="<!--{$oGrouptopic->grouptopic_username}-->"></a></div>
 										<!--用户名-->
 										<div class="name"><span class="man_unol" title="离线"></span><a href="/index.php?m=space&uid=292" class="J_user_card_show" data-uid="292" style="width:62px;"><!--{$oGrouptopic->grouptopic_username}--></a>
 										</div>
