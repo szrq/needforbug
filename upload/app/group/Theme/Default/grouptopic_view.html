@@ -9,6 +9,7 @@
 
 
 
+
 <!--{style}-->
 .floor{
 	margin-top:10px;
@@ -610,7 +611,7 @@ function deleteFriend(friendid,fan){
 					
 					<!--{if $nPage <2}-->
 					<div class="floor clear" id="read_0" style="margin:0px;padding:0px;">
-						<table width="100%" style="table-layout:fixed;background: none repeat scroll 0 0 #FFFFFF;border: 1px solid #CDCDCD;border-bottom:none;">
+						<table width="100%" style="table-layout:fixed;background: none repeat scroll 0 0 #FFFFFF;border: 1px solid #DDDDDD;border-bottom:none;">
 							<tr>
 								<td rowspan="2" class="floor_left span2"  style="background:none repeat scroll 0 0 #E5EDF2;border-right: 1px solid #C2D5E3;border-bottom: 1px solid #C2D5E3;text-align:center;">
 									<div class="floor_info">
@@ -755,7 +756,7 @@ function deleteFriend(friendid,fan){
 						<!--<foreach for=arrComment value=oComment>-->
 						<a name="grouptopiccomment-<!--{$oComment->grouptopiccomment_id}-->"></a>
 						<div class="floor clear J_read_floor" id="read_5440" style="margin:0px;padding:0px;">
-						<table width="100%" style="table-layout:fixed;background: none repeat scroll 0 0 #FFFFFF;border-left: 1px solid #CDCDCD;border-right: 1px solid #CDCDCD;border-top:none;" class="floor_table">
+						<table width="100%" style="table-layout:fixed;background: none repeat scroll 0 0 #FFFFFF;border-left: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;border-top:none;" class="floor_table">
 							<tr>
 								<td rowspan="2" class="floor_left span2"  style="padding-bottom:80px;padding-top:10px;background:none repeat scroll 0 0 #E5EDF2;border-right: 1px solid #C2D5E3;border-top: 1px solid #C2D5E3; text-align:center;" >
 									<div class="floor_info">
@@ -829,7 +830,7 @@ function deleteFriend(friendid,fan){
 										<!--结束右侧广告位-->
 										</div>
 
-										<div class="editor_content"><!--{$oComment->grouptopiccomment_content}--></div>
+										<div class="editor_content"><!--{$oComment->grouptopiccomment_content|Core_Extend+ubb}--></div>
 									</div>
 								</td>
 							</tr>
@@ -864,6 +865,102 @@ function deleteFriend(friendid,fan){
 								</tr>
 							</table>
 						</div>
+
+
+<!--{:Core_Extend::editorInclude()}-->
+
+<!--{script}-->
+$(function(){
+	editor=loadEditorThin('grouptopiccomment_message');
+});
+
+function addGrouptopiccomment(){
+	$("#grouptopiccomment_message").val(editor.html());
+	if($("#grouptopiccomment_message").val()==""){
+		needforbugAlert('回复内容不能为空','',3);
+		return false;
+	}
+	Dyhb.AjaxSubmit("grouptopiccomment_form",'<!--{:Dyhb::U('group://grouptopic/add_reply')}-->','',function(data,status){
+		if(status==1){
+			window.location.href=data.url;
+		}
+	});
+}
+
+<!--{/script}-->
+
+<!--{script}-->
+function showMedia(){
+	$('#homefresh-media-box').toggle('fast');
+}
+
+function insertGrouptopicattachment(nAttachmentid){
+	insertAttachment(editor,nAttachmentid);
+}
+<!--{/script}-->
+
+<!--{style}-->
+.homefresh-media-box{margin:8px 0 8px 0px;}
+.icon_add_face,.icon_add_topic,.icon_add_img,.icon_add_video,.icon_add_music{
+	background-image: url('<!--{:__UTHEMEPUB__}-->/Images/homefresh_icon.png');
+	background-repeat:no-repeat;
+	width: 22px;
+	height: 22px;
+	padding:4px 0px 4px 20px;
+	line-height:22px;
+	margin-right:5px;
+}
+.icon_add_face{
+	background-position: 0px 2px;
+}
+.icon_add_topic{
+	background-position: 0px -21px;
+}
+.icon_add_img{
+	background-position: 0px -47px;
+}
+.icon_add_video{
+	background-position: 0px -73px;
+}
+.icon_add_music{
+	background-position: 0px -98px;
+}
+<!--{/style}-->
+
+						<div class="floor clear J_read_floor" id="read_5440" style="margin:0px;padding:0px;">
+						<table width="100%" style="table-layout:fixed;background: none repeat scroll 0 0 #FFFFFF;border-left: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;border-top: 1px solid #DDDDDD;border-bottom: 1px solid #DDDDDD;" class="floor_table">
+							<tr>
+								<td rowspan="2" class="floor_left span2"  style="padding-bottom:80px;padding-top:10px;background:none repeat scroll 0 0 #E5EDF2;border-right: 1px solid #C2D5E3; text-align:center;" >
+									<div class="avatar">
+										<img src="<!--{:Core_Extend::avatar($GLOBALS['___login___']['user_id'],'middle')}-->" width="80%">
+									</div>
+								</td>
+								<td class="floor_right span10" style="">
+									<form method="post" name="grouptopiccomment_form" id="grouptopiccomment_form" style="margin-bottom:-15px;">
+					<textarea class="input-xlarge" name="grouptopiccomment_message" id="grouptopiccomment_message" rows="8" style="width:100%;margin-left:0px;"></textarea>
+					<div id="homefresh-media-box" class="homefresh-media-box none">
+						<a href="javascript:void(0);" class="face-icon icon_add_face" >表情</a> 
+						<a href="javascript:void(0);" onclick="addHomefreshtopic();" class="icon_add_topic">话题</a> 
+						<a href="javascript:void(0);" onclick="globalAddattachment('insertGrouptopicattachment');" class="icon_add_img">媒体</a>
+						<a href="javascript:void(0);" onclick="addHomefreshvideo();" class="icon_add_video" >视频</a>
+						<a href="javascript:void(0);" onclick="addHomefreshmusic();" class="icon_add_music">音乐</a>
+					</div>
+					<div class="form-actions">
+						<input type="hidden" name="ajax" value="1">
+						<input type="hidden" name="tid" value="<!--{$oGrouptopic->grouptopic_id}-->">
+						<input id="submit_button" onclick="addGrouptopiccomment();" type="button" class="btn btn-middle btn-success" style="margin-left:0px;" value="发布">&nbsp;
+						<a href="javascript:void(0);" onclick="showMedia();">媒体</a>
+					</div>
+						</form>
+								</td>
+							</tr>
+							<tr>
+								<td style="background: none repeat scroll 0 0 #C2D5E3;height: 1px;padding: 0;margin:0;border-right:1px solid #CDCDCD;"></td>
+								<td style="background: none repeat scroll 0 0 #E5EDF2;height: 1px;padding: 0;margin:0;"></td>
+							</tr>
+						</table>
+					</div>
+
 				</div>
 			</div>
 		</div>
