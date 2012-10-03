@@ -26,6 +26,14 @@ class MiscController extends InitController{
 		Core_Extend::doControllerAction('Misc@Initsystem','index');
 	}
 
+	public function music(){
+		Core_Extend::doControllerAction('Misc@Media','index');
+	}	
+	
+	public function video(){
+		Core_Extend::doControllerAction('Misc@Media','video');
+	}
+
 	public function avatar(){
 		echo <<<n
 <div class="bm_hover_card_content udline">

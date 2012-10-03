@@ -85,18 +85,6 @@ class HomefreshController extends InitController{
 		$this->display('homefresh+topic');
 	}
 
-	public function music(){
-		$sFunction=trim(G::getGpc('function','G'));
-		$this->assign('sFunction',$sFunction);
-		$this->display('homefresh+music');
-	}
-
-	public function video(){
-		$sFunction=trim(G::getGpc('function','G'));
-		$this->assign('sFunction',$sFunction);
-		$this->display('homefresh+video');
-	}
-
 	public function get_myhomefreshnum(){
 		$oHomefresh=Dyhb::instance('HomefreshModel');
 		return $oHomefresh->getHomefreshnumByUserid($GLOBALS['___login___']['user_id']);

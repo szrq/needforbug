@@ -17,3 +17,5 @@
 创建小组，自己也加入小组
 
 多媒体插入到全局
+
+"NetworkError: 404 Not Found - http://localhost/needforbug/images/big_bgcolor.jpg"

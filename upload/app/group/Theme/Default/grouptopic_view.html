@@ -3,6 +3,7 @@
 		<ul class="breadcrumb">
 			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
 			<li><a href="<!--{:Dyhb::U('group://public/index')}-->">群组</a>&nbsp;<span class="divider">/</span>&nbsp;</li>
+			<li><a href="<!--{:Dyhb::U('group://name@?id='.$oGrouptopic->group->group_name)}-->"><!--{$oGrouptopic:group:group_nikename}--></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
 			<li>查看帖子</li>
 		</ul>
 
@@ -513,6 +514,18 @@ margin-left:-72px;
     overflow: hidden;
     padding: 10px 0;
 }
+
+.hm {
+    text-align: center;
+	border-bottom:4px solid #C2D5E3;
+    margin: 10px 0 0 0;
+    padding: 0 0 17px 0;
+
+}
+.xg1, .xg1 a {
+    color: #999999 !important;
+}
+
 <!--{/style}-->
 
 <link rel="stylesheet" type="text/css" href="<!--{:__PUBLIC__}-->/js/jquery/hovercard/css/main.css"/>
@@ -546,6 +559,11 @@ $(document).ready(function(){
 			$("#inform").addClass("floor_bottom_tips");
 		});
 });
+
+function closeQuickreplay(){
+	$("#J_reply_ft").css("display","none");
+}
+
 function addComment(){
 	var comment_message=$("#comment_message").val();
 	var parameter="ajax=1&comment_message="+encodeURIComponent(comment_message)+"&tid="+<!--{$oGrouptopic->grouptopic_id}-->;
@@ -575,12 +593,34 @@ function deleteFriend(friendid,fan){
 <!--{/script}-->
 		<div class="row">
 			<div class="span12">
+						<div class="floor" style="margin-top:-20px;padding:0;">
+							<table width="100%" style="table-layout:fixed;">
+								<tr>
+									<td>
+										<div><a rel="nofollow" href="<!--{:Dyhb::U('group://grouptopic/add?gid='.$oGrouptopic->group_id)}-->" id="J_read_post_btn" class="btn btn-success" >发帖</a>&nbsp;
+												<a rel="nofollow" href="<!--{:Dyhb::U('group://grouptopic/reply?id='.$oGrouptopic->grouptopic_id)}-->" data-referer="true" class="btn btn-success">回复</a>
+												
+										</div>
+										
+									</td>
+									<td style="text-align:right;"><!--{$sPageNavbar}--></td>
+								</tr>
+							</table>
+						</div>
+					
 					<!--{if $nPage <2}-->
 					<div class="floor clear" id="read_0" style="margin:0px;padding:0px;">
 						<table width="100%" style="table-layout:fixed;background: none repeat scroll 0 0 #FFFFFF;border: 1px solid #CDCDCD;border-bottom:none;">
 							<tr>
 								<td rowspan="2" class="floor_left span2"  style="background:none repeat scroll 0 0 #E5EDF2;border-right: 1px solid #C2D5E3;border-bottom: 1px solid #C2D5E3;text-align:center;">
 									<div class="floor_info">
+										<div class="hm">
+											<span class="xg1">查看:</span> 
+											<span class="xi1">8</span>
+											<span class="pipe">|</span>
+											<span class="xg1">回复:</span> 
+											<span class="xi1">2</span>
+										</div>
 										<div class="pi">
 											<div class="authi" style="margin:auto;text-align:left;width:75%;"><a class="xw1" target="_blank" href="{:Dyhb::U('home://space@?id='.$oGrouptopic['user_id'])}"><!--{$oGrouptopic->grouptopic_username}--></a>
 											</div>
@@ -680,38 +720,28 @@ function deleteFriend(friendid,fan){
 										<!--结束右侧广告位-->
 										</div>
 										<div class="editor_content">
-											<!--{$oGrouptopic->grouptopic_content}-->
+											<!--{$oGrouptopic->grouptopic_content|Core_Extend+ubb}-->
 										</div>
-										<!--{if $oGrouptopic->update_dateline!=0}-->
+										<!--{if $oGrouptopic->update_dateline}-->
+										<div class="space"></div>
 										<div class="edit_log"><blockquote><em>[<!--{$oGrouptopic->grouptopic_username}-->于<!--{$oGrouptopic->update_dateline|Core_Extend+timeFormat}-->编辑了帖子]</em></blockquote></div>
 										<!--{/if}-->
-										<div class="space"></div>
-										<div class="signature" style="max-height:200px;"><!--{:UserModel::getUsernameById($oGrouptopic['user_id'],'user_sign')}--></div>
 									</div>
 								</td>
 							</tr>
 							<tr>
 								<td class="floor_bottom" valign="bottom" style="border-bottom: 1px solid #E5EDF2;">
-									<!--快速回复-->
-									<div class="reply_quick clear">
-										<div class="hd">
-											<h2>快速回复...</h2>
-										</div>
-										<div class="ct">
-											<textarea class="grouptopiccomment_message" name="comment_message" id="comment_message" placeholder="我也说两句" style="margin-bottom:0px;"></textarea>
-										</div>
-										<div style="float:right;" id="inform" class="inform">
-											<span class="fr">
-												<a rel="nofollow" href="/index.php?m=report&a=report&type=thread&type_id=1801" data-pid="0" class="mr10 J_report J_qlogin_trigger">举报</a>
-											</span>
-										</div>
-										<div class="left clear" id="J_reply_ft" style="display:none;margin-right:82px;line-height:32px;">
-											<button onclick="addComment();" class=" left btn btn-success" style="margin:8px;padding-top:1px;padding-bottom:1px;">回复</button>
-											<a href="<!--{:Dyhb::U('group://grouptopic/reply?id='.$oGrouptopic->grouptopic_id)}-->" >进入高级模式&gt;&gt;</a>
-										</div>
+									<div class="" style="margin-bottom:10px;margin-top:-15px;">
+										<h4 style="font-size:13px;">快速回复</h4>
+										<textarea class="grouptopiccomment_message" name="comment_message" id="comment_message" placeholder="我也说两句" style="margin-bottom:0px;margin-left:0px;width:70%;height:50px;" rows="2" cols="10"></textarea>
 									</div>
-									<!--快速回复结束-->
-									<div style="display:none;" class="J_reply_wrap" id="J_reply_wrap_0"><div class="pop_loading"></div></div>
+									<div class="clear" id="J_reply_ft" style="display:none;line-height:32px;">
+										<button onclick="addComment();" class="btn btn-success" style="margin:8px;padding-top:1px;padding-bottom:1px;">回复</button>
+										<a href="javascript:void(0);" onclick="closeQuickreplay();"><i class="icon-remove"></i>&nbsp;关闭</a>&nbsp;
+										<a href="<!--{:Dyhb::U('group://grouptopic/reply?id='.$oGrouptopic->grouptopic_id)}-->" >进入高级模式&gt;&gt;</a>
+									</div>
+									<div class="space"></div>
+										<div class="signature" style="max-height:200px;"><!--{:UserModel::getUsernameById($oGrouptopic['user_id'],'user_sign')}--></div>
 								</td>
 							</tr>
 							<tr>
@@ -805,19 +835,7 @@ function deleteFriend(friendid,fan){
 							</tr>
 							<tr>
 								<td class="box_wrap floor_bottom" valign="bottom">
-									<div id="app_read_floor_1"></div>
 									<div class="signature" style="max-height:200px;"><!--{:UserModel::getUsernameById($oComment['user_id'],'user_sign')}--></div>
-									<div style="float:right;" class="inform">
-										<span class="fr">
-											<a rel="nofollow" href="/index.php?m=report&a=report&type=thread&type_id=1801" data-pid="0" class="mr10 J_report J_qlogin_trigger">举报</a>
-										</span>
-									</div>
-									<div class="floor_bottom_tips clear">
-										<a rel="nofollow" href="/index.php?m=bbs&c=post&a=fastreply&tid=1801&pid=5440" data-pid="5440" class="a_reply J_read_reply" data-topped="false">回复<span style="">(<!--{$TheController->totalComment($oComment->user_id)}-->)</span></a>
-										<a rel="nofollow" href="/index.php?m=like&c=mylike&a=doLike&typeid=2&fromid=5440" data-tid="1801" data-pid="5440" data-fid="10" class="a_like J_like_btn">喜欢</a>
-										<a style="" class="J_like_user_btn a_like_num" data-pid="5440" href="/index.php?m=like&c=like&a=getLast&typeid=2&fromid=5440">10</a>
-									</div>
-									<div style="display:none;" class="J_reply_wrap" id="J_reply_wrap_5440"><div class="pop_loading"></div></div>
 								</td>
 							</tr>
 							<tr>
@@ -834,24 +852,17 @@ function deleteFriend(friendid,fan){
 						<!--</foreach>-->
 
 						<div class="floor">
-							<table width="100%" style="table-layout:fixed;">
+							<table width="100%" style="table-layout:fixed;margin-top:-15px;margin-bottom:-20px;">
 								<tr>
 									<td>
-										<div class="left" style="padding-top:22px;">
-												<a rel="nofollow" href="<!--{:Dyhb::U('group://grouptopic/reply?id='.$oGrouptopic->grouptopic_id)}-->" data-referer="true" class="btn btn-success">回复</a>&nbsp;
-												<a rel="nofollow" href="<!--{:Dyhb::U('group://grouptopic/add?gid='.$oGrouptopic->group_id)}-->" id="J_read_post_btn" class="btn btn-success" >发帖</a>
-										</div>
-										<div class="right" data-key="true">
-										<!--{$sPageNavbar}-->
+										<div><a rel="nofollow" href="<!--{:Dyhb::U('group://grouptopic/add?gid='.$oGrouptopic->group_id)}-->" id="J_read_post_btn" class="btn btn-success" >发帖</a>
+												&nbsp;
+												<a rel="nofollow" href="<!--{:Dyhb::U('group://grouptopic/reply?id='.$oGrouptopic->grouptopic_id)}-->" data-referer="true" class="btn btn-success">回复</a>
 										</div>
 									</td>
+									<td style="text-align:right;"><!--{$sPageNavbar}--></td>
 								</tr>
 							</table>
-						</div>
-						<div style="display:none;left:50%;margin:-11px 0 0 411px;" class="btn_post_menu" id="J_read_post_types">
-							<ul>
-								<li><a href="/index.php?m=bbs&c=post&fid=10" data-referer="true" class="">普通帖</a></li>
-							</ul>
 						</div>
 				</div>
 			</div>

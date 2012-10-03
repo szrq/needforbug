@@ -35,25 +35,6 @@ function mb_strlen(str){
 	return len;
 }
 
-function mb_cutstr(str,maxlen,dot){
-	var len=0;
-	var ret='';
-	var dot=!dot?'...':'';
-
-	maxlen=maxlen-dot.length;
-	for(var i=0;i<str.length;i++){
-		len+=str.charCodeAt(i)<0 || str.charCodeAt(i)>255?(charset=='utf-8'?3:2):1;
-		if(len>maxlen){
-			ret+=dot;
-			break;
-		}
-
-		ret+=str.substr(i,1);
-	}
-
-	return ret;
-}
-
 function subStr(str,len,elli){
 	if(!str || !len){
 		return '';
@@ -319,7 +300,7 @@ function insertAttachment(editor,nAttachmentid){
 var oEditNewmusic='';
 function addMusic(sFunction){
 	var sHtml = $.ajax({
-		url: D.U('home://ucenter/homefreshmusic?function='+sFunction),
+		url: D.U('home://misc/music?function='+sFunction),
 		async: false
 	}).responseText;
 
@@ -340,7 +321,7 @@ function insertMusic(editor,sContent){
 var oEditNewvideo='';
 function addVideo(sFunction){
 	var sHtml = $.ajax({
-		url: D.U('home://ucenter/homefreshvideo?function='+sFunction),
+		url: D.U('home://misc/video?function='+sFunction),
 		async: false
 	}).responseText;
 

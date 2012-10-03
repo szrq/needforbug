@@ -331,12 +331,13 @@ class Ubb2html{
 				$sTitle='<a href="'.Dyhb::U('home://file@?id='.$oAttachment['attachment_id']).'" target="_blank">'.$oAttachment['attachment_name'].'</a>';
 				$sTitle.=' | <a href="'.Dyhb::U('home://file@?id='.$oAttachment['attachment_id']).'#comments" target="_blank">评论('.$oAttachment['attachment_commentnum'].')</a>';
 				$sTitle.=' | <a href="'.Dyhb::U('home://space@?id='.$oAttachment['user_id']).'" target="_blank">'.$oAttachment['attachment_username'].'</a>';
-				
+
+				$nMaxsize=$GLOBALS['_style_']['content_width'];
 				$sTitlemore='';
 				$sTitlemore.=' | 已下载('.$oAttachment['attachment_download'].')次';
 				$sTitlemore.=' | '.G::changeFileSize($oAttachment['attachment_size']);
 				$sTitlemore.=" | Upload Time:".date('Y-m-d H:i',$oAttachment['create_dateline']);
-				$sContent="<a href=\"{$sImg}\" target=\"_blank\"><img src=\"{$sImg}\" class=\"content-insert-image\" alt=\"{$oAttachment['attachment_alt']}\" title=\"在新窗口浏览此图片{$sTitlemore}\" \" border=\"0\"/></a>";
+				$sContent="<a href=\"{$sImg}\" target=\"_blank\"><img src=\"{$sImg}\" class=\"content-insert-image\" alt=\"{$oAttachment['attachment_alt']}\" title=\"在新窗口浏览此图片{$sTitlemore}\" \" border=\"0\" width=\"100%\" onload=\"javascript:if(this.width>'{$nMaxsize}'){alert('xx');this.width='{$nMaxsize}';}\"></a>";
 				
 				return $this->template($sTitle,$sContent);
 			}
@@ -487,7 +488,7 @@ class Ubb2html{
 
 	protected function template($sTitle,$sContent,$sId='ubb_box'){
 		return <<<NEEDFORBUG
-			<div class="{$sId}">
+			<div class="{$sId}" style="overflow:hidden;">
 				<table class="table table-bordered">
 					<thead>
 						<tr>
