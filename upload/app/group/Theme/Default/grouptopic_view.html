@@ -20,9 +20,6 @@
 	width:140px;
 }
 
-.floor_left_none{
-	width:140px;
-}
 .floor_right{
 	vertical-align:top;
 	padding:10px 20px;
@@ -34,7 +31,7 @@
 	padding:0 20px;
 }
 
-.editor_content{
+.grouptopiccontent_box{
 	min-height:100px;
 }
 .post_num{
@@ -61,57 +58,6 @@
 	padding:0 0 30px 0;
 }
 
-.floor_info .name{
-	padding:5px 20px 15px 20px;
-	text-align:left;
-}
-.floor_info .name a{
-	font-weight:700;
-	color:#333;
-}
-.floor_info .face{
-	margin-bottom:5px;
-}
-
-.floor_info .level{
-	margin-bottom:10px;
-}
-
-.floor_info .operate{
-	margin-bottom:12px;
-}
-.floor_info .operate a{
-	display:inline-block;
-	line-height:20px;
-	height:20px;
-	color:#999;
-}
-.floor_info .operate a:hover{
-	color:#333;
-	text-decoration:none;
-}
-.floor_info .operate .follow{
-	background-position:0 6px;
-	margin-right:9px;
-	padding-left:0px;
-}
-.floor_info .operate .message{
-	background-position:0 -25px;
-}
-
-.floor_info .medal{
-	overflow:hidden;
-	padding-bottom:7px;
-}
-.floor_info .medal ul{
-	margin-left:-3px;
-}
-.floor_info .medal li{
-	float:left;
-	margin:0 0 0 3px; 
-	height:33px;
-}
-
 
 .floor_title{
 	padding:5px 0 15px;
@@ -130,17 +76,14 @@
 	color:#666;
 }
 
-.floor_top_tips .lou{
+.floor_top_tips .floor_copy{
 	float:right;
 	font-size:24px;
 	color:#bbb;
 	line-height:1.3;
 }
-.floor_top_tips .lou sup{
+.floor_top_tips .floor_copy sup{
 	font-size:12px;
-}
-.floor_top_tips .fr a{
-	color:#666666;
 }
 .floor_bottom_tips{
 	padding:10px 0;
@@ -150,295 +93,9 @@
 .floor_bottom_tips a{
 	color:#666;
 }
-.floor_bottom_tips a.a_reply{
-	padding-left:15px;
-	margin-right:20px;
-	background:url(http://tiyan.phpwind.net/nextwind/themes/site/default/images/forum/tag_hot_list.png) 0 center no-repeat;
-}
-.floor_bottom_tips a.a_like{
-	padding-left:15px;
-	background:url(http://tiyan.phpwind.net/nextwind/themes/site/default/images/forum/heart.png) 0 center no-repeat;
-}
-.floor_bottom_tips .a_like_num{
-	font-weight:700;
-	font-family:Simsun;
-}
-
-.more_down{
-	float:right;
-	width:13px;
-	height:13px;
-	overflow:hidden;
-	text-indent:-2000em;
-	background:url(http://tiyan.phpwind.net/nextwind/themes/site/default/images/forum/more_down.png) no-repeat;
-	margin:3px 20px;
-}
-.more_down:hover{
-	background-position:0 -13px;
-}
-
-.icon_read_like{
-	width:115px;
-	height:25px;
-	background:url(http://tiyan.phpwind.net/nextwind/themes/site/default/images/forum/like_button.png) no-repeat;
-	display:block;
-	margin:30px auto 20px;
-	color:#ff6600;
-	line-height:25px;
-	cursor:pointer;
-	overflow:hidden;
-}
-.icon_read_like span{
-	float:left;
-	width:0;
-	height:0;
-	overflow:hidden;
-	font:0/0 Arial;
-	text-indent:-2000em;
-}
-.icon_read_like em{
-	float:right;
-	width:47px;
-	height:25px;
-	color:#ff6600;
-	text-align:center;
-	font-weight:700;
-	text-indent:0;
-}
-.icon_read_like:hover{
-	filter:alpha(opacity=90);
-	-moz-opacity:0.9;
-	opacity:0.9;
-	text-decoration:none;
-}
-
-
-.floot_like_pop{
-	width:260px;
-}
-.floot_like_pop img{
-	vertical-align:middle;
-	margin-right:5px;
-}
-.floot_like_pop li{
-	float:left;
-	width:49.9%;
-	padding:0 0 10px;
-}
-
-
-.read_tag_list{
-	padding:0 0 10px;
-}
-.read_tag_list .tag_item{
-	display:inline-block;
-	background:#e8f2f9;
-	margin-right:10px;
-	margin-bottom:10px;
-	border-radius:3px;
-	padding:3px 10px;
-}
-.read_rag_list .tag_item:hover{
-	background:#217bbb;
-	color:#fff;
-}
-.read_tag_list a.edit{
-	background:none;
-	padding-left:0;
-}
-
-
-.tag_card{
-	width:260px;
-	background:#fff;
-	position:absolute;
-	border:1px solid #d9d9d9;
-	box-shadow: 0 3px 5px #e4e4e4;
-	padding:15px 20px;
-}
-.tag_card .arrow{
-	position:absolute;
-	top:-24px;
-	left:10px;
-}
-.tag_card .arrow span,
-.tag_card .arrow em{
-	position:absolute;
-	width:0;
-	height:0;
-	padding:0;
-	margin:9px 0 0 2px;
-	border-top:8px transparent dashed;
-	border-right:8px transparent dashed;
-	border-left:8px transparent dashed;
-	overflow:hidden;
-}
-.tag_card .arrow span{
-	border-bottom:8px #ffffff solid;
-}
-.tag_card .arrow em{
-	border-bottom:8px #d9d9d9 solid;
-	margin-top:8px;
-}
-.tag_card .name{
-	margin-bottom:10px;
-	overflow:hidden;
-}
-.tag_card .name h3{
-	display:inline;
-	margin-right:15px;
-}
-.tag_card .num{
-	margin-bottom:10px;
-	overflow:hidden;
-}
-.tag_card .num ul{
-}
-.tag_card .num li{
-	float:left;
-	padding:0 20px 0 0;
-	color:#666;
-}
-.tag_card .num em{
-	color:#000;
-	font-weight:700;
-}
-.tag_card .ft{
-	border-top:1px dotted #ccc;
-	color:#666;
-	padding-top:10px;
-}
-
-input, textarea, .uneditable-input {
-margin-left:-72px;
-}
-
-.reply_quick{
-	width:600px;
-	margin:0 0 10px;
-}
-.reply_quick .hd{
-	height:30px;
-}
-.reply_quick .ct{
-	text-align:left;
-}
-
-.reply_quick .hd h2{
-	font-size:14px;
-	float:left;
-	color:#666;
-}
-.reply_quick textarea{
-	width:590px;
-	margin-bottom:10px;
-}
-.reply_quick .btn{
-	padding-right:15px;
-	padding-left:15px;
-	float:right;
-}
-.reply_quick .ft a{
-	float:right;
-	color:#999;
-	font-family:Simsun;
-	margin-right:20px;
-	margin-top:3px;
-}
-
-.reply_quick .operate .a_face,
-.reply_quick .operate .a_photo{
-	float:left;
-	margin-right:20px;
-	padding-left:22px;
-	line-height:20px;
-	color:#999;
-	background:url(http://tiyan.phpwind.net/nextwind/themes/site/default/images/forum/reply_quick_icon.png) 0 3px no-repeat;
-}
-.reply_quick .operate a:hover{
-	text-decoration:none;
-	color:#666;
-}
-.reply_quick .operate .a_photo{
-	background-position:0 -27px;
-}
-.reply_quick .operate .a_face:hover{
-	background-position:0 -57px;
-}
-.reply_quick .operate .a_photo:hover{
-	background-position:0 -87px;
-}
-.reply_quick .operate .a_photo_flash{
-	position:absolute;
-	margin-left:-48px;
-	height:22px;
-	overflow:hidden;
-	cursor:pointer;
-}
-
-
-.reply_list{
-	border:1px solid #f4f4f4;
-	background:#fafafa;
-	padding:0 15px;
-	margin-bottom:20px;
-	position:relative;
-	width:600px;
-}
-.reply_list .core_arrow_top{
-	left:0;
-	padding-left:15px;
-}
-.reply_list .core_arrow_top em{
-	border-bottom: 8px #f4f4f4 solid;
-}
-.reply_list .core_arrow_top span{
-	border-bottom: 8px #fafafa solid;
-}
-.reply_list .reply_quick{
-	margin:10px auto;
-}
-.reply_list li{
-	border-top:1px dotted #d7d7d7;
-	padding:15px 0 12px;
-}
-.reply_list li .face{
-	float:left;
-	margin-right:10px;
-}
-.reply_list li .reply_content{
-	overflow:hidden;
-	font-size:14px;
-}
-.reply_list li .reply_content .time{
-	font-size:12px;
-	text-align:right;
-	color:#999;
-	height:18px;
-}
-.reply_list li .reply_content .time a{
-	margin-left:5px;
-}
-.reply_list li .reply_content img{
-	vertical-align:top;
-}
-.reply_list li .report{
-	display:none;
-}
-.reply_list li:hover .report{
-	display:inline;
-}
-.reply_list li .report span{
-	font-family:Simsun;
-	padding:0 5px;
-}
-.reply_list li .reply_content .report a{
-	color:#999;
-}
-
 
 .signature{
-	background:url(http://tiyan.phpwind.net/nextwind/themes/site/default/images/forum/signature.png) 0 0 no-repeat;
+	background:url(<!--{:__UTHEMEPUB__}-->/Images/signature.png) 0 0 no-repeat;
 	padding:25px 0 20px;
 }
 .edit_log{
@@ -446,84 +103,42 @@ margin-left:-72px;
 	margin-top:8px;
 }
 
-
-.btn_post,
-.btn_replay{
-	height:30px;
-	overflow:hidden;
-	width:70px;
-	display:block;
-	text-indent:-2000em;
-	text-decoration:none;
-	background:url(http://tiyan.phpwind.net/nextwind/themes/site/default/images/forum/post.png) no-repeat;
-	float:right;
-}
-.btn_post:hover{
-	background-position:0 -30px;
-}
-.btn_post:active{
-	background-position:0 -60px;
-}
-.btn_replay{
-	background-position:0 -90px;
-}
-.btn_replay:hover{
-	background-position:0 -120px;
-}
-.btn_replay:active{
-	background-position:0 -150px;
-}
-
 .clear:after,.clearfix:after{content:".";display:none;height:0;clear:both;visibility:hidden;}
 .clear,.clearfix{display:inline;}
-.inform a {
-	color:#666666;
-}
 
-.pls .tns {
-    padding: 0 10px 10px;
-}
 
-.tns {
+
+
+.floor_groupuserfollow {
     padding: 10px 0;
+	color: #666666;
 }
 
-.xg2 {
-    color: #666666;
-}
-.tns th {
+.floor_groupuserfollow th {
     border-right: 1px solid #CCCCCC;
 	font-weight:normal;
 }
 
-.tns th, .tns td {
+.floor_groupuserfollow th, .floor_groupuserfollow td {
     font-size: 12px;
     text-align: center;
 }
-.xi2, .xi2 a, .xi3 a {
-    color: #336699;
-}
 
-.pi {
+
+.floor_userinfoname {
     padding-left: 15px;
 }
 
-.pi {
-    border-bottom: 1px dashed #CDCDCD;
+.floor_userinfoname {
     height: 16px;
     margin-bottom: 10px;
     overflow: hidden;
-    padding: 10px 0;
+    padding: 5px 0;
 }
 
-.hm {
-    text-align: center;
-	border-bottom:4px solid #C2D5E3;
-    margin: 10px 0 0 0;
-    padding: 0 0 17px 0;
+.floor_userinfonameinner{margin:auto;text-align:left;width:75%;}
 
-}
-.xg1, .xg1 a {
+.floor_userinfonikename, .floor_userinfonikename a {
     color: #999999 !important;
 }
 
@@ -557,7 +172,6 @@ $(function(){
 $(document).ready(function(){
 		$("#comment_message").focus(function(){
 			$("#J_reply_ft").css("display","block");
-			$("#inform").addClass("floor_bottom_tips");
 		});
 });
 
@@ -615,28 +229,21 @@ function deleteFriend(friendid,fan){
 							<tr>
 								<td rowspan="2" class="floor_left span2"  style="background:none repeat scroll 0 0 #E5EDF2;border-right: 1px solid #C2D5E3;border-bottom: 1px solid #C2D5E3;text-align:center;">
 									<div class="floor_info">
-										<div class="hm">
-											<span class="xg1">查看:</span> 
-											<span class="xi1">8</span>
-											<span class="pipe">|</span>
-											<span class="xg1">回复:</span> 
-											<span class="xi1">2</span>
-										</div>
-										<div class="pi">
-											<div class="authi" style="margin:auto;text-align:left;width:75%;"><a class="xw1" target="_blank" href="{:Dyhb::U('home://space@?id='.$oGrouptopic['user_id'])}"><!--{$oGrouptopic->grouptopic_username}--></a>
+										<div class="floor_userinfoname">
+											<div class="floor_userinfonameinner"><a target="_blank" href="{:Dyhb::U('home://space@?id='.$oGrouptopic['user_id'])}"><!--{$oGrouptopic->grouptopic_username}--></a>
 											</div>
 										</div>
 										<!--头像-->
 										<div class="face"><a href="/index.php?m=space&uid=292" class="J_user_card_show" data-uid="292" target="_blank"><img src="<!--{:Core_Extend::avatar($oGrouptopic['user_id'],'middle')}-->" class="bind_hover_card" bm_user_id="<!--{$oGrouptopic['user_id']}-->" target="_blank" width="85%" alt="<!--{$oGrouptopic->grouptopic_username}-->"></a>
 										</div>
-										<div class="tns xg2" style="margin:auto;width:80%;text-align:left;">
+										<div class="floor_groupuserfollow" style="margin:auto;width:80%;text-align:left;">
 											<table cellspacing="0" cellpadding="0" width="100%" style="">
 												<tbody>
 													<tr>
-														<th><p><a class="xi2" href=""><!--{$TheController->totalTopic($oGrouptopic->user_id)}--></a></p>主题</th>
-														<th><p><a class="xi2" href="#"><!--{$TheController->totalFans($oGrouptopic->user_id)}--></a></p>听众
+														<th><p><a href=""><!--{$TheController->totalTopic($oGrouptopic->user_id)}--></a></p>主题</th>
+														<th><p><a href="#"><!--{$TheController->totalFans($oGrouptopic->user_id)}--></a></p>听众
 														</th>
-														<td><p><a class="xi2" href=""><span title="12151">1万</span></a></p>积分</td>
+														<td><p><a href=""><span title="12151">1万</span></a></p>积分</td>
 													</tr>
 												</tbody>
 											</table>
@@ -644,7 +251,7 @@ function deleteFriend(friendid,fan){
 										<div>
 											<p style="margin:auto;width:75%;text-align:left;margin-bottom:5px;"><em style=""><a target="_blank" href="">列兵</a></em>
 											</p>
-											<p class="xg1" style="margin:auto;width:75%;text-align:left;margin-bottom:5px;color: #999999 !important;">马建军</p>
+											<p class="floor_userinfonikename" style="margin:auto;width:75%;text-align:left;margin-bottom:5px;color: #999999 !important;">马建军</p>
 										</div>
 										<div style="margin:auto;width:70%;">
 											<table style="text-align:left;" cellspacing="0" cellpadding="0" width="100%">
@@ -684,43 +291,20 @@ function deleteFriend(friendid,fan){
 										<div class="post_num">
 											<ul class="clear">
 												<li>阅读：<em><!--{$oGrouptopic->grouptopic_views}--></em></li>
-												<li>回复：<em id="topicRepliesNum"><!--{$oGrouptopic->grouptopic_comments}--></em></li>
+												<li>回复：<em><!--{$oGrouptopic->grouptopic_comments}--></em></li>
 											</ul>
 										</div>
 										<h1 id="J_post_title"><!--{$oGrouptopic->grouptopic_title}--><!--{if $oGrouptopic->user_id==$GLOBALS['___login___']['user_id']}--><a href="<!--{:Dyhb::U('group://grouptopic/edit?tid='.$oGrouptopic->grouptopic_id.'&gid='.$oGrouptopic->group_id.'&uid='.$GLOBALS['___login___']['user_id'])}-->">&nbsp;[编辑]</a><!--{/if}--></h1>
 									</div>
 									<div class="floor_top_tips">
-										<span class="lou J_floor_copy" title="复制此楼地址"
+										<span class="floor_copy J_floor_copy" title="复制此楼地址"
 						 data-type="main"
 						 data-hash="read_0">楼主<sup>#</sup></span>
-										<a href="javascript:;" class="more_down" id="J_read_moredown">更多</a>
-										<div id="J_read_moredown_list" class="core_menu" style="display:none;">
-											<ul class="core_menu_list">
-												<li><a href="/read.php?tid=1801&fid=10&uid=292">只看楼主</a></li>
-												<li><a href="/read.php?tid=1801&fid=10&desc=1">倒序阅读</a></li>
-											</ul>
-										</div>
 										<span class="fl">发布于：<!--{$oGrouptopic->create_dateline|Core_Extend+timeFormat}--></span>
 									</div>
 									
 									<div id="J_read_main">
-														<div id="J_read_tag_wrap" class="read_tag_list"></div>			
-										<!--=========话题编辑=========-->
-										<div id="J_read_tag_edit" class="mb10 clear" style="display:none;">
-											<form id="J_read_tag_form" action="http://tiyan.phpwind.net/nextwind/index.php?m=tag&a=editReadTag&tid=1801" method="post">
-												<div class="user_select_input J_user_tag_wrap fl mr10">
-													<ul class="fl J_user_tag_ul"></ul>
-													<input class="J_user_tag_input" data-name="tagnames[]" type="text" />
-												</div>
-												<button id="J_read_tag_sub" class="btn btn_submit">保存</button>
-											<input type='hidden' name='csrf_token' value='650b3f2c21f81f2b'/></form>
-										</div>
-										<div class="fr">
-										<!--开始右侧广告位-->
-											
-										<!--结束右侧广告位-->
-										</div>
-										<div class="editor_content">
+										<div class="grouptopiccontent_box">
 											<!--{$oGrouptopic->grouptopic_content|Core_Extend+ubb}-->
 										</div>
 										<!--{if $oGrouptopic->update_dateline}-->
@@ -760,20 +344,20 @@ function deleteFriend(friendid,fan){
 							<tr>
 								<td rowspan="2" class="floor_left span2"  style="padding-bottom:80px;padding-top:10px;background:none repeat scroll 0 0 #E5EDF2;border-right: 1px solid #C2D5E3;border-top: 1px solid #C2D5E3; text-align:center;" >
 									<div class="floor_info">
-										<div class="pi">
-											<div class="authi" style="margin:auto;text-align:left;width:75%;"><a class="xw1" target="_blank" href="{:Dyhb::U('home://space@?id='.$oComment['user_id'])}"><!--{$oComment->user_id|UserModel+getUsernameById}--></a>
+										<div class="floor_userinfoname">
+											<div class="floor_userinfonameinner"><a target="_blank" href="{:Dyhb::U('home://space@?id='.$oComment['user_id'])}"><!--{$oComment->user_id|UserModel+getUsernameById}--></a>
 											</div>
 										</div>
 										<!--头像-->
 										<div class="face"><a href="/index.php?m=space&uid=292" class="J_user_card_show" data-uid="292" target="_blank"><img src="<!--{:Core_Extend::avatar($oComment['user_id'],'middle')}-->" class="J_avatar" data-type="middle" width="85%" alt="<!--{$oComment->user_id|UserModel+getUsernameById}-->"></a></div>
-										<div class="tns xg2" style="margin:auto;width:80%;text-align:left;">
+										<div class="floor_groupuserfollow" style="margin:auto;width:80%;text-align:left;">
 											<table cellspacing="0" cellpadding="0" width="100%" style="">
 												<tbody>
 													<tr>
-														<th><p><a class="xi2" href=""><!--{$TheController->totalTopic($oComment->user_id)}--></a></p>主题</th>
-														<th><p><a class="xi2" href="#"><!--{$TheController->totalFans($oComment->user_id)}--></a></p>听众
+														<th><p><a href=""><!--{$TheController->totalTopic($oComment->user_id)}--></a></p>主题</th>
+														<th><p><a href="#"><!--{$TheController->totalFans($oComment->user_id)}--></a></p>听众
 														</th>
-														<td><p><a class="xi2" href=""><span title="12151">1万</span></a></p>积分</td>
+														<td><p><a href=""><span title="12151">1万</span></a></p>积分</td>
 													</tr>
 												</tbody>
 											</table>
@@ -781,7 +365,7 @@ function deleteFriend(friendid,fan){
 										<div>
 											<p style="margin:auto;width:75%;text-align:left;margin-bottom:5px;"><em style=""><a target="_blank" href="">列兵</a></em>
 											</p>
-											<p class="xg1" style="margin:auto;width:75%;text-align:left;margin-bottom:5px;color: #999999 !important;">马建军</p>
+											<p class="floor_userinfonikename" style="margin:auto;width:75%;text-align:left;margin-bottom:5px;color: #999999 !important;">马建军</p>
 										</div>
 										<div style="margin:auto;width:70%;">
 											<table style="text-align:left;" cellspacing="0" cellpadding="0" width="100%">
@@ -818,19 +402,11 @@ function deleteFriend(friendid,fan){
 								<td class="floor_right span10" style="border-top: 1px solid #E5EDF2;">
 									<div class="fl"><div class="floor_arrow"><em></em><span></span></div></div>
 									<div class="floor_top_tips">
-										<span class="lou J_floor_copy" title="复制此楼地址"
+										<span class="floor_copy J_floor_copy" title="复制此楼地址"
 						 data-hash="read_5440"><!--{if empty($_GET['page'])}--><!--{$i}--><!--{d*else}--><!--{$_GET['page']*$nEverynum+$i-$nEverynum}--><!--{/if}-->楼<sup>#</sup></span>
 										<span class="fl">回复于：<!--{$oComment->create_dateline|Core_Extend+timeFormat}--></span>
 									</div>
-									
-									<div id="J_read_main">
-														<div class="fr">
-										<!--开始右侧广告位-->
-											
-										<!--结束右侧广告位-->
-										</div>
-
-										<div class="editor_content"><!--{$oComment->grouptopiccomment_content|Core_Extend+ubb}--></div>
+										<div class="grouptopiccontent_box"><!--{$oComment->grouptopiccomment_content|Core_Extend+ubb}--></div>
 									</div>
 								</td>
 							</tr>
