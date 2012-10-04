@@ -8,152 +8,18 @@
 		</ul>
 
 
-
-
-<!--{style}-->
-.floor{
-	margin-top:10px;
-	padding-bottom:10px;
-}
-.floor_left{
-	vertical-align:top;
-	width:140px;
-}
-
-.floor_right{
-	vertical-align:top;
-	padding:10px 20px;
-	border-bottom:0 none;
-}
-.floor_bottom{
-	border-top:0 none;
-	vertical-align:bottom;
-	padding:0 20px;
-}
-
-.grouptopiccontent_box{
-	min-height:100px;
-}
-.post_num{
-	float:right;
-	overflow:hidden;
-	margin-top:2px;
-	*width:150px;
-}
-.post_num ul{
-	margin-left:-1px;
-	float:right;
-}
-.post_num li{
-	list-style:none;
-	float:left;
-	padding:0 10px;
-	border-left:1px solid #ccc;
-	line-height:14px;
-	color:#999999;
-}
-
-
-.floor_info{
-	padding:0 0 30px 0;
-}
-
-
-.floor_title{
-	padding:5px 0 15px;
-	border-bottom:1px dashed #dddddd;
-	margin-bottom:10px;
-}
-.floor_title h1{
-	font-size:16px;
-	line-height:18px;
-}
-
-
-.floor_top_tips{
-	padding:0 0 10px;
-	margin-bottom:5px;
-	color:#666;
-}
-
-.floor_top_tips .floor_copy{
-	float:right;
-	font-size:24px;
-	color:#bbb;
-	line-height:1.3;
-}
-.floor_top_tips .floor_copy sup{
-	font-size:12px;
-}
-.floor_bottom_tips{
-	padding:10px 0;
-	color:#666;
-	height:20px;
-}
-.floor_bottom_tips a{
-	color:#666;
-}
-
-.signature{
-	background:url(<!--{:__UTHEMEPUB__}-->/Images/signature.png) 0 0 no-repeat;
-	padding:25px 0 20px;
-}
-.edit_log{
-	color:#cccccc;
-	margin-top:8px;
-}
-
-.clear:after,.clearfix:after{content:".";display:none;height:0;clear:both;visibility:hidden;}
-.clear,.clearfix{display:inline;}
-
-
-
-
-.floor_groupuserfollow {
-    padding: 10px 0;
-	color: #666666;
-}
-
-.floor_groupuserfollow th {
-    border-right: 1px solid #CCCCCC;
-	font-weight:normal;
-}
-
-.floor_groupuserfollow th, .floor_groupuserfollow td {
-    font-size: 12px;
-    text-align: center;
-}
-
-
-.floor_userinfoname {
-    padding-left: 15px;
-}
-
-.floor_userinfoname {
-    height: 16px;
-    margin-bottom: 10px;
-    overflow: hidden;
-    padding: 5px 0;
-}
-
-.floor_userinfonameinner{margin:auto;text-align:left;width:75%;}
-
-.floor_userinfonikename, .floor_userinfonikename a {
-    color: #999999 !important;
-}
-
-<!--{/style}-->
-
 <link rel="stylesheet" type="text/css" href="<!--{:__PUBLIC__}-->/js/jquery/hovercard/css/main.css"/>
 <script src="<!--{:__PUBLIC__}-->/js/jquery/hovercard/js/hoverCard.js"></script>
-
 <script src="<!--{:__PUBLIC__}-->/js/jquery/autoresize/jquery.autoresize.js"></script>
+
+<!--{:Core_Extend::editorInclude()}-->
+
 <!--{script}-->
 $(function(){
 	$(".bind_hover_card").hoverCard({
 		url:D.U('home://misc/avatar'),
 		borederRadius:true,
-		errorText:"出错后，输出自定义文本"
+		errorText:"get avatar error"
 	});
 	
 	$('.grouptopiccomment_message').autoResize({
@@ -167,27 +33,29 @@ $(function(){
 		extraSpace:0,
 		min:'80px'
 	});
-});
 
-$(document).ready(function(){
-		$("#comment_message").focus(function(){
-			$("#J_reply_ft").css("display","block");
-		});
+	$("#grouptopiccomment_quickmessage").focus(function(){
+		$("#grouptopiccomment_reply").css("display","block");
+	});
+
+	editor=loadEditorThin('grouptopiccomment_message');
 });
 
 function closeQuickreplay(){
-	$("#J_reply_ft").css("display","none");
+	$("#grouptopiccomment_reply").css("display","none");
 }
 
-function addComment(){
-	var comment_message=$("#comment_message").val();
-	var parameter="ajax=1&comment_message="+encodeURIComponent(comment_message)+"&tid="+<!--{$oGrouptopic->grouptopic_id}-->;
-	Dyhb.AjaxSend('<!--{:Dyhb::U('group://grouptopic/add_reply')}-->',parameter,'',function(data,status){
+function addGrouptopiccomment(){
+	var sCommentMessage=$("#grouptopiccomment_quickmessage").val();
+	var sParameter="ajax=1&grouptopiccomment_message="+encodeURIComponent(sCommentMessage)+"&gid="+<!--{$oGrouptopic->grouptopic_id}-->;
+
+	Dyhb.AjaxSend('<!--{:Dyhb::U('group://grouptopic/add_reply')}-->',sParameter,'',function(data,status){
 		if(status==1){
 			window.location.href=data.url;
 		}
 	});
 }
+
 function addFriend(userid){
 	Dyhb.AjaxSend('<!--{:Dyhb::U('home://friend/add')}-->','ajax=1&uid='+userid,'',function(data,status){
 		if(status==1){
@@ -205,250 +73,6 @@ function deleteFriend(friendid,fan){
 		});
 	});
 }
-<!--{/script}-->
-		<div class="row">
-			<div class="span12">
-						<div class="floor" style="margin-top:-20px;padding:0;">
-							<table width="100%" style="table-layout:fixed;">
-								<tr>
-									<td>
-										<div><a rel="nofollow" href="<!--{:Dyhb::U('group://grouptopic/add?gid='.$oGrouptopic->group_id)}-->" id="J_read_post_btn" class="btn btn-success" >发帖</a>&nbsp;
-												<a rel="nofollow" href="<!--{:Dyhb::U('group://grouptopic/reply?id='.$oGrouptopic->grouptopic_id)}-->" data-referer="true" class="btn btn-success">回复</a>
-												
-										</div>
-										
-									</td>
-									<td style="text-align:right;"><!--{$sPageNavbar}--></td>
-								</tr>
-							</table>
-						</div>
-					
-					<!--{if $nPage <2}-->
-					<div class="floor clear" id="read_0" style="margin:0px;padding:0px;">
-						<table width="100%" style="table-layout:fixed;background: none repeat scroll 0 0 #FFFFFF;border: 1px solid #DDDDDD;border-bottom:none;">
-							<tr>
-								<td rowspan="2" class="floor_left span2"  style="background:none repeat scroll 0 0 #E5EDF2;border-right: 1px solid #C2D5E3;border-bottom: 1px solid #C2D5E3;text-align:center;">
-									<div class="floor_info">
-										<div class="floor_userinfoname">
-											<div class="floor_userinfonameinner"><a target="_blank" href="{:Dyhb::U('home://space@?id='.$oGrouptopic['user_id'])}"><!--{$oGrouptopic->grouptopic_username}--></a>
-											</div>
-										</div>
-										<!--头像-->
-										<div class="face"><a href="/index.php?m=space&uid=292" class="J_user_card_show" data-uid="292" target="_blank"><img src="<!--{:Core_Extend::avatar($oGrouptopic['user_id'],'middle')}-->" class="bind_hover_card" bm_user_id="<!--{$oGrouptopic['user_id']}-->" target="_blank" width="85%" alt="<!--{$oGrouptopic->grouptopic_username}-->"></a>
-										</div>
-										<div class="floor_groupuserfollow" style="margin:auto;width:80%;text-align:left;">
-											<table cellspacing="0" cellpadding="0" width="100%" style="">
-												<tbody>
-													<tr>
-														<th><p><a href=""><!--{$TheController->totalTopic($oGrouptopic->user_id)}--></a></p>主题</th>
-														<th><p><a href="#"><!--{$TheController->totalFans($oGrouptopic->user_id)}--></a></p>听众
-														</th>
-														<td><p><a href=""><span title="12151">1万</span></a></p>积分</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-										<div>
-											<p style="margin:auto;width:75%;text-align:left;margin-bottom:5px;"><em style=""><a target="_blank" href="">列兵</a></em>
-											</p>
-											<p class="floor_userinfonikename" style="margin:auto;width:75%;text-align:left;margin-bottom:5px;color: #999999 !important;">马建军</p>
-										</div>
-										<div style="margin:auto;width:70%;">
-											<table style="text-align:left;" cellspacing="0" cellpadding="0" width="100%">
-												<tr>
-													<td>UID</td>
-													<td><!--{$oGrouptopic->user_id}--></td>
-												</tr>
-												<tr>
-													<td>帖子</td>
-													<td><!--{$TheController->totalComment($oGrouptopic->user_id)}--></td>
-												</tr>
-												<tr>
-													<td>金币</td>
-													<td>15</td>
-												</tr>
-												<tr>
-													<td>贡献</td>
-													<td>15</td>
-												</tr>
-											</table>
-										</div>
-										<!--{~$nAlreadyFriendId=Core_Extend::isAlreadyFriend($oGrouptopic->user_id)}-->
-										<div class="operate2 " style="margin-top:10px;text-align:center;">
-											<!--{if $nAlreadyFriendId==1 || $nAlreadyFriendId==4}-->
-											<a rel="nofollow" href="#" onclick="deleteFriend(<!--{$oComment->user_id}-->);" style="">取消关注</a>&nbsp;
-											<a rel="nofollow" href="" style="width:30px;"><i class="icon-envelope"></i>写私信</a>
-											<!--{d*else}-->
-											<a rel="nofollow" href="#" onclick="addFriend(<!--{$oGrouptopic->user_id}-->);"><i class="icon-plus"></i>加关注</a>&nbsp;
-											<a rel="nofollow" href="" class="message J_send_msg_pop" data-name="小鸡爷爷"><i class="icon-envelope"></i>写私信</a>
-											<!--{/if}-->
-										</div>
-									</div>
-								</td>
-								<td class="floor_right span10"> 
-									<div class="left"><div class="floor_arrow"><em></em><span></span></div></div>
-									<div class="floor_title">
-										<div class="post_num">
-											<ul class="clear">
-												<li>阅读：<em><!--{$oGrouptopic->grouptopic_views}--></em></li>
-												<li>回复：<em><!--{$oGrouptopic->grouptopic_comments}--></em></li>
-											</ul>
-										</div>
-										<h1 id="J_post_title"><!--{$oGrouptopic->grouptopic_title}--><!--{if $oGrouptopic->user_id==$GLOBALS['___login___']['user_id']}--><a href="<!--{:Dyhb::U('group://grouptopic/edit?tid='.$oGrouptopic->grouptopic_id.'&gid='.$oGrouptopic->group_id.'&uid='.$GLOBALS['___login___']['user_id'])}-->">&nbsp;[编辑]</a><!--{/if}--></h1>
-									</div>
-									<div class="floor_top_tips">
-										<span class="floor_copy J_floor_copy" title="复制此楼地址"
-						 data-type="main"
-						 data-hash="read_0">楼主<sup>#</sup></span>
-										<span class="fl">发布于：<!--{$oGrouptopic->create_dateline|Core_Extend+timeFormat}--></span>
-									</div>
-									
-									<div id="J_read_main">
-										<div class="grouptopiccontent_box">
-											<!--{$oGrouptopic->grouptopic_content|Core_Extend+ubb}-->
-										</div>
-										<!--{if $oGrouptopic->update_dateline}-->
-										<div class="space"></div>
-										<div class="edit_log"><blockquote><em>[<!--{$oGrouptopic->grouptopic_username}-->于<!--{$oGrouptopic->update_dateline|Core_Extend+timeFormat}-->编辑了帖子]</em></blockquote></div>
-										<!--{/if}-->
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td class="floor_bottom" valign="bottom" style="border-bottom: 1px solid #E5EDF2;">
-									<div class="" style="margin-bottom:10px;margin-top:-15px;">
-										<h4 style="font-size:13px;">快速回复</h4>
-										<textarea class="grouptopiccomment_message" name="comment_message" id="comment_message" placeholder="我也说两句" style="margin-bottom:0px;margin-left:0px;width:70%;height:50px;" rows="2" cols="10"></textarea>
-									</div>
-									<div class="clear" id="J_reply_ft" style="display:none;line-height:32px;">
-										<button onclick="addComment();" class="btn btn-success" style="margin:8px;padding-top:1px;padding-bottom:1px;">回复</button>
-										<a href="javascript:void(0);" onclick="closeQuickreplay();"><i class="icon-remove"></i>&nbsp;关闭</a>&nbsp;
-										<a href="<!--{:Dyhb::U('group://grouptopic/reply?id='.$oGrouptopic->grouptopic_id)}-->" >进入高级模式&gt;&gt;</a>
-									</div>
-									<div class="space"></div>
-										<div class="signature" style="max-height:200px;"><!--{:UserModel::getUsernameById($oGrouptopic['user_id'],'user_sign')}--></div>
-								</td>
-							</tr>
-							<tr>
-								<td style="background: none repeat scroll 0 0 #C2D5E3;height: 4px;padding: 0;margin:0;border-right:1px solid #CDCDCD;"></td>
-								<td style="background: none repeat scroll 0 0 #E5EDF2;height: 4px;padding: 0;margin:0;"></td>
-							</tr>
-						</table>
-						</div>
-						<!--{/if}-->
-
-						<!--<foreach for=arrComment value=oComment>-->
-						<a name="grouptopiccomment-<!--{$oComment->grouptopiccomment_id}-->"></a>
-						<div class="floor clear J_read_floor" id="read_5440" style="margin:0px;padding:0px;">
-						<table width="100%" style="table-layout:fixed;background: none repeat scroll 0 0 #FFFFFF;border-left: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;border-top:none;" class="floor_table">
-							<tr>
-								<td rowspan="2" class="floor_left span2"  style="padding-bottom:80px;padding-top:10px;background:none repeat scroll 0 0 #E5EDF2;border-right: 1px solid #C2D5E3;border-top: 1px solid #C2D5E3; text-align:center;" >
-									<div class="floor_info">
-										<div class="floor_userinfoname">
-											<div class="floor_userinfonameinner"><a target="_blank" href="{:Dyhb::U('home://space@?id='.$oComment['user_id'])}"><!--{$oComment->user_id|UserModel+getUsernameById}--></a>
-											</div>
-										</div>
-										<!--头像-->
-										<div class="face"><a href="/index.php?m=space&uid=292" class="J_user_card_show" data-uid="292" target="_blank"><img src="<!--{:Core_Extend::avatar($oComment['user_id'],'middle')}-->" class="J_avatar" data-type="middle" width="85%" alt="<!--{$oComment->user_id|UserModel+getUsernameById}-->"></a></div>
-										<div class="floor_groupuserfollow" style="margin:auto;width:80%;text-align:left;">
-											<table cellspacing="0" cellpadding="0" width="100%" style="">
-												<tbody>
-													<tr>
-														<th><p><a href=""><!--{$TheController->totalTopic($oComment->user_id)}--></a></p>主题</th>
-														<th><p><a href="#"><!--{$TheController->totalFans($oComment->user_id)}--></a></p>听众
-														</th>
-														<td><p><a href=""><span title="12151">1万</span></a></p>积分</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-										<div>
-											<p style="margin:auto;width:75%;text-align:left;margin-bottom:5px;"><em style=""><a target="_blank" href="">列兵</a></em>
-											</p>
-											<p class="floor_userinfonikename" style="margin:auto;width:75%;text-align:left;margin-bottom:5px;color: #999999 !important;">马建军</p>
-										</div>
-										<div style="margin:auto;width:70%;">
-											<table style="text-align:left;" cellspacing="0" cellpadding="0" width="100%">
-												<tr>
-													<td>UID</td>
-													<td><!--{$oGrouptopic->user_id}--></td>
-												</tr>
-												<tr>
-													<td>帖子</td>
-													<td><!--{$TheController->totalComment($oGrouptopic->user_id)}--></td>
-												</tr>
-												<tr>
-													<td>金币</td>
-													<td>15</td>
-												</tr>
-												<tr>
-													<td>贡献</td>
-													<td>15</td>
-												</tr>
-											</table>
-										</div>
-										<!--{~$nAlreadyFriendId=Core_Extend::isAlreadyFriend($oComment->user_id)}-->
-										<div class="operate2 " style="margin-top:10px;text-align:center;">
-											<!--{if $nAlreadyFriendId==1 || $nAlreadyFriendId==4}-->
-											<a rel="nofollow" href="#" onclick="deleteFriend(<!--{$oComment->user_id}-->);" style="">取消关注</a>&nbsp;
-											<a rel="nofollow" href="" style="width:30px;"><i class="icon-envelope"></i>写私信</a>
-											<!--{d*else}-->
-											<a rel="nofollow" href="#" onclick="addFriend(<!--{$oComment->user_id}-->);"><i class="icon-plus"></i>加关注</a>&nbsp;
-											<a rel="nofollow" href="" class="message J_send_msg_pop" data-name="小鸡爷爷"><i class="icon-envelope"></i>写私信</a>
-											<!--{/if}-->
-										</div>
-									</div>
-								</td>
-								<td class="floor_right span10" style="border-top: 1px solid #E5EDF2;">
-									<div class="fl"><div class="floor_arrow"><em></em><span></span></div></div>
-									<div class="floor_top_tips">
-										<span class="floor_copy J_floor_copy" title="复制此楼地址"
-						 data-hash="read_5440"><!--{if empty($_GET['page'])}--><!--{$i}--><!--{d*else}--><!--{$_GET['page']*$nEverynum+$i-$nEverynum}--><!--{/if}-->楼<sup>#</sup></span>
-										<span class="fl">回复于：<!--{$oComment->create_dateline|Core_Extend+timeFormat}--></span>
-									</div>
-										<div class="grouptopiccontent_box"><!--{$oComment->grouptopiccomment_content|Core_Extend+ubb}--></div>
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td class="box_wrap floor_bottom" valign="bottom">
-									<div class="signature" style="max-height:200px;"><!--{:UserModel::getUsernameById($oComment['user_id'],'user_sign')}--></div>
-								</td>
-							</tr>
-							<tr>
-								<td style="background: none repeat scroll 0 0 #C2D5E3;height: 4px;padding: 0;margin:0;border-right:1px solid #CDCDCD;"></td>
-								<td style="background: none repeat scroll 0 0 #E5EDF2;height: 4px;padding: 0;margin:0;"></td>
-							</tr>
-							<!--{if count($arrComment)-1==$key}-->
-							<tr>
-								<td colspan="2" style="border-bottom: 1px solid #CDCDCD;padding: 0;margin:0;"></td>
-							</tr>
-							<!--{/if}-->
-						</table>
-						</div>
-						<!--</foreach>-->
-
-						<div class="floor">
-							<table width="100%" style="table-layout:fixed;margin-top:-15px;margin-bottom:-20px;">
-								<tr>
-									<td>
-										<div><a rel="nofollow" href="<!--{:Dyhb::U('group://grouptopic/add?gid='.$oGrouptopic->group_id)}-->" id="J_read_post_btn" class="btn btn-success" >发帖</a>
-												&nbsp;
-												<a rel="nofollow" href="<!--{:Dyhb::U('group://grouptopic/reply?id='.$oGrouptopic->grouptopic_id)}-->" data-referer="true" class="btn btn-success">回复</a>
-										</div>
-									</td>
-									<td style="text-align:right;"><!--{$sPageNavbar}--></td>
-								</tr>
-							</table>
-						</div>
-
-
-<!--{:Core_Extend::editorInclude()}-->
-
-<!--{script}-->
-$(function(){
-	editor=loadEditorThin('grouptopiccomment_message');
-});
 
 function addGrouptopiccomment(){
 	$("#grouptopiccomment_message").val(editor.html());
@@ -463,11 +87,8 @@ function addGrouptopiccomment(){
 	});
 }
 
-<!--{/script}-->
-
-<!--{script}-->
 function showMedia(){
-	$('#homefresh-media-box').toggle('fast');
+	$('#grouptopiccomment-media-box').toggle('fast');
 }
 
 function insertGrouptopicattachment(nAttachmentid){
@@ -475,68 +96,294 @@ function insertGrouptopicattachment(nAttachmentid){
 }
 <!--{/script}-->
 
-<!--{style}-->
-.homefresh-media-box{margin:8px 0 8px 0px;}
-.icon_add_face,.icon_add_topic,.icon_add_img,.icon_add_video,.icon_add_music{
-	background-image: url('<!--{:__UTHEMEPUB__}-->/Images/homefresh_icon.png');
-	background-repeat:no-repeat;
-	width: 22px;
-	height: 22px;
-	padding:4px 0px 4px 20px;
-	line-height:22px;
-	margin-right:5px;
-}
-.icon_add_face{
-	background-position: 0px 2px;
-}
-.icon_add_topic{
-	background-position: 0px -21px;
-}
-.icon_add_img{
-	background-position: 0px -47px;
-}
-.icon_add_video{
-	background-position: 0px -73px;
-}
-.icon_add_music{
-	background-position: 0px -98px;
-}
-<!--{/style}-->
-
-						<div class="floor clear J_read_floor" id="read_5440" style="margin:0px;padding:0px;">
-						<table width="100%" style="table-layout:fixed;background: none repeat scroll 0 0 #FFFFFF;border-left: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;border-top: 1px solid #DDDDDD;border-bottom: 1px solid #DDDDDD;" class="floor_table">
-							<tr>
-								<td rowspan="2" class="floor_left span2"  style="padding-bottom:80px;padding-top:10px;background:none repeat scroll 0 0 #E5EDF2;border-right: 1px solid #C2D5E3; text-align:center;" >
-									<div class="avatar">
-										<img src="<!--{:Core_Extend::avatar($GLOBALS['___login___']['user_id'],'middle')}-->" width="80%">
+		<div class="row">
+			<div class="span12">
+				<div class="floor floor_headerpost">
+					<table width="100%" class="floor_table">
+						<tr>
+							<td>
+								<div><a rel="nofollow" href="<!--{:Dyhb::U('group://grouptopic/add?gid='.$oGrouptopic->group_id)}-->" class="btn btn-success" >发帖</a>&nbsp;
+									<a rel="nofollow" href="<!--{:Dyhb::U('group://grouptopic/reply?id='.$oGrouptopic->grouptopic_id)}-->" class="btn btn-success">回复</a>
+								</div>
+							</td>
+							<td style="text-align:right;"><!--{$sPageNavbar}--></td>
+						</tr>
+					</table>
+				</div>
+					
+				<!--{if $nPage<2}-->
+				<div class="floor clear" id="grouptopicview_0">
+					<table width="100%" class="floor_table floor_grouptopictable">
+						<tr>
+							<td rowspan="2" class="floor_left span2"  style="background:none repeat scroll 0 0 #E5EDF2;border-right: 1px solid #C2D5E3;border-bottom: 1px solid #C2D5E3;text-align:center;">
+								<div class="floor_info">
+									<div class="floor_userinfoname">
+										<div class="floor_userinfonameinner">
+											<a target="_blank" href="{:Dyhb::U('home://space@?id='.$oGrouptopic['user_id'])}"><!--{$oGrouptopic->grouptopic_username}--></a>
+										</div>
 									</div>
-								</td>
-								<td class="floor_right span10" style="">
-									<form method="post" name="grouptopiccomment_form" id="grouptopiccomment_form" style="margin-bottom:-15px;">
-					<textarea class="input-xlarge" name="grouptopiccomment_message" id="grouptopiccomment_message" rows="8" style="width:100%;margin-left:0px;"></textarea>
-					<div id="homefresh-media-box" class="homefresh-media-box none">
-						<a href="javascript:void(0);" class="face-icon icon_add_face" >表情</a> 
-						<a href="javascript:void(0);" onclick="addHomefreshtopic();" class="icon_add_topic">话题</a> 
-						<a href="javascript:void(0);" onclick="globalAddattachment('insertGrouptopicattachment');" class="icon_add_img">媒体</a>
-						<a href="javascript:void(0);" onclick="addHomefreshvideo();" class="icon_add_video" >视频</a>
-						<a href="javascript:void(0);" onclick="addHomefreshmusic();" class="icon_add_music">音乐</a>
-					</div>
-					<div class="form-actions">
-						<input type="hidden" name="ajax" value="1">
-						<input type="hidden" name="tid" value="<!--{$oGrouptopic->grouptopic_id}-->">
-						<input id="submit_button" onclick="addGrouptopiccomment();" type="button" class="btn btn-middle btn-success" style="margin-left:0px;" value="发布">&nbsp;
-						<a href="javascript:void(0);" onclick="showMedia();">媒体</a>
-					</div>
-						</form>
-								</td>
-							</tr>
-							<tr>
-								<td style="background: none repeat scroll 0 0 #C2D5E3;height: 1px;padding: 0;margin:0;border-right:1px solid #CDCDCD;"></td>
-								<td style="background: none repeat scroll 0 0 #E5EDF2;height: 1px;padding: 0;margin:0;"></td>
-							</tr>
-						</table>
-					</div>
+									<div class="face">
+										<a href="<!--{:Dyhb::U('home://space@?id='.$oGrouptopic['user_id'])}-->" target="_blank">
+											<img src="<!--{:Core_Extend::avatar($oGrouptopic['user_id'],'middle')}-->" class="bind_hover_card" bm_user_id="<!--{$oGrouptopic['user_id']}-->" target="_blank" width="85%" alt="<!--{$oGrouptopic->grouptopic_username}-->">
+										</a>
+									</div>
+									<div class="floor_groupuserfollow" style="margin:auto;width:80%;text-align:left;">
+										<table cellspacing="0" cellpadding="0" width="100%" style="">
+											<tbody>
+												<tr>
+													<th><p>
+															<a href=""><!--{$TheController->totalTopic($oGrouptopic->user_id)}--></a>
+														</p>主题
+													</th>
+													<th><p>
+															<a href="#"><!--{$TheController->totalFans($oGrouptopic->user_id)}--></a>
+														</p>听众
+													</th>
+													<td><p>
+															<a href=""><span title="12151">1万</span></a>
+														</p>积分
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div>
+										<p style="margin:auto;width:75%;text-align:left;margin-bottom:5px;">
+											<em style=""><a target="_blank" href="">列兵</a></em>
+										</p>
+										<p class="floor_userinfonikename" style="margin:auto;width:75%;text-align:left;margin-bottom:5px;color: #999999 !important;">马建军</p>
+									</div>
+									<div style="margin:auto;width:70%;">
+										<table style="text-align:left;" cellspacing="0" cellpadding="0" width="100%">
+											<tr>
+												<td>UID</td>
+												<td><!--{$oGrouptopic->user_id}--></td>
+											</tr>
+											<tr>
+												<td>帖子</td>
+												<td><!--{$TheController->totalComment($oGrouptopic->user_id)}--></td>
+											</tr>
+											<tr>
+												<td>金币</td>
+												<td>15</td>
+											</tr>
+											<tr>
+												<td>贡献</td>
+												<td>15</td>
+											</tr>
+										</table>
+									</div>
+									<div class="operate2 " style="margin-top:10px;text-align:center;">
+										<!--{~$nAlreadyFriendId=Core_Extend::isAlreadyFriend($oGrouptopic->user_id)}-->
+										<!--{if $nAlreadyFriendId==1 || $nAlreadyFriendId==4}-->
+										<a rel="nofollow" href="javascript:void(0);" onclick="deleteFriend(<!--{$oComment->user_id}-->);"><i class="icon-remove"></i>取消关注</a>
+										<!--{d*else}-->
+										<a rel="nofollow" href="javascript:void(0);" onclick="addFriend(<!--{$oGrouptopic->user_id}-->);"><i class="icon-plus"></i>加关注</a>
+										<!--{/if}-->&nbsp;
+										<a rel="nofollow" href="javascript:void(0);" style="width:30px;"><i class="icon-envelope"></i>写私信</a>
+									</div>
+								</div>
+							</td>
+							<td class="floor_right span10"> 
+								<div class="floor_title">
+									<div class="post_num">
+										<ul class="clear">
+											<li>阅读：<em><!--{$oGrouptopic->grouptopic_views}--></em></li>
+											<li>回复：<em><!--{$oGrouptopic->grouptopic_comments}--></em></li>
+										</ul>
+									</div>
+									<h1><!--{$oGrouptopic->grouptopic_title}--></h1>
+								</div>
+								<div class="floor_top_tips">
+									<span class="floor_copy" title="复制此楼地址">楼主<sup>#</sup></span>
+									<span class="fl">发布于<!--{$oGrouptopic->create_dateline|Core_Extend+timeFormat}--></span>
+								</div>
+								<div id="grouptopicview_main">
+									<div class="grouptopiccontent_box">
+										<!--{$oGrouptopic->grouptopic_content|Core_Extend+ubb}-->
+									</div>
+									<!--{if $oGrouptopic->update_dateline}-->
+									<div class="space"></div>
+									<div class="edit_log">
+										<blockquote>
+											<em>[<!--{$oGrouptopic->grouptopic_username}-->于<!--{$oGrouptopic->update_dateline|Core_Extend+timeFormat}-->编辑了帖子]</em>
+										</blockquote>
+									</div>
+									<!--{/if}-->
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="floor_bottom" valign="bottom" style="border-bottom: 1px solid #E5EDF2;">
+								<div class="" style="margin-bottom:10px;margin-top:-15px;">
+									<h4 style="font-size:13px;">快速回复</h4>
+									<textarea class="grouptopiccomment_quickmessage" name="grouptopiccomment_quickmessage" id="grouptopiccomment_quickmessage" placeholder="我也说两句" style="margin-bottom:0px;width:70%;height:50px;" rows="2" cols="10">
+									</textarea>
+								</div>
+								<div class="clear" id="grouptopiccomment_reply" style="display:none;line-height:32px;">
+									<button onclick="addGrouptopiccomment();" class="btn btn-success" style="margin:8px;padding-top:1px;padding-bottom:1px;">回复</button>
+									<a href="javascript:void(0);" onclick="closeQuickreplay();"><i class="icon-remove"></i>&nbsp;关闭</a>&nbsp;
+									<a href="<!--{:Dyhb::U('group://grouptopic/reply?id='.$oGrouptopic->grouptopic_id)}-->" >进入高级模式&gt;&gt;</a>
+								</div>
+								<div class="space"></div>
+								<div class="signature" style="max-height:200px;">
+									<!--{:UserModel::getUsernameById($oGrouptopic['user_id'],'user_sign')}-->
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td style="background: none repeat scroll 0 0 #C2D5E3;height: 4px;padding: 0;margin:0;border-right:1px solid #CDCDCD;"></td>
+							<td style="background: none repeat scroll 0 0 #E5EDF2;height: 4px;padding: 0;margin:0;"></td>
+						</tr>
+					</table>
+				</div>
+				<!--{/if}-->
 
+				<!--<foreach for=arrComment value=oComment>-->
+				<a name="grouptopiccomment-<!--{$oComment->grouptopiccomment_id}-->"></a>
+				<div class="floor clear" id="grouptopicview_<!--{$oComment->grouptopiccomment_id}-->">
+					<table width="100%" style="table-layout:fixed;background: none repeat scroll 0 0 #FFFFFF;border-left: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;border-top:none;" class="floor_table">
+						<tr>
+							<td rowspan="2" class="floor_left span2"  style="padding-bottom:80px;padding-top:10px;background:none repeat scroll 0 0 #E5EDF2;border-right: 1px solid #C2D5E3;border-top: 1px solid #C2D5E3; text-align:center;" >
+								<div class="floor_info">
+									<div class="floor_userinfoname">
+										<div class="floor_userinfonameinner">
+											<a target="_blank" href="{:Dyhb::U('home://space@?id='.$oComment['user_id'])}"><!--{$oComment->user_id|UserModel+getUsernameById}--></a>
+										</div>
+									</div>
+									<div class="face">
+										<a href="{:Dyhb::U('home://space@?id='.$oComment['user_id'])}" target="_blank">
+											<img src="<!--{:Core_Extend::avatar($oComment['user_id'],'middle')}-->" width="85%" alt="<!--{$oComment->user_id|UserModel+getUsernameById}-->">
+										</a>
+									</div>
+									<div class="floor_groupuserfollow" style="margin:auto;width:80%;text-align:left;">
+										<table cellspacing="0" cellpadding="0" width="100%" style="">
+											<tbody>
+												<tr>
+													<th>
+														<p>
+															<a href=""><!--{$TheController->totalTopic($oComment->user_id)}--></a>
+														</p>主题
+													</th>
+													<th>
+														<p>
+															<a href="#"><!--{$TheController->totalFans($oComment->user_id)}--></a>
+														</p>听众
+													</th>
+													<td>
+														<p>
+															<a href=""><span title="12151">1万</span></a>
+														</p>积分
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<div>
+										<p style="margin:auto;width:75%;text-align:left;margin-bottom:5px;"><em style=""><a target="_blank" href="">列兵</a></em>
+										</p>
+										<p class="floor_userinfonikename" style="margin:auto;width:75%;text-align:left;margin-bottom:5px;color: #999999 !important;">马建军</p>
+									</div>
+									<div style="margin:auto;width:70%;">
+										<table style="text-align:left;" cellspacing="0" cellpadding="0" width="100%">
+											<tr>
+												<td>UID</td>
+												<td><!--{$oGrouptopic->user_id}--></td>
+											</tr>
+											<tr>
+												<td>帖子</td>
+												<td><!--{$TheController->totalComment($oGrouptopic->user_id)}--></td>
+											</tr>
+											<tr>
+												<td>金币</td>
+												<td>15</td>
+											</tr>
+											<tr>
+												<td>贡献</td>
+												<td>15</td>
+											</tr>
+										</table>
+									</div>
+									<div class="operate" style="margin-top:10px;text-align:center;">
+										<!--{~$nAlreadyFriendId=Core_Extend::isAlreadyFriend($oComment->user_id)}-->
+										<!--{if $nAlreadyFriendId==1 || $nAlreadyFriendId==4}-->
+										<a rel="nofollow" href="avascript:void(0);" onclick="deleteFriend(<!--{$oComment->user_id}-->);"><i class="icon-remove"></i>取消关注</a>&nbsp;
+										<!--{d*else}-->
+										<a rel="nofollow" href="avascript:void(0);" onclick="addFriend(<!--{$oComment->user_id}-->);"><i class="icon-plus"></i>加关注</a>
+										<!--{/if}-->&nbsp;
+										<a rel="nofollow" href="javascript:void(0);" class="message"><i class="icon-envelope"></i>写私信</a>
+									</div>
+								</div>
+							</td>
+							<td class="floor_right span10" style="border-top: 1px solid #E5EDF2;">
+								<div class="floor_top_tips">
+									<span class="floor_copy" title="复制此楼地址"><!--{$TheController->get_commentfloor($i,$nEverynum)}-->楼<sup>#</sup></span>
+									<span>回复于<!--{$oComment->create_dateline|Core_Extend+timeFormat}--></span>
+								</div>
+								<div class="grouptopiccontent_box"><!--{$oComment->grouptopiccomment_content|Core_Extend+ubb}--></div>
+							</td>
+						</tr>
+						<tr>
+							<td class="box_wrap floor_bottom" valign="bottom">
+								<div class="signature" style="max-height:200px;"><!--{:UserModel::getUsernameById($oComment['user_id'],'user_sign')}--></div>
+							</td>
+						</tr>
+						<tr>
+							<td style="background: none repeat scroll 0 0 #C2D5E3;height: 4px;padding: 0;margin:0;border-right:1px solid #CDCDCD;"></td>
+							<td style="background: none repeat scroll 0 0 #E5EDF2;height: 4px;padding: 0;margin:0;"></td>
+						</tr>
+						<!--{if count($arrComment)-1==$key}-->
+						<tr>
+							<td colspan="2" style="border-bottom: 1px solid #CDCDCD;padding: 0;margin:0;"></td>
+						</tr>
+						<!--{/if}-->
+					</table>
+				</div>
+				<!--</foreach>-->
+				<div class="floor floor_footerpost">
+					<table width="100%" style="table-layout:fixed;margin-top:-15px;margin-bottom:-20px;">
+						<tr>
+							<td>
+								<div>
+									<a rel="nofollow" href="<!--{:Dyhb::U('group://grouptopic/add?gid='.$oGrouptopic->group_id)}-->" class="btn btn-success" >发帖</a>&nbsp;
+									<a rel="nofollow" href="<!--{:Dyhb::U('group://grouptopic/reply?id='.$oGrouptopic->grouptopic_id)}-->" class="btn btn-success">回复</a>
+								</div>
+							</td>
+							<td style="text-align:right;"><!--{$sPageNavbar}--></td>
+						</tr>
+					</table>
+				</div>
+				<div class="floor clear">
+					<table width="100%" style="table-layout:fixed;background: none repeat scroll 0 0 #FFFFFF;border-left: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;border-top: 1px solid #DDDDDD;border-bottom: 1px solid #DDDDDD;" class="floor_table">
+						<tr>
+							<td rowspan="2" class="floor_left span2"  style="padding-bottom:80px;padding-top:10px;background:none repeat scroll 0 0 #E5EDF2;border-right: 1px solid #C2D5E3; text-align:center;" >
+								<div class="avatar">
+									<img src="<!--{:Core_Extend::avatar($GLOBALS['___login___']['user_id'],'middle')}-->" width="80%">
+								</div>
+							</td>
+							<td class="floor_right span10">
+								<form method="post" name="grouptopiccomment_form" id="grouptopiccomment_form" style="margin-bottom:-15px;">
+									<textarea class="input-xlarge" name="grouptopiccomment_message" id="grouptopiccomment_message" rows="8" style="width:100%;margin-left:0px;"></textarea>
+									<div id="grouptopiccomment-media-box" class="common-media-box none">
+										<a href="javascript:void(0);" class="face-icon icon_add_face" >表情</a>
+										<a href="javascript:void(0);" onclick="globalAddattachment('insertGrouptopicattachment');" class="icon_add_img">媒体</a>
+										<a href="javascript:void(0);" onclick="addHomefreshvideo();" class="icon_add_video" >视频</a>
+										<a href="javascript:void(0);" onclick="addHomefreshmusic();" class="icon_add_music">音乐</a>
+									</div>
+									<div class="form-actions">
+										<input type="hidden" name="ajax" value="1">
+										<input type="hidden" name="tid" value="<!--{$oGrouptopic->grouptopic_id}-->">
+										<input id="submit_button" onclick="addGrouptopiccomment();" type="button" class="btn btn-middle btn-success" style="margin-left:0px;" value="发布">&nbsp;
+										<a href="javascript:void(0);" onclick="showMedia();">媒体</a>
+									</div>
+								</form>
+							</td>
+						</tr>
+						<tr>
+							<td style="background: none repeat scroll 0 0 #C2D5E3;height: 1px;padding: 0;margin:0;border-right:1px solid #CDCDCD;"></td>
+							<td style="background: none repeat scroll 0 0 #E5EDF2;height: 1px;padding: 0;margin:0;"></td>
+						</tr>
+					</table>
 				</div>
 			</div>
 		</div>
