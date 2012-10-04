@@ -119,6 +119,13 @@ class GrouptopicController extends InitController{
 			$this->E($oGrouptopiccomment->getErrorMessage());
 		}
 		
+		$arrLatestDate=array('commenttime'=>$oGrouptopiccomment->create_dateline,'commentid'=>$oGrouptopiccomment->grouptopiccomment_id,'commentusername'=>$GLOBALS['___login___']['user_name']);
+		$oGrouptopic->grouptopic_latestcomment=serialize($arrLatestDate);
+		$oGrouptopic->save(0,'update');
+		if($oGrouptopic->isError()){
+			$this->E($oGrouptopic->getErrorMessage());
+		}
+
 		$oGrouptopic->grouptopic_comments=GrouptopiccommentModel::F('grouptopic_id=?',$nId)->all()->getCounts();
 		$oGrouptopic->setAutofill(false);
 		$oGrouptopic->save(0,'update');

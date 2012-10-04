@@ -129,8 +129,9 @@
 <!--{$oGrouptopic->create_dateline|Core_Extend+timeFormat}--></span>
 											<span class="pipe">|</span>
 											<!--{if $oGrouptopic->grouptopic_comments>0}-->
-											最后回复：<a class="J_user_card_show" data-uid="2383" href="#">扶摇侠客</a><span><a href="#" aria-label="最后回复时间">
-09-11 09:50</a></span>
+											<!--{~$arrLatestComment=$TheController->unserialize($oGrouptopic->grouptopic_latestcomment)}-->
+											最后回复：<a class="J_user_card_show" data-uid="2383" href="#"><!--{$arrLatestComment['commentusername']}--></a><span><a href="#" aria-label="最后回复时间">
+<!--{$arrLatestComment['commenttime']|Core_Extend+timeFormat}--></a></span>
 											<!--{d*else}-->
 											<span>暂无回复</span>
 											<!--{/if}-->
