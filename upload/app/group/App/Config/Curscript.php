@@ -6,4 +6,6 @@
 
 return array(
 	'userhome'=>'@public',
+	'grouptopicview'=>'grouptopic::view',
+	'media'=>'grouptopic::view',
 );
