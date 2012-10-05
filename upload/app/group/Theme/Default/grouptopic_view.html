@@ -13,6 +13,7 @@
 <script src="<!--{:__PUBLIC__}-->/js/jquery/autoresize/jquery.autoresize.js"></script>
 
 <!--{:Core_Extend::editorInclude()}-->
+<!--{:Core_Extend::emotion()}-->
 
 <!--{script}-->
 $(function(){
@@ -39,6 +40,8 @@ $(function(){
 	});
 
 	editor=loadEditorThin('grouptopiccomment_message');
+
+	$('a.face-icon').showEmotion({input:editor});
 });
 
 function closeQuickreplay(){
@@ -102,7 +105,7 @@ function insertGrouptopicattachment(nAttachmentid){
 					<table width="100%" class="floor_table">
 						<tr>
 							<td>
-								<div><a rel="nofollow" href="<!--{:Dyhb::U('group://grouptopic/add?gid='.$oGrouptopic->group_id)}-->" class="btn btn-success" >发帖</a>&nbsp;
+								<div><a rel="nofollow" href="<!--{:Dyhb::U('group://grouptopic/add?gid='.$oGrouptopic->group_id)}-->" class="btn btn-success">发帖</a>&nbsp;
 									<a rel="nofollow" href="<!--{:Dyhb::U('group://grouptopic/reply?id='.$oGrouptopic->grouptopic_id)}-->" class="btn btn-success">回复</a>
 								</div>
 							</td>
@@ -115,20 +118,20 @@ function insertGrouptopicattachment(nAttachmentid){
 				<div class="floor clear" id="grouptopicview_0">
 					<table width="100%" class="floor_table floor_grouptopictable">
 						<tr>
-							<td rowspan="2" class="floor_left span2"  style="background:none repeat scroll 0 0 #E5EDF2;border-right: 1px solid #C2D5E3;border-bottom: 1px solid #C2D5E3;text-align:center;">
+							<td rowspan="2" class="floor_left floor_grouptopictd1 span2">
 								<div class="floor_info">
 									<div class="floor_userinfoname">
 										<div class="floor_userinfonameinner">
 											<a target="_blank" href="{:Dyhb::U('home://space@?id='.$oGrouptopic['user_id'])}"><!--{$oGrouptopic->grouptopic_username}--></a>
 										</div>
 									</div>
-									<div class="face">
+									<div>
 										<a href="<!--{:Dyhb::U('home://space@?id='.$oGrouptopic['user_id'])}-->" target="_blank">
 											<img src="<!--{:Core_Extend::avatar($oGrouptopic['user_id'],'middle')}-->" class="bind_hover_card" bm_user_id="<!--{$oGrouptopic['user_id']}-->" target="_blank" width="85%" alt="<!--{$oGrouptopic->grouptopic_username}-->">
 										</a>
 									</div>
-									<div class="floor_groupuserfollow" style="margin:auto;width:80%;text-align:left;">
-										<table cellspacing="0" cellpadding="0" width="100%" style="">
+									<div class="floor_groupuserfollow">
+										<table cellspacing="0" cellpadding="0" width="100%">
 											<tbody>
 												<tr>
 													<th><p>
@@ -148,12 +151,12 @@ function insertGrouptopicattachment(nAttachmentid){
 										</table>
 									</div>
 									<div>
-										<p style="margin:auto;width:75%;text-align:left;margin-bottom:5px;">
-											<em style=""><a target="_blank" href="">列兵</a></em>
+										<p class="floor_userinforating">
+											<em><a target="_blank" href="">列兵</a></em>
 										</p>
-										<p class="floor_userinfonikename" style="margin:auto;width:75%;text-align:left;margin-bottom:5px;color: #999999 !important;">马建军</p>
+										<p class="floor_userinfonikename">马建军</p>
 									</div>
-									<div style="margin:auto;width:70%;">
+									<div class="floor_userinfocount">
 										<table style="text-align:left;" cellspacing="0" cellpadding="0" width="100%">
 											<tr>
 												<td>UID</td>
@@ -173,14 +176,14 @@ function insertGrouptopicattachment(nAttachmentid){
 											</tr>
 										</table>
 									</div>
-									<div class="operate2 " style="margin-top:10px;text-align:center;">
+									<div class="floor_userinfooperate">
 										<!--{~$nAlreadyFriendId=Core_Extend::isAlreadyFriend($oGrouptopic->user_id)}-->
 										<!--{if $nAlreadyFriendId==1 || $nAlreadyFriendId==4}-->
 										<a rel="nofollow" href="javascript:void(0);" onclick="deleteFriend(<!--{$oComment->user_id}-->);"><i class="icon-remove"></i>取消关注</a>
 										<!--{d*else}-->
 										<a rel="nofollow" href="javascript:void(0);" onclick="addFriend(<!--{$oGrouptopic->user_id}-->);"><i class="icon-plus"></i>加关注</a>
 										<!--{/if}-->&nbsp;
-										<a rel="nofollow" href="javascript:void(0);" style="width:30px;"><i class="icon-envelope"></i>写私信</a>
+										<a rel="nofollow" href="javascript:void(0);"><i class="icon-envelope"></i>写私信</a>
 									</div>
 								</div>
 							</td>
@@ -188,15 +191,15 @@ function insertGrouptopicattachment(nAttachmentid){
 								<div class="floor_title">
 									<div class="post_num">
 										<ul class="clear">
-											<li>阅读：<em><!--{$oGrouptopic->grouptopic_views}--></em></li>
-											<li>回复：<em><!--{$oGrouptopic->grouptopic_comments}--></em></li>
+											<li>阅读&nbsp;<em><!--{$oGrouptopic->grouptopic_views}--></em></li>
+											<li>回复&nbsp;<em><!--{$oGrouptopic->grouptopic_comments}--></em></li>
 										</ul>
 									</div>
 									<h1><!--{$oGrouptopic->grouptopic_title}--></h1>
 								</div>
 								<div class="floor_top_tips">
 									<span class="floor_copy" title="复制此楼地址">楼主<sup>#</sup></span>
-									<span class="fl">发布于<!--{$oGrouptopic->create_dateline|Core_Extend+timeFormat}--></span>
+									<span>发布于<!--{$oGrouptopic->create_dateline|Core_Extend+timeFormat}--></span>
 								</div>
 								<div id="grouptopicview_main">
 									<div class="grouptopiccontent_box">
@@ -214,26 +217,25 @@ function insertGrouptopicattachment(nAttachmentid){
 							</td>
 						</tr>
 						<tr>
-							<td class="floor_bottom" valign="bottom" style="border-bottom: 1px solid #E5EDF2;">
-								<div class="" style="margin-bottom:10px;margin-top:-15px;">
+							<td class="floor_bottom floor_grouptopictd2" valign="bottom">
+								<div class="floor_quickreply">
 									<h4 style="font-size:13px;">快速回复</h4>
-									<textarea class="grouptopiccomment_quickmessage" name="grouptopiccomment_quickmessage" id="grouptopiccomment_quickmessage" placeholder="我也说两句" style="margin-bottom:0px;width:70%;height:50px;" rows="2" cols="10">
-									</textarea>
+									<textarea class="grouptopiccomment_quickmessage" name="grouptopiccomment_quickmessage" id="grouptopiccomment_quickmessage" placeholder="我也说两句" rows="2" cols="10"></textarea>
 								</div>
-								<div class="clear" id="grouptopiccomment_reply" style="display:none;line-height:32px;">
-									<button onclick="addGrouptopiccomment();" class="btn btn-success" style="margin:8px;padding-top:1px;padding-bottom:1px;">回复</button>
+								<div class="grouptopiccomment_reply none" id="grouptopiccomment_reply">
+									<button onclick="addGrouptopiccomment();" class="btn btn-success grouptopiccomment_btn">回复</button>
 									<a href="javascript:void(0);" onclick="closeQuickreplay();"><i class="icon-remove"></i>&nbsp;关闭</a>&nbsp;
 									<a href="<!--{:Dyhb::U('group://grouptopic/reply?id='.$oGrouptopic->grouptopic_id)}-->" >进入高级模式&gt;&gt;</a>
 								</div>
 								<div class="space"></div>
-								<div class="signature" style="max-height:200px;">
+								<div class="signature">
 									<!--{:UserModel::getUsernameById($oGrouptopic['user_id'],'user_sign')}-->
 								</div>
 							</td>
 						</tr>
 						<tr>
-							<td style="background: none repeat scroll 0 0 #C2D5E3;height: 4px;padding: 0;margin:0;border-right:1px solid #CDCDCD;"></td>
-							<td style="background: none repeat scroll 0 0 #E5EDF2;height: 4px;padding: 0;margin:0;"></td>
+							<td class="floor_grouptopicbottomtd1"></td>
+							<td class="floor_grouptopicbottomtd2"></td>
 						</tr>
 					</table>
 				</div>
@@ -242,22 +244,22 @@ function insertGrouptopicattachment(nAttachmentid){
 				<!--<foreach for=arrComment value=oComment>-->
 				<a name="grouptopiccomment-<!--{$oComment->grouptopiccomment_id}-->"></a>
 				<div class="floor clear" id="grouptopicview_<!--{$oComment->grouptopiccomment_id}-->">
-					<table width="100%" style="table-layout:fixed;background: none repeat scroll 0 0 #FFFFFF;border-left: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;border-top:none;" class="floor_table">
+					<table width="100%" class="floor_table floor_grouptopiccommenttable">
 						<tr>
-							<td rowspan="2" class="floor_left span2"  style="padding-bottom:80px;padding-top:10px;background:none repeat scroll 0 0 #E5EDF2;border-right: 1px solid #C2D5E3;border-top: 1px solid #C2D5E3; text-align:center;" >
+							<td rowspan="2" class="floor_left floor_grouptopiccommenttd1 span2">
 								<div class="floor_info">
 									<div class="floor_userinfoname">
 										<div class="floor_userinfonameinner">
 											<a target="_blank" href="{:Dyhb::U('home://space@?id='.$oComment['user_id'])}"><!--{$oComment->user_id|UserModel+getUsernameById}--></a>
 										</div>
 									</div>
-									<div class="face">
+									<div>
 										<a href="{:Dyhb::U('home://space@?id='.$oComment['user_id'])}" target="_blank">
 											<img src="<!--{:Core_Extend::avatar($oComment['user_id'],'middle')}-->" width="85%" alt="<!--{$oComment->user_id|UserModel+getUsernameById}-->">
 										</a>
 									</div>
-									<div class="floor_groupuserfollow" style="margin:auto;width:80%;text-align:left;">
-										<table cellspacing="0" cellpadding="0" width="100%" style="">
+									<div class="floor_groupuserfollow">
+										<table cellspacing="0" cellpadding="0" width="100%">
 											<tbody>
 												<tr>
 													<th>
@@ -280,11 +282,11 @@ function insertGrouptopicattachment(nAttachmentid){
 										</table>
 									</div>
 									<div>
-										<p style="margin:auto;width:75%;text-align:left;margin-bottom:5px;"><em style=""><a target="_blank" href="">列兵</a></em>
+										<p class="floor_userinforating"><em><a target="_blank" href="">列兵</a></em>
 										</p>
-										<p class="floor_userinfonikename" style="margin:auto;width:75%;text-align:left;margin-bottom:5px;color: #999999 !important;">马建军</p>
+										<p class="floor_userinfonikename">马建军</p>
 									</div>
-									<div style="margin:auto;width:70%;">
+									<div class="floor_userinfocount">
 										<table style="text-align:left;" cellspacing="0" cellpadding="0" width="100%">
 											<tr>
 												<td>UID</td>
@@ -304,18 +306,18 @@ function insertGrouptopicattachment(nAttachmentid){
 											</tr>
 										</table>
 									</div>
-									<div class="operate" style="margin-top:10px;text-align:center;">
+									<div class="floor_userinfooperate">
 										<!--{~$nAlreadyFriendId=Core_Extend::isAlreadyFriend($oComment->user_id)}-->
 										<!--{if $nAlreadyFriendId==1 || $nAlreadyFriendId==4}-->
 										<a rel="nofollow" href="avascript:void(0);" onclick="deleteFriend(<!--{$oComment->user_id}-->);"><i class="icon-remove"></i>取消关注</a>&nbsp;
 										<!--{d*else}-->
 										<a rel="nofollow" href="avascript:void(0);" onclick="addFriend(<!--{$oComment->user_id}-->);"><i class="icon-plus"></i>加关注</a>
 										<!--{/if}-->&nbsp;
-										<a rel="nofollow" href="javascript:void(0);" class="message"><i class="icon-envelope"></i>写私信</a>
+										<a rel="nofollow" href="javascript:void(0);"><i class="icon-envelope"></i>写私信</a>
 									</div>
 								</div>
 							</td>
-							<td class="floor_right span10" style="border-top: 1px solid #E5EDF2;">
+							<td class="floor_right floor_grouptopiccommenttd2 span10">
 								<div class="floor_top_tips">
 									<span class="floor_copy" title="复制此楼地址"><!--{$TheController->get_commentfloor($i,$nEverynum)}-->楼<sup>#</sup></span>
 									<span>回复于<!--{$oComment->create_dateline|Core_Extend+timeFormat}--></span>
@@ -324,24 +326,24 @@ function insertGrouptopicattachment(nAttachmentid){
 							</td>
 						</tr>
 						<tr>
-							<td class="box_wrap floor_bottom" valign="bottom">
-								<div class="signature" style="max-height:200px;"><!--{:UserModel::getUsernameById($oComment['user_id'],'user_sign')}--></div>
+							<td class="floor_bottom" valign="bottom">
+								<div class="signature"><!--{:UserModel::getUsernameById($oComment['user_id'],'user_sign')}--></div>
 							</td>
 						</tr>
 						<tr>
-							<td style="background: none repeat scroll 0 0 #C2D5E3;height: 4px;padding: 0;margin:0;border-right:1px solid #CDCDCD;"></td>
-							<td style="background: none repeat scroll 0 0 #E5EDF2;height: 4px;padding: 0;margin:0;"></td>
+							<td class="floor_grouptopiccommentbottomtd1"></td>
+							<td class="floor_grouptopiccommentbottomtd2"></td>
 						</tr>
 						<!--{if count($arrComment)-1==$key}-->
 						<tr>
-							<td colspan="2" style="border-bottom: 1px solid #CDCDCD;padding: 0;margin:0;"></td>
+							<td colspan="2" class="floor_grouptopiccommentbottom"></td>
 						</tr>
 						<!--{/if}-->
 					</table>
 				</div>
 				<!--</foreach>-->
 				<div class="floor floor_footerpost">
-					<table width="100%" style="table-layout:fixed;margin-top:-15px;margin-bottom:-20px;">
+					<table width="100%" class="floor_footerposttable">
 						<tr>
 							<td>
 								<div>
@@ -353,17 +355,17 @@ function insertGrouptopicattachment(nAttachmentid){
 						</tr>
 					</table>
 				</div>
-				<div class="floor clear">
-					<table width="100%" style="table-layout:fixed;background: none repeat scroll 0 0 #FFFFFF;border-left: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;border-top: 1px solid #DDDDDD;border-bottom: 1px solid #DDDDDD;" class="floor_table">
+				<div class="floor">
+					<table width="100%" class="floor_table floor_footerpostcontenttable">
 						<tr>
-							<td rowspan="2" class="floor_left span2"  style="padding-bottom:80px;padding-top:10px;background:none repeat scroll 0 0 #E5EDF2;border-right: 1px solid #C2D5E3; text-align:center;" >
+							<td class="floor_left floor_footerpostcontenttd1 span2">
 								<div class="avatar">
 									<img src="<!--{:Core_Extend::avatar($GLOBALS['___login___']['user_id'],'middle')}-->" width="80%">
 								</div>
 							</td>
 							<td class="floor_right span10">
-								<form method="post" name="grouptopiccomment_form" id="grouptopiccomment_form" style="margin-bottom:-15px;">
-									<textarea class="input-xlarge" name="grouptopiccomment_message" id="grouptopiccomment_message" rows="8" style="width:100%;margin-left:0px;"></textarea>
+								<form method="post" name="grouptopiccomment_form" id="grouptopiccomment_form" class="grouptopiccomment_form">
+									<textarea class="input-xlarge" name="grouptopiccomment_message" id="grouptopiccomment_message" rows="8" style="width:100%;"></textarea>
 									<div id="grouptopiccomment-media-box" class="common-media-box none">
 										<a href="javascript:void(0);" class="face-icon icon_add_face" >表情</a>
 										<a href="javascript:void(0);" onclick="globalAddattachment('insertGrouptopicattachment');" class="icon_add_img">媒体</a>
@@ -379,12 +381,9 @@ function insertGrouptopicattachment(nAttachmentid){
 								</form>
 							</td>
 						</tr>
-						<tr>
-							<td style="background: none repeat scroll 0 0 #C2D5E3;height: 1px;padding: 0;margin:0;border-right:1px solid #CDCDCD;"></td>
-							<td style="background: none repeat scroll 0 0 #E5EDF2;height: 1px;padding: 0;margin:0;"></td>
-						</tr>
 					</table>
 				</div>
+				<div class="space"></div>
 			</div>
 		</div>
 
