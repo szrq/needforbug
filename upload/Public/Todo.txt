@@ -21,3 +21,5 @@
 "NetworkError: 404 Not Found - http://localhost/needforbug/images/big_bgcolor.jpg"
 
 备份目录不存在E:\php\xampp\htdocs\needforbug\upload/data/backup
+
+添加文章有一个初始化小组分类，快捷发贴

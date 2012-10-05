@@ -11,6 +11,7 @@ function grouptopicSubmit(){
 	$("#submit_button").attr("disabled", "disabled");
 	$("#submit_button").val( 'add...' );
 	$("#grouptopic_content").val(editor.html());
+
 	Dyhb.AjaxSubmit('grouptopic_form','<!--{:Dyhb::U('group://grouptopic/add_topic')}-->','',function(data,status){
 		$("#submit_button").attr("disabled", false);
 		$("#submit_button").val( '发布帖子' );
@@ -36,38 +37,6 @@ function reloadCategory(){
 	});
 }
 <!--{/script}-->
-
-<!--{style}-->
-.grouptopic_tabs{margin-top:10px;}
-<!--{/style}-->
-
-<!--{style}-->
-.homefresh-media-box{margin:8px 0 8px 0px;}
-.icon_add_face,.icon_add_topic,.icon_add_img,.icon_add_video,.icon_add_music{
-	background-image: url('<!--{:__UTHEMEPUB__}-->/Images/homefresh_icon.png');
-	background-repeat:no-repeat;
-	width: 22px;
-	height: 22px;
-	padding:4px 0px 4px 20px;
-	line-height:22px;
-	margin-right:5px;
-}
-.icon_add_face{
-	background-position: 0px 2px;
-}
-.icon_add_topic{
-	background-position: 0px -21px;
-}
-.icon_add_img{
-	background-position: 0px -47px;
-}
-.icon_add_video{
-	background-position: 0px -73px;
-}
-.icon_add_music{
-	background-position: 0px -98px;
-}
-<!--{/style}-->
 
 		<ul class="breadcrumb">
 			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>

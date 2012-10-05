@@ -8,4 +8,7 @@ return array(
 	'index'=>'public::index',
 	'pm'=>'pm',
 	'userhome'=>'ucenter',
+	'attachmentupload'=>'attachment::add',
+	'attachmentthumbnaillist'=>'attachment::attachment',
+	'thumbnaillistattachment'=>'attachment::attachment',
 );

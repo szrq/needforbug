@@ -445,6 +445,8 @@ class Cache_Extend{
 				}
 
 				$arrStyle['verhash']=G::randString(6,null,true);
+				$arrStyle['__root__']=__ROOT__;
+
 				$arrStyles[intval($arrStyle['style_id'])]=$arrStyle;
 			}
 		}

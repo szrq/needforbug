@@ -80,3 +80,88 @@ Description: Group应用模块CSS
 .floor_userinfonikename, .floor_userinfonikename a {color: #999999 !important;}
 .floor_userinfonikename{margin:auto;width:75%;text-align:left;margin-bottom:5px;color: #999999 !important;}
 [/CURSCRIPT]
+
+/**===============================
+           查看帖子
+================================*/
+[CURSCRIPT=group::grouptopicadd]
+.grouptopic_tabs{margin-top:10px;}
+[/CURSCRIPT]
+
+/**===============================
+           首页模块列表
+================================*/
+[CURSCRIPT=group::publicmodulelist]
+.publicmodule_list li{line-height:26px;height:26px;overflow:hidden;}
+.publicmodule_list_sort ul{background:url({__ROOT__}/app/group/Theme/Default/Public/Images/sort.png) 0 7px no-repeat;}
+.publicmodule_list_sort ul li{padding-left:20px;}
+.publicmodule_list_line li{border-bottom:1px dotted #ccc;line-height:25px;height:25px;}
+[/CURSCRIPT]
+
+/**===============================
+           帖子列表
+================================*/
+[CURSCRIPT=group::grouptopiclist]
+.topic_list_box .num {color: #999999;line-height: 18px;text-align: center;width: 140px;text-align:center;}
+.topic_list_box .num span {background: none repeat scroll 0 0 #fbf6f6;-webkit-border-radius:3px 3px 3px 3px;-moz-border-radius:3px 3px 3px 3px;border-radius: 3px 3px 3px 3px;display: block;float: right;height: 36px;margin: 0 0 0 10px;overflow: hidden;padding: 4px 0;width: 54px;}
+.topic_list_box .num em {display: block;font-weight: 700;}
+.topic_list_box .info,.info a {color: #999999;}
+.topic_list_box .info span {margin-right: 10px;}
+.topic_list_box .title {padding-bottom: 5px;}
+.topic_list_box .title a{}
+.subject {padding: 10px 0 !important;}
+.topic_list_box .subject em {font-size: 14px;margin-right: 5px;}
+.topic_list_box .author {width: 55px;}
+.topic_list_box .author a {display: block;}
+[/CURSCRIPT]
+
+/**===============================
+           标签列表
+================================*/
+[CURSCRIPT=taghot]
+.tags_hot{padding:15px 0;}
+.tags_hot h2{font-size:14px;margin-bottom:15px;}
+.tags_hot li{float:left;margin:0 5px 5px 0;}
+.tags_hot li a{float:left;line-height:24px;height:24px;display:block;background:#f6f6f6;padding:0 8px;color:#333333;text-decoration:none;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius: 3px;white-space:nowrap;}
+.tags_hot li a:hover{background:{LINK_COLOR};color:#fff;}
+.tags_hot li {list-style: none outside none;}
+[/CURSCRIPT]
+
+/**===============================
+           热门帖子列表
+================================*/
+[CURSCRIPT=grouphottopic]
+.grouphottopic_titles {word-wrap: break-word;}
+.grouphottopic_titles li {border-bottom: 1px dashed #CCCCCC;color: #999999;overflow: hidden;padding: 6px 0;}
+.grouphottopic_titles h3 {color: #666666;float: left;font-size:12px;margin:0;font-weight:normal;}
+.grouphottopic_commentnum {color: #999999;float: right;}
+.grouphottopic_userinfo {color: #999999;overflow: hidden;width: 100%;margin:0;}
+.grouphottopic_userinfo a {color: #999999;}
+[/CURSCRIPT]
+
+/**===============================
+           热门帖子列表
+================================*/
+[CURSCRIPT=groupuserinfo]
+.group_sidebar_userinfo{
+	padding:15px 0 0;
+}
+[/CURSCRIPT]
+
+/**===============================
+           小组列表
+================================*/
+[CURSCRIPT=grouplist]
+.grouplist_header{ color:#555555;font-weight:bold;padding: 7px 14px;margin: 0 0 18px;background-color: #dddddd;-webkit-border-radius: 3px 3px 0px 0px;-moz-border-radius: 3px 3px 0px 0px;border-radius: 3px 3px 0px 0px;}
+.grouplist_groupname{color: #555555;}
+.grouplist_groupname a {text-decoration:none;color:{LINK_COLOR};}
+.grouplist_groupname a:hover {text-decoration:underline;color:#000000;}
+.grouplist_td{/* for ie6 */padding:0px;}
+.grouplist_index{text-align : left;background-color: #f5f5f5;border-bottom: #DDDDDD 1px solid;height: 18px;color:#555555;}
+.grouptopicone:hover{background-color: #F0F0F0;}
+.grouplist_borderbottom {border-bottom: 1px solid #DDDDDD;}
+.grouplist_namelink a {text-decoration:none;font-weight:bold;color:#444444;}
+.grouplist_namelink a:hover {font-weight:bold;text-decoration:underline;color:{LINK_COLOR};}
+.grouplist_todaynum{color:{NOTICETEXT_COLOR};}
+.grouplist_description{color:#444444;}
+[/CURSCRIPT]

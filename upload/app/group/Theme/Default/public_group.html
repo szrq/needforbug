@@ -1,128 +1,29 @@
 <!--<include file="Core_Extend::template('header')" />-->
 
-<link href="http://bmforum.net/images/bsd12/styles.css2" rel="stylesheet">
-
-
-
 		<ul class="breadcrumb">
 			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
-			<li><a href="<!--{:Dyhb::U('group://public/index')}-->">首页</a></li>
+			<li><a href="<!--{:Dyhb::U('group://public/group')}-->">小组</a></li>
 		</ul>
-<ul class="nav nav-tabs"><li><a href="<!--{:Dyhb::U('group://public/index')}-->">新帖</a></li><li  class="active"><a href="<!--{:Dyhb::U('group://public/group')}-->">小组</a></li></ul>
-		
-	<!--{style}-->
-.announcement { 
-/* announcement color */
-  color:#ffffff;
-  font-weight:bold;
-  padding: 7px 14px;
-  margin: 0 0 18px;
-  background-color: #3083BE;
-  -webkit-border-radius: 3px 3px 0px 0px;
-  -moz-border-radius: 3px 3px 0px 0px;
-  border-radius: 3px 3px 0px 0px;
-}
 
+		<div class="row">
+			<div class="span12">
+				<ul class="nav nav-tabs">
+					<li><a href="<!--{:Dyhb::U('group://public/index')}-->">新帖</a></li>
+					<li  class="active"><a href="<!--{:Dyhb::U('group://public/group')}-->">小组</a></li>
+				</ul>
+			</div>
+		</div>
 
-.categoryfontcolor_normal{
-/* no text-decoration */
-	color: #FFFFFF;
-}
-.categoryfontcolor_normal a {
-	text-decoration:none;
-	color:#FFFFFF;
-}
-.categoryfontcolor_normal a:hover {
-	text-decoration:underline;
-	color:#FFFFFF;
-}
-
-#announcement_c ul.line{margin-left:14px;width:100%; height:15px; overflow:hidden;}
-#announcement_c li{height:15px;font-size:12px; line-height:17px;list-style:none}
-
-.backtdbottom {
-	border-bottom: 1px solid #DDDDDD;
-}
-.jiazhongcolor{ /* bolder color */
-	color: #444444;
-}
-.jiazhongcolor a {
-	text-decoration:none;
-	color:#444444;
-}
-.jiazhongcolor a:hover {
-	text-decoration:underline;
-	color:#ff6600;
-}
-.noptd{
-/* for ie6 */
-  padding:0px;
-}
-.indexalign2 {
-	text-align : left;
-	background-color: #ECF3FB;
-	height: 18px;
-} .tablebg {
-	border-bottom: #DDDDDD 1px solid;
-	background-color: #F0F0F0;
-}.titlefontcolor{
-	color:#444444;
-}
-.titlefontcolor a{
-	text-decoration:none;
-	color:#444444;
-}
-.titlefontcolor a:hover {
-	text-decoration:underline;
-	color:#444444;
-}/* forum display color 1*/
-	background-color: #ffffff;
-}
-.forumcoloronecolor:hover{
-/* onmouseover forumcolor  */
-	background-color: #F0F0F0;
-}
-.forumcoloronecolor_nohover {
-	background-color: #ffffff;
-}
-.forumcoloronecoloronly {
-	background-color: #ffffff;
-	width: 100%;
-}.border_bottom_forum {
-	border-bottom: 1px solid #DDDDDD;
-}.forumdescolor{
-	color:#444444;
-}/* forum name link */
-.forumnamecolor{
-	font-family:verdana;
-	color: #444444;
-}
-.forumnamelink a {
-	text-decoration:none;
-	font-weight:bold;
-	color:#444444;
-}
-.forumnamelink a:hover {
-	font-weight:bold;
-	text-decoration:underline;
-	color:#ff6600;
-}.indexsummaryalgin {
-/* index latest post */
-	text-align: left;
-}
-
-.forum_space{margin:1px 0px}
-	<!--{/style}-->
 		<div class="row">
 			<div class="span12">
 				<!--<foreach for=arrGroupcategorys value=oGroupcategory>-->
 				<table border="0" cellspacing="0" cellpadding="0" align="left" class="tableborder" width="100%">
 					<tr>
-						<td class="noptd">
+						<td class="grouplist_td">
 							<table cellpadding="4" cellspacing="1" width="100%" border="0">
 								<tr>
-									<td colspan="7" class="announcement">
-										<span class="categoryfontcolor_normal">
+									<td colspan="7" class="grouplist_header">
+										<span class="grouplist_groupname">
 											<div style='display:inline;float:left;'>
 												<a href="<!--{:Dyhb::U('group://category@?id='.$oGroupcategory['groupcategory_id'])}-->">
 													<!--{$oGroupcategory['groupcategory_name']}-->
@@ -132,47 +33,47 @@
 										</span>
 									</td>
 								</tr>
-								<tr class="indexalign2">
-									<td width="*" class="tablebg" colspan="2"><span class="titlefontcolor">小组名称</span></td>
-									<td width="40" class="tablebg"><span class="titlefontcolor">主题</span></td>
-									<td width="40" class="tablebg"><span class="titlefontcolor">回复</span></td>
-									<td width="40" class="tablebg"><span class="titlefontcolor">用户</span></td>
-									<td width="168" class="tablebg"><span class="titlefontcolor">最后更新</span></td>
+								<tr class="grouplist_index">
+									<td width="*" colspan="2"><span>小组名称</span></td>
+									<td width="40"><span>主题</span></td>
+									<td width="40"><span>回复</span></td>
+									<td width="40"><span>用户</span></td>
+									<td width="200"><span>最后更新</span></td>
 								</tr>
 								<!--{~$arrGroups=$oGroupcategory->group}-->
 								<!--{if is_array($arrGroups)}-->
 								<!--<foreach for=arrGroups value=oGroup>-->
-								<tr align="center" valign="middle" class="forumcoloronecolor">
-									<td width="26" class="border_bottom_forum">
-										<a onfocus="this.blur()" href="forums.php?forumid=4">
+								<tr align="center" valign="middle" class="grouptopicone">
+									<td width="26" class="grouplist_borderbottom">
+										<a href="">
 											<img src='<!--{:Group_Extend::getGroupIcon($oGroup['group_icon'])}-->' border="0" alt="" />
 										</a>
 									</td>
-									<td width="*" align="left" class="border_bottom_forum">
+									<td width="*" align="left" class="grouplist_borderbottom">
 										<table width="100%" cellpadding="1">
 											<tr>
 												<td width="*" rowspan="2"></td>
 												<td width="1" rowspan="2"></td>
-												<td width="100%" height="10"><span class='forumnamelink'><a href="<!--{:Dyhb::U('group://name@?id='.$oGroup['group_name'])}-->" href="forums_4"><!--{$oGroup:group_nikename}--></a></span> <!--{if $oGroup['group_topictodaynum']>0}-->(今日27)<!--{/if}-->
+												<td width="100%" height="10"><span class='grouplist_namelink'><a href="<!--{:Dyhb::U('group://name@?id='.$oGroup['group_name'])}-->" href=""><!--{$oGroup:group_nikename}--></a></span><span class='grouplist_todaynum'><!--{if $oGroup['group_topictodaynum']>0}-->(今日27)</span><!--{/if}-->
 												</td>
 											</tr>
 											<!--{if $oGroup->group_listdescription}-->
 											<tr>
-												<td valign="top"><span class="forumdescolor"><!--{$oGroup:group_listdescription}--></span></td>
+												<td valign="top"><span class="grouplist_description"><!--{$oGroup:group_listdescription}--></span></td>
 											</tr>
 											<!--{/if}-->
 										</table>
 									</td>
-									<td width="40" valign="middle" align="center" class="border_bottom_forum">
+									<td width="40" valign="middle" align="center" class="grouplist_borderbottom">
 										<span class="cau"><!--{$oGroup:group_topicnum}--></span>
 									</td>
-									<td width="40" valign="middle" align="center" class="border_bottom_forum">
+									<td width="40" valign="middle" align="center" class="grouplist_borderbottom">
 										<span class="cau"><!--{$oGroup:group_topiccomment}--></span>
 									</td>
-									<td width="40" valign="middle" align="center" class="border_bottom_forum">
+									<td width="40" valign="middle" align="center" class="grouplist_borderbottom">
 										<span class="cau"><!--{$oGroup:group_usernum}--></span>
 									</td>
-									<td width="168" align="right" class="border_bottom_forum">
+									<td width="168" align="right" class="grouplist_borderbottom">
 										<table width="100%" align="right">
 											<tr>
 												<td width="2%" align="right">&nbsp;</td>
@@ -184,14 +85,14 @@
 								<!--</foreach>-->
 								<!--{d*else}-->
 								<tr>
-									<td valign="middle" align="center" class="border_bottom_forum" colspan="6">
+									<td valign="middle" align="center" class="grouplist_borderbottom" colspan="6">
 										暂时没有发现任何小组
 									</td>
 								</tr>
 								<!--{/if}-->
 							</table>
 							<!--{if $key<=count($arrGroupcategorys)}-->
-							<div class="forum_space">&nbsp;</div>
+							<div class="space"></div>
 							<!--{/if}-->
 						</td>
 					</tr>

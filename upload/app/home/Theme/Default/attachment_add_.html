@@ -20,13 +20,13 @@ var insert_attach=0;
 jQuery(document).ready(function($){
 	uploadobject=new uploadPlugin("uploadobject");
 	uploadobject.Init();
-	
 	uploaderMode=<!--{$nUploadFileMode}-->;
 	$('.upload-html-bypass a').click(function(){
 		uploaderMode=0;
 		swfuploadPreLoad();
 		return false;
 	});
+
 	$('.upload-flash-bypass a').click(function(){
 		uploaderMode=1;
 		swfuploadPreLoad();
@@ -84,11 +84,6 @@ function cancelNewattachmentcategory(){
 }
 <!--{/script}-->
 
-<!--{style}-->
-#flash-upload-ui li{list-style:none;}
-.upload_type a{margin-bottom:5px;}
-<!--{/style}-->
-				
 				<form enctype="multipart/form-data" method="post" action="<!--{:Dyhb::U('home://attachment/normal_upload')}-->" id="attachment_form" name="attachment_form">
 					<div id="flash-upload-ui" class="well <!--{if $nUploadFileMode==1}-->none<!--{/if}-->">
 						<div><p><h3 class="left">选择文件上传</h3>
@@ -172,5 +167,4 @@ function cancelNewattachmentcategory(){
 						</div>
 						<p class="upload-html-bypass hide-if-no-js">浏览器上传工具<span class="pipe">|</span><a href="?flash=1">Flash上传工具</a></p>
 					</div>
-
 				</form>

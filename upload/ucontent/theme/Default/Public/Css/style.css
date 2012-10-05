@@ -106,4 +106,26 @@ Tags: admin, light
 .icon_add_img{background-position: 0px -47px;}
 .icon_add_video{background-position: 0px -73px;}
 .icon_add_music{background-position: 0px -98px;}
-[CURSCRIPT]
+[/CURSCRIPT]
+
+/**===============================
+           上传附件
+================================*/
+[CURSCRIPT=home::attachmentupload]
+#flash-upload-ui li{list-style:none;}
+.upload_type a{margin-bottom:5px;}
+[/CURSCRIPT]
+
+/**===============================
+           列表缩略图公用
+================================*/
+[CURSCRIPT=home::attachmentthumbnaillist]
+.thumbnail .img{display:block;width:96%;overflow:hidden;outline:none;text-align:center;border:1px solid #f0f5f8;margin:2%;}
+[/CURSCRIPT]
+
+/**===============================
+           最近附件缩略图
+================================*/
+[CURSCRIPT=home::thumbnaillistattachment]
+.thumbnail .attachment_thumb{height:150px;line-height:150px; }
+[/CURSCRIPT]
