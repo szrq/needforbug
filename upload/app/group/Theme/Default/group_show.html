@@ -88,33 +88,52 @@ function joinGroup(gid){
 		</ul>
 
 		<div class="row">
-			<div class="span8">
+			<div class="span12">
 				<dl>
-					<dt class="left"><a href="http://www.zuitiyu.com/group/post?g=30"><img src="<!--{:Group_Extend::getGroupIcon($oGroup['group_icon'])}-->" width="48" height="48" alt="" /></a>
+					<dt class="left"><a href=""><img src="<!--{:Group_Extend::getGroupIcon($oGroup['group_icon'])}-->" width="48" height="48" alt="" /></a>
 					</dt>
 					<dd style="padding-left:50px;">
-						<p class="name"><a href="<!--{:Dyhb::U('group://name@?id='.$oGroup['group_name'])}-->" id="groupName"><!--{$oGroup['group_nikename']}--></a>&nbsp;群组</p>
-						<p>共有 <span class="label label-success"><!--{$oGroup['group_usernum']}--></span>人关注了此小组</p>
+						<p class="name"><a href="<!--{:Dyhb::U('group://name@?id='.$oGroup['group_name'])}-->" id="groupName"><!--{$oGroup['group_nikename']}--></a>&nbsp;群组&nbsp;<a id="join_group" name="join_group" href="javascript:void(0);" onclick="joinGroup(<!--{$oGroup['group_id']}-->);">+加入</a></p>
+						<p>共有 <span class="label label-success"><!--{$oGroup['group_usernum']}--></span>人关注了此小组
 					</dd>
 				</dl>
-			</div>
-			<div class="span4">
-				<a class="btn btn-success" id="join_group" name="join_group" onclick="joinGroup(<!--{$oGroup['group_id']}-->);">+感兴趣</a>
 			</div>
 			<div class="span12">
 				<h4>小组介绍</h4>
 				<p class="well" style="margin-top:5px;"><!--{$oGroup['group_description']}--></p>
 			</div>
 			<div class="span10">
-				<!--<foreach for=arrGrouptopiccategory value=oGrouptopiccategory>-->
-					<!--{if $i==1}-->
-					<a href=""><!--{$oGrouptopiccategory->grouptopiccategory_name}--></a>
+				<ul class="nav nav-pills">
+					<li class="active"><a href="<!--{:Dyhb::U('group://group/show?id='.$oGroup->group_name)}-->">全部帖子</a></li>
+					<!--<foreach for=arrGrouptopiccategory value=oGrouptopiccategory>-->
+					<!--{if $i<8}-->
+					<li class="">
+						<a href="<!--{:Dyhb::U('group://group/show?id='.$oGroup->group_name.'&cid='.$oGrouptopiccategory->grouptopiccategory_id)}-->"><!--{$oGrouptopiccategory->grouptopiccategory_name}--></a>
+					</li>
+					<!--{elseif $i==8}-->
+					<li class="dropdown">
+					<a class="dropdown-toggle"
+					   data-toggle="dropdown"
+					   href="javascript:void(0);">
+						更多类别
+						<b class="caret"></b>
+					  </a>
+					<ul class="dropdown-menu">
+						<li class="">
+							<a href="<!--{:Dyhb::U('group://group/show?id='.$oGroup->group_name.'&cid='.$oGrouptopiccategory->grouptopiccategory_id)}-->"><!--{$oGrouptopiccategory->grouptopiccategory_name}--></a>
+						</li>
+					<!--{elseif $i>8}-->
+						<li class="">
+							<a href="<!--{:Dyhb::U('group://group/show?id='.$oGroup->group_name.'&cid='.$oGrouptopiccategory->grouptopiccategory_id)}-->"><!--{$oGrouptopiccategory->grouptopiccategory_name}--></a>
+						</li>
 					<!--{d*else}-->
-					<a href="">|&nbsp;<!--{$oGrouptopiccategory->grouptopiccategory_name}--></a>
-					<!--{/if}-->
-				<!--</foreach>-->
+					</ul>
+				  </li>
+				  <!--{/if}-->
+				  <!--</foreach>-->
+				</ul>
 			</div>
-			<div class="span2">
+			<div class="span2" style="text-align:right;">
 				<p><a href="<!--{:Dyhb::U('group://grouptopic/add?gid='.$oGroup['group_id'])}-->" class="btn btn-success">发布帖子</a></p>
 			</div>
 			<div class="span12">
@@ -123,7 +142,7 @@ function joinGroup(gid){
 								<thead>
 									<tr>
 										<th>发帖人</th>
-										<th>全部帖子 | 精华</th>
+										<th><a href="<!--{:Dyhb::U('group://group/show?id='.$oGroup->group_name.'&did=1')}-->">精华</a></th>
 										<th style="text-align:right;"><a href="">浏览</a><span class="pipe">|</span> <a href="">回复</a></th>
 									</tr>
 								</thead>
