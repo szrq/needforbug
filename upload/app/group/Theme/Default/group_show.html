@@ -72,6 +72,16 @@
     width: 45px;
 }
 <!--{/style}-->
+<!--{script}-->
+function joinGroup(gid){
+	var sUrl="<!--{:Dyhb::U('group://group/joingroup')}-->";
+	Dyhb.AjaxSend(sUrl,'gid='+gid,'',function(data,status){
+		if(status==1){
+			
+		}
+	});
+}
+<!--{/script}-->
 		<ul class="breadcrumb">
 			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
 			<li><a href="<!--{:Dyhb::U('group://public/index')}-->">群组</a></li>
@@ -89,14 +99,20 @@
 				</dl>
 			</div>
 			<div class="span4">
-				<a class="btn btn-success" id="join_group" name="join_group">+感兴趣</a>
+				<a class="btn btn-success" id="join_group" name="join_group" onclick="joinGroup(<!--{$oGroup['group_id']}-->);">+感兴趣</a>
 			</div>
 			<div class="span12">
 				<h4>小组介绍</h4>
 				<p class="well" style="margin-top:5px;"><!--{$oGroup['group_description']}--></p>
 			</div>
 			<div class="span10">
-				帖子
+				<!--<foreach for=arrGrouptopiccategory value=oGrouptopiccategory>-->
+					<!--{if $i==1}-->
+					<a href=""><!--{$oGrouptopiccategory->grouptopiccategory_name}--></a>
+					<!--{d*else}-->
+					<a href="">|&nbsp;<!--{$oGrouptopiccategory->grouptopiccategory_name}--></a>
+					<!--{/if}-->
+				<!--</foreach>-->
 			</div>
 			<div class="span2">
 				<p><a href="<!--{:Dyhb::U('group://grouptopic/add?gid='.$oGroup['group_id'])}-->" class="btn btn-success">发布帖子</a></p>

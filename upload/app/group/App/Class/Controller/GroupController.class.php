@@ -11,7 +11,7 @@ class GroupController extends InitController{
 
 		$oGroup=GroupModel::F('group_name=? AND group_status=1 AND group_isaudit=1',$sId)->getOne();
 		if(empty($oGroup['group_id'])){
-			$this->E('小组不存在或者还在审核中');
+			$this->E('小组不存在或在审核中');
 		}
 		
 		$arrWhere=array();
@@ -25,7 +25,9 @@ class GroupController extends InitController{
 		$this->assign('arrGrouptopics',$arrGrouptopics);
 		$this->assign('nEverynum',$nEverynum);
 		$this->assign('sPageNavbar',$oPage->P('pagination','li','active'));
-
+		
+		$arrGrouptopiccategory=GrouptopiccategoryModel::F('group_id=?',$oGroup->group_id)->getAll();
+		$this->assign('arrGrouptopiccategory',$arrGrouptopiccategory);
 		$this->assign('oGroup',$oGroup);
 		
 		$this->display('group+show');
@@ -34,6 +36,30 @@ class GroupController extends InitController{
 	public function unserialize($slatestcomment){
 		$arrLatestcomment=unserialize($slatestcomment);
 		return $arrLatestcomment;
+	}
+
+	public function joingroup(){
+		$nGid=G::getGpc('gid','G');
+		$oGroup=GroupModel::F('group_id=?',$nGid)->getOne();
+		if(empty($nGid)||empty($oGroup->group_id)){
+			$this->E("你访问的小组不存在");
+		}
+		if(empty($GLOBALS['___login___']['user_id'])){
+			$this->E("加入小组需登录后才能进行");
+		}
+		$arrCondition=array('group_id'=>$nGid,'user_id'=>$GLOBALS['___login___']['user_id']);
+		$oGroupuser=GroupuserModel::F($arrCondition)->getOne();
+		if(!empty($oGroupuser->user_id)){
+			$this->E("你已是该小组成员");
+		}
+		$oGroupuser=new GroupuserModel();
+		$oGroupuser->user_id=$GLOBALS['___login___']['user_id'];
+		$oGroupuser->group_id=$nGid;
+		$oGroupuser->save(0);
+		if($oGroup->isError()){
+			$this->E($oGroup->getErrorMessage());
+		}
+		$this->S("恭喜你，成功加入{$oGroup->group_nikename}小组");
 	}
 
 }

@@ -12,7 +12,7 @@ class GroupModel extends CommonModel{
 			'props'=>array(
 				'group_id'=>array('readonly'=>true),
 				'groupcategory'=>array('many_to_many'=>'GroupcategoryModel','mid_class'=>'GroupcategoryindexModel','mid_source_key'=>'group_id','mid_target_key'=>'groupcategory_id'),
-				'grouptopiccategory'=>array(Db::HAS_ONE=>'GrouptopiccategoryModel','source_key'=>'group_id','target_key'=>'group_id'),
+				'grouptopiccategory'=>array(Db::HAS_MANY=>'GrouptopiccategoryModel','source_key'=>'group_id','target_key'=>'group_id'),
 			),
 			'attr_protected'=>'group_id',
 			'autofill'=>array(

@@ -17,7 +17,7 @@ class AddController extends Controller{
 			if(!is_array($arrGroups)){
 				$this->E('用户尚未加入任何小组');
 			}
-
+			
 			$this->assign('arrGroups',$arrGroups);
 		}else{
 			// 访问权限
