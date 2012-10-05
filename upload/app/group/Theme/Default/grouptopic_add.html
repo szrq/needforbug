@@ -27,6 +27,14 @@ function showMedia(){
 function insertGrouptopicattachment(nAttachmentid){
 	insertAttachment(editor,nAttachmentid);
 }
+
+function reloadCategory(){
+	var nGid=$('#group_id').val();
+	var sUrl="<!--{:Dyhb::U('group://group/getcategory')}-->";
+	$.post(sUrl,{gid:nGid},function(data, textStatus){
+		$("#grouptopiccategory_id").html(data);
+	});
+}
 <!--{/script}-->
 
 <!--{style}-->
@@ -77,7 +85,8 @@ function insertGrouptopicattachment(nAttachmentid){
 				<div class="span10">
 					<!--{if empty($nGroupid)}-->
 					<label>我的小组</label>
-					<select name="group_id" id="group_id">
+					<select name="group_id" id="group_id" onchange="reloadCategory();">
+						
 						<!--<foreach for=arrGroups value=oGroup>-->
 						<option value="<!--{$oGroup['group_id']}-->"><!--{$oGroup['group_nikename']}--></option>
 						<!--</foreach>-->

@@ -8,6 +8,8 @@ class GroupController extends InitController{
 
 	public function show(){
 		$sId=trim(G::getGpc('id','G'));
+		$nCid=intval(G::getGpc('cid','G'));
+		$nDid=intval(G::getGpc('did','G'));
 
 		$oGroup=GroupModel::F('group_name=? AND group_status=1 AND group_isaudit=1',$sId)->getOne();
 		if(empty($oGroup['group_id'])){
@@ -16,12 +18,18 @@ class GroupController extends InitController{
 		
 		$arrWhere=array();
 		$nEverynum=4;
+		if(!empty($nCid)){
+			$arrWhere['grouptopiccategory_id']=$nCid;
+		}
+		if(!empty($nDid)&&$nDid==1){
+			$arrWhere['grouptopic_addtodigest']=$nDid;
+		}
 		$arrWhere['grouptopic_status']=1;
 		$arrWhere['grouptopic_isaudit']=1;	
 		$arrWhere['group_id']=$oGroup->group_id;
 		$nTotalComment=GrouptopicModel::F()->where($arrWhere)->all()->getCounts();
 		$oPage=Page::RUN($nTotalComment,$nEverynum,G::getGpc('page','G'));
-		$arrGrouptopics=GrouptopicModel::F()->where($arrWhere)->limit($oPage->returnPageStart(),$nEverynum)->getAll();
+		$arrGrouptopics=GrouptopicModel::F()->where($arrWhere)->order('grouptopic_id DESC')->limit($oPage->returnPageStart(),$nEverynum)->getAll();
 		$this->assign('arrGrouptopics',$arrGrouptopics);
 		$this->assign('nEverynum',$nEverynum);
 		$this->assign('sPageNavbar',$oPage->P('pagination','li','active'));
@@ -62,4 +70,15 @@ class GroupController extends InitController{
 		$this->S("恭喜你，成功加入{$oGroup->group_nikename}小组");
 	}
 
+	public function getcategory(){
+		$nGid=intval(G::getGpc('gid','P'));
+		if(empty($nGid)){
+			echo '';
+		}
+		echo "<option value=\"0\">"."默认分类</option>";
+		$arrGrouptopiccategory=GrouptopiccategoryModel::F('group_id=?',$nGid)->getAll();
+		foreach($arrGrouptopiccategory as $key=>$oValue){
+			echo "<option value=\"$oValue->grouptopiccategory_id\">".$oValue->grouptopiccategory_name."</option>";
+		}
+	}
 }
