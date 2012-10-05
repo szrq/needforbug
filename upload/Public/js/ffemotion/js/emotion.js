@@ -431,7 +431,10 @@
 							return false;	
 						}
 						
-	                    obj.hide();
+	                    /*	obj.hide(); 
+							hide将导致再次点击无法弹出，需要点击两次
+						 */
+						obj.close();
 	                    
 	                    return false;
 	                }

@@ -282,7 +282,17 @@ function globalAddattachment(sFunction){
 	var sUrl=D.U('home://attachment/dialog_add?function='+sFunction);
 	var sHtml='<iframe id="iframe_dialog" name="iframe_dialog" frameborder="0" style="margin: 0;width: 500px; height: 200px;overflow-x:hidden;margin:0;padding:0;" src="'+sUrl+'"></iframe>';
 
-	oEditNewattachmentcategory=needforbugAlert(sHtml,'媒体管理器','','','',500,200,1);
+	oEditNewattachmentcategory=needforbugAlert(sHtml,'媒体管理器','',globalCancelattachment,'',500,200,1);
+}
+
+function globalCancelattachment(){
+	needforbugConfirm('你确定关闭媒体管理器?',function(){
+		oEditNewattachmentcategory.close();
+		return true;
+	},function(){
+		return true;
+	});
+	return false;
 }
 
 function addEditorContent(oEditor,sContent){

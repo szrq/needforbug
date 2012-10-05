@@ -82,11 +82,7 @@ class GrouptopicController extends InitController{
 	public function add_reply(){
 		//$arrOptions=$GLOBALS['_cache_']['group_option'];
 
-		if(isset($_POST['grouptopiccomment_message'])){
-			$sContent=trim(G::getGpc('grouptopiccomment_message'));
-		}else{
-			$sContent=trim(G::getGpc('comment_message'));
-		}
+		$sContent=trim(G::getGpc('grouptopiccomment_message'));
 		$nId=intval(G::getGpc('tid'));
 
 		if(empty($nId)){
