@@ -487,8 +487,8 @@ class Ubb2html{
 
 	protected function template($sTitle,$sContent,$sId='ubb_box'){
 		return <<<NEEDFORBUG
-			<div class="ubb_media_box {$sId}" style="overflow:hidden2;width:100%;">
-				<table width="100%" class="table table-condensed" style="table-layout:fixed;word-wrap:break-word; word-break;break-all;">
+			<div class="ubb_media_box {$sId}" style="overflow:hidden;width:100%;">
+				<table width="100%" class="table" style="table-layout:fixed;word-wrap:break-word; word-break;break-all;">
 					<thead>
 						<tr>
 							<th>{$sTitle}</th>

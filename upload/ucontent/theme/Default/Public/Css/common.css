@@ -154,3 +154,6 @@ table thead th .order_asc { padding-right: 8px; background: url({IMG_DIR}/order_
            媒体
 ================================*/
 .ubb_media_box img{max-width: {CONTENT_WIDTH};width:expression(this.width>'{CONTENT_WIDTH}'?"{CONTENT_WIDTH}":this.width);overflow:hidden;}
+.ubb_media_box{font-size:11px;color:{LIGHT_TEXTCOLOR};}
+.ubb_media_box a:link,.ubb_media_box a:visited{color:{LIGHT_TEXTCOLOR};}
+.ubb_media_box a:hover{color:#555555;text-decoration:none;}

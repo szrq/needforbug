@@ -1,19 +1,5 @@
 <!--<include file="Core_Extend::template('header')" />-->
 
-<!--{style}-->
-.thumbnail .img{
-	display:block;
-	width:96%;
-	height:150px;
-	line-height:150px; 
-	overflow:hidden;
-	outline:none;
-	text-align:center;
-	border:1px solid #f0f5f8;
-	margin:2%;
-}
-<!--{/style}-->
-
 <!--{script}-->
 function recommendAttachmentcategory(id){
 	Dyhb.AjaxSend(D.U('home://attachment/recommend_attachmentcategory?id='+id),'ajax=1','',function(data,status){
@@ -48,14 +34,14 @@ function unrecommendAttachmentcategory(id){
 				</span>
 				<h3><!--{if G+getGpc('recommend','G')==1}-->推荐专辑<!--{d*else}-->最新专辑<!--{/if}--></h3>
 			</div>
-						<div class="span12">
+			<div class="span12">
 				<!--{if is_array($arrAttachmentcategorys)}-->
 				<ul class="thumbnails">
 					<!--<foreach for=arrAttachmentcategorys value=oAttachmentcategory>-->
 					<!--{~$arrAttachmentcategorypreview=$TheController->get_attachmentpreview_imagesize($oAttachmentcategory)}-->
 					<li class="span3" id="attachmentcategory_item_<!--{$oAttachmentcategory['attachmentcategory_id']}-->">
 						<div class="thumbnail">
-							<div class="img">
+							<div class="img attachmentcategory_thumb">
 								<a href="<!--{:Dyhb::U('home://attachment/attachment?cid='.$oAttachmentcategory['attachmentcategory_id'])}-->">
 									<img src="<!--{:Core_Extend::getAttachmentcategoryPreview($oAttachmentcategory)}-->" alt="<!--{$oAttachmentcategory['attachmentcategory_name']}-->" <!--{if $arrAttachmentcategorypreview[1]>=150}-->height="150px"<!--{/if}-->>
 								</a>

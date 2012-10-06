@@ -18,20 +18,6 @@ function deleteAttachment(id){
 }
 <!--{/script}-->
 
-<!--{style}-->
-.thumbnail .img{
-	display:block;
-	width:100px;
-	height:110px;
-	line-height:110px; 
-	overflow:hidden;
-	outline:none;
-	text-align:center;
-	border:1px solid #f0f5f8;
-	margin:2%;
-}
-<!--{/style}-->
-
 		<!--<include file="attachment+dialogmenu" />-->
 
 		<div class="row">
@@ -76,7 +62,7 @@ function deleteAttachment(id){
 					<!--{~$arrAttachmentSize=$TheController->get_image_size($oAttachment)}-->
 					<li class="span3" id="attachment_item_<!--{$oAttachment['attachment_id']}-->">
 						<div class="thumbnail">
-							<div class="img">
+							<div class="img dialogattachment_thumb">
 								<a target="_blank" href="<!--{:Dyhb::U('home://file@?id='.$oAttachment['attachment_id'])}-->">
 									<img src="<!--{:Core_Extend::getAttachmentPreview($oAttachment)}-->" alt="<!--{$oAttachment['attachment_alt']}-->" <!--{if $arrAttachmentSize && $arrAttachmentSize[1]>=110}-->height="110px"<!--{/if}--> title="Size:<!--{$oAttachment:attachment_size|G+changeFileSize}-->">
 								</a>

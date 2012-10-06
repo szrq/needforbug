@@ -900,14 +900,19 @@ class AttachmentController extends InitController{
 		
 		$nAttachmentcategoryid=intval(G::getGpc('cid','G'));
 		$nUserid=intval(G::getGpc('uid','G'));
+		
+		$oUser=UserModel::F('user_id=? AND user_status=1',$nUserid)->getOne();
+		if(empty($oUser['user_id'])){
+			return false;
+		}
 
 		echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 				<playlist version=\"1\" xmlns=\"http://xspf.org/ns/0/\">
-					<title>Ounage Playlist</title>
+					<title>{$oUser['user_name']}专辑</title>
 					<creator>Dew</creator>
-					<link>http://www.blup.fr/</link>
-					<info>The Best Playlist</info>
-					<image>covers/0.jpg</image>
+					<link>{$GLOBALS['_option_']['site_url']}</link>
+					<info>{$oUser['user_name']}专辑</info>
+					<image></image>
 					<trackList>";
 		
 		if($nUserid>0){

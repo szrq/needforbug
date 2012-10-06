@@ -9,6 +9,11 @@ return array(
 	'pm'=>'pm',
 	'userhome'=>'ucenter',
 	'attachmentupload'=>'attachment::add',
-	'attachmentthumbnaillist'=>'attachment::attachment',
+	'attachmentthumbnaillist'=>'attachment::attachment,attachment::attachmentcategory,attachment::my_attachment,my_attachmentcategory,attachment::index',
 	'thumbnaillistattachment'=>'attachment::attachment',
+	'thumbnaillistattachmentcategory'=>'attachment::attachmentcategory',
+	'attachmentinfoitem'=>'attachment::attachmentinfo',
+	'dialogthumbnaillistattachment'=>'attachment::attachment,attachment::my_attachment',
+	'dialogthumbnaillistattachmentcategory'=>'attachment::attachmentcategory,attachment::my_attachmentcategory',
+	'thumbnaillistattachmentindex'=>'attachment::index',
 );

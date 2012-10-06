@@ -18,7 +18,7 @@ Tags: admin, light
 .homefresh-box{ table-layout:fixed; word-break: break-all; overflow:hidden;}
 .homefresh-box .max-limit-doing{ margin:5px 70px 0px 0px; }
 .homefresh-content{table-layout:fixed; word-break: break-all; overflow:hidden;margin:10px 0px;padding:5px 10px 5px 10px;-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;margin-top:5px;}
-.homefresh-content:hover{background:{INTERVAL_LINE_COLOR};}
+.homefresh-content:hover{}
 .homefresh-count{margin:5px;}
 .homefresh-count a{font-size:12px;}
 /* 新鲜事标题 */
@@ -124,8 +124,43 @@ Tags: admin, light
 [/CURSCRIPT]
 
 /**===============================
-           最近附件缩略图
+           附件缩略图
 ================================*/
 [CURSCRIPT=home::thumbnaillistattachment]
 .thumbnail .attachment_thumb{height:150px;line-height:150px; }
+[/CURSCRIPT]
+
+/**===============================
+           附件分类缩略图
+================================*/
+[CURSCRIPT=home::thumbnaillistattachmentcategory]
+.thumbnail .attachmentcategory_thumb{height:150px;line-height:150px; }
+[/CURSCRIPT]
+
+/**===============================
+           附件信息保存
+================================*/
+[CURSCRIPT=home::attachmentinfoitem]
+.attachment_item{margin-bottom:10px;}
+[/CURSCRIPT]
+
+/**===============================
+           对话框附件缩略
+================================*/
+[CURSCRIPT=home::dialogthumbnaillistattachment]
+.dialogattachment_thumb{width:100px;height:110px;line-height:110px; }
+[/CURSCRIPT]
+
+/**===============================
+           对话框专辑缩略
+================================*/
+[CURSCRIPT=home::dialogthumbnaillistattachmentcategory]
+.dialogattachmentcategory_thumb{width:100px;height:110px;line-height:110px; }
+[/CURSCRIPT]
+
+/**===============================
+           首页附件缩略
+================================*/
+[CURSCRIPT=home::thumbnaillistattachmentindex]
+.attachmentindex_thumb{height:200px;line-height:200px;}
 [/CURSCRIPT]

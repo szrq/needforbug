@@ -1,19 +1,5 @@
 <!--<include file="Core_Extend::template('cheader')" />-->
 
-<!--{style}-->
-.thumbnail .img{
-	display:block;
-	width:100px;
-	height:110px;
-	line-height:110px; 
-	overflow:hidden;
-	outline:none;
-	text-align:center;
-	border:1px solid #f0f5f8;
-	margin:2%;
-}
-<!--{/style}-->
-
 		<!--<include file="attachment+dialogmenu" />-->
 
 		<div class="row">
@@ -31,7 +17,7 @@
 					<!--<foreach for=arrAttachmentcategorys value=oAttachmentcategory>-->
 					<!--{~$arrAttachmentcategorypreview=$TheController->get_attachmentpreview_imagesize($oAttachmentcategory)}-->
 					<li class="span3" id="attachmentcategory_item_<!--{$oAttachmentcategory['attachmentcategory_id']}-->">
-						<div class="thumbnail">
+						<div class="thumbnail dialogattachmentcategory_thumb">
 							<div class="img">
 								<a href="<!--{:Dyhb::U('home://attachment/my_attachment?cid='.$oAttachmentcategory['attachmentcategory_id'].'&dialog=1&function='.$sFunction)}-->">
 									<img src="<!--{:Core_Extend::getAttachmentcategoryPreview($oAttachmentcategory)}-->" alt="<!--{$oAttachmentcategory['attachmentcategory_name']}-->" <!--{if $arrAttachmentcategorypreview[1]>=110}-->height="110px"<!--{/if}-->>
