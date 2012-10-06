@@ -10,10 +10,24 @@ License URI: http://doyouhaobaby.net/page/license.html
 Tags: admin, light
 */
 
+
+/**===============================
+           多媒体公用CSS
+================================*/
+[CURSCRIPT=@media,home::ucenter::index]
+.common-media-box{margin:8px 0 8px 0px;}
+.icon_add_face,.icon_add_topic,.icon_add_img,.icon_add_video,.icon_add_music{background-image: url('{IMG_DIR}/homefresh_icon.png');background-repeat:no-repeat;width: 22px;height: 22px;padding:4px 0px 4px 20px;line-height:22px;margin-right:5px;}
+.icon_add_face{background-position: 0px 2px;}
+.icon_add_topic{background-position: 0px -21px;}
+.icon_add_img{background-position: 0px -47px;}
+.icon_add_video{background-position: 0px -73px;}
+.icon_add_music{background-position: 0px -98px;}
+[/CURSCRIPT]
+
 /**===============================
            新鲜事
 ================================*/
-[CURSCRIPT=home::userhome]
+[CURSCRIPT=home::ucenter]
 /* 主容器 */
 .homefresh-box{ table-layout:fixed; word-break: break-all; overflow:hidden;}
 .homefresh-box .max-limit-doing{ margin:5px 70px 0px 0px; }
@@ -59,7 +73,7 @@ Tags: admin, light
 /**===============================
            友情衔接&其它
 ================================*/
-[CURSCRIPT=home::index]
+[CURSCRIPT=home::public::index]
 .home-links, .home-img-link, .home-txt-link { padding: 2px; }
 .home-links ul li { list-style:none;float: left; width: 49%; height: 50px; line-height: 1.4em; }
 .home-img-link a { margin-right: 8px; }
@@ -74,7 +88,7 @@ Tags: admin, light
 /**===============================
            主页头像
 ================================*/
-[CURSCRIPT=home::userhome]
+[CURSCRIPT=home::ucenter::index]
 .userinfo .user_name p{line-height:20px;margin:0;}
 .userinfo{padding:0 0 10px 10px;overflow:hidden;*zoom:1}
 .userinfo .userpic{width:50px;height:50px;float:left;position:relative;}
@@ -96,22 +110,9 @@ Tags: admin, light
 [/CURSCRIPT]
 
 /**===============================
-           多媒体公用CSS
-================================*/
-[CURSCRIPT=common::media]
-.common-media-box{margin:8px 0 8px 0px;}
-.icon_add_face,.icon_add_topic,.icon_add_img,.icon_add_video,.icon_add_music{background-image: url('{IMG_DIR}/homefresh_icon.png');background-repeat:no-repeat;width: 22px;height: 22px;padding:4px 0px 4px 20px;line-height:22px;margin-right:5px;}
-.icon_add_face{background-position: 0px 2px;}
-.icon_add_topic{background-position: 0px -21px;}
-.icon_add_img{background-position: 0px -47px;}
-.icon_add_video{background-position: 0px -73px;}
-.icon_add_music{background-position: 0px -98px;}
-[/CURSCRIPT]
-
-/**===============================
            上传附件
 ================================*/
-[CURSCRIPT=home::attachmentupload]
+[CURSCRIPT=home::attachment::add]
 #flash-upload-ui li{list-style:none;}
 .upload_type a{margin-bottom:5px;}
 [/CURSCRIPT]
@@ -119,48 +120,55 @@ Tags: admin, light
 /**===============================
            列表缩略图公用
 ================================*/
-[CURSCRIPT=home::attachmentthumbnaillist]
+[CURSCRIPT=home::attachment::attachment,home::attachment::attachmentcategory,home::attachment::my_attachment,home::attachment::my_attachmentcategory,home::attachment::index]
 .thumbnail .img{display:block;width:96%;overflow:hidden;outline:none;text-align:center;border:1px solid #f0f5f8;margin:2%;}
 [/CURSCRIPT]
 
 /**===============================
            附件缩略图
 ================================*/
-[CURSCRIPT=home::thumbnaillistattachment]
+[CURSCRIPT=home::attachment::attachment,home::attachment::my_attachment]
 .thumbnail .attachment_thumb{height:150px;line-height:150px; }
 [/CURSCRIPT]
 
 /**===============================
            附件分类缩略图
 ================================*/
-[CURSCRIPT=home::thumbnaillistattachmentcategory]
+[CURSCRIPT=home::attachment::attachmentcategory,home::attachment::my_attachmentcategory]
 .thumbnail .attachmentcategory_thumb{height:150px;line-height:150px; }
 [/CURSCRIPT]
 
 /**===============================
            附件信息保存
 ================================*/
-[CURSCRIPT=home::attachmentinfoitem]
+[CURSCRIPT=home::attachment::attachmentinfo]
 .attachment_item{margin-bottom:10px;}
 [/CURSCRIPT]
 
 /**===============================
            对话框附件缩略
 ================================*/
-[CURSCRIPT=home::dialogthumbnaillistattachment]
+[CURSCRIPT=home::attachment::attachment,home::attachment::my_attachment]
 .dialogattachment_thumb{width:100px;height:110px;line-height:110px; }
 [/CURSCRIPT]
 
 /**===============================
            对话框专辑缩略
 ================================*/
-[CURSCRIPT=home::dialogthumbnaillistattachmentcategory]
+[CURSCRIPT=home::attachment::attachmentcategory,home::attachment::my_attachmentcategory]
 .dialogattachmentcategory_thumb{width:100px;height:110px;line-height:110px; }
 [/CURSCRIPT]
 
 /**===============================
            首页附件缩略
 ================================*/
-[CURSCRIPT=home::thumbnaillistattachmentindex]
+[CURSCRIPT=home::attachment::index]
 .attachmentindex_thumb{height:200px;line-height:200px;}
+[/CURSCRIPT]
+
+/**===============================
+           首页附件缩略
+================================*/
+[CURSCRIPT=home::attachment::show]
+#gallery {padding:2%;background: #e1eef5;width:95%;height:610px;}
 [/CURSCRIPT]

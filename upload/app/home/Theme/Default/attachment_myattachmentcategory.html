@@ -100,20 +100,6 @@ function unrecommendAttachmentcategory(id){
 }
 <!--{/script}-->
 
-<!--{style}-->
-.thumbnail .img{
-	display:block;
-	width:96%;
-	height:150px;
-	line-height:150px; 
-	overflow:hidden;
-	outline:none;
-	text-align:center;
-	border:1px solid #f0f5f8;
-	margin:2%;
-}
-<!--{/style}-->
-
 		<ul class="breadcrumb">
 			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
 			<li><a href="<!--{:Dyhb::U('home://attachment/index')}-->"><!--<lang package='Template/Attachment'>-->我的相册<!--</lang>--></a></li>
@@ -137,7 +123,7 @@ function unrecommendAttachmentcategory(id){
 					<!--{~$arrAttachmentcategorypreview=$TheController->get_attachmentpreview_imagesize($oAttachmentcategory)}-->
 					<li class="span3" id="attachmentcategory_item_<!--{$oAttachmentcategory['attachmentcategory_id']}-->">
 						<div class="thumbnail">
-							<div class="img">
+							<div class="img attachmentcategory_thumb">
 								<a href="<!--{:Dyhb::U('home://attachment/my_attachment?cid='.$oAttachmentcategory['attachmentcategory_id'])}-->">
 									<img src="<!--{:Core_Extend::getAttachmentcategoryPreview($oAttachmentcategory)}-->" alt="<!--{$oAttachmentcategory['attachmentcategory_name']}-->" <!--{if $arrAttachmentcategorypreview[1]>=150}-->height="150px"<!--{/if}-->>
 								</a>

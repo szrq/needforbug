@@ -7,5 +7,5 @@ Description: home应用模块CSS
 /**===============================
            测试
 ================================*/
-[CURSCRIPT=home::index]
+[CURSCRIPT=home::public::index]
 [/CURSCRIPT]

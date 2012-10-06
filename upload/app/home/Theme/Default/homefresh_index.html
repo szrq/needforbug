@@ -105,33 +105,6 @@ var nHomefreshviewcomment=0;
 
 			<!--<include file="ucenter_sidebar" />-->
 
-<!--{style}-->
-.homefresh-media-box{margin:10px 0 0px 0px;}
-.icon_add_face,.icon_add_topic,.icon_add_img,.icon_add_video,.icon_add_music{
-	background-image: url('<!--{:__UTHEMEPUB__}-->/Images/homefresh_icon.png');
-	background-repeat:no-repeat;
-	width: 22px;
-	height: 22px;
-	padding:4px 0px 4px 20px;
-	line-height:22px;
-	margin-right:5px;
-}
-.icon_add_face{
-	background-position: 0px 2px;
-}
-.icon_add_topic{
-	background-position: 0px -21px;
-}
-.icon_add_img{
-	background-position: 0px -47px;
-}
-.icon_add_video{
-	background-position: 0px -73px;
-}
-.icon_add_music{
-	background-position: 0px -98px;
-}
-<!--{/style}-->
 			<div class="span9">
 				<em><!--<lang package='Template/Homefresh'>-->你正在想什么呢? 快来与朋友们分享吧!<!--</lang>--></em>
 				<div class="homefresh-box" >
@@ -141,7 +114,7 @@ var nHomefreshviewcomment=0;
 								<tr>
 									<td colspan="2">
 										<textarea class="input-xlarge" name="homefresh_message" id="homefresh_message" rows="5" style="width:100%;"></textarea>
-										<div id="homefresh-media-box" class="homefresh-media-box">
+										<div id="homefresh-media-box" class="common-media-box">
 											<a href="javascript:void(0);" class="face-icon icon_add_face" >表情</a> 
 											<a href="javascript:void(0);" onclick="addHomefreshtopic();" class="icon_add_topic">话题</a> 
 											<a href="javascript:void(0);" onclick="globalAddattachment('insertHomefreshattachment');" class="icon_add_img">媒体</a>

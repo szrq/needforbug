@@ -407,77 +407,6 @@ class Core_Extend{
 		return !preg_match("/[^\d-.,]/",trim($value,'\''));
 	}
 	
-	static public function htmlSubstring($sStr,$nLength=0,$nStart=0,$sTags="div|span|p",$sSuffixStr="...",$nZhfw=0.9,$sCharset="utf-8"){
-		$arrRe['utf-8']="/[\x01-\x7f]|[\xc2-\xdf][\x80-\xbf]|[\xe0-\xef][\x80-\xbf]{2}|[\xf0-\xff][\x80-\xbf]{3}/";
-		$arrRe['gb2312']="/[\x01-\x7f]|[\xb0-\xf7][\xa0-\xfe]/";
-		$arrRe['gbk']="/[\x01-\x7f]|[\x81-\xfe][\x40-\xfe]/";
-		$arrRe['big5']="/[\x01-\x7f]|[\x81-\xfe]([\x40-\x7e]|\xa1-\xfe])/";
-
-		$arrZhre['utf-8']="/[\xc2-\xdf][\x80-\xbf]|[\xe0-\xef][\x80-\xbf]{2}|[\xf0-\xff][\x80-\xbf]{3}/";
-		$arrZhre['gb2312']="/[\xb0-\xf7][\xa0-\xfe]/";
-		$arrZhre['gbk']="/[\x81-\xfe][\x40-\xfe]/";
-		$arrZhre['big5']="/[\x81-\xfe]([\x40-\x7e]|\xa1-\xfe])/";
-
-		$arrTagpos=array();
-		preg_match_all("/<(".$sTags.")([\s\S]*?)>|<\/(".$sTags.")>/ism",$sStr,$arrMatch);
-		$nMpos=0;
-		for($nJ=0;$nJ<count($arrMatch[0]);$nJ++){
-			$nMpos=strpos($sStr,$arrMatch[0][$nJ],$nMpos);
-			$arrTagpos[$nMpos]=$arrMatch[0][$nJ];
-			$nMpos+=strlen($arrMatch[0][$nJ]);
-		}
-		ksort($arrTagpos);
-	
-		$arrString=array();
-		$nBpos=0;
-		$nEpos=0;
-		foreach($arrTagpos as $nKey=>$sValue){
-			$sTemp=substr($sStr,$nBpos,$nKey-$nEpos);
-			if(!empty($sTemp)){
-				array_push($arrString,$sTemp);
-			}
-			array_push($arrString,$sValue);
-			$nBpos=($nKey+strlen($sValue));
-			$nEpos=$nKey+strlen($sValue);
-		}
-		$sTemp=substr($sStr,$nBpos);
-		if(!empty($sTemp)){
-			array_push($arrString,$sTemp);
-		}
-	
-		$nBpos=$nStart;
-		$nEpos=$nLength;
-		for($nI=0;$nI<count($arrString);$nI++){
-			if(preg_match("/^<([\s\S]*?)>$/i",$arrString[$nI])){
-				continue;
-			}
-	
-			preg_match_all($arrRe[$sCharset],$arrString[$nI],$arrMatch);
-	
-			for($nJ=$nBpos;$nJ<min($nEpos,count($arrMatch[0]));$nJ++){
-				if(preg_match($arrZhre[$sCharset],$arrMatch[0][$nJ])){
-					$nEpos-=$nZhfw;
-				}
-			}
-	
-			$arrString[$nI]="";
-			for($nJ=$nBpos;$nJ<min($nEpos,count($arrMatch[0]));$nJ++){
-				$arrString[$nI].=$arrMatch[0][$nJ];
-			}
-			$nBpos-=count($arrMatch[0]);
-			$nBpos=max(0,$nBpos);
-			$nEpos-=count($arrMatch[0]);
-			$nEpos=round($nEpos);
-		}
-
-		$sSlice=join("",$arrString);
-		if($sSlice!=$sStr){
-			return $sSlice.$sSuffixStr;
-		}else{
-			return $sSlice;
-		}
-	}
-	
 	static public function sortBy($sField){
 		$sSort=strtolower(trim(G::getGpc('sort_','G')));
 		
@@ -775,7 +704,9 @@ NEEDFORBUG;
 		$GLOBALS['_style_']=(array)(include $sStyleCachepath.'/style.php');
 		define('DOYOUHAOBABY_TEMPLATE_BASE',$GLOBALS['_style_']['doyouhaobaby_template_base']);
 
-		if(defined('CURSCRIPT') && !is_file($sStyleCachepath.'/scriptstyle_'.APP_NAME.'_'.CURSCRIPT.'.css')){
+		$sCurscript=$sStyleCachepath.'/scriptstyle_'.APP_NAME.'_'.str_replace('::','_',CURSCRIPT).'.css';
+
+		if(defined('CURSCRIPT') && !is_file($sCurscript)){
 			$sContent=$GLOBALS['_curscript_']='';
 			$sContent=file_get_contents($sStyleCachepath.'/style.css');
 			if(is_file($sStyleCachepath.'/'.APP_NAME.'_'.'style.css')){
@@ -790,9 +721,9 @@ NEEDFORBUG;
 				$sCssCurScripts=' ';
 			}
 
-			if(!file_put_contents($sStyleCachepath.'/scriptstyle_'.APP_NAME.'_'.CURSCRIPT.'.css',$sCssCurScripts)){
-				Dyhb::E(Dyhb::L('无法写入缓存文件,请检查缓存目录 %s 的权限是否为0777','__COMMON_LANG__@Function/Cache_Extend',null,$sStyleCachepath));
-			}
+			//if(!file_put_contents($sCurscript,$sCssCurScripts)){
+				//Dyhb::E(Dyhb::L('无法写入缓存文件,请检查缓存目录 %s 的权限是否为0777','__COMMON_LANG__@Function/Cache_Extend',null,$sStyleCachepath));
+			//}
 		}
 
 		// 清除直接使用$_GET['t']带来的影响
@@ -835,13 +766,25 @@ NEEDFORBUG;
 			return $sScriptCss;
 		}
 		
-		$sScriptCss.='<link rel="stylesheet" type="text/css" href="'.$sStyleCacheurl.'/scriptstyle_'.APP_NAME.'_'.CURSCRIPT.'.css?'.$GLOBALS['_style_']['verhash']."\" />";
+		$sScriptCss.='<link rel="stylesheet" type="text/css" href="'.$sStyleCacheurl.'/scriptstyle_'.APP_NAME.'_'.str_replace('::','_',CURSCRIPT).'.css?'.$GLOBALS['_style_']['verhash']."\" />";
 		
 		return $sScriptCss;
 	}
 	
 	static public function cssVarTags($sCurScript,$sContent){
-		$GLOBALS['_curscript_'].=defined('CURSCRIPT_FORCE') || in_array(APP_NAME.'::'.CURSCRIPT,Dyhb::normalize(explode(',',trim($sCurScript))))?$sContent:'';
+		$arrCurScript=Dyhb::normalize(explode(',',trim($sCurScript)));
+		$bGetcontent=in_array(APP_NAME.'::'.CURSCRIPT,$arrCurScript);
+
+		if($bGetcontent===false){
+			if(strpos(CURSCRIPT,'::')){
+				$arrTemp=explode('::',CURSCRIPT);
+				$bGetcontent=in_array(APP_NAME.'::'.$arrTemp[0],$arrCurScript);
+			}
+		}
+G::dump(CURSCRIPT_FORCE);
+		G::dump($sCurScript);
+
+		$GLOBALS['_curscript_'].=defined('CURSCRIPT_FORCE') || $bGetcontent?$sContent:'';
 	}
 
 	static public function getStyleId($nId=0){
@@ -867,23 +810,46 @@ NEEDFORBUG;
 	}
 
 	static public function defineCurscript($arrModulecachelist){
-		foreach($arrModulecachelist as $sKey=>$sCache){
-			$arrCaches=explode(',',$sCache);
-			foreach($arrCaches as $sValue){
-				if(strpos($sValue,'@')===0){
-					define('CURSCRIPT_FORCE',TRUE);
-					$sValue=ltrim($sValue,'@');
+		$arrResult=array();
+
+		foreach($arrModulecachelist as $nKey=>$sCache){
+			if(!is_int($nKey)){
+				$temp=$sCache;
+				$sCache=$nKey;
+				$nKey=$temp;
+			}
+			
+			// 定义
+			if(strpos($sCache,',')){
+				foreach(explode(',',$sCache) as $sValue){
+					$arrResult[$nKey]=$sValue;
 				}
-				
-				if(strpos($sValue,'::') && MODULE_NAME.'::'.ACTION_NAME==$sValue){
-					define('CURSCRIPT',$sKey);
-					continue;
-				}elseif(MODULE_NAME===$sValue){
-					define('CURSCRIPT',$sKey);
-					continue;
-				}
+			}else{
+				$arrResult[$nKey]=$sCache;
 			}
 		}
+		
+		//$arrResult=array_unique($arrResult);
+	G::dump($arrResult);
+		// 优先 @ucenter::index
+		foreach(array(
+			'@'.MODULE_NAME.'::'.ACTION_NAME,MODULE_NAME.'::'.ACTION_NAME,
+			'@'.MODULE_NAME,MODULE_NAME) as $sValue)
+		{
+			if(in_array($sValue,$arrResult)){
+				G::dump($sValue);
+				if(strpos($sValue,'@')){
+					$arrTemp=explode('@',$sValue);
+					define('CURSCRIPT_FORCE',$arrTemp[0]);
+					$sValue=$arrTemp[1];
+				}
+
+				define('CURSCRIPT',$sValue);
+				break;
+			}
+		};
+G::dump(CURSCRIPT_FORCE);
+		exit();
 	}
 
 	static public function getFileicon($sExtension,$bReturnImageIcon=false,$bReturnPath=true,$bUrlpath=true){

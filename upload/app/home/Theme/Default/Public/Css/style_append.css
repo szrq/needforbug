@@ -4,5 +4,5 @@ File Type: 非必需
 Description: Home应用主题样式扩展
 */
 
-[CURSCRIPT=home::index]
+[CURSCRIPT=home::public::index]
 [/CURSCRIPT]
