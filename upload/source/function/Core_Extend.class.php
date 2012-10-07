@@ -721,9 +721,9 @@ NEEDFORBUG;
 				$sCssCurScripts=' ';
 			}
 
-			//if(!file_put_contents($sCurscript,$sCssCurScripts)){
-				//Dyhb::E(Dyhb::L('无法写入缓存文件,请检查缓存目录 %s 的权限是否为0777','__COMMON_LANG__@Function/Cache_Extend',null,$sStyleCachepath));
-			//}
+			if(!file_put_contents($sCurscript,$sCssCurScripts)){
+				Dyhb::E(Dyhb::L('无法写入缓存文件,请检查缓存目录 %s 的权限是否为0777','__COMMON_LANG__@Function/Cache_Extend',null,$sStyleCachepath));
+			}
 		}
 
 		// 清除直接使用$_GET['t']带来的影响
@@ -773,18 +773,32 @@ NEEDFORBUG;
 	
 	static public function cssVarTags($sCurScript,$sContent){
 		$arrCurScript=Dyhb::normalize(explode(',',trim($sCurScript)));
+		
+		// 应用::模块::方法
 		$bGetcontent=in_array(APP_NAME.'::'.CURSCRIPT,$arrCurScript);
 
+		// 应用::模块
 		if($bGetcontent===false){
 			if(strpos(CURSCRIPT,'::')){
 				$arrTemp=explode('::',CURSCRIPT);
 				$bGetcontent=in_array(APP_NAME.'::'.$arrTemp[0],$arrCurScript);
 			}
 		}
-G::dump(CURSCRIPT_FORCE);
-		G::dump($sCurScript);
 
-		$GLOBALS['_curscript_'].=defined('CURSCRIPT_FORCE') || $bGetcontent?$sContent:'';
+		// 公用
+		if($bGetcontent===false && defined('CURSCRIPT_COMMON')){
+			$arrCommonscript=explode(',',CURSCRIPT_COMMON);
+			if(is_array($arrCommonscript)){
+				foreach($arrCommonscript as $sValue){
+					if(in_array('@'.$sValue,$arrCurScript)){
+						$bGetcontent=true;
+						break;
+					}
+				}
+			}
+		}
+
+		$GLOBALS['_curscript_'].=$bGetcontent?$sContent:'';
 	}
 
 	static public function getStyleId($nId=0){
@@ -816,7 +830,7 @@ G::dump(CURSCRIPT_FORCE);
 			if(!is_int($nKey)){
 				$temp=$sCache;
 				$sCache=$nKey;
-				$nKey=$temp;
+				$nKey=$temp.'*'.G::randString(6);
 			}
 			
 			// 定义
@@ -829,27 +843,20 @@ G::dump(CURSCRIPT_FORCE);
 			}
 		}
 		
-		//$arrResult=array_unique($arrResult);
-	G::dump($arrResult);
+		$arrResult=array_unique($arrResult);
+	
 		// 优先 @ucenter::index
-		foreach(array(
-			'@'.MODULE_NAME.'::'.ACTION_NAME,MODULE_NAME.'::'.ACTION_NAME,
-			'@'.MODULE_NAME,MODULE_NAME) as $sValue)
-		{
-			if(in_array($sValue,$arrResult)){
-				G::dump($sValue);
-				if(strpos($sValue,'@')){
-					$arrTemp=explode('@',$sValue);
-					define('CURSCRIPT_FORCE',$arrTemp[0]);
-					$sValue=$arrTemp[1];
+		foreach(array(MODULE_NAME.'::'.ACTION_NAME,MODULE_NAME) as $sValue){
+			if(($nKey=array_search($sValue,$arrResult))){
+				if($nKey){
+					$arrTemp=explode('*',$nKey);
+					define('CURSCRIPT_COMMON',$arrTemp[0]);
 				}
 
 				define('CURSCRIPT',$sValue);
 				break;
 			}
 		};
-G::dump(CURSCRIPT_FORCE);
-		exit();
 	}
 
 	static public function getFileicon($sExtension,$bReturnImageIcon=false,$bReturnPath=true,$bUrlpath=true){

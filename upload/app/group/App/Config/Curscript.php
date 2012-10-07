@@ -5,11 +5,11 @@
 !defined('DYHB_PATH') && exit;
 
 return array(
-	'public::index',
+	'public::index'=>'userhome',
 	'public::group',
 	'group::show',
 	'grouptopic::view'=>'media',
 	'grouptopic::reply'=>'media',
 	'grouptopic::add'=>'media',
-	'grouptopic::edit'=>'media','userhome'=>'@public::index',
+	'grouptopic::edit'=>'media',
 );
