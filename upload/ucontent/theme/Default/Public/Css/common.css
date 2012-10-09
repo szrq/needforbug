@@ -68,10 +68,10 @@ table hr{width:100%;height:1px;border:none;border-top:1px dashed {INTERVAL_LINE_
 #header a.brand {color:{MENU_TEXT_COLOR};}
 #header .navbar-inner {color: {MENU_TEXT_COLOR};{MENU_BG_CODE};filter: none;_height:40px;height:40px;overflow:visible;}
 #header .navbar .divider-vertical {width: 1px;height: 40px; margin: 0 9px;overflow: hidden;background-color: {MENU_HOVER_BG_COLOR};border-right: 1px solid {MENU_BG_COLOR};}
-#header .navbar-inner .nav .active a {background: {MENU_HOVER_BG_COLOR};}
+#header .navbar-inner .nav .active a {color: {HIGHLIGHTLINK_COLOR};background: {MENU_HOVER_BG_COLOR};}
 #header .navbar-inner .nav .active a:hover {background: {MENU_HOVER_BG_COLOR};}
 #header .navbar-inner .nav a {color: {MENU_TEXT_COLOR};}
-#header .navbar-inner .nav a:hover {color: {MENU_TEXT_COLOR};background:{MENU_HOVER_BG_COLOR};}
+#header .navbar-inner .nav a:hover {color: {HIGHLIGHTLINK_COLOR};background:{MENU_HOVER_BG_COLOR};}
 #header .navbar-inner .nav .active .dropdown-menu a {background: {MENU_TEXT_COLOR};}
 #header .navbar-inner .nav .dropdown-menu a {color: {NORMAL_COLOR};}
 #header .navbar-inner .nav .dropdown-menu a:hover{color: {MENU_TEXT_COLOR};text-decoration: none;background-color: {MENU_HOVER_BG_COLOR};}

@@ -7,7 +7,6 @@
 class TestController extends InitController{
 
 	public function index(){
-		
 		$this->display('test+index');
 	}
 
@@ -19,4 +18,15 @@ class TestController extends InitController{
 		$this->display('test+index3');
 	}
 
+	public function index4(){
+		$this->display('test+index4');
+	}
+
+	public function index5(){
+		$this->display('test+index5');
+	}
+
+	public function index6(){
+		$this->display('test+index6');
+	}
 }
