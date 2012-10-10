@@ -754,9 +754,29 @@ NEEDFORBUG;
 				$sCurrentT=$GLOBALS['_style_']['_current_style_'];
 			}
 		}
+
 		if(!empty($sCurrentT) && is_file($sStyleCachepath.'/t_'.$sCurrentT.'.css')){
 			$sScriptCss.='<link rel="stylesheet" id="extend_style" type="text/css" href="'.$sStyleCacheurl.'/t_'.$sCurrentT.'.css?'.$GLOBALS['_style_']['verhash']."\" />";
 			$GLOBALS['_extend_style_']=$sCurrentT;
+
+			// 取得扩展背景图片
+			if(is_dir(NEEDFORBUG_PATH.'/ucontent/theme/Default/Public/Style/'.$sCurrentT.'/bgextend'))
+			$arrFiles=G::listDir(NEEDFORBUG_PATH.'/ucontent/theme/Default/Public/Style/'.$sCurrentT.'/bgextend',false,true);
+			foreach($arrFiles as &$sFile){
+				$sFile=__ROOT__.'/ucontent/theme/Default/Public/Style/'.$sCurrentT.'/bgextend/'.$sFile;
+			}
+			$arrFiles[]=__ROOT__.'/ucontent/theme/Default/Public/Style/'.$sCurrentT.'/bgimg.jpg';
+
+			// 拼合JAVASCRIPT代码
+			$arrBgimgPath='';
+			foreach($arrFiles as $sFile){
+				$arrBgimgPath[]="\"{$sFile}\"";
+			}
+
+			$sScriptCss.="<script type=\"text/javascript\">";
+			$sScriptCss.=
+			"var globalImgbgs=[".implode(',',$arrBgimgPath)."];";
+			$sScriptCss.="</script>";
 		}else{
 			$GLOBALS['_extend_style_']='0';
 			$sScriptCss.='<link rel="stylesheet" id="extend_style" type="text/css" href="'.__PUBLIC__.'/images/common/none.css?'.$GLOBALS['_style_']['verhash']."\" />";
