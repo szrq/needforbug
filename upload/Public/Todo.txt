@@ -23,3 +23,5 @@
 备份目录不存在E:\php\xampp\htdocs\needforbug\upload/data/backup
 
 添加文章有一个初始化小组分类，快捷发贴
+
+短消息引用漏洞，不能引用自己没有权限的短消息，这个要做一个判断
