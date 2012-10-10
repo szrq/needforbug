@@ -847,8 +847,9 @@ NEEDFORBUG;
 	
 		// 优先 @ucenter::index
 		foreach(array(MODULE_NAME.'::'.ACTION_NAME,MODULE_NAME) as $sValue){
-			if(($nKey=array_search($sValue,$arrResult))){
-				if($nKey){
+			$nKey=array_search($sValue,$arrResult);
+			if($nKey!==false){
+				if(strpos($nKey,'*')){
 					$arrTemp=explode('*',$nKey);
 					define('CURSCRIPT_COMMON',$arrTemp[0]);
 				}
