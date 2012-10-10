@@ -510,3 +510,19 @@ function makemedia(strType,strURL,intWidth,intHeight,strID,sBgColor){
 
 	return strHtml;
 }
+
+/** 更换背景 */
+var nCurrentBgindex=0;
+function changeGlobalbg(){
+	if(typeof(globalImgbgs)=='undefined'){
+		return false;
+	}
+
+	if(nCurrentBgindex>=globalImgbgs.length){
+		nCurrentBgindex=0;
+	}
+
+	var oObj=document.getElementsByTagName("BODY")[0];
+	oObj.style.backgroundImage="url("+globalImgbgs[nCurrentBgindex]+")";
+	nCurrentBgindex+=1;
+}

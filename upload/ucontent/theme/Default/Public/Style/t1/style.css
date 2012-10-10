@@ -40,9 +40,9 @@ input:focus,textarea:focus {border-color: #BA350F;}
 /* 菜单 */
 #header .navbar-inner {background:#BA350F;filter: none;}
 #header .navbar .divider-vertical {background-color: #840000;border-right: 1px solid #BA350F;}
-#header .navbar-inner .nav .active a {background: #840000;}
-#header .navbar-inner .nav .active a:hover {background:#840000;}
-#header .navbar-inner .nav a:hover {background:#840000;}
+#header .navbar-inner .nav .active a {color:#ffffff;background: #840000;}
+#header .navbar-inner .nav .active a:hover {color:#ffffff;background:#840000;}
+#header .navbar-inner .nav a:hover {color:#ffffff;background:#840000;}
 #header .navbar-inner .nav .dropdown-menu a:hover{background-color: #BA350F;}
 #header .dropdown-menu li > a:hover,#header .dropdown-menu .active > a,#header .dropdown-menu .active > a:hover {background-color: #BA350F;}
 /* 搜索 */
