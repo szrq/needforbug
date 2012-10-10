@@ -29,4 +29,6 @@ class TestController extends InitController{
 	public function index6(){
 		$this->display('test+index6');
 	}
+	public function index7(){
+		$this->display('test+index7');}
 }
