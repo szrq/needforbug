@@ -599,7 +599,7 @@ NEEDFORBUG;
 		}else{
 			$sTemplate=$sTheme.'/'.$sTemplate;
 		}
-
+G::dump(TEMPLATE_NAME);
 		if(!empty($sApp)){
 			$sTemplatePath=NEEDFORBUG_PATH.'/app/'.$sApp.'/Theme';
 		}else{
@@ -718,6 +718,21 @@ NEEDFORBUG;
 			$sCssCurScripts=trim(stripslashes($sCssCurScripts));
 			if($sCssCurScripts==''){
 				$sCssCurScripts=' ';
+			}
+
+			if(!is_dir(dirname($sCurscript))){
+				$nStyleid=intval(Dyhb::cookie('style_id'));
+				if($GLOBALS['___login___']!==false && $GLOBALS['___login___']['user_extendstyle']==$nStyleid){
+					$oUser=UserModel::F('user_id=?',$GLOBALS['___login___']['user_id'])->getOne();
+					$oUser->user_extendstyle=0;
+					$oUser->save(0,'update');
+
+					if($oUser->isError()){
+						Dyhb::E($oUser->getErrorMessage());
+					}
+				}
+				
+				Dyhb::cookie('style_id',null,-1);
 			}
 
 			if(!file_put_contents($sCurscript,$sCssCurScripts)){

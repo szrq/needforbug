@@ -1713,19 +1713,19 @@ class App{
 				$sTemplateSet=ucfirst(strtolower($GLOBALS['_commonConfig_']['TPL_DIR']));
 			}
 		}
-		if(!is_dir(APP_TEMPLATE_PATH.'/'.$sTemplateSet)){
-			$sTemplateSet=ucfirst(strtolower($GLOBALS['_commonConfig_']['TPL_DIR']));
-		}
+
 		Dyhb::cookie($sCookieName,$sTemplateSet);
 		define('TEMPLATE_NAME',$sTemplateSet);
+		define('TEMPLATE_PATH',APP_TEMPLATE_PATH.'/'.TEMPLATE_NAME);
 
-		if(!is_dir(APP_TEMPLATE_PATH.'/'.TEMPLATE_NAME)){
-			define('TEMPLATE_PATH',APP_TEMPLATE_PATH.'/Default');
+		if(!is_dir(TEMPLATE_PATH)){
+			$sTemplatePath=APP_TEMPLATE_PATH.'/Default';
 		}else{
-			define('TEMPLATE_PATH',APP_TEMPLATE_PATH.'/'.TEMPLATE_NAME);
+			$sTemplatePath=TEMPLATE_PATH;
 		}
 			
-		Template::setTemplateDir(TEMPLATE_PATH);
+		Template::setTemplateDir($sTemplatePath);
+
 		return;
 	}
 	static private function checkLanguage(){
