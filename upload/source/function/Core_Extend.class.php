@@ -599,7 +599,7 @@ NEEDFORBUG;
 		}else{
 			$sTemplate=$sTheme.'/'.$sTemplate;
 		}
-G::dump(TEMPLATE_NAME);
+
 		if(!empty($sApp)){
 			$sTemplatePath=NEEDFORBUG_PATH.'/app/'.$sApp.'/Theme';
 		}else{
