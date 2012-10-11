@@ -35,7 +35,7 @@
   'TIME_ZONE' => 'Zulu',
   'TEMPLATE_TAG_NOTE' => true,
   'APP_DEVELOP' => 0,
-  'FRONT_TPL_DIR' => 'Default',
+  'FRONT_TPL_DIR' => 'Zhong',
   'ADMIN_TPL_DIR' => 'Default',
   'CACHE_LIFE_TIME' => 8640000,
   'NOT_ALLOWED_EMPTYCONTROL_VIEW' => true,
