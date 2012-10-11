@@ -524,5 +524,6 @@ function changeGlobalbg(){
 
 	var oObj=document.getElementsByTagName("BODY")[0];
 	oObj.style.backgroundImage="url("+globalImgbgs[nCurrentBgindex]+")";
+	oObj.style.backgroundRepeat="repeat"; 
 	nCurrentBgindex+=1;
 }

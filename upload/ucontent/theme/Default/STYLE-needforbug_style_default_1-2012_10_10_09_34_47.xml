@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?><root>
-<title><![CDATA[NeedForBug! Style]]></title>
-<version><![CDATA[1.0]]></version>
-<time><![CDATA[20120104]]></time>
-<url><![CDATA[http://needforbug.doyouhaobaby.net]]></url>
-<copyright><![CDATA[点牛]]></copyright>
+<title>NeedForBug! Style</title>
+<version>1.0</version>
+<time>20120104</time>
+<url>http://needforbug.doyouhaobaby.net</url>
+<copyright>(C)2012 点牛(成都)</copyright>
 <data>
 	<name>默认主题</name>
 	<theme_id>1</theme_id>

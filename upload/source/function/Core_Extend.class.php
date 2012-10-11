@@ -760,26 +760,36 @@ NEEDFORBUG;
 			$GLOBALS['_extend_style_']=$sCurrentT;
 
 			// 取得扩展背景图片
-			if(is_dir(NEEDFORBUG_PATH.'/ucontent/theme/Default/Public/Style/'.$sCurrentT.'/bgextend'))
-			$arrFiles=G::listDir(NEEDFORBUG_PATH.'/ucontent/theme/Default/Public/Style/'.$sCurrentT.'/bgextend',false,true);
-			foreach($arrFiles as &$sFile){
-				$sFile=__ROOT__.'/ucontent/theme/Default/Public/Style/'.$sCurrentT.'/bgextend/'.$sFile;
-			}
-			$arrFiles[]=__ROOT__.'/ucontent/theme/Default/Public/Style/'.$sCurrentT.'/bgimg.jpg';
+			if(is_dir(NEEDFORBUG_PATH.'/ucontent/theme/Default/Public/Style/'.$sCurrentT.'/bgextend')){
+				$arrBgimgPath=array();
+				$arrFiles=G::listDir(NEEDFORBUG_PATH.'/ucontent/theme/Default/Public/Style/'.$sCurrentT.'/bgextend',false,true);
+				foreach($arrFiles as &$sFile){
+					$arrBgimgPath[]='"'.__ROOT__.'/ucontent/theme/Default/Public/Style/'.$sCurrentT.'/bgextend/'.$sFile.'"';
+				}
+				$arrBgimgPath[]='"'.__ROOT__.'/ucontent/theme/Default/Public/Style/'.$sCurrentT.'/bgimg.jpg'.'"';
 
-			// 拼合JAVASCRIPT代码
-			$arrBgimgPath='';
-			foreach($arrFiles as $sFile){
-				$arrBgimgPath[]="\"{$sFile}\"";
+				$sScriptCss.="<script type=\"text/javascript\">";
+				$sScriptCss.=
+				"var globalImgbgs=[".implode(',',$arrBgimgPath)."];";
+				$sScriptCss.="</script>";
 			}
-
-			$sScriptCss.="<script type=\"text/javascript\">";
-			$sScriptCss.=
-			"var globalImgbgs=[".implode(',',$arrBgimgPath)."];";
-			$sScriptCss.="</script>";
 		}else{
 			$GLOBALS['_extend_style_']='0';
 			$sScriptCss.='<link rel="stylesheet" id="extend_style" type="text/css" href="'.__PUBLIC__.'/images/common/none.css?'.$GLOBALS['_style_']['verhash']."\" />";
+
+			// 取得背景图片
+			if(is_dir(NEEDFORBUG_PATH.'/ucontent/theme/Default/Public/Images/bgextend')){
+				$arrBgimgPath='';
+				$arrFiles=G::listDir(NEEDFORBUG_PATH.'/ucontent/theme/Default/Public/Images/bgextend',false,true);
+				foreach($arrFiles as &$sFile){
+					$arrBgimgPath[]='"'.__ROOT__.'/ucontent/theme/Default/Public/Images/bgextend/'.$sFile.'"';
+				}
+
+				$sScriptCss.="<script type=\"text/javascript\">";
+				$sScriptCss.=
+				"var globalImgbgs=[".implode(',',$arrBgimgPath)."];";
+				$sScriptCss.="</script>";
+			}
 		}
 		
 		if(!defined('CURSCRIPT')){
