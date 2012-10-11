@@ -705,7 +705,6 @@ NEEDFORBUG;
 		define('DOYOUHAOBABY_TEMPLATE_BASE',$GLOBALS['_style_']['doyouhaobaby_template_base']);
 
 		$sCurscript=$sStyleCachepath.'/scriptstyle_'.APP_NAME.'_'.str_replace('::','_',CURSCRIPT).'.css';
-
 		if(defined('CURSCRIPT') && !is_file($sCurscript)){
 			$sContent=$GLOBALS['_curscript_']='';
 			$sContent=file_get_contents($sStyleCachepath.'/style.css');

@@ -1718,7 +1718,13 @@ class App{
 		}
 		Dyhb::cookie($sCookieName,$sTemplateSet);
 		define('TEMPLATE_NAME',$sTemplateSet);
-		define('TEMPLATE_PATH',APP_TEMPLATE_PATH.'/'.TEMPLATE_NAME);
+
+		if(!is_dir(APP_TEMPLATE_PATH.'/'.TEMPLATE_NAME)){
+			define('TEMPLATE_PATH',APP_TEMPLATE_PATH.'/Default');
+		}else{
+			define('TEMPLATE_PATH',APP_TEMPLATE_PATH.'/'.TEMPLATE_NAME);
+		}
+			
 		Template::setTemplateDir(TEMPLATE_PATH);
 		return;
 	}

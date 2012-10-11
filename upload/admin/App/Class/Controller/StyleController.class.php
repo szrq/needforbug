@@ -397,6 +397,10 @@ class StyleController extends InitController{
 			$oTheme=ThemeModel::F('theme_id=?',$oModel['theme_id'])->getOne();
 			if(!empty($oTheme['theme_id'])){
 				$sStyleExtendDir=NEEDFORBUG_PATH.'/ucontent/theme/'.ucfirst($oTheme['theme_dirname']).'/Public/Style';
+				if(!is_dir($sStyleExtendDir)){
+					$sStyleExtendDir=NEEDFORBUG_PATH.'/ucontent/theme/Default/Public/Style';
+				}
+
 				if(is_dir($sStyleExtendDir)){
 					$arrStyleDirs=G::listDir($sStyleExtendDir);
 
