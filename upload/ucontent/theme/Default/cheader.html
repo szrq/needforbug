@@ -21,11 +21,14 @@
 	<!--{script}-->
 	Dyhb.Lang.SetCurrentLang('<!--{:LANG_NAME}-->');
 	Dyhb.Ajax.Dyhb.Image=['<!--{:__PUBLIC__}-->/images/common/ajax/loading.gif','<!--{:__PUBLIC__}-->/images/common/ajax/ok.gif','<!--{:__PUBLIC__}-->/images/common/ajax/update.gif'];
+	var sBgextendRepeat='<!--{$GLOBALS['_option_']['bgextend_repeat']}-->';
 	<!--{:App::U()}-->
 	$(document).ready(function(){
 		$('#runtime_result').html($('#dyhb_run_time').html());
 		$('#dyhb_run_time').html(' ');
-		setInterval("changeGlobalbg();",3000);
+		<!--{if $GLOBALS['_option_']['bgextend_on']==1}-->
+		setInterval("changeGlobalbg();",<!--{$GLOBALS['_option_']['bgextend_time']*1000}-->);
+		<!--{/if}-->
 	});
 	<!--{/script}-->
 	<!--<load file="<!--{:__PUBLIC__}-->/js/artdialog/skins/default.css" />-->

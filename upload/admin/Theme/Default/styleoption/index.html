@@ -48,6 +48,26 @@ function option(){
 						<input type="radio" id="" name="options[extendstyle_switch_on]" value="0" <!--{if $arrOptions['extendstyle_switch_on']==0}-->checked="checked"<!--{/if}--> /><!--<lang package='Template/Default/Common'>-->否<!--</lang>-->
 						<div class="description"><!--<lang package='Template/Default/Styleoption'>-->主题样式扩展是对前台主题的扩展，最大化简化主题的多样性<!--</lang>--></div>
 					</fieldset>
+					<fieldset>
+						<label for="bgextend_on"><!--<lang package='Template/Default/Styleoption'>-->是否启用前台主题扩展背景切换<!--</lang>--></label>
+						<input type="radio" id="bgextend_on" name="options[bgextend_on]" value="1" <!--{if $arrOptions['bgextend_on']==1}-->checked="checked"<!--{/if}-->/><!--<lang package='Template/Default/Common'>-->是<!--</lang>-->
+						<input type="radio" id="" name="options[bgextend_on]" value="0" <!--{if $arrOptions['bgextend_on']==0}-->checked="checked"<!--{/if}--> /><!--<lang package='Template/Default/Common'>-->否<!--</lang>-->
+						<div class="description"><!--<lang package='Template/Default/Styleoption'>-->主题样式扩展背景将会展示主题华丽的一面<!--</lang>--></div>
+					</fieldset>
+					<fieldset>
+						<label for="bgextend_time"><!--<lang package='Template/Default/Styleoption'>-->主题样式扩展背景切换间隔时间<!--</lang>--></label>
+						<input type="text" name="options[bgextend_time]" id="bgextend_time" size="60" value="<!--{$arrOptions['bgextend_time']}-->"/>
+						<div class="description"><!--<lang package='Template/Default/Styleoption'>-->我们建立尽量不要将切换时间设置过短，间隔时间单位为秒<!--</lang>-->
+						</div>
+					</fieldset>
+					<fieldset>
+						<label for="bgextend_repeat"><!--<lang package='Template/Default/Styleoption'>-->主题样式扩展背景重复设置<!--</lang>--></label>
+						<input type="radio" id="bgextend_repeat" name="options[bgextend_repeat]" value="repeat" <!--{if $arrOptions['bgextend_repeat']=='repeat'}-->checked="checked"<!--{/if}-->/><!--<lang package='Template/Default/Styleoption'>-->平铺<!--</lang>-->
+						<input type="radio" id="" name="options[bgextend_repeat]" value="repeat-x" <!--{if $arrOptions['bgextend_repeat']=='repeat-x'}-->checked="checked"<!--{/if}--> /><!--<lang package='Template/Default/Styleoption'>-->X方向平铺<!--</lang>-->
+						<input type="radio" id="" name="options[bgextend_repeat]" value="repeat-y" <!--{if $arrOptions['bgextend_repeat']=='repeat-y'}-->checked="checked"<!--{/if}--> /><!--<lang package='Template/Default/Styleoption'>-->Y方向平铺<!--</lang>-->
+						<input type="radio" id="" name="options[bgextend_repeat]" value="no-repeat" <!--{if $arrOptions['bgextend_repeat']=='no-repeat'}-->checked="checked"<!--{/if}--> /><!--<lang package='Template/Default/Styleoption'>-->不重复<!--</lang>-->
+						<div class="description"><!--<lang package='Template/Default/Styleoption'>-->你可以根据扩展背景的类型选择相应背景重复方式<!--</lang>--></div>
+					</fieldset>
 				</div>
 				<footer>
 					<div class="submit_link">
