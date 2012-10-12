@@ -88,7 +88,7 @@ Tags: admin, light
 /**===============================
            主页头像
 ================================*/
-[CURSCRIPT=@userhome,home::ucenter::index]
+[CURSCRIPT=@userhome,home::ucenter]
 .userinfo .user_name p{line-height:20px;margin:0;}
 .userinfo{padding:0 0 10px 10px;overflow:hidden;*zoom:1}
 .userinfo .userpic{width:50px;height:50px;float:left;position:relative;}
@@ -171,4 +171,12 @@ Tags: admin, light
 ================================*/
 [CURSCRIPT=home::attachment::show]
 #gallery {padding:2%;background: #e1eef5;width:95%;height:610px;}
+[/CURSCRIPT]
+
+/**===============================
+           首页等级
+================================*/
+[CURSCRIPT=home::space::index]
+.current_rating{font-weight:bold;color:{NOTICETEXT_COLOR};}
+.current_ratinginfo{margin-bottom:10px;}
 [/CURSCRIPT]

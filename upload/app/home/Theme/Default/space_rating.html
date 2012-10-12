@@ -6,27 +6,38 @@
 		</ul>
 		
 		<!--<include file="space+menu" />-->
-		
+
 		<div class="row">
 			<div class="span9">
-				<table class="table table-bordered">
-					<thead>
-						<tr>
-							<th width="50px"><!--<lang package='Template/Space'>-->等级ID<!--</lang>--></th>
-							<th><!--<lang package='Template/Space'>-->等级名字<!--</lang>--></th>
-							<th><!--<lang package='Template/Space'>-->等级积分<!--</lang>--></th>
-						</tr>
-					</thead>
-					<tbody>
-						<!--<foreach for=arrRatings value=oRating>-->
-						<tr>
-							<td><!--{$oRating['rating_id']}--></td>
-							<td><!--{$oRating['rating_name']}--><!--{if $oRating['rating_nikename']}--> <!--{$oRating['rating_nikename']}--><!--{/if}--></td>
-							<td><span class="badge"><!--{$oRating['rating_creditstart']}--></span> - <span class="badge badge-success"><!--{$oRating['rating_creditend']}--></span></td>
-						</tr>
-					</tbody>
-					<!--</foreach>-->
-				</table>
+				<div class="alert alert-success">
+					<h5><a href="<!--{:Dyhb::U('home://space@?id='.$oUserInfo['user_id'])}-->"><!--{$oUserInfo['user_name']}--></a>&nbsp;(当前积分&nbsp;<!--{$nUserscore}-->)</h5>
+					<p><div class="current_ratinginfo">
+							等级名字&nbsp;<span class="badge"><!--{$arrRatinginfo['rating_name']}--></span>,距离下一个等级&nbsp;<span class="badge"><!--{$arrRatinginfo['next_rating']['rating_name']}--></span>&nbsp;还差&nbsp;<span class="badge badge-success"><!--{$arrRatinginfo['next_needscore']}--></span>&nbsp;积分
+						</div>
+						<div class="progress">
+							<div class="bar" style="width: <!--{$arrRatinginfo['next_progress']}-->%;"></div>
+						</div>
+					</p>
+				</div>
+				<p><table class="table table-bordered">
+						<thead>
+							<tr>
+								<th width="50px"><!--<lang package='Template/Space'>-->等级ID<!--</lang>--></th>
+								<th><!--<lang package='Template/Space'>-->等级名字<!--</lang>--></th>
+								<th><!--<lang package='Template/Space'>-->等级积分<!--</lang>--></th>
+							</tr>
+						</thead>
+						<tbody>
+							<!--<foreach for=arrRatings value=arrRating>-->
+							<tr <!--{if $arrRatinginfo['rating_name']==$arrRating['rating_name']}-->class="current_rating"<!--{/if}-->>
+								<td><!--{$arrRating['rating_id']}--></td>
+								<td><!--{$arrRating['rating_name']}--><!--{if $arrRating['rating_nikename']}--> <!--{$arrRating['rating_nikename']}--><!--{/if}--></td>
+								<td><span class="badge"><!--{$arrRating['rating_creditstart']}--></span> - <span class="badge badge-success"><!--{$arrRating['rating_creditend']}--></span></td>
+							</tr>
+						</tbody>
+						<!--</foreach>-->
+					</table>
+				</p>
 			</div>
 
 			<div class="span3">

@@ -44,10 +44,17 @@ class RatingController extends Controller{
 
 		$this->_oUserInfo=$oUserInfo;
 
+		// 用户等级名字
+		$nUserscore=$oUserInfo->usercount->usercount_extendcredit1;
+		$arrRatinginfo=UserModel::getUserrating($nUserscore,false);
+		$this->assign('arrRatinginfo',$arrRatinginfo);
+		$this->assign('nUserscore',$nUserscore);
+
 		$this->assign('nId',$nId);
 		$this->assign('nCId',$nCId);
 		$this->assign('arrRatings',$arrRatings);
 		$this->assign('arrRatinggroups',$arrRatinggroups);
+		$this->assign('oUserInfo',$oUserInfo);
 
 		$this->display('space+rating');
 	}
