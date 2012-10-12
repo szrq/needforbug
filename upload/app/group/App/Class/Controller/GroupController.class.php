@@ -35,8 +35,14 @@ class GroupController extends InitController{
 		$this->assign('sPageNavbar',$oPage->P('pagination','li','active'));
 		
 		$arrGrouptopiccategory=GrouptopiccategoryModel::F('group_id=?',$oGroup->group_id)->getAll();
+		$arrCid=array();
+		foreach($arrGrouptopiccategory as $key=>$oValue){
+			array_push($arrCid,$oValue->grouptopiccategory_id);
+		}
 		$this->assign('arrGrouptopiccategory',$arrGrouptopiccategory);
 		$this->assign('oGroup',$oGroup);
+		$this->assign('arrCid',$arrCid);
+		$this->assign('nCid',$nCid);
 		
 		$this->display('group+show');
 	}
