@@ -10,6 +10,17 @@ class GroupController extends InitController{
 		$sId=trim(G::getGpc('id','G'));
 		$nCid=intval(G::getGpc('cid','G'));
 		$nDid=intval(G::getGpc('did','G'));
+		$sType=G::getGpc('type','G');
+		if(empty($sType)){
+			$sType='create_dateline';
+		}elseif($sType=="view"){
+			$sType='grouptopic_views';
+		}elseif($sType=="com"){
+			$sType='grouptopic_comments';
+		}else{
+			$sType='create_dateline';
+		}
+		$this->assign('sType',$sType);
 
 		$oGroup=GroupModel::F('group_name=? AND group_status=1 AND group_isaudit=1',$sId)->getOne();
 		if(empty($oGroup['group_id'])){
@@ -29,7 +40,7 @@ class GroupController extends InitController{
 		$arrWhere['group_id']=$oGroup->group_id;
 		$nTotalComment=GrouptopicModel::F()->where($arrWhere)->all()->getCounts();
 		$oPage=Page::RUN($nTotalComment,$nEverynum,G::getGpc('page','G'));
-		$arrGrouptopics=GrouptopicModel::F()->where($arrWhere)->order('grouptopic_id DESC')->limit($oPage->returnPageStart(),$nEverynum)->getAll();
+		$arrGrouptopics=GrouptopicModel::F()->where($arrWhere)->order("{$sType} DESC")->limit($oPage->returnPageStart(),$nEverynum)->getAll();
 		$this->assign('arrGrouptopics',$arrGrouptopics);
 		$this->assign('nEverynum',$nEverynum);
 		$this->assign('sPageNavbar',$oPage->P('pagination','li','active'));
@@ -66,13 +77,22 @@ class GroupController extends InitController{
 		if(!empty($oGroupuser->user_id)){
 			$this->E("你已是该小组成员");
 		}
+
 		$oGroupuser=new GroupuserModel();
 		$oGroupuser->user_id=$GLOBALS['___login___']['user_id'];
 		$oGroupuser->group_id=$nGid;
 		$oGroupuser->save(0);
+		if($oGroupuser->isError()){
+			$this->E($oGroupuser->getErrorMessage());
+		}
+
+		$oGroup=GroupModel::F('group_id=?',$nGid)->getOne();
+		$oGroup->group_usernum=GroupuserModel::F('group_id=?',$nGid)->getCounts();
+		$oGroup->save(0,'update');
 		if($oGroup->isError()){
 			$this->E($oGroup->getErrorMessage());
 		}
+
 		$this->S("恭喜你，成功加入{$oGroup->group_nikename}小组");
 	}
 

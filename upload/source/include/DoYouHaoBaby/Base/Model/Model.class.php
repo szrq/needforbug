@@ -392,7 +392,7 @@ class Model implements IModel,IModelCallback,ArrayAccess{
 						$this->changePropForce($sSourceKey,$oMeta->_arrProp[$sSourceKey]['default_value']);
 					}else{
 						if(empty($oRelation->_oSourceMeta->_arrProp[$sMappingName]['relation_params']['skip_empty'])){
-							Dyhb::E('The BELONGS_TO associated parameter is not present and not set skip_empty also');
+							Dyhb::E($sMappingName.' BELONGS_TO associated parameter is not present and not set skip_empty also');
 						}
 					}
 				}

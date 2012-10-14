@@ -80,8 +80,6 @@ class GrouptopicController extends InitController{
 	}
 	
 	public function add_reply(){
-		//$arrOptions=$GLOBALS['_cache_']['group_option'];
-
 		$sContent=trim(G::getGpc('grouptopiccomment_message'));
 		$nId=intval(G::getGpc('tid'));
 
@@ -114,12 +112,22 @@ class GrouptopicController extends InitController{
 		if($oGrouptopiccomment->isError()){
 			$this->E($oGrouptopiccomment->getErrorMessage());
 		}
-		
-		$arrLatestDate=array('commenttime'=>$oGrouptopiccomment->create_dateline,'commentid'=>$oGrouptopiccomment->grouptopiccomment_id,'commentusername'=>$GLOBALS['___login___']['user_name']);
-		$oGrouptopic->grouptopic_latestcomment=serialize($arrLatestDate);
+
+		$arrLatestData=array('commenttime'=>$oGrouptopiccomment->create_dateline,'commentid'=>$oGrouptopiccomment->grouptopiccomment_id,'tid'=>$oGrouptopic->grouptopic_id,'commentuserid'=>$GLOBALS['___login___']['user_id']);
+		$oGrouptopic->grouptopic_latestcomment=serialize($arrLatestData);
 		$oGrouptopic->save(0,'update');
 		if($oGrouptopic->isError()){
 			$this->E($oGrouptopic->getErrorMessage());
+		}
+
+		$arrLatestData['commenttitle']=$oGrouptopic->grouptopic_title;
+		$nCommnum=GrouptopicModel::F('group_id=?',$oGrouptopic->group_id)->getSum('grouptopic_comments');
+		$oGroup=GroupModel::F('group_id=?',$oGrouptopic->group_id)->getOne();
+		$oGroup->group_latestcomment=serialize($arrLatestData);
+		$oGroup->group_topiccomment=$nCommnum;
+		$oGroup->save(0,'update');
+		if($oGroup->isError()){
+			$this->E($oGroup->getErrorMessage());
 		}
 
 		$oGrouptopic->grouptopic_comments=GrouptopiccommentModel::F('grouptopic_id=?',$nId)->all()->getCounts();

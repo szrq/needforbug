@@ -43,10 +43,18 @@ class AddController extends Controller{
 				$this->E(Dyhb::L('该小组目前拒绝任何人发帖','Controller/Grouptopic'));
 			}
 		}
-
+		
+		$nLabel=0;
+		if(empty($nGroupid)){
+			$nGroupid=$arrGroups[0]->group_id;
+			$nLabel=1;
+		}
 		$arrGrouptopiccategorys=array();
 		$oGrouptopiccategory=Dyhb::instance('GrouptopiccategoryModel');
 		$arrGrouptopiccategorys=$oGrouptopiccategory->grouptopiccategoryByGroupid($nGroupid);
+		if($nLabel==1){
+			$nGroupid='';
+		}
 
 		$this->assign('arrGrouptopiccategorys',$arrGrouptopiccategorys);
 		$this->assign('nGroupid',$nGroupid);
