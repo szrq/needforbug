@@ -195,7 +195,7 @@ function insertGrouptopicmusic(sContent){
 									<div class="floor_userinfooperate">
 										<!--{~$nAlreadyFriendId=Core_Extend::isAlreadyFriend($oGrouptopic->user_id)}-->
 										<!--{if $nAlreadyFriendId==1 || $nAlreadyFriendId==4}-->
-										<a rel="nofollow" href="javascript:void(0);" onclick="deleteFriend(<!--{$oComment->user_id}-->);"><i class="icon-remove"></i>取消关注</a>
+										<a rel="nofollow" href="javascript:void(0);" onclick="deleteFriend(<!--{$oGrouptopic->user_id}-->);"><i class="icon-remove"></i>取消关注</a>
 										<!--{d*else}-->
 										<a rel="nofollow" href="javascript:void(0);" onclick="addFriend(<!--{$oGrouptopic->user_id}-->);"><i class="icon-plus"></i>加关注</a>
 										<!--{/if}-->&nbsp;
@@ -323,11 +323,11 @@ function insertGrouptopicmusic(sContent){
 										</table>
 									</div>
 									<div class="floor_userinfooperate">
-										<!--{~$nAlreadyFriendId=Core_Extend::isAlreadyFriend($oComment->user_id)}-->
+										<!--{~$nAlreadyFriendId=Core_Extend::isAlreadyFriend($oGrouptopic->user_id)}-->
 										<!--{if $nAlreadyFriendId==1 || $nAlreadyFriendId==4}-->
-										<a rel="nofollow" href="avascript:void(0);" onclick="deleteFriend(<!--{$oComment->user_id}-->);"><i class="icon-remove"></i>取消关注</a>&nbsp;
+										<a rel="nofollow" href="javascript:void(0);" onclick="deleteFriend(<!--{$oComment->user_id}-->);"><i class="icon-remove"></i>取消关注</a>
 										<!--{d*else}-->
-										<a rel="nofollow" href="avascript:void(0);" onclick="addFriend(<!--{$oComment->user_id}-->);"><i class="icon-plus"></i>加关注</a>
+										<a rel="nofollow" href="javascript:void(0);" onclick="addFriend(<!--{$oComment->user_id}-->);"><i class="icon-plus"></i>加关注</a>
 										<!--{/if}-->&nbsp;
 										<a rel="nofollow" href="javascript:void(0);"><i class="icon-envelope"></i>写私信</a>
 									</div>

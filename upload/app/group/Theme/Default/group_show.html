@@ -32,15 +32,16 @@ function joinGroup(gid){
 				<p class="well" style="margin-top:5px;"><!--{$oGroup['group_description']}--></p>
 			</div>
 			<div class="span10">
-				<ul class="nav nav-pills">
-					<li class="active"><a href="<!--{:Dyhb::U('group://group/show?id='.$oGroup->group_name)}-->">全部帖子</a></li>
+				<ul class="nav nav-pills" id="navPills">
+					<li class="<!--{if empty($nCid)}-->active<!--{/if}-->"><a href="<!--{:Dyhb::U('group://group/show?id='.$oGroup->group_name)}-->">全部帖子</a></li>
 					<!--<foreach for=arrGrouptopiccategory value=oGrouptopiccategory>-->
 					<!--{if $i<8}-->
-					<li class="">
+					<li class="<!--{if $nCid==$oGrouptopiccategory->grouptopiccategory_id}-->active<!--{/if}-->">
 						<a href="<!--{:Dyhb::U('group://group/show?id='.$oGroup->group_name.'&cid='.$oGrouptopiccategory->grouptopiccategory_id)}-->"><!--{$oGrouptopiccategory->grouptopiccategory_name}--></a>
 					</li>
+					<!--{~array_shift($arrCid)}-->
 					<!--{elseif $i==8}-->
-					<li class="dropdown">
+					<li class="dropdown <!--{if in_array($nCid,$arrCid)}-->active<!--{/if}-->">
 						<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);">
 							更多类别<b class="caret"></b>
 						</a>
@@ -66,8 +67,8 @@ function joinGroup(gid){
 				<div id="topic_list_box">
 					<table width="100%" class="table">
 						<thead>
-							<tr>
-								<th>发帖人</th>
+							<tr style="border-bottom:1px solid #eeeeee;">
+								<th style="width:61px;">发帖人</th>
 								<th><a href="<!--{:Dyhb::U('group://group/show?id='.$oGroup->group_name.'&did=1')}-->">精华</a></th>
 								<th style="text-align:right;"><a href="">浏览</a><span class="pipe">|</span> <a href="">回复</a></th>
 							</tr>
