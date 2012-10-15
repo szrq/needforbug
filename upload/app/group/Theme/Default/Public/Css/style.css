@@ -72,6 +72,11 @@ Description: Group应用模块CSS
 .floor_userinfonameinner{margin:auto;text-align:left;width:75%;}
 .floor_userinfonikename, .floor_userinfonikename a {color: #999999 !important;}
 .floor_userinfonikename{margin:auto;width:75%;text-align:left;margin-bottom:5px;color: #999999 !important;}
+
+.grouptopicview_info{ display:none;}
+.grouptopicview_tip{padding:12px 11px 25px 11px; margin:-1px 0 0 -1px;border:1px solid #DDDDDD;width:450px;display:none;background:#FEFEFE;-webkit-border-radius: 0px 5px 5px 0px;-moz-border-radius: 0px 5px 5px 0px;border-radius: 0px 5px 5px 0px;-webkit-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);-moz-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);-webkit-background-clip: padding-box;-moz-background-clip: padding;background-clip: padding-box;}
+.grouptopicview_tip .grouptopicview_info{ display:block; position:absolute; top:10px; left:140px; line-height:25px;}
+.grouptopicview_info table td{padding:0 8px;}
 [/CURSCRIPT]
 
 /**===============================

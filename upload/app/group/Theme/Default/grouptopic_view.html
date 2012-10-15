@@ -117,23 +117,6 @@ function insertGrouptopicmusic(sContent){
 }
 <!--{/script}-->
 
-<style>
-.grouptopicview_info{ display:none;}
-.grouptopicview_tip{padding:12px 11px 25px 11px; margin:-1px 0 0 -1px;border:1px solid #DDDDDD;width:450px;display:none;background:#FEFEFE;  
--webkit-border-radius: 0px 5px 5px 0px;
-     -moz-border-radius: 0px 5px 5px 0px;
-          border-radius: 0px 5px 5px 0px;
-  -webkit-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
-     -moz-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
-          box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.2);
-  -webkit-background-clip: padding-box;
-     -moz-background-clip: padding;
-          background-clip: padding-box;}
-.grouptopicview_tip .grouptopicview_info{ display:block; position:absolute; top:10px; left:140px; line-height:25px;}
-.grouptopicview_info table{}
-.grouptopicview_info table td{padding:0 8px;}
-</style>
-
 		<div class="row">
 			<div class="span12">
 				<div class="floor floor_headerpost">
@@ -169,33 +152,37 @@ function insertGrouptopicmusic(sContent){
 													<img src="<!--{:Core_Extend::avatar($oGrouptopic['user_id'],'middle')}-->" class="bind_hover_card" bm_user_id="<!--{$oGrouptopic['user_id']}-->" target="_blank" width="120px" alt="<!--{$oGrouptopic->grouptopic_username}-->">
 												</a>
 												<div class="grouptopicview_info"> 
-<div>
-<strong><a href="home.php?mod=space&amp;uid=1" target="_blank" class="xi2">admin</a></strong>
-<em>当前在线</em>
-</div>
-<table style="text-align:left;" cellspacing="0" cellpadding="0" width="100%">
-	<tr>
-		<td>注册时间</td>
-		<td>2012-7-1</td>
-		<td>最后登录</td>
-		<td>2012-10-3</td>
-	</tr>
-	<tr>
-		<td>阅读权限</td>
-		<td>200</td>
-		<td>积分</td>
-		<td>134</td>
-	</tr>
-	<tr>
-		<td>精华</td>
-		<td>0</td>
-		<td>帖子</td>
-		<td>25</td>
-	</tr>
-</table>
-<div class="imicn">
-<a href="home.php?mod=space&amp;uid=1&amp;do=profile" target="_blank" title="查看详细资料"><img src="<!--{:__PUBLIC__}-->/images/common/userinfo.gif" alt="查看详细资料"></a>
-</div>
+													<div class="">
+														<strong><a href="home.php?mod=space&amp;uid=1" target="_blank" class="xi2">admin</a></strong>
+														<em>当前在线</em>
+													</div>
+													<div style="margin-left:-8px;">
+														<table style="text-align:left;" cellspacing="0" cellpadding="0" width="100%">
+															<tr>
+																<td>注册时间</td>
+																<td>2012-7-1</td>
+																<td>最后登录</td>
+																<td>2012-10-3</td>
+															</tr>
+															<tr>
+																<td>阅读权限</td>
+																<td>200</td>
+																<td>积分</td>
+																<td>134</td>
+															</tr>
+															<tr>
+																<td>精华</td>
+																<td>0</td>
+																<td>帖子</td>
+																<td>25</td>
+															</tr>
+														</table>
+													</div>
+													<div class="imicn">
+														<a href="home.php?mod=space&amp;uid=1&amp;do=profile" target="_blank" title="QQ"><img src="<!--{:__PUBLIC__}-->/images/common/qq.gif" alt="QQ"></a>
+														<a href="home.php?mod=space&amp;uid=1&amp;do=profile" target="_blank" title="查看个人网站"><img src="<!--{:__PUBLIC__}-->/images/common/grouplink.gif" alt="查看个人网站"></a>
+														<a href="home.php?mod=space&amp;uid=1&amp;do=profile" target="_blank" title="查看详细资料"><img src="<!--{:__PUBLIC__}-->/images/common/userinfo.gif" alt="查看详细资料"></a>
+													</div>
 												</div>
 											</avatar>
 										</div>
@@ -323,9 +310,44 @@ function insertGrouptopicmusic(sContent){
 											</div>
 										</div>
 										<div>
-											<a href="{:Dyhb::U('home://space@?id='.$oComment['user_id'])}" target="_blank">
-												<img src="<!--{:Core_Extend::avatar($oComment['user_id'],'middle')}-->" width="120px" alt="<!--{$oComment->user_id|UserModel+getUsernameById}-->">
-											</a>
+											<avatar>
+												<a href="{:Dyhb::U('home://space@?id='.$oComment['user_id'])}" target="_blank">
+													<img src="<!--{:Core_Extend::avatar($oComment['user_id'],'middle')}-->" width="120px" alt="<!--{$oComment->user_id|UserModel+getUsernameById}-->">
+												</a>
+												<div class="grouptopicview_info"> 
+													<div class="">
+														<strong><a href="home.php?mod=space&amp;uid=1" target="_blank" class="xi2">admin</a></strong>
+														<em>当前在线</em>
+													</div>
+													<div style="margin-left:-8px;">
+														<table style="text-align:left;" cellspacing="0" cellpadding="0" width="100%">
+															<tr>
+																<td>注册时间</td>
+																<td>2012-7-1</td>
+																<td>最后登录</td>
+																<td>2012-10-3</td>
+															</tr>
+															<tr>
+																<td>阅读权限</td>
+																<td>200</td>
+																<td>积分</td>
+																<td>134</td>
+															</tr>
+															<tr>
+																<td>精华</td>
+																<td>0</td>
+																<td>帖子</td>
+																<td>25</td>
+															</tr>
+														</table>
+													</div>
+													<div class="imicn">
+														<a href="home.php?mod=space&amp;uid=1&amp;do=profile" target="_blank" title="QQ"><img src="<!--{:__PUBLIC__}-->/images/common/qq.gif" alt="QQ"></a>
+														<a href="home.php?mod=space&amp;uid=1&amp;do=profile" target="_blank" title="查看个人网站"><img src="<!--{:__PUBLIC__}-->/images/common/grouplink.gif" alt="查看个人网站"></a>
+														<a href="home.php?mod=space&amp;uid=1&amp;do=profile" target="_blank" title="查看详细资料"><img src="<!--{:__PUBLIC__}-->/images/common/userinfo.gif" alt="查看详细资料"></a>
+													</div>
+												</div>
+											</avatar>
 										</div>
 										<div class="floor_groupuserfollow">
 											<table cellspacing="0" cellpadding="0" width="100%">
