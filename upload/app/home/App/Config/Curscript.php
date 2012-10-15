@@ -9,7 +9,7 @@ return array(
 	'pm',
 	'ucenter,ucenter::index',
 	'attachment::index',
-	'attachment::add',
+	'attachment::add,attachment::dialog_add',
 	'attachment::attachment',
 	'attachment::my_attachment',
 	'attachment::attachmentcategory',

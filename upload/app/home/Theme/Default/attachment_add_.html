@@ -123,7 +123,7 @@ function cancelNewattachmentcategory(){
 						</p>
 						<p><h3>允许的上传类型</h3>
 							<p class="upload_type"><!--<foreach for=arrAllowedTypes value=sAllowedType>-->
-								<a href="<!--{:Dyhb::U('home://attachment/my_attachment?type='.$sAllowedType)}-->" class="btn btn-mini"><!--{$sAllowedType}--></a>&nbsp;
+								<a href="<!--{:Dyhb::U('home://attachment/my_attachment?type='.$sAllowedType.(isset($bDialog)?'&dialog=1&function='.$sFunction:''))}-->" class="btn btn-mini"><!--{$sAllowedType}--></a>&nbsp;
 								<!--</foreach>-->
 							</p>
 						</p>
@@ -151,7 +151,7 @@ function cancelNewattachmentcategory(){
 						</p>
 						<p><h3>允许的上传类型</h3>
 							<p class="upload_type"><!--<foreach for=arrAllowedTypes value=sAllowedType>-->
-								<a href="<!--{:Dyhb::U('home://attachment/my_attachment?type='.$sAllowedType)}-->" class="btn btn-mini"><!--{$sAllowedType}--></a>&nbsp;
+								<a href="<!--{:Dyhb::U('home://attachment/my_attachment?type='.$sAllowedType.(isset($bDialog)?'&dialog=1&function='.$sFunction:''))}-->" class="btn btn-mini"><!--{$sAllowedType}--></a>&nbsp;
 								<!--</foreach>-->
 							</p>
 						</p>

@@ -112,7 +112,7 @@ Tags: admin, light
 /**===============================
            上传附件
 ================================*/
-[CURSCRIPT=home::attachment::add]
+[CURSCRIPT=home::attachment::add,home::attachment::dialog_add]
 #flash-upload-ui li{list-style:none;}
 .upload_type a{margin-bottom:5px;}
 [/CURSCRIPT]
