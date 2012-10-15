@@ -14,6 +14,17 @@ class AddtopicController extends Controller{
 			$this->E($oGrouptopic->getErrorMessage());
 		}
 
+		$nTopicnum=GrouptopicModel::F('group_id=?',$oGrouptopic->group_id)->getCounts();
+		$nCommnum=GrouptopicModel::F('group_id=?',$oGrouptopic->group_id)->getSum('grouptopic_comments');
+		$oGroup=GroupModel::F('group_id=?',$oGrouptopic->group_id)->getOne();
+		$oGroup->group_topicnum=$nTopicnum;
+		$oGroup->group_topiccomment=$nCommnum;
+		$oGroup->save(0,'update');
+
+		if($oGroup->isError()){
+			$this->E($oGroup->getErrorMessage());
+		}
+
 		$sUrl=Dyhb::U('group://grouptopic/view?id='.$oGrouptopic['grouptopic_id']);
 
 		$this->A(array('url'=>$sUrl),'发布帖子成功',1);

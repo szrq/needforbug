@@ -8,6 +8,17 @@ class PublicController extends InitController{
 
 	public function index(){
 		Core_Extend::loadCache('sociatype');
+		$sType=G::getGpc('type','G');
+		if(empty($sType)){
+			$sType='create_dateline';
+		}elseif($sType=="view"){
+			$sType='grouptopic_views';
+		}elseif($sType=="com"){
+			$sType='grouptopic_comments';
+		}else{
+			$sType='create_dateline';
+		}
+		$this->assign('sType',$sType);
 
 		$arrWhere=array();
 		$nEverynum=10;
@@ -16,7 +27,7 @@ class PublicController extends InitController{
 		$nTotalRecord=GrouptopicModel::F()->where($arrWhere)->all()->getCounts();
 		$oPage=Page::RUN($nTotalRecord,$nEverynum,G::getGpc('page','G'));
 
-		$arrGrouptopics=GrouptopicModel::F()->where($arrWhere)->order('create_dateline DESC')->limit($oPage->returnPageStart(),$nEverynum)->getAll();
+		$arrGrouptopics=GrouptopicModel::F()->where($arrWhere)->order("{$sType} DESC")->limit($oPage->returnPageStart(),$nEverynum)->getAll();
 		$this->assign('arrGrouptopics',$arrGrouptopics);
 		$this->assign('sPageNavbar',$oPage->P('pagination','li','active'));
 
@@ -26,7 +37,7 @@ class PublicController extends InitController{
 		$this->assign('nDisplaySeccode',$GLOBALS['_option_']['seccode_login_status']);
 		$this->assign('nRememberTime',$GLOBALS['_option_']['remember_time']);
 		$this->assign('arrBindeds',$GLOBALS['_cache_']['sociatype']);
-		
+
 		$this->display('public+index');
 	}
 

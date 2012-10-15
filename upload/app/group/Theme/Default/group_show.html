@@ -22,7 +22,7 @@ function joinGroup(gid){
 					<dt class="left"><a href=""><img src="<!--{:Group_Extend::getGroupIcon($oGroup['group_icon'])}-->" width="48" height="48" alt="" /></a>
 					</dt>
 					<dd style="padding-left:50px;">
-						<p class="name"><a href="<!--{:Dyhb::U('group://name@?id='.$oGroup['group_name'])}-->" id="groupName"><!--{$oGroup['group_nikename']}--></a>&nbsp;群组&nbsp;<a id="join_group" name="join_group" href="javascript:void(0);" onclick="joinGroup(<!--{$oGroup['group_id']}-->);">+加入</a></p>
+						<p class="name"><a href="<!--{:Dyhb::U('group://name@?id='.$oGroup['group_name'])}-->" id="groupName"><!--{$oGroup['group_nikename']}--></a>&nbsp;群组&nbsp;<a id="join_group" name="join_group" href="javascript:void(0);" onclick="joinGroup(<!--{$oGroup['group_id']}-->);">+申请加入</a></p>
 						<p>共有 <span class="label label-success"><!--{$oGroup['group_usernum']}--></span>人关注了此小组
 					</dd>
 				</dl>
@@ -46,11 +46,11 @@ function joinGroup(gid){
 							更多类别<b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu">
-							<li class="">
+							<li class="<!--{if $nCid==$oGrouptopiccategory->grouptopiccategory_id}-->active<!--{/if}-->">
 								<a href="<!--{:Dyhb::U('group://group/show?id='.$oGroup->group_name.'&cid='.$oGrouptopiccategory->grouptopiccategory_id)}-->"><!--{$oGrouptopiccategory->grouptopiccategory_name}--></a>
 							</li>
 							<!--{elseif $i>8}-->
-							<li class="">
+							<li class="<!--{if $nCid==$oGrouptopiccategory->grouptopiccategory_id}-->active<!--{/if}-->">
 								<a href="<!--{:Dyhb::U('group://group/show?id='.$oGroup->group_name.'&cid='.$oGrouptopiccategory->grouptopiccategory_id)}-->"><!--{$oGrouptopiccategory->grouptopiccategory_name}--></a>
 							</li>
 							<!--{d*else}-->
@@ -69,8 +69,14 @@ function joinGroup(gid){
 						<thead>
 							<tr style="border-bottom:1px solid #eeeeee;">
 								<th style="width:61px;">发帖人</th>
-								<th><a href="<!--{:Dyhb::U('group://group/show?id='.$oGroup->group_name.'&did=1')}-->">精华</a></th>
-								<th style="text-align:right;"><a href="">浏览</a><span class="pipe">|</span> <a href="">回复</a></th>
+								<th><a href="<!--{:Dyhb::U('group://group/show?id='.$oGroup->group_name.'&cid='.$nCid.'&did=1')}-->">精华</a></th>
+								<th style="text-align:center;width:130px;">
+									<a href="<!--{:Dyhb::U('group://group/show?id='.$oGroup->group_name.'&cid='.$nCid)}-->" style="<!--{if $sType=='create_dateline'}-->color:gray;<!--{/if}-->">最新</a>
+									<span class="pipe">|</span>
+									<a href="<!--{:Dyhb::U('group://group/show?id='.$oGroup->group_name.'&cid='.$nCid.'&type='.view)}-->" style="<!--{if $sType=='grouptopic_views'}-->color:gray;<!--{/if}-->">浏览</a>
+									<span class="pipe">|</span>
+									<a href="<!--{:Dyhb::U('group://group/show?id='.$oGroup->group_name.'&cid='.$nCid.'&type='.com)}-->" style="<!--{if $sType=='grouptopic_comments'}-->color:gray;<!--{/if}-->">回复</a>
+								</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -97,15 +103,15 @@ function joinGroup(gid){
 										<!--{if $oGrouptopic->grouptopic_comments>0}-->
 										<!--{~$arrLatestComment=$TheController->unserialize($oGrouptopic->grouptopic_latestcomment)}-->
 										最后回复&nbsp;<a href="#"><!--{$arrLatestComment['commentusername']}--></a>
-										<span><a href="#"><!--{$arrLatestComment['commenttime']|Core_Extend+timeFormat}--></a></span>
+										<span><!--{$arrLatestComment['commenttime']|Core_Extend+timeFormat}--></span>
 										<!--{d*else}-->
 										<span>暂无回复</span>
 										<!--{/if}-->
 									</p>
 								</td>
 								<td class="num" style="text-align:center;">
-									<span>回复<em><!--{$oGrouptopic->grouptopic_comments}--></em></span>
 									<span>浏览<em><!--{$oGrouptopic->grouptopic_views}--></em></span>
+									<span>回复<em><!--{$oGrouptopic->grouptopic_comments}--></em></span>
 								</td>
 							</tr>
 							<!--</foreach>-->

@@ -54,9 +54,11 @@
 							<tr>
 								<th>发帖人</th>
 								<th colspan="2" style="text-align:right;">
-									<a href="">浏览</a>
+									<a href="<!--{:Dyhb::U('group://public/index')}-->" style="<!--{if $sType=='create_dateline'}-->color:gray;<!--{/if}-->">最新</a>
 									<span class="pipe">|</span>
-									<a href="">回复</a>
+									<a href="<!--{:Dyhb::U('group://public/index?type='.view)}-->" style="<!--{if $sType=='grouptopic_views'}-->color:gray;<!--{/if}-->">浏览</a>
+									<span class="pipe">|</span>
+									<a href="<!--{:Dyhb::U('group://public/index?type='.com)}-->" style="<!--{if $sType=='grouptopic_comments'}-->color:gray;<!--{/if}-->">回复</a>
 								</th>
 							</tr>
 						</thead>
@@ -83,8 +85,8 @@
 										<span class="pipe">|</span>
 										<!--{if $oGrouptopic->grouptopic_comments}-->
 										<!--{~$arrLatestComment=$TheController->unserialize($oGrouptopic->grouptopic_latestcomment)}-->
-										最后回复&nbsp;<a href="#"><!--{$arrLatestComment['commentusername']}--></a>
-										<span><a href="#"><!--{$arrLatestComment['commenttime']|Core_Extend+timeFormat}--></a></span>
+										最后回复&nbsp;<a href="<!--{:Dyhb::U('home://space@?id='.$arrLatestComment['commentuserid'])}-->"><!--{$arrLatestComment['commentuserid']|UserModel+getUsernameById}--></a>
+										<span><!--{$arrLatestComment['commenttime']|Core_Extend+timeFormat}--></span>
 										<!--{d*else}-->
 										<span>暂无回复</span>
 										<!--{/if}-->
@@ -222,7 +224,7 @@
 						<ul class="grouphottopic_titles">
 							<!--<foreach for=arrGrouptopic value=oGrouptopic>-->
 							<li>
-								<h3><a href="#" target="_blank"><!--{$oGrouptopic->grouptopic_title|G+subString=0,20}--></a></h3>
+								<h3><a href="#" target="_blank" ><!--{$oGrouptopic->grouptopic_title|G+subString=0,20}--></a></h3>
 								<span class="grouphottopic_commentnum"><!--{$oGrouptopic->grouptopic_comments}--></span>
 								<p class="grouphottopic_userinfo">
 									<span class="left">来自：<a title="sdfsdfsdf" target="_blank" href="#"><!--{$oGrouptopic->grouptopic_username}--></a>&nbsp;<!--{$oGrouptopic->grouptopiccategory->grouptopiccategory_name}--></span>
