@@ -72,6 +72,7 @@ table hr{width:100%;height:1px;border:none;border-top:1px dashed {INTERVAL_LINE_
 #header .navbar-inner .nav .active a:hover {background: {MENU_HOVER_BG_COLOR};}
 #header .navbar-inner .nav a {color: {MENU_TEXT_COLOR};}
 #header .navbar-inner .nav a:hover {color: {MENU_HOVER_TEXT_COLOR};background:{MENU_HOVER_BG_COLOR};}
+#header .navbar-inner .nav .active a {color:#fff;}
 #header .navbar-inner .nav .active .dropdown-menu a {background: {MENU_TEXT_COLOR};}
 #header .navbar-inner .nav .dropdown-menu a {color: {NORMAL_COLOR};}
 #header .navbar-inner .nav .dropdown-menu a:hover{color: {MENU_TEXT_COLOR};text-decoration: none;background-color: {MENU_HOVER_BG_COLOR};}

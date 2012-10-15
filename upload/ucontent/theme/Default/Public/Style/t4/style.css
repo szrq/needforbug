@@ -43,6 +43,7 @@ input:focus,textarea:focus {border-color: #9934B7;}
 #header .navbar-inner .nav .active a {color:#ffffff;background: #6C1992;}
 #header .navbar-inner .nav .active a:hover {color:#ffffff;background:#6C1992;}
 #header .navbar-inner .nav a:hover {color:#ffffff;background:#6C1992;}
+#header .navbar-inner .nav .dropdown-menu a {color:{NORMAL_COLOR};}
 #header .navbar-inner .nav .dropdown-menu a:hover{background-color: #9934B7;}
 #header .dropdown-menu li > a:hover,#header .dropdown-menu .active > a,#header .dropdown-menu .active > a:hover {background-color: #9934B7;}
 /* 搜索 */
