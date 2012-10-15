@@ -16,4 +16,5 @@ return array(
 	'attachment::my_attachmentcategory',
 	'attachment::attachmentinfo',
 	'attachment::show',
+	'space::index',
 );

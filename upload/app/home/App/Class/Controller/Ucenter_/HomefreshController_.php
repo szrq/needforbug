@@ -237,6 +237,14 @@ class HomefreshController extends InitController{
 		$oPage=Page::RUN($nTotalRecord,$arrOptionData['homefreshcomment_list_num'],G::getGpc('page','G'));
 		$arrHomefreshcommentLists=HomefreshcommentModel::F()->where($arrWhere)->all()->order('`create_dateline` DESC')->limit($oPage->returnPageStart(),$arrOptionData['homefreshcomment_list_num'])->getAll();
 
+		// 用户和积分
+		$oUserInfo=$oHomefresh->user;
+		$nUserscore=$oUserInfo->usercount->usercount_extendcredit1;
+		$arrRatinginfo=UserModel::getUserrating($nUserscore,false);
+		$this->assign('oUserInfo',$oUserInfo);
+		$this->assign('arrRatinginfo',$arrRatinginfo);
+		$this->assign('nUserscore',$nUserscore);
+
 		// 取得个人主页
 		$oUserprofile=UserprofileModel::F('user_id=?',$GLOBALS['___login___']['user_id'])->getOne();
 		$this->_sHomefreshtitle=$sHomefreshtitle;

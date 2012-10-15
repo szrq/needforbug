@@ -879,8 +879,8 @@ NEEDFORBUG;
 			
 			// 定义
 			if(strpos($sCache,',')){
-				foreach(explode(',',$sCache) as $sValue){
-					$arrResult[$nKey]=$sValue;
+				foreach(explode(',',$sCache) as $nCacheKey=>$sValue){
+					$arrResult[$nKey.G::randString(6)]=$sValue;
 				}
 			}else{
 				$arrResult[$nKey]=$sCache;

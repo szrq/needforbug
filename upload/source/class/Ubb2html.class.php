@@ -496,7 +496,7 @@ class Ubb2html{
 					</thead>
 					<tbody>
 						<tr>
-							<td style="background:none2;">{$sContent}</td>
+							<td style="background:none;">{$sContent}</td>
 						</tr>
 					</tbody>
 				</table>

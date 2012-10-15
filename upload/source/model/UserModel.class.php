@@ -198,4 +198,22 @@ class UserModel extends CommonModel{
 		return $oUser[$sField];
 	}
 
+	static public function getUserrating($nScore,$bOnlyname=true){
+		Core_Extend::loadCache('rating');
+		
+		foreach($GLOBALS['_cache_']['rating'] as $nKey=>$arrRating){
+			if($nScore>=$arrRating['rating_creditstart'] && $nScore<=$arrRating['rating_creditend']){
+				if($bOnlyname===true){
+					return $arrRating['rating_name'];
+				}else{
+					$arrRating['next_rating']=$GLOBALS['_cache_']['rating'][$nKey+1];
+					$arrRating['next_needscore']=$arrRating['rating_creditend']-$nScore;
+					$arrRating['next_progress']=number_format(($nScore-$arrRating['rating_creditstart'])/($arrRating['rating_creditend']-$arrRating['rating_creditstart']),2)*100;
+
+					return $arrRating;
+				}
+			}
+		}
+	}
+
 }

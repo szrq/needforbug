@@ -37,4 +37,8 @@ class UploadoptionController extends OptionController{
 		$this->show();
 	}
 
+	public function attachment(){
+		$this->show();
+	}
+
 }

@@ -45,6 +45,22 @@ function deleteAttachment(id){
 	});
 	return false;
 }
+
+function recommendAttachment(id){
+	Dyhb.AjaxSend(D.U('home://attachment/recommend_attachment?id='+id),'ajax=1','',function(data,status){
+		if(status==1){
+			$('#recommend_item_'+id).html('推荐成功');
+		}
+	});
+}
+
+function unrecommendAttachment(id){
+	Dyhb.AjaxSend(D.U('home://attachment/unrecommend_attachment?id='+id),'ajax=1','',function(data,status){
+		if(status==1){
+			$('#unrecommend_item_'+id).html('取消推荐成功');
+		}
+	});
+}
 <!--{/script}-->
 
 		<ul class="breadcrumb">

@@ -146,7 +146,7 @@ $(function(){
 							<td colspan="2"><i class="icon-user"></i>&nbsp;<!--{$oUserInfo:create_dateline|Core_Extend+timeFormat}--><!--<lang package='Template/Space'>-->注册<!--</lang>--></td>
 						</tr>
 						<tr>
-							<td colspan="2"><i class="icon-heart"></i>&nbsp;<!--<lang package='Template/Space'>-->等级<!--</lang>-->&nbsp;<a href="<!--{:Dyhb::U('space@?id='.$oUserInfo['user_id'].'&type=rating')}-->">下士</a></td>
+							<td colspan="2"><i class="icon-heart"></i>&nbsp;<!--<lang package='Template/Space'>-->等级<!--</lang>-->&nbsp;<a href="<!--{:Dyhb::U('space@?id='.$oUserInfo['user_id'].'&type=rating')}-->"><!--{$sRatingname}--></a></td>
 						</tr>
 						<tr>
 							<td colspan="2"><i class="icon-star"></i>&nbsp;<!--<lang package='Template/Space'>-->积分<!--</lang>-->&nbsp;<span class="badge badge-success"><a href="<!--{:Dyhb::U('space@?id='.$oUserInfo['user_id'].'&type=rating')}-->"><!--{$oUserInfo->usercount->usercount_extendcredit1}--></a></span>&nbsp;

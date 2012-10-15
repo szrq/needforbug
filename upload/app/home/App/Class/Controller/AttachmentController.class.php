@@ -29,11 +29,11 @@ class AttachmentController extends InitController{
 		$this->assign('sPageNavbar',$oPage->P('pagination','li','active'));
 
 		// 取得推荐专辑
-		$arrRecommendAttachmentcategorys=AttachmentcategoryModel::F('attachmentcategory_recommend=?',1)->order('attachmentcategory_compositor DESC')->limit(0,10)->getAll();
+		$arrRecommendAttachmentcategorys=AttachmentcategoryModel::F('attachmentcategory_recommend=?',1)->order('attachmentcategory_compositor DESC')->limit(0,$GLOBALS['_option_']['attachment_recommendcategorynum'])->getAll();
 		$this->assign('arrRecommendAttachmentcategorys',$arrRecommendAttachmentcategorys);
 
 		// 取得推荐附件
-		$arrRecommendAttachments=AttachmentModel::F('attachment_recommend=? AND attachment_extension IN (\'gif\',\'jpeg\',\'jpg\',\'png\',\'bmp\')',1)->order('attachment_id DESC')->limit(0,5)->getAll();
+		$arrRecommendAttachments=AttachmentModel::F('attachment_recommend=? AND attachment_extension IN (\'gif\',\'jpeg\',\'jpg\',\'png\',\'bmp\')',1)->order('attachment_id DESC')->limit(0,$GLOBALS['_option_']['attachment_recommendnum'])->getAll();
 		$this->assign('arrRecommendAttachments',$arrRecommendAttachments);
 		
 		$this->display('attachment+index');
@@ -341,11 +341,16 @@ class AttachmentController extends InitController{
 		$arrWhere=array();
 		$arrWhere['user_id']=$GLOBALS['___login___']['user_id'];
 
-
 		// 取得专辑列表
+		if($nDialog==1){
+			$nEverynum=$GLOBALS['_option_']['attachment_dialogmycategorynum'];
+		}else{
+			$nEverynum=$GLOBALS['_option_']['attachment_mycategorynum'];
+		}
+
 		$nTotalRecord=AttachmentcategoryModel::F()->where($arrWhere)->all()->getCounts();
-		$oPage=Page::RUN($nTotalRecord,10,G::getGpc('page','G'));
-		$arrAttachmentcategorys=AttachmentcategoryModel::F()->where($arrWhere)->order('attachmentcategory_compositor DESC,create_dateline DESC')->limit($oPage->returnPageStart(),10)->getAll();
+		$oPage=Page::RUN($nTotalRecord,$nEverynum,G::getGpc('page','G'));
+		$arrAttachmentcategorys=AttachmentcategoryModel::F()->where($arrWhere)->order('attachmentcategory_compositor DESC,create_dateline DESC')->limit($oPage->returnPageStart(),$nEverynum)->getAll();
 
 		$this->assign('arrAttachmentcategorys',$arrAttachmentcategorys);
 		$this->assign('sPageNavbar',$oPage->P('pagination','li','active'));
@@ -454,9 +459,15 @@ class AttachmentController extends InitController{
 		$arrWhere['user_id']=$GLOBALS['___login___']['user_id'];
 
 		// 取得附件列表
+		if($nDialog==1){
+			$nEverynum=$GLOBALS['_option_']['attachment_dialogmycategorynum'];
+		}else{
+			$nEverynum=$GLOBALS['_option_']['attachment_mycategorynum'];
+		}
+
 		$nTotalRecord=AttachmentModel::F()->where($arrWhere)->all()->getCounts();
-		$oPage=Page::RUN($nTotalRecord,10,G::getGpc('page','G'));
-		$arrAttachments=AttachmentModel::F()->where($arrWhere)->order('attachment_id DESC')->limit($oPage->returnPageStart(),10)->getAll();
+		$oPage=Page::RUN($nTotalRecord,$nEverynum,G::getGpc('page','G'));
+		$arrAttachments=AttachmentModel::F()->where($arrWhere)->order('attachment_id DESC')->limit($oPage->returnPageStart(),$nEverynum)->getAll();
 
 		// 附件分类
 		$arrAttachmentcategorys=$this->get_attachmentcategory();
@@ -648,9 +659,15 @@ class AttachmentController extends InitController{
 		}
 
 		// 取得专辑列表
+		if($nDialog==1){
+			$nEverynum=$GLOBALS['_option_']['attachment_dialogattachmentnum'];
+		}else{
+			$nEverynum=$GLOBALS['_option_']['attachment_attachmentnum'];
+		}
+
 		$nTotalRecord=AttachmentcategoryModel::F($arrWhere)->all(array())->getCounts();
-		$oPage=Page::RUN($nTotalRecord,10,G::getGpc('page','G'));
-		$arrAttachmentcategorys=AttachmentcategoryModel::F($arrWhere)->order('attachmentcategory_id DESC')->limit($oPage->returnPageStart(),10)->getAll();
+		$oPage=Page::RUN($nTotalRecord,$nEverynum,G::getGpc('page','G'));
+		$arrAttachmentcategorys=AttachmentcategoryModel::F($arrWhere)->order('attachmentcategory_id DESC')->limit($oPage->returnPageStart(),$nEverynum)->getAll();
 
 		$this->assign('arrAttachmentcategorys',$arrAttachmentcategorys);
 		$this->assign('sPageNavbar',$oPage->P('pagination','li','active'));
@@ -710,6 +727,12 @@ class AttachmentController extends InitController{
 		}
 
 		// 取得附件列表
+		if($nDialog==1){
+			$nEverynum=$GLOBALS['_option_']['attachment_dialogattachmentnum'];
+		}else{
+			$nEverynum=$GLOBALS['_option_']['attachment_attachmentnum'];
+		}
+
 		$nTotalRecord=AttachmentModel::F()->where($arrWhere)->all()->getCounts();
 		$oPage=Page::RUN($nTotalRecord,10,G::getGpc('page','G'));
 		$arrAttachments=AttachmentModel::F()->where($arrWhere)->order('attachment_id DESC')->limit($oPage->returnPageStart(),10)->getAll();
@@ -798,6 +821,9 @@ class AttachmentController extends InitController{
 			return array();
 		}
 
+		// 展示一定数量的照片
+		$nShowimgnum=intval($GLOBALS['_option_']['attachment_showimgnum']);
+
 		$arrAttachments=AttachmentModel::F('user_id=? AND attachmentcategory_id=? AND attachment_extension in(\'gif\',\'jpeg\',\'jpg\',\'png\',\'bmp\')',$nUserid,$nAttachmentcategoryid)->order('attachment_id DESC')->getAll();
 
 		
@@ -808,12 +834,38 @@ class AttachmentController extends InitController{
 				if($nAttachmentid==$oAttachment['attachment_id']){
 					$nIndex=$nKey;
 				}
+			}
+		}
 
-				$sContent.='<li>
-						<a href="'.__ROOT__.'/data/upload/attachment/'.$oAttachment['attachment_savepath'].'/'.$oAttachment['attachment_savename'].'">
-							<img height="60px" src="'.Core_Extend::getAttachmentPreview($oAttachment).'" title="'.$oAttachment['attachment_name'].'" alt="'.$oAttachment['attachment_alt'].'" class="image'.$oAttachment['attachment_id'].'">
-						</a>
-					</li>';
+		// 取得展示数量索引
+		$nAttachmentimgstartnum=$nIndex-$nShowimgnum;
+		if($nAttachmentimgstartnum<0){
+			$nAttachmentimgstartnum=0;
+		}
+
+		$nAttachmentimgendnum=$nIndex+$nShowimgnum;
+
+		$arrShowimgid=array();
+		if(is_array($arrAttachments)){
+			foreach($arrAttachments as $nKey=>$oAttachment){
+				if($nKey>=$nAttachmentimgstartnum && $nKey<=$nAttachmentimgendnum){
+					$arrShowimgid[]=$oAttachment['attachment_id'];
+					
+					$sContent.='<li>
+							<a href="'.__ROOT__.'/data/upload/attachment/'.$oAttachment['attachment_savepath'].'/'.$oAttachment['attachment_savename'].'">
+								<img height="60px" src="'.Core_Extend::getAttachmentPreview($oAttachment).'" title="'.$oAttachment['attachment_name'].'" alt="'.$oAttachment['attachment_alt'].'" class="image'.$oAttachment['attachment_id'].'">
+							</a>
+						</li>';
+				}
+			}
+		}
+
+		// 取得新的索引
+		if(is_array($arrShowimgid)){
+			foreach($arrShowimgid as $nKey=>$nId){
+				if($nAttachmentid==$nId){
+					$nIndex=$nKey;
+				}
 			}
 		}
 
