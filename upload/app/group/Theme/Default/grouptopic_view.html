@@ -117,6 +117,10 @@ function insertGrouptopicmusic(sContent){
 }
 <!--{/script}-->
 
+<!--{style}-->
+.group_avatar{background:#FFFFFF;padding: 4px 4px 6px 4px;}
+<!--{/style}-->
+
 		<div class="row">
 			<div class="span12">
 				<div class="floor floor_headerpost">
@@ -149,39 +153,48 @@ function insertGrouptopicmusic(sContent){
 										<div>
 											<avatar>
 												<a href="<!--{:Dyhb::U('home://space@?id='.$oGrouptopic['user_id'])}-->" target="_blank">
-													<img src="<!--{:Core_Extend::avatar($oGrouptopic['user_id'],'middle')}-->" class="bind_hover_card" bm_user_id="<!--{$oGrouptopic['user_id']}-->" target="_blank" width="120px" alt="<!--{$oGrouptopic->grouptopic_username}-->">
+													<img src="<!--{:Core_Extend::avatar($oGrouptopic['user_id'],'middle')}-->" target="_blank" width="120px" alt="<!--{$oGrouptopic->grouptopic_username}-->" class="group_avatar">
 												</a>
 												<div class="grouptopicview_info"> 
 													<div class="">
-														<strong><a href="home.php?mod=space&amp;uid=1" target="_blank" class="xi2">admin</a></strong>
-														<em>当前在线</em>
+														<strong><a href="<!--{:Dyhb::U('home://space@?id='.$oGrouptopic['user_id'])}-->" target="_blank"><!--{$oGrouptopic->grouptopic_username}--></a></strong>
+														<em><img src="<!--{:Profile_Extend::getUserprofilegender($oGrouptopic->userprofile->userprofile_gender)}-->"/></em>
 													</div>
 													<div style="margin-left:-8px;">
 														<table style="text-align:left;" cellspacing="0" cellpadding="0" width="100%">
 															<tr>
 																<td>注册时间</td>
-																<td>2012-7-1</td>
+																<td><!--{$oGrouptopic->user->create_dateline|date='Y-m-d',**}--></td>
 																<td>最后登录</td>
-																<td>2012-10-3</td>
+																<td><!--{if $oGrouptopic->user->user_lastlogintime}-->
+																	<!--{$oGrouptopic->user->user_lastlogintime|date='Y-m-d',**}-->
+																	<!--{d*else}-->
+																	注册登陆
+																	<!--{/if}-->
+																</td>
 															</tr>
 															<tr>
-																<td>阅读权限</td>
-																<td>200</td>
+																<td>主题</td>
+																<td><a href="<!--{:Dyhb::U('group://space/topic?uid='.$oGrouptopic['user_id'])}-->" target="_blank"><!--{$TheController->totalTopic($oGrouptopic->user_id)}--></a></td>
 																<td>积分</td>
-																<td>134</td>
+																<td><a href="<!--{:Dyhb::U('home://space@?id='.$oGrouptopic->user_id.'&type=friend&fan=1')}-->" target="_blank"><!--{$oGrouptopic->usercount->usercount_extendcredit1}--></a></td>
 															</tr>
 															<tr>
 																<td>精华</td>
-																<td>0</td>
+																<td><a href="<!--{:Dyhb::U('group://space/topic?uid='.$oGrouptopic['user_id'].'&addtodigest=1')}-->" target="_blank"><!--{$TheController->totalTopic($oGrouptopic->user_id,true)}--></a></td>
 																<td>帖子</td>
-																<td>25</td>
+																<td><a href="<!--{:Dyhb::U('group://space/topiccomment?uid='.$oGrouptopic['user_id'])}-->" target="_blank"><!--{$TheController->totalTopic($oGrouptopic->user_id)}--></a></td>
 															</tr>
 														</table>
 													</div>
 													<div class="imicn">
-														<a href="home.php?mod=space&amp;uid=1&amp;do=profile" target="_blank" title="QQ"><img src="<!--{:__PUBLIC__}-->/images/common/qq.gif" alt="QQ"></a>
-														<a href="home.php?mod=space&amp;uid=1&amp;do=profile" target="_blank" title="查看个人网站"><img src="<!--{:__PUBLIC__}-->/images/common/grouplink.gif" alt="查看个人网站"></a>
-														<a href="home.php?mod=space&amp;uid=1&amp;do=profile" target="_blank" title="查看详细资料"><img src="<!--{:__PUBLIC__}-->/images/common/userinfo.gif" alt="查看详细资料"></a>
+														<!--{if $oGrouptopic->userprofile->userprofile_qq}-->
+														<a href="http://wpa.qq.com/msgrd?V=1&Uin=<!--{$oGrouptopic->userprofile->userprofile_qq}-->&Site=<!--{$GLOBALS['_option_']['site_name']|urlencode}-->&Menu=yes" target="_blank" title="QQ"><img src="<!--{:__PUBLIC__}-->/images/common/qq.gif" alt="QQ"></a>
+														<!--{/if}-->
+														<!--{if $oGrouptopic->userprofile->userprofile_site}-->
+														<a href="<!--{$oGrouptopic->userprofile->userprofile_site}-->" target="_blank" title="查看个人网站"><img src="<!--{:__PUBLIC__}-->/images/common/grouplink.gif" alt="查看个人网站"></a>
+														<!--{/if}-->
+														<a href="<!--{:Dyhb::U('home://space@?id='.$oGrouptopic['user_id'])}-->" target="_blank" title="查看详细资料"><img src="<!--{:__PUBLIC__}-->/images/common/userinfo.gif" alt="查看详细资料"></a>
 													</div>
 												</div>
 											</avatar>
@@ -191,15 +204,15 @@ function insertGrouptopicmusic(sContent){
 												<tbody>
 													<tr>
 														<th><p>
-																<a href=""><!--{$TheController->totalTopic($oGrouptopic->user_id)}--></a>
+																<a href="<!--{:Dyhb::U('group://space/topic?uid='.$oGrouptopic['user_id'])}-->"><!--{$TheController->totalTopic($oGrouptopic->user_id)}--></a>
 															</p>主题
 														</th>
 														<th><p>
-																<a href="#"><!--{$TheController->totalFans($oGrouptopic->user_id)}--></a>
+																<a href="<!--{:Dyhb::U('home://space@?id='.$oGrouptopic->user_id.'&type=friend&fan=1')}-->"><!--{$oGrouptopic->usercount->usercount_extendcredit1}--></a>
 															</p>听众
 														</th>
 														<td><p>
-																<a href=""><span title="12151">1万</span></a>
+																<a href="<!--{:Dyhb::U('home://space@?id='.$oGrouptopic->user_id.'&type=rating')}-->"><span title="<!--{$oGrouptopic->usercount->usercount_extendcredit1}-->"><!--{$oGrouptopic->usercount->usercount_extendcredit1}--></span></a>
 															</p>积分
 														</td>
 													</tr>
@@ -207,10 +220,15 @@ function insertGrouptopicmusic(sContent){
 											</table>
 										</div>
 										<div>
+											<!--{~$arrRatinginfo=UserModel::getUserrating($oGrouptopic->usercount->usercount_extendcredit1,false)}-->
 											<p class="floor_userinforating">
-												<em><a target="_blank" href="">列兵</a></em>
+												<em><a target="_blank" href="" title="当前积分&nbsp;<!--{$oGrouptopic->usercount->usercount_extendcredit1}-->,等级名字&nbsp;<!--{$arrRatinginfo['rating_name']}-->,距离下一个等级&nbsp;<!--{$arrRatinginfo['next_rating']['rating_name']}-->&nbsp;还差&nbsp;<!--{$arrRatinginfo['next_needscore']}-->&nbsp;积分"><!--{$arrRatinginfo['rating_name']}--></a></em>
+												<br/>
+												<img src="<!--{$arrRatinginfo['rating_icon']}-->" />
 											</p>
+											<!--{if $oGrouptopic->user->user_nikename}-->
 											<p class="floor_userinfonikename">马建军</p>
+											<!--{/if}-->
 										</div>
 										<div class="floor_userinfocount">
 											<table style="text-align:left;" cellspacing="0" cellpadding="0" width="100%">
@@ -224,11 +242,11 @@ function insertGrouptopicmusic(sContent){
 												</tr>
 												<tr>
 													<td>金币</td>
-													<td>15</td>
+													<td><a href="<!--{:Dyhb::U('home://space@?id='.$oGrouptopic->user_id.'&type=rating')}-->"><!--{$oGrouptopic->usercount->usercount_extendcredit2}--></a></td>
 												</tr>
 												<tr>
 													<td>贡献</td>
-													<td>15</td>
+													<td><a href="<!--{:Dyhb::U('home://space@?id='.$oGrouptopic->user_id.'&type=rating')}-->"><!--{$oGrouptopic->usercount->usercount_extendcredit3}--></a></td>
 												</tr>
 											</table>
 										</div>
@@ -312,7 +330,7 @@ function insertGrouptopicmusic(sContent){
 										<div>
 											<avatar>
 												<a href="{:Dyhb::U('home://space@?id='.$oComment['user_id'])}" target="_blank">
-													<img src="<!--{:Core_Extend::avatar($oComment['user_id'],'middle')}-->" width="120px" alt="<!--{$oComment->user_id|UserModel+getUsernameById}-->">
+													<img src="<!--{:Core_Extend::avatar($oComment['user_id'],'middle')}-->" width="120px" alt="<!--{$oComment->user_id|UserModel+getUsernameById}-->" class="group_avatar">
 												</a>
 												<div class="grouptopicview_info"> 
 													<div class="">
@@ -452,7 +470,7 @@ function insertGrouptopicmusic(sContent){
 						<tr>
 							<td class="floor_left floor_footerpostcontenttd1" width="350px">
 								<div class="avatar">
-									<img src="<!--{:Core_Extend::avatar($GLOBALS['___login___']['user_id'],'middle')}-->" width="120px">
+									<img src="<!--{:Core_Extend::avatar($GLOBALS['___login___']['user_id'],'middle')}-->" width="120px" class="group_avatar">
 								</div>
 							</td>
 							<td class="floor_right">

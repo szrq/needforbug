@@ -196,4 +196,21 @@ class Profile_Extend{
 		return nl2br(htmlspecialchars($sInfo));
 	}
 
+	public static function getUserprofilegender($nUserprofilegender){
+		$sUsergender='';
+		switch($nUserprofilegender){
+			case '0':
+				$sUsergender=__PUBLIC__.'/images/common/sex/secrecy.png';
+				break;
+			case '1':
+				$sUsergender=__PUBLIC__.'/images/common/sex/male.png';
+				break;
+			case '2':
+				$sUsergender=__PUBLIC__.'/images/common/sex/female.png';
+				break;
+		}
+		
+		return $sUsergender;
+	}
+
 }

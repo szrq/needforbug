@@ -4,6 +4,9 @@
 
 !defined('DYHB_PATH') && exit;
 
+/** 导入个人信息函数库 */
+require(Core_Extend::includeFile('function/Profile_Extend'));
+
 class ViewController extends Controller{
 
 	public function index(){
@@ -45,21 +48,25 @@ class ViewController extends Controller{
 		$this->display('grouptopic+view');
 	}
 
-	public function totalTopic($nUserid){
-		return $nGrouptopic=GrouptopicModel::F('user_id=?',$nUserid)->getCounts();
+	public function totalTopic($nUserid,$bAddtodigest=false){
+		if($bAddtodigest===false){
+			return GrouptopicModel::F('user_id=?',$nUserid)->getCounts();
+		}else{
+			return GrouptopicModel::F('user_id=? AND grouptopic_addtodigest=1',$nUserid)->getCounts();
+		}
 	}
 
 	public function totalComment($nUserid){
 		return $nGrouptopic=GrouptopiccommentModel::F('user_id=?',$nUserid)->getCounts();
 	}
 	public function totalFans($nUserid){
-		 $oUserCount=UsercountModel::F('user_id=?',$nUserid)->getOne();
-		 return $oUserCount->usercount_fans;
+		$oUserCount=UsercountModel::F('user_id=?',$nUserid)->getOne();
+		return $oUserCount->usercount_fans;
 	}
 
 	public function totalFriends($nUserid){
-		 $oUserCount=UsercountModel::F('user_id=?',$nUserid)->getOne();
-		 return $oUserCount->usercount_friends;
+		$oUserCount=UsercountModel::F('user_id=?',$nUserid)->getOne();
+		return $oUserCount->usercount_friends;
 	}
 
 	public function get_commentfloor($nIndex,$nEverynum){

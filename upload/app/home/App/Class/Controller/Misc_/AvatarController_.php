@@ -4,6 +4,9 @@
 
 !defined('DYHB_PATH') && exit;
 
+/** 导入个人信息函数库 */
+require(Core_Extend::includeFile('function/Profile_Extend'));
+
 class AvatarController extends Controller{
 
 	public function index(){
@@ -24,18 +27,7 @@ class AvatarController extends Controller{
 		}
 
 		// 取得性别图标
-		$sUsergender='';
-		switch($oUserprofile['userprofile_gender']){
-			case '0':
-				$sUsergender=__PUBLIC__.'/images/common/sex/secrecy.png';
-				break;
-			case '1':
-				$sUsergender=__PUBLIC__.'/images/common/sex/male.png';
-				break;
-			case '2':
-				$sUsergender=__PUBLIC__.'/images/common/sex/female.png';
-				break;
-		}
+		$sUsergender=Profile_Extend::getUserprofilegender($oUserprofile['userprofile_gender']);
 
 		$this->assign('oUser',$oUser);
 		$this->assign('sUsergender',$sUsergender);

@@ -16,11 +16,7 @@ body{height:100%;overflow:auto;}
 							</span>
 						</div>
 						<div class="user_name">
-							<h6><!--{if !empty($GLOBALS['___login___']['user_nikename'])}-->
-									<!--{$GLOBALS['___login___']['user_nikename']}-->
-								<!--{d*else}-->
-									<!--{$GLOBALS['___login___']['user_name']}-->
-								<!--{/if}--></h6>
+							<h6><a href="<!--{:Dyhb::U('home://space@?id='.$GLOBALS['___login___']['user_id'])}-->"><!--{$GLOBALS['___login___']['user_name']}--></a></h6>
 							<p><!--<lang package='Template/Ucenter'>-->积分<!--</lang>-->&nbsp;<a href="<!--{:Dyhb::U('home://spaceadmin/rating')}-->"><!--{$GLOBALS['___login___']['usercount']['usercount_extendcredit1']}--></a></p>
 							<p><!--<lang package='Template/Ucenter'>-->金币<!--</lang>-->&nbsp;<a href="<!--{:Dyhb::U('home://spaceadmin/rating')}-->"><!--{$GLOBALS['___login___']['usercount']['usercount_extendcredit2']}--></a></p>
 						</div>

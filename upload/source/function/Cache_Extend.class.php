@@ -320,7 +320,8 @@ class Cache_Extend{
 
 		$arrRatingDatas=RatingModel::F()->order('rating_id ASC')->asArray()->all()->query();
 		if(is_array($arrRatingDatas)){
-			foreach($arrRatingDatas as $arrRating){
+			foreach($arrRatingDatas as &$arrRating){
+				$arrRating['rating_icon']=__PUBLIC__.'/images/rating/'.$arrRating['rating_icon'];
 				$arrData[$arrRating['rating_id']]=$arrRating;
 			}
 		}
