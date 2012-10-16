@@ -12,7 +12,9 @@ class GrouptopiccommentModel extends CommonModel{
 			'props'=>array(
 				'grouptopiccomment_id'=>array('readonly'=>true),
 				'grouptopic'=>array(Db::BELONGS_TO =>'GrouptopicModel','source_key'=>'grouptopic_id','target_key'=>'grouptopic_id'),
-				'user'=>array(Db::BELONGS_TO =>'UserprofileModel','source_key'=>'user_id','target_key'=>'user_id'),
+				'user'=>array(Db::BELONGS_TO =>'UserModel','source_key'=>'user_id','target_key'=>'user_id'),
+				'userprofile'=>array(Db::BELONGS_TO=>'UserprofileModel','source_key'=>'user_id','target_key'=>'user_id'),
+				'usercount'=>array(Db::BELONGS_TO=>'UsercountModel','source_key'=>'user_id','target_key'=>'user_id'),
 			),
 			'attr_protected'=>'grouptopiccomment_id',
 			'autofill'=>array(

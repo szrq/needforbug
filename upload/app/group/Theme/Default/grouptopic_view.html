@@ -117,10 +117,6 @@ function insertGrouptopicmusic(sContent){
 }
 <!--{/script}-->
 
-<!--{style}-->
-.group_avatar{background:#FFFFFF;padding: 4px 4px 6px 4px;}
-<!--{/style}-->
-
 		<div class="row">
 			<div class="span12">
 				<div class="floor floor_headerpost">
@@ -156,11 +152,11 @@ function insertGrouptopicmusic(sContent){
 													<img src="<!--{:Core_Extend::avatar($oGrouptopic['user_id'],'middle')}-->" target="_blank" width="120px" alt="<!--{$oGrouptopic->grouptopic_username}-->" class="group_avatar">
 												</a>
 												<div class="grouptopicview_info"> 
-													<div class="">
+													<div>
 														<strong><a href="<!--{:Dyhb::U('home://space@?id='.$oGrouptopic['user_id'])}-->" target="_blank"><!--{$oGrouptopic->grouptopic_username}--></a></strong>
 														<em><img src="<!--{:Profile_Extend::getUserprofilegender($oGrouptopic->userprofile->userprofile_gender)}-->"/></em>
 													</div>
-													<div style="margin-left:-8px;">
+													<div class="grouptopicview_tablebox">
 														<table style="text-align:left;" cellspacing="0" cellpadding="0" width="100%">
 															<tr>
 																<td>注册时间</td>
@@ -187,7 +183,7 @@ function insertGrouptopicmusic(sContent){
 															</tr>
 														</table>
 													</div>
-													<div class="imicn">
+													<div>
 														<!--{if $oGrouptopic->userprofile->userprofile_qq}-->
 														<a href="http://wpa.qq.com/msgrd?V=1&Uin=<!--{$oGrouptopic->userprofile->userprofile_qq}-->&Site=<!--{$GLOBALS['_option_']['site_name']|urlencode}-->&Menu=yes" target="_blank" title="QQ"><img src="<!--{:__PUBLIC__}-->/images/common/qq.gif" alt="QQ"></a>
 														<!--{/if}-->
@@ -222,12 +218,10 @@ function insertGrouptopicmusic(sContent){
 										<div>
 											<!--{~$arrRatinginfo=UserModel::getUserrating($oGrouptopic->usercount->usercount_extendcredit1,false)}-->
 											<p class="floor_userinforating">
-												<em><a target="_blank" href="" title="当前积分&nbsp;<!--{$oGrouptopic->usercount->usercount_extendcredit1}-->,等级名字&nbsp;<!--{$arrRatinginfo['rating_name']}-->,距离下一个等级&nbsp;<!--{$arrRatinginfo['next_rating']['rating_name']}-->&nbsp;还差&nbsp;<!--{$arrRatinginfo['next_needscore']}-->&nbsp;积分"><!--{$arrRatinginfo['rating_name']}--></a></em>
-												<br/>
-												<img src="<!--{$arrRatinginfo['rating_icon']}-->" />
+												<em><a target="_blank" href="<!--{:Dyhb::U('home://space@?id='.$oGrouptopic->user_id.'&type=rating')}-->" title="当前积分&nbsp;<!--{$oGrouptopic->usercount->usercount_extendcredit1}-->,等级名字&nbsp;<!--{$arrRatinginfo['rating_name']}-->,距离下一个等级&nbsp;<!--{$arrRatinginfo['next_rating']['rating_name']}-->&nbsp;还差&nbsp;<!--{$arrRatinginfo['next_needscore']}-->&nbsp;积分"><!--{$arrRatinginfo['rating_name']}--></a></em>
 											</p>
 											<!--{if $oGrouptopic->user->user_nikename}-->
-											<p class="floor_userinfonikename">马建军</p>
+											<p class="floor_userinfonikename"><!--{$oGrouptopic->user->user_nikename}--></p>
 											<!--{/if}-->
 										</div>
 										<div class="floor_userinfocount">
@@ -238,7 +232,7 @@ function insertGrouptopicmusic(sContent){
 												</tr>
 												<tr>
 													<td>帖子</td>
-													<td><!--{$TheController->totalComment($oGrouptopic->user_id)}--></td>
+													<td><a href="<!--{:Dyhb::U('group://space/topiccomment?uid='.$oGrouptopic['user_id'])}-->" target="_blank"><!--{$TheController->totalComment($oGrouptopic->user_id)}--></a></td>
 												</tr>
 												<tr>
 													<td>金币</td>
@@ -250,6 +244,7 @@ function insertGrouptopicmusic(sContent){
 												</tr>
 											</table>
 										</div>
+										<!--{if $oGrouptopic->user_id!=$GLOBALS['___login___']['user_id']}-->
 										<div class="floor_userinfooperate">
 											<!--{~$nAlreadyFriendId=Core_Extend::isAlreadyFriend($oGrouptopic->user_id)}-->
 											<!--{if $nAlreadyFriendId==1 || $nAlreadyFriendId==4}-->
@@ -257,8 +252,9 @@ function insertGrouptopicmusic(sContent){
 											<!--{d*else}-->
 											<a rel="nofollow" href="javascript:void(0);" onclick="addFriend(<!--{$oGrouptopic->user_id}-->);"><i class="icon-plus"></i>加关注</a>
 											<!--{/if}-->&nbsp;
-											<a rel="nofollow" href="javascript:void(0);"><i class="icon-envelope"></i>写私信</a>
+											<a rel="nofollow" href="javascript:void(0);" onclick="addMessage('<!--{$oGrouptopic->user_id}-->');"><i class="icon-envelope"></i>写私信</a>
 										</div>
+										<!--{/if}-->
 									</div>
 								</td>
 								<td class="floor_right"> 
@@ -272,7 +268,7 @@ function insertGrouptopicmusic(sContent){
 										<h1><!--{$oGrouptopic->grouptopic_title}--></h1>
 									</div>
 									<div class="floor_top_tips">
-										<span class="floor_copy" title="复制此楼地址">楼主<sup>#</sup></span>
+										<span class="floor_copy" title="复制此楼地址" onclick="copy('<!--{$oGrouptopic->grouptopic_title}-->'+'\n'+'<!--{$GLOBALS['_option_']['site_url']}-->/index.php?app=group&c=grouptopic&a=view&id=<!--{$oGrouptopic->grouptopic_id}-->','楼层复制成功');">楼主<sup>#</sup></span>
 										<span>发布于<!--{$oGrouptopic->create_dateline|Core_Extend+timeFormat}--></span>
 									</div>
 									<div id="grouptopicview_main">
@@ -324,45 +320,54 @@ function insertGrouptopicmusic(sContent){
 									<div class="floor_info">
 										<div class="floor_userinfoname">
 											<div class="floor_userinfonameinner">
-												<a target="_blank" href="{:Dyhb::U('home://space@?id='.$oComment['user_id'])}"><!--{$oComment->user_id|UserModel+getUsernameById}--></a>
+												<a target="_blank" href="<!--{:Dyhb::U('home://space@?id='.$oComment['user_id'])}-->"><!--{$oComment->user->user_name}--></a>
 											</div>
 										</div>
 										<div>
 											<avatar>
-												<a href="{:Dyhb::U('home://space@?id='.$oComment['user_id'])}" target="_blank">
-													<img src="<!--{:Core_Extend::avatar($oComment['user_id'],'middle')}-->" width="120px" alt="<!--{$oComment->user_id|UserModel+getUsernameById}-->" class="group_avatar">
+												<a href="<!--{:Dyhb::U('home://space@?id='.$oComment['user_id'])}-->" target="_blank">
+													<img src="<!--{:Core_Extend::avatar($oComment['user_id'],'middle')}-->" width="120px" alt="<!--{$oComment->user->user_name}-->" class="group_avatar">
 												</a>
 												<div class="grouptopicview_info"> 
-													<div class="">
-														<strong><a href="home.php?mod=space&amp;uid=1" target="_blank" class="xi2">admin</a></strong>
-														<em>当前在线</em>
+													<div>
+														<strong><a href="<!--{:Dyhb::U('home://space@?id='.$oComment['user_id'])}-->" target="_blank"><!--{$oComment->user->user_name}--></a></strong>
+														<em><img src="<!--{:Profile_Extend::getUserprofilegender($oComment->userprofile->userprofile_gender)}-->"/></em>
 													</div>
-													<div style="margin-left:-8px;">
+													<div class="grouptopicview_tablebox">
 														<table style="text-align:left;" cellspacing="0" cellpadding="0" width="100%">
 															<tr>
 																<td>注册时间</td>
-																<td>2012-7-1</td>
+																<td><!--{$oComment->user->create_dateline|date='Y-m-d',**}--></td>
 																<td>最后登录</td>
-																<td>2012-10-3</td>
+																<td><!--{if $oComment->user->user_lastlogintime}-->
+																	<!--{$oComment->user->user_lastlogintime|date='Y-m-d',**}-->
+																	<!--{d*else}-->
+																	注册登陆
+																	<!--{/if}-->
+																</td>
 															</tr>
 															<tr>
-																<td>阅读权限</td>
-																<td>200</td>
+																<td>主题</td>
+																<td><a href="<!--{:Dyhb::U('group://space/topic?uid='.$oComment['user_id'])}-->" target="_blank"><!--{$TheController->totalTopic($oComment->user_id)}--></a></td>
 																<td>积分</td>
-																<td>134</td>
+																<td><a href="<!--{:Dyhb::U('home://space@?id='.$oComment->user_id.'&type=friend&fan=1')}-->" target="_blank"><!--{$oComment->usercount->usercount_extendcredit1}--></a></td>
 															</tr>
 															<tr>
 																<td>精华</td>
-																<td>0</td>
+																<td><a href="<!--{:Dyhb::U('group://space/topic?uid='.$oComment['user_id'].'&addtodigest=1')}-->" target="_blank"><!--{$TheController->totalTopic($oComment->user_id,true)}--></a></td>
 																<td>帖子</td>
-																<td>25</td>
+																<td><a href="<!--{:Dyhb::U('group://space/topiccomment?uid='.$oComment['user_id'])}-->" target="_blank"><!--{$TheController->totalTopic($oComment->user_id)}--></a></td>
 															</tr>
 														</table>
 													</div>
 													<div class="imicn">
-														<a href="home.php?mod=space&amp;uid=1&amp;do=profile" target="_blank" title="QQ"><img src="<!--{:__PUBLIC__}-->/images/common/qq.gif" alt="QQ"></a>
-														<a href="home.php?mod=space&amp;uid=1&amp;do=profile" target="_blank" title="查看个人网站"><img src="<!--{:__PUBLIC__}-->/images/common/grouplink.gif" alt="查看个人网站"></a>
-														<a href="home.php?mod=space&amp;uid=1&amp;do=profile" target="_blank" title="查看详细资料"><img src="<!--{:__PUBLIC__}-->/images/common/userinfo.gif" alt="查看详细资料"></a>
+														<!--{if $oComment->userprofile->userprofile_qq}-->
+														<a href="http://wpa.qq.com/msgrd?V=1&Uin=<!--{$oComment->userprofile->userprofile_qq}-->&Site=<!--{$GLOBALS['_option_']['site_name']|urlencode}-->&Menu=yes" target="_blank" title="QQ"><img src="<!--{:__PUBLIC__}-->/images/common/qq.gif" alt="QQ"></a>
+														<!--{/if}-->
+														<!--{if $oComment->userprofile->userprofile_site}-->
+														<a href="<!--{$oComment->userprofile->userprofile_site}-->" target="_blank" title="查看个人网站"><img src="<!--{:__PUBLIC__}-->/images/common/grouplink.gif" alt="查看个人网站"></a>
+														<!--{/if}-->
+														<a href="<!--{:Dyhb::U('home://space@?id='.$oComment['user_id'])}-->" target="_blank" title="查看详细资料"><img src="<!--{:__PUBLIC__}-->/images/common/userinfo.gif" alt="查看详细资料"></a>
 													</div>
 												</div>
 											</avatar>
@@ -373,17 +378,17 @@ function insertGrouptopicmusic(sContent){
 													<tr>
 														<th>
 															<p>
-																<a href=""><!--{$TheController->totalTopic($oComment->user_id)}--></a>
+																<a href="<!--{:Dyhb::U('group://space/topic?uid='.$oComment['user_id'])}-->"><!--{$TheController->totalTopic($oComment->user_id)}--></a>
 															</p>主题
 														</th>
 														<th>
 															<p>
-																<a href="#"><!--{$TheController->totalFans($oComment->user_id)}--></a>
+																<a href="<!--{:Dyhb::U('home://space@?id='.$oComment->user_id.'&type=friend&fan=1')}-->"><!--{$oComment->usercount->usercount_extendcredit1}--></a>
 															</p>听众
 														</th>
 														<td>
 															<p>
-																<a href=""><span title="12151">1万</span></a>
+																<a href="<!--{:Dyhb::U('home://space@?id='.$oComment->user_id.'&type=rating')}-->"><span title="<!--{$oComment->usercount->usercount_extendcredit1}-->"><!--{$oComment->usercount->usercount_extendcredit1}--></span></a>
 															</p>积分
 														</td>
 													</tr>
@@ -391,44 +396,51 @@ function insertGrouptopicmusic(sContent){
 											</table>
 										</div>
 										<div>
-											<p class="floor_userinforating"><em><a target="_blank" href="">列兵</a></em>
+											<!--{~$arrRatinginfo=UserModel::getUserrating($oComment->usercount->usercount_extendcredit1,false)}-->
+											<p class="floor_userinforating">
+												<em><a target="_blank" href="<!--{:Dyhb::U('home://space@?id='.$oComment->user_id.'&type=rating')}-->" title="当前积分&nbsp;<!--{$oGrouptopic->usercount->usercount_extendcredit1}-->,等级名字&nbsp;<!--{$arrRatinginfo['rating_name']}-->,距离下一个等级&nbsp;<!--{$arrRatinginfo['next_rating']['rating_name']}-->&nbsp;还差&nbsp;<!--{$arrRatinginfo['next_needscore']}-->&nbsp;积分"><!--{$arrRatinginfo['rating_name']}--></a>
+												</em>
 											</p>
-											<p class="floor_userinfonikename">马建军</p>
+											<!--{if $oComment->user->user_nikename}-->
+											<p class="floor_userinfonikename"><!--{$oComment->user->user_nikename}--></p>
+											<!--{/if}-->
 										</div>
 										<div class="floor_userinfocount">
 											<table style="text-align:left;" cellspacing="0" cellpadding="0" width="100%">
 												<tr>
 													<td>UID</td>
-													<td><!--{$oGrouptopic->user_id}--></td>
+													<td><!--{$oComment->user_id}--></td>
 												</tr>
 												<tr>
 													<td>帖子</td>
-													<td><!--{$TheController->totalComment($oGrouptopic->user_id)}--></td>
+													<td><a href="<!--{:Dyhb::U('group://space/topiccomment?uid='.$oComment['user_id'])}-->" target="_blank"><!--{$TheController->totalComment($oComment->user_id)}--></a></td>
 												</tr>
 												<tr>
 													<td>金币</td>
-													<td>15</td>
+													<td><a href="<!--{:Dyhb::U('home://space@?id='.$oComment->user_id.'&type=rating')}-->"><!--{$oComment->usercount->usercount_extendcredit2}--></a></td>
 												</tr>
 												<tr>
 													<td>贡献</td>
-													<td>15</td>
+													<td><a href="<!--{:Dyhb::U('home://space@?id='.$oComment->user_id.'&type=rating')}-->"><!--{$oComment->usercount->usercount_extendcredit3}--></a></td>
 												</tr>
 											</table>
 										</div>
+										<!--{if $oComment->user_id!=$GLOBALS['___login___']['user_id']}-->
 										<div class="floor_userinfooperate">
-											<!--{~$nAlreadyFriendId=Core_Extend::isAlreadyFriend($oGrouptopic->user_id)}-->
+											<!--{~$nAlreadyFriendId=Core_Extend::isAlreadyFriend($oComment->user_id)}-->
 											<!--{if $nAlreadyFriendId==1 || $nAlreadyFriendId==4}-->
 											<a rel="nofollow" href="javascript:void(0);" onclick="deleteFriend(<!--{$oComment->user_id}-->);"><i class="icon-remove"></i>取消关注</a>
 											<!--{d*else}-->
 											<a rel="nofollow" href="javascript:void(0);" onclick="addFriend(<!--{$oComment->user_id}-->);"><i class="icon-plus"></i>加关注</a>
 											<!--{/if}-->&nbsp;
-											<a rel="nofollow" href="javascript:void(0);"><i class="icon-envelope"></i>写私信</a>
+											<a rel="nofollow" href="javascript:void(0);" onclick="addMessage('<!--{$oComment->user_id}-->');"><i class="icon-envelope"></i>写私信</a>
 										</div>
+										<!--{/if}-->
 									</div>
 								</td>
 								<td class="floor_right floor_grouptopiccommenttd2">
 									<div class="floor_top_tips">
-										<span class="floor_copy" title="复制此楼地址"><!--{$TheController->get_commentfloor($i,$nEverynum)}-->楼<sup>#</sup></span>
+										<span class="floor_copy" title="复制此楼地址" onclick="copy('楼层'+'\n'+'<!--{$GLOBALS['_option_']['site_url']}-->/index.php?app=group&c=grouptopic&a=view&id=<!--{$oGrouptopic->grouptopic_id}-->&cid=<!--{$oComment->grouptopiccomment_id}-->','楼层复制成功');"><!--{$TheController->get_commentfloor($i,$nEverynum)}-->楼<sup>#</sup></span>
 										<span>回复于<!--{$oComment->create_dateline|Core_Extend+timeFormat}--></span>
 									</div>
 									<div class="grouptopiccontent_box"><!--{$oComment->grouptopiccomment_content|Core_Extend+ubb}--></div>

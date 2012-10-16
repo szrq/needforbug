@@ -40,6 +40,18 @@ function option(){
 							<!--<lang package='__APP_ADMIN_LANG__@Template/Groupoption'>-->服务器最大上传值<!--</lang>--> <!--{$nUploadMaxFilesize}--> (<!--{$nUploadMaxFilesize*1048576}-->B) <!--<lang package='__APP_ADMIN_LANG__@Template/Groupoption'>-->请注意最好不要超过这个值，否则不会有任何效果<!--</lang>-->
 						</div>
 					</fieldset>
+					<fieldset>
+						<label for="group_indextopicnum"><!--<lang package='__APP_ADMIN_LANG__@Template/Groupoption'>-->小组首页每页帖子分页数量<!--</lang>--></label>
+						<input type="text" name="options[group_indextopicnum]" id="group_indextopicnum" size="60" value="<!--{$arrOptions['group_indextopicnum']}-->"/>
+						<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Groupoption'>-->这里是小组应用首页对应的帖子列表分页数量<!--</lang>-->
+						</div>
+					</fieldset>
+					<fieldset>
+						<label for="group_listtopicnum"><!--<lang package='__APP_ADMIN_LANG__@Template/Groupoption'>-->具体某个小组每页帖子分页数量<!--</lang>--></label>
+						<input type="text" name="options[group_listtopicnum]" id="group_listtopicnum" size="60" value="<!--{$arrOptions['group_listtopicnum']}-->"/>
+						<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Groupoption'>-->这里是进入小组后对应的帖子列表分页数量<!--</lang>-->
+						</div>
+					</fieldset>
 				</div>
 				<footer>
 					<div class="submit_link">

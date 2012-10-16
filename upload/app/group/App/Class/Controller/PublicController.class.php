@@ -8,6 +8,7 @@ class PublicController extends InitController{
 
 	public function index(){
 		Core_Extend::loadCache('sociatype');
+
 		$sType=G::getGpc('type','G');
 		if(empty($sType)){
 			$sType='create_dateline';
@@ -21,7 +22,7 @@ class PublicController extends InitController{
 		$this->assign('sType',$sType);
 
 		$arrWhere=array();
-		$nEverynum=10;
+		$nEverynum=$GLOBALS['_cache_']['group_option']['group_indextopicnum'];
 		$arrWhere['grouptopic_status']=1;
 		$arrWhere['grouptopic_isaudit']=1;
 		$nTotalRecord=GrouptopicModel::F()->where($arrWhere)->all()->getCounts();

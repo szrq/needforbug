@@ -28,7 +28,7 @@ class GroupController extends InitController{
 		}
 		
 		$arrWhere=array();
-		$nEverynum=4;
+		$nEverynum=$GLOBALS['_cache_']['group_option']['group_listtopicnum'];
 		if(!empty($nCid)){
 			$arrWhere['grouptopiccategory_id']=$nCid;
 		}

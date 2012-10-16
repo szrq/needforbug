@@ -6,6 +6,24 @@ $(function(){
 		selector: "a[rel=tooltip]"
 	})
 });
+
+function addFriend(userid){
+	Dyhb.AjaxSend('<!--{:Dyhb::U('home://friend/add')}-->','ajax=1&uid='+userid,'',function(data,status){
+		if(status==1){
+			window.location.reload();
+		}
+	});
+}
+
+function deleteFriend(friendid,fan){
+	needforbugConfirm(D.L('确实要永久删除选择项吗？','__COMMON_LANG__@Admin/Common_Js'),function(){
+		Dyhb.AjaxSend(D.U('home://friend/delete?friendid='+friendid+(fan=='1'?'&fan=1':'')),'','',function(data,status){
+			if(status==1){
+				window.location.reload();
+			}
+		});
+	});
+}
 <!--{/script}-->
 
 		<ul class="breadcrumb">
@@ -156,7 +174,16 @@ $(function(){
 				</table>
 
 				<div style="padding:5px;">
-					<a class="btn" href="#"><i class="icon-user"></i>&nbsp;<!--<lang package='Template/Space'>-->关注<!--</lang>-->+1</a>&nbsp;
+					<!--{if $GLOBALS['___login___']===false}-->
+					<a class="btn" href="javascript:void(0);" onclick="addFriend(<!--{$GLOBALS['___login___']['user_id']}-->);"><i class="icon-plus"></i>&nbsp;<!--<lang package='Template/Space'>-->关注<!--</lang>-->+1</a>
+					<!--{d*else}-->
+					<!--{~$nAlreadyFriendId=Core_Extend::isAlreadyFriend($GLOBALS['___login___']['user_id']);}-->
+					<!--{if $nAlreadyFriendId==1 || $nAlreadyFriendId==4}-->
+					<a class="btn" rel="nofollow" href="javascript:void(0);" onclick="deleteFriend(<!--{$GLOBALS['___login___']['user_id']}-->);"><i class="icon-remove"></i>取消关注</a>
+					<!--{d*else}-->
+					<a rel="nofollow" class="btn" href="javascript:void(0);" onclick="addFriend(<!--{$GLOBALS['___login___']['user_id']}-->);"><i class="icon-plus"></i><!--<lang package='Template/Space'>-->关注<!--</lang>-->+1</a>
+					<!--{/if}-->
+					<!--{/if}-->&nbsp;
 					<a href="<!--{:Dyhb::U('pm/pmnew?uid='.$oUserInfo['user_id'])}-->" rel="nofollow" class="btn"><i class="icon-envelope"></i>&nbsp;<!--<lang package='Template/Space'>-->发消息<!--</lang>--></a>
 				</div>
 

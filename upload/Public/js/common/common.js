@@ -527,3 +527,26 @@ function changeGlobalbg(){
 	oObj.style.backgroundRepeat=sBgextendRepeat; 
 	nCurrentBgindex+=1;
 }
+
+/** 发送短消息 */
+function addMessage(nUid){
+	var sHtml = $.ajax({
+		url: D.U('home://pm/dialog_add?uid='+nUid),
+		async: false
+	}).responseText;
+
+	oEditNewmessage=needforbugAlert(sHtml,'发送短消息','',addMessageok,'',500,100);
+}
+
+function addMessageok(){
+	Dyhb.AjaxSubmit('sendpmform',D.U('home://pm/sendpm'),'result',function(data,status){
+		if(status==1){
+			$('#pm_subject').val('');
+			$('#pm_message').val('');
+			return true;
+		}else{
+			return false;
+		}
+	});
+	return false;
+}
