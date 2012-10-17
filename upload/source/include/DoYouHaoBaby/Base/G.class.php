@@ -529,8 +529,8 @@ class G{
 		$sMakeDir=IS_WIN?'':'/';
 		foreach($arrDirs as $nKey=>$sDir){
 			$sMakeDir.=$sDir.'/';
-			!if(!is_dir($sMakeDir)){
-				if(isset($arrDirs[$nKey+1]) && is_dir($arrDirs[$nKey+1])){
+			if(!is_dir($sMakeDir)){
+				if(isset($arrDirs[$nKey+1]) && is_dir($sMakeDir.$arrDirs[$nKey+1])){
 					continue;
 				}
 				@mkdir($sMakeDir,$nMode);
