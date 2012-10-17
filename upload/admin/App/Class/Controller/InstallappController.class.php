@@ -4,6 +4,12 @@
 
 !defined('DYHB_PATH') && exit;
 
+/** 导入Home模型 */
+Dyhb::import(NEEDFORBUG_PATH.'/app/home/App/Class/Model');
+
+/** 定义Home的语言包 */
+define('__APP_ADMIN_LANG__',NEEDFORBUG_PATH.'/app/home/App/Lang/Admin');
+
 class InstallappController extends InitController{
 
 	public function index($sModel=null,$bDisplay=true){
