@@ -102,7 +102,7 @@ function joinGroup(gid){
 										<span class="pipe">|</span>
 										<!--{if $oGrouptopic->grouptopic_comments>0}-->
 										<!--{~$arrLatestComment=$TheController->unserialize($oGrouptopic->grouptopic_latestcomment)}-->
-										最后回复&nbsp;<a href="#"><!--{$arrLatestComment['commentusername']}--></a>
+										最后回复&nbsp;<a href="#"><!--{$arrLatestComment['commentuserid']|UserModel+getUsernameById}--></a>
 										<span><!--{$arrLatestComment['commenttime']|Core_Extend+timeFormat}--></span>
 										<!--{d*else}-->
 										<span>暂无回复</span>

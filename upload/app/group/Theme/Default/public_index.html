@@ -227,9 +227,12 @@
 							<li>
 								<h3><a href="<!--{:Dyhb::U('group://topic@?id='.$oGrouptopic->grouptopic_id)}-->" target="_blank" ><!--{$oGrouptopic->grouptopic_title|G+subString=0,20}--></a></h3>
 								<span class="grouphottopic_commentnum"><!--{$oGrouptopic->grouptopic_comments}--></span>
-								<p class="grouphottopic_userinfo">
-									<span class="left">来自：<a title="<!--{$oGrouptopic->grouptopic_username}-->" target="_blank" href="<!--{:Dyhb::U('home://space@?id='.$oGrouptopic->user_id)}-->"><!--{$oGrouptopic->grouptopic_username}--></a>&nbsp;<!--{$oGrouptopic->grouptopiccategory->grouptopiccategory_name}--></span>
-								</p>
+								<!--<p class="grouphottopic_userinfo">
+									<span class="left">来自：<a title="<!--{$oGrouptopic->grouptopic_username}-->" target="_blank" href="<!--{:Dyhb::U('home://space@?id='.$oGrouptopic->user_id)}-->"><!--{$oGrouptopic->grouptopic_username}--></a>&nbsp;<!--{$oGrouptopic->grouptopiccategory->grouptopiccategory_name}-->
+									<!--</span>
+								</p>-->
+								<span style="width:100%;" class="grouphottopic_commentnum">来自：<a title="<!--{$oGrouptopic->grouptopic_username}-->" target="_blank" href="<!--{:Dyhb::U('home://space@?id='.$oGrouptopic->user_id)}-->" style="color:#999999;"><!--{$oGrouptopic->grouptopic_username}--></a>&nbsp;<!--{$oGrouptopic->grouptopiccategory->grouptopiccategory_name}-->
+								</span>
 							</li>
 							<!--</foreach>-->
 						</ul>
