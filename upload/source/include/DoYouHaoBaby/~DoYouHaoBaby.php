@@ -1010,9 +1010,14 @@ class G{
 			$arrDirs=$Dir;
 		}
 		$sMakeDir=IS_WIN?'':'/';
-		foreach($arrDirs as $sDir){
+		foreach($arrDirs as $nKey=>$sDir){
 			$sMakeDir.=$sDir.'/';
-			!is_dir($sMakeDir) && mkdir($sMakeDir,$nMode);
+			!if(!is_dir($sMakeDir)){
+				if(isset($arrDirs[$nKey+1]) && is_dir($arrDirs[$nKey+1])){
+					continue;
+				}
+				@mkdir($sMakeDir,$nMode);
+			}
 		}
 		return TRUE;
 	}
