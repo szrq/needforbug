@@ -21,6 +21,9 @@ class GrouptopiccommentModel extends CommonModel{
 				array('user_id','userId','create','callback'),
 			),
 			'check'=>array(
+				'grouptopiccomment_content'=>array(
+					array('require',Dyhb::L('帖子评论内容不能为空','__APP_ADMIN_LANG__@Model/Grouptopiccomment')),
+				),
 			),
 		);
 	}

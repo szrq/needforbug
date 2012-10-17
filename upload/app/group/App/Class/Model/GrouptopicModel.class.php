@@ -23,6 +23,13 @@ class GrouptopicModel extends CommonModel{
 				array('grouptopic_username','userName','create','callback'),
 			),
 			'check'=>array(
+				'grouptopic_title'=>array(
+					array('require',Dyhb::L('帖子标题不能为空','__APP_ADMIN_LANG__@Model/Grouptopic')),
+					array('max_length',64,Dyhb::L('帖子标题不能超过64个字符','__APP_ADMIN_LANG__@Model/Grouptopic')),
+				),
+				'grouptopic_content'=>array(
+					array('require',Dyhb::L('帖子内容不能为空','__APP_ADMIN_LANG__@Model/Grouptopic')),
+				),
 			),
 		);
 	}
