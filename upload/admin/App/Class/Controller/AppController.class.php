@@ -163,6 +163,7 @@ class AppController extends InitController{
 			if($oNav->isError()){
 				$this->E($oNav->getErrorMessage());
 			}else{
+				$this->updatecachenav();
 				$this->S(Dyhb::L('菜单写入成功','Controller/App'));
 			}
 		}
@@ -187,6 +188,8 @@ class AppController extends InitController{
 			}else{
 				$oTryNav->destroy();
 			}
+
+			$this->updatecachenav();
 			
 			$this->S(Dyhb::L('菜单取消成功','Controller/App'));
 		}
@@ -212,6 +215,13 @@ class AppController extends InitController{
 
 			return false;
 		}
+	}
+
+	protected function updatecachenav(){
+		if(!Dyhb::classExists('Cache_Extend')){
+			require_once(Core_Extend::includeFile('function/Cache_Extend'));
+		}
+		Cache_Extend::updateCacheNav();
 	}
 	
 }
