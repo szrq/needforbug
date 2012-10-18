@@ -49,9 +49,11 @@ class AddController extends Controller{
 			$nGroupid=$arrGroups[0]->group_id;
 			$nLabel=1;
 		}
+
 		$arrGrouptopiccategorys=array();
 		$oGrouptopiccategory=Dyhb::instance('GrouptopiccategoryModel');
 		$arrGrouptopiccategorys=$oGrouptopiccategory->grouptopiccategoryByGroupid($nGroupid);
+		
 		if($nLabel==1){
 			$nGroupid='';
 		}

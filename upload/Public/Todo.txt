@@ -1,27 +1,13 @@
 ﻿访问推广，金币发送多少个
 
-金币
-
-级别设置 = 正在做
-
 用户提醒
 
 防灌水相关功能开发，EMAIL验证等等
 
 在线时间功能开发
 
-保存测试邮件模板和恢复测试模板
-
-签名后台截取数量
-
 创建小组，自己也加入小组
 
-多媒体插入到全局
-
-"NetworkError: 404 Not Found - http://localhost/needforbug/images/big_bgcolor.jpg"
-
-备份目录不存在E:\php\xampp\htdocs\needforbug\upload/data/backup
-
-添加文章有一个初始化小组分类，快捷发贴
-
-短消息引用漏洞，不能引用自己没有权限的短消息，这个要做一个判断
+加入了新的字段
+grouptopic_hiddenreplies
+group_topiccomment

@@ -20,7 +20,14 @@ function unrecommendAttachment(id){
 
 		<ul class="breadcrumb">
 			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
-			<li><a href="<!--{:Dyhb::U('home://attachment/index')}-->"><!--<lang package='Template/Attachment'>-->我的相册<!--</lang>--></a></li>
+			<li><a href="<!--{:Dyhb::U('home://attachment/index')}-->"><!--<lang package='Template/Attachment'>-->我的相册<!--</lang>--></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
+			<li><!--{if ACTION_NAME==='attachment' && G+getGpc('recommend','G')==1 && G+getGpc('photo','G')==1}-->
+				<!--<lang package='Template/Attachment'>-->推荐照片<!--</lang>-->
+				<!--{elseif ACTION_NAME==='attachment' && G+getGpc('recommend','G')==1 && G+getGpc('photo','G')==0}-->
+				<!--<lang package='Template/Attachment'>-->推荐附件<!--</lang>--></li>
+				<!--{d*else}-->
+				<!--<lang package='Template/Attachment'>-->最新附件<!--</lang>--></li>
+				<!--{/if}-->
 		</ul>
 
 		<!--<include file="attachment+menu" />-->

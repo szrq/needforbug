@@ -44,6 +44,10 @@ class Core_Extend{
 	static public function isAdmin(){
 		$arrAdmins=explode(',',$GLOBALS['_commonConfig_']['ADMIN_USERID']);
 
+		if($GLOBALS['___login___']===false){
+			return false;
+		}
+
 		if(in_array($GLOBALS['___login___']['user_id'],$arrAdmins)){
 			return true;
 		}else{

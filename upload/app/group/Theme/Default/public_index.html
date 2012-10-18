@@ -2,7 +2,8 @@
 
 		<ul class="breadcrumb">
 			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
-			<li><a href="<!--{:Dyhb::U('group://public/index')}-->">新帖</a></li>
+			<li><a href="<!--{:Dyhb::U('group://public/index')}-->" title="小组">小组</a>&nbsp;<span class="divider">/</span>&nbsp;</li>
+			<li>新帖</li>
 		</ul>
 
 		<div class="row">
@@ -73,9 +74,9 @@
 								<td class="subject">
 									<p class="title">
 										<!--{if $oGrouptopic->grouptopiccategory_id>0}-->
-										<a href="#">[<!--{$oGrouptopic->grouptopiccategory->grouptopiccategory_name}-->]</a>
+										<a href="<!--{:Dyhb::U('group://group/show?id='.$oGrouptopic->group->group_name.'&cid='.$oGrouptopic->grouptopiccategory_id)}-->">[<!--{$oGrouptopic->grouptopiccategory->grouptopiccategory_name}-->]</a>
 										<!--{d*else}-->
-										<a href="#">[默认分类]</a>
+										<a href="javascript:void(0);">[默认分类]</a>
 										<!--{/if}-->
 										<a href="<!--{:Dyhb::U('group://topic@?id='.$oGrouptopic->grouptopic_id)}-->" title="<!--{$oGrouptopic->grouptopic_title}-->"><!--{$oGrouptopic->grouptopic_title|G+subString=0,26}--></a>
 									</p>

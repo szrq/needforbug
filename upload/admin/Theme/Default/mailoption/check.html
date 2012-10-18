@@ -29,7 +29,25 @@ function mailCheck(){
 			needforbugAlert('<!--<lang package='Template/Default/Mailoption'>-->邮件测试成功<!--</lang>-->','',1);
 		}
 	});
-}
+};
+
+function resetTestmailsubject(){
+	var sHtml = $.ajax({
+		url: D.U('mailoption/reset_test?type=subject'),
+		async: false
+	}).responseText;
+
+	$('#test_mail_subject').val(sHtml);
+};
+
+function resetTestmailmessage(){
+	var sHtml = $.ajax({
+		url: D.U('mailoption/reset_test?type=message'),
+		async: false
+	}).responseText;
+
+	replaceEditorContent(editor,sHtml);
+};
 <!--{/script}-->
 
 	<section class="secondary_bar">
@@ -69,13 +87,13 @@ function mailCheck(){
 						<div class="description"><!--<lang package='Template/Default/Mailoption'>-->如果要测试包含用户名的邮件地址，格式为“username &lt;user@domain.com&gt;”，多个邮件地址用逗号分隔<!--</lang>--></div>
 					</fieldset>
 					<fieldset>
-						<label for="test_mail_subject"><!--<lang package='Template/Default/Mailoption'>-->测试邮件主题<!--</lang>--></label>
+						<label for="test_mail_subject"><!--<lang package='Template/Default/Mailoption'>-->测试邮件主题<!--</lang>-->(<a href="javascript:void(0);" onclick="resetTestmailsubject();"><!--<lang package='Template/Default/Mailoption'>-->恢复默认<!--</lang>--></a>)</label>
 						<input name="test_mail_subject" id="test_mail_subject" value="<!--{$arrOptions['mail_testsubject']}-->" type="text">
 						<div class="description"><!--<lang package='Template/Default/Mailoption'>-->这里是系统用于测试邮件的主题信息，你也可以修改然后发送邮件<!--</lang>--><br/>
 						<!--<lang package='Template/Default/Common'>-->系统变量替换: {site_name} 网站标题,{site_description} 网站描述,{site_url} 站点信息,{time} 当前时间,{user_name} 登录用户,{user_nikename} 登录用户昵称,{admin_email} 系统管理员邮箱<!--</lang>--></div>
 					</fieldset>
 					<fieldset>
-						<label for="test_mail_message"><!--<lang package='Template/Default/Mailoption'>-->测试邮件内容<!--</lang>--></label>
+						<label for="test_mail_message"><!--<lang package='Template/Default/Mailoption'>-->测试邮件内容<!--</lang>-->(<a href="javascript:void(0);" onclick="resetTestmailmessage();"><!--<lang package='Template/Default/Mailoption'>-->恢复默认<!--</lang>--></a>)</label>
 						<p style="padding-left:10px;"><textarea name="test_mail_message" id="test_mail_message" style="width:700px;height:250px;visibility:hidden;"><!--{$arrOptions['mail_testmessage']|nl2br}--></textarea>
 						</p>
 						<div class="description"><!--<lang package='Template/Default/Mailoption'>-->这里是系统用于测试邮件的内容，你可以将邮件模板保存到服务器中以便于下次测试使用<!--</lang>--><br/>

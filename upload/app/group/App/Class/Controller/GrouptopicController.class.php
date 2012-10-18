@@ -29,13 +29,15 @@ class GrouptopicController extends InitController{
 		$nUid=intval(G::getGpc('uid','G'));
 		$nGroupid=intval(G::getGpc('gid','G'));
 
-		if($nUid!=$GLOBALS['___login___']['user_id']){
+		if(Core_Extend::isAdmin()===false && $nUid!=$GLOBALS['___login___']['user_id']){
 			$this->E("无法编辑他人的主题");
 		}
+		
 		$oGrouptopic=GrouptopicModel::F('grouptopic_id=?',$nTid)->getOne();
 		if(empty($oGrouptopic->grouptopic_id)){
 			$this->E("不存在你要编辑的主题");
 		}
+
 		$this->assign('oGrouptopic',$oGrouptopic);
 		
 		$arrGrouptopiccategorys=array();
@@ -44,7 +46,7 @@ class GrouptopicController extends InitController{
 		$this->assign('arrGrouptopiccategorys',$arrGrouptopiccategorys);
 		$this->assign('nGroupid',$nGroupid);
 
-		$this->display('grouptopic+edit');
+		$this->display('grouptopic+add');
 	}
 
 	public function submit_edit(){

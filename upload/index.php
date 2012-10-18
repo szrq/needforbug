@@ -58,7 +58,7 @@ define('APP_RUNTIME_LOCK',NEEDFORBUG_PATH.'/source/protected/~Runtime.inc.lock')
 define('DYHB_THIN',true);
 
 /** 去掉模板空格 */
-//define('TMPL_STRIP_SPACE',true);
+define('TMPL_STRIP_SPACE',true);
 
 /** 载入框架 */
 require(NEEDFORBUG_PATH.'/source/include/DoYouHaoBaby/~DoYouHaoBaby.php');

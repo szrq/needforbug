@@ -38,6 +38,10 @@ class MailoptionController extends OptionController{
 			$this->E(Dyhb::L('邮件测试内容不能为空','Controller/Mailoption'));
 		}
 
+		// 将邮件模板保存在配置中
+		OptionModel::uploadOption('mail_testmessage',$sEmailMessage);
+		OptionModel::uploadOption('mail_testsubject',$sEmailSubject);
+
 		$sEmailSubject=Core_Extend::replaceSiteVar($sEmailSubject);
 		$sEmailMessage=str_replace("\r\n",'<br/>',Core_Extend::replaceSiteVar($sEmailMessage));
 
@@ -66,6 +70,18 @@ class MailoptionController extends OptionController{
 
 	public function get_mail_line($oMailConnect){
 		return $oMailConnect->getIsHtml()===true?'<br/>':"\r\n";
+	}
+
+	public function reset_test(){
+		$sType=trim(G::getGpc('type','G'));
+
+		if($sType=='subject'){
+			echo $GLOBALS['_option_']['mail_testsubject_backup'];
+		}elseif($sType=='message'){
+			echo $GLOBALS['_option_']['mail_testmessage_backup'];
+		}else{
+			echo '';
+		}
 	}
 
 }

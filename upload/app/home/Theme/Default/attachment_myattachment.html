@@ -65,7 +65,8 @@ function unrecommendAttachment(id){
 
 		<ul class="breadcrumb">
 			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
-			<li><a href="<!--{:Dyhb::U('home://attachment/index')}-->"><!--<lang package='Template/Attachment'>-->我的相册<!--</lang>--></a></li>
+			<li><a href="<!--{:Dyhb::U('home://attachment/index')}-->"><!--<lang package='Template/Attachment'>-->我的相册<!--</lang>--></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
+			<li>我的附件</li>
 		</ul>
 
 		<!--<include file="attachment+menu" />-->
@@ -81,12 +82,12 @@ function unrecommendAttachment(id){
 						</a>
 						<ul class="dropdown-menu"> 
 							<!--<foreach for=arrAttachmentcategorys value=oAttachmentcategory>-->
-							<li><a href="<!--{:Dyhb::U('home://attachment/attachment?cid='.$oAttachmentcategory['attachmentcategory_id'])}-->"><!--{$oAttachmentcategory['attachmentcategory_name']}--></a></li>
+							<li><a href="<!--{:Dyhb::U('home://attachment/my_attachment?cid='.$oAttachmentcategory['attachmentcategory_id'])}-->"><!--{$oAttachmentcategory['attachmentcategory_name']}--></a></li>
 							<!--</foreach>-->
 							<!--{if is_array($arrAttachmentcategorys)}-->
 							<li class="divider"></li>
 							<!--{/if}-->
-							<li><a href="<!--{:Dyhb::U('home://attachment/attachment?cid=0')}-->">默认专辑</a></li>
+							<li><a href="<!--{:Dyhb::U('home://attachment/my_attachment?cid=0')}-->">默认专辑</a></li>
 						</ul>
 					</li>
 					<li class="dropdown <!--{if G+getGpc('type','G') || isset($_GET['photo'])}-->active<!--{/if}-->">
@@ -96,11 +97,11 @@ function unrecommendAttachment(id){
 						</a>
 						<ul class="dropdown-menu"> 
 							<!--<foreach for=arrAllowedTypes value=sAllowedType>-->
-							<li><a href="<!--{:Dyhb::U('home://attachment/attachment?type='.$sAllowedType)}-->"><!--{$sAllowedType}--></a></li>
+							<li><a href="<!--{:Dyhb::U('home://attachment/my_attachment?type='.$sAllowedType)}-->"><!--{$sAllowedType}--></a></li>
 							<!--</foreach>-->
 							<li class="divider"></li>
-							<li><a href="<!--{:Dyhb::U('home://attachment/attachment?photo=1')}-->">图片</a></li>
-							<li><a href="<!--{:Dyhb::U('home://attachment/attachment?photo=0')}-->">附件</a></li>
+							<li><a href="<!--{:Dyhb::U('home://attachment/my_attachment?photo=1')}-->">图片</a></li>
+							<li><a href="<!--{:Dyhb::U('home://attachment/my_attachment?photo=0')}-->">附件</a></li>
 						</ul>
 					</li>
 				</ul>

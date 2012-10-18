@@ -262,13 +262,15 @@ function copy(text2copy,title){
 		}
 
 		document.getElementById(flashcopier).innerHTML='';
+		
 		var divinfo=AC_FL_RunContent('id','clipboardswf','name','clipboardswf','devicefont','false','width','200','height','40','src',_ROOT_+'/Public/images/common/clipboard.swf','menu','false','allowScriptAccess','sameDomain','swLiveConnect','true','wmode','transparent','style','margin-top:-20px');
+
 		document.getElementById(flashcopier).innerHTML=divinfo;
 
 		text2copy=text2copy.replace(/[\xA0]/g,' ');
 		CLIPBOARDSWFDATA=text2copy;
-		
-		needforbugAlert(title,'',3);
+
+		needforbugAlert(title,'',9);
 	}
 }
 

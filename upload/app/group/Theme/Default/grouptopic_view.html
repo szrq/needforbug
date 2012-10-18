@@ -2,7 +2,7 @@
 
 		<ul class="breadcrumb">
 			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
-			<li><a href="<!--{:Dyhb::U('group://public/index')}-->">群组</a>&nbsp;<span class="divider">/</span>&nbsp;</li>
+			<li><a href="<!--{:Dyhb::U('group://public/index')}-->" title="小组">小组</a>&nbsp;<span class="divider">/</span>&nbsp;</li>
 			<li><a href="<!--{:Dyhb::U('group://name@?id='.$oGrouptopic->group->group_name)}-->"><!--{$oGrouptopic:group:group_nikename}--></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
 			<li>查看帖子</li>
 		</ul>
@@ -19,11 +19,12 @@
 $(function(){
 	var oFixedTips=new FixedTips("grouptopicview_tip");
 	$$A.forEach($$("grouptopicview_list").getElementsByTagName("avatar"),function(o){
-		oFixedTips.add(o.getElementsByTagName("img")[0], {
-			relative: { customLeft: -12, customTop: -13},
-			onShow: function(){ oFixedTips.tip.innerHTML = o.innerHTML; }
+		oFixedTips.add(o.getElementsByTagName("img")[0],{
+				relative: { customLeft: -12, customTop: -13},
+				onShow: function(){ oFixedTips.tip.innerHTML = o.innerHTML;
+			}
 		});
-	})
+	});
 	
 	$('.grouptopiccomment_message').autoResize({
 		onResize:function(){
@@ -118,6 +119,14 @@ function insertGrouptopicmusic(sContent){
 <!--{/script}-->
 
 		<div class="row">
+			<!--{if ($GLOBALS['___login___']!==false && $GLOBALS['___login___']['user_id']==$oGrouptopic['user_id']) || Core_Extend+isAdmin()===true}-->
+			<div class="span12" style="margin-bottom:15px;">
+				<div>
+					<a href="<!--{:Dyhb::U('group://grouptopic/edit?tid='.$oGrouptopic['grouptopic_id'].'&uid='.$oGrouptopic['user_id'].'&gid='.$oGrouptopic['group_id'])}-->">编辑主题</a>
+				</div>
+			</div>
+			<!--{/if}-->
+			
 			<div class="span12">
 				<div class="floor floor_headerpost">
 					<table width="100%" class="floor_table">
@@ -153,7 +162,7 @@ function insertGrouptopicmusic(sContent){
 												</a>
 												<div class="grouptopicview_info"> 
 													<div>
-														<strong><a href="<!--{:Dyhb::U('home://space@?id='.$oGrouptopic['user_id'])}-->" target="_blank"><!--{$oGrouptopic->grouptopic_username}--></a></strong>
+														<strong><a href="<!--{:Dyhb::U('home://space@?id='.$oGrouptopic['user_id'])}-->" target="_blank"><!--{$oGrouptopic->grouptopic_username}--></a></strong>&nbsp;
 														<em><img src="<!--{:Profile_Extend::getUserprofilegender($oGrouptopic->userprofile->userprofile_gender)}-->"/></em>
 													</div>
 													<div class="grouptopicview_tablebox">
@@ -185,11 +194,11 @@ function insertGrouptopicmusic(sContent){
 													</div>
 													<div>
 														<!--{if $oGrouptopic->userprofile->userprofile_qq}-->
-														<a href="http://wpa.qq.com/msgrd?V=1&Uin=<!--{$oGrouptopic->userprofile->userprofile_qq}-->&Site=<!--{$GLOBALS['_option_']['site_name']|urlencode}-->&Menu=yes" target="_blank" title="QQ"><img src="<!--{:__PUBLIC__}-->/images/common/qq.gif" alt="QQ"></a>
+														<a href="http://wpa.qq.com/msgrd?V=1&Uin=<!--{$oGrouptopic->userprofile->userprofile_qq}-->&Site=<!--{$GLOBALS['_option_']['site_name']|urlencode}-->&Menu=yes" target="_blank" title="QQ"><img src="<!--{:__PUBLIC__}-->/images/common/qq.gif" alt="QQ"></a>&nbsp;
 														<!--{/if}-->
 														<!--{if $oGrouptopic->userprofile->userprofile_site}-->
 														<a href="<!--{$oGrouptopic->userprofile->userprofile_site}-->" target="_blank" title="查看个人网站"><img src="<!--{:__PUBLIC__}-->/images/common/grouplink.gif" alt="查看个人网站"></a>
-														<!--{/if}-->
+														<!--{/if}-->&nbsp;
 														<a href="<!--{:Dyhb::U('home://space@?id='.$oGrouptopic['user_id'])}-->" target="_blank" title="查看详细资料"><img src="<!--{:__PUBLIC__}-->/images/common/userinfo.gif" alt="查看详细资料"></a>
 													</div>
 												</div>
@@ -330,7 +339,7 @@ function insertGrouptopicmusic(sContent){
 												</a>
 												<div class="grouptopicview_info"> 
 													<div>
-														<strong><a href="<!--{:Dyhb::U('home://space@?id='.$oComment['user_id'])}-->" target="_blank"><!--{$oComment->user->user_name}--></a></strong>
+														<strong><a href="<!--{:Dyhb::U('home://space@?id='.$oComment['user_id'])}-->" target="_blank"><!--{$oComment->user->user_name}--></a></strong>&nbsp;
 														<em><img src="<!--{:Profile_Extend::getUserprofilegender($oComment->userprofile->userprofile_gender)}-->"/></em>
 													</div>
 													<div class="grouptopicview_tablebox">
@@ -362,10 +371,10 @@ function insertGrouptopicmusic(sContent){
 													</div>
 													<div class="imicn">
 														<!--{if $oComment->userprofile->userprofile_qq}-->
-														<a href="http://wpa.qq.com/msgrd?V=1&Uin=<!--{$oComment->userprofile->userprofile_qq}-->&Site=<!--{$GLOBALS['_option_']['site_name']|urlencode}-->&Menu=yes" target="_blank" title="QQ"><img src="<!--{:__PUBLIC__}-->/images/common/qq.gif" alt="QQ"></a>
+														<a href="http://wpa.qq.com/msgrd?V=1&Uin=<!--{$oComment->userprofile->userprofile_qq}-->&Site=<!--{$GLOBALS['_option_']['site_name']|urlencode}-->&Menu=yes" target="_blank" title="QQ"><img src="<!--{:__PUBLIC__}-->/images/common/qq.gif" alt="QQ"></a>&nbsp;
 														<!--{/if}-->
 														<!--{if $oComment->userprofile->userprofile_site}-->
-														<a href="<!--{$oComment->userprofile->userprofile_site}-->" target="_blank" title="查看个人网站"><img src="<!--{:__PUBLIC__}-->/images/common/grouplink.gif" alt="查看个人网站"></a>
+														<a href="<!--{$oComment->userprofile->userprofile_site}-->" target="_blank" title="查看个人网站"><img src="<!--{:__PUBLIC__}-->/images/common/grouplink.gif" alt="查看个人网站"></a>&nbsp;
 														<!--{/if}-->
 														<a href="<!--{:Dyhb::U('home://space@?id='.$oComment['user_id'])}-->" target="_blank" title="查看详细资料"><img src="<!--{:__PUBLIC__}-->/images/common/userinfo.gif" alt="查看详细资料"></a>
 													</div>
@@ -477,6 +486,15 @@ function insertGrouptopicmusic(sContent){
 						</table>
 					</div>
 				</div>
+			</div>
+			<!--{if ($GLOBALS['___login___']!==false && $GLOBALS['___login___']['user_id']==$oGrouptopic['user_id']) || Core_Extend+isAdmin()===true}-->
+			<div class="span12" style="margin-bottom:15px;">
+				<div>
+					<a href="<!--{:Dyhb::U('group://grouptopic/edit?tid='.$oGrouptopic['grouptopic_id'].'&uid='.$oGrouptopic['user_id'].'&gid='.$oGrouptopic['group_id'])}-->">编辑主题</a>
+				</div>
+			</div>
+			<!--{/if}-->
+			<div class="span12">
 				<div class="floor">
 					<table width="100%" class="floor_table floor_footerpostcontenttable">
 						<tr>

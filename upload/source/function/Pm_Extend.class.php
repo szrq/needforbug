@@ -24,6 +24,10 @@ class Pm_Extend{
 			return '';
 		}
 
+		if(!in_array($GLOBALS['___login___']['user_id'],array($oPm['pm_msgfromid'],$oPm['pm_msgtoid']))){
+			return '';
+		}
+
 		$sContent="<div class='reply-pm alert alert-success'>";
 
 		$sContent.="------------------ ".Dyhb::L('原始短消息','__COMMON_LANG__@Function/Pm_Extend')." ------------------\r\n";

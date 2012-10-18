@@ -7,6 +7,20 @@ $(function(){
 	editor=loadEditor('grouptopic_content');
 });
 
+<!--{if isset($oGrouptopic)}-->
+function grouptopicSubmit(){
+	$("#submit_button").attr("disabled", "disabled");
+	$("#submit_button").val( 'update...' );
+	$("#grouptopic_content").val(editor.html());
+	Dyhb.AjaxSubmit('grouptopic_form','<!--{:Dyhb::U('group://grouptopic/submit_edit')}-->','',function(data,status){
+		$("#submit_button").attr("disabled", false);
+		$("#submit_button").val( '编辑帖子' );
+		if(status==1){
+			window.location.href=data.url;
+		}
+	});
+}
+<!--{d*else}-->
 function grouptopicSubmit(){
 	$("#submit_button").attr("disabled", "disabled");
 	$("#submit_button").val( 'add...' );
@@ -20,6 +34,7 @@ function grouptopicSubmit(){
 		}
 	});
 }
+<!--{/if}-->
 
 function showMedia(){
 	$('#homefresh-media-box').toggle('fast');
@@ -41,13 +56,13 @@ function reloadCategory(){
 		<ul class="breadcrumb">
 			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
 			<li><a href="<!--{:Dyhb::U('group://public/index')}-->">群组</a>&nbsp;<span class="divider">/</span>&nbsp;</li>
-			<li>发布帖子</li>
+			<li><!--{if isset($oGrouptopic)}-->编辑帖子<!--{d*else}-->发布帖子<!--{/if}--></li>
 		</ul>
 
 		<div class="row">
 			<div class="span12">
 				<ul id="myTab" class="nav nav-tabs">
-					<li class="active"><a href="javascript:void(0);">发布帖子</a></li>
+					<li class="active"><a href="javascript:void(0);"><!--{if isset($oGrouptopic)}-->编辑帖子<!--{d*else}-->发布帖子<!--{/if}--></a></li>
 				</ul>
 			</div>
 			<form method='post' name="grouptopic_form" id="grouptopic_form" enctype="multipart/form-data">
@@ -62,7 +77,7 @@ function reloadCategory(){
 					</select>
 					<!--{/if}-->
 					<label>帖子标题</label>
-					<input type="text" name="grouptopic_title" id="grouptopic_title" class="span8" placeholder="请输入标题">
+					<input type="text" name="grouptopic_title" id="grouptopic_title" class="span8" placeholder="请输入标题" value="<!--{if isset($oGrouptopic)}--><!--{$oGrouptopic->grouptopic_title}--><!--{/if}-->">
 					<span></span>
 					<label>帖子内容&nbsp;(<a href="javascript:void(0);" onclick="showMedia();">媒体</a>)</label>
 					<div id="homefresh-media-box" class="homefresh-media-box none">
@@ -71,7 +86,7 @@ function reloadCategory(){
 						<a href="javascript:void(0);" onclick="addHomefreshvideo();" class="icon_add_video" >视频</a>
 						<a href="javascript:void(0);" onclick="addHomefreshmusic();" class="icon_add_music">音乐</a>
 					</div>
-					<textarea name="grouptopic_content" id="grouptopic_content" style="height:350px;width:100%;padding:0;margin:0;"></textarea>
+					<textarea name="grouptopic_content" id="grouptopic_content" style="height:350px;width:100%;padding:0;margin:0;"><!--{if isset($oGrouptopic)}--><!--{$oGrouptopic->grouptopic_content}--><!--{/if}--></textarea>
 					<div class="grouptopic_tabs">
 						<ul id="grouptopic_tabcontent" class="nav nav-tabs">
 							<li class="active"><a href="#grouptopiccategory" data-toggle="tab">帖子分类</a></li>
@@ -85,9 +100,9 @@ function reloadCategory(){
 									<tr>
 										<td class="grouptopictabs_title">帖子分类&nbsp;</td>
 										<td><select name="grouptopiccategory_id" id="grouptopiccategory_id">
-												<option value="0">默认未分类</option>
+												<option value="0" <!--{if !isset($oGrouptopic) || $oGrouptopic['grouptopiccategory_id']==0}-->selected<!--{/if}-->>默认未分类</option>
 												<!--<foreach for=arrGrouptopiccategorys value=oGrouptopiccategory>-->
-												<option value="<!--{$oGrouptopiccategory['grouptopiccategory_id']}-->"><!--{$oGrouptopiccategory['grouptopiccategory_name']}--></option>
+												<option value="<!--{$oGrouptopiccategory['grouptopiccategory_id']}-->" <!--{if isset($oGrouptopic) && $oGrouptopic['grouptopiccategory_id']==$oGrouptopiccategory['grouptopiccategory_id']}-->selected<!--{/if}-->><!--{$oGrouptopiccategory['grouptopiccategory_name']}--></option>
 												<!--</foreach>-->
 											</select>&nbsp;
 											<span class="grouptopictabs_description">不选择为默认未分类</span>
@@ -114,7 +129,7 @@ function reloadCategory(){
 								<table cellspacing="0" cellpadding="0">
 									<tr>
 										<td class="grouptopictabs_title">售价&nbsp;</td>
-										<td><input type="text" id="grouptopic_price" name="grouptopic_price" value=""/>&nbsp;金钱
+										<td><input type="text" id="grouptopic_price" name="grouptopic_price" value="<!--{if isset($oGrouptopic)}--><!--{$oGrouptopic->grouptopic_price}--><!--{/if}-->"/>&nbsp;金钱
 											<span class="grouptopictabs_description">(最高 30 )</span>
 										</td>
 									</tr>
@@ -146,35 +161,35 @@ function reloadCategory(){
 					<div id="grouptopic_more" class="grouptopic_more">
 						<h3 class="grouptopicmore_title">附加选项</h3>
 						<label class="checkbox">
-							<input type="checkbox" name="grouptopic_parseurloff" id="grouptopic_parseurloff" value="1">禁用链接识别
+							<input type="checkbox" name="grouptopic_parseurloff" id="grouptopic_parseurloff" value="1" <!--{if isset($oGrouptopic) && $oGrouptopic['grouptopic_parseurloff']==1}-->checked="checked"<!--{/if}-->>禁用链接识别
 						</label>
 						<label class="checkbox">
-							<input type="checkbox" name="grouptopic_smileoff" id="grouptopic_smileoff" value="1">禁用表情
+							<input type="checkbox" name="grouptopic_smileoff" id="grouptopic_smileoff" value="1" <!--{if isset($oGrouptopic) && $oGrouptopic['grouptopic_smileoff']==1}-->checked="checked"<!--{/if}-->>禁用表情
 						</label>
 						<label class="checkbox">
-							<input type="checkbox" name="grouptopic_usesig" id="grouptopic_usesig" value="1" checked="checked">使用个人签名
+							<input type="checkbox" name="grouptopic_usesig" id="grouptopic_usesig" value="1" <!--{if !isset($oGrouptopic) || $oGrouptopic['grouptopic_usesig']==1}-->checked="checked"<!--{/if}-->>使用个人签名
 						</label>
 						<label class="checkbox">
-							<input type="checkbox" name="grouptopic_isanonymous" id="grouptopic_isanonymous" value="1">使用匿名发帖
+							<input type="checkbox" name="grouptopic_isanonymous" id="grouptopic_isanonymous" value="1" <!--{if isset($oGrouptopic) && $oGrouptopic['grouptopic_isanonymous']==1}-->checked="checked"<!--{/if}-->>使用匿名发帖
 						</label>
 						<label class="checkbox">
-							<input type="checkbox" name="grouptopic_hiddenreplies" id="grouptopic_hiddenreplies" value="1">回帖仅作者可见
+							<input type="checkbox" name="grouptopic_hiddenreplies" id="grouptopic_hiddenreplies" value="1" <!--{if isset($oGrouptopic) && $oGrouptopic['grouptopic_hiddenreplies']==1}-->checked="checked"<!--{/if}-->>回帖仅作者可见
 						</label>
 						<label class="checkbox">
-							<input type="checkbox" name="grouptopic_ordertype" id="grouptopic_ordertype" value="1">回帖倒序排列
+							<input type="checkbox" name="grouptopic_ordertype" id="grouptopic_ordertype" value="1" <!--{if isset($oGrouptopic) && $oGrouptopic['grouptopic_ordertype']==1}-->checked="checked"<!--{/if}-->>回帖倒序排列
 						</label>
 						<label class="checkbox">
-							<input type="checkbox" name="grouptopic_allownoticeauthor" id="grouptopic_allownoticeauthor" value="1" checked="checked">接收回复通知
+							<input type="checkbox" name="grouptopic_allownoticeauthor" id="grouptopic_allownoticeauthor" value="1" <!--{if !isset($oGrouptopic) || $oGrouptopic['grouptopic_allownoticeauthor']==1}-->checked="checked"<!--{/if}-->>接收回复通知
 						</label>
 						<label class="checkbox">
-							<input type="checkbox" name="grouptopic_iscomment" id="grouptopic_iscomment" value="1" checked="checked">允许回复
+							<input type="checkbox" name="grouptopic_iscomment" id="grouptopic_iscomment" value="1" <!--{if !isset($oGrouptopic) || $oGrouptopic['grouptopic_iscomment']==1}-->checked="checked"<!--{/if}-->>允许回复
 						</label>
 						<hr/>
 						<label class="checkbox">
-							<input type="checkbox" name="grouptopic_sticktopic" id="grouptopic_sticktopic" value="1">主题置顶
+							<input type="checkbox" name="grouptopic_sticktopic" id="grouptopic_sticktopic" value="1" <!--{if isset($oGrouptopic) && $oGrouptopic['grouptopic_sticktopic']==1}-->checked="checked"<!--{/if}--> <!--{if Core_Extend+isAdmin()===false}-->readonly="readonly"<!--{/if}-->>主题置顶
 						</label>
 						<label class="checkbox">
-							<input type="checkbox" name="grouptopic_addtodigest" id="grouptopic_addtodigest" value="1">精华帖子
+							<input type="checkbox" name="grouptopic_addtodigest" id="grouptopic_addtodigest" value="1" <!--{if isset($oGrouptopic) && $oGrouptopic['grouptopic_addtodigest']==1}-->checked="checked"<!--{/if}--> <!--{if Core_Extend+isAdmin()===false}-->readonly="readonly"<!--{/if}-->>精华帖子
 						</label>
 					</div>
 				</div>
@@ -183,8 +198,11 @@ function reloadCategory(){
 						<!--{if !empty($nGroupid)}-->
 						<input type="hidden" name="group_id" id="group_id" value="<!--{$nGroupid}-->">
 						<!--{/if}-->
+						<!--{if isset($oGrouptopic)}-->
+						<input type="hidden" name="grouptopic_id" value="<!--{$oGrouptopic->grouptopic_id}-->">
+						<!--{/if}-->
 						<input type="hidden" name="ajax" value="1">
-						<button type="button" name="submit_button" id="submit_button" class="btn btn-success" onClick="grouptopicSubmit();">发表帖子</button>&nbsp;
+						<button type="button" name="submit_button" id="submit_button" class="btn btn-success" onClick="grouptopicSubmit();"><!--{if isset($oGrouptopic)}-->更新帖子<!--{d*else}-->发表帖子<!--{/if}--></button>&nbsp;
 						<a href="<!--{:Dyhb::U('group://public/index')}-->" class="btn"><!--<lang package='__COMMON_LANG__@Template/Common'>-->取消<!--</lang>--></a>
 					</div>
 				</div>

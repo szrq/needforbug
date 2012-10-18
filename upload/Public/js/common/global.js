@@ -183,7 +183,7 @@ function loadEditorThin(name){
 		allowMediaUpload:false,
 		allowFileManager:false,
 		items:['source','|','formatblock','fontname','fontsize','|','bold','forecolor','hilitecolor','italic','underline',
-		'removeformat','|','link','unlink','image','|','fullscreen'],
+		'removeformat','|','link','unlink','image','code','|','fullscreen'],
 		newlineTag:'<p>'
 	});
 
@@ -300,6 +300,14 @@ function addEditorContent(oEditor,sContent){
 		needforbugAlert('请先切换到所见所得模式','',3);
 	}else{
 		oEditor.insertHtml(sContent);
+	}
+}
+
+function replaceEditorContent(oEditor,sContent){
+	if(oEditor.designMode==false){
+		needforbugAlert('请先切换到所见所得模式','',3);
+	}else{
+		oEditor.html(sContent);
 	}
 }
 

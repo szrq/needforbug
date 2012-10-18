@@ -176,4 +176,18 @@ class GroupModel extends CommonModel{
 		return $oGroup->getAll();
 	}
 
+	public static function isGroupuser($nGroupid,$nUserid){
+		$oTrygroupuser=GroupuserModel::F('user_id=? AND group_id=?',$nUserid,$nGroupid)->getOne();
+		
+		if(empty($oTrygroupuser['user_id'])){
+			return 0;
+		}else{
+			if($oTrygroupuser['groupuser_isadmin']==1){
+				return 2;
+			}else{
+				return 1;
+			}
+		}
+	}
+
 }

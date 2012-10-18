@@ -59,15 +59,6 @@ class ViewController extends Controller{
 	public function totalComment($nUserid){
 		return $nGrouptopic=GrouptopiccommentModel::F('user_id=?',$nUserid)->getCounts();
 	}
-	public function totalFans($nUserid){
-		$oUserCount=UsercountModel::F('user_id=?',$nUserid)->getOne();
-		return $oUserCount->usercount_fans;
-	}
-
-	public function totalFriends($nUserid){
-		$oUserCount=UsercountModel::F('user_id=?',$nUserid)->getOne();
-		return $oUserCount->usercount_friends;
-	}
 
 	public function get_commentfloor($nIndex,$nEverynum){
 		$nPage=intval(G::getGpc('page','G'));

@@ -17,14 +17,20 @@ KindEditor.plugin('code', function(K) {
 			html = ['<div style="padding:10px 20px;">',
 				'<div class="ke-dialog-row">',
 				'<select class="ke-code-type">',
-				'<option value="java">Java</option>',
-				'<option value="php">PHP</option>',
+				'<option value="js">JavaScript</option>',
 				'<option value="html">HTML</option>',
 				'<option value="css">CSS</option>',
-				'<option value="js">JavaScript</option>',
+				'<option value="php">PHP</option>',
+				'<option value="pl">Perl</option>',
+				'<option value="py">Python</option>',
+				'<option value="rb">Ruby</option>',
+				'<option value="java">Java</option>',
+				'<option value="vb">ASP/VB</option>',
+				'<option value="cpp">C/C++</option>',
+				'<option value="cs">C#</option>',
 				'<option value="xml">XML</option>',
-				'<option value="shell">Shell</option>',
-				'<option value="sql">SQL</option>',
+				'<option value="bsh">Shell</option>',
+				'<option value="">Other</option>',
 				'</select>',
 				'</div>',
 				'<textarea class="ke-textarea" style="width:408px;height:260px;"></textarea>',
@@ -40,9 +46,7 @@ KindEditor.plugin('code', function(K) {
 						var type = K('.ke-code-type', dialog.div).val(),
 							code = textarea.val(),
 							cls = type === '' ? '' :  ' lang-' + type,
-							//html = '<pre class="prettyprint' + cls + '">\n' + K.escape(code) + '</pre> ';
-							// 将代码高亮替换为SyntaxHighlighter插件需要的类名
-							html = '<pre class="brush:' + type + ';">' + K.escape(code) + '</pre>';
+							html = '<pre class="prettyprint' + cls + '">\n' + K.escape(code) + '</pre> ';
 						self.insertHtml(html).hideDialog().focus();
 					}
 				}

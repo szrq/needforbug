@@ -5,6 +5,16 @@ function joinGroup(gid){
 	var sUrl="<!--{:Dyhb::U('group://group/joingroup')}-->";
 	Dyhb.AjaxSend(sUrl,'gid='+gid,'',function(data,status){
 		if(status==1){
+			$('#join_group').html('加入小组成功');
+		}
+	});
+}
+
+function leaveGroup(gid){
+	var sUrl="<!--{:Dyhb::U('group://group/leavegroup')}-->";
+	Dyhb.AjaxSend(sUrl,'gid='+gid,'',function(data,status){
+		if(status==1){
+			$('#leave_group').html('退出小组成功');
 		}
 	});
 }
@@ -12,6 +22,7 @@ function joinGroup(gid){
 
 		<ul class="breadcrumb">
 			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
+			<li><a href="<!--{:Dyhb::U('group://public/index')}-->" title="小组">小组</a>&nbsp;<span class="divider">/</span>&nbsp;</li>
 			<li><a href="<!--{:Dyhb::U('group://name@?id='.$oGroup->group_name)}-->"><!--{$oGroup:group_nikename}--></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
 			<li>查看小组</li>
 		</ul>
@@ -22,7 +33,13 @@ function joinGroup(gid){
 					<dt class="left"><a href=""><img src="<!--{:Group_Extend::getGroupIcon($oGroup['group_icon'])}-->" width="48" height="48" alt="" /></a>
 					</dt>
 					<dd style="padding-left:50px;">
-						<p class="name"><a href="<!--{:Dyhb::U('group://name@?id='.$oGroup['group_name'])}-->" id="groupName"><!--{$oGroup['group_nikename']}--></a>&nbsp;群组&nbsp;<a id="join_group" name="join_group" href="javascript:void(0);" onclick="joinGroup(<!--{$oGroup['group_id']}-->);">+申请加入</a></p>
+						<p class="name"><a href="<!--{:Dyhb::U('group://name@?id='.$oGroup['group_name'])}-->" id="groupName"><!--{$oGroup['group_nikename']}--></a>&nbsp;群组&nbsp;
+							<!--{if $nGroupuser==0}-->
+							<span id="join_group"><a href="javascript:void(0);" onclick="joinGroup(<!--{$oGroup['group_id']}-->);">+加入小组</a></span>
+							<!--{elseif $nGroupuser==1}-->
+							<span id="leave_group"><a href="javascript:void(0);" onclick="leaveGroup(<!--{$oGroup['group_id']}-->);">退出小组</a></span>
+							<!--{/if}-->
+						</p>
 						<p>共有 <span class="label label-success"><!--{$oGroup['group_usernum']}--></span>人关注了此小组
 					</dd>
 				</dl>
@@ -69,7 +86,7 @@ function joinGroup(gid){
 						<thead>
 							<tr style="border-bottom:1px solid #eeeeee;">
 								<th style="width:61px;">发帖人</th>
-								<th><a href="<!--{:Dyhb::U('group://group/show?id='.$oGroup->group_name.'&cid='.$nCid.'&did=1')}-->">精华</a></th>
+								<th><a href="<!--{:Dyhb::U('group://group/show?id='.$oGroup->group_name.'&cid='.$nCid.'&did=1')}-->" style="<!--{if G+getGpc('did')=='1'}-->color:gray;<!--{/if}-->">精华</a></th>
 								<th style="text-align:center;width:130px;">
 									<a href="<!--{:Dyhb::U('group://group/show?id='.$oGroup->group_name.'&cid='.$nCid)}-->" style="<!--{if $sType=='create_dateline'}-->color:gray;<!--{/if}-->">最新</a>
 									<span class="pipe">|</span>
@@ -90,9 +107,9 @@ function joinGroup(gid){
 								<td class="subject">
 									<p class="title">
 										<!--{if $oGrouptopic->grouptopiccategory_id>0}-->
-										<a href="#">[<!--{$oGrouptopic->grouptopiccategory->grouptopiccategory_name}-->]</a>
+										<a href="<!--{:Dyhb::U('group://group/show?id='.$oGroup->group_name.'&cid='.$oGrouptopic->grouptopiccategory_id)}-->">[<!--{$oGrouptopic->grouptopiccategory->grouptopiccategory_name}-->]</a>
 										<!--{d*else}-->
-										<a href="#">[默认分类]</a>
+										<a href="javascript:void(0);">[默认分类]</a>
 										<!--{/if}-->
 										<a href="<!--{:Dyhb::U('group://topic@?id='.$oGrouptopic->grouptopic_id)}-->" title="<!--{$oGrouptopic->grouptopic_title}-->"><!--{$oGrouptopic->grouptopic_title|G+subString=0,50}--></a>
 									</p>
