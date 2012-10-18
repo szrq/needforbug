@@ -1,2 +1,0 @@
-<?php  /* DoYouHaoBaby Framework 模板缓存文件生成时间：2012-10-17 08:18:48  */ ?>
-<footer id="footer" class="footer"><article class="module width_full"><div class="module_content"><p>Copyright&nbsp;&copy;&nbsp;<?php echo($GLOBALS['_option_']['needforbug_program_year']);?>&nbsp;<a target="_blank" href="<?php echo($GLOBALS['_option_']['needforbug_program_url']);?>"><?php echo($GLOBALS['_option_']['needforbug_program_name']);?></a></p></div></article></footer><div class="spacer"></div></section></body></html>
