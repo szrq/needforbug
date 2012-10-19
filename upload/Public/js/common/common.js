@@ -1,6 +1,9 @@
 /* [NeedForBug!] (C)Dianniu From 2010.
    Needforbug 前台公用($)*/
 
+/** 浏览器复制变量 */
+var clipboardswfdata;
+
 function addFavorite(url,title){
 	try{
 		window.external.addFavorite(url,title);
@@ -236,6 +239,16 @@ function goTop(acceleration,time){
 }
 
 /** 复制数据到剪切板 */
+function getClipboardData() {
+	window.document.clipboardswf.SetVariable('str', clipboardswfdata);
+}
+
+var oCopyToClipboard='';
+
+function hideMenu(attr,mtype){
+	oCopyToClipboard.close();
+}
+
 function copyText(id,title){
 	if(document.getElementById(id)){
 		var tocopy=document.getElementById(id).innerHTML;
@@ -253,24 +266,14 @@ function copy(text2copy,title){
 	if(window.clipboardData){
 		copyToClipboard(text2copy,title);
 	}else{
-		var flashcopier='flashcopier';
-
-		if(!document.getElementById(flashcopier)){
-			var divholder=document.createElement('div');
-			divholder.id=flashcopier;
-			document.body.appendChild(divholder);
-		}
-
-		document.getElementById(flashcopier).innerHTML='';
-		
 		var divinfo=AC_FL_RunContent('id','clipboardswf','name','clipboardswf','devicefont','false','width','200','height','40','src',_ROOT_+'/Public/images/common/clipboard.swf','menu','false','allowScriptAccess','sameDomain','swLiveConnect','true','wmode','transparent','style','margin-top:-20px');
 
-		document.getElementById(flashcopier).innerHTML=divinfo;
+		divinfo='<div><div style="width: 200px; text-align: center; text-decoration:underline;">点此复制到剪贴板</div>'+divinfo+'</div>';
 
 		text2copy=text2copy.replace(/[\xA0]/g,' ');
-		CLIPBOARDSWFDATA=text2copy;
+		clipboardswfdata=text2copy;
 
-		needforbugAlert(title,'',9);
+		oCopyToClipboard=needforbugAlert(divinfo,title,9);
 	}
 }
 
