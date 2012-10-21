@@ -239,8 +239,8 @@ function goTop(acceleration,time){
 }
 
 /** 复制数据到剪切板 */
-function getClipboardData() {
-	window.document.clipboardswf.SetVariable('str', clipboardswfdata);
+function getClipboardData(){
+	window.document.clipboardswf.SetVariable('str',clipboardswfdata);
 }
 
 var oCopyToClipboard='';
