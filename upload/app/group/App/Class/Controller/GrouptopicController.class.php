@@ -117,6 +117,7 @@ class GrouptopicController extends InitController{
 
 		$arrLatestData=array('commenttime'=>$oGrouptopiccomment->create_dateline,'commentid'=>$oGrouptopiccomment->grouptopiccomment_id,'tid'=>$oGrouptopic->grouptopic_id,'commentuserid'=>$GLOBALS['___login___']['user_id']);
 		$oGrouptopic->grouptopic_latestcomment=serialize($arrLatestData);
+		$oGrouptopic->setAutoFill(false);
 		$oGrouptopic->save(0,'update');
 		if($oGrouptopic->isError()){
 			$this->E($oGrouptopic->getErrorMessage());
