@@ -32,7 +32,26 @@ function changeRatinggroup(oObj,id){
 				<ul>
 					<li><!--<lang package='Template/Default/Rating'>-->级别代表了一个用户在社区中熟悉程度，它代表着用户的荣誉<!--</lang>--></li>
 				</ul>
+				<form action="<!--{:Dyhb::U('rating/update_option')}-->" method="post" id="ratingOption">
 			</div>
+			<div class="module_content">
+					<fieldset>
+						<label for="rating_icontype"><!--<lang package='Template/Default/Rating'>-->等级图标样式<!--</lang>--></label>
+						<select name="options[rating_icontype]" id="rating_icontype">
+							<!--<foreach for=arrRatingtype value=sRatingtype>-->
+							<option value="<!--{$sRatingtype}-->" <!--{if $sRatingtype==$arrOptions['rating_icontype']}-->selected<!--{/if}-->><!--{$sRatingtype}--></option>
+							<!--</foreach>-->
+						</select>
+						<div class="description"><!--<lang package='Template/Default/Rating'>-->系统目前支持的图标样式，如果要添加新的样式，请将设计好的图标放置在Public/images/rating中即可<!--</lang>--></div>
+					</fieldset>
+				</div>
+				<footer>
+					<div class="submit_link">
+						<input type="submit" id="submit_button"  value="<!--<lang package='Template/Default/Common'>-->发布<!--</lang>-->" class="alt_btn">
+						&nbsp;<input type="reset" value="<!--<lang package='Template/Default/Common'>-->重置<!--</lang>-->">
+					</div>
+				</footer>
+			</form>
 		</article>
 
 		<article class="module width_full">
@@ -67,6 +86,7 @@ function changeRatinggroup(oObj,id){
 							<th><input type="checkbox" onclick="checkAll('checkList')"></th> 
 							<th><a href="javascript:sortBy('rating_id','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('rating_id')}-->><!--<lang package='Template/Default/Common'>-->编号<!--</lang>--></a></th> 
 							<th><a href="javascript:sortBy('rating_name','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('rating_name')}-->><!--<lang package='Template/Default/Rating'>-->角色名<!--</lang>--></a></th>
+							<th><a href="javascript:sortBy('rating_icon','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('rating_icon')}-->><!--<lang package='Template/Default/Rating'>-->角色图标<!--</lang>--></a></th>
 							<th><a href="javascript:sortBy('rating_nikename','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('rating_nikename')}-->><!--<lang package='Template/Default/Rating'>-->角色昵称<!--</lang>--></a></th>
 							<th><a href="javascript:sortBy('ratinggroup_id','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('ratinggroup_id')}-->><!--<lang package='Template/Default/Rating'>-->角色分组<!--</lang>--></a></th>
 							<th><a href="javascript:sortBy('ratinggroup_id','<!--{$sSortByUrl}-->')" <!--{:Admin_Extend::sortField('ratinggroup_id')}-->><!--<lang package='Template/Default/Rating'>-->开始积分<!--</lang>--></a></th>
@@ -85,6 +105,7 @@ function changeRatinggroup(oObj,id){
 									<span class='delete'><a href="javascript:foreverdel('<!--{$value:rating_id}-->');"><!--<lang package='Template/Default/Common'>-->删除<!--</lang>--></a></span>
 								</div>
 							</td>
+							<td><img src="<!--{:__PUBLIC__}-->/images/rating/<!--{$GLOBALS['_option_']['rating_icontype']}-->/<!--{$value:rating_icon}-->"/></td>
 							<td><!--{if $value->rating_nikename}--><!--{$value:rating_nikename}--><!--{d*else}--><!--<lang package='Template/Default/Rating'>-->未设定<!--</lang>--><!--{/if}--></td>
 							<td><!--<if condition="!empty( $value:ratinggroup:ratinggroup_name )">--><a href="<!--{:Dyhb::U('rating/index?ratinggroup_id='.$value->ratinggroup_id.'&sort_=asc')}-->"><!--{$value:ratinggroup:ratinggroup_title}-->-<!--{$value:ratinggroup:ratinggroup_name}--></a><!--<else/>--><!--<lang package='Template/Default/Rating'>-->未分组<!--</lang>--><!--</if>--></td>
 							<td class="pointer" title="<!--<lang package='Template/Default/Common'>-->点击修改数据<!--</lang>-->" id="rating_creditstart_<!--{$value:rating_id}-->" onClick="clickToInput('rating_creditstart','<!--{$value:rating_id}-->')"><!--{$value:rating_creditstart}--></td>

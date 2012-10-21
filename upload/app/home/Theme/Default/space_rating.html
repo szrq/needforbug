@@ -32,7 +32,7 @@
 							<!--<foreach for=arrRatings value=arrRating>-->
 							<tr <!--{if $arrRatinginfo['rating_name']==$arrRating['rating_name']}-->class="current_rating"<!--{/if}-->>
 								<td><!--{$arrRating['rating_id']}--></td>
-								<td><img src="<!--{$arrRating['rating_icon']}-->"/>&nbsp;<!--{$arrRating['rating_name']}--><!--{if $arrRating['rating_nikename']}-->&nbsp;(<!--{$arrRating['rating_nikename']}-->)<!--{/if}--></td>
+								<td><!--{$arrRating['rating_name']}-->&nbsp;<img src="<!--{$arrRating['rating_icon']}-->"/>&nbsp;<!--{if $arrRating['rating_nikename']}-->&nbsp;(<!--{$arrRating['rating_nikename']}-->)<!--{/if}--></td>
 								<td><span class="badge"><!--{$arrRating['rating_creditstart']}--></span> - <span class="badge badge-success"><!--{$arrRating['rating_creditend']}--></span></td>
 							</tr>
 						</tbody>

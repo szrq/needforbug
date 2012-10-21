@@ -56,7 +56,7 @@ function complete(data,status){
 				<div class="module_content">
 					<fieldset>
 						<label for="rating_name"><!--<lang package='Template/Default/Rating'>-->级别名<!--</lang>--></label>
-						<input type="text" name="rating_name" id="rating_name" size="40" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:rating_name}--><!--</if>-->"/>
+						<input type="text" name="rating_name" id="rating_name" size="40" <!--<if condition="isset( $oValue )">-->value="<!--{$oValue:rating_name}-->" readonly="readonly"<!--</if>-->/>
 						<div class="description"><!--<lang package='Template/Default/Rating'>-->级别的名字，如列兵<!--</lang>--></div>
 					</fieldset>
 					<fieldset>

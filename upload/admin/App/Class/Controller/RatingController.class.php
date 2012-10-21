@@ -17,12 +17,23 @@ class RatingController extends InitController{
 
 	public function bIndex_(){
 		$sSort=trim(G::getGpc('sort_','G'));
-
 		$this->getRatinggroup();
+
+		$arrOptionData=$GLOBALS['_option_'];
+		$this->assign('arrOptions',$arrOptionData);
+
+		$arrRatingtype=G::listDir(NEEDFORBUG_PATH.'/Public/images/rating');
+		$this->assign('arrRatingtype',$arrRatingtype);
 		
 		if(!$sSort){
 			$this->U('rating/index?sort_=asc');
 		}
+	}
+
+	public function update_option(){
+		$oOptionController=new OptionController();
+
+		$oOptionController->update_option();
 	}
 	
 	public function bEdit_(){

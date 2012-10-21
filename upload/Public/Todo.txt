@@ -11,3 +11,6 @@
 加入了新的字段
 grouptopic_hiddenreplies
 group_topiccomment
+grouptopic_updateusername
+
+等级图标有修改
