@@ -57,6 +57,7 @@ class GrouptopicController extends InitController{
 		if(empty($oGrouptopic->group_id)){
 			$this->E('主题编辑失败');
 		}
+		$oGrouptopic->grouptopic_updateusername=$GLOBALS['___login___']['user_name'];
 		$oGrouptopic->save(0,'update');
 		if($oGrouptopic->isError()){
 			$this->E($oGrouptopic->getErrorMessage());
