@@ -7,6 +7,7 @@
 			<li>查看帖子</li>
 		</ul>
 
+<script src="<!--{:__APPPUB__}-->/Js/moderator.js"></script>
 <script src="<!--{:__PUBLIC__}-->/js/jquery/autoresize/jquery.autoresize.js"></script>
 <script src="<!--{:__PUBLIC__}-->/js/avatartips/CJL.0.1.min.js"></script>
 <script src="<!--{:__PUBLIC__}-->/js/avatartips/RelativePosition.js"></script>
@@ -68,24 +69,6 @@ function addGrouptopiccommentquick(){
 	});
 }
 
-function addFriend(userid){
-	Dyhb.AjaxSend('<!--{:Dyhb::U('home://friend/add')}-->','ajax=1&uid='+userid,'',function(data,status){
-		if(status==1){
-			window.location.reload();
-		}
-	});
-}
-
-function deleteFriend(friendid,fan){
-	needforbugConfirm(D.L('确实要永久删除选择项吗？','__COMMON_LANG__@Admin/Common_Js'),function(){
-		Dyhb.AjaxSend(D.U('home://friend/delete?friendid='+friendid+(fan=='1'?'&fan=1':'')),'','',function(data,status){
-			if(status==1){
-				window.location.reload();
-			}
-		});
-	});
-}
-
 function addGrouptopiccomment(){
 	sGrouptopiccommentmessage=$.trim(editor.html());
 	$('#grouptopiccomment_message').val(sGrouptopiccommentmessage);
@@ -116,6 +99,8 @@ function insertGrouptopicvideo(sContent){
 function insertGrouptopicmusic(sContent){
 	insertMusic(editor,sContent);
 }
+
+var nGroupid=parseInt('<!--{$oGrouptopic['group_id']}-->'),nGrouptopicid=parseInt('<!--{$oGrouptopic['grouptopic_id']}-->');
 <!--{/script}-->
 
 		<div class="row">
@@ -123,6 +108,8 @@ function insertGrouptopicmusic(sContent){
 			<div class="span12" style="margin-bottom:15px;">
 				<div>
 					<a href="<!--{:Dyhb::U('group://grouptopic/edit?tid='.$oGrouptopic['grouptopic_id'].'&uid='.$oGrouptopic['user_id'].'&gid='.$oGrouptopic['group_id'])}-->">编辑主题</a>
+					<span class="pipe">|</span>
+					<a onclick="modTopics(3,'delete');" href="javascript:void(0);">删除主题</a>
 				</div>
 			</div>
 			<!--{/if}-->
@@ -213,7 +200,7 @@ function insertGrouptopicmusic(sContent){
 															</p>主题
 														</th>
 														<th><p>
-																<a href="<!--{:Dyhb::U('home://space@?id='.$oGrouptopic->user_id.'&type=friend&fan=1')}-->"><!--{$oGrouptopic->usercount->usercount_extendcredit1}--></a>
+																<a href="<!--{:Dyhb::U('home://space@?id='.$oGrouptopic->user_id.'&type=friend&fan=1')}-->"><!--{$oGrouptopic->usercount->usercount_fans}--></a>
 															</p>听众
 														</th>
 														<td><p>
@@ -393,7 +380,7 @@ function insertGrouptopicmusic(sContent){
 														</th>
 														<th>
 															<p>
-																<a href="<!--{:Dyhb::U('home://space@?id='.$oComment->user_id.'&type=friend&fan=1')}-->"><!--{$oComment->usercount->usercount_extendcredit1}--></a>
+																<a href="<!--{:Dyhb::U('home://space@?id='.$oComment->user_id.'&type=friend&fan=1')}-->"><!--{$oComment->usercount->usercount_fans}--></a>
 															</p>听众
 														</th>
 														<td>
@@ -496,6 +483,13 @@ function insertGrouptopicmusic(sContent){
 				</div>
 			</div>
 			<!--{/if}-->
+
+			<form method="post" autocomplete="off" name="modActions" id="modActions">
+				<input type="hidden" name="optgroup"/>
+				<input type="hidden" name="operation"/>
+				<input type="hidden" name="page" value="<!--{$nPage}-->"/>
+			</form>
+
 			<div class="span12">
 				<div class="floor">
 					<table width="100%" class="floor_table floor_footerpostcontenttable">

@@ -1,5 +1,5 @@
 /* [NeedForBug!] (C)Dianniu From 2010.
-   Home应用基础Javascript($)*/
+   Group应用基础Javascript($)*/
 
 /** 登录回调 */
 function login_handle(data,status){
