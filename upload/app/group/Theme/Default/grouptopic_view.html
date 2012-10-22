@@ -109,7 +109,7 @@ var nGroupid=parseInt('<!--{$oGrouptopic['group_id']}-->'),nGrouptopicid=parseIn
 				<div>
 					<a href="<!--{:Dyhb::U('group://grouptopic/edit?tid='.$oGrouptopic['grouptopic_id'].'&uid='.$oGrouptopic['user_id'].'&gid='.$oGrouptopic['group_id'])}-->">编辑主题</a>
 					<span class="pipe">|</span>
-					<a onclick="modTopics(3,'delete');" href="javascript:void(0);">删除主题</a>
+					<a onclick="modTopicdelete();" href="javascript:void(0);">删除主题</a>
 				</div>
 			</div>
 			<!--{/if}-->
@@ -483,13 +483,6 @@ var nGroupid=parseInt('<!--{$oGrouptopic['group_id']}-->'),nGrouptopicid=parseIn
 				</div>
 			</div>
 			<!--{/if}-->
-
-			<form method="post" autocomplete="off" name="modActions" id="modActions">
-				<input type="hidden" name="optgroup"/>
-				<input type="hidden" name="operation"/>
-				<input type="hidden" name="page" value="<!--{$nPage}-->"/>
-			</form>
-
 			<div class="span12">
 				<div class="floor">
 					<table width="100%" class="floor_table floor_footerpostcontenttable">
