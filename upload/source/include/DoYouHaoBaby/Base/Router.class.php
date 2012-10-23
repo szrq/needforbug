@@ -190,8 +190,9 @@ class Router{
 		if($sRegx[0]=='app'){
 			array_shift($sRegx);
 			$_GET['app']=array_shift($sRegx);
-			$sRegx=implode($sDepr,$sRegx);
 		}
+		$sRegx=implode($sDepr,$sRegx);
+
 		$sRegx=ltrim($sRegx,strtolower(rtrim($sRouteName,'@')));
 
 		$sTheRegex=array_shift($arrRule);
