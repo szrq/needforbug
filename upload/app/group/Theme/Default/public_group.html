@@ -74,13 +74,20 @@
 									<td width="40" valign="middle" align="center" class="grouplist_borderbottom">
 										<span class="cau"><!--{$oGroup:group_usernum}--></span>
 									</td>
-									<!--{~$arrLatestComment=$TheController->unserialize($oGroup->group_latestcomment)}-->
 									<td width="168" align="right" class="grouplist_borderbottom">
 										<table width="100%" align="right">
 											<tr>
 												<td width="2%" align="right">&nbsp;</td>
-												<td class="indexsummaryalgin"><!--{if !empty($oGroup->group_topiccomment)}--><a title="Re:<!--{$arrLatestComment['commenttitle']}-->" href="<!--{:Dyhb::U('group://grouptopic/view?id='.$arrLatestComment['tid'])}-->">Re:<!--{$arrLatestComment['commenttitle']|G+subString=0,25}--></a><br /><!--{$arrLatestComment['commenttime']|Core_Extend+timeFormat}-->&nbsp;最后回复:<a href="<!--{:Dyhb::U('home://space@?id='.$arrLatestComment['commentuserid'])}-->"><!--{$arrLatestComment['commentuserid']|UserModel+getUsernameById}--></a>&nbsp;
-												<!--{/if}--></td>
+												<td class="indexsummaryalgin">
+												<!--{if !empty($oGroup->group_latestcomment)}-->
+												<!--{~$arrLatestComment=$TheController->unserialize($oGroup->group_latestcomment)}-->
+												<!--{if isset($arrLatestComment['commenttitle'])}-->
+												<a title="Re:<!--{$arrLatestComment['commenttitle']}-->" href="<!--{:Dyhb::U('group://grouptopic/view?id='.$arrLatestComment['tid'])}-->">Re:<!--{$arrLatestComment['commenttitle']|G+subString=0,25}--></a><br /><!--{$arrLatestComment['commenttime']|Core_Extend+timeFormat}-->&nbsp;最后回复:<a href="<!--{:Dyhb::U('home://space@?id='.$arrLatestComment['commentuserid'])}-->"><!--{$arrLatestComment['commentuserid']|UserModel+getUsernameById}--></a>
+												<!--{d*else}-->
+												<a title="<!--{$arrLatestComment['topictitle']}-->" href="<!--{:Dyhb::U('group://grouptopic/view?id='.$arrLatestComment['topicid'])}-->"><!--{$arrLatestComment['topictitle']|G+subString=0,25}--></a><br /><!--{$arrLatestComment['topictime']|Core_Extend+timeFormat}-->&nbsp;最后回复:<a href="<!--{:Dyhb::U('home://space@?id='.$arrLatestComment['topicuserid'])}-->"><!--{$arrLatestComment['topicuserid']|UserModel+getUsernameById}--></a>
+												<!--{/if}-->
+												<!--{/if}-->
+												</td>
 											</tr>
 										</table>
 									</td>

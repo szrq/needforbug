@@ -90,9 +90,9 @@ function leaveGroup(gid){
 								<th style="text-align:center;width:130px;">
 									<a href="<!--{:Dyhb::U('group://group/show?id='.$oGroup->group_name.'&cid='.$nCid)}-->" style="<!--{if $sType=='create_dateline'}-->color:gray;<!--{/if}-->">最新</a>
 									<span class="pipe">|</span>
-									<a href="<!--{:Dyhb::U('group://group/show?id='.$oGroup->group_name.'&cid='.$nCid.'&type='.view)}-->" style="<!--{if $sType=='grouptopic_views'}-->color:gray;<!--{/if}-->">浏览</a>
+									<a href="<!--{:Dyhb::U('group://group/show?id='.$oGroup->group_name.'&cid='.$nCid.'&type=view')}-->" style="<!--{if $sType=='grouptopic_views'}-->color:gray;<!--{/if}-->">浏览</a>
 									<span class="pipe">|</span>
-									<a href="<!--{:Dyhb::U('group://group/show?id='.$oGroup->group_name.'&cid='.$nCid.'&type='.com)}-->" style="<!--{if $sType=='grouptopic_comments'}-->color:gray;<!--{/if}-->">回复</a>
+									<a href="<!--{:Dyhb::U('group://group/show?id='.$oGroup->group_name.'&cid='.$nCid.'&type=com')}-->" style="<!--{if $sType=='grouptopic_comments'}-->color:gray;<!--{/if}-->">回复</a>
 								</th>
 							</tr>
 						</thead>
@@ -114,12 +114,12 @@ function leaveGroup(gid){
 										<a href="<!--{:Dyhb::U('group://topic@?id='.$oGrouptopic->grouptopic_id)}-->" title="<!--{$oGrouptopic->grouptopic_title}-->"><!--{$oGrouptopic->grouptopic_title|G+subString=0,50}--></a>
 									</p>
 									<p class="info">
-										楼主&nbsp;<a href="<!--{:Dyhb::U('home://space@?id='.$oGrouptopic->user_id)}-->"><!--{$oGrouptopic->grouptopic_username}--></a>
+										楼主&nbsp;<a href="<!--{:Dyhb::U('home://space@?id='.$oGrouptopic->user_id)}-->" class="bind_hover_card" bm_user_id="<!--{$oGrouptopic->user_id}-->"><!--{$oGrouptopic->grouptopic_username}--></a>&nbsp;
 										<span><!--{$oGrouptopic->create_dateline|Core_Extend+timeFormat}--></span>
 										<span class="pipe">|</span>
 										<!--{if $oGrouptopic->grouptopic_comments>0}-->
 										<!--{~$arrLatestComment=$TheController->unserialize($oGrouptopic->grouptopic_latestcomment)}-->
-										最后回复&nbsp;<a href="#"><!--{$arrLatestComment['commentuserid']|UserModel+getUsernameById}--></a>
+										最后回复&nbsp;<a href="<!--{:Dyhb::U('home://space@?id='.$arrLatestComment['commentuserid'])}-->" class="bind_hover_card" bm_user_id="<!--{$arrLatestComment['commentuserid']}-->"><!--{$arrLatestComment['commentuserid']|UserModel+getUsernameById}--></a>&nbsp;
 										<span><!--{$arrLatestComment['commenttime']|Core_Extend+timeFormat}--></span>
 										<!--{d*else}-->
 										<span>暂无回复</span>

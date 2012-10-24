@@ -19,11 +19,18 @@ class AddtopicController extends Controller{
 		$oGroup=GroupModel::F('group_id=?',$oGrouptopic->group_id)->getOne();
 		$oGroup->group_topicnum=$nTopicnum;
 		$oGroup->group_topiccomment=$nCommnum;
+
+		$arrLatestData=array('topictime'=>$oGrouptopic->create_dateline,'topicid'=>$oGrouptopic->grouptopic_id,'topicuserid'=>$GLOBALS['___login___']['user_id']);
+		
+		$arrLatestData['topictitle']=$oGrouptopic['grouptopic_title'];
+		$oGroup->group_latestcomment=serialize($arrLatestData);
+
 		$oGroup->save(0,'update');
 
 		if($oGroup->isError()){
 			$this->E($oGroup->getErrorMessage());
 		}
+
 
 		$sUrl=Dyhb::U('group://grouptopic/view?id='.$oGrouptopic['grouptopic_id']);
 

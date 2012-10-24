@@ -22,9 +22,6 @@ class AvatarController extends Controller{
 		}
 
 		$oUserprofile=UserprofileModel::F('user_id=?',$nUserid)->getOne();
-		if(empty($oUserprofile['user_id'])){
-			return '';
-		}
 
 		// 取得性别图标
 		$sUsergender=Profile_Extend::getUserprofilegender($oUserprofile['userprofile_gender']);

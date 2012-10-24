@@ -555,3 +555,22 @@ function addMessageok(){
 	});
 	return false;
 }
+
+/** 添加和删除好友 */
+function addFriend(userid){
+	Dyhb.AjaxSend(D.U('home://friend/add'),'ajax=1&uid='+userid,'',function(data,status){
+		if(status==1){
+			window.location.reload();
+		}
+	});
+}
+
+function deleteFriend(friendid,fan){
+	needforbugConfirm(D.L('确实要永久删除选择项吗？','__COMMON_LANG__@Admin/Common_Js'),function(){
+		Dyhb.AjaxSend(D.U('home://friend/delete?friendid='+friendid+(fan=='1'?'&fan=1':'')),'','',function(data,status){
+			if(status==1){
+				window.location.reload();
+			}
+		});
+	});
+}
