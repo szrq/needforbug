@@ -32,7 +32,7 @@ function unrecommendAttachment(id){
 					<div class="carousel-inner">
 						<!--<foreach for=arrRecommendAttachments value=oRecommendAttachment>-->
 						<div class="item <!--{if $key==0}-->active<!--{/if}-->" style="350px">
-							<img src="<!--{:Core_Extend::getAttachmentPreview($oRecommendAttachment)}-->" alt="<!--{if $oRecommendAttachment['attachment_alt']}--><!--{d*else}--><!--{$oRecommendAttachment['attachment_name']}--><!--{/if}-->" height="300px" width="100%">
+							<img src="<!--{:Attachment_Extend::getAttachmentPreview($oRecommendAttachment)}-->" alt="<!--{if $oRecommendAttachment['attachment_alt']}--><!--{d*else}--><!--{$oRecommendAttachment['attachment_name']}--><!--{/if}-->" height="300px" width="100%">
 							<div class="carousel-caption">
 								<h4><a href="<!--{:Dyhb::U('home://file@?id='.$oRecommendAttachment['attachment_id'])}-->" target="_blank"><!--{$oRecommendAttachment['attachment_name']}--></a></h4>
 								<!--{if $oRecommendAttachment['attachment_description']}-->
@@ -49,12 +49,12 @@ function unrecommendAttachment(id){
 				<!--{/if}-->
 				<div><ul class="thumbnails">
 						<!--<foreach for=arrAttachments value=oAttachment>-->
-						<!--{~$arrAttachmentSize=$TheController->get_image_size($oAttachment)}-->
+						<!--{~$arrAttachmentSize=Attachment_Extend::getImagesize($oAttachment)}-->
 						<li class="span4">
 							<div class="thumbnail">
 								<div class="img attachmentindex_thumb">
 									<a href="<!--{:Dyhb::U('home://file@?id='.$oAttachment['attachment_id'])}-->">
-										<img src="<!--{:Core_Extend::getAttachmentPreview($oAttachment)}-->" alt="<!--{$oAttachment['attachment_alt']}-->" <!--{if $arrAttachmentSize && $arrAttachmentSize[1]>=200}-->height="200px"<!--{/if}-->>
+										<img src="<!--{:Attachment_Extend::getAttachmentPreview($oAttachment)}-->" alt="<!--{$oAttachment['attachment_alt']}-->" <!--{if $arrAttachmentSize && $arrAttachmentSize[1]>=200}-->height="200px"<!--{/if}-->>
 									</a>
 								</div>
 								<div class="caption">

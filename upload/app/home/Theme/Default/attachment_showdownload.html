@@ -7,7 +7,7 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td><a href="<!--{$TheController->get_attachmentdownload_url($oAttachment)}-->"><!--{$oAttachment['attachment_name']}--></a>&nbsp;(<!--{$oAttachment:attachment_size|G+changeFileSize}-->)</td>
+							<td><a href="<!--{:Attachment_Extend::getAttachmentdownloadurl($oAttachment)}-->"><!--{$oAttachment['attachment_name']}--></a>&nbsp;(<!--{$oAttachment:attachment_size|G+changeFileSize}-->)</td>
 						</tr>
 					</tbody>
 				</table>

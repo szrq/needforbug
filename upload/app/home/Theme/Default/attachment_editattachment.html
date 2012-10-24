@@ -1,8 +1,8 @@
-					<!--{~$arrAttachmentSize=$TheController->get_image_size($oAttachment)}-->
+					<!--{~$arrAttachmentSize=Attachment_Extend::getImagesize($oAttachment)}-->
 					<table class="table">
 						<thead>
 							<tr valign="top">
-								<td width="200px"><p><a href="#" target="_blank"><img class="thumbnail" src="<!--{:Core_Extend::getAttachmentPreview($oAttachment)}-->" alt="" width="46" height="60"></a>
+								<td width="200px"><p><a href="#" target="_blank"><img class="thumbnail" src="<!--{:Attachment_Extend::getAttachmentPreview($oAttachment)}-->" alt="<!--{$oAttachment['attachment_name']}-->" width="46" height="60"></a>
 									</p>
 								</td>
 								<td><p><strong>文件名：</strong> <!--{$oAttachment['attachment_name']}--></p>
@@ -29,7 +29,7 @@
 							</tr>
 							<tr>
 								<td>文件地址</td>
-								<td><input class="span5" value="<!--{$TheController->get_attachment_url($oAttachment)}-->" type="text" disabled="disabled"></td>
+								<td><input class="span5" value="<!--{:Attachment_Extend::getAttachmenturl($oAttachment)}-->" type="text" disabled="disabled"></td>
 							</tr>
 						</tbody>
 					</table>

@@ -15,7 +15,7 @@
 				<!--{if is_array($arrAttachmentcategorys)}-->
 				<ul class="thumbnails">
 					<!--<foreach for=arrAttachmentcategorys value=oAttachmentcategory>-->
-					<!--{~$arrAttachmentcategorypreview=$TheController->get_attachmentpreview_imagesize($oAttachmentcategory)}-->
+					<!--{~$arrAttachmentcategorypreview=Attachment_Extend::getAttachmentpreviewimagesize($oAttachmentcategory)}-->
 					<li class="span3" id="attachmentcategory_item_<!--{$oAttachmentcategory['attachmentcategory_id']}-->">
 						<div class="thumbnail">
 							<div class="img dialogattachmentcategory_thumb">
