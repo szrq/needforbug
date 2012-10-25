@@ -84,4 +84,12 @@ class AddController extends Controller{
 		}
 	}
 
+	public function dialog(){
+		$sFunction=trim(G::getGpc('function','G'));
+		$this->assign('sFunction',$sFunction);
+		$this->assign('bDialog',true);
+
+		$this->index(true);
+	}
+
 }
