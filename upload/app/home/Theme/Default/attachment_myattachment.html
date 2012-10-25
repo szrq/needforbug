@@ -110,12 +110,12 @@ function unrecommendAttachment(id){
 				<!--{if is_array($arrAttachments)}-->
 				<ul class="thumbnails">
 					<!--<foreach for=arrAttachments value=oAttachment>-->
-					<!--{~$arrAttachmentSize=$TheController->get_image_size($oAttachment)}-->
+					<!--{~$arrAttachmentSize=Attachment_Extend::getImagesize($oAttachment)}-->
 					<li class="span3" id="attachment_item_<!--{$oAttachment['attachment_id']}-->">
 						<div class="thumbnail">
 							<div class="img attachment_thumb">
 								<a href="<!--{:Dyhb::U('home://file@?id='.$oAttachment['attachment_id'])}-->">
-									<img src="<!--{:Core_Extend::getAttachmentPreview($oAttachment)}-->" alt="<!--{$oAttachment['attachment_alt']}-->" <!--{if $arrAttachmentSize && $arrAttachmentSize[1]>=150}-->height="150px"<!--{/if}-->>
+									<img src="<!--{:Attachment_Extend::getAttachmentPreview($oAttachment)}-->" alt="<!--{$oAttachment['attachment_alt']}-->" <!--{if $arrAttachmentSize && $arrAttachmentSize[1]>=150}-->height="150px"<!--{/if}-->>
 								</a>
 							</div>
 							<div class="caption">

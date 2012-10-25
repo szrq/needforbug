@@ -121,12 +121,12 @@ function unrecommendAttachmentcategory(id){
 				<!--{if is_array($arrAttachmentcategorys)}-->
 				<ul class="thumbnails">
 					<!--<foreach for=arrAttachmentcategorys value=oAttachmentcategory>-->
-					<!--{~$arrAttachmentcategorypreview=$TheController->get_attachmentpreview_imagesize($oAttachmentcategory)}-->
+					<!--{~$arrAttachmentcategorypreview=Attachment_Extend::getAttachmentpreviewimagesize($oAttachmentcategory)}-->
 					<li class="span3" id="attachmentcategory_item_<!--{$oAttachmentcategory['attachmentcategory_id']}-->">
 						<div class="thumbnail">
 							<div class="img attachmentcategory_thumb">
 								<a href="<!--{:Dyhb::U('home://attachment/my_attachment?cid='.$oAttachmentcategory['attachmentcategory_id'])}-->">
-									<img src="<!--{:Core_Extend::getAttachmentcategoryPreview($oAttachmentcategory)}-->" alt="<!--{$oAttachmentcategory['attachmentcategory_name']}-->" <!--{if $arrAttachmentcategorypreview[1]>=150}-->height="150px"<!--{/if}-->>
+									<img src="<!--{:Attachment_Extend::getAttachmentcategoryPreview($oAttachmentcategory)}-->" alt="<!--{$oAttachmentcategory['attachmentcategory_name']}-->" <!--{if $arrAttachmentcategorypreview[1]>=150}-->height="150px"<!--{/if}-->>
 								</a>
 							</div>
 							<div class="caption">

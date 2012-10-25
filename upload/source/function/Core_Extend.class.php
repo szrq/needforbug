@@ -913,94 +913,6 @@ NEEDFORBUG;
 		};
 	}
 
-	static public function getFileicon($sExtension,$bReturnImageIcon=false,$bReturnPath=true,$bUrlpath=true){
-		$arrIcons=array(
-			'image'=>array('gif','jpg','jpeg','bmp','png'),
-			'archive'=>array('zip','z','gz','gtar','rar'),
-			'audio'=>array('aif','aifc','aiff','au','kar','m3u','mid','midi',
-						'mp2','mp3','mpga','ra','ram','rm','rpm','snd','wav',
-						'wax','wma','aac'),
-			'video'=>array('asf','asx','avi','mov','movie','mpeg','mpe','mpg',
-						'mxu','qt','wm','wmv','wmx','wvx','rmvb','flv','mp4'),
-			'document'=>array('doc','pdf','ppt'),
-			'text'=>array('txt','ascii','mime'),
-			'spreadsheet'=>array('xls','et'),
-			'interactive'=>array('as','flash'),
-			'code'=>array('h','c','h','cpp','dfm','pas','frm','vbs','asp','jsp','java','class','php'),
-			'default'=>array(),
-		);
-
-		$sFileiconPath='';
-		foreach($arrIcons as $sKey=>$arrIcon){
-			if(in_array($sExtension,$arrIcon)){
-				$sFileiconPath=$sKey;
-				break;
-			}
-		}
-
-		if(empty($sFileiconPath)){
-			$sFileiconPath='default';
-		}
-
-		if($sFileiconPath=='image' && $bReturnImageIcon===false){
-			return true;
-		}
-
-		if($bReturnPath===true){
-			if($bUrlpath===true){
-				return __PUBLIC__.'/images/crystal/'.$sFileiconPath.'.png';
-			}else{
-				return NEEDFORBUG_PATH.'/Public/images/crystal/'.$sFileiconPath.'.png';
-			}
-		}else{
-			return $sFileiconPath;
-		}
-	}
-
-	static public function getAttachmentPreview($oAttachment,$bUrlpath=true){
-		if(empty($oAttachment['attachment_id'])){
-			return '';
-		}
-
-		$sAttachmentPreview=self::getFileicon($oAttachment['attachment_extension'],false,true,$bUrlpath);
-		if($sAttachmentPreview===true){
-			return ($bUrlpath===true?__ROOT__:NEEDFORBUG_PATH).'/data/upload/attachment/'.(
-				$oAttachment['attachment_isthumb']?
-				$oAttachment['attachment_thumbpath'].'/'.$oAttachment['attachment_savename']:
-				$oAttachment['attachment_savepath'].'/'.$oAttachment['attachment_savename']
-			);
-		}else{
-			return $sAttachmentPreview;
-		}
-	}
-
-	static public function getAttachmentcategoryPreview($oAttachmentcategory,$bUrlpath=true){
-		if(empty($oAttachmentcategory['attachmentcategory_id'])){
-			return '';
-		}
-
-		// 已设置封面
-		if($oAttachmentcategory['attachmentcategory_cover']>0){
-			$oAttachment=AttachmentModel::F('attachment_id=?',$oAttachmentcategory['attachmentcategory_cover'])->getOne();
-			if(!empty($oAttachment['attachment_id'])){
-				return self::getAttachmentPreview($oAttachment,$bUrlpath);
-			}
-		}
-
-		// 尝试读取最新的附件
-		$oAttachment=AttachmentModel::F('attachmentcategory_id=?',$oAttachmentcategory['attachmentcategory_id'])->order('attachment_id DESC')->getOne();
-		if(!empty($oAttachment['attachment_id'])){
-			return self::getAttachmentPreview($oAttachment,$bUrlpath);
-		}
-
-		// 设置默认图片
-		if($bUrlpath===true){
-			return __PUBLIC__.'/images/common/default_attachmentcategory.png';
-		}else{
-			return NEEDFORBUG_PATH.'/Public/images/common/default_attachmentcategory.png';
-		}
-	}
-
 	static public function thumb($sFilepath,$nWidth,$nHeight){
 		if(!is_file($sFilepath)){
 			$sFilepath=NEEDFORBUG_PATH.'/Public/images/common/none.gif';
@@ -1018,41 +930,6 @@ NEEDFORBUG;
 		$sContent=$oUbb2html->convert();
 
 		return $sContent;
-	}
-
-	static public function getAttachmenttype($oAttachment){
-		$arrAttachmentTypes=array(
-			'img'=>array('jpg','jpeg','gif','png','bmp'),
-			'swf'=>array('swf'),
-			'wmp'=>array('wma','asf','wmv','avi','wav'),
-			'mp3'=>array('mp3'),
-			'qvod'=>array('rm','rmvb','ra','ram'),
-			'flv'=>array('flv','mp4'),
-			'url'=>array('html','htm','txt'),
-			'download'=>array(),
-		);
-		
-		$sAttachmentExtension=$oAttachment['attachment_extension'];
-
-		foreach($arrAttachmentTypes as $sKey=>$arrAttachmentType){
-			if(in_array($sAttachmentExtension,$arrAttachmentType)){
-				return $sKey;
-			}
-		}
-			
-		return 'download';
-	}
-
-	static public function getAttachmenturl($oAttachment){
-		return $GLOBALS['_option_']['site_url'].'/data/upload/attachment/'.
-			$oAttachment['attachment_savepath'].'/'.$oAttachment['attachment_savename'];
-	}
-
-	static public function getAttachmenturlin($oAttachment,$bThumb=false){
-		return $oAttachment['attachment_isthumb'] && $bThumb===true?
-				__ROOT__.'/data/upload/attachment/'.$oAttachment['attachment_thumbpath'].'/'.
-				$oAttachment['attachment_thumbprefix'].$oAttachment['attachment_savename']:
-				__ROOT__.'/data/upload/attachment/'.$oAttachment['attachment_savepath'].'/'.$oAttachment['attachment_savename'];
 	}
 
 	static public function emotion(){
