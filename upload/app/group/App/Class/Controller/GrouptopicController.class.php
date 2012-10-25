@@ -9,7 +9,7 @@ class GrouptopicController extends InitController{
 	public function init__(){
 		parent::init__();
 
-		$this->is_login();
+		//$this->is_login();
 	}
 	
 	public function add(){
