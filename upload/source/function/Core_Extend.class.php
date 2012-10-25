@@ -249,7 +249,7 @@ class Core_Extend{
 		if($bIsFilecache){
 			$arrLostCaches=array();
 			foreach($CacheNames as $sCacheName){
-				$arrData[$sCacheName]=Dyhb::cache($sCacheName,'',array('cache_path'=>NEEDFORBUG_PATH.'/data/~runtime/cache_'));
+				$arrData[$sCacheName]=Dyhb::cache($sCacheName,'',array('cache_path'=>NEEDFORBUG_PATH.'/data/~runtime/cache_/data'));
 				if($arrData[$sCacheName]===false){
 					$arrLostCaches[]=$sCacheName;
 					if(!Dyhb::classExists('Cache_Extend')){
@@ -271,7 +271,7 @@ class Core_Extend{
 			$arrData[$arrSyscache['syscache_name']]=$arrSyscache['syscache_type']?unserialize($arrSyscache['syscache_data']):$arrSyscache['syscache_data'];
 			$bAllowMem && (self::memory('set',$arrSyscache['syscache_name'],$arrData[$arrSyscache['syscache_name']]));
 			if($bIsFilecache){
-				Dyhb::cache($arrSyscache['syscache_name'],$arrData[$arrSyscache['syscache_name']],array('cache_path'=>NEEDFORBUG_PATH.'/data/~runtime/cache_'));
+				Dyhb::cache($arrSyscache['syscache_name'],$arrData[$arrSyscache['syscache_name']],array('cache_path'=>NEEDFORBUG_PATH.'/data/~runtime/cache_/data'));
 			}
 		}
 
@@ -308,7 +308,7 @@ class Core_Extend{
 
 		$bAllowMem && self::memory('delete',$sCacheName);
 
-		$sCachefile=NEEDFORBUG_PATH.'/data/~runtime/cache_/~@'.$sCacheName.'.php';
+		$sCachefile=NEEDFORBUG_PATH.'/data/~runtime/cache_/data/~@'.$sCacheName.'.php';
 		$bIsFilecache && (is_file($sCachefile) && @unlink($sCachefile));
 	}
 
@@ -344,14 +344,13 @@ class Core_Extend{
 		}
 	}
 
-	static public function includeFile($sFileName,$sApp=null,$sType='_.php'){
+	static public function includeFile($sFileName,$sApp=null,$sType='.class.php'){
 		if(!empty($sApp)){
 			$sIncludeFile='/app/'.$sApp.'/App/Class/'.($sType=='_.php'?'Extendsion/':'').$sFileName;
 		}else{
 			$sIncludeFile='/source/'.$sFileName;
-			$sType='.class.php';
 		}
-		
+
 		return preg_match('/^[\w\d\/_]+$/i',$sIncludeFile)?realpath(NEEDFORBUG_PATH.$sIncludeFile.$sType):false;
 	}
 	
@@ -557,7 +556,7 @@ NEEDFORBUG;
 		}else{
 			$sApp=strtolower($sApp);
 
-			$sAppConfigcachefile=NEEDFORBUG_PATH.'/data/~runtime/'.$sApp.'/Config.php';
+			$sAppConfigcachefile=NEEDFORBUG_PATH.'/data/~runtime/app/'.$sApp.'/Config.php';
 			if(is_file($sAppConfigcachefile)){
 				@unlink($sAppConfigcachefile);
 			}
@@ -947,6 +946,46 @@ NEEDFORBUG;
 		<script type="text/javascript" src="{$sPublic}/js/ffemotion/js/emotion_data.js"></script>
 		<script type="text/javascript" src="{$sPublic}/js/ffemotion/js/emotion.js"></script>
 NEEDFORBUG;
+	}
+
+	static public function removeDir($sDirName){
+		if(!is_dir($sDirName)){
+			@unlink($sDirName);
+			return false;
+		}
+
+		$hHandle=@opendir($sDirName);
+		while(($file=@readdir($hHandle))!==false){
+			if($file!='.' && $file!='..'){
+				$sDir=$sDirName.'/'.$file;
+				if(is_dir($sDir)){
+					self::removeDir($sDir);
+				}else{
+					@unlink($sDir);
+				}
+			}
+		}
+
+		closedir($hHandle);
+		$bResult=rmdir($sDirName);
+
+		return $bResult;
+	}
+
+	public static function isEmptydir($sDir){
+		$hDir=@opendir($sDir);
+		
+		$nI=0;
+		while($file=readdir($hDir)){
+			$nI++;
+		}
+		closedir($hDir);
+
+		if($nI>2){
+			return false;
+		}else{
+			return true;
+		}
 	}
 
 }

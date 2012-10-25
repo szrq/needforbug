@@ -14,7 +14,7 @@ class AdminctrlmenuController extends InitController{
 		if(!Dyhb::classExists('Cache_Extend')){
 			require_once(Core_Extend::includeFile('function/Cache_Extend'));
 		}
-		Cache_Extend::updateCacheAdminctrlmenu();
+		Cache_Extend::updateCache('adminctrlmenu');
 	}
 
 	public function afterInputChangeAjax($sName=null){

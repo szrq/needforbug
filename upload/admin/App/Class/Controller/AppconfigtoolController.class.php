@@ -31,7 +31,7 @@ class AppconfigtoolController extends InitController{
 		$arrSaveLists=array();
 		
 		$sConfigfile='admin/App/Config/Config.php';
-		$sConfigcachefile='data/~runtime/admin/Config.php';
+		$sConfigcachefile='data/~runtime/app/admin/Config.php';
 
 		$arrSaveLists[0]=array(
 			'app_id'=>0,
@@ -48,7 +48,7 @@ class AppconfigtoolController extends InitController{
 		if(is_array($arrLists)){
 			foreach($arrLists as $oList){
 				$sConfigfile='app/'.$oList['app_identifier'].'/App/Config/Config.php';
-				$sConfigcachefile='data/~runtime/'.$oList['app_identifier'].'/Config.php';
+				$sConfigcachefile='data/~runtime/app/'.$oList['app_identifier'].'/Config.php';
 
 				$arrSaveLists[$oList['app_id']]=array(
 					'app_id'=>$oList['app_id'],
@@ -263,7 +263,7 @@ class AppconfigtoolController extends InitController{
 	}
 
 	public function get_configcachefile($sApp){
-		return NEEDFORBUG_PATH.'/data/~runtime/'.$sApp.'/Config.php';
+		return NEEDFORBUG_PATH.'/data/~runtime/app/'.$sApp.'/Config.php';
 	}
 
 	public function error_message($sMessage){
