@@ -4,7 +4,7 @@
 
 !defined('DYHB_PATH') && exit;
 
-// 自动应用配置
+// 自定义应用配置
 $arrMyappConfigs=array();
 
 // 读取前台应用基本配置
