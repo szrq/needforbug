@@ -7,7 +7,7 @@
 // 自定义路由配置
 $arrMyappRouters=array(
 	'topic'=>array('grouptopic/view','id'),
-	'name'=>array('group/show','id'),
+	'gid'=>array('group/show','id'),
 );
 
 // 读取前台应用基本路由配置

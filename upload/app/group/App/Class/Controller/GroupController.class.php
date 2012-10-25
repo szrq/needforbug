@@ -24,7 +24,11 @@ class GroupController extends InitController{
 
 		$this->assign('sType',$sType);
 
-		$oGroup=GroupModel::F('group_name=? AND group_status=1 AND group_isaudit=1',$sId)->getOne();
+		if(Core_Extend::isPostInt($sId)){
+			$oGroup=GroupModel::F('group_id=? AND group_status=1 AND group_isaudit=1',$sId)->getOne();
+		}else{
+			$oGroup=GroupModel::F('group_name=? AND group_status=1 AND group_isaudit=1',$sId)->getOne();
+		}
 		if(empty($oGroup['group_id'])){
 			$this->E('小组不存在或在审核中');
 		}
