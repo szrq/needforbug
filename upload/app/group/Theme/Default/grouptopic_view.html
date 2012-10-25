@@ -395,7 +395,7 @@ var nGroupid=parseInt('<!--{$oGrouptopic['group_id']}-->'),nGrouptopicid=parseIn
 										<div>
 											<!--{~$arrRatinginfo=UserModel::getUserrating($oComment->usercount->usercount_extendcredit1,false)}-->
 											<p class="floor_userinforating">
-												<em><a target="_blank" href="<!--{:Dyhb::U('home://space@?id='.$oComment->user_id.'&type=rating')}-->" title="当前积分&nbsp;<!--{$oGrouptopic->usercount->usercount_extendcredit1}-->,等级名字&nbsp;<!--{$arrRatinginfo['rating_name']}-->,距离下一个等级&nbsp;<!--{$arrRatinginfo['next_rating']['rating_name']}-->&nbsp;还差&nbsp;<!--{$arrRatinginfo['next_needscore']}-->&nbsp;积分"><!--{$arrRatinginfo['rating_name']}--></a>
+												<em><a target="_blank" href="<!--{:Dyhb::U('home://space@?id='.$oComment->user_id.'&type=rating')}-->" title="当前积分&nbsp;<!--{$oComment->usercount->usercount_extendcredit1}-->,等级名字&nbsp;<!--{$arrRatinginfo['rating_name']}-->,距离下一个等级&nbsp;<!--{$arrRatinginfo['next_rating']['rating_name']}-->&nbsp;还差&nbsp;<!--{$arrRatinginfo['next_needscore']}-->&nbsp;积分"><!--{$arrRatinginfo['rating_name']}--></a>
 												</em><br/>
 												<span><img src="<!--{$arrRatinginfo['rating_icon']}-->"/></span>
 											</p>

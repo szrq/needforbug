@@ -86,6 +86,10 @@ class GrouptopicController extends InitController{
 		$sContent=trim(G::getGpc('grouptopiccomment_message'));
 		$nId=intval(G::getGpc('tid'));
 
+		if($GLOBALS['___login___']===false){
+			$this->E('你没有登录无法回帖');
+		}
+
 		if(empty($nId)){
 			$this->E('无法找到该主题');
 		}

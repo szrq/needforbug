@@ -540,7 +540,12 @@ function addMessage(nUid){
 		async: false
 	}).responseText;
 
-	oEditNewmessage=needforbugAlert(sHtml,'发送短消息','',addMessageok,'',500,100);
+	try{
+		arrReturn=eval('('+sHtml+')');
+		alert(arrReturn.info);
+	}catch(ex){
+		oEditNewmessage=needforbugAlert(sHtml,'发送短消息','',addMessageok,'',500,100);
+	};
 }
 
 function addMessageok(){

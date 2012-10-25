@@ -14,6 +14,8 @@ class PmController extends InitController{
 	}
 
 	public function dialog_add(){
+		$this->check_pm();
+		
 		$nUserid=intval(G::getGpc('uid','G'));
 
 		$sUserName='';
