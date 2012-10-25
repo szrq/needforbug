@@ -22,16 +22,18 @@ function closeUpdateinfo(){
 	</section>
 
 	<section id="main" class="column">
+		<!--<if condition="$GLOBALS['_option_']['programeupdate_on'] eq 1">-->
 		<div id="news_box" style="display:none;">
-		<h4 class="alert_warning"><!--<lang package='Template/Default/Public'>-->有新版本发布<!--</lang>--></h4>
-		<article class="module width_full">
-			<header><h3><legend id="news_title"><!--<lang package='Template/Default/Public'>-->读取中<!--</lang>-->...</legend></h3></header>
-			<div class="module_content">
-				<p><div id="news_content" class="alertmsg"><!--<lang package='Template/Default/Public'>-->读取中<!--</lang>-->...</div></p>
-				<p><!--<lang package='Template/Default/Public'>-->如果不想看到升级信息，请点击这里<!--</lang>-->&nbsp;<a href="javascript:void(0);" onclick="closeUpdateinfo();"><!--<lang package='Template/Default/Public'>-->关闭升级提醒<!--</lang>--></a></p>
-			</div>
-		</article>
+			<h4 class="alert_warning"><!--<lang package='Template/Default/Public'>-->有新版本发布<!--</lang>--></h4>
+			<article class="module width_full">
+				<header><h3><legend id="news_title"><!--<lang package='Template/Default/Public'>-->读取中<!--</lang>-->...</legend></h3></header>
+				<div class="module_content">
+					<p><div id="news_content" class="alertmsg"><!--<lang package='Template/Default/Public'>-->读取中<!--</lang>-->...</div></p>
+					<p><!--<lang package='Template/Default/Public'>-->如果不想看到升级信息，请点击这里<!--</lang>-->&nbsp;<a href="javascript:void(0);" onclick="closeUpdateinfo();"><!--<lang package='Template/Default/Public'>-->关闭升级提醒<!--</lang>--></a></p>
+				</div>
+			</article>
 		</div>
+		<!--</if>-->
 
 		<h4 class="alert_info" id="welcome_info"><!--{$sTipsTxt}--></h4>
 
@@ -202,11 +204,15 @@ function closeUpdateinfo(){
 						</tr>
 						<tr>
 							<td><!--<lang package='Template/Default/Public'>-->开发与支持团队<!--</lang>--></td>
-							<td>马明录、韦永明、刘祥敏</td>
+							<td>韦永明、刘祥敏</td>
 						</tr>
 						<tr>
 							<td><!--<lang package='Template/Default/Public'>-->界面与用户体验团队<!--</lang>--></td>
 							<td>钟晓琴、刘祥敏</td>
+						</tr>
+						<tr>
+							<td><!--<lang package='Template/Default/Public'>-->产品运维团队<!--</lang>--></td>
+							<td>马明录</td>
 						</tr>
 						<tr>
 							<td><!--<lang package='Template/Default/Public'>-->应用APP贡献者<!--</lang>--></td>
@@ -248,8 +254,12 @@ function closeUpdateinfo(){
 			</div>
 		</article>
 
-	<!--<if condition="$GLOBALS['_option_']['programeupdate_on'] eq 1">-->
 		<script type="text/javascript" src="<!--{$sUpdateUrl}-->"></script>
-	<!--</if>-->
+
+		<!--<if condition="$GLOBALS['_option_']['programeupdate_on'] eq 0">-->
+		<!--{script}-->
+		document.getElementById("welcome_info").style.display="block";
+		<!--{/script}-->
+		<!--</if>-->
 
 <!--<include file="public+footer">-->
