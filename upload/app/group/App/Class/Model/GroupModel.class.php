@@ -20,7 +20,7 @@ class GroupModel extends CommonModel{
 			),
 			'check'=>array(
 				'group_name'=>array(
-					array('require',Dyhb::L('群组不能为空','__APP_ADMIN_LANG__@Model/Group')),
+					array('empty'),
 					array('max_length',30,Dyhb::L('群组不能超过30个字符','__APP_ADMIN_LANG__@Model/Group')),
 					array('number_underline_english',Dyhb::L('群组名只能是由数字，下划线，字母组成','__APP_ADMIN_LANG__@Model/Group')),
 					array('groupName',Dyhb::L('群组名已经存在','__APP_ADMIN_LANG__@Model/Group'),'condition'=>'must','extend'=>'callback'),
