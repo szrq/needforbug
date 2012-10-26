@@ -5,7 +5,7 @@
 !defined('DYHB_PATH') && exit;
 
 /** 导入附件扩展函数 */
-if(!Dyhb::classExists('Cache_Extend')){
+if(!Dyhb::classExists('Attachment_Extend')){
 	require_once(Core_Extend::includeFile('function/Attachment_Extend'));
 }
 
@@ -341,12 +341,12 @@ class Ubb2html{
 				$sTitlemore.=' | 已下载('.$oAttachment['attachment_download'].')次';
 				$sTitlemore.=' | '.G::changeFileSize($oAttachment['attachment_size']);
 				$sTitlemore.=" | Upload Time:".date('Y-m-d H:i',$oAttachment['create_dateline']);
-				$sContent="<a href=\"{$sImg}\" target=\"_blank\"><img src=\"{$sImg}\" class=\"content-insert-image\" alt=\"{$oAttachment['attachment_alt']}\" title=\"在新窗口浏览此图片{$sTitlemore}\" \" border=\"0\"></a>";
+				$sContent="<a onclick=\"updateDownload('".$oAttachment['attachment_id']."');\" href=\"{$sImg}\" target=\"_blank\"><img src=\"{$sImg}\" class=\"content-insert-image\" alt=\"{$oAttachment['attachment_alt']}\" title=\"在新窗口浏览此图片{$sTitlemore}\" \" border=\"0\"></a>";
 				
 				return $this->template($sTitle,$sContent);
 			}
 		}else{
-			return "<a href=\"{$sImg}\" target=\"_blank\"><img src=\"{$sImg}\" class=\"content-insert-image\" alt=\"在新窗口浏览此图片\" title=\"在新窗口浏览此图片\" border=\"0\"/></a>";
+			return "<a onclick=\"updateDownload('".$oAttachment['attachment_id']."');\" href=\"{$sImg}\" target=\"_blank\"><img src=\"{$sImg}\" class=\"content-insert-image\" alt=\"在新窗口浏览此图片\" title=\"在新窗口浏览此图片\" border=\"0\"/></a>";
 		}
 	}
 	
@@ -357,7 +357,7 @@ class Ubb2html{
 			$sTitle.=' | <a href="'.Dyhb::U('home://file@?id='.$oAttachment['attachment_id']).'#comments" target="_blank">评论('.$oAttachment['attachment_commentnum'].')</a>';
 			$sTitle.=' | <a href="'.Dyhb::U('home://space@?id='.$oAttachment['user_id']).'" target="_blank">'.$oAttachment['attachment_username'].'</a>';
 			
-			$sContent="<a href=\"javascript:playmedia('player_{$oAttachment['attachment_id']}','swf','".Attachment_Extend::getAttachmenturl($oAttachment)."','600','405','');\">{$oAttachment['attachment_name']}</a>
+			$sContent="<a href=\"javascript:playmedia('player_{$oAttachment['attachment_id']}','swf','".Attachment_Extend::getAttachmenturl($oAttachment)."','600','405','');updateDownload('".$oAttachment['attachment_id']."');\">{$oAttachment['attachment_name']}</a>
 						<div id=\"player_{$oAttachment['attachment_id']}\" style=\"display: none;\"></div>";
 			
 			return $this->template($sTitle,$sContent);
@@ -373,7 +373,7 @@ class Ubb2html{
 			$sTitle.=' | <a href="'.Dyhb::U('home://file@?id='.$oAttachment['attachment_id']).'#comments" target="_blank">评论('.$oAttachment['attachment_commentnum'].')</a>';
 			$sTitle.=' | <a href="'.Dyhb::U('home://space@?id='.$oAttachment['user_id']).'" target="_blank">'.$oAttachment['attachment_username'].'</a>';
 			
-			$sContent="<a href=\"javascript:playmedia('player_{$oAttachment['attachment_id']}','wmp','".Attachment_Extend::getAttachmenturlin($oAttachment)."','600','405','');\">{$oAttachment['attachment_name']}</a>
+			$sContent="<a href=\"javascript:playmedia('player_{$oAttachment['attachment_id']}','wmp','".Attachment_Extend::getAttachmenturl($oAttachment)."','600','405','');updateDownload('".$oAttachment['attachment_id']."');\">{$oAttachment['attachment_name']}</a>
 						<div id=\"player_{$oAttachment['attachment_id']}\" style=\"display: none;\"></div>";
 			
 			return $this->template($sTitle,$sContent);
@@ -389,7 +389,7 @@ class Ubb2html{
 			$sTitle.=' | <a href="'.Dyhb::U('home://file@?id='.$oAttachment['attachment_id']).'#comments" target="_blank">评论('.$oAttachment['attachment_commentnum'].')</a>';
 			$sTitle.=' | <a href="'.Dyhb::U('home://space@?id='.$oAttachment['user_id']).'" target="_blank">'.$oAttachment['attachment_username'].'</a>';
 			
-			$sContent="<a href=\"javascript:playmedia('player_{$oAttachment['attachment_id']}','mp3','".Attachment_Extend::getAttachmenturlin($oAttachment)."','240','20','');\">{$oAttachment['attachment_name']}</a>
+			$sContent="<a href=\"javascript:playmedia('player_{$oAttachment['attachment_id']}','mp3','".Attachment_Extend::getAttachmenturl($oAttachment)."','240','20','');updateDownload('".$oAttachment['attachment_id']."');\">{$oAttachment['attachment_name']}</a>
 						<div id=\"player_{$oAttachment['attachment_id']}\" style=\"display: none;\"></div>";
 			
 			return $this->template($sTitle,$sContent);
@@ -405,7 +405,7 @@ class Ubb2html{
 			$sTitle.=' | <a href="'.Dyhb::U('home://file@?id='.$oAttachment['attachment_id']).'#comments" target="_blank">评论('.$oAttachment['attachment_commentnum'].')</a>';
 			$sTitle.=' | <a href="'.Dyhb::U('home://space@?id='.$oAttachment['user_id']).'" target="_blank">'.$oAttachment['attachment_username'].'</a>';
 			
-			$sContent="<a href=\"javascript:playmedia('player_{$oAttachment['attachment_id']}','qvod','".Attachment_Extend::getAttachmenturl($oAttachment)."','600','405','');\">{$oAttachment['attachment_name']}</a>
+			$sContent="<a href=\"javascript:playmedia('player_{$oAttachment['attachment_id']}','qvod','".Attachment_Extend::getAttachmenturl($oAttachment)."','600','405','');updateDownload('".$oAttachment['attachment_id']."');\">{$oAttachment['attachment_name']}</a>
 						<div id=\"player_{$oAttachment['attachment_id']}\" style=\"display: none;\"></div>";
 			
 			return $this->template($sTitle,$sContent);
@@ -421,7 +421,7 @@ class Ubb2html{
 			$sTitle.=' | <a href="'.Dyhb::U('home://file@?id='.$oAttachment['attachment_id']).'#comments" target="_blank">评论('.$oAttachment['attachment_commentnum'].')</a>';
 			$sTitle.=' | <a href="'.Dyhb::U('home://space@?id='.$oAttachment['user_id']).'" target="_blank">'.$oAttachment['attachment_username'].'</a>';
 			
-			$sContent="<a href=\"javascript:playmedia('player_{$oAttachment['attachment_id']}','flv','".Attachment_Extend::getAttachmenturl($oAttachment)."','600','405','');\">{$oAttachment['attachment_name']}</a>
+			$sContent="<a href=\"javascript:playmedia('player_{$oAttachment['attachment_id']}','flv','".Attachment_Extend::getAttachmenturl($oAttachment)."','600','405','');updateDownload('".$oAttachment['attachment_id']."');\">{$oAttachment['attachment_name']}</a>
 						<div id=\"player_{$oAttachment['attachment_id']}\" style=\"display: none;\"></div>";
 			
 			return $this->template($sTitle,$sContent);
@@ -441,11 +441,11 @@ class Ubb2html{
 			$sTitlemore.=' | '.G::changeFileSize($oAttachment['attachment_size']);
 			$sTitlemore.=" | Upload Time:".date('Y-m-d H:i',$oAttachment['create_dateline']);
 			
-			$sContent="<a href=\"".Attachment_Extend::getAttachmenturl($oAttachment)."\" title=\"{$sTitlemore}\">{$oAttachment['attachment_name']}</a>";
+			$sContent="<a href=\"".Attachment_Extend::getAttachmenturl($oAttachment)."\" title=\"{$sTitlemore}\" target=\"_blank\">{$oAttachment['attachment_name']}</a>";
 			
 			return $this->template($sTitle,$sContent);
 		}else{
-			return "<a href=\"".Dyhb::U('home://file@?id='.$oAttachment['attachment_id'])."\" target=\"_blank\">{$oAttachment['attachment_name']}</a>";
+			return "<a onclick=\"updateDownload('".$oAttachment['attachment_id']."');\" href=\"".Dyhb::U('home://file@?id='.$oAttachment['attachment_id'])."\" target=\"_blank\">{$oAttachment['attachment_name']}</a>";
 		}
 	}
 
@@ -459,8 +459,8 @@ class Ubb2html{
 			$sTitlemore.='已下载('.$oAttachment['attachment_download'].')次';
 			$sTitlemore.=' | '.G::changeFileSize($oAttachment['attachment_size']);
 			$sTitlemore.=" | Upload Time:".date('Y-m-d H:i',$oAttachment['create_dateline']);
-			
-			$sContent="<a href=\"".Attachment_Extend::getAttachmenturl($oAttachment)."\" title=\"{$sTitlemore}\">{$oAttachment['attachment_name']}</a>";
+
+			$sContent="<a onclick=\"updateDownload('".$oAttachment['attachment_id']."');\" href=\"".Attachment_Extend::getAttachmenturl($oAttachment)."\" title=\"{$sTitlemore}\" target=\"_blank\">{$oAttachment['attachment_name']}</a>";
 			
 			return $this->template($sTitle,$sContent);
 		}else{

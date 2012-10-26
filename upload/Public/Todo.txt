@@ -13,4 +13,4 @@ grouptopic_hiddenreplies
 group_topiccomment
 grouptopic_updateusername
 
-等级图标有修改
+安装时将域名写入到配置文件中去

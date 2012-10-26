@@ -42,6 +42,12 @@ function option(){
 						<div class="description"><!--<lang package='Template/Default/Uploadoption'>-->隐藏附件的真实地址会加强附件的安全性，但是会加大服务器开销<!--</lang>--></div>
 					</fieldset>
 					<fieldset>
+						<label for="upload_img_ishide_reallypath"><!--<lang package='Template/Default/Uploadoption'>-->是否隐藏图像真实路径<!--</lang>--></label>
+						<input type="radio" id="upload_img_ishide_reallypath" name="options[upload_img_ishide_reallypath]" value="1" <!--{if $arrOptions['upload_img_ishide_reallypath']==1}-->checked="checked"<!--{/if}-->/><!--<lang package='Template/Default/Common'>-->是<!--</lang>-->
+						<input type="radio" id="" name="options[upload_img_ishide_reallypath]" value="0" <!--{if $arrOptions['upload_img_ishide_reallypath']==0}-->checked="checked"<!--{/if}--> /><!--<lang package='Template/Default/Common'>-->否<!--</lang>-->
+						<div class="description"><!--<lang package='Template/Default/Uploadoption'>-->隐藏图像的真实地址可以防止附件被引用，但是会加大服务器开销，我们建议不隐藏图像的地址<!--</lang>--></div>
+					</fieldset>
+					<fieldset>
 						<label for="upload_attach_expirehour"><!--<lang package='Template/Default/Uploadoption'>-->附件过期时间<!--</lang>--></label>
 						<input type="text" name="options[upload_attach_expirehour]" id="upload_attach_expirehour" size="60" value="<!--{$arrOptions['upload_attach_expirehour']}-->"/>
 						<div class="description"><!--<lang package='Template/Default/Uploadoption'>-->单位：小时，0 或留空表示附件链接永久有效，过期后链接自动更新。本功能可有效防止附件被盗链或附件被软件批量下载，但是会给会员的正常下载带来不便。<!--</lang>-->

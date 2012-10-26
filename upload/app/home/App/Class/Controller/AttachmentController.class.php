@@ -121,12 +121,12 @@ class AttachmentController extends InitController{
 		Core_Extend::doControllerAction('Attachment@Show','index');
 	}
 
-	public function get_ajaximg(){
-		Core_Extend::doControllerAction('Attachment@Getajaximg','index');
+	public function mp3list(){
+		Core_Extend::doControllerAction('Attachment@Show','mp3list');
 	}
 
-	public function get_attachmentcategory_playlist(){
-		Core_Extend::doControllerAction('Attachment@Getattachmentcategoryplaylist','index');
+	public function get_ajaximg(){
+		Core_Extend::doControllerAction('Attachment@Getajaximg','index');
 	}
 
 	public function recommend_attachment(){
