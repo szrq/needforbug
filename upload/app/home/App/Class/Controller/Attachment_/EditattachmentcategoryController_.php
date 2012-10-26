@@ -54,4 +54,19 @@ class EditattachmentcategoryController extends Controller{
 		$this->A($oAttachmentcategory->toArray(),'更新专辑信息成功',1);
 	}
 
+	public function dialogsave(){
+		$nAttachmentcategoryid=intval(G::getGpc('attachmentcategory_id','G'));
+		$nDialog=intval(G::getGpc('dialog'));
+		$sFunction=trim(G::getGpc('function'));
+
+		$oAttachmentcategory=AttachmentcategoryModel::F('attachmentcategory_id=?',$nAttachmentcategoryid)->getOne();
+		$oAttachmentcategory->save(0,'update');
+
+		if($oAttachmentcategory->isError()){
+			$this->E($oAttachmentcategory->getErrorMessage());
+		}
+
+		G::urlGoTo(Dyhb::U('home://attachment/my_attachmentcategory?dialog=1&function='.$sFunction),1,'更新专辑信息成功');
+	}
+
 }

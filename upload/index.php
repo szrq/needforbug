@@ -40,8 +40,8 @@ define('APP_NAME',$sAppName);
 define('APP_PATH',NEEDFORBUG_PATH.'/app/'.APP_NAME);
 
 /** 项目运行时路径及数据库表缓存路径 */
-define('APP_RUNTIME_PATH',NEEDFORBUG_PATH.'/data/~runtime/'.APP_NAME);
-define('DB_META_CACHED_PATH',NEEDFORBUG_PATH.'/data/~runtime/cache_');
+define('APP_RUNTIME_PATH',NEEDFORBUG_PATH.'/data/~runtime/app/'.APP_NAME);
+define('DB_META_CACHED_PATH',NEEDFORBUG_PATH.'/data/~runtime/cache_/field');
 
 /** 项目语言包路径定义 */
 define('__COMMON_LANG__',NEEDFORBUG_PATH.'/ucontent/language');
@@ -54,7 +54,7 @@ define('__THEMES__','app/'.APP_NAME.'/Theme');
 define('APP_RUNTIME_LOCK',NEEDFORBUG_PATH.'/source/protected/~Runtime.inc.lock');
 
 /** 加载框架编译版本 */
-//define('STRIP_RUNTIME_SPACE',false);
+define('STRIP_RUNTIME_SPACE',false);
 define('DYHB_THIN',true);
 
 /** 去掉模板空格 */

@@ -34,6 +34,7 @@ return array(
 'dbdfad95e7bedabe13b0e2b316d1b6df'=>"登录记录",
 '16cd4823ca64b0c6b0a5086bb9dda25a'=>"申诉审核",
 '834fb14933185be9d10d1cfd4011ff23'=>"社会化帐号",
+'99ef617739020f32b8f54b330e0fbec3'=>"更新缓存",
 )
 
 ?>

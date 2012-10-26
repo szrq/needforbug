@@ -41,12 +41,12 @@
 				<!--{if is_array($arrAttachments)}-->
 				<ul class="thumbnails">
 					<!--<foreach for=arrAttachments value=oAttachment>-->
-					<!--{~$arrAttachmentSize=$TheController->get_image_size($oAttachment)}-->
+					<!--{~$arrAttachmentSize=Attachment_Extend::getImagesize($oAttachment)}-->
 					<li class="span3" id="attachment_item_<!--{$oAttachment['attachment_id']}-->">
 						<div class="thumbnail">
 							<div class="img dialogattachment_thumb">
 								<a target="_blank" href="<!--{:Dyhb::U('home://file@?id='.$oAttachment['attachment_id'])}-->">
-									<img src="<!--{:Core_Extend::getAttachmentPreview($oAttachment)}-->" alt="<!--{$oAttachment['attachment_alt']}-->" <!--{if $arrAttachmentSize && $arrAttachmentSize[1]>=110}-->height="110px"<!--{/if}-->>
+									<img src="<!--{:Attachment_Extend::getAttachmentPreview($oAttachment)}-->" alt="<!--{$oAttachment['attachment_alt']}-->" <!--{if $arrAttachmentSize && $arrAttachmentSize[1]>=110}-->height="110px"<!--{/if}-->>
 								</a>
 							</div>
 							<div class="caption">

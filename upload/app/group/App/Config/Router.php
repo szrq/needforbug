@@ -4,12 +4,13 @@
 
 !defined('DYHB_PATH') && exit;
 
-return array(
-	// for home app
-	'space'=>array('space/index','id'),
-	'file'=>array('attachment/show','id'),
-	// end home
+// 自定义路由配置
+$arrMyappRouters=array(
 	'topic'=>array('grouptopic/view','id'),
-	'category'=>array('group/index2','id'),
-	'name'=>array('group/show','id'),
+	'gid'=>array('group/show','id'),
 );
+
+// 读取前台应用基本路由配置
+$arrFrontapprouters=(array)require(NEEDFORBUG_PATH.'/source/common/Router.php');
+
+return array_merge($arrMyappRouters,$arrFrontapprouters);

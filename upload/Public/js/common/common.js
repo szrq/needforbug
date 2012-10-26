@@ -516,6 +516,15 @@ function makemedia(strType,strURL,intWidth,intHeight,strID,sBgColor){
 	return strHtml;
 }
 
+/** 更新媒体下载量 */
+function updateDownload(nAttachmentid){
+	Dyhb.AjaxSend(D.U('home://attachmentdownload/index?id='+nAttachmentid),'','',function(data,status){
+		if(status==0){
+			alert(data.info);
+		}
+	});
+}
+
 /** 更换背景 */
 var nCurrentBgindex=0;
 function changeGlobalbg(){
@@ -540,7 +549,12 @@ function addMessage(nUid){
 		async: false
 	}).responseText;
 
-	oEditNewmessage=needforbugAlert(sHtml,'发送短消息','',addMessageok,'',500,100);
+	try{
+		arrReturn=eval('('+sHtml+')');
+		alert(arrReturn.info);
+	}catch(ex){
+		oEditNewmessage=needforbugAlert(sHtml,'发送短消息','',addMessageok,'',500,100);
+	};
 }
 
 function addMessageok(){

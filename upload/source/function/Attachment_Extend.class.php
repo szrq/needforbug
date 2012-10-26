@@ -62,16 +62,27 @@ class Attachment_Extend{
 		return 'download';
 	}
 
-	static public function getAttachmenturl($oAttachment){
-		return $GLOBALS['_option_']['site_url'].'/data/upload/attachment/'.
-			$oAttachment['attachment_savepath'].'/'.$oAttachment['attachment_savename'];
+	static public function getAttachmenturl($oAttachment,$bThumb=false,$bUrlpath=true){
+		if($bUrlpath===false){
+			return NEEDFORBUG_PATH.'/data/upload/attachment/'.
+				($oAttachment['attachment_isthumb'] && $bThumb===true?
+				$oAttachment['attachment_thumbpath'].'/'.$oAttachment['attachment_thumbprefix']:
+				$oAttachment['attachment_savepath'].'/').$oAttachment['attachment_savename'];
+		}
+
+		if(self::attachmentHidereallypath($oAttachment)){
+			return $GLOBALS['_option_']['site_url'].'/attachment.php?id='.Core_Extend::aidencode($oAttachment['attachment_id']).($oAttachment['attachment_isthumb'] && $bThumb===true?'&thumb=1':'');
+		}else{
+			return $GLOBALS['_option_']['site_url'].'/data/upload/attachment/'.
+				($oAttachment['attachment_isthumb'] && $bThumb===true?
+					$oAttachment['attachment_thumbpath'].'/'.$oAttachment['attachment_thumbprefix']:
+					$oAttachment['attachment_savepath'].'/').$oAttachment['attachment_savename'];
+		}
 	}
 
-	static public function getAttachmenturlin($oAttachment,$bThumb=false){
-		return $oAttachment['attachment_isthumb'] && $bThumb===true?
-				__ROOT__.'/data/upload/attachment/'.$oAttachment['attachment_thumbpath'].'/'.
-				$oAttachment['attachment_thumbprefix'].$oAttachment['attachment_savename']:
-				__ROOT__.'/data/upload/attachment/'.$oAttachment['attachment_savepath'].'/'.$oAttachment['attachment_savename'];
+	static public function attachmentHidereallypath($oAttachment){
+		return (in_array($oAttachment['attachment_extension'],array('gif','jpg','jpeg','png','bmp')) && $GLOBALS['_option_']['upload_img_ishide_reallypath']) || 
+			(!in_array($oAttachment['attachment_extension'],array('gif','jpg','jpeg','png','bmp')) && $GLOBALS['_option_']['upload_ishide_reallypath']);
 	}
 
 	static public function getAttachmentPreview($oAttachment,$bUrlpath=true){
@@ -81,11 +92,7 @@ class Attachment_Extend{
 
 		$sAttachmentPreview=self::getFileicon($oAttachment['attachment_extension'],false,true,$bUrlpath);
 		if($sAttachmentPreview===true){
-			return ($bUrlpath===true?__ROOT__:NEEDFORBUG_PATH).'/data/upload/attachment/'.(
-				$oAttachment['attachment_isthumb']?
-				$oAttachment['attachment_thumbpath'].'/'.$oAttachment['attachment_savename']:
-				$oAttachment['attachment_savepath'].'/'.$oAttachment['attachment_savename']
-			);
+			return self::getAttachmenturl($oAttachment,true,$bUrlpath);
 		}else{
 			return $sAttachmentPreview;
 		}
@@ -191,13 +198,6 @@ class Attachment_Extend{
 		}
 
 		return $arrAttachmentcategorypreview;
-	}
-
-	static public function getAttachmentdownloadurl($oAttachment,$bThumb=false){
-		return $oAttachment['attachment_isthumb'] && $bThumb===true?
-				__ROOT__.'/data/upload/attachment/'.$oAttachment['attachment_thumbpath'].'/'.
-				$oAttachment['attachment_thumbprefix'].$oAttachment['attachment_savename']:
-				__ROOT__.'/data/upload/attachment/'.$oAttachment['attachment_savepath'].'/'.$oAttachment['attachment_savename'];
 	}
 
 }

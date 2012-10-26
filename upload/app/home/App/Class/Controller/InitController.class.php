@@ -23,8 +23,10 @@ class InitController extends Controller{
 		if($GLOBALS['___login___']===false){
 			UserModel::M()->clearThisCookie();
 	
-			// 发送当前URL
-			Dyhb::cookie('needforbug_referer',__SELF__);
+			if(!$this->isAjax()){
+				// 发送当前URL
+				Dyhb::cookie('needforbug_referer',__SELF__);
+			}
 			
 			$this->assign('__JumpUrl__',Dyhb::U('home://public/login'));
 			$this->E(Dyhb::L('你没有登录','Controller/Common'));

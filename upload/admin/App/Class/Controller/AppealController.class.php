@@ -1,6 +1,6 @@
 <?php
 /* [NeedForBug!] (C)Dianniu From 2010.
-   短消息管理控制器($)*/
+   用户申诉管理控制器($)*/
 
 !defined('DYHB_PATH') && exit;
 

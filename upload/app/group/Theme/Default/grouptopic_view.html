@@ -3,7 +3,7 @@
 		<ul class="breadcrumb">
 			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
 			<li><a href="<!--{:Dyhb::U('group://public/index')}-->" title="小组">小组</a>&nbsp;<span class="divider">/</span>&nbsp;</li>
-			<li><a href="<!--{:Dyhb::U('group://name@?id='.$oGrouptopic->group->group_name)}-->"><!--{$oGrouptopic:group:group_nikename}--></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
+			<li><a href="<!--{:Group_Extend::getGroupurl($oGrouptopic->group)}-->"><!--{$oGrouptopic:group:group_nikename}--></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
 			<li>查看帖子</li>
 		</ul>
 
@@ -266,7 +266,7 @@ var nGroupid=parseInt('<!--{$oGrouptopic['group_id']}-->'),nGrouptopicid=parseIn
 									</div>
 									<div class="floor_top_tips">
 										<span class="floor_copy" title="复制此楼地址" onclick="copy('<!--{$oGrouptopic->grouptopic_title}-->'+'\n'+'<!--{$GLOBALS['_option_']['site_url']}-->/index.php?app=group&c=grouptopic&a=view&id=<!--{$oGrouptopic->grouptopic_id}-->','楼层复制成功');">楼主<sup>#</sup></span>
-										<span>发布于<!--{$oGrouptopic->create_dateline|Core_Extend+timeFormat}--></span>
+										<span>发布于&nbsp;<!--{$oGrouptopic->create_dateline|Core_Extend+timeFormat}--></span>
 									</div>
 									<div id="grouptopicview_main">
 										<div class="grouptopiccontent_box">
@@ -276,7 +276,7 @@ var nGroupid=parseInt('<!--{$oGrouptopic['group_id']}-->'),nGrouptopicid=parseIn
 										<div class="space"></div>
 										<div class="edit_log">
 											<blockquote>
-												<em>[<!--{$oGrouptopic->grouptopic_updateusername}-->于<!--{$oGrouptopic->update_dateline|Core_Extend+timeFormat}-->编辑了帖子]</em>
+												<em>[<!--{$oGrouptopic->grouptopic_updateusername}-->于&nbsp;<!--{$oGrouptopic->update_dateline|Core_Extend+timeFormat}-->&nbsp;编辑了帖子]</em>
 											</blockquote>
 										</div>
 										<!--{/if}-->
@@ -395,7 +395,7 @@ var nGroupid=parseInt('<!--{$oGrouptopic['group_id']}-->'),nGrouptopicid=parseIn
 										<div>
 											<!--{~$arrRatinginfo=UserModel::getUserrating($oComment->usercount->usercount_extendcredit1,false)}-->
 											<p class="floor_userinforating">
-												<em><a target="_blank" href="<!--{:Dyhb::U('home://space@?id='.$oComment->user_id.'&type=rating')}-->" title="当前积分&nbsp;<!--{$oGrouptopic->usercount->usercount_extendcredit1}-->,等级名字&nbsp;<!--{$arrRatinginfo['rating_name']}-->,距离下一个等级&nbsp;<!--{$arrRatinginfo['next_rating']['rating_name']}-->&nbsp;还差&nbsp;<!--{$arrRatinginfo['next_needscore']}-->&nbsp;积分"><!--{$arrRatinginfo['rating_name']}--></a>
+												<em><a target="_blank" href="<!--{:Dyhb::U('home://space@?id='.$oComment->user_id.'&type=rating')}-->" title="当前积分&nbsp;<!--{$oComment->usercount->usercount_extendcredit1}-->,等级名字&nbsp;<!--{$arrRatinginfo['rating_name']}-->,距离下一个等级&nbsp;<!--{$arrRatinginfo['next_rating']['rating_name']}-->&nbsp;还差&nbsp;<!--{$arrRatinginfo['next_needscore']}-->&nbsp;积分"><!--{$arrRatinginfo['rating_name']}--></a>
 												</em><br/>
 												<span><img src="<!--{$arrRatinginfo['rating_icon']}-->"/></span>
 											</p>
@@ -439,7 +439,7 @@ var nGroupid=parseInt('<!--{$oGrouptopic['group_id']}-->'),nGrouptopicid=parseIn
 								<td class="floor_right floor_grouptopiccommenttd2">
 									<div class="floor_top_tips">
 										<span class="floor_copy" title="复制此楼地址" onclick="copy('楼层'+'\n'+'<!--{$GLOBALS['_option_']['site_url']}-->/index.php?app=group&c=grouptopic&a=view&id=<!--{$oGrouptopic->grouptopic_id}-->&cid=<!--{$oComment->grouptopiccomment_id}-->','楼层复制成功');"><!--{$TheController->get_commentfloor($i,$nEverynum)}-->楼<sup>#</sup></span>
-										<span>回复于<!--{$oComment->create_dateline|Core_Extend+timeFormat}--></span>
+										<span>回复于&nbsp;<!--{$oComment->create_dateline|Core_Extend+timeFormat}--></span>
 									</div>
 									<div class="grouptopiccontent_box"><!--{$oComment->grouptopiccomment_content|Core_Extend+ubb}--></div>
 								</td>

@@ -4,9 +4,10 @@
 
 !defined('DYHB_PATH') && exit;
 
-return array(
-	'space'=>array('space/index','id'),
-	'fresh'=>array('ucenter/view','id'),
-	'help'=>array('homehelp/show','id'),
-	'file'=>array('attachment/show','id'),
-);
+// 自定义路由配置
+$arrMyappRouters=array();
+
+// 读取前台应用基本路由配置
+$arrFrontapprouters=(array)require(NEEDFORBUG_PATH.'/source/common/Router.php');
+
+return array_merge($arrMyappRouters,$arrFrontapprouters);

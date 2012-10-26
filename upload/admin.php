@@ -23,8 +23,8 @@ define('APP_NAME','admin');
 define('APP_PATH',NEEDFORBUG_PATH.'/'.APP_NAME);
 
 /** 项目运行时路径及数据库表缓存路径 */
-define('APP_RUNTIME_PATH',NEEDFORBUG_PATH.'/data/~runtime/'.APP_NAME);
-define('DB_META_CACHED_PATH',NEEDFORBUG_PATH.'/data/~runtime/cache_');
+define('APP_RUNTIME_PATH',NEEDFORBUG_PATH.'/data/~runtime/app/'.APP_NAME);
+define('DB_META_CACHED_PATH',NEEDFORBUG_PATH.'/data/~runtime/cache_/field');
 
 /** 项目语言包路径定义 */
 define('__COMMON_LANG__',NEEDFORBUG_PATH.'/ucontent/language');

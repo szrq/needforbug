@@ -19,5 +19,9 @@ class Group_Extend{
 		$nId=intval(G::getGpc('id'));
 		return Upload_Extend::getIconName('group',$nId).'.'.G::getExtName($sFilename,2);
 	}
+
+	public static function getGroupurl($arrGroup){
+		return Dyhb::U('group://gid@?id='.(!empty($arrGroup['group_name'])?$arrGroup['group_name']:$arrGroup['group_id']));
+	}
 	
 }

@@ -1,7 +1,6 @@
 <?php
 /** DoYouHaoBaby Framework Lang File, Do not to modify it! */
 return array(
-'cace3a0a393787003325a0d39c63056e'=>"群组不能为空",
 'e123d95ada1dce22c547b98936a74901'=>"群组不能超过30个字符",
 '3d355f3b6f24e8907a44952fe4ee2ad4'=>"群组名只能是由数字，下划线，字母组成",
 '35d1365f3160ce018e803c7b7fb81847'=>"群组名已经存在",

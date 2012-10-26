@@ -23,7 +23,7 @@ function leaveGroup(gid){
 		<ul class="breadcrumb">
 			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
 			<li><a href="<!--{:Dyhb::U('group://public/index')}-->" title="小组">小组</a>&nbsp;<span class="divider">/</span>&nbsp;</li>
-			<li><a href="<!--{:Dyhb::U('group://name@?id='.$oGroup->group_name)}-->"><!--{$oGroup:group_nikename}--></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
+			<li><a href="<!--{:Group_Extend::getGroupurl($oGroup)}-->"><!--{$oGroup:group_nikename}--></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
 			<li>查看小组</li>
 		</ul>
 
@@ -33,7 +33,7 @@ function leaveGroup(gid){
 					<dt class="left"><a href=""><img src="<!--{:Group_Extend::getGroupIcon($oGroup['group_icon'])}-->" width="48" height="48" alt="" /></a>
 					</dt>
 					<dd style="padding-left:50px;">
-						<p class="name"><a href="<!--{:Dyhb::U('group://name@?id='.$oGroup['group_name'])}-->" id="groupName"><!--{$oGroup['group_nikename']}--></a>&nbsp;群组&nbsp;
+						<p class="name"><a href="<!--{:Group_Extend::getGroupurl($oGroup)}-->" id="groupName"><!--{$oGroup['group_nikename']}--></a>&nbsp;群组&nbsp;
 							<!--{if $nGroupuser==0}-->
 							<span id="join_group"><a href="javascript:void(0);" onclick="joinGroup(<!--{$oGroup['group_id']}-->);">+加入小组</a></span>
 							<!--{elseif $nGroupuser==1}-->

@@ -21,7 +21,7 @@
 						<!--{/if}-->
 						<tr>
 							<td style="background:none;">
-								播放本专辑&nbsp;(<a href="javascript:playmedia('playerlist_<!--{$oAttachment['attachment_id']}-->','mp3list','<!--{$TheController->get_attachmentcategory_playlist($oAttachment)}-->','240','200','');"><!--{$oAttachment:attachmentcategory:attachmentcategory_name}--></a>)
+								播放本专辑&nbsp;(<a href="javascript:playmedia('playerlist_<!--{$oAttachment['attachment_id']}-->','mp3list','<!--{$TheController->get_attachmentcategory_playlist($oAttachment)}-->','240','200','');"><!--{if $oAttachment:attachmentcategory:attachmentcategory_name}--><!--{$oAttachment:attachmentcategory:attachmentcategory_name}--><!--{d*else}-->未分类<!--{/if}--></a>)
 								<div id="playerlist_<!--{$oAttachment['attachment_id']}-->" style="display: none;"></div>
 							</td>
 						</tr>
