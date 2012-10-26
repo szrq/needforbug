@@ -30,13 +30,24 @@ class TestController extends InitController{
 		$this->display('test+index6');
 	}
 	public function index7(){
-		$this->display('test+index7');}
+		$this->display('test+index7');
+	}
 	public function index8(){
-		$this->display('test+index8');}
+		$this->display('test+index8');
+	}
 	public function index9(){
-		$this->display('test+index9');}
+		$this->display('test+index9');
+	}
 	public function index10(){
-		$this->display('test+index10');}
+		$this->display('test+index10');
+	}
 	public function index11(){
-		$this->display('test+index11');}
+		$this->display('test+index11');
+	}
+	public function index12(){
+		$this->display('test+index12');
+	}
+	public function index13(){
+		$this->display('test+index13');
+	}
 		}
