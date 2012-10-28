@@ -1,6 +1,6 @@
 <?php
 /* [NeedForBug!] (C)Dianniu From 2010.
-   主页配置模型($)*/
+   涓婚〉閰嶇疆妯″瀷($)*/
 
 !defined('DYHB_PATH') && exit;
 
@@ -29,7 +29,7 @@ class HomeoptionModel extends CommonModel{
 		$oOptionModel->homeoption_value=G::html($sOptionValue);
 		$oOptionModel->save(0,'update');
 
-		HomeCache_Extend::updateCacheOption();
+		HomeCache_Extend::updateCache("option");
 	}
 
 }

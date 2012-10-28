@@ -1,6 +1,6 @@
 <?php
 /* [NeedForBug!] (C)Dianniu From 2010.
-   幻灯片控制器($)*/
+   骞荤伅鐗囨帶鍒跺櫒($)*/
 
 !defined('DYHB_PATH') && exit;
 
@@ -38,7 +38,7 @@ class SlideController extends InitController{
 		$nId=intval(G::getGpc('id','G'));
 
 		if($this->is_system_slide($nId)){
-			$this->E(Dyhb::L('系统幻灯片无法编辑','Controller/Slide'));
+			$this->E(Dyhb::L('绯荤粺骞荤伅鐗囨棤娉曠紪杈�,'Controller/Slide'));
 		}
 	}
 
@@ -48,7 +48,7 @@ class SlideController extends InitController{
 		$arrIds=explode(',',$sId);
 		foreach($arrIds as $nId){
 			if($this->is_system_slide($nId)){
-				$this->E(Dyhb::L('系统幻灯片无法删除','Controller/Slide'));
+				$this->E(Dyhb::L('绯荤粺骞荤伅鐗囨棤娉曞垹闄�,'Controller/Slide'));
 			}
 		}
 	}
@@ -57,7 +57,7 @@ class SlideController extends InitController{
 		if(!Dyhb::classExists('Cache_Extend')){
 			require_once(Core_Extend::includeFile('function/Cache_Extend'));
 		}
-		Cache_Extend::updateCacheSlide();
+		Cache_Extend::updateCache("slide");
 	}
 
 	public function afterInputChangeAjax($sName=null){

@@ -1,6 +1,6 @@
 <?php
 /* [NeedForBug!] (C)Dianniu From 2010.
-   群组配置模型($)*/
+   缇ょ粍閰嶇疆妯″瀷($)*/
 
 !defined('DYHB_PATH') && exit;
 
@@ -29,7 +29,7 @@ class GroupoptionModel extends CommonModel{
 		$oOptionModel->groupoption_value=G::html($sOptionValue);
 		$oOptionModel->save(0,'update');
 
-		GroupCache_Extend::updateCacheOption();
+		GroupCache_Extend::updateCache("option");
 	}
 
 }

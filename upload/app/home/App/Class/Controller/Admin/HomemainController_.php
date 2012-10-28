@@ -1,10 +1,10 @@
 <?php
 /* [NeedForBug!] (C)Dianniu From 2010.
-   home入口控制器($)*/
+   home鍏ュ彛鎺у埗鍣�$)*/
 
 !defined('DYHB_PATH') && exit;
 
-/** 导入主页模型 */
+/** 瀵煎叆涓婚〉妯″瀷 */
 Dyhb::import(NEEDFORBUG_PATH.'/app/home/App/Class/Model');
 
 class HomemainController extends InitController{
@@ -39,9 +39,9 @@ class HomemainController extends InitController{
 			$oOptionModel->save(0,'update');
 		}
 
-		HomeCache_Extend::updateCacheOption();
+		HomeCache_Extend::updateCache("option");
 
-		$this->S(Dyhb::L('配置更新成功','__APP_ADMIN_LANG__@Controller/Homeoption'));
+		$this->S(Dyhb::L('閰嶇疆鏇存柊鎴愬姛','__APP_ADMIN_LANG__@Controller/Homeoption'));
 	}
 
 }
