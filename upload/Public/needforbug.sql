@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.10.1
+-- version 3.5.0
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2012 年 10 月 26 日 10:12
+-- 生成日期: 2012 年 10 月 28 日 02:37
 -- 服务器版本: 5.5.22
 -- PHP 版本: 5.4.0
 
@@ -73,6 +73,45 @@ CREATE TABLE IF NOT EXISTS `needforbug_adminctrlmenu` (
   KEY `user_id` (`user_id`),
   KEY `create_dateline` (`create_dateline`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=38 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `needforbug_adminlog`
+--
+
+CREATE TABLE IF NOT EXISTS `needforbug_adminlog` (
+  `adminlog_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '后台管理ID',
+  `create_dateline` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `user_id` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '日志所记录的操作者ID',
+  `adminlog_info` varchar(255) NOT NULL DEFAULT '' COMMENT '管理操作内容',
+  `adminlog_ip` varchar(40) NOT NULL DEFAULT '' COMMENT '登录者登录IP',
+  PRIMARY KEY (`adminlog_id`),
+  KEY `user_id` (`user_id`),
+  KEY `create_dateline` (`create_dateline`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `needforbug_adminmessage`
+--
+
+CREATE TABLE IF NOT EXISTS `needforbug_adminmessage` (
+  `adminlog_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '短消息ID',
+  `user_id` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '短消息发送者',
+  `adminlog_receiverid` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '短消息接受者',
+  `create_dateline` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `adminlog_readtime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '短消息阅读时间',
+  `adminlog_readed` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '短消息是否已经阅读',
+  `adminlog_status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '短消息状态',
+  `adminlog_title` varchar(150) NOT NULL DEFAULT '' COMMENT '后台短消息标题',
+  `adminlog_message` text NOT NULL COMMENT '后台短消息内容',
+  PRIMARY KEY (`adminlog_id`),
+  KEY `user_id` (`user_id`),
+  KEY `adminlog_receiverid` (`adminlog_receiverid`),
+  KEY `create_dateline` (`create_dateline`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -518,6 +557,24 @@ INSERT INTO `needforbug_creditrulelog` (`creditrulelog_id`, `user_id`, `creditru
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `needforbug_feed`
+--
+
+CREATE TABLE IF NOT EXISTS `needforbug_feed` (
+  `feed_id` int(10) NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `feed_username` varchar(50) NOT NULL COMMENT '用户名',
+  `feed_template` varchar(1024) NOT NULL DEFAULT '' COMMENT '动态模板',
+  `feed_data` varchar(1024) NOT NULL DEFAULT '' COMMENT '动态数据',
+  `create_dateline` int(10) NOT NULL DEFAULT '0' COMMENT '添加时间',
+  PRIMARY KEY (`feed_id`),
+  KEY `user_id` (`user_id`),
+  KEY `create_dateline` (`create_dateline`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `needforbug_friend`
 --
 
@@ -664,6 +721,24 @@ INSERT INTO `needforbug_groupcategoryindex` (`group_id`, `groupcategory_id`) VAL
 (4, 1),
 (5, 1),
 (6, 1);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `needforbug_groupfeed`
+--
+
+CREATE TABLE IF NOT EXISTS `needforbug_groupfeed` (
+  `groupfeed_id` int(10) NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `groupfeed_username` varchar(50) NOT NULL COMMENT '用户名',
+  `groupfeed_template` varchar(1024) NOT NULL DEFAULT '' COMMENT '动态模板',
+  `groupfeed_data` varchar(1024) NOT NULL DEFAULT '' COMMENT '动态数据',
+  `create_dateline` int(10) NOT NULL DEFAULT '0' COMMENT '添加时间',
+  PRIMARY KEY (`groupfeed_id`),
+  KEY `user_id` (`user_id`),
+  KEY `create_dateline` (`create_dateline`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -3050,6 +3125,398 @@ CREATE TABLE IF NOT EXISTS `needforbug_session` (
 
 INSERT INTO `needforbug_session` (`session_hash`, `session_auth_key`, `user_id`) VALUES
 ('faa22F', 'aed46580ad97199f6222fe9bc7a664a1', 1);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `needforbug_shopaccountlog`
+--
+
+CREATE TABLE IF NOT EXISTS `needforbug_shopaccountlog` (
+  `shopaccountlog_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `shopaccountlog_usermoney` decimal(10,2) NOT NULL COMMENT '用户该笔记录的余额',
+  `shopaccountlogz_frozenmoney` decimal(10,2) NOT NULL COMMENT '被冻结的资金',
+  `shopaccountlog_extendcredit1` int(10) NOT NULL DEFAULT '0' COMMENT '第一种积分变更',
+  `shopaccountlog_extendcredit2` int(10) NOT NULL DEFAULT '0' COMMENT '第二种积分变更',
+  `shopaccountlog_extendcredit3` int(10) NOT NULL DEFAULT '0' COMMENT '第三种积分变更',
+  `shopaccountlog_extendcredit4` int(10) NOT NULL DEFAULT '0' COMMENT '第四种积分变更',
+  `shopaccountlog_extendcredit5` int(10) NOT NULL DEFAULT '0' COMMENT '第五种积分变更',
+  `shopaccountlog_extendcredit6` int(10) NOT NULL DEFAULT '0' COMMENT '第六种积分变更',
+  `shopaccountlog_extendcredit7` int(10) NOT NULL DEFAULT '0' COMMENT '第七种积分变更',
+  `shopaccountlog_extendcredit8` int(10) NOT NULL DEFAULT '0' COMMENT '第八种积分变更',
+  `shopaccountlog_payextendcredit` int(10) NOT NULL DEFAULT '0' COMMENT '消费积分',
+  `create_dateline` int(10) unsigned NOT NULL COMMENT '发生时间',
+  `shopaccountlog_description` varchar(255) NOT NULL COMMENT '操作描述',
+  `shopaccountlog_type` tinyint(3) unsigned NOT NULL COMMENT '操作类型,0为充值,1,为提现,2为管理员调节,99为其它类型',
+  PRIMARY KEY (`shopaccountlog_id`),
+  KEY `user_id` (`user_id`),
+  KEY `create_dateline` (`create_dateline`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `needforbug_shopagency`
+--
+
+CREATE TABLE IF NOT EXISTS `needforbug_shopagency` (
+  `shopagency_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `shopagency_name` varchar(255) NOT NULL,
+  `shopagency_description` text NOT NULL,
+  `create_dateline` int(10) NOT NULL COMMENT '创建时间',
+  `shopagency_sort` smallint(6) NOT NULL DEFAULT '0' COMMENT '办事处排序',
+  PRIMARY KEY (`shopagency_id`),
+  KEY `shopagency_name` (`shopagency_name`),
+  KEY `create_dateline` (`create_dateline`),
+  KEY `shopagency_sort` (`shopagency_sort`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `needforbug_shoparticle`
+--
+
+CREATE TABLE IF NOT EXISTS `needforbug_shoparticle` (
+  `shoparticle_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '文章ID',
+  `shoparticlecategory_id` smallint(5) NOT NULL DEFAULT '0' COMMENT '文章分类ID',
+  `shoparticle_title` varchar(150) NOT NULL DEFAULT '' COMMENT '文章标题',
+  `shoparticle_content` longtext NOT NULL COMMENT '文章内容',
+  `shoparticle_username` varchar(30) NOT NULL DEFAULT '' COMMENT '文章用户名',
+  `user_id` int(10) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `shoparticle_useremail` varchar(60) NOT NULL DEFAULT '' COMMENT '文章作者用户Email',
+  `shoparticle_keywords` varchar(255) NOT NULL DEFAULT '' COMMENT '文章关键字',
+  `shoparticle_type` tinyint(1) unsigned NOT NULL DEFAULT '2' COMMENT '文章类型',
+  `shoparticle_status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '文章状态',
+  `create_dateline` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `shoparticle_link` varchar(255) NOT NULL DEFAULT '' COMMENT '文件衔接，不为空将直接跳转',
+  `shoparticle_description` varchar(255) DEFAULT NULL COMMENT '文章描述',
+  `shoparticle_in` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否为系统内置，内置将不能删除',
+  PRIMARY KEY (`shoparticle_id`),
+  KEY `shoparticlecategory_id` (`shoparticlecategory_id`),
+  KEY `create_dateline` (`create_dateline`),
+  KEY `shoparticle_status` (`shoparticle_status`),
+  KEY `user_id` (`user_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+
+--
+-- 转存表中的数据 `needforbug_shoparticle`
+--
+
+INSERT INTO `needforbug_shoparticle` (`shoparticle_id`, `shoparticlecategory_id`, `shoparticle_title`, `shoparticle_content`, `shoparticle_username`, `user_id`, `shoparticle_useremail`, `shoparticle_keywords`, `shoparticle_type`, `shoparticle_status`, `create_dateline`, `shoparticle_link`, `shoparticle_description`, `shoparticle_in`) VALUES
+(1, 2, '免责条款', '免责条款', '', 0, '', '', 0, 1, 1351359953, '', NULL, 1),
+(2, 2, '隐私保护', '隐私保护', '', 0, '', '', 0, 1, 1351359953, '', NULL, 1),
+(3, 2, '咨询热点', '咨询热点', '', 0, '', '', 0, 1, 1351359953, '', NULL, 1),
+(4, 2, '联系我们', '联系我们', '', 0, '', '', 0, 1, 1351359953, '', NULL, 1),
+(5, 2, '公司简介', '公司简介', '', 0, '', '', 0, 1, 1351359953, '', NULL, 1),
+(6, -1, '用户协议', '用户协议', '', 0, '', '', 0, 1, 1351359953, '', NULL, 1);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `needforbug_shoparticlecategory`
+--
+
+CREATE TABLE IF NOT EXISTS `needforbug_shoparticlecategory` (
+  `shoparticlecategory_id` smallint(6) NOT NULL AUTO_INCREMENT COMMENT '文章分类ID',
+  `shoparticlecategory_name` varchar(255) NOT NULL DEFAULT '' COMMENT '文章分类名字',
+  `shoparticlecategory_keywords` varchar(255) NOT NULL DEFAULT '' COMMENT '文件分类关键字',
+  `shoparticlecategory_description` varchar(255) NOT NULL DEFAULT '' COMMENT '文件分类描述',
+  `shoparticlecategory_sort` smallint(6) unsigned NOT NULL DEFAULT '50' COMMENT '文章分类排序',
+  `shoparticlecategory_parentid` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '文件分类父级ID',
+  `create_dateline` int(10) NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`shoparticlecategory_id`),
+  KEY `create_dateline` (`create_dateline`),
+  KEY `shoparticlecategory_sort` (`shoparticlecategory_sort`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `needforbug_shoparticlecomment`
+--
+
+CREATE TABLE IF NOT EXISTS `needforbug_shoparticlecomment` (
+  `shoparticlecomment_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '文章评论ID',
+  `shoparticle_id` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '文章ID',
+  `shoparticlecomment_email` varchar(60) NOT NULL DEFAULT '' COMMENT '评论人邮件',
+  `shoparticlecomment_username` varchar(60) NOT NULL DEFAULT '' COMMENT '评论人用户名',
+  `shoparticlecomment_content` text NOT NULL COMMENT '评论内容',
+  `shoparticlecomment_commentrank` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '文章的重星级;只有1到5星;由数字代替;其中5代表5星',
+  `create_dateline` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
+  `shoparticlecomment_ip` varchar(15) NOT NULL DEFAULT '' COMMENT '评论者IP',
+  `shoparticlecomment_status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '评论状态',
+  `shoparticlecomment_parentid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '评论父级ID',
+  `user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '评论用户ID',
+  PRIMARY KEY (`shoparticlecomment_id`),
+  KEY `user_id` (`user_id`),
+  KEY `shoparticlecomment_parentid` (`shoparticlecomment_parentid`),
+  KEY `create_dateline` (`create_dateline`),
+  KEY `shoparticle_id` (`shoparticle_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `needforbug_shopbrand`
+--
+
+CREATE TABLE IF NOT EXISTS `needforbug_shopbrand` (
+  `shopbrand_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '品牌ID',
+  `shopbrand_name` varchar(60) NOT NULL DEFAULT '' COMMENT '品牌名称',
+  `shopbrand_logo` varchar(80) NOT NULL DEFAULT '' COMMENT '上传的该公司Logo图片',
+  `shopbrand_description` text NOT NULL COMMENT '品牌描述',
+  `shopbrand_siteurl` varchar(255) NOT NULL DEFAULT '' COMMENT '品牌的网址',
+  `shopbrand_sort` smallint(6) unsigned NOT NULL DEFAULT '50' COMMENT '品牌在前台页面的显示顺序,数字越大越靠后',
+  `shopbrand_status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '该品牌是否显示;0否1显示',
+  `create_dateline` int(10) NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`shopbrand_id`),
+  KEY `shopbrand_sort` (`shopbrand_sort`),
+  KEY `shopbrand_status` (`shopbrand_status`),
+  KEY `create_dateline` (`create_dateline`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `needforbug_shopcart`
+--
+
+CREATE TABLE IF NOT EXISTS `needforbug_shopcart` (
+  `shopcart_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '购物车ID',
+  `user_id` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '用户登录ID',
+  `shopgoods_id` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '商品的ID',
+  `shopcart_goodssn` varchar(60) NOT NULL DEFAULT '' COMMENT '商品的货号',
+  `shopproduct_id` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '产品ID',
+  `shopcart_goodsname` varchar(120) NOT NULL DEFAULT '' COMMENT '商品名称',
+  `shopcart_marketprice` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '商品的本店价,取自表市场价',
+  `shopcart_goodsprice` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '商品的本店价',
+  `shopcart_goodsnumber` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '商品的购买数量,在购物车时,实际库存不减少',
+  `shopcart_goodsattr` text NOT NULL COMMENT '商品的扩展属性',
+  `shopcart_isreal` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '来自shopgoods',
+  `shopcart_parentid` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '该商品的父商品ID,没有该值为0,有的话那该商品就是该id的配件',
+  `shopcart_isgift` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '是否赠品,0否;其他, 是参加优惠活动的id',
+  `shopcart_isshipping` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '来自shopgoods',
+  `shopcart_canhandsel` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '来自shopgoods',
+  `shopcart_goodsattrid` varchar(255) NOT NULL DEFAULT '' COMMENT '该商品的属性',
+  `create_dateline` int(10) NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`shopcart_id`),
+  KEY `create_dateline` (`create_dateline`),
+  KEY `user_id` (`user_id`),
+  KEY `shopgoods_id` (`shopgoods_id`),
+  KEY `shopproduct_id` (`shopproduct_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `needforbug_shopcategory`
+--
+
+CREATE TABLE IF NOT EXISTS `needforbug_shopcategory` (
+  `shopcategory_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '分类ID',
+  `shopcategory_name` varchar(90) NOT NULL DEFAULT '' COMMENT '分类名称',
+  `shopcategory_keywords` varchar(255) NOT NULL DEFAULT '' COMMENT '分类的关键字,可能是为了搜索',
+  `shopcategory_description` varchar(255) NOT NULL DEFAULT '' COMMENT '分类描述',
+  `shopcategory_parentid` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '该分类的父类ID',
+  `shopcategory_sort` smallint(6) unsigned NOT NULL DEFAULT '50' COMMENT '该分类在页面显示的顺序,数字越大顺序越靠后,同数字,id在前的先显示',
+  `shopcategory_template` varchar(50) NOT NULL DEFAULT '' COMMENT '该分类的单独模板文件的名字',
+  `shopcategory_measureunit` varchar(15) NOT NULL DEFAULT '' COMMENT '该分类的计量单位',
+  `shopcategory_status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否在前台页面显示 1显示; 0不显示',
+  `shopcategory_grade` tinyint(4) NOT NULL DEFAULT '0' COMMENT '分类的最高和最低价之间的价格分级,当大于1时,会根据最大最小价格区间分成区间,会在页面显示价格范围,如0-300,300-600,600-900这种; ',
+  `shopcategory_filterattr` varchar(255) NOT NULL DEFAULT '0' COMMENT '如果该字段有值,则该分类将还会按照该值对应在表goods_attr的goods_attr_id所对应的属性筛选，如，楷书，隶书',
+  `create_dateline` int(10) NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`shopcategory_id`),
+  KEY `shopcategory_sort` (`shopcategory_sort`),
+  KEY `shopcategory_status` (`shopcategory_status`),
+  KEY `create_dateline` (`create_dateline`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `needforbug_shopcategoryattribute`
+--
+
+CREATE TABLE IF NOT EXISTS `needforbug_shopcategoryattribute` (
+  `shopcategoryattribute_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '商品属性ID',
+  `shopcategory_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '商品分类ID',
+  `shopcategoryattribute_name` varchar(60) NOT NULL DEFAULT '' COMMENT '商品属性名字',
+  `shopcategoryattribute_inputtype` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '当添加商品时,该属性的添加类别; 0为手功输入;1为选择输入',
+  `shopcategoryattribute_type` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '属性是否多选; 0否; 1是 如果可以多选,则可以自定义属性,并且可以根据值的不同定不同的价',
+  `shopcategoryattribute_values` text NOT NULL COMMENT '即选择输入,则attr_name对应的值的取值就是该这字段值',
+  `shopcategoryattribute_index` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '属性是否可以检索;0不需要检索; 1关键字检索2范围检索,该属性应该是如果检索的话,可以通过该属性找到有该属性的商品',
+  `shopcategoryattribute_sort` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '商品属性排序',
+  `create_dateline` int(10) NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`shopcategoryattribute_id`),
+  KEY `shopcategory_id` (`shopcategory_id`),
+  KEY `shopcategoryattribute_sort` (`shopcategoryattribute_sort`),
+  KEY `create_dateline` (`create_dateline`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `needforbug_shopcategoryrecommend`
+--
+
+CREATE TABLE IF NOT EXISTS `needforbug_shopcategoryrecommend` (
+  `shopcategoryrecommend_id` smallint(5) NOT NULL COMMENT '推荐分类ID',
+  `shopcategoryrecommend_type` tinyint(1) NOT NULL COMMENT '分类的类型',
+  `create_dateline` int(10) NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`shopcategoryrecommend_id`,`shopcategoryrecommend_type`),
+  KEY `create_dateline` (`create_dateline`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `needforbug_shopcollect`
+--
+
+CREATE TABLE IF NOT EXISTS `needforbug_shopcollect` (
+  `shopcollect_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '收藏记录ID',
+  `user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `shopgoods_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '商品ID',
+  `create_dateline` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `shopcollect_isattention` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否关注该收藏商品;1是;0否',
+  PRIMARY KEY (`shopcollect_id`),
+  KEY `user_id` (`user_id`),
+  KEY `shopgoods_id` (`shopgoods_id`),
+  KEY `create_dateline` (`create_dateline`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `needforbug_shopfeed`
+--
+
+CREATE TABLE IF NOT EXISTS `needforbug_shopfeed` (
+  `shopfeed_id` int(10) NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `shopfeed_username` varchar(50) NOT NULL COMMENT '用户名',
+  `shopfeed_template` varchar(1024) NOT NULL DEFAULT '' COMMENT '动态模板',
+  `shopfeed_data` varchar(1024) NOT NULL DEFAULT '' COMMENT '动态数据',
+  `create_dateline` int(10) NOT NULL DEFAULT '0' COMMENT '添加时间',
+  PRIMARY KEY (`shopfeed_id`),
+  KEY `user_id` (`user_id`),
+  KEY `create_dateline` (`create_dateline`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `needforbug_shopgoods`
+--
+
+CREATE TABLE IF NOT EXISTS `needforbug_shopgoods` (
+  `shopgoods_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '商品id',
+  `shopgoodscategory_id` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '商品所属商品分类id',
+  `shopgoods_sn` varchar(60) NOT NULL DEFAULT '' COMMENT '商品的唯一货号',
+  `shopgoods_name` varchar(120) NOT NULL DEFAULT '' COMMENT '商品的名称',
+  `shopgoods_views` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '商品点击数',
+  `brand_id` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '品牌id',
+  `shopgoods_number` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '商品库存数量',
+  `shopgoods_weight` decimal(10,3) unsigned NOT NULL DEFAULT '0.000' COMMENT '商品的重量，以千克为单位',
+  `shopgoods_price` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '市场售价',
+  `shopgoods_shopprice` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '本店售价',
+  `shopgoods_promoteprice` decimal(10,2) unsigned NOT NULL DEFAULT '0.00' COMMENT '促销价格',
+  `shopgoods_promotestartdate` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '促销价格开始日期',
+  `shopgoods_promoteenddate` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '促销价格结束日期',
+  `shopgoods_warnnumber` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '商品报警数量',
+  `shopgoods_keywords` varchar(255) NOT NULL DEFAULT '' COMMENT '商品关键字，放在商品页的关键字中，为搜索引擎收录用',
+  `shopgoods_brief` varchar(255) NOT NULL DEFAULT '' COMMENT '商品的简短描述',
+  `shopgoods_description` text NOT NULL COMMENT '商品的详细描述',
+  `shopgoods_thumb` varchar(255) NOT NULL DEFAULT '' COMMENT '商品在前台显示的微缩图片，如在分类筛选时显示的小图片',
+  `shopgoods_img` varchar(255) NOT NULL DEFAULT '' COMMENT '商品的实际大小图片，如进入该商品页时介绍商品属性所显示的大图片',
+  `shopgoods_originalimg` varchar(255) NOT NULL DEFAULT '' COMMENT '商品的原始图片',
+  `shopgoods_isreal` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '是否是实物，1，是；0，否；比如虚拟卡就为0，不是实物',
+  `shopgoods_extensioncode` varchar(30) NOT NULL DEFAULT '' COMMENT '商品的扩展属性，比如像虚拟卡',
+  `shopgoods_isonsale` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '该商品是否开放销售，1，是；0，否',
+  `shopgoods_isalonesale` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否能单独销售，1，是；0，否；如果不能单独销售，则只能作为某商品的配件或者赠品销售',
+  `create_dateline` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '商品添加时间',
+  `shopgoods_status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '商品状态',
+  `shopgoods_isbest` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否是精品；0，否；1，是',
+  `shopgoods_isnew` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否是新品',
+  `shopgoods_ishot` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否热销，0，否；1，是',
+  `shopgoods_ispromote` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否特价促销；0，否；1，是',
+  `update_dateline` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '最近一次更新商品配置的时间',
+  `shopgoods_type` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '商品所属类型id',
+  `shopgoods_sellernote` varchar(255) NOT NULL DEFAULT '' COMMENT '商品的商家备注，仅商家可见',
+  `shopgoods_extendcredit1` int(10) NOT NULL COMMENT '第一种积分',
+  `shopgoods_extendcredit2` int(10) NOT NULL COMMENT '第二种积分',
+  `shopgoods_extendcredit3` int(10) NOT NULL COMMENT '第三种积分',
+  `shopgoods_extendcredit4` int(10) NOT NULL COMMENT '第四种积分',
+  `shopgoods_extendcredit5` int(10) NOT NULL COMMENT '第五种积分',
+  `shopgoods_extendcredit6` int(10) NOT NULL COMMENT '第六种积分',
+  `shopgoods_extendcredit7` int(10) NOT NULL COMMENT '第七种积分',
+  `shopgoods_extendcredit8` int(10) NOT NULL COMMENT '第八种积分',
+  PRIMARY KEY (`shopgoods_id`),
+  KEY `shopgoods_sn` (`shopgoods_sn`),
+  KEY `shopgoodscategory_id` (`shopgoodscategory_id`),
+  KEY `update_dateline` (`update_dateline`),
+  KEY `brand_id` (`brand_id`),
+  KEY `shopgoods_weight` (`shopgoods_weight`),
+  KEY `shopgoods_promoteenddate` (`shopgoods_promoteenddate`),
+  KEY `shopgoods_promotestartdate` (`shopgoods_promotestartdate`),
+  KEY `shopgoods_number` (`shopgoods_number`),
+  KEY `create_dateline` (`create_dateline`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `needforbug_shopgoodscomment`
+--
+
+CREATE TABLE IF NOT EXISTS `needforbug_shopgoodscomment` (
+  `shopgoodscomment_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '商品评论ID',
+  `shopgoods_id` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '商品ID',
+  `shopgoodscomment_email` varchar(60) NOT NULL DEFAULT '' COMMENT '评论人邮件',
+  `shopgoodscomment_username` varchar(60) NOT NULL DEFAULT '' COMMENT '评论人用户名',
+  `shopgoodscomment_content` text NOT NULL COMMENT '评论内容',
+  `shopgoodscomment_commentrank` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '商品的重星级;只有1到5星;由数字代替;其中5代表5星',
+  `create_dateline` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
+  `shopgoodscomment_ip` varchar(15) NOT NULL DEFAULT '' COMMENT '评论者IP',
+  `shopgoodscomment_status` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '评论状态',
+  `shopgoodscomment_parentid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '评论父级ID',
+  `user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '评论用户ID',
+  PRIMARY KEY (`shopgoodscomment_id`),
+  KEY `user_id` (`user_id`),
+  KEY `shopgoodscomment_parentid` (`shopgoodscomment_parentid`),
+  KEY `create_dateline` (`create_dateline`),
+  KEY `shopgoods_id` (`shopgoods_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `needforbug_shopgoodstype`
+--
+
+CREATE TABLE IF NOT EXISTS `needforbug_shopgoodstype` (
+  `shopgoodstype_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT COMMENT '商品类型ID',
+  `create_dateline` int(10) NOT NULL COMMENT '添加时间',
+  `shopgoodstype_name` varchar(60) NOT NULL DEFAULT '' COMMENT '商品类型名字',
+  `shopgoodstype_status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '商品类型状态',
+  PRIMARY KEY (`shopgoodstype_id`),
+  KEY `create_dateline` (`create_dateline`),
+  KEY `shopgoodstype_status` (`shopgoodstype_status`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `needforbug_shopoption`
+--
+
+CREATE TABLE IF NOT EXISTS `needforbug_shopoption` (
+  `shopoption_name` varchar(32) NOT NULL DEFAULT '' COMMENT '名字',
+  `shopoption_value` text NOT NULL COMMENT '值',
+  PRIMARY KEY (`shopoption_name`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
