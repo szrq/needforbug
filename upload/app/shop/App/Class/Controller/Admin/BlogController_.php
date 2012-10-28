@@ -1,6 +1,6 @@
 <?php
 /* [NeedForBug!] (C)Dianniu From 2010.
-   博客控制器($)*/
+   商城控制器($)*/
 
 !defined('DYHB_PATH') && exit;
 

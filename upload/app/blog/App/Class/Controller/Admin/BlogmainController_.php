@@ -1,10 +1,10 @@
 <?php
 /* [NeedForBug!] (C)Dianniu From 2010.
-   鍗氬閰嶇疆澶勭悊鎺у埗鍣�$)*/
+   博客入口控制器($)*/
 
 !defined('DYHB_PATH') && exit;
 
-/** 瀵煎叆鍗氬妯″瀷 */
+/** 导入博客模型 */
 Dyhb::import(NEEDFORBUG_PATH.'/app/blog/App/Class/Model');
 
 class BlogmainController extends InitController{
@@ -25,7 +25,7 @@ class BlogmainController extends InitController{
 
 		GroupCache_Extend::updateCache("option");
 
-		$this->S(Dyhb::L('閰嶇疆鏇存柊鎴愬姛','__APP_ADMIN_LANG__@Controller/Groupoption'));
+		$this->S(Dyhb::L('配置更新成功','__APP_ADMIN_LANG__@Controller/Groupoption'));
 	}
 
 }

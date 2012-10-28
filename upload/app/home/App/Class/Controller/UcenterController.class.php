@@ -13,11 +13,11 @@ class UcenterController extends InitController{
 	}
 	
 	public function index(){
-		Core_Extend::doControllerAction('Ucenter@Homefresh','index');
+		Core_Extend::doControllerAction('Ucenter@Homefresh/Index','index');
 	}
 
 	public function add_homefresh(){
-		Core_Extend::doControllerAction('Ucenter@Homefresh','add');
+		Core_Extend::doControllerAction('Ucenter@Homefresh/Add','index');
 	}
 
 	public function view(){
