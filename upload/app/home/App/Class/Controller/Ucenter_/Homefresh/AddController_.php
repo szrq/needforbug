@@ -61,7 +61,12 @@ class AddController extends Controller{
 		if(!Dyhb::classExists('Cache_Extend')){
 			require_once(Core_Extend::includeFile('function/Cache_Extend'));
 		}
-		Cache_Extend::updateCacheSite();
+		Cache_Extend::updateCache("site");
+	}
+
+	protected function get_myhomefreshnum(){
+		$oHomefresh=Dyhb::instance('HomefreshModel');
+		return $oHomefresh->getHomefreshnumByUserid($GLOBALS['___login___']['user_id']);
 	}
 
 }
