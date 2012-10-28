@@ -1,10 +1,10 @@
 <?php
 /* [NeedForBug!] (C)Dianniu From 2010.
-   鍗氬閰嶇疆澶勭悊鎺у埗鍣�$)*/
+   商城入口控制器($)*/
 
 !defined('DYHB_PATH') && exit;
 
-/** 瀵煎叆鍗氬妯″瀷 */
+/** 导入商城模型 */
 Dyhb::import(NEEDFORBUG_PATH.'/app/blog/App/Class/Model');
 
 class BlogmainController extends InitController{
