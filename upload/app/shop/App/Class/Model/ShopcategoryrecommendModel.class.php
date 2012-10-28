@@ -1,14 +1,18 @@
 <?php
 /* [NeedForBug!] (C)Dianniu From 2010.
-   博客配置模型($)*/
+   商城商品分类推荐模型($)*/
 
 !defined('DYHB_PATH') && exit;
 
-class BlogoptionModel extends CommonModel{
+class ShopcategoryrecommendModel extends Model{
 
 	static public function init__(){
 		return array(
-			'table_name'=>'blogoption',
+			'table_name'=>'shopcategoryrecommend',
+			'props'=>array(
+				'shopcategoryrecommend_id'=>array('readonly'=>true),
+			),
+			'attr_protected'=>'shopcategoryrecommend_id',
 		);
 	}
 

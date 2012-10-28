@@ -139,7 +139,7 @@ class HomefreshController extends InitController{
 
 		$sMessage=trim(G::cleanJs(G::getGpc('homefresh_message','P')));
 		if(empty($sMessage)){
-			$this->E(Dyhb::L('鏂伴矞浜嬪唴瀹逛笉鑳戒负绌�,'Controller/Homefresh'));
+			$this->E(Dyhb::L('鏂伴矞浜嬪唴瀹逛笉鑳戒负绌�','Controller/Homefresh'));
 		}
 		
 		$oHomefresh=new HomefreshModel();
