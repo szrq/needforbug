@@ -1,10 +1,10 @@
 <?php
 /* [NeedForBug!] (C)Dianniu From 2010.
-   前台用户注册($)*/
+   鍓嶅彴鐢ㄦ埛娉ㄥ唽($)*/
 
 !defined('DYHB_PATH') && exit;
 
-// 导入社会化登录组件
+// 瀵煎叆绀句細鍖栫櫥褰曠粍浠�
 Dyhb::import(NEEDFORBUG_PATH.'/source/extension/socialization');
 
 class RegisterController extends Controller{
@@ -12,11 +12,11 @@ class RegisterController extends Controller{
 	public function index(){
 		if($GLOBALS['___login___']!==false){
 			$this->assign('__JumpUrl__',__APP__);
-			$this->E(Dyhb::L('你已经登录','Controller/Public'));
+			$this->E(Dyhb::L('浣犲凡缁忕櫥褰�,'Controller/Public'));
 		}
 		
 		if($GLOBALS['_option_']['disallowed_register']){
-			$this->E(Dyhb::L('系统关闭了用户注册','Controller/Public'));
+			$this->E(Dyhb::L('绯荤粺鍏抽棴浜嗙敤鎴锋敞鍐�,'Controller/Public'));
 		}
 
 		$this->assign('nDisplaySeccode',$GLOBALS['_option_']['seccode_register_status']);
@@ -25,7 +25,7 @@ class RegisterController extends Controller{
 	}
 
 	public function register_title_(){
-		return '注册';
+		return '娉ㄥ唽';
 	}
 
 	public function register_keywords_(){
@@ -60,11 +60,11 @@ class RegisterController extends Controller{
 	
 	public function register_user(){
 		if($GLOBALS['___login___']!==false){
-			$this->E(Dyhb::L('你已经登录会员,不能重复注册','Controller/Public'));
+			$this->E(Dyhb::L('浣犲凡缁忕櫥褰曚細鍛�涓嶈兘閲嶅娉ㄥ唽','Controller/Public'));
 		}
 		
 		if($GLOBALS['_option_']['disallowed_register']){
-			$this->E(Dyhb::L('系统关闭了用户注册','Controller/Public'));
+			$this->E(Dyhb::L('绯荤粺鍏抽棴浜嗙敤鎴锋敞鍐�,'Controller/Public'));
 		}
 		
 		if($GLOBALS['_option_']['seccode_register_status']==1){
@@ -73,23 +73,23 @@ class RegisterController extends Controller{
 		
 		$sPassword=trim(G::getGpc('user_password','P'));
 		if(!$sPassword || $sPassword !=G::addslashes($sPassword)){
-			$this->E(Dyhb::L('密码空或包含非法字符','Controller/Public'));
+			$this->E(Dyhb::L('瀵嗙爜绌烘垨鍖呭惈闈炴硶瀛楃','Controller/Public'));
 		}
 		if(strpos($sPassword,"\n")!==false || strpos($sPassword,"\r")!==false || strpos($sPassword,"\t")!==false){
-			$this->E(Dyhb::L('密码包含不可接受字符','Controller/Public'));
+			$this->E(Dyhb::L('瀵嗙爜鍖呭惈涓嶅彲鎺ュ彈瀛楃','Controller/Public'));
 		}
 		
 		$sUsername=trim(G::getGpc('user_name','P'));
 		$sDisallowedRegisterUser=trim($GLOBALS['_option_']['disallowed_register_user']);
 		$sDisallowedRegisterUser='/^('.str_replace(array('\\*',"\r\n",' '),array('.*','|',''),preg_quote(($sDisallowedRegisterUser=trim($sDisallowedRegisterUser)),'/')).')$/i';
 		if($sDisallowedRegisterUser && @preg_match($sDisallowedRegisterUser,$sUsername)){
-			$this->E(Dyhb::L('用户名包含被系统屏蔽的字符','Controller/Public'));
+			$this->E(Dyhb::L('鐢ㄦ埛鍚嶅寘鍚绯荤粺灞忚斀鐨勫瓧绗�,'Controller/Public'));
 		}
 		
 		$arrNameKeys=array("\\",'&',' ',"'",'"','/','*',',','<','>',"\r","\t","\n",'#','$','(',')','%','@','+','?',';','^');
 		foreach($arrNameKeys as $sNameKeys){
 			if(strpos($sUsername,$sNameKeys)!==false){
-				$this->E(Dyhb::L('此用户名包含不可接受字符或被管理员屏蔽,请选择其它用户名','Controller/Public'));
+				$this->E(Dyhb::L('姝ょ敤鎴峰悕鍖呭惈涓嶅彲鎺ュ彈瀛楃鎴栬绠＄悊鍛樺睆钄�璇烽�鎷╁叾瀹冪敤鎴峰悕','Controller/Public'));
 			}
 		}
 		
@@ -99,7 +99,7 @@ class RegisterController extends Controller{
 			$arrDisallowedRegisterEmail=explode("\n",$sDisallowedRegisterEmail);
 			$arrDisallowedRegisterEmail=Dyhb::normalize($arrDisallowedRegisterEmail);
 			if(in_array($sUseremail,$arrDisallowedRegisterEmail)){
-				$this->E(Dyhb::L('你注册的邮件地址%s已经被官方屏蔽','Controller/Public',null,$sUseremail));
+				$this->E(Dyhb::L('浣犳敞鍐岀殑閭欢鍦板潃%s宸茬粡琚畼鏂瑰睆钄�,'Controller/Public',null,$sUseremail));
 			}
 		}
 		
@@ -108,7 +108,7 @@ class RegisterController extends Controller{
 			$arrAllowedRegisterEmail=explode("\n",$sAllowedRegisterEmail);
 			$arrAllowedRegisterEmail=Dyhb::normalize($arrAllowedRegisterEmail);
 			if(!in_array($sUseremail,$arrAllowedRegisterEmail)){
-				$this->E(Dyhb::L('你注册的邮件地址%s不在系统允许的邮件之列','Controller/Public',null,$sUseremail));
+				$this->E(Dyhb::L('浣犳敞鍐岀殑閭欢鍦板潃%s涓嶅湪绯荤粺鍏佽鐨勯偖浠朵箣鍒�,'Controller/Public',null,$sUseremail));
 			}
 		}
 		
@@ -131,9 +131,9 @@ class RegisterController extends Controller{
 
 			$this->cache_site_();
 
-			// 判断是否绑定社会化帐号
+			// 鍒ゆ柇鏄惁缁戝畾绀句細鍖栧笎鍙�
 			if(G::getGpc('sociabind','P')==1){
-				// 绑定社会化登录数据，以便于下次直接调用
+				// 缁戝畾绀句細鍖栫櫥褰曟暟鎹紝浠ヤ究浜庝笅娆＄洿鎺ヨ皟鐢�
 				$oSociauser=Dyhb::instance('SociauserModel');
 				$oSociauser->processBind($oUser['user_id']);
 
@@ -147,12 +147,12 @@ class RegisterController extends Controller{
 				$arrSociauser=SociauserModel::F('user_id=?',$arrData['user_id'])->asArray()->getOne();
 				Socia::setUser($arrSociauser);
 				
-				$this->A($arrData,Dyhb::L('绑定成功','Controller/Public'),1);
+				$this->A($arrData,Dyhb::L('缁戝畾鎴愬姛','Controller/Public'),1);
 
 				exit();
 			}
 
-			$this->A($oUser->toArray(),Dyhb::L('注册成功','Controller/Public'),1);
+			$this->A($oUser->toArray(),Dyhb::L('娉ㄥ唽鎴愬姛','Controller/Public'),1);
 		}
 	}
 
@@ -160,7 +160,7 @@ class RegisterController extends Controller{
 		if(!Dyhb::classExists('Cache_Extend')){
 			require_once(Core_Extend::includeFile('function/Cache_Extend'));
 		}
-		Cache_Extend::updateCacheSite();
+		Cache_Extend::updateCache("site");
 	}
 
 }

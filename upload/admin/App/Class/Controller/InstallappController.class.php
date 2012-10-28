@@ -218,7 +218,7 @@ class InstallappController extends InitController{
 		if(!Dyhb::classExists('Cache_Extend')){
 			require_once(Core_Extend::includeFile('function/Cache_Extend'));
 		}
-		Cache_Extend::updateCacheSite();
+		Cache_Extend::updateCache("site");
 	}
 
 }

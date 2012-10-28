@@ -1,10 +1,10 @@
 <?php
 /* [NeedForBug!] (C)Dianniu From 2010.
-   群组配置处理控制器($)*/
+   缇ょ粍閰嶇疆澶勭悊鎺у埗鍣�$)*/
 
 !defined('DYHB_PATH') && exit;
 
-/** 导入群组模型 */
+/** 瀵煎叆缇ょ粍妯″瀷 */
 Dyhb::import(NEEDFORBUG_PATH.'/app/group/App/Class/Model');
 
 class GroupmainController extends InitController{
@@ -31,9 +31,9 @@ class GroupmainController extends InitController{
 			$oOptionModel->save(0,'update');
 		}
 
-		GroupCache_Extend::updateCacheOption();
+		GroupCache_Extend::updateCache("option");
 
-		$this->S(Dyhb::L('配置更新成功','__APP_ADMIN_LANG__@Controller/Groupoption'));
+		$this->S(Dyhb::L('閰嶇疆鏇存柊鎴愬姛','__APP_ADMIN_LANG__@Controller/Groupoption'));
 	}
 
 }

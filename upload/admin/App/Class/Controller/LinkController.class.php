@@ -1,6 +1,6 @@
 <?php
 /* [NeedForBug!] (C)Dianniu From 2010.
-   友情衔接控制器($)*/
+   鍙嬫儏琛旀帴鎺у埗鍣�$)*/
 
 !defined('DYHB_PATH') && exit;
 
@@ -14,7 +14,7 @@ class LinkController extends InitController{
 		if(!Dyhb::classExists('Cache_Extend')){
 			require_once(Core_Extend::includeFile('function/Cache_Extend'));
 		}
-		Cache_Extend::updateCacheLink();
+		Cache_Extend::updateCache('link');
 	}
 
 	protected function aUpdate($nId=null){
