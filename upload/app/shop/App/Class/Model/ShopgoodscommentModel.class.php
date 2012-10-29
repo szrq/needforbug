@@ -1,18 +1,18 @@
-	<?php
+<?php
 /* [NeedForBug!] (C)Dianniu From 2010.
-   博客分类模型($)*/
+   商城商品评论模型($)*/
 
 !defined('DYHB_PATH') && exit;
 
-class BlogcategoryModel extends Model{
+class ShopgoodscommentModel extends Model{
 
 	static public function init__(){
 		return array(
-			'table_name'=>'blogcategory',
+			'table_name'=>'shopgoodscomment',
 			'props'=>array(
-				'blogcategory_id'=>array('readonly'=>true),
+				'shopgoodscomment_id'=>array('readonly'=>true),
 			),
-			'attr_protected'=>'blogcategory_id',
+			'attr_protected'=>'shopgoodscomment_id',
 		);
 	}
 

@@ -1,18 +1,18 @@
 <?php
 /* [NeedForBug!] (C)Dianniu From 2010.
-   博客评论模型($)*/
+   商城文章模型($)*/
 
 !defined('DYHB_PATH') && exit;
 
-class BlogcommentModel extends CommonModel{
+class ShoparticleModel extends Model{
 
 	static public function init__(){
 		return array(
-			'table_name'=>'blogcomment',
+			'table_name'=>'shoparticle',
 			'props'=>array(
-				'blogcomment_id'=>array('readonly'=>true),
+				'shoparticle_id'=>array('readonly'=>true),
 			),
-			'attr_protected'=>'blogcomment_id',
+			'attr_protected'=>'shoparticle_id',
 		);
 	}
 

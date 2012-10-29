@@ -1,6 +1,6 @@
 <?php
 /* [NeedForBug!] (C)Dianniu From 2010.
-   涓婚〉閰嶇疆妯″瀷($)*/
+   配置模型($)*/
 
 !defined('DYHB_PATH') && exit;
 
