@@ -29,6 +29,7 @@
 		<!--{if $GLOBALS['_option_']['bgextend_on']==1}-->
 		setInterval("changeGlobalbg();",<!--{$GLOBALS['_option_']['bgextend_time']*1000}-->);
 		<!--{/if}-->
+		$('.thumbnails').tooltip({selector: "a[rel=tooltip]"});
 	});
 	<!--{/script}-->
 	<!--<load file="<!--{:__PUBLIC__}-->/js/artdialog/skins/default.css" />-->

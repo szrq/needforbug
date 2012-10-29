@@ -1,12 +1,6 @@
 <!--<include file="Core_Extend::template('header')" />-->
 
 <!--{script}-->
-$(function(){
-	$('.thumbnails').tooltip({
-		selector: "a[rel=tooltip]"
-	})
-});
-
 function addFriend(userid){
 	Dyhb.AjaxSend('<!--{:Dyhb::U('home://friend/add')}-->','ajax=1&uid='+userid,'',function(data,status){
 		if(status==1){

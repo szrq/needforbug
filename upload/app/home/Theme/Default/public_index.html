@@ -13,22 +13,6 @@
 		</ul>
 
 		<div class="row">
-			<div class="span12">
-			<div class="hero-unit">
-				<h1><!--<lang package='Template/Public'>-->新社区<!--</lang>--></h1>
-				<p><!--{$sHomeDescription}--></p>
-				<blockquote>
-					<small><!--{$GLOBALS['_option_']['site_description']}--></small>
-				</blockquote>
-				<p><!--{if $GLOBALS['___login___']===false}-->
-					<a class="btn btn-success btn-large" href="<!--{:Dyhb::U('home://public/register')}-->"><!--<lang package='Template/Public'>-->加入我们<!--</lang>--></a>
-					<!--{/if}-->
-				</p>
-			</div>
-			</div>
-		</div>
-
-		<div class="row">
 			<div class="span8">
 				<div id="myCarousel" class="carousel slide">
 					<div class="carousel-inner">
@@ -138,6 +122,568 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="row none">
+			<div class="span12">
+				<div class="hero-unit">
+					<h1><!--<lang package='Template/Public'>-->新社区<!--</lang>--></h1>
+					<p><!--{$sHomeDescription}--></p>
+					<blockquote>
+						<small><!--{$GLOBALS['_option_']['site_description']}--></small>
+					</blockquote>
+					<p><!--{if $GLOBALS['___login___']===false}-->
+						<a class="btn btn-success btn-large" href="<!--{:Dyhb::U('home://public/register')}-->"><!--<lang package='Template/Public'>-->加入我们<!--</lang>--></a>
+						<!--{/if}-->
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<!--{style}-->
+		.posts_small {
+	background:url("assets/border.png") left bottom repeat-x;
+	min-height:210px;
+	padding:15px 0;
+}
+
+.posts_small img {
+	padding:5px;
+	background:#eee;
+	float:left;
+	position:relative;
+}
+
+.post_content {
+	padding-left:230px;
+}
+
+.post_content h2 {
+	margin-top:5px;
+	font-weight:normal;
+	margin-bottom:0;
+}
+
+.first_small {
+	padding-top:0;
+}
+
+
+.post_content h2 a {
+	font-size:18px;
+	line-height:24px;
+}
+
+.posts h2 {
+	font-size:18px;
+	line-height:24px;
+	margin-top:5px;
+	color:#111;
+}
+
+p.tags {
+	color:#999;
+	font-style:italic;
+	font-size:11px;
+	margin-top:10px;
+}
+
+p.tags a {
+	color:#555;
+}
+
+		<!--{/style}-->
+
+<div class="row section">
+                <div class="span12">
+                    <h3>最新新鲜事</h3>
+                    <div class="row">
+                        <div class="span12">
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+			<!--{style}-->
+.mainlist {
+	margin: 0 auto 25px;
+	overflow: hidden;
+	width: 600px;
+}
+.mainlist_img {
+	float: left;
+	height: 120px;
+	overflow: hidden;
+	position: relative;
+	width: 110px;
+}
+.mainlist_content {
+	float: left;
+	height: 120px;
+	margin-left: 16px;
+	overflow: hidden;
+	width: 410px;
+}
+.mainlist_content h1 {
+	background: none repeat scroll 0 0 #F6FBFD;
+	font-size: 14px;
+	font-weight: normal;
+	height: 22px;
+	line-height: 22px;
+	margin: 0;
+	overflow: hidden;
+	padding-left: 8px;
+	text-align: left;
+	width: 410px;
+}
+a.link1:link, a.link1:visited {
+	color: #FF9900;
+	text-decoration: none;
+}
+.mainlist_content .summary {
+	color: #666666;
+	line-height: 20px;
+	margin: 8px 0 0 8px;
+}
+.mainlist_content .summary span {
+	color: #999999;
+}
+.star {
+	display: inline-block;
+	height: 16px;
+	overflow: hidden;
+	vertical-align: middle;
+}
+.level4 {
+	width: 60px;
+}
+.mainlist_content .summary span {
+	color: #999999;
+}
+.height1 {
+	height: 10px;
+	overflow: hidden;
+}
+.mainlist_content .summary .comments {
+	display: inline-block;
+	height: 13px;
+}
+.view {
+	
+	float: right;
+	height: 80px;
+	overflow: hidden;
+	text-align: center;
+	width: 51px;
+}
+.viewnum {
+	color: #FF9900;
+	font-size: 16px;
+	font-weight: bold;
+	height: 24px;
+	line-height: 24px;
+	margin-top: 8px;
+	overflow: hidden;
+	width: 51px;
+}
+.viewed {
+	color: #FF9900;
+	height: 20px;
+	line-height: 20px;
+	overflow: hidden;
+	width: 51px;
+}
+.toview {
+	height: 25px;
+	line-height: 26px;
+	margin-top: 2px;
+	overflow: hidden;
+	text-align: center;
+	width: 51px;
+}
+
+.bbox .btitle {
+    border-bottom: 1px solid #EEEEEE;
+    font-size: 14px;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+}
+
+/*通用标题列表*/
+.commlist{}
+.commlist ul{}
+.commlist ul li{padding:5px;border-bottom:dashed 1px #DDDDDD;}
+			<!--{/style}-->
+
+			<div class="row">
+				<div class="span8">
+				<div class="bbox pd1020 wd590">
+<div class="btitle">最新图文话题</div>
+<div class="mainlist">
+
+<div id="post-182" class="posts_small">
+    <a href="http://www.cncms.com/a/201210/266836.shtml" rel="bookmark" title="雅虎新主页11月向1%-2%美用户推出 专注用户习惯" class="preloader">
+        <img src="http://www.cncms.com/upload/2012/1026/thumb_200_200_1351216535486.jpg" alt="雅虎新主页11月向1%-2%美用户推出 专注用户习惯" class="mag fade_hover"/>
+    </a>
+    <div class="post_content">
+        <h2>
+            <a href="http://www.cncms.com/a/201210/266836.shtml" rel="bookmark" title="">雅虎新主页11月向1%-2%美用户推出 专注用户习惯</a>
+        </h2>
+        <p class="meta">
+           [ <a href="http://www.cncms.com/look/company/index.shtml">公司</a> ]　投稿人/来源： － 2012-10-26 09:55        </p>
+        <p>北京时间10月26日消息，据国外媒体报道，在担任雅虎CEO后的首次财报电话会议上，玛丽莎-梅耶(Marissa Mayer)声称，她希望该公司能够专注于用户日常习惯使用的产品。据多个消息人士透露，梅耶实现这个目标的最大举措之一就是“Homerun项目”，即重新改版雅虎主页。</p>
+        <p class="tags">我还关注：
+<span class="category">
+<a href="tags.php?tag=雅虎">雅虎</a>
+<a href="tags.php?tag=梅耶尔">梅耶尔</a>
+</span>
+
+　我还可以：
+<!-- 分享 -->
+<script type="text/javascript" charset="utf-8">
+(function(){
+  var _w = 16 , _h = 16;
+  var param = {
+    url:"http://www.cncms.com/a/201210/266836.shtml",
+    type:'3',
+    count:'',
+    appkey:'2807297342', /**您申请的应用appkey,显示分享来源(可选)*/
+    title:'雅虎新主页11月向1%-2%美用户推出 专注用户习惯',
+    pic:'http://www.cncms.com/upload/2012/1026/thumb_200_200_1351216535486.jpg',
+    ralateUid:'',
+    rnd:new Date().valueOf()
+  }
+  var temp = [];
+  for( var p in param ){
+    temp.push(p + '=' + encodeURIComponent( param[p] || '' ) )
+  }
+  document.write('<iframe allowTransparency="true" frameborder="0" scrolling="no" src="http://hits.sinajs.cn/A1/weiboshare.html?' + temp.join('&') + '" width="'+ _w+'" height="'+_h+'"></iframe>')
+})()
+</script>
+<a href="javascript:void(0)" onclick="postToWb('雅虎新主页11月向1%-2%美用户推出 专注用户习惯','http://www.cncms.com/a/201210/266836.shtml','http://www.cncms.com/upload/2012/1026/thumb_200_200_1351216535486.jpg');return false;" style="height:16px;font-size:12px;line-height:16px;"><img src="http://v.t.qq.com/share/images/s/weiboicon16.png" style="float:none; background:none; padding:0 5px;" align="absmiddle" border="0" alt="转播到腾讯微博" /></a>
+<!-- /分享 -->
+        </p>
+
+    </div>
+</div>
+<div id="post-182" class="posts_small">
+    <a href="http://www.cncms.com/a/201210/266835.shtml" rel="bookmark" title="微软称Windows 8已经过12亿小时测试" class="preloader">
+        <img src="http://www.cncms.com/upload/2012/1026/thumb_200_200_1351216384308.jpg" alt="微软称Windows 8已经过12亿小时测试" class="mag fade_hover"/>
+    </a>
+    <div class="post_content">
+        <h2>
+            <a href="http://www.cncms.com/a/201210/266835.shtml" rel="bookmark" title="">微软称Windows 8已经过12亿小时测试</a>
+        </h2>
+        <p class="meta">
+           [ <a href="http://www.cncms.com/new/np/index.shtml">新产品</a> ]　投稿人/来源： － 2012-10-26 09:53        </p>
+        <p>北京时间10月26日早间消息，微软Windows和Windows Live部门总裁史蒂芬·西诺夫斯基(Steven Sinofsky)在Windows 8发布会上表示，这款新操作系统在全球190个国家和地区进行了12.4亿小时的公开测试。“从来没有一款产品进行过如此大范围的测试。”西诺夫斯基说。</p>
+        <p class="tags">我还关注：
+<span class="category">
+<a href="tags.php?tag=微软">微软</a>
+<a href="tags.php?tag=Windows">Windows</a>
+<a href="tags.php?tag=8">8</a>
+</span>
+
+　我还可以：
+<!-- 分享 -->
+<script type="text/javascript" charset="utf-8">
+(function(){
+  var _w = 16 , _h = 16;
+  var param = {
+    url:"http://www.cncms.com/a/201210/266835.shtml",
+    type:'3',
+    count:'',
+    appkey:'2807297342', /**您申请的应用appkey,显示分享来源(可选)*/
+    title:'微软称Windows 8已经过12亿小时测试',
+    pic:'http://www.cncms.com/upload/2012/1026/thumb_200_200_1351216384308.jpg',
+    ralateUid:'',
+    rnd:new Date().valueOf()
+  }
+  var temp = [];
+  for( var p in param ){
+    temp.push(p + '=' + encodeURIComponent( param[p] || '' ) )
+  }
+  document.write('<iframe allowTransparency="true" frameborder="0" scrolling="no" src="http://hits.sinajs.cn/A1/weiboshare.html?' + temp.join('&') + '" width="'+ _w+'" height="'+_h+'"></iframe>')
+})()
+</script>
+<a href="javascript:void(0)" onclick="postToWb('微软称Windows 8已经过12亿小时测试','http://www.cncms.com/a/201210/266835.shtml','http://www.cncms.com/upload/2012/1026/thumb_200_200_1351216384308.jpg');return false;" style="height:16px;font-size:12px;line-height:16px;"><img src="http://v.t.qq.com/share/images/s/weiboicon16.png" style="float:none; background:none; padding:0 5px;" align="absmiddle" border="0" alt="转播到腾讯微博" /></a>
+<!-- /分享 -->
+        </p>
+
+    </div>
+</div>
+<div id="post-182" class="posts_small">
+    <a href="http://www.cncms.com/a/201210/266833.shtml" rel="bookmark" title="任天堂宣布将以低于成本价格销售Wii U" class="preloader">
+        <img src="http://www.cncms.com/upload/2012/1026/thumb_200_200_1351216219604.jpg" alt="任天堂宣布将以低于成本价格销售Wii U" class="mag fade_hover"/>
+    </a>
+    <div class="post_content">
+        <h2>
+            <a href="http://www.cncms.com/a/201210/266833.shtml" rel="bookmark" title="">任天堂宣布将以低于成本价格销售Wii U</a>
+        </h2>
+        <p class="meta">
+           [ <a href="http://www.cncms.com/new/np/index.shtml">新产品</a> ]　投稿人/来源： － 2012-10-26 09:50        </p>
+        <p>近日，任天堂总裁岩田聪宣布他们即将推出家用游戏机新产品——Wii U，并表示将在下月亏本出售该款新产品。相信Wii U此次的定价会令消费者十分满意。</p>
+        <p class="tags">我还关注：
+<span class="category">
+<a href="tags.php?tag=任天堂">任天堂</a>
+<a href="tags.php?tag=Wii">Wii</a>
+<a href="tags.php?tag=U">U</a>
+</span>
+
+　我还可以：
+<!-- 分享 -->
+<script type="text/javascript" charset="utf-8">
+(function(){
+  var _w = 16 , _h = 16;
+  var param = {
+    url:"http://www.cncms.com/a/201210/266833.shtml",
+    type:'3',
+    count:'',
+    appkey:'2807297342', /**您申请的应用appkey,显示分享来源(可选)*/
+    title:'任天堂宣布将以低于成本价格销售Wii U',
+    pic:'http://www.cncms.com/upload/2012/1026/thumb_200_200_1351216219604.jpg',
+    ralateUid:'',
+    rnd:new Date().valueOf()
+  }
+  var temp = [];
+  for( var p in param ){
+    temp.push(p + '=' + encodeURIComponent( param[p] || '' ) )
+  }
+  document.write('<iframe allowTransparency="true" frameborder="0" scrolling="no" src="http://hits.sinajs.cn/A1/weiboshare.html?' + temp.join('&') + '" width="'+ _w+'" height="'+_h+'"></iframe>')
+})()
+</script>
+<a href="javascript:void(0)" onclick="postToWb('任天堂宣布将以低于成本价格销售Wii U','http://www.cncms.com/a/201210/266833.shtml','http://www.cncms.com/upload/2012/1026/thumb_200_200_1351216219604.jpg');return false;" style="height:16px;font-size:12px;line-height:16px;"><img src="http://v.t.qq.com/share/images/s/weiboicon16.png" style="float:none; background:none; padding:0 5px;" align="absmiddle" border="0" alt="转播到腾讯微博" /></a>
+<!-- /分享 -->
+        </p>
+
+    </div>
+</div>
+<div id="post-182" class="posts_small">
+    <a href="http://www.cncms.com/a/201210/266832.shtml" rel="bookmark" title="苹果宣布iPhone 5将于今年12月中国内地市场开售" class="preloader">
+        <img src="http://www.cncms.com/upload/2012/1026/thumb_200_200_1351216093380.jpg" alt="苹果宣布iPhone 5将于今年12月中国内地市场开售" class="mag fade_hover"/>
+    </a>
+    <div class="post_content">
+        <h2>
+            <a href="http://www.cncms.com/a/201210/266832.shtml" rel="bookmark" title="">苹果宣布iPhone 5将于今年12月中国内地市场开售</a>
+        </h2>
+        <p class="meta">
+           [ <a href="http://www.cncms.com/new/np/index.shtml">新产品</a> ]　投稿人/来源： － 2012-10-26 09:48        </p>
+        <p>北京时间10月26日凌晨消息，苹果CEO蒂姆·库克(Tim Cook)周四在第四财季财报电话会议上称，上一财季苹果在大中华区市场上的表现“极好”，营收达57亿美元，同比增长26%，与第三财季相比基本持平。</p>
+        <p class="tags">我还关注：
+<span class="category">
+<a href="tags.php?tag=苹果">苹果</a>
+<a href="tags.php?tag=iPhone">iPhone</a>
+<a href="tags.php?tag=5">5</a>
+</span>
+
+　我还可以：
+<!-- 分享 -->
+<script type="text/javascript" charset="utf-8">
+(function(){
+  var _w = 16 , _h = 16;
+  var param = {
+    url:"http://www.cncms.com/a/201210/266832.shtml",
+    type:'3',
+    count:'',
+    appkey:'2807297342', /**您申请的应用appkey,显示分享来源(可选)*/
+    title:'苹果宣布iPhone 5将于今年12月中国内地市场开售',
+    pic:'http://www.cncms.com/upload/2012/1026/thumb_200_200_1351216093380.jpg',
+    ralateUid:'',
+    rnd:new Date().valueOf()
+  }
+  var temp = [];
+  for( var p in param ){
+    temp.push(p + '=' + encodeURIComponent( param[p] || '' ) )
+  }
+  document.write('<iframe allowTransparency="true" frameborder="0" scrolling="no" src="http://hits.sinajs.cn/A1/weiboshare.html?' + temp.join('&') + '" width="'+ _w+'" height="'+_h+'"></iframe>')
+})()
+</script>
+<a href="javascript:void(0)" onclick="postToWb('苹果宣布iPhone 5将于今年12月中国内地市场开售','http://www.cncms.com/a/201210/266832.shtml','http://www.cncms.com/upload/2012/1026/thumb_200_200_1351216093380.jpg');return false;" style="height:16px;font-size:12px;line-height:16px;"><img src="http://v.t.qq.com/share/images/s/weiboicon16.png" style="float:none; background:none; padding:0 5px;" align="absmiddle" border="0" alt="转播到腾讯微博" /></a>
+<!-- /分享 -->
+        </p>
+
+    </div>
+</div>
+
+
+</div>
+</div>
+
+
+<!--{style}-->
+ .main-title {
+    border-bottom: 1px solid #CCCCCC;
+    height: 32px;
+    line-height: 32px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.groups {
+	margin:15px 0 0 0;
+	width:640px;
+	overflow:hidden;
+	color:#666
+}
+.groups li {
+	_display:inline;
+	float:left;
+	margin-right:20px;
+	padding:15px 0;
+	width:300px;
+	height:100px;
+	border-bottom:1px solid #eee
+}
+
+.pt-pic {
+	_display:inline;
+	float:left;
+	margin-right:12px
+}
+.pt-txt {
+	overflow:hidden;
+	*zoom:1
+}
+.pt-txt h3,.pt-txt-t {
+	margin-right:4px;
+	display:inline
+}
+.pt-txt span {
+	color:#999
+}
+.pt-txt-d {
+	margin-top:5px;
+	color:#666
+}
+
+.pt-txt h2 a{font-size:12px;}
+.main-title-b {
+	margin-top:30px;
+	border-bottom:3px solid #f3f3f3
+}
+
+<!--{/style}-->
+
+
+			 <div class="main-title-b">
+    <div class="main-title">
+        <div class="main-title-txt">小组</div>
+        
+        <span class="main-title-more">（<a href="/group/" data-analyze="10-4-99">更多小组</a>）</span>
+        
+    </div>
+</div>
+<ul class="groups">
+    <li>
+        <a href="/group/posts/139/" target="_blank" class="pt-pic" data-analyze="10-4-1-1">
+        <img src="<!--{:__PUBLIC__}-->/images2/ren.jpg" alt="深夜重口味" width="48" height="48" />
+        </a>
+        <div class="pt-txt">
+            <h2><a href="/group/posts/139/" target="_blank" data-analyze="10-4-1-2">深夜重口味</a></h2>
+            <span>5552人加入</span>
+            <p class="pt-txt-d">在深夜重口味小组玩耍，请注意：
+
+1、发色情、泛色情者…
+            </p>
+        </div>
+    </li>
+    <li>
+        <a href="/group/posts/27/" target="_blank" class="pt-pic" data-analyze="10-4-2-1">
+        <img src="<!--{:__PUBLIC__}-->/images2/ren.jpg" alt="DIY" width="48" height="48" />
+        </a>
+        <div class="pt-txt">
+            <h2><a href="/group/posts/27/" target="_blank" data-analyze="10-4-2-2">DIY</a></h2>
+            <span>87951人加入</span>
+            <p class="pt-txt-d">这是一个神奇的小组。
+有人把帆船模型装进了细口瓶中，有人…
+            </p>
+        </div>
+    </li>
+    <li>
+        <a href="/group/posts/142/" target="_blank" class="pt-pic" data-analyze="10-4-3-1">
+        <img src="<!--{:__PUBLIC__}-->/images2/ren.jpg" alt="职业毁段子" width="48" height="48" />
+        </a>
+        <div class="pt-txt">
+            <h2><a href="/group/posts/142/" target="_blank" data-analyze="10-4-3-2">职业毁段子</a></h2>
+            <span>4434人加入</span>
+            <p class="pt-txt-d">互联网这么大，写（抄）段子的这么多，每天不毁他十几二十个，…
+            </p>
+        </div>
+    </li>
+    <li>
+        <a href="/group/posts/38/" target="_blank" class="pt-pic" data-analyze="10-4-4-1">
+        <img src="<!--{:__PUBLIC__}-->/images2/ren.jpg" alt="创意科技" width="48" height="48" />
+        </a>
+        <div class="pt-txt">
+            <h2><a href="/group/posts/38/" target="_blank" data-analyze="10-4-4-2">创意科技</a></h2>
+            <span>97567人加入</span>
+            <p class="pt-txt-d">我们是热爱科技，我们热爱生活，我们热爱趣味。
+我们追求这…
+            </p>
+        </div>
+    </li>
+    <li>
+        <a href="/group/posts/63/" target="_blank" class="pt-pic" data-analyze="10-4-5-1">
+        <img src="<!--{:__PUBLIC__}-->/images2/ren.jpg" alt="Geek笑点低" width="48" height="48" />
+        </a>
+        <div class="pt-txt">
+            <h2><a href="/group/posts/63/" target="_blank" data-analyze="10-4-5-2">Geek笑点低</a></h2>
+            <span>35801人加入</span>
+            <p class="pt-txt-d">从前有个Geek去医院打点滴，一个人笑个不停。医生问他怎么…
+            </p>
+        </div>
+    </li>
+    <li>
+        <a href="/group/posts/106/" target="_blank" class="pt-pic" data-analyze="10-4-6-1">
+        <img src="<!--{:__PUBLIC__}-->/images2/ren.jpg" alt="泥瓦匠" width="48" height="48" />
+        </a>
+        <div class="pt-txt">
+            <h2><a href="/group/posts/106/" target="_blank" data-analyze="10-4-6-2">泥瓦匠</a></h2>
+            <span>5905人加入</span>
+            <p class="pt-txt-d">内容跨越人文学科和自然学科的建筑科学究竟会对我们的生活造成…
+            </p>
+        </div>
+    </li>
+    <li>
+        <a href="/group/posts/93/" target="_blank" class="pt-pic" data-analyze="10-4-7-1">
+        <img src="<!--{:__PUBLIC__}-->/images2/ren.jpg" alt="海外剧场" width="48" height="48" />
+        </a>
+        <div class="pt-txt">
+            <h2><a href="/group/posts/93/" target="_blank" data-analyze="10-4-7-2">海外剧场</a></h2>
+            <span>13670人加入</span>
+            <p class="pt-txt-d">讨论各种各样的国外电视剧，提供Geek范的科学解读及吐槽。
+            </p>
+        </div>
+    </li>
+    <li>
+        <a href="/group/posts/111/" target="_blank" class="pt-pic" data-analyze="10-4-8-1">
+        <img src="<!--{:__PUBLIC__}-->/images2/ren.jpg" alt="大开眼戒" width="48" height="48" />
+        </a>
+        <div class="pt-txt">
+            <h2><a href="/group/posts/111/" target="_blank" data-analyze="10-4-8-2">大开眼戒</a></h2>
+            <span>7417人加入</span>
+            <p class="pt-txt-d">贴图组，提供给喜欢看图片的科技控。
+            </p>
+        </div>
+    </li>
+</ul>
+
+
+				</div>
+				<div class="span4">
+				
+				
+				<div class="bbox pd10"><div class="btitle">热门话题</div>
+				<div class="commlist"><ul><li><a href="/group/topic/17364/">刚sdfdsf在于</a> (6)</li><li><a href="/group/topic/17142/">sdfsdfsdf</a> (5)</li><li><a href="/group/topic/17366/">sdfsdf版有sdfsdf考虑到负载均衡吗？</a> (4)</li><li><a href="/group/topic/17255/">sdfsdfdsf首页插件两枚，热门标签</a> (3)</li><li><a href="/group/topic/17365/">强烈建议官方添加以下功能</a> (3)</li><li><a href="/group/topic/17256/">sdfsdfsdfsdf</a> (2)</li><li><a href="/group/topic/17257/">sdfsdfdsf的代码安全吗？</a> (2)</li><li><a href="/group/topic/17340/">sdfsdfdsf和uchome什么区别</a> (2)</li><li><a href="/group/topic/17363/">sfsdf实现这sfdf功能吗？</a> (2)</li><li><a href="/group/topic/17367/">刚下载了安装后前台不显示</a> (1)</li></ul>
+				</div>
+				</div>
+<div class="bbox pd10"><div class="btitle">最新会员</div>
+				<p><ul class="thumbnails"><li class="span1"><div class="thumbnail"><a href="/needforbug/upload/index.php/space/11"><img src="/needforbug/upload/Public/images/avatar/noavatar_small.gif" width="48px" height="48px" title="好友sdfsdfsdfsdfs" alt="好友sdfsdfsdfsdfs"></a><a rel="tooltip" title="好友sdfsdfsdfsdfs" href="/needforbug/upload/index.php/space/11"><h5 style="text-align:center;">sdfsdf</h5></a></div></li><li class="span1"><div class="thumbnail"><a href="/needforbug/upload/index.php/space/13"><img src="/needforbug/upload/Public/images/avatar/noavatar_small.gif" width="48px" height="48px" title="好友sdfsdfsdfsdfs" alt="好友sdfsdfsdfsdfs"></a><a rel="tooltip" title="好友sdfsdfsdfsdfs" href="/needforbug/upload/index.php/space/13"><h5 style="text-align:center;">sdfsdf</h5></a></div></li><li class="span1"><div class="thumbnail"><a href="/needforbug/upload/index.php/space/16"><img src="/needforbug/upload/Public/images/avatar/noavatar_small.gif" width="48px" height="48px" title="好友woshihapi" alt="好友woshihapi"></a><a rel="tooltip" title="好友woshihapi" href="/needforbug/upload/index.php/space/16"><h5 style="text-align:center;">woshih</h5></a></div></li><li class="span1"><div class="thumbnail"><a href="/needforbug/upload/index.php/space/15"><img src="/needforbug/upload/Public/images/avatar/noavatar_small.gif" width="48px" height="48px" title="好友my" alt="好友my"></a><a rel="tooltip" title="好友my" href="/needforbug/upload/index.php/space/15"><h5 style="text-align:center;">my</h5></a></div></li><li class="span1"><div class="thumbnail"><a href="/needforbug/upload/index.php/space/18"><img src="/needforbug/upload/Public/images/avatar/noavatar_small.gif" width="48px" height="48px" title="好友weiyong2000" alt="好友weiyong2000"></a><a rel="tooltip" title="好友weiyong2000" href="/needforbug/upload/index.php/space/18"><h5 style="text-align:center;">weiyon</h5></a></div></li><li class="span1"><div class="thumbnail"><a href="/needforbug/upload/index.php/space/17"><img src="/needforbug/upload/Public/images/avatar/noavatar_small.gif" width="48px" height="48px" title="好友weiyong1999" alt="好友weiyong1999"></a><a rel="tooltip" title="好友weiyong1999" href="/needforbug/upload/index.php/space/17"><h5 style="text-align:center;">weiyon</h5></a></div></li></ul></p>
+				</div>
+				
+				</div>
+			</div>
 
 		<!--{if $arrLinkDatas['link_content'] || $arrLinkDatas['link_text'] || $arrLinkDatas['link_logo']}-->
 		<div class="row">
