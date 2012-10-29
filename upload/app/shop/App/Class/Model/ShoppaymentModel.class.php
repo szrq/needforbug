@@ -1,18 +1,18 @@
 <?php
 /* [NeedForBug!] (C)Dianniu From 2010.
-   商城商品类型属性模型($)*/
+   商城支付方式模型($)*/
 
 !defined('DYHB_PATH') && exit;
 
-class ShopcategoryattributeModel extends Model{
+class ShoppaymentModel extends Model{
 
 	static public function init__(){
 		return array(
-			'table_name'=>'shopcategoryattribute',
+			'table_name'=>'shoppayment',
 			'props'=>array(
-				'shopcategoryattribute_id'=>array('readonly'=>true),
+				'shoppayment_id'=>array('readonly'=>true),
 			),
-			'attr_protected'=>'shopcategoryattribute_id',
+			'attr_protected'=>'shoppayment_id',
 		);
 	}
 

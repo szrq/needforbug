@@ -1,6 +1,6 @@
 <?php
 /* [NeedForBug!] (C)Dianniu From 2010.
-   商城物品类型模型($)*/
+   商城商品类型模型($)*/
 
 !defined('DYHB_PATH') && exit;
 

@@ -1,6 +1,6 @@
 <?php
 /* [NeedForBug!] (C)Dianniu From 2010.
-   商城反馈模型($)*/
+   商城用户动态模型($)*/
 
 !defined('DYHB_PATH') && exit;
 

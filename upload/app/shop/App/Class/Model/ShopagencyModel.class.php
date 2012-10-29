@@ -1,6 +1,6 @@
 <?php
 /* [NeedForBug!] (C)Dianniu From 2010.
-   商城代理商模型($)*/
+   办事处模型($)*/
 
 !defined('DYHB_PATH') && exit;
 

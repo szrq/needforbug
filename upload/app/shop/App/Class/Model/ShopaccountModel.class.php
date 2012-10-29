@@ -1,18 +1,18 @@
 <?php
 /* [NeedForBug!] (C)Dianniu From 2010.
-   商城商品类型属性模型($)*/
+   商城用户资金流动模型($)*/
 
 !defined('DYHB_PATH') && exit;
 
-class ShopcategoryattributeModel extends Model{
+class ShopaccountModel extends Model{
 
 	static public function init__(){
 		return array(
-			'table_name'=>'shopcategoryattribute',
+			'table_name'=>'shopaccount',
 			'props'=>array(
-				'shopcategoryattribute_id'=>array('readonly'=>true),
+				'shopaccount_id'=>array('readonly'=>true),
 			),
-			'attr_protected'=>'shopcategoryattribute_id',
+			'attr_protected'=>'shopaccount_id',
 		);
 	}
 

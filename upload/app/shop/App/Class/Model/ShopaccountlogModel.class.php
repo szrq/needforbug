@@ -1,6 +1,6 @@
 <?php
 /* [NeedForBug!] (C)Dianniu From 2010.
-   商城账户日志模型($)*/
+   用户账目日志表模型($)*/
 
 !defined('DYHB_PATH') && exit;
 

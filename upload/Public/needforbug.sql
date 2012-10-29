@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.0
+-- version 3.4.10.1
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2012 年 10 月 29 日 02:02
+-- 生成日期: 2012 年 10 月 29 日 04:05
 -- 服务器版本: 5.5.22
 -- PHP 版本: 5.4.0
 
@@ -3586,24 +3586,25 @@ CREATE TABLE IF NOT EXISTS `needforbug_shopoption` (
 --
 
 CREATE TABLE IF NOT EXISTS `needforbug_shoporder` (
-  `shoporder_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `shoporderinfo_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `shopgoods_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `shoporder_goodsname` varchar(120) NOT NULL DEFAULT '',
-  `shoporder_goodssn` varchar(60) NOT NULL DEFAULT '',
-  `shoporder_goodsnumber` smallint(5) unsigned NOT NULL DEFAULT '1',
-  `shoporder_marketprice` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `shoporder_goodsprice` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `shoporder_goodsattr` text NOT NULL,
-  `shoporder_sendnumber` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `shoporder_isreal` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `shoporder_extensioncode` varchar(30) NOT NULL DEFAULT '',
-  `shoporder_parentid` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `shoporder_isgift` smallint(5) unsigned NOT NULL DEFAULT '0',
-  `shoporder_goodsattrid` varchar(255) NOT NULL DEFAULT '',
+  `shoporder_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '商品订单ID',
+  `shoporderinfo_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '商品订单详细信息',
+  `shopgoods_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '商品ID',
+  `shoporder_goodsname` varchar(120) NOT NULL DEFAULT '' COMMENT '商品名',
+  `shoporder_goodssn` varchar(60) NOT NULL DEFAULT '' COMMENT '商品唯一货号',
+  `shoporder_goodsnumber` smallint(6) unsigned NOT NULL DEFAULT '1' COMMENT '商品购买数量',
+  `shoporder_marketprice` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '商品的市场售价',
+  `shoporder_goodsprice` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '商品的本店售价',
+  `shoporder_goodsattr` text NOT NULL COMMENT '购买该商品时所选择的属性',
+  `shoporder_sendnumber` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '当不是实物时，是否已发货，0，否；1，是',
+  `shoporder_isreal` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否是实物，0，否；1，是',
+  `shoporder_extensioncode` varchar(30) NOT NULL DEFAULT '' COMMENT '商品的扩展属性',
+  `shoporder_parentid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '父商品id',
+  `shoporder_isgift` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '是否参加优惠活动，0，否；其他',
+  `shoporder_goodsattrid` varchar(255) NOT NULL DEFAULT '' COMMENT '商品属性',
   PRIMARY KEY (`shoporder_id`),
-  KEY `shoporder_id` (`shoporder_id`),
-  KEY `shopgoods_id` (`shopgoods_id`)
+  KEY `shoporderinfo_id` (`shoporderinfo_id`),
+  KEY `shopgoods_id` (`shopgoods_id`),
+  KEY `shoporder_parentid` (`shoporder_parentid`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=32 ;
 
 -- --------------------------------------------------------
@@ -3613,11 +3614,11 @@ CREATE TABLE IF NOT EXISTS `needforbug_shoporder` (
 --
 
 CREATE TABLE IF NOT EXISTS `needforbug_shoppaylog` (
-  `shoppaylog_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `shoporder_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `shoppaylog_orderamount` decimal(10,2) unsigned NOT NULL,
-  `shoppaylog_ordertype` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `shoppaylog_ispaid` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `shoppaylog_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '支付记录增长ID',
+  `shoporder_id` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '订单记录ID',
+  `shoppaylog_orderamount` decimal(10,2) unsigned NOT NULL COMMENT '支付金额',
+  `shoppaylog_ordertype` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '支付类型,0订单支付,1会员预付款支付',
+  `shoppaylog_ispaid` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否已支付,0否;1是',
   PRIMARY KEY (`shoppaylog_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -3628,16 +3629,16 @@ CREATE TABLE IF NOT EXISTS `needforbug_shoppaylog` (
 --
 
 CREATE TABLE IF NOT EXISTS `needforbug_shoppayment` (
-  `shoppay_id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
-  `shoppay_code` varchar(20) NOT NULL DEFAULT '',
-  `shoppay_name` varchar(120) NOT NULL DEFAULT '',
-  `shoppay_fee` varchar(10) NOT NULL DEFAULT '0',
-  `shoppay_description` text NOT NULL,
-  `shoppay_order` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `shoppay_config` text NOT NULL,
-  `shoppay_status` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `shoppay_iscod` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `shoppay_isonline` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `shoppay_id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT COMMENT '支付方式自增ID',
+  `shoppay_code` varchar(20) NOT NULL DEFAULT '' COMMENT '支付方式英文缩写',
+  `shoppay_name` varchar(120) NOT NULL DEFAULT '' COMMENT '支付方式名称',
+  `shoppay_fee` varchar(10) NOT NULL DEFAULT '0' COMMENT '支付费用',
+  `shoppay_description` text NOT NULL COMMENT '支付方式描述',
+  `shoppay_order` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '支付方式在页面的显示顺序',
+  `shoppay_config` text NOT NULL COMMENT '支付方式的配置信息',
+  `shoppay_status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '支付方式状态',
+  `shoppay_iscod` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否货到付款, 0否;1是',
+  `shoppay_isonline` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否在线支付;0否;1是',
   PRIMARY KEY (`shoppay_id`),
   UNIQUE KEY `shoppay_code` (`shoppay_code`),
   KEY `shoppay_status` (`shoppay_status`)
@@ -3650,18 +3651,18 @@ CREATE TABLE IF NOT EXISTS `needforbug_shoppayment` (
 --
 
 CREATE TABLE IF NOT EXISTS `needforbug_shopshipping` (
-  `shopshipping_id` smallint(6) unsigned NOT NULL AUTO_INCREMENT,
-  `shopshipping_code` varchar(20) NOT NULL DEFAULT '',
-  `shopshipping_name` varchar(120) NOT NULL DEFAULT '',
-  `shopshipping_description` varchar(255) NOT NULL DEFAULT '',
-  `shopshipping_insure` varchar(10) NOT NULL DEFAULT '0',
-  `shopshipping_supportcod` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `shopshipping_status` tinyint(1) unsigned NOT NULL DEFAULT '0',
-  `shopshipping_print` text NOT NULL,
-  `shopshipping_printbg` varchar(255) DEFAULT NULL,
-  `shopshipping_configlable` text,
-  `shopshipping_printmodel` tinyint(1) DEFAULT '0',
-  `shopshipping_sort` smallint(6) unsigned NOT NULL DEFAULT '0',
+  `shopshipping_id` smallint(6) unsigned NOT NULL AUTO_INCREMENT COMMENT '配送方式ID',
+  `shopshipping_code` varchar(20) NOT NULL DEFAULT '' COMMENT '配送方式代号',
+  `shopshipping_name` varchar(120) NOT NULL DEFAULT '' COMMENT '配送方式名字',
+  `shopshipping_description` varchar(255) NOT NULL DEFAULT '' COMMENT '配送方式描述',
+  `shopshipping_insure` varchar(10) NOT NULL DEFAULT '0' COMMENT '保价费用，单位元，或者是百分数，该值直接输出为报价费',
+  `shopshipping_supportcod` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否支持货到付款，1，支持；0，不支持',
+  `shopshipping_status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '配送方式状态',
+  `shopshipping_print` text NOT NULL COMMENT '配送方式打印',
+  `shopshipping_printbg` varchar(255) DEFAULT NULL COMMENT '配送方式打印背景',
+  `shopshipping_configlable` text COMMENT '配送配置文字标签',
+  `shopshipping_printmodel` tinyint(1) DEFAULT '0' COMMENT '配送打印模板',
+  `shopshipping_sort` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '配送方式排序',
   PRIMARY KEY (`shopshipping_id`),
   KEY `shopshipping_status` (`shopshipping_status`),
   KEY `shopshipping_sort` (`shopshipping_sort`)
@@ -3674,10 +3675,10 @@ CREATE TABLE IF NOT EXISTS `needforbug_shopshipping` (
 --
 
 CREATE TABLE IF NOT EXISTS `needforbug_shopshippingarea` (
-  `shopshippingarea_id` smallint(6) unsigned NOT NULL AUTO_INCREMENT,
-  `shopshippingarea_name` varchar(150) NOT NULL DEFAULT '',
-  `shopshipping_id` smallint(6) unsigned NOT NULL DEFAULT '0',
-  `shopshippingarea_configure` text NOT NULL,
+  `shopshippingarea_id` smallint(6) unsigned NOT NULL AUTO_INCREMENT COMMENT '配送地区ID',
+  `shopshippingarea_name` varchar(150) NOT NULL DEFAULT '' COMMENT '配送方式中的配送区域的名字',
+  `shopshipping_id` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '该配送区域所属的配送方式',
+  `shopshippingarea_configure` text NOT NULL COMMENT '配送费用配置信息',
   PRIMARY KEY (`shopshippingarea_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
