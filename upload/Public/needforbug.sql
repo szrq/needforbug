@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2012 年 10 月 29 日 04:05
+-- 生成日期: 2012 年 10 月 29 日 08:22
 -- 服务器版本: 5.5.22
 -- PHP 版本: 5.4.0
 
@@ -3610,6 +3610,95 @@ CREATE TABLE IF NOT EXISTS `needforbug_shoporder` (
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `needforbug_shoporderaction`
+--
+
+CREATE TABLE IF NOT EXISTS `needforbug_shoporderaction` (
+  `shoporderaction_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '订单操作记录ID',
+  `shoporder_id` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '操作订单ID',
+  `shoporderaction_username` varchar(50) NOT NULL DEFAULT '' COMMENT '订单操作人',
+  `user_id` int(10) NOT NULL COMMENT '操作人用户ID',
+  `shoporderaction_orderstatus` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '作何操作0,未确认, 1已确认; 2已取消; 3无效; 4退货',
+  `shoporderaction_shippingstatus` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '发货状态; 0未发货; 1已发货  2已取消  3备货中',
+  `shoporderaction_paystatus` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '支付状态 0未付款;  1已付款中;  2已付款',
+  `shoporderaction_remark` varchar(255) NOT NULL DEFAULT '' COMMENT '操作备注',
+  `create_dateline` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
+  PRIMARY KEY (`shoporderaction_id`),
+  KEY `shoporder_id` (`shoporder_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `needforbug_shoporderinfo`
+--
+
+CREATE TABLE IF NOT EXISTS `needforbug_shoporderinfo` (
+  `shoporderinfo_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '订单扩展信息ID',
+  `shoporderinfo_sn` varchar(20) NOT NULL DEFAULT '' COMMENT '订单号',
+  `user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '用户ID',
+  `shoporderinfo_status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '订单的状态;0未确认,1确认,2已取消,3无效,4退货',
+  `shoporderinfo_shippingstatus` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '商品配送情况;0未发货,1已发货,2已收货,4退货',
+  `shoporderinfo_paystatus` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '支付状态;0未付款;1付款中;2已付款',
+  `shoporderinfo_consignee` varchar(60) NOT NULL DEFAULT '' COMMENT '收货人的姓名',
+  `shoporderinfo_country` smallint(10) unsigned NOT NULL DEFAULT '0' COMMENT '收货人的国家',
+  `shoporderinfo_province` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '收货人的省份',
+  `shoporderinfo_city` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '收货人的城市',
+  `shoporderinfo_district` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '收货人的地区',
+  `shoporderinfo_address` varchar(255) NOT NULL DEFAULT '' COMMENT '收货人的详细地址',
+  `shoporderinfo_zipcode` varchar(60) NOT NULL DEFAULT '' COMMENT '收货人的邮编',
+  `shoporderinfo_tel` varchar(60) NOT NULL DEFAULT '' COMMENT '收货人的电话,',
+  `shoporderinfo_mobile` varchar(60) NOT NULL DEFAULT '' COMMENT '收货人的手机',
+  `shoporderinfo_email` varchar(60) NOT NULL DEFAULT '' COMMENT '收货人的Email',
+  `shoporderinfo_besttime` varchar(120) NOT NULL DEFAULT '' COMMENT '收获最佳时间',
+  `shoporderinfo_signbuilding` varchar(120) NOT NULL DEFAULT '' COMMENT '送货人的地址的标志性建筑',
+  `shoporderinfo_postscript` varchar(255) NOT NULL DEFAULT '' COMMENT '订单附言',
+  `shopshipping_id` smallint(6) NOT NULL DEFAULT '0' COMMENT '用户选择的配送方式id',
+  `shoporderinfo_shippingname` varchar(120) NOT NULL DEFAULT '' COMMENT '用户选择的配送方式的名称',
+  `shoppay_id` smallint(6) NOT NULL DEFAULT '0' COMMENT '用户选择的支付方式的id',
+  `shoporderinfo_payname` varchar(120) NOT NULL DEFAULT '' COMMENT '用户选择的支付方式名称',
+  `shoporderinfo_howoos` varchar(120) NOT NULL DEFAULT '' COMMENT '缺货处理方式,等待所有商品备齐后再发,取消订单;与店主协商',
+  `shoporderinfo_packname` varchar(120) NOT NULL DEFAULT '' COMMENT '包装名称',
+  `shoporderinfo_invpayee` varchar(120) NOT NULL DEFAULT '' COMMENT '发票抬头',
+  `shoporderinfo_invcontent` varchar(120) NOT NULL DEFAULT '' COMMENT '发票内容',
+  `shoporderinfo_goodsamount` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '商品的总金额',
+  `shoporderinfo_shippingfee` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '配送费用',
+  `shoporderinfo_insurefee` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '保价费用',
+  `shoporderinfo_payfee` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '支付费用',
+  `shoporderinfo_packfee` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '包装费用',
+  `shoporderinfo_moneypaid` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '已付款金额',
+  `shoporderinfo_surplus` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '该订单使用金额的数量,取用户设定余额,用户可用余额,订单金额中最小者',
+  `shoporderinfo_orderamount` decimal(10,2) NOT NULL DEFAULT '0.00' COMMENT '应付款金额',
+  `shoporderinfo_referer` varchar(255) NOT NULL DEFAULT '' COMMENT '订单的来源页面',
+  `create_dateline` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '订单生成时间',
+  `shoporderinfo_confirmtime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '订单确认时间',
+  `shoporderinfo_paytime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '订单支付时间',
+  `shoporderinfo_shippingtime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '订单配送时间',
+  `shoppack_id` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '包装id',
+  `shoporderinfo_invoiceno` varchar(255) NOT NULL DEFAULT '' COMMENT '发票编号，发货时填写',
+  `shoporderinfo_tobuyer` varchar(255) NOT NULL DEFAULT '' COMMENT '商家给客户的留言',
+  `shoporderinfo_payremark` varchar(255) NOT NULL DEFAULT '' COMMENT '付款备注',
+  `shopagency_id` smallint(6) unsigned NOT NULL COMMENT '该笔订单被指派给的办事处的id',
+  `shoporderinfo_invtype` varchar(60) NOT NULL COMMENT '发票类型,用户页面选择',
+  `shoporderinfo_tax` decimal(10,2) NOT NULL COMMENT '发票税额',
+  `shoporderinfo_isseparate` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0未分成或等待分成;1已分成;2取消分成',
+  `shoporderinfo_parentid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '父级ID',
+  `shoporderinfo_discount` decimal(10,2) NOT NULL COMMENT '订单号',
+  PRIMARY KEY (`shoporderinfo_id`),
+  UNIQUE KEY `shoporderinfo_sn` (`shoporderinfo_sn`),
+  KEY `user_id` (`user_id`),
+  KEY `create_dateline` (`create_dateline`),
+  KEY `shoporderinfo_status` (`shoporderinfo_status`),
+  KEY `shoporderinfo_paystatus` (`shoporderinfo_paystatus`),
+  KEY `shopshipping_id` (`shopshipping_id`),
+  KEY `shoporderinfo_shippingstatus` (`shoporderinfo_shippingstatus`),
+  KEY `shopagency_id` (`shopagency_id`),
+  KEY `shoppay_id` (`shoppay_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `needforbug_shoppaylog`
 --
 
@@ -3629,7 +3718,7 @@ CREATE TABLE IF NOT EXISTS `needforbug_shoppaylog` (
 --
 
 CREATE TABLE IF NOT EXISTS `needforbug_shoppayment` (
-  `shoppay_id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT COMMENT '支付方式自增ID',
+  `shoppay_id` smallint(6) unsigned NOT NULL AUTO_INCREMENT COMMENT '支付方式自增ID',
   `shoppay_code` varchar(20) NOT NULL DEFAULT '' COMMENT '支付方式英文缩写',
   `shoppay_name` varchar(120) NOT NULL DEFAULT '' COMMENT '支付方式名称',
   `shoppay_fee` varchar(10) NOT NULL DEFAULT '0' COMMENT '支付费用',
