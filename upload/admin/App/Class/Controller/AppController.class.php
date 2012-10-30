@@ -46,7 +46,7 @@ class AppController extends InitController{
 			
 			$sController=trim(G::getGpc('controller','G'));
 			$sAction=strtolower(trim(G::getGpc('action','G')));
-			
+
 			// 查找模块
 			if(empty($sController)){
 				$sController=ucfirst($arrAppModel['app_identifier']).'mainController';
