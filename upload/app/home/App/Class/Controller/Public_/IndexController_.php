@@ -7,6 +7,7 @@
 class IndexController extends Controller{
 
 	public function index(){
+		// 站点常用统计数据
 		Core_Extend::loadCache('site');
 		Core_Extend::loadCache('slide');
 		Core_Extend::loadCache('link');
@@ -22,7 +23,29 @@ class IndexController extends Controller{
 		$this->assign('nDisplaySeccode',$GLOBALS['_option_']['seccode_login_status']);
 		$this->assign('nRememberTime',$GLOBALS['_option_']['remember_time']);
 
+		// 首页新鲜事
+		$this->get_homefresh_();
+
+		// 取得最新用户
+		$this->get_newuser_();
+
 		$this->display('public+index');
+	}
+
+	protected function get_homefresh_(){
+		$arrHomefreshs=HomefreshModel::F()->where('homefresh_status=?',1)->order('create_dateline DESC')->limit(0,6)->getAll();
+
+		$sGoodCookie=Dyhb::cookie('homefresh_goodnum');
+		$arrGoodCookie=explode(',',$sGoodCookie);
+
+		$this->assign('arrGoodCookie',$arrGoodCookie);
+		$this->assign('arrHomefreshs',$arrHomefreshs);
+	}
+
+	protected function get_newuser_(){
+		$arrUsers=UserModel::F()->where('user_status=?',1)->order('create_dateline DESC')->limit(0,10)->getAll();
+
+		$this->assign('arrUsers',$arrUsers);
 	}
 
 }
