@@ -141,9 +141,10 @@
 
 		<!--{style}-->
 		.posts_small {
-	background:url("assets/border.png") left bottom repeat-x;
+	background: url("http://www.cncms.com/img/templates/default/style-te/CSS/assets/border.png") left bottom repeat-x;
 	min-height:210px;
 	padding:15px 0;
+	width:100%;
 }
 
 .posts_small img {
@@ -192,18 +193,6 @@ p.tags a {
 }
 
 		<!--{/style}-->
-
-<div class="row section">
-                <div class="span12">
-                    <h3>最新新鲜事</h3>
-                    <div class="row">
-                        <div class="span12">
-                            
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
 
 			<!--{style}-->
 .mainlist {
@@ -320,7 +309,7 @@ a.link1:link, a.link1:visited {
 				<div class="span8">
 				<div class="bbox pd1020 wd590">
 <div class="btitle">最新图文话题</div>
-<div class="mainlist">
+<div class="mainlist2">
 
 <div id="post-182" class="posts_small">
     <a href="http://www.cncms.com/a/201210/266836.shtml" rel="bookmark" title="雅虎新主页11月向1%-2%美用户推出 专注用户习惯" class="preloader">
@@ -687,9 +676,8 @@ a.link1:link, a.link1:visited {
 
 		<!--{if $arrLinkDatas['link_content'] || $arrLinkDatas['link_text'] || $arrLinkDatas['link_logo']}-->
 		<div class="row">
-			<div class="span12">
-				<h3><!--<lang package='Template/Public'>-->友情衔接<!--</lang>--></h3>
-				<hr/>
+			<div class="span12 bbox">
+			<div class="btitle"><!--<lang package='Template/Public'>-->友情衔接<!--</lang>--></div>
 				<!--{if $arrLinkDatas['link_content']}-->
 				<div class="home-links">
 					<ul class="clear">
