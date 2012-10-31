@@ -189,26 +189,10 @@ $(document).ready(function(){
 			</div>
 		</div>
 
-		<!--{style}-->
-.bbox .btitle {
-    border-bottom: 1px solid #EEEEEE;
-    font-size: 14px;
-    margin-bottom: 10px;
-    padding-bottom: 5px;
-}
-
-/*通用标题列表*/
-.commlist{}
-.commlist ul{}
-.commlist ul li{list-style:none;margin-left:-25px;padding:5px;border-bottom:dashed 1px #DDDDDD;}
-
-.message-box{border:1px solid #ddd;padding:10px;margin-bottom:20px;}
-			<!--{/style}-->
-
 			<div class="row">
 				<div class="span8">
 
-<div class="bbox pd1020 wd590">
+<div class="commonbox">
 				<div class="message-box">
 					<!--{if is_array($arrHomefreshs)}-->
 					<table class="table">
@@ -250,62 +234,16 @@ $(document).ready(function(){
 				</div>
 
 
-				<div class="bbox pd1020 wd590">
-<div class="btitle">最新话题</div>
+				<div class="commonbox">
+<div class="commonboxtitle">最新话题</div>
 
 <div id="home_topiclist_box" class="home_topiclist_box">
 
 </div>
 </div>
 
-
-<!--{style}-->
-.groups {
-	margin:5px 0 0 0;
-	width:100%;
-	overflow:hidden;
-	color:#666;
-}
-
-.groups li {
-	list-style:none;
-	_display:inline;
-	float:left;
-	margin-right:3%;
-	padding:15px 0;
-	width:46%;
-	height:60px;
-	border-bottom:1px solid #eee;
-}
-
-.grouplist_pic {
-	_display:inline;
-	float:left;
-	margin-right:12px
-}
-.grouplist_txt {
-	overflow:hidden;
-	*zoom:1;
-}
-.grouplist_txt h3{
-	margin-right:4px;
-	display:inline;
-}
-.grouplist_txt span {
-	color:#999;
-}
-.grouplist_description {
-	margin-top:5px;
-	color:#666;
-}
-
-.grouplist_txt h3 a{font-size:13px;}
-.grouplist_x{margin-bottom:20px;}
-<!--{/style}-->
-
-
-			 <div class="bbox grouplist_x">
-        <div class="btitle">小组&nbsp;(<a href="/group/" data-analyze="10-4-99">更多小组</a>)</div>
+			 <div class="commonbox grouplist_title">
+        <div class="commonboxtitle">小组&nbsp;(<a href="<!--{:Dyhb::U('group://public/group')}-->">更多小组</a>)</div>
 <ul class="groups" id="home_recommendgroup_box">
     
 </ul>
@@ -316,11 +254,11 @@ $(document).ready(function(){
 				<div class="span4">
 				
 				
-				<div class="bbox pd10"><div class="btitle">热门话题</div>
-				<div class="commlist"><ul id="home_hottopiclist_box" class="home_hottopiclist_box"></ul>
+				<div class="commonbox"><div class="commonboxtitle">热门话题</div>
+				<div class="commonlist"><ul id="home_hottopiclist_box" class="home_hottopiclist_box"></ul>
 				</div>
 				</div>
-<div class="bbox pd10"><div class="btitle">最新会员</div>
+<div class="commonbox"><div class="commonboxtitle">最新会员</div>
 				<p><ul class="thumbnails">
 						<!--<foreach for=arrUsers value=oUser>-->
 						<li class="span1">
@@ -338,8 +276,8 @@ $(document).ready(function(){
 
 		<!--{if $arrLinkDatas['link_content'] || $arrLinkDatas['link_text'] || $arrLinkDatas['link_logo']}-->
 		<div class="row">
-			<div class="span12 bbox">
-			<div class="btitle"><!--<lang package='Template/Public'>-->友情衔接<!--</lang>--></div>
+			<div class="span12 commonbox">
+			<div class="commonboxtitle"><!--<lang package='Template/Public'>-->友情衔接<!--</lang>--></div>
 				<!--{if $arrLinkDatas['link_content']}-->
 				<div class="home-links">
 					<ul class="clear">

@@ -71,6 +71,13 @@ Tags: admin, light
 [/CURSCRIPT]
 
 /**===============================
+           首页新鲜事
+================================*/
+[CURSCRIPT=home::public::index]
+.message-box{border:1px solid #ddd;padding:10px;margin-bottom:20px;}
+[/CURSCRIPT]
+
+/**===============================
            友情衔接&其它
 ================================*/
 [CURSCRIPT=home::public::index]
@@ -100,6 +107,21 @@ Tags: admin, light
 .home_topiclist_box .subject em {font-size: 14px;margin-right: 5px;}
 .home_topiclist_box .author {width: 55px;}
 .home_topiclist_box .author a {display: block;}
+[/CURSCRIPT]
+
+/**===============================
+           首页推荐小组列表
+================================*/
+[CURSCRIPT=home::public::index]
+.groups {margin:5px 0 0 0;width:100%;overflow:hidden;color:#666;}
+.groups li {list-style:none;_display:inline;float:left;margin-right:3%;padding:15px 0;width:46%;height:60px;border-bottom:1px solid #eee;}
+.grouplist_pic {_display:inline;float:left;margin-right:12px}
+.grouplist_txt {overflow:hidden;*zoom:1;}
+.grouplist_txt h3{margin-right:4px;display:inline;}
+.grouplist_txt span {color:#999;}
+.grouplist_description {margin-top:5px;color:#666;}
+.grouplist_txt h3 a{font-size:13px;}
+.grouplist_title{margin-bottom:20px;}
 [/CURSCRIPT]
 
 /**===============================

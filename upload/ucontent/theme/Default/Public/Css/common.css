@@ -158,3 +158,11 @@ table thead th .order_asc { padding-right: 8px; background: url({IMG_DIR}/order_
 .ubb_media_box{font-size:11px;color:{LIGHT_TEXTCOLOR};}
 .ubb_media_box a:link,.ubb_media_box a:visited{color:{LIGHT_TEXTCOLOR};}
 .ubb_media_box a:hover{color:#555555;text-decoration:none;}
+
+/**===============================
+           通用容器和列表
+================================*/
+.commonbox .commonboxtitle{border-bottom: 1px solid #EEEEEE;font-size: 14px;margin-bottom: 10px;padding-bottom: 5px;}
+.commonlist{}
+.commonlist ul{}
+.commonlist ul li{list-style:none;margin-left:-25px;padding:5px;border-bottom:dashed 1px #DDDDDD;}
