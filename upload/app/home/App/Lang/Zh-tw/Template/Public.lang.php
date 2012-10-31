@@ -1,7 +1,6 @@
 <?php
 /** DoYouHaoBaby Framework Lang File, Do not to modify it! */
 return array(
-'200acf2a58ff12c2646c6dc6dc3ad033'=>"新社區",
 'aee49a9e6c25d0714a722e52b00e26fd'=>"加入我們",
 '4347981379bd6f93bb10f6e222af8596'=>"用戶登錄",
 'c38f3288413556eb7861b30a30278175'=>"用戶名/E-mail",

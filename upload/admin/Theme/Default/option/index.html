@@ -19,6 +19,7 @@ function option(){
 			<header><h3 class="tabs_involved"><!--<lang package='Template/Default/Option'>-->基本设置<!--</lang>--></h3>
 				<ul class="tabs">
 					<li class="active"><a href="<!--{:Dyhb::U('option/index')}-->"><!--<lang package='Template/Default/Option'>-->基本设置<!--</lang>--></a></li>
+					<li><a href="<!--{:Dyhb::U('option/show')}-->"><!--<lang package='Template/Default/Option'>-->首页显示<!--</lang>--></a></li>
 					<li><a href="<!--{:Dyhb::U('option/admin')}-->"><!--<lang package='Template/Default/Option'>-->管理相关<!--</lang>--></a></li>
 				</ul>
 			</header>
@@ -38,6 +39,11 @@ function option(){
 						<label for="site_year"><!--<lang package='Template/Default/Option'>-->网站创办时间<!--</lang>--></label>
 						<input type="text" name="options[site_year]" id="site_year" size="40" value="<!--{$arrOptions['site_year']}-->"/>
 						<div class="description"><!--<lang package='Template/Default/Option'>-->网站创办时间，将显示在前台底部的版权中的时间<!--</lang>--></div>
+					</fieldset>
+					<fieldset>
+						<label for="home_title"><!--<lang package='Template/Default/Option'>-->网站主页标题<!--</lang>--></label>
+						<input type="text" name="options[home_title]" id="home_title" size="40" value="<!--{$arrOptions['home_title']}-->"/>
+						<div class="description"><!--<lang package='Template/Default/Option'>-->出现在首页的网站介绍中<!--</lang>--></div>
 					</fieldset>
 					<fieldset>
 						<label for="home_description"><!--<lang package='Template/Default/Option'>-->网站主页介绍<!--</lang>--></label>

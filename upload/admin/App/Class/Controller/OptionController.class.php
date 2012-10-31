@@ -44,4 +44,8 @@ class OptionController extends InitController{
 		$this->index();
 	}
 
+	public function show(){
+		$this->index();
+	}
+
 }

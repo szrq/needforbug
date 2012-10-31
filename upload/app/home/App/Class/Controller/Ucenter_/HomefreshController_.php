@@ -487,4 +487,11 @@ class HomefreshController extends InitController{
 		$this->A($arrData,Dyhb::L('赞','Controller/Homefresh').'+1',1,1);
 	}
 
+	protected function cache_site_(){
+		if(!Dyhb::classExists('Cache_Extend')){
+			require_once(Core_Extend::includeFile('function/Cache_Extend'));
+		}
+		Cache_Extend::updateCache("site");
+	}
+
 }

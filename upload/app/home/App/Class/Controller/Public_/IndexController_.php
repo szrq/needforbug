@@ -33,7 +33,7 @@ class IndexController extends Controller{
 	}
 
 	protected function get_homefresh_(){
-		$arrHomefreshs=HomefreshModel::F()->where('homefresh_status=?',1)->order('create_dateline DESC')->limit(0,6)->getAll();
+		$arrHomefreshs=HomefreshModel::F()->where('homefresh_status=?',1)->order('create_dateline DESC')->limit(0,$GLOBALS['_option_']['home_newhomefresh_num'])->getAll();
 
 		$sGoodCookie=Dyhb::cookie('homefresh_goodnum');
 		$arrGoodCookie=explode(',',$sGoodCookie);
@@ -43,7 +43,7 @@ class IndexController extends Controller{
 	}
 
 	protected function get_newuser_(){
-		$arrUsers=UserModel::F()->where('user_status=?',1)->order('create_dateline DESC')->limit(0,10)->getAll();
+		$arrUsers=UserModel::F()->where('user_status=?',1)->order('create_dateline DESC')->limit(0,$GLOBALS['_option_']['home_newuser_num'])->getAll();
 
 		$this->assign('arrUsers',$arrUsers);
 	}

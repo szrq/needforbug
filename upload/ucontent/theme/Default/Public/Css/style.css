@@ -71,10 +71,11 @@ Tags: admin, light
 [/CURSCRIPT]
 
 /**===============================
-           首页新鲜事
+           首页其它
 ================================*/
 [CURSCRIPT=home::public::index]
 .message-box{border:1px solid #ddd;padding:10px;margin-bottom:20px;}
+.site_introduction h1{color:#000;font-size:16px;}
 [/CURSCRIPT]
 
 /**===============================

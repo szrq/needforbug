@@ -162,7 +162,7 @@ table thead th .order_asc { padding-right: 8px; background: url({IMG_DIR}/order_
 /**===============================
            通用容器和列表
 ================================*/
-.commonbox .commonboxtitle{border-bottom: 1px solid #EEEEEE;font-size: 14px;margin-bottom: 10px;padding-bottom: 5px;}
+.commonbox .commonboxtitle{border-bottom: 1px solid #EEEEEE;font-size: 16px;margin-bottom: 10px;padding-bottom: 5px;font-weight:bold;}
 .commonlist{}
 .commonlist ul{}
 .commonlist ul li{list-style:none;margin-left:-25px;padding:5px;border-bottom:dashed 1px #DDDDDD;}
