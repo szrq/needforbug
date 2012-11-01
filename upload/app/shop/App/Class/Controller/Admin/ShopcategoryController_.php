@@ -11,6 +11,21 @@ class ShopcategoryController extends InitController{
 
 	public function filter_(&$arrMap){
 		//$arrMap['group_name']=array('like','%'.G::getGpc('group_name').'%');
+		
+		// 取得分类父亲ID
+		$nPid=intval(G::getGpc('pid','G'));
+		if(empty($nPid)){
+			$nPid=0;
+		}
+		$arrMap['shopcategory_parentid']=$nPid;
+		
+		if($nPid>0){
+			$oParentShopcategory=ShopcategoryModel::F('shopcategory_id=?',$nPid)->getOne();
+			if(!empty($oParentShopcategory['shopcategory_id'])){
+				$this->assign('oParentShopcategory',$oParentShopcategory);
+			}
+		}
+		
 		//$nUid=intval(G::getGpc('uid','G'));
 		//if($nUid){
 			//$arrMap['user_id']=$nUid;
@@ -25,6 +40,48 @@ class ShopcategoryController extends InitController{
 
 	public function add(){
 		$this->display(Admin_Extend::template('shop','shopcategory/add'));
+	}
+	
+	public function insert($sModel=null,$nId=null){
+		$nId=G::getGpc('value');
+	
+		parent::insert('shopcategory',$nId);
+	}
+	
+	public function bAdd_(){
+		$this->get_shopcategorytree_();
+	}
+	
+	public function get_shopcategorytree_(){
+		$oShopcategory=Dyhb::instance('ShopcategoryModel');
+		$oShopcategoryTree=$oShopcategory->getShopcategoryTree();
+		
+		$this->assign('oShopcategoryTree',$oShopcategoryTree);
+	}
+	
+	public function edit($sMode=null,$nId=null,$bDidplay=true){
+		$nId=intval(G::getGpc('value','G'));
+	
+		$this->bAdd_();
+	
+		parent::edit('shopcategory',$nId,false);
+		$this->display(Admin_Extend::template('shop','shopcategory/add'));
+	}
+	
+	public function update($sModel=null,$nId=null){
+		$nId=G::getGpc('value');
+	
+		parent::update('shopcategory',$nId);
+	}
+	
+	public function tree(){
+		$this->get_shopcategorytree_();
+		
+		$this->display(Admin_Extend::template('shop','shopcategory/tree'));
+	}
+	
+	public function AUpdateObject_($oModel){
+		$this->S('xx');
 	}
 
 	/*public function dateline($sType='Y',$oValue=false){
@@ -80,11 +137,7 @@ class ShopcategoryController extends InitController{
 		//$oModel->safeInput();
 	}
 	
-	public function insert($sModel=null,$nId=null){
-		$nId=G::getGpc('value');
-		
-		parent::insert('blog',$nId);
-	}
+	
 
 	protected function aInsert($nId=null){
 		//$oGroup=Dyhb::instance('GroupModel');
