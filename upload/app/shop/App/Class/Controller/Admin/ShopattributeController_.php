@@ -39,13 +39,13 @@ class ShopattributeController extends InitController{
 	}
 
 	public function add(){
-		$this->display(Admin_Extend::template('shop','shopcategory/add'));
+		$this->display(Admin_Extend::template('shop','shopattribute/add'));
 	}
 	
 	public function insert($sModel=null,$nId=null){
 		$nId=G::getGpc('value');
 	
-		parent::insert('shopcategory',$nId);
+		parent::insert('shopattribute',$nId);
 	}
 	
 	public function bAdd_(){

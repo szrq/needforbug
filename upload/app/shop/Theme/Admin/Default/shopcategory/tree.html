@@ -20,19 +20,11 @@
 
 		<article class="module width_full">
 			<div class="module_content">
-				<div class="left operate" >
+				<div class="operate" >
 					<input type="button" name="add" value="<!--<lang package='Template/Default/Common'>-->新增<!--</lang>-->" onclick="addApp('<!--{$_GET['id']}-->','shopcategory')" class="alt_btn">&nbsp;
 					<input type="button" name="edit" value="<!--<lang package='Template/Default/Common'>-->编辑<!--</lang>-->" onclick="editApp('<!--{$_GET['id']}-->','shopcategory')" class="alt_btn">&nbsp;
 					<input type="button" name="delete" value="<!--<lang package='Template/Default/Common'>-->删除<!--</lang>-->" onclick="foreverdelApp('<!--{$_GET['id']}-->','shopcategory')" class="alt_btn">
 				</div>
-				<form method='get' action="<!--{:Dyhb::U( 'app/config')}-->" class="quick_search">
-					<input type="hidden" name="c" value="<!--{:MODULE_NAME}-->"/>
-					<input type="hidden" name="a" value="<!--{:ACTION_NAME}-->"/>
-					<input type="hidden" name="id" value="<!--{$_GET['id']}-->"/>
-					<input type="hidden" name="controller" value="home"/>
-					<input type="text" name="shopcategory_name" title="<!--<lang package='__APP_ADMIN_LANG__@Template/Shopcategory'>-->商品分类名字<!--</lang>-->">
-					&nbsp;<input type="submit" id="" value="<!--<lang package='Template/Default/Common'>-->查询<!--</lang>-->" onclick="" class="alt_btn">
-				</form>
 			</div>
 		</article>
 		
