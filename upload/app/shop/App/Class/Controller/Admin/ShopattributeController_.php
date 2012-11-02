@@ -1,19 +1,19 @@
 <?php
 /* [NeedForBug!] (C)Dianniu From 2010.
-   商品分类控制器($)*/
+   商品类型属性控制器($)*/
 
 !defined('DYHB_PATH') && exit;
 
 /** 导入商城模型 */
 Dyhb::import(NEEDFORBUG_PATH.'/app/shop/App/Class/Model');
 
-class ShopcategoryController extends InitController{
+class ShopattributeController extends InitController{
 
 	public function filter_(&$arrMap){
 		//$arrMap['group_name']=array('like','%'.G::getGpc('group_name').'%');
 		
 		// 取得分类父亲ID
-		$nPid=intval(G::getGpc('pid','G'));
+		/*$nPid=intval(G::getGpc('pid','G'));
 		if(empty($nPid)){
 			$nPid=0;
 		}
@@ -24,7 +24,7 @@ class ShopcategoryController extends InitController{
 			if(!empty($oParentShopcategory['shopcategory_id'])){
 				$this->assign('oParentShopcategory',$oParentShopcategory);
 			}
-		}
+		}*/
 		
 		//$nUid=intval(G::getGpc('uid','G'));
 		//if($nUid){
@@ -33,9 +33,9 @@ class ShopcategoryController extends InitController{
 	}
 
 	public function index($sModel=null,$bDisplay=true){
-		parent::index('shopcategory',false);
+		parent::index('shopattribute',false);
 
-		$this->display(Admin_Extend::template('shop','shopcategory/index'));
+		$this->display(Admin_Extend::template('shop','shopattribute/index'));
 	}
 
 	public function add(){

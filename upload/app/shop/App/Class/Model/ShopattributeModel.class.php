@@ -4,15 +4,15 @@
 
 !defined('DYHB_PATH') && exit;
 
-class ShopcategoryattributeModel extends Model{
+class ShopattributeModel extends Model{
 
 	static public function init__(){
 		return array(
-			'table_name'=>'shopcategoryattribute',
+			'table_name'=>'shopattribute',
 			'props'=>array(
-				'shopcategoryattribute_id'=>array('readonly'=>true),
+				'shopattribute_id'=>array('readonly'=>true),
 			),
-			'attr_protected'=>'shopcategoryattribute_id',
+			'attr_protected'=>'shopattribute_id',
 		);
 	}
 

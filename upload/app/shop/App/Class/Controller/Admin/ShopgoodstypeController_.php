@@ -1,19 +1,19 @@
 <?php
 /* [NeedForBug!] (C)Dianniu From 2010.
-   商品分类控制器($)*/
+   商品类型控制器($)*/
 
 !defined('DYHB_PATH') && exit;
 
 /** 导入商城模型 */
 Dyhb::import(NEEDFORBUG_PATH.'/app/shop/App/Class/Model');
 
-class ShopcategoryController extends InitController{
+class ShopgoodstypeController extends InitController{
 
 	public function filter_(&$arrMap){
 		//$arrMap['group_name']=array('like','%'.G::getGpc('group_name').'%');
 		
 		// 取得分类父亲ID
-		$nPid=intval(G::getGpc('pid','G'));
+		/*$nPid=intval(G::getGpc('pid','G'));
 		if(empty($nPid)){
 			$nPid=0;
 		}
@@ -24,7 +24,7 @@ class ShopcategoryController extends InitController{
 			if(!empty($oParentShopcategory['shopcategory_id'])){
 				$this->assign('oParentShopcategory',$oParentShopcategory);
 			}
-		}
+		}*/
 		
 		//$nUid=intval(G::getGpc('uid','G'));
 		//if($nUid){
@@ -33,55 +33,32 @@ class ShopcategoryController extends InitController{
 	}
 
 	public function index($sModel=null,$bDisplay=true){
-		parent::index('shopcategory',false);
+		parent::index('shopgoodstype',false);
 
-		$this->display(Admin_Extend::template('shop','shopcategory/index'));
+		$this->display(Admin_Extend::template('shop','shopgoodstype/index'));
 	}
 
 	public function add(){
-		$this->display(Admin_Extend::template('shop','shopcategory/add'));
+		$this->display(Admin_Extend::template('shop','shopgoodstype/add'));
 	}
 	
 	public function insert($sModel=null,$nId=null){
 		$nId=G::getGpc('value');
 	
-		parent::insert('shopcategory',$nId);
-	}
-	
-	public function bAdd_(){
-		$this->get_shopcategorytree_();
-	}
-	
-	public function get_shopcategorytree_(){
-		$oShopcategory=Dyhb::instance('ShopcategoryModel');
-		$oShopcategoryTree=$oShopcategory->getShopcategoryTree();
-		
-		$this->assign('oShopcategoryTree',$oShopcategoryTree);
+		parent::insert('shopgoodstype',$nId);
 	}
 	
 	public function edit($sMode=null,$nId=null,$bDidplay=true){
 		$nId=intval(G::getGpc('value','G'));
-	
-		$this->bAdd_();
-	
-		parent::edit('shopcategory',$nId,false);
-		$this->display(Admin_Extend::template('shop','shopcategory/add'));
+
+		parent::edit('shopgoodstype',$nId,false);
+		$this->display(Admin_Extend::template('shop','shopgoodstype/add'));
 	}
 	
 	public function update($sModel=null,$nId=null){
 		$nId=G::getGpc('value');
 	
-		parent::update('shopcategory',$nId);
-	}
-	
-	public function tree(){
-		$this->get_shopcategorytree_();
-		
-		$this->display(Admin_Extend::template('shop','shopcategory/tree'));
-	}
-	
-	public function AUpdateObject_($oModel){
-		//$this->S('xx');
+		parent::update('shopgoodstype',$nId);
 	}
 
 	/*public function dateline($sType='Y',$oValue=false){
