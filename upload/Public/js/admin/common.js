@@ -34,15 +34,15 @@ function getSelectValues(){
 
 // 添加方法
 function add(){
-	window.location.href=D.U('add');
+	window.location.href=D.U('add'+(sMore?'?'+sMore:''));
 }
 
-function addApp(appId,controller){
-	window.location.href=D.U('app/config?id='+appId+'&action=add&controller='+controller);
+function addApp(appId,controller,sMore){
+	window.location.href=D.U('app/config?id='+appId+'&action=add&controller='+controller+(sMore?'&'+sMore:''));
 }
 
 // 编辑方法
-function edit(id,controller,appId){
+function edit(id,controller,appId,sMore){
 	var keyValue;
 	if(id){
 		keyValue=id;
@@ -56,18 +56,18 @@ function edit(id,controller,appId){
 	}
 
 	if(controller){
-		window.location.href=D.U('app/config?id='+appId+'&action=edit&controller='+controller+'&value='+keyValue);
+		window.location.href=D.U('app/config?id='+appId+'&action=edit&controller='+controller+'&value='+keyValue+(sMore?'&'+sMore:''));
 	}else{
-		window.location.href=D.U('edit?id='+keyValue);
+		window.location.href=D.U('edit?id='+keyValue+(sMore?'&'+sMore:''));
 	}
 }
 
-function editApp(appId,controller,id){
-	edit(id,controller,appId);
+function editApp(appId,controller,id,sMore){
+	edit(id,controller,appId,sMore);
 }
 
 // 删除操作
-function foreverdel(id,appId,controller){
+function foreverdel(id,appId,controller,sMore){
 	var keyValue;
 	if(id){
 		keyValue=id;
@@ -82,15 +82,15 @@ function foreverdel(id,appId,controller){
 
 	needforbugConfirm(D.L('确实要永久删除选择项吗？','__COMMON_LANG__@Admin/Common_Js'),function(){
 		if(controller){
-			Dyhb.AjaxSend(D.U('app/config?action=foreverdelete'),'id='+appId+'&ajax=1'+'&value='+keyValue+'&controller='+controller,'',completeDelete);
+			Dyhb.AjaxSend(D.U('app/config?action=foreverdelete'),'id='+appId+'&ajax=1'+'&value='+keyValue+'&controller='+controller+(sMore?'&'+sMore:''),'',completeDelete);
 		}else{
-			Dyhb.AjaxSend(D.U('foreverdelete'),'id='+keyValue+'&ajax=1','',completeDelete);
+			Dyhb.AjaxSend(D.U('foreverdelete'),'id='+keyValue+'&ajax=1'+(sMore?'&'+sMore:''),'',completeDelete);
 		}
 	});
 }
 
-function foreverdelApp(appId,controller,id){
-	foreverdel(id,appId,controller);
+function foreverdelApp(appId,controller,id,sMore){
+	foreverdel(id,appId,controller,sMore);
 }
 
 function completeDelete(data,status){
@@ -116,28 +116,28 @@ function sort(id){
 	window.location.href=D.U('sort?sort_id='+keyValue);
 }
 
-function forbid(id,appId,controller){
+function forbid(id,appId,controller,sMore){
 	if(controller){
-		window.location.href=D.U('app/config?action=forbid&'+'id='+appId+'&value='+id+'&controller='+controller);
+		window.location.href=D.U('app/config?action=forbid&'+'id='+appId+'&value='+id+'&controller='+controller+(sMore?'&'+sMore:''));
 	}else{
-		window.location.href=D.U('forbid?id='+id);
+		window.location.href=D.U('forbid?id='+id+(sMore?'&'+sMore:''));
 	}
 }
 
-function forbidApp(appId,controller,id){
-	forbid(id,appId,controller);
+function forbidApp(appId,controller,id,sMore){
+	forbid(id,appId,controller,sMore);
 }
 
-function resume(id,appId,controller){
+function resume(id,appId,controller,sMore){
 	if(controller){
-		window.location.href=D.U('app/config?action=resume&'+'id='+appId+'&value='+id+'&controller='+controller);
+		window.location.href=D.U('app/config?action=resume&'+'id='+appId+'&value='+id+'&controller='+controller+(sMore?'&'+sMore:''));
 	}else{
-		window.location.href=D.U('resume?id='+id);
+		window.location.href=D.U('resume?id='+id+(sMore?'&'+sMore:''));
 	}
 }
 
-function resumeApp(appId,controller,id){
-	resume(id,appId,controller);
+function resumeApp(appId,controller,id,sMore){
+	resume(id,appId,controller,sMore);
 }
 
 function sortBy(field,sort){
