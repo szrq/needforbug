@@ -30,6 +30,21 @@ class ShopattributeController extends InitController{
 		//if($nUid){
 			//$arrMap['user_id']=$nUid;
 		//}
+		
+		$nShopgoodstype=intval(G::getGpc('tid','G'));
+		if(empty($nShopgoodstype)){
+			$this->E('商品类型不能为空');
+		}
+		
+		$oShopgoodstype=ShopgoodstypeModel::F('shopgoodstype_id=?',$nShopgoodstype)->getOne();
+		if(empty($oShopgoodstype['shopgoodstype_id'])){
+			$this->E('商品类型不存在');
+		}
+		
+		$this->assign('nShopgoodstype',$nShopgoodstype);
+		$this->assign('oShopgoodstype',$oShopgoodstype);
+		
+		$arrMap['shopgoodstype_id']=$nShopgoodstype;
 	}
 
 	public function index($sModel=null,$bDisplay=true){
@@ -39,6 +54,13 @@ class ShopattributeController extends InitController{
 	}
 
 	public function add(){
+		$nShopgoodstype=intval(G::getGpc('tid','G'));
+		if(empty($nShopgoodstype)){
+			$this->E('商品类型不能为空');
+		}
+		
+		$this->assign('nShopgoodstype',$nShopgoodstype);
+		
 		$this->display(Admin_Extend::template('shop','shopattribute/add'));
 	}
 	
@@ -64,24 +86,14 @@ class ShopattributeController extends InitController{
 	
 		$this->bAdd_();
 	
-		parent::edit('shopcategory',$nId,false);
-		$this->display(Admin_Extend::template('shop','shopcategory/add'));
+		parent::edit('shopattribute',$nId,false);
+		$this->display(Admin_Extend::template('shop','shopattribute/add'));
 	}
 	
 	public function update($sModel=null,$nId=null){
 		$nId=G::getGpc('value');
 	
-		parent::update('shopcategory',$nId);
-	}
-	
-	public function tree(){
-		$this->get_shopcategorytree_();
-		
-		$this->display(Admin_Extend::template('shop','shopcategory/tree'));
-	}
-	
-	public function AUpdateObject_($oModel){
-		//$this->S('xx');
+		parent::update('shopattribute',$nId);
 	}
 
 	/*public function dateline($sType='Y',$oValue=false){
