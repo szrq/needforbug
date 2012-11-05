@@ -65,7 +65,7 @@ function checkShopgoods(){
 							</fieldset>
 							<fieldset>
 								<label for="shopgoods_name"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品分类<!--</lang>--><span class="require-field">*</span></label>
-								<select name="shopcategory_parentid" id="shopcategory_parentid" >
+								<select name="shopcategory_id" id="shopcategory_id" >
 									<option value="0">- <!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->请选择分类<!--</lang>--> -</option>
 									<!--{~$arrShopcategory = $oShopcategoryTree->getChilds()}-->
 									<!--<foreach for=arrShopcategory value=nCId>-->
@@ -88,9 +88,9 @@ function checkShopgoods(){
 							</fieldset>
 							<fieldset>
 								<label for="shopgoods_promotestartdate"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->促销日期<!--</lang>--></label>
-								<p><input type="text" class="left" name="shopgoods_promotestartdate" id="shopgoods_promotestartdate" size="40" style="width:180px;" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_promotestartdate}--><!--<else/>--><!--{:date('Y-m-d H:i:s',CURRENT_TIMESTAMP)}--><!--</if>-->" onclick="WdatePicker({el:'shopgoods_promotestartdate',skin:'ext',lang:'<!--{:strtolower(LANG_NAME)}-->',dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'#F{$dp.$D(\'shopgoods_promoteenddate\')}'})"/>
+								<p><input type="text" class="left" name="shopgoods_promotestartdate" id="shopgoods_promotestartdate" size="40" style="width:180px;" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_promotestartdate|date='Y-m-d H:i:s',**}--><!--<else/>--><!--{:date('Y-m-d H:i:s',CURRENT_TIMESTAMP)}--><!--</if>-->" onclick="WdatePicker({el:'shopgoods_promotestartdate',skin:'ext',lang:'<!--{:strtolower(LANG_NAME)}-->',dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'#F{$dp.$D(\'shopgoods_promoteenddate\')}'})"/>
 									<span class="left" style="margin-right:9px;">&nbsp;-&nbsp;</span>
-									<input type="text" name="shopgoods_promoteenddate" id="shopgoods_promoteenddate" size="40" style="width:180px;" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_promoteenddate}--><!--<else/>--><!--{:date('Y-m-d H:i:s',CURRENT_TIMESTAMP)}--><!--</if>-->" onclick="WdatePicker({el:'shopgoods_promoteenddate',skin:'ext',lang:'<!--{:strtolower(LANG_NAME)}-->',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'shopgoods_promotestartdate\')}'})"/>
+									<input type="text" name="shopgoods_promoteenddate" id="shopgoods_promoteenddate" size="40" style="width:180px;" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_promoteenddate|date='Y-m-d H:i:s',**}--><!--<else/>--><!--{:date('Y-m-d H:i:s',CURRENT_TIMESTAMP)}--><!--</if>-->" onclick="WdatePicker({el:'shopgoods_promoteenddate',skin:'ext',lang:'<!--{:strtolower(LANG_NAME)}-->',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'shopgoods_promotestartdate\')}'})"/>
 								</p>
 								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品促销只有在促销日期中才能够有效<!--</lang>--></div>
 							</fieldset>
@@ -110,6 +110,8 @@ function checkShopgoods(){
 				<footer>
 					<div class="submit_link">
 						<input type="hidden" name="value" id="value" value="<!--<if condition="isset( $_GET['value'] )">--><!--{$_GET['value']}--><!--</if>-->"/>
+						<input type="hidden" name="no_ajax" value="1">
+						<input type="hidden" name="is_app" value="1">
 						<input type="submit" id="submit_button" value="<!--<if condition="isset( $oValue )">--><!--<lang package='Template/Default/Common'>-->更新<!--</lang>--><!--<else/>--><!--<lang package='Template/Default/Common'>-->发布<!--</lang>--><!--</if>-->" class="alt_btn">
 						&nbsp;<input type="reset" value="<!--<lang package='Template/Default/Common'>-->重置<!--</lang>-->">
 					</div>

@@ -42,8 +42,32 @@ class ShopgoodsController extends InitController{
 	
 	public function insert($sModel=null,$nId=null){
 		$nId=G::getGpc('value');
-		
+
+		$this->strtotime_();
+
 		parent::insert('shopgoods',$nId);
+	}
+
+	public function edit($sMode=null,$nId=null,$bDidplay=true){
+		$nId=intval(G::getGpc('value','G'));
+
+		$this->get_shopcategorytree_();
+		
+		parent::edit('shopgoods',$nId,false);
+		$this->display(Admin_Extend::template('shop','shopgoods/add'));
+	}
+
+	public function update($sModel=null,$nId=null){
+		$nId=G::getGpc('value');
+
+		$this->strtotime_();
+		
+		parent::update('shopgoods',$nId);
+	}
+
+	protected function strtotime_(){
+		$_POST['shopgoods_promotestartdate']=strtotime($_POST['shopgoods_promotestartdate']);
+		$_POST['shopgoods_promoteenddate']=strtotime($_POST['shopgoods_promoteenddate']);
 	}
 
 	/*public function dateline($sType='Y',$oValue=false){
