@@ -9,7 +9,9 @@ class UcenterController extends InitController{
 	public function init__(){
 		parent::init__();
 
-		$this->is_login();
+		if(ACTION_NAME!=='view'){
+			$this->is_login();
+		}
 	}
 	
 	public function index(){

@@ -1,0 +1,1 @@
+a:1:{s:16:"ShopCache_Extend";s:26:"ShopCache_Extend.class.php";}

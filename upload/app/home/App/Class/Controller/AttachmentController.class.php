@@ -144,5 +144,13 @@ class AttachmentController extends InitController{
 	public function unrecommend_attachmentcategory(){
 		Core_Extend::doControllerAction('Attachment@Recommendattachmentcategory','un');
 	}
+	
+	public function fullplay_frame(){
+		Core_Extend::doControllerAction('Attachment@Fullplayframe','index');
+	}
+	
+	public function playout(){
+		Core_Extend::doControllerAction('Attachment@Playout','index');
+	}
 
 }

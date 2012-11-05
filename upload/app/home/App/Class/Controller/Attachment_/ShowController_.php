@@ -90,30 +90,6 @@ class ShowController extends Controller{
 		$this->display('attachment+showmp3');
 	}
 
-	public function fullplay_frame(){
-		$sFlashpath=trim(G::getGpc('url','G'));
-
-		if(empty($sFlashpath)){
-			$this->E('没有指定播放的flash');
-		}
-		
-		$this->assign('sFlashpath',$sFlashpath);
-
-		$this->display('attachment+fullplayframe');
-	}
-
-	public function playout(){
-		$sFlashpath=trim(G::getGpc('url','G'));
-
-		if(empty($sFlashpath)){
-			Dyhb::E('没有指定播放的flash');
-		}
-		
-		$this->assign('sFlashpath',$sFlashpath);
-
-		$this->display('attachment+playout');
-	}
-
 	public function mp3list(){
 		header("Content-Type: text/xml; charset=utf-8");
 		

@@ -1,29 +1,35 @@
 <?php
 /* [NeedForBug!] (C)Dianniu From 2010.
-   商城控制器($)*/
+   商品控制器($)*/
 
 !defined('DYHB_PATH') && exit;
 
 /** 导入博客模型 */
-Dyhb::import(NEEDFORBUG_PATH.'/app/blog/App/Class/Model');
+Dyhb::import(NEEDFORBUG_PATH.'/app/shop/App/Class/Model');
 
-class BlogController extends InitController{
+class ShopgoodsController extends InitController{
 
 	public function filter_(&$arrMap){
 		//$arrMap['group_name']=array('like','%'.G::getGpc('group_name').'%');
-		$nUid=intval(G::getGpc('uid','G'));
-		if($nUid){
-			$arrMap['user_id']=$nUid;
-		}
+		//$nUid=intval(G::getGpc('uid','G'));
+		//if($nUid){
+			//$arrMap['user_id']=$nUid;
+		//}
 	}
 
 	public function index($sModel=null,$bDisplay=true){
-		parent::index('blog',false);
+		parent::index('shopgoods',false);
 
-		$this->display(Admin_Extend::template('blog','blog/index'));
+		$this->display(Admin_Extend::template('shop','shopgoods/index'));
 	}
 
-	public function dateline($sType='Y',$oValue=false){
+	public function add(){
+		//$this->bAdd_();
+		
+		$this->display(Admin_Extend::template('shop','shopgoods/add'));
+	}
+
+	/*public function dateline($sType='Y',$oValue=false){
 		$sDate='';
 		if($oValue===false){
 			$sDate=CURRENT_TIMESTAMP;
@@ -370,6 +376,6 @@ class BlogController extends InitController{
 		}else{
 			$this->E(Dyhb::L('操作项不存在','Controller/Common'));
 		}
-	}
+	}*/
 
 }

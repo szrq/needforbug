@@ -487,4 +487,53 @@ class HomefreshController extends InitController{
 		$this->A($arrData,Dyhb::L('赞','Controller/Homefresh').'+1',1,1);
 	}
 
+	protected function cache_site_(){
+		if(!Dyhb::classExists('Cache_Extend')){
+			require_once(Core_Extend::includeFile('function/Cache_Extend'));
+		}
+		Cache_Extend::updateCache("site");
+	}
+
+	public function get_newcomment($nId,$nUserid){
+		if($GLOBALS['___login___']['user_id']!=$nUserid){
+			$sHomefreshcommentAuditpass=' AND homefreshcomment_auditpass=1 ';
+		}else{
+			$sHomefreshcommentAuditpass='';
+		}
+		
+		return HomefreshcommentModel::F(
+				'homefresh_id=? AND homefreshcomment_status=1 '.$sHomefreshcommentAuditpass.' AND homefreshcomment_parentid=0',$nId
+			)->limit(0,$GLOBALS['_cache_']['home_option']['homefreshcomment_limit_num'])->order('homefreshcomment_id DESC')->getAll();
+	}
+
+	public function get_newchildcomment($nId,$nCommentid,$nUserid,$bAll=false,$nCommentpage=1){
+		if($GLOBALS['___login___']['user_id']!=$nUserid){
+			$sHomefreshcommentAuditpass=' AND homefreshcomment_auditpass=1 ';
+		}else{
+			$sHomefreshcommentAuditpass='';
+		}
+		
+		$oHomefreshcommentSelect=HomefreshcommentModel::F(
+				'homefresh_id=? AND homefreshcomment_status=1 '.$sHomefreshcommentAuditpass.' AND homefreshcomment_parentid=?',$nId,$nCommentid
+			)->order('homefreshcomment_id DESC');
+
+		if($bAll===true){
+			if($nCommentpage<1){
+				$nCommentpage=1;
+			}
+
+			$nTotalHomefreshcommentNum=$oHomefreshcommentSelect->All()->getCounts();
+
+			$oPage=Page::RUN($nTotalHomefreshcommentNum,$GLOBALS['_cache_']['home_option']['homefreshchildcomment_list_num'],$nCommentpage,false);
+
+			$arrHomefreshcomments=HomefreshcommentModel::F(
+				'homefresh_id=? AND homefreshcomment_status=1 '.$sHomefreshcommentAuditpass.' AND homefreshcomment_parentid=?',$nId,$nCommentid
+				)->order('homefreshcomment_id DESC')->limit($oPage->returnPageStart(),$GLOBALS['_cache_']['home_option']['homefreshchildcomment_list_num'])->getAll();
+
+			return array($arrHomefreshcomments,$oPage->P('pagination_'.$nCommentid.'@pagenav','span','current','disabled','commentpage_'.$nCommentid),$nTotalHomefreshcommentNum<$GLOBALS['_cache_']['home_option']['homefreshchildcomment_list_num']?false:true);
+		}else{
+			return $oHomefreshcommentSelect->limit(0,$GLOBALS['_cache_']['home_option']['homefreshchildcomment_limit_num'])->getAll();
+		}
+	}
+
 }
