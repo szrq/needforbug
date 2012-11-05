@@ -23,6 +23,12 @@ class ShopgoodsController extends InitController{
 		$this->display(Admin_Extend::template('shop','shopgoods/index'));
 	}
 
+	public function add(){
+		//$this->bAdd_();
+		
+		$this->display(Admin_Extend::template('shop','shopgoods/add'));
+	}
+
 	/*public function dateline($sType='Y',$oValue=false){
 		$sDate='';
 		if($oValue===false){

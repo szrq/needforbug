@@ -41,6 +41,16 @@ hr{height:1px;border:none;border-top:1px dashed #cccccc;}
 .content-tab-active{background-color: #C2E4EB; }
 a.content-tab:link,a.content-tab-active:link{ text-decoration:none; }
 
+/* Jquery idTabs */
+.nfb_tab {color:#111;padding:0px 0px;width:100%;margin:8px auto;}
+.nfb_tab ul{margin-left:-40px;}
+.nfb_tab li { list-style:none; float:left;}
+.nfb_tab ul a {display:block;padding:6px 10px;text-decoration:none!important;margin:1px;margin-left:0;font:10px Verdana;color:#588C98!important;background:#DFEAF2;}
+.nfb_tab ul a:hover {color:#FFF;background:#C2E4EB;}
+.nfb_tab ul a.selected {margin-bottom:0;color:#000;background:#C2E4EB;border-bottom:1px solid #fff;cursor:default;}
+.nfb_tab div {padding:10px 10px 8px 10px;*padding-top:3px;*margin-top:-15px;clear:left;background:#fff;font:10pt Georgia;}
+.nfb_tab div a { color:#000; font-weight:bold;}
+
 /**===============================
            头部
 ================================*/
@@ -67,7 +77,6 @@ header#header {height: 65px;width: 100%;background: #222222 url(../Images/header
            侧边栏菜单
 ================================*/
 .fmenu-body{background:#E0E0E32;}
-
 aside#sidebar {width:100%;min-height: 500px;margin-top: -4px;}
 
 /* 主菜单标题 */
@@ -232,3 +241,35 @@ a.big-button:hover{text-decoration:none;color:#000;}
            升级提醒
 ================================*/
 .update_num {margin-left:2px;padding:1px 5px 0px 6px;color:white;font-weight:bold;background-color:#77BACE;-webkit-border-radius:8px;-moz-border-radius:8px;border-radius:8px;}
+
+/**===============================
+           Tab滑动条
+================================*/
+.ui-tabs-nav, .ui-tabs-panel {font-size: 100%;}
+.ui-tabs-nav {list-style: none;margin: 0;padding: 0 0 0 3px;height: 27px;}
+.ui-tabs-nav:after { /* 清理IE额外的 */display: block;clear: both;float: none;content: " ";}
+.ui-tabs-nav li {float: left; margin: 0 0 0 2px; font-weight: bold;}
+.ui-tabs-nav a,
+.ui-tabs-nav a span {float: left; /* 修复dir=ltr和IE其它的一些特殊的bug */padding: 0 12px;background-color: #badcea;color: #999;-moz-border-radius-topleft: 2px;-khtml-border-top-left-radius: 2px;-webkit-border-top-left-radius: 2px;border-top-left-radius: 2px;-moz-border-radius-topright: 2px;-khtml-border-top-right-radius: 2px;-webkit-border-top-right-radius: 2px;border-top-right-radius: 2px;}
+.ui-tabs-nav a { margin: 5px 0 0; /* 修复IE下相对透明 */padding-left: 0;text-decoration: none;white-space: nowrap; /* @ IE 6 */outline: 0; /* @ 修复Firefox点击后的当前点击的点点装 */}
+.ui-tabs-nav a:link,
+.ui-tabs-nav a:visited { color: #fff;}
+.ui-tabs-nav .ui-tabs-selected a {position: relative; top: 1px;z-index: 2; margin-top: 0;background-color: #3389c9;}
+.ui-tabs-nav a span {padding-top: 1px;padding-right: 0;height: 20px;line-height: 20px;}
+.ui-tabs-nav .ui-tabs-selected a span {color: #fff; padding-top: 0;height: 27px;background-color: #3389c9;line-height: 27px;}
+.ui-tabs-nav .ui-tabs-selected a:link,
+.ui-tabs-nav .ui-tabs-selected a:visited,
+.ui-tabs-nav .ui-tabs-disabled a:link,
+.ui-tabs-nav .ui-tabs-disabled a:visited { /* @ 修复Opera浏览器伪外部 */cursor: text;text-decoration: none;}
+.ui-tabs-nav a:hover,
+.ui-tabs-nav a:focus,
+.ui-tabs-nav a:active,
+.ui-tabs-nav .ui-tabs-unselect a:hover,
+.ui-tabs-nav .ui-tabs-unselect a:focus,
+.ui-tabs-nav .ui-tabs-unselect a:active { /* @ Opera浏览器直接 */cursor: pointer;text-decoration: none;}
+.ui-tabs-nav a:hover {background-color: #badcea;}
+.ui-tabs-nav .ui-tabs-selected a:hover { background-color: #3389c9;}
+.ui-tabs-disabled {opacity: .4;filter: alpha(opacity=40);}
+.ui-tabs-nav .ui-tabs-disabled a:link, .ui-tabs-nav .ui-tabs-disabled a:visited { color: #000;}
+.ui-tabs-panel { border-top: 1px solid #3389c9;padding: 10px; background: #ffffff; /* 声明容器背景颜色用来避免字体褪色 */}
+/*.ui-tabs-loading em {padding: 0 0 0 20px;background: url(loading.gif) no-repeat 0 50%;}*/
