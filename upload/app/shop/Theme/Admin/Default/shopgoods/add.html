@@ -10,30 +10,15 @@ $(document).ready(function() {
 	editor=loadEditor('shopgoods_description');
 });
 
-function add(){
-	if( $('#value').val()!='' && $('#value').val()!==null){
-		update();
-		return;
-	}
+function checkShopgoods(){
 	$("#submit_button").attr("disabled", "disabled");
-	$("#submit_button").val( 'add...' );
-	Dyhb.AjaxSubmit('shopgoodsAdd','<!--{:Admin_Extend::insert(array('controller'=>'shopgoods'))}-->','',complete);
-}
+	$("#submit_button").val( '<!--<if condition="isset( $_GET['value'] )">-->update<!--<else/>-->add<!--</if>-->...' );
 
-function update(){
-	$("#submit_button").attr("disabled", "disabled");
-	$("#submit_button").val( 'update...' );
-	Dyhb.AjaxSubmit('shopgoodsAdd','<!--{:Admin_Extend::update(array('controller'=>'shopgoods'))}-->','',function(){ 
+	if(!$('#shopgoods_name').val()){
+		needforbugAlert('商品名字不能为空','',3);
+		$("#submit_button").val( '<!--<if condition="isset( $_GET['value'] )">-->更新<!--<else/>-->发布<!--</if>-->' );
 		$("#submit_button").attr("disabled", false);
-		$("#submit_button").val( '<!--<lang package='Template/Default/Common'>-->更新<!--</lang>-->' ); 
-	});
-}
-
-function complete(data,status){
-	$("#submit_button").attr("disabled", false);
-	$("#submit_button").val( '<!--<lang package='Template/Default/Common'>-->发布<!--</lang>-->' );
-	if(status==1){
-		location.href=D.U('app/config?controller=shopgoods&action=edit&id=<!--{$_GET['id']}-->&value='+data.shopgoods_id);
+		return false;
 	}
 }
 <!--{/script}-->
@@ -61,7 +46,9 @@ function complete(data,status){
 					<li><a href="<!--{:Admin_Extend::base()}-->"><!--<lang package='Template/Default/Common'>-->应用入口<!--</lang>--></a></li>
 				</ul>
 			</header>
-			<form action="<!--<if condition="isset( $_GET['value'] )" >--><!--{:Admin_Extend::insert(array('controller'=>'shopgoods'))}--><!--<else/>--><!--{:Admin_Extend::update(array('controller'=>'shopgoods'))}--><!--</if>-->" method="post" id="shopgoodsAdd" enctype="multipart/form-data">
+			<form action="<!--<if condition="isset( $_GET['value'] )" >--><!--{:Admin_Extend::update(array
+('controller'=>'shopgoods'))}--><!--<else/>--><!--{:Admin_Extend::insert(array
+('controller'=>'shopgoods'))}--><!--</if>-->" method="post" id="shopgoodsAdd" enctype="multipart/form-data" onsubmit="return checkShopgoods();">
 				<div class="module_content">
 					<div id="shopgoods_tab" class="nfb_tab">
 						<ul class="nfb_tabtitle">
@@ -70,63 +57,60 @@ function complete(data,status){
 							<li><a href="#tab3">商品描述</a></li>
 							<li><a href="#tab4">商品大图</a></li>
 						</ul>
-						<form action="<!--<if condition="isset( $_GET['value'] )" >--><!--{:Admin_Extend::insert(array('controller'=>'shopgoods'))}--><!--<else/>--><!--{:Admin_Extend::update(array('controller'=>'shopgoods'))}--><!--</if>-->" method="post" id="shopgoodsAdd">
-							<div id="tab1" class="nfb_tabcontent">
-								<fieldset>
-									<label for="shopgoods_name"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品名字<!--</lang>--><span class="require-field">*</span></label>
-									<input type="text" name="shopgoods_name" id="shopgoods_name" size="40" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_name}--><!--</if>-->"/>
-									<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品名字最大字符为120<!--</lang>--></div>
-								</fieldset>
-								<fieldset>
-									<label for="shopgoods_name"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品分类<!--</lang>--><span class="require-field">*</span></label>
-									<select name="shopcategory_parentid" id="shopcategory_parentid" >
-										<option value="0">- <!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->请选择分类<!--</lang>--> -</option>
-										<!--{~$arrShopcategory = $oShopcategoryTree->getChilds()}-->
-										<!--<foreach for=arrShopcategory value=nCId>-->
-										<option value="<!--{$nCId}-->" <!--<if condition="isset( $oValue ) && $nCId == $oValue:shopcategory_id">-->selected<!--</if>--> >|<!--{$oShopcategoryTree:getLayer( $nCId, '--' )}--><!--{$oShopcategoryTree:getValue( $nCId )}--></option>
-										<!--</foreach>-->
-									</select>
-									<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品分类是最要的商品检索条件,请认真填写<!--</lang>--></div>
-								</fieldset>
-								<fieldset>
-									<label for="shopgoods_price"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->市场售价<!--</lang>--><span class="require-field">*</span></label>
-									<input type="text" name="shopgoods_price" id="shopgoods_price" size="40" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_price}--><!--<else/>-->0<!--</if>-->"/>
-								</fieldset>
-								<fieldset>
-									<label for="shopgoods_shopprice"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->本店售价<!--</lang>--><span class="require-field">*</span></label>
-									<input type="text" name="shopgoods_shopprice" id="shopgoods_shopprice" size="40" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_shopprice}--><!--<else/>-->0<!--</if>-->"/>
-								</fieldset>
-								<fieldset>
-									<label for="shopgoods_promoteprice"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->促销价<!--</lang>--></label>
-									<input type="text" name="shopgoods_promoteprice" id="shopgoods_promoteprice" size="40" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_promoteprice}--><!--<else/>-->0<!--</if>-->"/>
-								</fieldset>
-								<fieldset>
-									<label for="shopgoods_promotestartdate"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->促销日期<!--</lang>--></label>
-									<p><input type="text" class="left" name="shopgoods_promotestartdate" id="shopgoods_promotestartdate" size="40" style="width:180px;" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_promotestartdate}--><!--<else/>--><!--{:date('Y-m-d H:i:s',CURRENT_TIMESTAMP)}--><!--</if>-->" onclick="WdatePicker({el:'shopgoods_promotestartdate',skin:'ext',lang:'<!--{:strtolower(LANG_NAME)}-->',dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'#F{$dp.$D(\'shopgoods_promoteenddate\')}'})"/>
-										<span class="left" style="margin-right:9px;">&nbsp;-&nbsp;</span>
-										<input type="text" name="shopgoods_promoteenddate" id="shopgoods_promoteenddate" size="40" style="width:180px;" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_promoteenddate}--><!--<else/>--><!--{:date('Y-m-d H:i:s',CURRENT_TIMESTAMP)}--><!--</if>-->" onclick="WdatePicker({el:'shopgoods_promoteenddate',skin:'ext',lang:'<!--{:strtolower(LANG_NAME)}-->',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'shopgoods_promotestartdate\')}'})"/>
-									</p>
-									<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品促销只有在促销日期中才能够有效<!--</lang>--></div>
-								</fieldset>
-							</div>
-							<div id="tab2" class="nfb_tabcontent">Tab 3 is always last!</div>
-							<div id="tab3" class="nfb_tabcontent">
-								<fieldset>
-									<label for="shopgoods_description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品详细描述<!--</lang>--></label>
-									<p style="padding-left:10px;"><textarea name="shopgoods_description" id="shopgoods_description" style="width:90%;height:400px;visibility:hidden;"><!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_description}--><!--</if>--></textarea></p>
-									<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品的详细内容，商品详细描述可以增加用户对商品的购买兴趣<!--</lang>--><br/>
-									<!--<lang package='Template/Default/Common'>-->系统变量替换: {site_name} 网站标题,{site_description} 网站描述,{site_url} 站点信息,{time} 当前时间,{user_name} 登录用户,{user_nikename} 登录用户昵称,{admin_email} 系统管理员邮箱<!--</lang>--></div>
-								</fieldset>
-							</div>
-							<div id="tab4" class="nfb_tabcontent">Tab 3 is always last!</div>
-						</form>
+						<div id="tab1" class="nfb_tabcontent">
+							<fieldset>
+								<label for="shopgoods_name"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品名字<!--</lang>--><span class="require-field">*</span></label>
+								<input type="text" name="shopgoods_name" id="shopgoods_name" size="40" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_name}--><!--</if>-->"/>
+								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品名字最大字符为120<!--</lang>--></div>
+							</fieldset>
+							<fieldset>
+								<label for="shopgoods_name"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品分类<!--</lang>--><span class="require-field">*</span></label>
+								<select name="shopcategory_parentid" id="shopcategory_parentid" >
+									<option value="0">- <!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->请选择分类<!--</lang>--> -</option>
+									<!--{~$arrShopcategory = $oShopcategoryTree->getChilds()}-->
+									<!--<foreach for=arrShopcategory value=nCId>-->
+									<option value="<!--{$nCId}-->" <!--<if condition="isset( $oValue ) && $nCId == $oValue:shopcategory_id">-->selected<!--</if>--> >|<!--{$oShopcategoryTree:getLayer( $nCId, '--' )}--><!--{$oShopcategoryTree:getValue( $nCId )}--></option>
+									<!--</foreach>-->
+								</select>
+								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品分类是最要的商品检索条件,请认真填写<!--</lang>--></div>
+							</fieldset>
+							<fieldset>
+								<label for="shopgoods_price"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->市场售价<!--</lang>--><span class="require-field">*</span></label>
+								<input type="text" name="shopgoods_price" id="shopgoods_price" size="40" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_price}--><!--<else/>-->0<!--</if>-->"/>
+							</fieldset>
+							<fieldset>
+								<label for="shopgoods_shopprice"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->本店售价<!--</lang>--><span class="require-field">*</span></label>
+								<input type="text" name="shopgoods_shopprice" id="shopgoods_shopprice" size="40" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_shopprice}--><!--<else/>-->0<!--</if>-->"/>
+							</fieldset>
+							<fieldset>
+								<label for="shopgoods_promoteprice"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->促销价<!--</lang>--></label>
+								<input type="text" name="shopgoods_promoteprice" id="shopgoods_promoteprice" size="40" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_promoteprice}--><!--<else/>-->0<!--</if>-->"/>
+							</fieldset>
+							<fieldset>
+								<label for="shopgoods_promotestartdate"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->促销日期<!--</lang>--></label>
+								<p><input type="text" class="left" name="shopgoods_promotestartdate" id="shopgoods_promotestartdate" size="40" style="width:180px;" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_promotestartdate}--><!--<else/>--><!--{:date('Y-m-d H:i:s',CURRENT_TIMESTAMP)}--><!--</if>-->" onclick="WdatePicker({el:'shopgoods_promotestartdate',skin:'ext',lang:'<!--{:strtolower(LANG_NAME)}-->',dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'#F{$dp.$D(\'shopgoods_promoteenddate\')}'})"/>
+									<span class="left" style="margin-right:9px;">&nbsp;-&nbsp;</span>
+									<input type="text" name="shopgoods_promoteenddate" id="shopgoods_promoteenddate" size="40" style="width:180px;" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_promoteenddate}--><!--<else/>--><!--{:date('Y-m-d H:i:s',CURRENT_TIMESTAMP)}--><!--</if>-->" onclick="WdatePicker({el:'shopgoods_promoteenddate',skin:'ext',lang:'<!--{:strtolower(LANG_NAME)}-->',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'shopgoods_promotestartdate\')}'})"/>
+								</p>
+								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品促销只有在促销日期中才能够有效<!--</lang>--></div>
+							</fieldset>
+						</div>
+						<div id="tab2" class="nfb_tabcontent">Tab 3 is always last!</div>
+						<div id="tab3" class="nfb_tabcontent">
+							<fieldset>
+								<label for="shopgoods_description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品详细描述<!--</lang>--></label>
+								<p style="padding-left:10px;"><textarea name="shopgoods_description" id="shopgoods_description" style="width:90%;height:400px;visibility:hidden;"><!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_description}--><!--</if>--></textarea></p>
+								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品的详细内容，商品详细描述可以增加用户对商品的购买兴趣<!--</lang>--><br/>
+								<!--<lang package='Template/Default/Common'>-->系统变量替换: {site_name} 网站标题,{site_description} 网站描述,{site_url} 站点信息,{time} 当前时间,{user_name} 登录用户,{user_nikename} 登录用户昵称,{admin_email} 系统管理员邮箱<!--</lang>--></div>
+							</fieldset>
+						</div>
+						<div id="tab4" class="nfb_tabcontent">Tab 3 is always last!</div>
 					</div>
 				</div>
 				<footer>
 					<div class="submit_link">
-						<input type="hidden" name="ajax" value="1">
 						<input type="hidden" name="value" id="value" value="<!--<if condition="isset( $_GET['value'] )">--><!--{$_GET['value']}--><!--</if>-->"/>
-						<input type="button" id="submit_button" onclick="<!--<if condition="isset( $oValue )">-->update()<!--<else/>-->add()<!--</if>-->" value="<!--<if condition="isset( $oValue )">--><!--<lang package='Template/Default/Common'>-->更新<!--</lang>--><!--<else/>--><!--<lang package='Template/Default/Common'>-->发布<!--</lang>--><!--</if>-->" class="alt_btn">
+						<input type="submit" id="submit_button" value="<!--<if condition="isset( $oValue )">--><!--<lang package='Template/Default/Common'>-->更新<!--</lang>--><!--<else/>--><!--<lang package='Template/Default/Common'>-->发布<!--</lang>--><!--</if>-->" class="alt_btn">
 						&nbsp;<input type="reset" value="<!--<lang package='Template/Default/Common'>-->重置<!--</lang>-->">
 					</div>
 				</footer>

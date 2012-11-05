@@ -59,7 +59,7 @@ function complete(data,status){
 					<li><a href="<!--{:Admin_Extend::base()}-->"><!--<lang package='Template/Default/Common'>-->应用入口<!--</lang>--></a></li>
 				</ul>
 			</header>
-			<form action="<!--<if condition="isset( $_GET['value'] )" >--><!--{:Admin_Extend::insert(array('controller'=>'blog'))}--><!--<else/>--><!--{:Admin_Extend::update(array('controller'=>'blog'))}--><!--</if>-->" method="post" id="blogAdd">
+			<form action="<!--<if condition="isset( $_GET['value'] )" >--><!--{:Admin_Extend::update(array('controller'=>'blog'))}--><!--<else/>--><!--{:Admin_Extend::insert(array('controller'=>'blog'))}--><!--</if>-->" method="post" id="blogAdd">
 				<div class="module_content">
 					<fieldset>
 						<label for="blog_title"><!--<lang package='__APP_ADMIN_LANG__@Template/Blog'>-->博客标题<!--</lang>--></label>

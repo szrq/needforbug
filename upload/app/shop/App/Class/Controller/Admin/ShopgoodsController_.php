@@ -39,6 +39,13 @@ class ShopgoodsController extends InitController{
 		$this->assign('oShopcategoryTree',$oShopcategoryTree);
 	}
 
+	
+	public function insert($sModel=null,$nId=null){
+		$nId=G::getGpc('value');
+		
+		parent::insert('shopgoods',$nId);
+	}
+
 	/*public function dateline($sType='Y',$oValue=false){
 		$sDate='';
 		if($oValue===false){
