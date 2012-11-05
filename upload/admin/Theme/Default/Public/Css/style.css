@@ -42,14 +42,13 @@ hr{height:1px;border:none;border-top:1px dashed #cccccc;}
 a.content-tab:link,a.content-tab-active:link{ text-decoration:none; }
 
 /* Jquery idTabs */
-.nfb_tab {color:#111;padding:0px 0px;width:100%;margin:8px auto;}
-.nfb_tab ul{margin-left:-40px;}
-.nfb_tab li { list-style:none; float:left;}
-.nfb_tab ul a {display:block;padding:6px 10px;text-decoration:none!important;margin:1px;margin-left:0;font:10px Verdana;color:#588C98!important;background:#DFEAF2;}
-.nfb_tab ul a:hover {color:#FFF;background:#C2E4EB;}
-.nfb_tab ul a.selected {margin-bottom:0;color:#000;background:#C2E4EB;border-bottom:1px solid #fff;cursor:default;}
-.nfb_tab div {padding:10px 10px 8px 10px;*padding-top:3px;*margin-top:-15px;clear:left;background:#fff;font:10pt Georgia;}
-.nfb_tab div a { color:#000; font-weight:bold;}
+.nfb_tab {padding:0px 0px;width:100%;margin:8px auto;}
+.nfb_tab ul.nfb_tabtitle{margin-left:-40px;}
+.nfb_tab .nfb_tabtitle li { list-style:none; float:left;}
+.nfb_tab .nfb_tabtitle a {display:block;padding:6px 10px;text-decoration:none!important;margin:1px;margin-left:0;font-size:12px;color:#588C98!important;background:#DFEAF2;}
+.nfb_tab .nfb_tabtitle a:hover {color:#FFF;background:#C2E4EB;}
+.nfb_tab .nfb_tabtitle a.selected {margin-bottom:0;color:#000;background:#C2E4EB;border-bottom:1px solid #fff;cursor:default;}
+.nfb_tab .nfb_tabcontent {padding:5px 0px 8px 0px;*padding-top:3px;*margin-top:-15px;clear:left;}
 
 /**===============================
            头部
@@ -190,6 +189,7 @@ fieldset input[type=text]:focus {outline: none;border: 1px solid #77BACE;-webkit
 fieldset select {width: 80%;margin: 0 10px;border: 1px solid #bbb;height: 20px;color: #666666;}
 fieldset textarea {-webkit-border-radius: 5px;-moz-border-radius: 5px;border-radius: 5px;border: 1px solid #BBBBBB;color: #666666;-webkit-box-shadow: inset 0 2px 2px #ccc, 0 1px 0 #fff;-moz-box-shadow: inset 0 2px 2px #ccc, 0 1px 0 #fff;box-shadow: inset 0 2px 2px #ccc, 0 1px 0 #fff;padding-left: 10px;background-position: 10px 6px;margin: 0 0.5%;display: block;width: 80%;margin: 0 10px;}
 fieldset textarea:focus {outline: none;border: 1px solid #77BACE;-webkit-box-shadow: inset 0 2px 2px #ccc, 0 0 10px #ADDCE6;-moz-box-shadow: inset 0 2px 2px #ccc, 0 0 10px #ADDCE6;box-shadow: inset 0 2px 2px #ccc, 0 0 10px #ADDCE6;}
+.require-field{color:red;font-weight:normal;margin-left:3px;}
 .submit_link {float: right;margin-right: 3%;padding: 5px 0;}
 .submit_link select {width: 150px;border: 1px solid #bbb;height: 20px;color: #666666;}
 .description {color:#b8b6b6;padding:1px 5px 0px 9px;line-height:20px;}

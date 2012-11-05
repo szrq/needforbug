@@ -84,6 +84,13 @@ class ShopcategoryController extends InitController{
 		//$this->S('xx');
 	}
 
+	
+	public function foreverdelete($sModel=null,$sId=null){
+		$sId=G::getGpc('value');
+		
+		parent::foreverdelete('shopcategory',$sId);
+	}
+
 	/*public function dateline($sType='Y',$oValue=false){
 		$sDate='';
 		if($oValue===false){

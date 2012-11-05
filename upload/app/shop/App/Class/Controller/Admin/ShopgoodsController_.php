@@ -25,8 +25,18 @@ class ShopgoodsController extends InitController{
 
 	public function add(){
 		//$this->bAdd_();
+
+		$this->get_shopcategorytree_();
 		
 		$this->display(Admin_Extend::template('shop','shopgoods/add'));
+	}
+
+
+	public function get_shopcategorytree_(){
+		$oShopcategory=Dyhb::instance('ShopcategoryModel');
+		$oShopcategoryTree=$oShopcategory->getShopcategoryTree();
+		
+		$this->assign('oShopcategoryTree',$oShopcategoryTree);
 	}
 
 	/*public function dateline($sType='Y',$oValue=false){

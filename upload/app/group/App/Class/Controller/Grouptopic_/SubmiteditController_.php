@@ -14,13 +14,14 @@ class SubmiteditController extends Controller{
 		if(empty($oGrouptopic->group_id)){
 			$this->E('主题编辑失败');
 		}
+
 		$oGrouptopic->grouptopic_updateusername=$GLOBALS['___login___']['user_name'];
 		$oGrouptopic->save(0,'update');
 		if($oGrouptopic->isError()){
 			$this->E($oGrouptopic->getErrorMessage());
 		}
 
-		$sUrl=Dyhb::U('group://grouptopic/view?id='.$nTid);
+		$sUrl=Dyhb::U('group://topic@?id='.$nTid);
 		$this->A(array('url'=>$sUrl),'主题编辑成功',1);
 	}
 

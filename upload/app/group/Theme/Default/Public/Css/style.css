@@ -50,7 +50,7 @@ Description: Group应用模块CSS
 .floor_userinfocount{margin:auto;width:70%;}
 .floor_userinfooperate{margin-top:10px;text-align:center;}
 
-.floor_quickreply{margin-bottom:10px;margin-top:-15px;}
+.floor_quickreply{margin-bottom:10px;margin-top:5px;}
 .grouptopiccomment_quickmessage{margin-bottom:0px;width:70%;height:50px;}
 .grouptopiccomment_reply{display:none;line-height:32px;}
 .grouptopiccomment_btn{margin:8px;padding-top:1px;padding-bottom:1px;}
