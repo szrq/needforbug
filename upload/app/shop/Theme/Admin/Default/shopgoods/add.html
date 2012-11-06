@@ -55,7 +55,7 @@ function checkShopgoods(){
 							<li><a href="#tab1">基本信息</a></li>
 							<li><a href="#tab2">商品属性</a></li>
 							<li><a href="#tab3">商品描述</a></li>
-							<li><a href="#tab4">商品大图</a></li>
+							<li><a href="#tab4">商品相册</a></li>
 						</ul>
 						<div id="tab1" class="nfb_tabcontent">
 							<fieldset>
@@ -93,6 +93,12 @@ function checkShopgoods(){
 									<input type="text" name="shopgoods_promoteenddate" id="shopgoods_promoteenddate" size="40" style="width:180px;" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_promoteenddate|date='Y-m-d H:i:s',**}--><!--<else/>--><!--{:date('Y-m-d H:i:s',CURRENT_TIMESTAMP)}--><!--</if>-->" onclick="WdatePicker({el:'shopgoods_promoteenddate',skin:'ext',lang:'<!--{:strtolower(LANG_NAME)}-->',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'shopgoods_promotestartdate\')}'})"/>
 								</p>
 								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品促销只有在促销日期中才能够有效<!--</lang>--></div>
+							</fieldset>
+							<fieldset>
+								<label for="shopgoodsimg"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->上传商品图片<!--</lang>--></label>
+								<input type="file" name="shopgoodsimg" id="shopgoodsimg" size="40" value=""/>
+								<br /><input type="text" size="40" value="External URL" style="color:#aaa;" onfocus="if (this.value == 'External URL'){this.value='http://';this.style.color='#000';}" name="shopgoodsimgurl"/>
+								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->填写了商品外部URL，那么系统将不会上传文件<!--</lang>--></div>
 							</fieldset>
 						</div>
 						<div id="tab2" class="nfb_tabcontent">Tab 3 is always last!</div>

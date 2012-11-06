@@ -25,23 +25,32 @@ class Upload_Extend{
 		return $sType.'_'.$nId.'_icon';
 	}
 	
-	public static function uploadIcon($sType){
+	public static function uploadIcon($sType,$arrUploadoption=array()){
 		if(empty($_FILES)){
 			Dyhb::E(Dyhb::L('你没有选择任何文件','__COMMON_LANG__@Function/Upload_Extend'));
 		}
 
 		Core_Extend::loadCache($sType.'_option');
 
+		$arrDefaultoption=array(
+			'uploadfile_maxsize'=>$GLOBALS['_cache_'][$sType.'_option'][$sType.'_icon_uploadfile_maxsize'],
+			'width'=>48,
+			'height'=>48,
+			'upload_path'=>NEEDFORBUG_PATH.'/data/upload/app/'.strtolower($sType).'/icon',
+		);
+
+		$arrUploadoption=array_merge($arrDefaultoption,$arrUploadoption);
+
 		$sUploadDir=Upload_Extend::getUploadDir();
-		$nUploadfileMaxsize=Core_Extend::getUploadSize($GLOBALS['_cache_'][$sType.'_option'][$sType.'_icon_uploadfile_maxsize']);
-		$oUploadfile=new UploadFile($nUploadfileMaxsize,array('gif','jpeg','jpg','png'),'',NEEDFORBUG_PATH.'/data/upload/'.$sType.$sUploadDir);
+		$nUploadfileMaxsize=Core_Extend::getUploadSize($arrUploadoption['uploadfile_maxsize']);
+		$oUploadfile=new UploadFile($nUploadfileMaxsize,array('gif','jpeg','jpg','png'),'',$arrUploadoption['upload_path'].$sUploadDir);
 		
 		// 缩略图设置
 		$oUploadfile->_sThumbPrefix='';
 		$oUploadfile->_bThumb=true;
-		$oUploadfile->_nThumbMaxHeight=48;
-		$oUploadfile->_nThumbMaxWidth=48;
-		$oUploadfile->_sThumbPath=NEEDFORBUG_PATH."/data/upload/{$sType}{$sUploadDir}";
+		$oUploadfile->_nThumbMaxHeight=$arrUploadoption['width'];
+		$oUploadfile->_nThumbMaxWidth=$arrUploadoption['height'];
+		$oUploadfile->_sThumbPath=$arrUploadoption['upload_path'].$sUploadDir;
 		$oUploadfile->_bThumbRemoveOrigin=FALSE;
 		$oUploadfile->_bThumbFixed=true;
 			
@@ -57,20 +66,26 @@ class Upload_Extend{
 			Dyhb::E($oUploadfile->getErrorMessage());
 		}else{
 			$arrPhotoInfo=$oUploadfile->getUploadFileInfo();
-			$sPhotoDir=str_replace(G::tidyPath(NEEDFORBUG_PATH.'/data/upload/'.strtolower($sType)).'/','',G::tidyPath($arrPhotoInfo[0]['thumbpath'])).'/'.$arrPhotoInfo[0]['savename'];
+			$sPhotoDir=str_replace(G::tidyPath($arrUploadoption['upload_path']).'/','',G::tidyPath($arrPhotoInfo[0]['thumbpath'])).'/'.$arrPhotoInfo[0]['savename'];
 		}
 		
 		return $sPhotoDir;
 	}
 	
-	public static function deleteicon($sType,$sUrl){
-		$sFile=NEEDFORBUG_PATH.'/data/upload/'.$sType.'/'.$sUrl;
+	public static function deleteicon($sType,$sUrl,$arrUploadoption=array()){
+		$arrDefaultoption=array(
+			'upload_path'=>NEEDFORBUG_PATH.'/data/upload/app/'.strtolower($sType).'/icon',
+		);
+
+		$arrUploadoption=array_merge($arrDefaultoption,$arrUploadoption);
+		
+		$sFile=$arrUploadoption['upload_path'].'/'.$sUrl;
 		$sDir=dirname($sFile);
 
 		if(is_file($sFile)){
 			@unlink($sFile);
 		}
-		
+
 		$arrFiles=G::listDir($sDir,false,true);
 		if(count($arrFiles)==1 && $arrFiles[0]=='index.html'){
 			if(is_file($sDir.'/index.html')){
@@ -87,48 +102,69 @@ class Upload_Extend{
 		return md5(md5($sFilename).gmdate('YmdHis')).'.'.G::getExtName($sFilename,2);
 	}
 
-	public static function uploadFlash($bUploadFlash=true){
+	public static function uploadFlash($bUploadFlash=true,$arrUploadoption=array()){
 		if(empty($_FILES)){
 			Dyhb::E('你没有选择任何文件');
 			return;
 		}
 
+		$arrDefaultoption=array(
+			'upload_allowed_type'=>$GLOBALS['_option_']['upload_allowed_type'],
+			'uploadfile_maxsize'=>$GLOBALS['_option_']['uploadfile_maxsize'],
+			'upload_create_thumb'=>$GLOBALS['_option_']['upload_create_thumb'],
+			'upload_thumb_size'=>$GLOBALS['_option_']['upload_thumb_size'],
+			'upload_is_watermark'=>$GLOBALS['_option_']['upload_is_watermark'],
+			'upload_images_watertype'=>$GLOBALS['_option_']['upload_images_watertype'],
+			'upload_watermark_imgurl'=>$GLOBALS['_option_']['upload_watermark_imgurl'],
+			'upload_imageswater_offset'=>$GLOBALS['_option_']['upload_imageswater_offset'],
+			'upload_imageswater_text'=>$GLOBALS['_option_']['upload_imageswater_text'],
+			'upload_imageswater_textcolor'=>$GLOBALS['_option_']['upload_imageswater_textcolor'],
+			'upload_imageswater_textfontsize'=>$GLOBALS['_option_']['upload_imageswater_textfontsize'],
+			'upload_imageswater_textfontpath'=>$GLOBALS['_option_']['upload_imageswater_textfontpath'],
+			'upload_imageswater_textfonttype'=>$GLOBALS['_option_']['upload_imageswater_textfonttype'],
+			'upload_imageswater_offset'=>$GLOBALS['_option_']['upload_imageswater_offset'],
+			'upload_imageswater_position'=>$GLOBALS['_option_']['upload_imageswater_position'],
+			'upload_path'=>NEEDFORBUG_PATH.'/data/upload/attachment',
+		);
+
+		$arrUploadoption=array_merge($arrDefaultoption,$arrUploadoption);
+
 		$sUploadDir=self::getUploadDir();
-		$arrAllAllowType=explode('|',$GLOBALS['_option_']['upload_allowed_type']);
-		$nUploadfileMaxsize=Core_Extend::getUploadSize($GLOBALS['_option_']['uploadfile_maxsize']);
+		$arrAllAllowType=explode('|',$arrUploadoption['upload_allowed_type']);
+		$nUploadfileMaxsize=Core_Extend::getUploadSize($arrUploadoption['uploadfile_maxsize']);
 
 		if($bUploadFlash===true){
-			$oUploadfile=new UploadFileForUploadify($nUploadfileMaxsize,$arrAllAllowType,'',NEEDFORBUG_PATH.'/data/upload/attachment'.$sUploadDir);
+			$oUploadfile=new UploadFileForUploadify($nUploadfileMaxsize,$arrAllAllowType,'',$arrUploadoption['upload_path'].$sUploadDir);
 		}else{
-			$oUploadfile=new UploadFile($nUploadfileMaxsize,$arrAllAllowType,'',NEEDFORBUG_PATH.'/data/upload/attachment'.$sUploadDir);
+			$oUploadfile=new UploadFile($nUploadfileMaxsize,$arrAllAllowType,'',$arrUploadoption['upload_path'].$sUploadDir);
 		}
 
-		if($GLOBALS['_option_']['upload_create_thumb']==1){
+		if($arrUploadoption['upload_create_thumb']==1){
 			$oUploadfile->_bThumb=true;
-			$arrThumbMax=explode('|',$GLOBALS['_option_']['upload_thumb_size']);
+			$arrThumbMax=explode('|',$arrUploadoption['upload_thumb_size']);
 			$oUploadfile->_nThumbMaxHeight=$arrThumbMax[0];
 			$oUploadfile->_nThumbMaxWidth=$arrThumbMax[1];
-			$oUploadfile->_sThumbPath=NEEDFORBUG_PATH."/data/upload/attacement{$sUploadDir}/thumb";// 缩略图文件保存路径
+			$oUploadfile->_sThumbPath=$arrUploadoption['upload_path'].$sUploadDir.'/thumb';// 缩略图文件保存路径
 		}
 
 		$oUploadfile->_sSaveRule=array('Upload_Extend','getUploadSavename');// 设置上传文件规则
 		
-		if($GLOBALS['_option_']['upload_is_watermark']==1){
+		if($arrUploadoption['upload_is_watermark']==1){
 			$oUploadfile->_bIsImagesWaterMark=true;
-			$oUploadfile->_sImagesWaterMarkType=$GLOBALS['_option_']['upload_images_watertype'];
+			$oUploadfile->_sImagesWaterMarkType=$arrUploadoption['upload_images_watertype'];
 			$oUploadfile->_arrImagesWaterMarkImg=array(
-				'path'=>$GLOBALS['_option_']['upload_watermark_imgurl'],
-				'offset'=>$GLOBALS['_option_']['upload_imageswater_offset']
+				'path'=>$arrUploadoption['upload_watermark_imgurl'],
+				'offset'=>$arrUploadoption['upload_imageswater_offset']
 			);
 			$oUploadfile->_arrImagesWaterMarkText=array(
-				'content'=>$GLOBALS['_option_']['upload_imageswater_text'],
-				'textColor'=>$GLOBALS['_option_']['upload_imageswater_textcolor'],
-				'textFont'=>$GLOBALS['_option_']['upload_imageswater_textfontsize'],
-				'textFile'=>$GLOBALS['_option_']['upload_imageswater_textfontpath'],
-				'textPath'=>$GLOBALS['_option_']['upload_imageswater_textfonttype'],
-				'offset'=>$GLOBALS['_option_']['upload_imageswater_offset']
+				'content'=>$arrUploadoption['upload_imageswater_text'],
+				'textColor'=>$arrUploadoption['upload_imageswater_textcolor'],
+				'textFont'=>$arrUploadoption['upload_imageswater_textfontsize'],
+				'textFile'=>$arrUploadoption['upload_imageswater_textfontpath'],
+				'textPath'=>$arrUploadoption['upload_imageswater_textfonttype'],
+				'offset'=>$arrUploadoption['upload_imageswater_offset']
 			);
-			$oUploadfile->_nWaterPos=$GLOBALS['_option_']['upload_imageswater_position'];
+			$oUploadfile->_nWaterPos=$arrUploadoption['upload_imageswater_position'];
 		}
 
 		$oUploadfile->setAutoCreateStoreDir(TRUE);
@@ -150,8 +186,8 @@ class Upload_Extend{
 		return $arrUploadids;
 	}
 
-	public static function uploadNormal(){
-		return self::uploadFlash(false);
+	public static function uploadNormal($arrUploadoption=array()){
+		return self::uploadFlash(false,$arrUploadoption);
 	}
 	
 }
