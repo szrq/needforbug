@@ -99,10 +99,10 @@ class Upload_Extend{
 	}
 
 	public static function getUploadSavename($sFilename){
-		return md5(md5($sFilename).gmdate('YmdHis')).'.'.G::getExtName($sFilename,2);
+		return md5(md5($sFilename).gmdate('YmdHis').G::randString(6)).'.'.G::getExtName($sFilename,2);
 	}
 
-	public static function uploadFlash($bUploadFlash=true,$arrUploadoption=array()){
+	public static function uploadFlash($bUploadFlash=true,$bReturnUploadinfo=false,$bDatabase=true,$arrUploadoption=array()){
 		if(empty($_FILES)){
 			Dyhb::E('你没有选择任何文件');
 			return;
@@ -175,19 +175,27 @@ class Upload_Extend{
 			$arrPhotoInfo=$oUploadfile->getUploadFileInfo();
 		}
 
-		$oAttachment=Dyhb::instance('AttachmentModel');
-		$arrUploadids=$oAttachment->upload($arrPhotoInfo);
+		if($bDatabase===true){
+			$oAttachment=Dyhb::instance('AttachmentModel');
+			$arrUploadids=$oAttachment->upload($arrPhotoInfo);
 
-		if($oAttachment->isError()){
-			Dyhb::E($oAttachment->getErrorMessage());
-			return false;
+			if($oAttachment->isError()){
+				Dyhb::E($oAttachment->getErrorMessage());
+				return false;
+			}
+			
+			return $arrUploadids;
 		}
 
-		return $arrUploadids;
+		if($bReturnUploadinfo===true){
+			return $arrPhotoInfo;
+		}else{
+			return true;
+		}
 	}
 
-	public static function uploadNormal($arrUploadoption=array()){
-		return self::uploadFlash(false,$arrUploadoption);
+	public static function uploadNormal($bReturnUploadinfo=false,$bDatabase=true,$arrUploadoption=array()){
+		return self::uploadFlash(false,$bReturnUploadinfo,$bDatabase,$arrUploadoption);
 	}
 	
 }

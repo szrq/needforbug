@@ -9,6 +9,8 @@ Dyhb::import(NEEDFORBUG_PATH.'/app/shop/App/Class/Model');
 
 class ShopgoodsController extends InitController{
 
+	protected $_arrUploaddata=array();
+
 	public function filter_(&$arrMap){
 		//$arrMap['group_name']=array('like','%'.G::getGpc('group_name').'%');
 		//$nUid=intval(G::getGpc('uid','G'));
@@ -61,8 +63,44 @@ class ShopgoodsController extends InitController{
 		$nId=G::getGpc('value');
 
 		$this->strtotime_();
+
+		// 处理图片上传
+		$this->_arrUploaddata=$this->shopgoodsimg_();
 		
 		parent::update('shopgoods',$nId);
+	}
+
+	protected function shopgoodsimg_(){
+		require_once(Core_Extend::includeFile('function/Upload_Extend'));
+		try{
+			$arrData=array();
+			
+			$arrUploadoption=array(
+				'upload_path'=>NEEDFORBUG_PATH.'/data/upload/app/shop/shopgoods',
+			);
+
+			$arrUploadinfos=Upload_Extend::uploadNormal(true,false,$arrUploadoption);
+			if(is_array($arrUploadinfos)){
+				foreach($arrUploadinfos as $arrUploadinfo){
+					if($arrUploadinfo['key']=='shopgoodsimg'){
+						$arrData['shopgoods_img']=str_replace(G::tidyPath(NEEDFORBUG_PATH.'/data/upload/app/shop/shopgoods').'/','',G::tidyPath($arrUploadinfo['savepath'])).'/'.$arrUploadinfo['savename'];
+					}
+				}
+			}
+
+			return $arrData;
+		}catch(Exception $e){
+			$this->E($e->getMessage());
+		}
+	}
+
+	public function AUpdateObject_($oModel){
+		$oModel->shopgoods_img=$this->_arrUploaddata['shopgoods_img'];
+	}
+
+	protected function aInsert($nId=null){
+		//$oGroup=Dyhb::instance('GroupModel');
+		//$oGroup->afterInsert($nId,intval(G::getGpc('group_categoryid','P')));
 	}
 
 	protected function strtotime_(){

@@ -282,51 +282,24 @@ class UploadFile{
 	protected function dealFiles($arrFiles){
 		$arrFileInfo=array();
 
-		// 预处理
-		foreach($arrFiles as $arrFile){
-			if(is_array($arrFile['name'])){
-				$arrKeys=array_keys($arrFile);
-				$nCount=count($arrFile['name']);
-				for($nI=0;$nI<$nCount;$nI++){
-					foreach($arrKeys as $nKey){
-						$arrFileInfo[$nI][$nKey]=$arrFile[$nKey][$nI];
+		if(is_array($arrFiles)){
+			foreach($arrFiles as $arrFile){
+				if(is_array($arrFile['name'])){
+					$arrKeys=array_keys($arrFile);
+					$nCount=count($arrFile['name']);
+					for($nI=0;$nI<$nCount;$nI++){
+						foreach($arrKeys as $nKey){
+							$arrFileInfo[$nI][$nKey]=$arrFile[$nKey][$nI];
+						}
 					}
+				}else{
+					$arrFileInfo=$arrFiles;
 				}
-			}else{
-				$arrFileInfo=$arrFiles;
-			}
-			break;
-		}
-
-		// 取得未重复名字
-		$arrVariableFilename=array();
-		foreach($arrFileInfo as $arrTempFileInfo){
-			if(!empty($arrTempFileInfo['name'])){
-				$arrVariableFilename[$arrTempFileInfo['name']]=$arrTempFileInfo['name'];
-			}
-		}
-		$arrVariableFilename=array_unique($arrVariableFilename);
-
-		// 取得所有上传正确的未重复数据
-		$arrNewFileinfo=array();
-		foreach($arrFileInfo as $arrTempFileInfo){
-			if(!empty($arrTempFileInfo['name']) && in_array($arrTempFileInfo['name'],$arrVariableFilename) && $arrTempFileInfo['error']==0){
-				$arrNewFileinfo[]=$arrTempFileInfo;
-				unset($arrVariableFilename[$arrTempFileInfo['name']]);
+				break;
 			}
 		}
 
-		// 如果上一步有上传错误的重复表单，这里获取错误的表单信息
-		if(!empty($arrVariableFilename)){
-			foreach($arrFileInfo as $arrTempFileInfo){
-				if(!empty($arrTempFileInfo['name']) && in_array($arrTempFileInfo['name'],$arrVariableFilename) && $arrTempFileInfo['error']!=0){
-					$arrNewFileinfo[]=$arrTempFileInfo;
-					unset($arrVariableFilename[$arrTempFileInfo['name']]);
-				}
-			}
-		}
-
-		return $arrNewFileinfo;
+		return $arrFileInfo;
 	}
 
 	protected function writeSafeFile($sFileStoreDir){
