@@ -7,7 +7,7 @@
 /** 导入博客模型 */
 Dyhb::import(NEEDFORBUG_PATH.'/app/shop/App/Class/Model');
 
-class ShopsetupController extends InitController{
+class ShopoptionController extends InitController{
 
 	public function filter_(&$arrMap){
 		//$arrMap['group_name']=array('like','%'.G::getGpc('group_name').'%');
@@ -20,7 +20,7 @@ class ShopsetupController extends InitController{
 	public function index($sModel=null,$bDisplay=true){
 		Core_Extend::loadCache("shop_option");
 		$arrOptionData=$GLOBALS['_cache_']['shop_option'];
-		$this->assign('arrOptionData',$arrOptionData);
+		$this->assign('arrOptions',$arrOptionData);
 		$this->display(Admin_Extend::template('shop','shopsetup/index'));
 	}
 

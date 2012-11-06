@@ -17,65 +17,24 @@
 						<div class="description"><!--<lang package='Template/Default/Option'>-->网站名称，将显示在前台顶部欢迎信息等位置<!--</lang>--></div>
 					</fieldset>
 					<fieldset>
-						<label for="site_description"><!--<lang package='Template/Default/Option'>-->网站描述<!--</lang>--></label>
-						<input type="text" name="options[site_description]" id="site_description" size="40" value="<!--{$arrOptions['site_description']}-->"/>
+						<label for="shop_description"><!--<lang package='Template/Default/Option'>-->商城描述<!--</lang>--></label>
+						<input type="text" name="options[shop_description]" id="shop_description" size="40" value="<!--{$arrOptions['shop_description']}-->"/>
 						<div class="description"><!--<lang package='Template/Default/Option'>-->网站描述，将显示在浏览器窗口标题等位置<!--</lang>--></div>
 					</fieldset>
 					<fieldset>
-						<label for="site_year"><!--<lang package='Template/Default/Option'>-->网站创办时间<!--</lang>--></label>
-						<input type="text" name="options[site_year]" id="site_year" size="40" value="<!--{$arrOptions['site_year']}-->"/>
-						<div class="description"><!--<lang package='Template/Default/Option'>-->网站创办时间，将显示在前台底部的版权中的时间<!--</lang>--></div>
-					</fieldset>
-					<fieldset>
-						<label for="home_title"><!--<lang package='Template/Default/Option'>-->网站主页标题<!--</lang>--></label>
-						<input type="text" name="options[home_title]" id="home_title" size="40" value="<!--{$arrOptions['home_title']}-->"/>
+						<label for="shop_title"><!--<lang package='Template/Default/Option'>-->网站主页标题<!--</lang>--></label>
+						<input type="text" name="options[shop_title]" id="shop_title" size="40" value="<!--{$arrOptions['shop_title']}-->"/>
 						<div class="description"><!--<lang package='Template/Default/Option'>-->出现在首页的网站介绍中<!--</lang>--></div>
 					</fieldset>
 					<fieldset>
-						<label for="home_description"><!--<lang package='Template/Default/Option'>-->网站主页介绍<!--</lang>--></label>
-						<textarea name="options[home_description]" rows="5"><!--{$arrOptions['home_description']}--></textarea>
-						<div class="description"><!--<lang package='Template/Default/Option'>-->网站主页介绍，将显示在未登录的首页的介绍部分<!--</lang>--><br/>
-						<!--<lang package='Template/Default/Common'>-->系统变量替换: {site_name} 网站标题,{site_description} 网站描述,{site_url} 站点信息,{time} 当前时间,{user_name} 登录用户,{user_nikename} 登录用户昵称,{admin_email} 系统管理员邮箱<!--</lang>--></div>
-					</fieldset>
-					<fieldset>
-						<label for="needforbug_company_name"><!--<lang package='Template/Default/Option'>-->网站底部公司名字<!--</lang>--></label>
-						<input type="text" name="options[needforbug_company_name]" id="needforbug_company_name" size="60" value="<!--{$arrOptions['needforbug_company_name']}-->"/>
-						<div class="description"><!--<lang package='Template/Default/Option'>-->网站底部公司名字，将显示在页面底部的联系方式处<!--</lang>--></div>
-					</fieldset>
-					<fieldset>
-						<label for="needforbug_company_url"><!--<lang package='Template/Default/Option'>-->网站底部公司主页<!--</lang>--></label>
-						<input type="text" name="options[needforbug_company_url]" id="needforbug_company_url" size="60" value="<!--{$arrOptions['needforbug_company_url']}-->"/>
-						<div class="description"><!--<lang package='Template/Default/Option'>-->网站底部公司 URL，将作为链接显示在页面底部<!--</lang>--></div>
-					</fieldset>
-					<fieldset>
-						<label for="needforbug_company_year"><!--<lang package='Template/Default/Option'>-->公司创办时间<!--</lang>--></label>
-						<input type="text" name="options[needforbug_company_year]" id="needforbug_company_year" size="40" value="<!--{$arrOptions['needforbug_company_year']}-->"/>
-						<div class="description"><!--<lang package='Template/Default/Option'>-->公司创办时间，将显示在前台底部的公司信息中<!--</lang>--></div>
-					</fieldset>
-					<fieldset>
-						<label for="icp"><!--<lang package='Template/Default/Option'>-->网站备案信息代码<!--</lang>--></label>
-						<input type="text" name="options[icp]" id="icp" size="60" value="<!--{$arrOptions['icp']}-->"/>
-						<div class="description"><!--<lang package='Template/Default/Option'>-->页面底部可以显示 ICP 备案信息，如果网站已备案，在此输入您的授权码，它将显示在页面底部，如果没有请留空<!--</lang>--></div>
-					</fieldset>
-					<fieldset>
-						<label for="site_url"><!--<lang package='Template/Default/Option'>-->网站地址<!--</lang>--></label>
-						<input type="text" name="options[site_url]" id="site_url" size="60" value="<!--{$arrOptions['site_url']}-->"/>
-						<div class="description"><!--<lang package='Template/Default/Option'>-->网站的地址，后面不能带“/”<!--</lang>--></div>
-					</fieldset>
-					<fieldset>
-						<label for="stat_code"><!--<lang package='Template/Default/Option'>-->网站第三方统计<!--</lang>--></label>
-						<textarea name="options[stat_code]" rows="5"><!--{$arrOptions['stat_code']}--></textarea>
-						<div class="description"><!--<lang package='Template/Default/Option'>-->页面底部可以显示第三方统计<!--</lang>--></div>
-					</fieldset>
-					<fieldset>
-						<label for="close_site"><!--<lang package='Template/Default/Option'>-->是否关闭网站<!--</lang>--></label>
-						<input type="radio" id="close_site" name="options[close_site]" value="1" <!--{if $arrOptions['close_site']==1}-->checked="checked"<!--{/if}-->/><!--<lang package='Template/Default/Common'>-->是<!--</lang>-->
-						<input type="radio" id="" name="options[close_site]" value="0" <!--{if $arrOptions['close_site']==0}-->checked="checked"<!--{/if}--> /><!--<lang package='Template/Default/Common'>-->否<!--</lang>-->
+						<label for="shop_closestatus"><!--<lang package='Template/Default/Option'>-->是否关闭网站<!--</lang>--></label>
+						<input type="radio" id="shop_closestatus" name="options[shop_closestatus]" value="1" <!--{if $arrOptions['shop_closestatus']==1}-->checked="checked"<!--{/if}-->/><!--<lang package='Template/Default/Common'>-->是<!--</lang>-->
+						<input type="radio" id="" name="options[shop_closestatus]" value="0" <!--{if $arrOptions['shop_closestatus']==0}-->checked="checked"<!--{/if}--> /><!--<lang package='Template/Default/Common'>-->否<!--</lang>-->
 						<div class="description"><!--<lang package='Template/Default/Option'>-->可暂时将站点关闭，其他人无法访问，但不影响管理员访问后台<!--</lang>--></div>
 					</fieldset>
 					<fieldset>
-						<label for="close_site_reason"><!--<lang package='Template/Default/Option'>-->关闭原因<!--</lang>--></label>
-						<textarea name="options[close_site_reason]" rows="5"><!--{$arrOptions['close_site_reason']}--></textarea>
+						<label for="shop_closereason"><!--<lang package='Template/Default/Option'>-->关闭原因<!--</lang>--></label>
+						<textarea name="options[shop_closereason]" rows="5"><!--{$arrOptions['shop_closereason']}--></textarea>
 						<div class="description"><!--<lang package='Template/Default/Option'>-->可暂时将站点关闭，其他人无法访问，但不影响管理员访问后台<!--</lang>--></div>
 					</fieldset>
 					<fieldset>
