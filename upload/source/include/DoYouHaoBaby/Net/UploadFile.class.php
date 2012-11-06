@@ -152,7 +152,7 @@ class UploadFile{
 
 				// 生成图像缩略图
 				$sRealFilename=$this->_bAutoSub?$arrFile['savename']:$arrFile['savename'];
-				$sRealFilename=strripos($sRealFilename,'.')?G::subString($sRealFilename,0,count($sRealFilename)):$sRealFilename;
+				$sRealFilename=strripos($sRealFilename,'.')?G::subString($sRealFilename,0,strrpos($sRealFilename,'.')):$sRealFilename;
 
 				for($nI=0,$nLen=count($arrThumbWidth);$nI<$nLen;$nI++){
 					$sThumbname=$sThumbPath.'/'.$arrThumbPrefix[$nI].$sRealFilename.$arrThumbSuffix[$nI].'.'.$arrFile['extension'];
@@ -307,7 +307,7 @@ class UploadFile{
 		}
 		$arrVariableFilename=array_unique($arrVariableFilename);
 
-		// 取得所有上传正确的为重复数据
+		// 取得所有上传正确的未重复数据
 		$arrNewFileinfo=array();
 		foreach($arrFileInfo as $arrTempFileInfo){
 			if(!empty($arrTempFileInfo['name']) && in_array($arrTempFileInfo['name'],$arrVariableFilename) && $arrTempFileInfo['error']==0){
