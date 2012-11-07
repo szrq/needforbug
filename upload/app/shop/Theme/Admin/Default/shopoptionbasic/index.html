@@ -7,9 +7,9 @@
 	</section>
 
 	<section id="main" class="column">
-	<!--<include file="Admin_Extend::template('shop','shopsetup/menu')" />-->
+	<!--<include file="Admin_Extend::template('shop','shopoptionbasic/menu')" />-->
 		<article class="module width_full">
-			<form action="<!--{:Dyhb::U('option/update_option')}-->" method="post" onsubmit="return option();">
+			<form action="<!--{:Dyhb::U('app/config?id='.$nId.'&action=update_option')}-->" method="post" onsubmit="return option();">
 				<div class="module_content">
 					<fieldset>
 						<label for="shop_name"><!--<lang package='Template/Default/Option'>-->商城名称<!--</lang>--></label>
@@ -22,8 +22,18 @@
 						<div class="description"><!--<lang package='Template/Default/Option'>-->网站描述，将显示在浏览器窗口标题等位置<!--</lang>--></div>
 					</fieldset>
 					<fieldset>
-						<label for="shop_title"><!--<lang package='Template/Default/Option'>-->网站主页标题<!--</lang>--></label>
+						<label for="shop_title"><!--<lang package='Template/Default/Option'>-->商城主页标题<!--</lang>--></label>
 						<input type="text" name="options[shop_title]" id="shop_title" size="40" value="<!--{$arrOptions['shop_title']}-->"/>
+						<div class="description"><!--<lang package='Template/Default/Option'>-->出现在首页的网站介绍中<!--</lang>--></div>
+					</fieldset>
+					<fieldset>
+						<label for="shop_serviceqq"><!--<lang package='Template/Default/Option'>--> 客服QQ号码<!--</lang>--></label>
+						<input type="text" name="options[shop_serviceqq]" id="shop_serviceqq" size="40" value="<!--{$arrOptions['shop_serviceqq']}-->"/>
+						<div class="description"><!--<lang package='Template/Default/Option'>-->出现在首页的网站介绍中<!--</lang>--></div>
+					</fieldset>
+					<fieldset>
+						<label for="shop_servicephone"><!--<lang package='Template/Default/Option'>--> 客服电话号码<!--</lang>--></label>
+						<input type="text" name="options[shop_servicephone]" id="shop_servicephone" size="40" value="<!--{$arrOptions['shop_servicephone']}-->"/>
 						<div class="description"><!--<lang package='Template/Default/Option'>-->出现在首页的网站介绍中<!--</lang>--></div>
 					</fieldset>
 					<fieldset>
@@ -33,7 +43,7 @@
 						<div class="description"><!--<lang package='Template/Default/Option'>-->可暂时将站点关闭，其他人无法访问，但不影响管理员访问后台<!--</lang>--></div>
 					</fieldset>
 					<fieldset>
-						<label for="shop_closereason"><!--<lang package='Template/Default/Option'>-->关闭原因<!--</lang>--></label>
+						<label for="shop_closereason"><!--<lang package='Template/Default/Option'>-->网站关闭原因<!--</lang>--></label>
 						<textarea name="options[shop_closereason]" rows="5"><!--{$arrOptions['shop_closereason']}--></textarea>
 						<div class="description"><!--<lang package='Template/Default/Option'>-->可暂时将站点关闭，其他人无法访问，但不影响管理员访问后台<!--</lang>--></div>
 					</fieldset>
@@ -42,6 +52,16 @@
 						<input type="radio" id="start_gzip" name="options[start_gzip]" value="1" <!--{if $arrOptions['start_gzip']==1}-->checked="checked"<!--{/if}-->/><!--<lang package='Template/Default/Common'>-->是<!--</lang>-->
 						<input type="radio" id="" name="options[start_gzip]" value="0" <!--{if $arrOptions['start_gzip']==0}-->checked="checked"<!--{/if}--> /><!--<lang package='Template/Default/Common'>-->否<!--</lang>-->
 						<div class="description"><!--<lang package='Template/Default/Option'>-->启用Gzip能够压缩页面数据，提高系统访问速度<!--</lang>--></div>
+					</fieldset>
+					<fieldset>
+						<label for="shop_closeregister"><!--<lang package='Template/Default/Option'>-->是否关闭注册<!--</lang>--></label>
+						<input type="radio" id="shop_closeregister" name="options[shop_closeregister]" value="1" <!--{if $arrOptions['shop_closeregister']==1}-->checked="checked"<!--{/if}-->/><!--<lang package='Template/Default/Common'>-->是<!--</lang>-->
+						<input type="radio" id="" name="options[shop_closeregister]" value="0" <!--{if $arrOptions['shop_closeregister']==0}-->checked="checked"<!--{/if}--> /><!--<lang package='Template/Default/Common'>-->否<!--</lang>-->
+					</fieldset>
+					<fieldset>
+						<label for="shop_notice"><!--<lang package='Template/Default/Option'>-->商城公告<!--</lang>--></label>
+						<textarea name="options[shop_notice]" rows="5"><!--{$arrOptions['shop_notice']}--></textarea>
+						<div class="description"><!--<lang package='Template/Default/Option'>-->首页公告<!--</lang>--></div>
 					</fieldset>
 				</div>
 				<footer>
