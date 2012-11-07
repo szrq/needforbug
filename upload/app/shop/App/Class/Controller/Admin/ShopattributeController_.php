@@ -1,29 +1,102 @@
 <?php
 /* [NeedForBug!] (C)Dianniu From 2010.
-   商城控制器($)*/
+   商品类型属性控制器($)*/
 
 !defined('DYHB_PATH') && exit;
 
-/** 导入博客模型 */
-Dyhb::import(NEEDFORBUG_PATH.'/app/blog/App/Class/Model');
+/** 导入商城模型 */
+Dyhb::import(NEEDFORBUG_PATH.'/app/shop/App/Class/Model');
 
-class BlogController extends InitController{
+class ShopattributeController extends InitController{
 
 	public function filter_(&$arrMap){
 		//$arrMap['group_name']=array('like','%'.G::getGpc('group_name').'%');
-		$nUid=intval(G::getGpc('uid','G'));
-		if($nUid){
-			$arrMap['user_id']=$nUid;
+		
+		// 取得分类父亲ID
+		/*$nPid=intval(G::getGpc('pid','G'));
+		if(empty($nPid)){
+			$nPid=0;
 		}
+		$arrMap['shopcategory_parentid']=$nPid;
+		
+		if($nPid>0){
+			$oParentShopcategory=ShopcategoryModel::F('shopcategory_id=?',$nPid)->getOne();
+			if(!empty($oParentShopcategory['shopcategory_id'])){
+				$this->assign('oParentShopcategory',$oParentShopcategory);
+			}
+		}*/
+		
+		//$nUid=intval(G::getGpc('uid','G'));
+		//if($nUid){
+			//$arrMap['user_id']=$nUid;
+		//}
+		
+		$nShopgoodstype=intval(G::getGpc('tid','G'));
+		if(empty($nShopgoodstype)){
+			$this->E('商品类型不能为空');
+		}
+		
+		$oShopgoodstype=ShopgoodstypeModel::F('shopgoodstype_id=?',$nShopgoodstype)->getOne();
+		if(empty($oShopgoodstype['shopgoodstype_id'])){
+			$this->E('商品类型不存在');
+		}
+		
+		$this->assign('nShopgoodstype',$nShopgoodstype);
+		$this->assign('oShopgoodstype',$oShopgoodstype);
+		
+		$arrMap['shopgoodstype_id']=$nShopgoodstype;
 	}
 
 	public function index($sModel=null,$bDisplay=true){
-		parent::index('blog',false);
+		parent::index('shopattribute',false);
 
-		$this->display(Admin_Extend::template('blog','blog/index'));
+		$this->display(Admin_Extend::template('shop','shopattribute/index'));
 	}
 
-	public function dateline($sType='Y',$oValue=false){
+	public function add(){
+		$nShopgoodstype=intval(G::getGpc('tid','G'));
+		if(empty($nShopgoodstype)){
+			$this->E('商品类型不能为空');
+		}
+		
+		$this->assign('nShopgoodstype',$nShopgoodstype);
+		
+		$this->display(Admin_Extend::template('shop','shopattribute/add'));
+	}
+	
+	public function insert($sModel=null,$nId=null){
+		$nId=G::getGpc('value');
+	
+		parent::insert('shopattribute',$nId);
+	}
+	
+	public function bAdd_(){
+		$this->get_shopcategorytree_();
+	}
+	
+	public function get_shopcategorytree_(){
+		$oShopcategory=Dyhb::instance('ShopcategoryModel');
+		$oShopcategoryTree=$oShopcategory->getShopcategoryTree();
+		
+		$this->assign('oShopcategoryTree',$oShopcategoryTree);
+	}
+	
+	public function edit($sMode=null,$nId=null,$bDidplay=true){
+		$nId=intval(G::getGpc('value','G'));
+	
+		$this->bAdd_();
+	
+		parent::edit('shopattribute',$nId,false);
+		$this->display(Admin_Extend::template('shop','shopattribute/add'));
+	}
+	
+	public function update($sModel=null,$nId=null){
+		$nId=G::getGpc('value');
+	
+		parent::update('shopattribute',$nId);
+	}
+
+	/*public function dateline($sType='Y',$oValue=false){
 		$sDate='';
 		if($oValue===false){
 			$sDate=CURRENT_TIMESTAMP;
@@ -76,11 +149,7 @@ class BlogController extends InitController{
 		//$oModel->safeInput();
 	}
 	
-	public function insert($sModel=null,$nId=null){
-		$nId=G::getGpc('value');
-		
-		parent::insert('blog',$nId);
-	}
+	
 
 	protected function aInsert($nId=null){
 		//$oGroup=Dyhb::instance('GroupModel');
@@ -370,6 +439,6 @@ class BlogController extends InitController{
 		}else{
 			$this->E(Dyhb::L('操作项不存在','Controller/Common'));
 		}
-	}
+	}*/
 
 }

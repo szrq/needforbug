@@ -846,7 +846,12 @@ class TemplateNodeCompiler_tpl_lang extends TemplateNodeCompilerBase{
 			}
 		}
 
-		$oBody= $oObj->getBody();// 句子
+		$oBody=$oObj->getBody();// 句子
+
+		if(!is_object($oBody)){
+			Dyhb::E("{$sPackage} sentence can not to be empty");
+		}
+
 		$sSentence=addcslashes(stripslashes(trim($oBody->getCompiled())),'"');
 		$sCompiled="<?php print Dyhb::L(\"{$sSentence}\",{$sPackage},{$sLange}{$sArgs});?>";
 		$oObj->setCompiled($sCompiled);

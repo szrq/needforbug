@@ -7,6 +7,7 @@
 $arrAppConfigs=array(
 	'PHP_OFF'=>TRUE,
 	'TMPL_MODULE_ACTION_DEPR'=>'/',
+	'DEFAULT_APP'=>'admin',
 );
 
 // 读取全局配置

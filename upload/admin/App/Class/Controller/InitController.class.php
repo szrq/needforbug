@@ -191,12 +191,19 @@ class InitController extends Controller{
 		$sPrimaryKey=$sModel.'_id';
 		if(!$oModel->isError()){
 			$this->aInsert($oModel->{$sPrimaryKey});
-			if(!in_array($sModel,array('user'))){
+			if(!in_array($sModel,array('user')) && !isset($_POST['no_ajax'])){
 				$this->A($oModel->toArray(),Dyhb::L('数据保存成功','Controller/Common'),1);
 			}else{
 				$arrUser=$oModel->toArray();
 				$nId=reset($arrUser);
-				$this->assign('__JumpUrl__',Dyhb::U($sModel.'/edit?id='.$nId));
+
+				if(G::getGpc('is_app','P')){
+					$sUrl=Dyhb::U('app/config?controller='.trim(G::getGpc('controller','G')).'&action=edit&id='.intval(G::getGpc('id','G')).'&value='.$nId);
+				}else{
+					$sUrl=Dyhb::U($sModel.'/edit?id='.$nId);
+				}
+
+				$this->assign('__JumpUrl__',$sUrl);
 				$this->S(Dyhb::L('数据保存成功','Controller/Common'));
 			}
 		}else{

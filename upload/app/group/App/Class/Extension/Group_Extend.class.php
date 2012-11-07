@@ -8,7 +8,7 @@ class Group_Extend{
 
 	public static function getGroupIcon($sImgname){
 		if(!empty($sImgname)){
-			$sImgname=__ROOT__.'/data/upload/group/'.$sImgname;
+			$sImgname=__ROOT__.'/data/upload/app/group/icon/'.$sImgname;
 			return $sImgname;
 		}else{
 			return __ROOT__.'/app/group/Static/Images/group_icon.gif';

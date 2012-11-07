@@ -1,0 +1,134 @@
+<!--<include file="public+header">-->
+
+<script type="text/javascript" src="<!--{:__PUBLIC__}-->/js/calendar/datepicker/WdatePicker.js"></script>
+
+<!--{:Core_Extend::editorInclude()}-->
+
+<!--{script}-->
+$(document).ready(function() {
+	$("#shopgoods_tab ul").idTabs();
+	editor=loadEditor('shopgoods_description');
+});
+
+function checkShopgoods(){
+	$("#submit_button").attr("disabled", "disabled");
+	$("#submit_button").val( '<!--<if condition="isset( $_GET['value'] )">-->update<!--<else/>-->add<!--</if>-->...' );
+
+	if(!$('#shopgoods_name').val()){
+		needforbugAlert('商品名字不能为空','',3);
+		$("#submit_button").val( '<!--<if condition="isset( $_GET['value'] )">-->更新<!--<else/>-->发布<!--</if>-->' );
+		$("#submit_button").attr("disabled", false);
+		return false;
+	}
+}
+<!--{/script}-->
+
+	<section class="secondary_bar">
+		<div class="breadcrumbs_container">
+			<article class="breadcrumbs"><a href="<!--{:Dyhb::U('public/fmain')}-->"><!--<lang package='Template/Default/Common'>-->主页<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a class="current"><!--<if condition="isset( $_GET['value'] )">--><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->编辑商品<!--</lang>--><!--<else/>--><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->添加商品<!--</lang>--><!--</if>--></a> <div class="breadcrumb_divider"></div> <a href="javascript:void(0);" onclick="adminctrlmenuAdd('<!--{:__SELF__}-->','<!--<if condition="isset( $_GET['value'] )">--><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->编辑商品<!--</lang>-->_<!--{$_GET['value']}--><!--<else/>--><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->添加商品<!--</lang>--><!--</if>-->')" title="<!--<lang package='Template/Default/Common'>-->添加到快捷导航<!--</lang>-->">[+]</a></article>
+		</div>
+	</section>
+
+	<section id="main" class="column">
+		<article class="module width_full">
+			<header><h3><!--<lang package='Template/Default/Common'>-->操作提示<!--</lang>--></h3></header>
+			<div class="module_content">
+				<ul>
+					<li><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->在这里你可以添加或者编辑一个商品<!--</lang>--></li>
+				</ul>
+			</div>
+		</article>
+
+		<article class="module width_full">
+			<header><h3 class="tabs_involved"><!--<if condition="isset( $_GET['value'] )">--><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->编辑商品<!--</lang>--><!--<else/>--><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->添加商品<!--</lang>--><!--</if>--></h3>
+				<ul class="tabs">
+					<li class="active"><a href="<!--{:Admin_Extend::index(array('controller'=>'shopgoods'))}-->"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品列表<!--</lang>--></a></li>
+					<li><a href="<!--{:Admin_Extend::base()}-->"><!--<lang package='Template/Default/Common'>-->应用入口<!--</lang>--></a></li>
+				</ul>
+			</header>
+			<form action="<!--<if condition="isset( $_GET['value'] )" >--><!--{:Admin_Extend::update(array
+('controller'=>'shopgoods'))}--><!--<else/>--><!--{:Admin_Extend::insert(array
+('controller'=>'shopgoods'))}--><!--</if>-->" method="post" id="shopgoodsAdd" enctype="multipart/form-data" onsubmit="return checkShopgoods();">
+				<div class="module_content">
+					<div id="shopgoods_tab" class="nfb_tab">
+						<ul class="nfb_tabtitle">
+							<li><a href="#tab1">基本信息</a></li>
+							<li><a href="#tab2">商品属性</a></li>
+							<li><a href="#tab3">商品描述</a></li>
+							<li><a href="#tab4">商品相册</a></li>
+						</ul>
+						<div id="tab1" class="nfb_tabcontent">
+							<fieldset>
+								<label for="shopgoods_name"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品名字<!--</lang>--><span class="require-field">*</span></label>
+								<input type="text" name="shopgoods_name" id="shopgoods_name" size="40" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_name}--><!--</if>-->"/>
+								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品名字最大字符为120<!--</lang>--></div>
+							</fieldset>
+							<fieldset>
+								<label for="shopgoods_name"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品分类<!--</lang>--><span class="require-field">*</span></label>
+								<select name="shopcategory_id" id="shopcategory_id" >
+									<option value="0">- <!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->请选择分类<!--</lang>--> -</option>
+									<!--{~$arrShopcategory = $oShopcategoryTree->getChilds()}-->
+									<!--<foreach for=arrShopcategory value=nCId>-->
+									<option value="<!--{$nCId}-->" <!--<if condition="isset( $oValue ) && $nCId == $oValue:shopcategory_id">-->selected<!--</if>--> >|<!--{$oShopcategoryTree:getLayer( $nCId, '--' )}--><!--{$oShopcategoryTree:getValue( $nCId )}--></option>
+									<!--</foreach>-->
+								</select>
+								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品分类是最要的商品检索条件,请认真填写<!--</lang>--></div>
+							</fieldset>
+							<fieldset>
+								<label for="shopgoods_price"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->市场售价<!--</lang>--><span class="require-field">*</span></label>
+								<input type="text" name="shopgoods_price" id="shopgoods_price" size="40" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_price}--><!--<else/>-->0<!--</if>-->"/>
+							</fieldset>
+							<fieldset>
+								<label for="shopgoods_shopprice"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->本店售价<!--</lang>--><span class="require-field">*</span></label>
+								<input type="text" name="shopgoods_shopprice" id="shopgoods_shopprice" size="40" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_shopprice}--><!--<else/>-->0<!--</if>-->"/>
+							</fieldset>
+							<fieldset>
+								<label for="shopgoods_promoteprice"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->促销价<!--</lang>--></label>
+								<input type="text" name="shopgoods_promoteprice" id="shopgoods_promoteprice" size="40" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_promoteprice}--><!--<else/>-->0<!--</if>-->"/>
+							</fieldset>
+							<fieldset>
+								<label for="shopgoods_promotestartdate"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->促销日期<!--</lang>--></label>
+								<p><input type="text" class="left" name="shopgoods_promotestartdate" id="shopgoods_promotestartdate" size="40" style="width:180px;" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_promotestartdate|date='Y-m-d H:i:s',**}--><!--<else/>--><!--{:date('Y-m-d H:i:s',CURRENT_TIMESTAMP)}--><!--</if>-->" onclick="WdatePicker({el:'shopgoods_promotestartdate',skin:'ext',lang:'<!--{:strtolower(LANG_NAME)}-->',dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'#F{$dp.$D(\'shopgoods_promoteenddate\')}'})"/>
+									<span class="left" style="margin-right:9px;">&nbsp;-&nbsp;</span>
+									<input type="text" name="shopgoods_promoteenddate" id="shopgoods_promoteenddate" size="40" style="width:180px;" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_promoteenddate|date='Y-m-d H:i:s',**}--><!--<else/>--><!--{:date('Y-m-d H:i:s',CURRENT_TIMESTAMP)}--><!--</if>-->" onclick="WdatePicker({el:'shopgoods_promoteenddate',skin:'ext',lang:'<!--{:strtolower(LANG_NAME)}-->',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'shopgoods_promotestartdate\')}'})"/>
+								</p>
+								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品促销只有在促销日期中才能够有效<!--</lang>--></div>
+							</fieldset>
+							<fieldset>
+								<label for="shopgoodsimg"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->上传商品图片<!--</lang>--></label>
+								<input type="file" name="shopgoodsimg" id="shopgoodsimg" size="40" value=""/>
+								<br /><input type="text" size="40" value="External URL" style="color:#aaa;" onfocus="if (this.value == 'External URL'){this.value='http://';this.style.color='#000';}" name="shopgoodsimgurl"/>
+								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->填写了商品外部URL，那么系统将不会上传文件<!--</lang>--></div>
+							</fieldset>
+							<fieldset>
+								<label for="shopgoodsthumbimg"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->上传商品缩略图片<!--</lang>--></label>
+								<input type="file" name="shopgoodsthumbimg" id="shopgoodsthumbimg" size="40" value=""/>
+								<br /><input type="text" size="40" value="External URL" style="color:#aaa;" onfocus="if (this.value == 'External URL'){this.value='http://';this.style.color='#000';}" name="shopgoodsthumbimgurl"/>
+								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->填写了商品缩略图外部URL，那么系统将不会上传文件<!--</lang>--></div>
+							</fieldset>
+						</div>
+						<div id="tab2" class="nfb_tabcontent">Tab 3 is always last!</div>
+						<div id="tab3" class="nfb_tabcontent">
+							<fieldset>
+								<label for="shopgoods_description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品详细描述<!--</lang>--></label>
+								<p style="padding-left:10px;"><textarea name="shopgoods_description" id="shopgoods_description" style="width:90%;height:400px;visibility:hidden;"><!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_description}--><!--</if>--></textarea></p>
+								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品的详细内容，商品详细描述可以增加用户对商品的购买兴趣<!--</lang>--><br/>
+								<!--<lang package='Template/Default/Common'>-->系统变量替换: {site_name} 网站标题,{site_description} 网站描述,{site_url} 站点信息,{time} 当前时间,{user_name} 登录用户,{user_nikename} 登录用户昵称,{admin_email} 系统管理员邮箱<!--</lang>--></div>
+							</fieldset>
+						</div>
+						<div id="tab4" class="nfb_tabcontent">Tab 3 is always last!</div>
+					</div>
+				</div>
+				<footer>
+					<div class="submit_link">
+						<input type="hidden" name="value" id="value" value="<!--<if condition="isset( $_GET['value'] )">--><!--{$_GET['value']}--><!--</if>-->"/>
+						<input type="hidden" name="no_ajax" value="1">
+						<input type="hidden" name="is_app" value="1">
+						<input type="submit" id="submit_button" value="<!--<if condition="isset( $oValue )">--><!--<lang package='Template/Default/Common'>-->更新<!--</lang>--><!--<else/>--><!--<lang package='Template/Default/Common'>-->发布<!--</lang>--><!--</if>-->" class="alt_btn">
+						&nbsp;<input type="reset" value="<!--<lang package='Template/Default/Common'>-->重置<!--</lang>-->">
+					</div>
+				</footer>
+			</form>
+		</article>
+
+<!--<include file="public+footer">-->
