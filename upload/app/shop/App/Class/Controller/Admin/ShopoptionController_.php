@@ -19,11 +19,33 @@ class ShopoptionController extends InitController{
 
 	public function index($sModel=null,$bDisplay=true){
 		Core_Extend::loadCache("shop_option");
+		
 		$arrOptionData=$GLOBALS['_cache_']['shop_option'];
+		
+		$this->assign("nId",intval(G::getGpc("id",'G')));
 		$this->assign('arrOptions',$arrOptionData);
-		$this->display(Admin_Extend::template('shop','shopsetup/index'));
+		$this->display(Admin_Extend::template('shop','shopoptioninfo/index'));
 	}
 
+	public function basic(){
+		Core_Extend::loadCache("shop_option");
+		
+		$arrOptionData=$GLOBALS['_cache_']['shop_option'];
+		
+		$this->assign("nId",intval(G::getGpc("id",'G')));
+		$this->assign('arrOptions',$arrOptionData);
+		$this->display(Admin_Extend::template('shop','shopoptioninfo/index'));
+	}
+	
+	public function show(){
+		Core_Extend::loadCache("shop_option");
+		
+		$arrOptionData=$GLOBALS['_cache_']['shop_option'];
+		
+		$this->assign("nId",intval(G::getGpc("id",'G')));
+		$this->assign('arrOptions',$arrOptionData);
+		$this->display(Admin_Extend::template('shop','shopoptioninfo/index'));
+	}
 	/*public function dateline($sType='Y',$oValue=false){
 		$sDate='';
 		if($oValue===false){
