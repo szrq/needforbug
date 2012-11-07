@@ -155,11 +155,11 @@ class UploadFile{
 				$sRealFilename=strripos($sRealFilename,'.')?G::subString($sRealFilename,0,strrpos($sRealFilename,'.')):$sRealFilename;
 
 				for($nI=0,$nLen=count($arrThumbWidth);$nI<$nLen;$nI++){
-					$sThumbname=$sThumbPath.'/'.$arrThumbPrefix[$nI].$sRealFilename.$arrThumbSuffix[$nI].'.'.$arrFile['extension'];
+					$sThumbname=$sThumbPath.'/'.(isset($arrThumbPrefix[$nI])?$arrThumbPrefix[$nI]:$arrThumbPrefix[0]).$sRealFilename.(isset($arrThumbSuffix[$nI])?$arrThumbSuffix[$nI]:$arrThumbSuffix[0]).'.'.$arrFile['extension'];
 					if($this->_bThumbFixed===true){
-						Image::thumb($sFilename,$sThumbname,'',$arrThumbWidth[$nI],$arrThumbHeight[$nI],true,true);
+						Image::thumb($sFilename,$sThumbname,'',(isset($arrThumbWidth[$nI])?$arrThumbWidth[$nI]:$arrThumbWidth[0]),(isset($arrThumbHeight[$nI])?$arrThumbHeight[$nI]:$arrThumbHeight[0]),true,true);
 					}else{
-						Image::thumb($sFilename,$sThumbname,'',$arrThumbWidth[$nI],$arrThumbHeight[$nI],true);
+						Image::thumb($sFilename,$sThumbname,'',(isset($arrThumbWidth[$nI])?$arrThumbWidth[$nI]:$arrThumbWidth[0]),(isset($arrThumbHeight[$nI])?$arrThumbHeight[$nI]:$arrThumbHeight[0]),true);
 					}
 				}
 

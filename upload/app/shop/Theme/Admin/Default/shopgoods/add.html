@@ -11,15 +11,14 @@ $(document).ready(function() {
 });
 
 function checkShopgoods(){
-	$("#submit_button").attr("disabled", "disabled");
-	$("#submit_button").val( '<!--<if condition="isset( $_GET['value'] )">-->update<!--<else/>-->add<!--</if>-->...' );
-
 	if(!$('#shopgoods_name').val()){
 		needforbugAlert('商品名字不能为空','',3);
-		$("#submit_button").val( '<!--<if condition="isset( $_GET['value'] )">-->更新<!--<else/>-->发布<!--</if>-->' );
-		$("#submit_button").attr("disabled", false);
 		return false;
 	}
+}
+
+function customThumb(checked){
+	document.forms['shopgoodsAdd'].elements['shopgoodsthumbimg'].disabled = checked;
 }
 <!--{/script}-->
 
@@ -48,7 +47,7 @@ function checkShopgoods(){
 			</header>
 			<form action="<!--<if condition="isset( $_GET['value'] )" >--><!--{:Admin_Extend::update(array
 ('controller'=>'shopgoods'))}--><!--<else/>--><!--{:Admin_Extend::insert(array
-('controller'=>'shopgoods'))}--><!--</if>-->" method="post" id="shopgoodsAdd" enctype="multipart/form-data" onsubmit="return checkShopgoods();">
+('controller'=>'shopgoods'))}--><!--</if>-->" method="post" id="shopgoodsAdd" name="shopgoodsAdd" enctype="multipart/form-data" onsubmit="return checkShopgoods();">
 				<div class="module_content">
 					<div id="shopgoods_tab" class="nfb_tab">
 						<ul class="nfb_tabtitle">
@@ -97,14 +96,25 @@ function checkShopgoods(){
 							<fieldset>
 								<label for="shopgoodsimg"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->上传商品图片<!--</lang>--></label>
 								<input type="file" name="shopgoodsimg" id="shopgoodsimg" size="40" value=""/>
-								<br /><input type="text" size="40" value="External URL" style="color:#aaa;" onfocus="if (this.value == 'External URL'){this.value='http://';this.style.color='#000';}" name="shopgoodsimgurl"/>
-								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->填写了商品外部URL，那么系统将不会上传文件<!--</lang>--></div>
+								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品图片可以生成商品缩略图片<!--</lang>-->
+									<!--<if condition="isset( $oValue ) && !empty($oValue['shopgoods_img'])">-->
+									<div>推荐大小550|550（<a href="">设置尺寸</a>&nbsp;|&nbsp;<a href="<!--{:Shop_Extend::getShopgoodspath($oValue['shopgoods_originalimg'])}-->" target="_blank">查看原始高清大图</a>）<br/>
+										<a href="<!--{:Admin_Extend::index(array('controller'=>'shopgoods','action'=>'showimg','imgurl'=>$oValue['shopgoods_img']))}-->" target="_blank" title="查看全图"><img width="550px" src="<!--{:Shop_Extend::getShopgoodspath($oValue['shopgoods_img'])}-->" border="0"></a>
+									</div>
+									<!--</if>-->
+								</div>
 							</fieldset>
 							<fieldset>
 								<label for="shopgoodsthumbimg"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->上传商品缩略图片<!--</lang>--></label>
-								<input type="file" name="shopgoodsthumbimg" id="shopgoodsthumbimg" size="40" value=""/>
-								<br /><input type="text" size="40" value="External URL" style="color:#aaa;" onfocus="if (this.value == 'External URL'){this.value='http://';this.style.color='#000';}" name="shopgoodsthumbimgurl"/>
-								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->填写了商品缩略图外部URL，那么系统将不会上传文件<!--</lang>--></div>
+								<input type="file" name="shopgoodsthumbimg" id="shopgoodsthumbimg" size="40" value="" disabled="true"/><br/>
+								<span style="margin-left:8px;"><input id="customthumb" name="customthumb" checked="true" value="1" onclick="customThumb(this.checked)" type="checkbox">自动生成商品缩略图</span>
+								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品缩略图片可以由商品图片生产,也可以由自己上传<!--</lang>-->
+									<!--<if condition="isset( $oValue ) && !empty($oValue['shopgoods_thumb'])">-->
+									<div>推荐大小350|350（<a href="">设置尺寸</a>&nbsp;|&nbsp;<a href="<!--{:Shop_Extend::getShopgoodspath($oValue['shopgoods_originalimg'])}-->" target="_blank">查看原始高清大图</a>）<br/>
+										<a href="<!--{:Admin_Extend::index(array('controller'=>'shopgoods','action'=>'showimg','imgurl'=>$oValue['shopgoods_thumb']))}-->" target="_blank" title="查看全图"><img width="350px" src="<!--{:Shop_Extend::getShopgoodspath($oValue['shopgoods_thumb'])}-->" border="0"></a>
+									</div>
+									<!--</if>-->
+								</div>
 							</fieldset>
 						</div>
 						<div id="tab2" class="nfb_tabcontent">Tab 3 is always last!</div>

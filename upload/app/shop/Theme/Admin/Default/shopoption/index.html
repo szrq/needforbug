@@ -1,33 +1,49 @@
 <!--<include file="public+header" />-->
 
-<!--{script}-->
-function option(){
-	$("#submit_button").attr("disabled", "disabled");
-	$("#submit_button").val( 'update...' );
-	$("#submit_button").attr("disabled", false);
-}
-<!--{/script}-->
-
 	<section class="secondary_bar">
 		<div class="breadcrumbs_container">
-			<article class="breadcrumbs"><a href="<!--{:Dyhb::U('public/fmain')}-->"><!--<lang package='Template/Default/Common'>-->主页<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a class="current"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopoption'>-->商城配置<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a href="javascript:void(0);" onclick="adminctrlmenuAdd('<!--{:__SELF__}-->','<!--<lang package='__APP_ADMIN_LANG__@Template/Shopoption'>-->商城配置<!--</lang>-->')" title="<!--<lang package='Template/Default/Common'>-->添加到快捷导航<!--</lang>-->">[+]</a></article>
+			<article class="breadcrumbs"><a href="<!--{:Dyhb::U('public/fmain')}-->"><!--<lang package='Template/Default/Common'>-->主页<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a class="current"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商城设置<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a href="javascript:void(0);" onclick="adminctrlmenuAdd('<!--{:__SELF__}-->','<!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商城设置<!--</lang>-->')" title="<!--<lang package='Template/Default/Common'>-->添加到快捷导航<!--</lang>-->">[+]</a></article>
 		</div>
 	</section>
 
 	<section id="main" class="column">
+		<!--<include file="Admin_Extend::template('shop','shopoption/menu')" />-->
+
 		<article class="module width_full">
-			<header><h3 class="tabs_involved"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopoption'>-->商城配置<!--</lang>--></h3>
-				<ul class="tabs">
-					<li><a href="<!--{:Admin_Extend::base(array('controller'=>'shopoption'))}-->"><!--<lang package='__APP_ADMIN_LANG__@Template/Shop'>-->商城设置<!--</lang>--></a></li>
-					<li><a href="<!--{:Admin_Extend::base(array('controller'=>'shopgoods'))}-->"><!--<lang package='__APP_ADMIN_LANG__@Template/Shop'>-->商品管理<!--</lang>--></a></li>
-					<li><a href="<!--{:Admin_Extend::base(array('controller'=>'shop'))}-->"><!--<lang package='__APP_ADMIN_LANG__@Template/Shop'>-->订单管理<!--</lang>--></a></li>
-					<li><a href="<!--{:Admin_Extend::base(array('controller'=>'shop'))}-->"><!--<lang package='__APP_ADMIN_LANG__@Template/Shop'>-->物流管理<!--</lang>--></a></li>
-					<li><a href="<!--{:Admin_Extend::base(array('controller'=>'shop'))}-->"><!--<lang package='__APP_ADMIN_LANG__@Template/Shop'>-->营销推广<!--</lang>--></a></li>
-					<li><a href="<!--{:Admin_Extend::base(array('controller'=>'shop'))}-->"><!--<lang package='__APP_ADMIN_LANG__@Template/Shop'>-->统计工具<!--</lang>--></a></li>
-				</ul>
-			</header>
-			<form action="<!--{:Dyhb::U('app/config?id='.$nId.'&action=update_option')}-->" method="post" onsubmit="return option();">
+			<form action="<!--{:Dyhb::U('option/update_option')}-->" method="post" onsubmit="return option();">
 				<div class="module_content">
+					<fieldset>
+						<label for="shop_name"><!--<lang package='Template/Default/Option'>-->商城名称<!--</lang>--></label>
+						<input type="text" name="options[shop_name]" id="shop_name" size="40" value="<!--{$arrOptions['shop_name']}-->"/>
+						<div class="description"><!--<lang package='Template/Default/Option'>-->网站名称，将显示在前台顶部欢迎信息等位置<!--</lang>--></div>
+					</fieldset>
+					<fieldset>
+						<label for="shop_description"><!--<lang package='Template/Default/Option'>-->商城描述<!--</lang>--></label>
+						<input type="text" name="options[shop_description]" id="shop_description" size="40" value="<!--{$arrOptions['shop_description']}-->"/>
+						<div class="description"><!--<lang package='Template/Default/Option'>-->网站描述，将显示在浏览器窗口标题等位置<!--</lang>--></div>
+					</fieldset>
+					<fieldset>
+						<label for="shop_title"><!--<lang package='Template/Default/Option'>-->网站主页标题<!--</lang>--></label>
+						<input type="text" name="options[shop_title]" id="shop_title" size="40" value="<!--{$arrOptions['shop_title']}-->"/>
+						<div class="description"><!--<lang package='Template/Default/Option'>-->出现在首页的网站介绍中<!--</lang>--></div>
+					</fieldset>
+					<fieldset>
+						<label for="shop_closestatus"><!--<lang package='Template/Default/Option'>-->是否关闭网站<!--</lang>--></label>
+						<input type="radio" id="shop_closestatus" name="options[shop_closestatus]" value="1" <!--{if $arrOptions['shop_closestatus']==1}-->checked="checked"<!--{/if}-->/><!--<lang package='Template/Default/Common'>-->是<!--</lang>-->
+						<input type="radio" id="" name="options[shop_closestatus]" value="0" <!--{if $arrOptions['shop_closestatus']==0}-->checked="checked"<!--{/if}--> /><!--<lang package='Template/Default/Common'>-->否<!--</lang>-->
+						<div class="description"><!--<lang package='Template/Default/Option'>-->可暂时将站点关闭，其他人无法访问，但不影响管理员访问后台<!--</lang>--></div>
+					</fieldset>
+					<fieldset>
+						<label for="shop_closereason"><!--<lang package='Template/Default/Option'>-->关闭原因<!--</lang>--></label>
+						<textarea name="options[shop_closereason]" rows="5"><!--{$arrOptions['shop_closereason']}--></textarea>
+						<div class="description"><!--<lang package='Template/Default/Option'>-->可暂时将站点关闭，其他人无法访问，但不影响管理员访问后台<!--</lang>--></div>
+					</fieldset>
+					<fieldset>
+						<label for="start_gzip"><!--<lang package='Template/Default/Option'>-->是否启用GZIP<!--</lang>--></label>
+						<input type="radio" id="start_gzip" name="options[start_gzip]" value="1" <!--{if $arrOptions['start_gzip']==1}-->checked="checked"<!--{/if}-->/><!--<lang package='Template/Default/Common'>-->是<!--</lang>-->
+						<input type="radio" id="" name="options[start_gzip]" value="0" <!--{if $arrOptions['start_gzip']==0}-->checked="checked"<!--{/if}--> /><!--<lang package='Template/Default/Common'>-->否<!--</lang>-->
+						<div class="description"><!--<lang package='Template/Default/Option'>-->启用Gzip能够压缩页面数据，提高系统访问速度<!--</lang>--></div>
+					</fieldset>
 				</div>
 				<footer>
 					<div class="submit_link">
@@ -37,5 +53,4 @@ function option(){
 				</footer>
 			</form>
 		</article>
-
 <!--<include file="public+footer">-->

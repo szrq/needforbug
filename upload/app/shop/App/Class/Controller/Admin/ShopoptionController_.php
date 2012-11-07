@@ -16,12 +16,24 @@ class ShopoptionController extends InitController{
 			//$arrMap['user_id']=$nUid;
 		//}
 	}
-
+	
 	public function index($sModel=null,$bDisplay=true){
+		$this->get_option_();
+
+		$this->display(Admin_Extend::template('shop','shopoption/index'));
+	}
+
+	public function shopgoods_img(){
+		$this->get_option_();
+
+		$this->display(Admin_Extend::template('shop','shopoption/shopgoodsimg'));
+	}
+
+	protected function get_option_(){
 		Core_Extend::loadCache("shop_option");
+
 		$arrOptionData=$GLOBALS['_cache_']['shop_option'];
 		$this->assign('arrOptions',$arrOptionData);
-		$this->display(Admin_Extend::template('shop','shopsetup/index'));
 	}
 
 	/*public function dateline($sType='Y',$oValue=false){

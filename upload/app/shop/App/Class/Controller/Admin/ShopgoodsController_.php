@@ -63,6 +63,7 @@ class ShopgoodsController extends InitController{
 		$nId=G::getGpc('value');
 
 		$this->strtotime_();
+	
 
 		// 处理图片上传
 		$this->_arrUploaddata=$this->shopgoodsimg_();
@@ -72,30 +73,74 @@ class ShopgoodsController extends InitController{
 
 	protected function shopgoodsimg_(){
 		require_once(Core_Extend::includeFile('function/Upload_Extend'));
-		try{
-			$arrData=array();
+		
+		$arrData=array();
+		
+		if(isset($_FILES['shopgoodsimg']) && $_FILES['shopgoodsimg']['error']!=4){
+			$arrUploadoption=array();
+			if(isset($_FILES['shopgoodsthumbimg']) && $_FILES['shopgoodsthumbimg']['error']!=4){
+				$arrUploadoption=array(
+					'upload_thumb_size'=>'550|550',
+					'upload_thumb'=>'thumb550_',
+				);
+			}
 			
-			$arrUploadoption=array(
-				'upload_path'=>NEEDFORBUG_PATH.'/data/upload/app/shop/shopgoods',
-			);
+			$arrData['shopgoodsimg']=$this->uploadAFile_('shopgoodsimg',$arrUploadoption);
+		}
+		
+		if(isset($_FILES['shopgoodsthumbimg']) && $_FILES['shopgoodsthumbimg']['error']!=4){
+			$arrThumbdata=$this->uploadAFile_('shopgoodsthumbimg',array('upload_create_thumb'=>0,'flash_inputname'=>'shopgoodsthumbimg'));
+			$arrData['shopgoodsimg']['shopgoods_thumb']=$arrThumbdata['shopgoods_originalimg'];
+		}
+		
+		return $arrData;
+	}
+	
+	protected function uploadAFile_($sFilename,$arrUploadoption=array()){
+		if(isset($_FILES[$sFilename])){
+			try{
+				$arrData=array();
+				
+				$arrDefaultUploadoption=array(
+					'upload_path'=>NEEDFORBUG_PATH.'/data/upload/app/shop/shopgoods',
+					'upload_create_thumb'=>1,
+					'flash_inputname'=>'shopgoodsimg',
+					'upload_thumb_size'=>'350,550|350,550',
+					'upload_thumb'=>'thumb350_,thumb550_',
+				);
+				
+				$arrUploadoption=array_merge($arrDefaultUploadoption,$arrUploadoption);
 
-			$arrUploadinfos=Upload_Extend::uploadNormal(true,false,$arrUploadoption);
-			if(is_array($arrUploadinfos)){
-				foreach($arrUploadinfos as $arrUploadinfo){
-					if($arrUploadinfo['key']=='shopgoodsimg'){
-						$arrData['shopgoods_img']=str_replace(G::tidyPath(NEEDFORBUG_PATH.'/data/upload/app/shop/shopgoods').'/','',G::tidyPath($arrUploadinfo['savepath'])).'/'.$arrUploadinfo['savename'];
+				$arrUploadinfo=Upload_Extend::uploadFlash(true,true,false,$arrUploadoption);
+				$arrUploadinfo=$arrUploadinfo[0];
+
+				$arrData['shopgoods_originalimg']=str_replace(G::tidyPath(NEEDFORBUG_PATH.'/data/upload/app/shop/shopgoods').'/','',G::tidyPath($arrUploadinfo['savepath'])).'/'.$arrUploadinfo['savename'];
+				
+				if($arrUploadoption['upload_create_thumb']==1){
+					$arrData['shopgoods_img']=str_replace(G::tidyPath(NEEDFORBUG_PATH.'/data/upload/app/shop/shopgoods').'/','',G::tidyPath($arrUploadinfo['thumbpath'])).'/thumb550_'.$arrUploadinfo['savename'];
+					
+					if(strpos($arrUploadoption['upload_thumb'],',')){
+						$arrData['shopgoods_thumb']=str_replace(G::tidyPath(NEEDFORBUG_PATH.'/data/upload/app/shop/shopgoods').'/','',G::tidyPath($arrUploadinfo['thumbpath'])).'/thumb350_'.$arrUploadinfo['savename'];
 					}
 				}
+	
+				return $arrData;
+			}catch(Exception $e){
+				$this->E($e->getMessage());
 			}
-
-			return $arrData;
-		}catch(Exception $e){
-			$this->E($e->getMessage());
+		}else{
+			return false;
 		}
 	}
 
 	public function AUpdateObject_($oModel){
-		$oModel->shopgoods_img=$this->_arrUploaddata['shopgoods_img'];
+		$arrUploaddata=$this->_arrUploaddata;
+		
+		if(isset($arrUploaddata['shopgoodsimg'])){
+			$oModel->shopgoods_originalimg=$arrUploaddata['shopgoodsimg']['shopgoods_originalimg'];
+			$oModel->shopgoods_thumb=$arrUploaddata['shopgoodsimg']['shopgoods_thumb'];
+			$oModel->shopgoods_img=$arrUploaddata['shopgoodsimg']['shopgoods_img'];
+		}
 	}
 
 	protected function aInsert($nId=null){
@@ -106,6 +151,18 @@ class ShopgoodsController extends InitController{
 	protected function strtotime_(){
 		$_POST['shopgoods_promotestartdate']=strtotime($_POST['shopgoods_promotestartdate']);
 		$_POST['shopgoods_promoteenddate']=strtotime($_POST['shopgoods_promoteenddate']);
+	}
+	
+	public function showimg(){
+		$sImgurl=trim(G::getGpc('imgurl','G'));
+		
+		if(empty($sImgurl)){
+			$this->E('没有指定传递的图片');
+		}
+		
+		$this->assign('sImgurl',$sImgurl);
+		
+		$this->display(Admin_Extend::template('shop','shopgoods/showimg'));
 	}
 
 	/*public function dateline($sType='Y',$oValue=false){

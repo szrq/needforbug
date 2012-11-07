@@ -125,6 +125,8 @@ class Upload_Extend{
 			'upload_imageswater_offset'=>$GLOBALS['_option_']['upload_imageswater_offset'],
 			'upload_imageswater_position'=>$GLOBALS['_option_']['upload_imageswater_position'],
 			'upload_path'=>NEEDFORBUG_PATH.'/data/upload/attachment',
+			'upload_thumb'=>'thumb_',
+			'flash_inputname'=>'Filedata',
 		);
 
 		$arrUploadoption=array_merge($arrDefaultoption,$arrUploadoption);
@@ -135,6 +137,7 @@ class Upload_Extend{
 
 		if($bUploadFlash===true){
 			$oUploadfile=new UploadFileForUploadify($nUploadfileMaxsize,$arrAllAllowType,'',$arrUploadoption['upload_path'].$sUploadDir);
+			$oUploadfile->setUploadifyDataName($arrUploadoption['flash_inputname']);
 		}else{
 			$oUploadfile=new UploadFile($nUploadfileMaxsize,$arrAllAllowType,'',$arrUploadoption['upload_path'].$sUploadDir);
 		}
@@ -145,6 +148,7 @@ class Upload_Extend{
 			$oUploadfile->_nThumbMaxHeight=$arrThumbMax[0];
 			$oUploadfile->_nThumbMaxWidth=$arrThumbMax[1];
 			$oUploadfile->_sThumbPath=$arrUploadoption['upload_path'].$sUploadDir.'/thumb';// 缩略图文件保存路径
+			$oUploadfile->_sThumbPrefix=$arrUploadoption['upload_thumb'];
 		}
 
 		$oUploadfile->_sSaveRule=array('Upload_Extend','getUploadSavename');// 设置上传文件规则
