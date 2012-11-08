@@ -13,4 +13,17 @@ class ShopmainController extends InitController{
 		$this->display(Admin_Extend::template('shop','shopmain/index'));
 	}
 	
+	public function update_option(){
+		$arrOptions=G::getGpc('options','P');
+		
+		foreach($arrOptions as $key=>$val){
+			$val=trim($val);
+			$oShopoption=ShopoptionModel::F("shopoption_name=?",$key)->getOne();
+			$oShopoption->shopoption_value=G::html($val);
+			$oShopoption->save(0,'update');
+		}
+		
+		ShopCache_Extend::updateCacheOption("option");
+		$this->S("配置更新成功");
+	}
 }
