@@ -988,4 +988,22 @@ NEEDFORBUG;
 		}
 	}
 
+	public static function addFeed($sTemplate,$arrData,$nUserid=0,$sUsername=''){
+		if(empty($nUserid)){
+			$nUserid=$GLOBALS['___login___']['user_id'];
+		}
+		$nUserid=intval($nUserid);
+
+		if(empty($sUsername)){
+			$sUsername=$GLOBALS['___login___']['user_name'];
+		}
+		
+		$oFeed=Dyhb::instance('FeedModel');
+		$oFeed->addFeed($sTemplate,$arrData,$nUserid,$sUsername);
+
+		if($oFeed->isError()){
+			Dyhb::E($oFeed->getErrorMessage());
+		}
+	}
+
 }

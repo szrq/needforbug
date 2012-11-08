@@ -41,6 +41,16 @@ class AddController extends Controller{
 				}
 			}
 
+			// 发送feed
+			$sFeedtemplate='<div class="feed_addhomefresh"><span class="feed_title">发布了一条新鲜事&nbsp;(<a href="{@homefresh_link}">查看</a>)</span><div class="feed_content">{homefresh_message}</div><div class="feed_action"><a href="{@homefresh_link}#comments">回复</a></div></div>';
+
+			$arrFeeddata=array(
+				'@homefresh_link'=>'home://fresh@?id='.$oHomefresh['homefresh_id'],
+				'homefresh_message'=>Core_Extend::ubb(G::subString(strip_tags($oHomefresh['homefresh_message']),0,100)),
+			);
+
+			Core_Extend::addFeed($sFeedtemplate,$arrFeeddata);
+
 			$arrHomefreshData=$oHomefresh->toArray();
 			$arrHomefreshData['space']=Dyhb::U('home://space@?id='.$oHomefresh['user_id']);
 			$arrHomefreshData['avatar']=Core_Extend::avatar($oHomefresh['user_id'],'small');

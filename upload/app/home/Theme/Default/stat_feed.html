@@ -1,0 +1,41 @@
+<!--<include file="Core_Extend::template('header')" />-->
+
+		<ul class="breadcrumb">
+			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
+			<li><!--<lang package='Template/Stat'>-->社区广场<!--</lang>--></li>
+		</ul>
+		
+		<!--<include file="stat+menu" />-->
+
+		<div class="row">
+			<div class="span12">
+				<ul>
+					<!--{if is_array($arrFeeddatas)}-->
+					<!--<foreach for=arrFeeddatas value=arrFeeddata>-->
+					<!--{if !isset($arrFeeddatas[$key-1]) || date('Y-m-d',$arrFeeddata['create_dateline'])!=date('Y-m-d',$arrFeeddatas[$key-1]['create_dateline'])}-->
+					<li style="margin-top:10px;border-bottom:1px solid #ddd;">
+						<h2><!--{$arrFeeddata['create_dateline']|date='Y-m-d',**}--></h2>
+					</li>
+					<!--{/if}-->
+					<li class="mbtl">
+						<!--{if !isset($arrFeeddatas[$key-1]) || $arrFeeddata['user_id']!=$arrFeeddatas[$key-1]['user_id']}-->
+						<a href=""><img title="" alt="" src=""></a>
+						<!--{/if}-->
+					</li>
+					<li class="mbtr">
+						<a href=""><!--{$arrFeeddata['feed_username']}--></a>
+						<!--{$arrFeeddata['feed_content']}-->
+					</li>
+					<div class="clear"></div>
+					<!--</foreach>-->
+					<!--{d*else}-->
+					<li>暂无任何动态</li>
+					<!--{/if}-->
+				</ul>
+
+				<div class="clear"></div>
+				<!--{$sPageNavbar}-->
+			</div>
+		</div><!--/row-->
+
+<!--<include file="Core_Extend::template('footer')" />-->

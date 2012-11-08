@@ -14,6 +14,10 @@ class StatController extends InitController{
 		Core_Extend::doControllerAction('Stat@Userlist','index');
 	}
 
+	public function feed(){
+		Core_Extend::doControllerAction('Stat@Feed','index');
+	}
+
 	public function explore(){
 		Core_Extend::doControllerAction('Stat@Explore','index');
 	}
