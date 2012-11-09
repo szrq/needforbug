@@ -23,11 +23,6 @@
 						<div class="description"><!--<lang package='Template/Default/Option'>-->网站描述，将显示在浏览器窗口标题等位置<!--</lang>--></div>
 					</fieldset>
 					<fieldset>
-						<label for="shop_title"><!--<lang package='Template/Default/Option'>-->网站主页标题<!--</lang>--></label>
-						<input type="text" name="options[shop_title]" id="shop_title" size="40" value="<!--{$arrOptions['shop_title']}-->"/>
-						<div class="description"><!--<lang package='Template/Default/Option'>-->出现在首页的网站介绍中<!--</lang>--></div>
-					</fieldset>
-					<fieldset>
 						<label for="shop_closestatus"><!--<lang package='Template/Default/Option'>-->是否关闭网站<!--</lang>--></label>
 						<input type="radio" id="shop_closestatus" name="options[shop_closestatus]" value="1" <!--{if $arrOptions['shop_closestatus']==1}-->checked="checked"<!--{/if}-->/><!--<lang package='Template/Default/Common'>-->是<!--</lang>-->
 						<input type="radio" id="" name="options[shop_closestatus]" value="0" <!--{if $arrOptions['shop_closestatus']==0}-->checked="checked"<!--{/if}--> /><!--<lang package='Template/Default/Common'>-->否<!--</lang>-->
@@ -37,12 +32,6 @@
 						<label for="shop_closereason"><!--<lang package='Template/Default/Option'>-->关闭原因<!--</lang>--></label>
 						<textarea name="options[shop_closereason]" rows="5"><!--{$arrOptions['shop_closereason']}--></textarea>
 						<div class="description"><!--<lang package='Template/Default/Option'>-->可暂时将站点关闭，其他人无法访问，但不影响管理员访问后台<!--</lang>--></div>
-					</fieldset>
-					<fieldset>
-						<label for="start_gzip"><!--<lang package='Template/Default/Option'>-->是否启用GZIP<!--</lang>--></label>
-						<input type="radio" id="start_gzip" name="options[start_gzip]" value="1" <!--{if $arrOptions['start_gzip']==1}-->checked="checked"<!--{/if}-->/><!--<lang package='Template/Default/Common'>-->是<!--</lang>-->
-						<input type="radio" id="" name="options[start_gzip]" value="0" <!--{if $arrOptions['start_gzip']==0}-->checked="checked"<!--{/if}--> /><!--<lang package='Template/Default/Common'>-->否<!--</lang>-->
-						<div class="description"><!--<lang package='Template/Default/Option'>-->启用Gzip能够压缩页面数据，提高系统访问速度<!--</lang>--></div>
 					</fieldset>
 				</div>
 				<footer>
