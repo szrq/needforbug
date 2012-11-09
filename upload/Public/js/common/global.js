@@ -279,7 +279,7 @@ function needforbugConfirm(sContent,ok,cancel,sTitle,nTime,width,height,lock){
 /** 媒体对话框 */
 var oEditNewattachmentcategory;
 function globalAddattachment(sFunction){
-	var sUrl=D.U('home://attachment/dialog_add?function='+sFunction);
+	var sUrl=_ROOT_+'/index.php?app=home&c=attachment&a=dialog_add&function='+sFunction;
 	var sHtml='<iframe id="iframe_dialog" name="iframe_dialog" frameborder="0" style="margin: 0;width: 500px; height: 200px;overflow-x:hidden;margin:0;padding:0;" src="'+sUrl+'"></iframe>';
 
 	oEditNewattachmentcategory=needforbugAlert(sHtml,'媒体管理器','',globalCancelattachment,'',500,200,1);
@@ -318,7 +318,7 @@ function insertAttachment(editor,nAttachmentid){
 var oEditNewmusic='';
 function addMusic(sFunction){
 	var sHtml = $.ajax({
-		url: D.U('home://misc/music?function='+sFunction),
+		url: _ROOT_+'/index.php?app=home&c=misc&a=music&function='+sFunction,
 		async: false
 	}).responseText;
 
@@ -339,7 +339,7 @@ function insertMusic(editor,sContent){
 var oEditNewvideo='';
 function addVideo(sFunction){
 	var sHtml = $.ajax({
-		url: D.U('home://misc/video?function='+sFunction),
+		url: _ROOT_+'/index.php?app=home&c=misc&a=video&function='+sFunction,
 		async: false
 	}).responseText;
 
