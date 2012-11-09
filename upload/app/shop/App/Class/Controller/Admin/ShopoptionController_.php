@@ -37,6 +37,22 @@ class ShopoptionController extends InitController{
 		$this->assign('arrOptions',$arrOptionData);
 	}
 
+	public function update_option(){
+		$arrOptions=G::getGpc('options','P');
+
+		foreach($arrOptions as $sKey=>$val){
+			$val=trim($val);
+			
+			$oOptionModel=ShopoptionModel::F('shopoption_name=?',$sKey)->getOne();
+			$oOptionModel->shopoption_value=G::html($val);
+			$oOptionModel->save(0,'update');
+		}
+
+		ShopCache_Extend::updateCache("option");
+
+		$this->S(Dyhb::L('配置更新成功','__APP_ADMIN_LANG__@Controller/Shopoption'));
+	}
+
 	/*public function dateline($sType='Y',$oValue=false){
 		$sDate='';
 		if($oValue===false){
