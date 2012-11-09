@@ -258,19 +258,33 @@ class HomefreshController extends InitController{
 		$oHomefreshcomment->save(0);
 
 		if($oHomefreshcomment->isError()){
-			$oHomefreshcomment->getErrorMessage();
+			$this->E($oHomefreshcomment->getErrorMessage());
 		}else{
 			// 发送COOKIE
 			$this->send_cookie($oHomefreshcomment);
 
 			// 更新评论数量
-			$oHomefresh=Dyhb::instance('HomefreshModel');
-			$oHomefresh->updateHomefreshcommentnum(intval(G::getGpc('homefresh_id')));
+			$oHomefreshTemp=Dyhb::instance('HomefreshModel');
+			$oHomefreshTemp->updateHomefreshcommentnum(intval(G::getGpc('homefresh_id')));
 
-			if($oHomefresh->isError()){
-				$oHomefresh->getErrorMessage();
+			if($oHomefreshTemp->isError()){
+				$oHomefreshTemp->getErrorMessage();
 			}
+			unset($oHomefreshTemp);
 
+			// 发送feed
+			$oHomefresh=HomefreshModel::F('homefresh_id=?',intval(G::getGpc('homefresh_id')))->getOne();
+
+			$sFeedtemplate='<div class="feed_addhomefresh"><span class="feed_title">评论了新鲜事&nbsp;<a href="{@homefresh_commentlink}">{homefresh_title}</a></span><div class="feed_content"><div class="feed_quote"><span class="feed_quoteinfo">{homefresh_commentmessage}</span></div></div><div class="feed_action"><a href="{@homefresh_commentlink}">回复</a></div></div>';
+
+			$arrFeeddata=array(
+				'@homefresh_commentlink'=>'home://fresh@?id='.$oHomefresh['homefresh_id'].'&isolation_commentid='.$oHomefreshcomment['homefreshcomment_id'],
+				'homefresh_title'=>$oHomefresh['homefresh_title']?G::subString($oHomefresh['homefresh_title'],0,30):G::subString(strip_tags($oHomefresh['homefresh_message']),0,30),
+				'homefresh_commentmessage'=>Core_Extend::ubb(G::subString(strip_tags($oHomefreshcomment['homefreshcomment_content']),0,100)),
+			);
+
+			Core_Extend::addFeed($sFeedtemplate,$arrFeeddata);
+			
 			// 邮件通知
 			$this->comment_sendmail($oHomefreshcomment);
 		}

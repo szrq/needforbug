@@ -34,7 +34,7 @@
 <div class="bm_hover_card_bar">
 	<!--{~$nAlreadyFriendId=Core_Extend::isAlreadyFriend($oUser['user_id'])}-->
 	<!--{if $nAlreadyFriendId==1 || $nAlreadyFriendId==4}-->
-	<a rel="nofollow" class="btn btn-mini" href="javascript:void(0);" onclick="deleteFriend(<!--{$oUser->user_id}-->);"><i class="icon-remove icon-white"></i>取消关注</a>
+	<a rel="nofollow" class="btn btn-mini" href="javascript:void(0);" onclick="deleteFriend(<!--{$oUser->user_id}-->);"><i class="icon-remove"></i>取消关注</a>
 	<!--{d*else}-->
 	<a rel="nofollow" class="btn btn-mini btn-success" href="javascript:void(0);" onclick="addFriend(<!--{$oUser->user_id}-->);"><i class="icon-plus icon-white"></i>加关注</a>
 	<!--{/if}-->&nbsp;
