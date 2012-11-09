@@ -52,7 +52,6 @@ class ShopgoodsController extends InitController{
 		$this->assign('oShopcategoryTree',$oShopcategoryTree);
 	}
 
-	
 	public function insert($sModel=null,$nId=null){
 		$nId=G::getGpc('value');
 
