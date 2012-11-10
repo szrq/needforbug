@@ -4,7 +4,7 @@
 
 !defined('DYHB_PATH') && exit;
 
-/** 导入博客模型 */
+/** 导入商城模型 */
 Dyhb::import(NEEDFORBUG_PATH.'/app/shop/App/Class/Model');
 
 class ShopgoodsController extends InitController{
@@ -26,13 +26,24 @@ class ShopgoodsController extends InitController{
 	}
 
 	public function add(){
-		//$this->bAdd_();
+		$this->bAdd_();
 
 		$this->get_shopcategorytree_();
 		
 		$this->display(Admin_Extend::template('shop','shopgoods/add'));
 	}
 
+	public function bAdd_(){
+		Core_Extend::loadCache("shop_option");
+		
+		$arrOptionData=$GLOBALS['_cache_']['shop_option'];
+		$arrShopgoodsimgsizes=explode('|',$arrOptionData['shopgoods_imgsize']);
+		$arrShopgoodsthumbimgsizes=explode('|',$arrOptionData['shopgoods_thumbimgsize']);
+
+		$this->assign('arrOptionData',$arrOptionData);
+		$this->assign('arrShopgoodsimgsizes',$arrShopgoodsimgsizes);
+		$this->assign('arrShopgoodsthumbimgsizes',$arrShopgoodsthumbimgsizes);
+	}
 
 	public function get_shopcategorytree_(){
 		$oShopcategory=Dyhb::instance('ShopcategoryModel');
@@ -50,9 +61,20 @@ class ShopgoodsController extends InitController{
 		parent::insert('shopgoods',$nId);
 	}
 
+	public function bEdit_(){
+		$this->bAdd_();
+
+		// 读取商品相册图片
+		$arrUploadgallerys=ShopgoodsgalleryModel::F('shopgoods_id=?',intval(G::getGpc('value','G')))->getAll();
+
+		$this->assign('arrUploadgallerys',$arrUploadgallerys);
+	}
+
 	public function edit($sMode=null,$nId=null,$bDidplay=true){
 		$nId=intval(G::getGpc('value','G'));
 
+		$this->bEdit_();
+		
 		$this->get_shopcategorytree_();
 		
 		parent::edit('shopgoods',$nId,false);
@@ -64,66 +86,142 @@ class ShopgoodsController extends InitController{
 
 		$this->strtotime_();
 	
+		$arrUploaddata=array();
 
-		// 处理图片上传
-		$this->_arrUploaddata=$this->shopgoodsimg_();
+		// 商品图片上传
+		$arrUploadgoodsimgdata=$this->shopgoodsimg_();
+
+		// 商品相册图片上传
+		$arrUploadgallerydata=$this->shopgoodsgallery_();
 		
+		if(!empty($arrUploadgoodsimgdata)){
+			$arrUploaddata['shopgoodsimg']=$arrUploadgoodsimgdata;
+		}
+
+		if(!empty($arrUploadgallerydata)){
+			$arrUploaddata['shopgalleryimg']=$arrUploadgallerydata;
+		}
+		
+		$this->_arrUploaddata=$arrUploaddata;
+
 		parent::update('shopgoods',$nId);
+	}
+
+	protected function shopgoodsgallery_(){
+		require_once(Core_Extend::includeFile('function/Upload_Extend'));
+		
+		Core_Extend::loadCache("shop_option");
+		$arrOptionData=$GLOBALS['_cache_']['shop_option'];
+
+		$arrUploadoption=array(
+			'upload_single'=>0,
+		);
+
+		$bNeedupload=false;
+		if(is_array($_FILES['shopgoodsgallery']['error'])){
+			foreach($_FILES['shopgoodsgallery']['error'] as $nErrorno){
+				if($nErrorno!=4){
+					$bNeedupload=true;
+					break;
+				}
+			}
+		}
+
+		$arrData=array();
+		if($bNeedupload===true){
+			$arrData=$this->uploadAFile_('',$arrUploadoption);
+		}
+
+		return $arrData;
 	}
 
 	protected function shopgoodsimg_(){
 		require_once(Core_Extend::includeFile('function/Upload_Extend'));
 		
+		Core_Extend::loadCache("shop_option");
+		$arrOptionData=$GLOBALS['_cache_']['shop_option'];
+
+		$arrShopgoodsimgsizes=explode('|',$arrOptionData['shopgoods_imgsize']);
+		
 		$arrData=array();
 		
-		if(isset($_FILES['shopgoodsimg']) && $_FILES['shopgoodsimg']['error']!=4){
-			$arrUploadoption=array();
-			if(isset($_FILES['shopgoodsthumbimg']) && $_FILES['shopgoodsthumbimg']['error']!=4){
-				$arrUploadoption=array(
-					'upload_thumb_size'=>'550|550',
-					'upload_thumb'=>'thumb550_',
-				);
+		if(isset($_FILES['shopgoodsimg'])){
+			if($_FILES['shopgoodsimg']['error']!=4){
+				$arrUploadoption=array();
+				if(isset($_FILES['shopgoodsthumbimg']) && $_FILES['shopgoodsthumbimg']['error']!=4){
+					$arrUploadoption=array(
+						'upload_thumb_size'=>$arrOptionData['shopgoods_imgsize'],
+						'upload_thumb'=>'thumb'.$arrShopgoodsimgsizes[0].'_',
+					);
+				}
+				
+				$arrData=$this->uploadAFile_('shopgoodsimg',$arrUploadoption);
 			}
-			
-			$arrData['shopgoodsimg']=$this->uploadAFile_('shopgoodsimg',$arrUploadoption);
 		}
 		
-		if(isset($_FILES['shopgoodsthumbimg']) && $_FILES['shopgoodsthumbimg']['error']!=4){
-			$arrThumbdata=$this->uploadAFile_('shopgoodsthumbimg',array('upload_create_thumb'=>0,'flash_inputname'=>'shopgoodsthumbimg'));
-			$arrData['shopgoodsimg']['shopgoods_thumb']=$arrThumbdata['shopgoods_originalimg'];
+		if(isset($_FILES['shopgoodsthumbimg'])){
+			if($_FILES['shopgoodsthumbimg']['error']!=4){
+				$arrThumbdata=$this->uploadAFile_('shopgoodsthumbimg',array('upload_create_thumb'=>0,'flash_inputname'=>'shopgoodsthumbimg'));
+				$arrData['shopgoods_thumb']=$arrThumbdata['shopgoods_originalimg'];
+			}
+		}
+
+		if(isset($_FILES['shopgoodsimg'])){
+			unset($_FILES['shopgoodsimg']);
+		}
+		
+		if(isset($_FILES['shopgoodsthumbimg'])){
+			unset($_FILES['shopgoodsthumbimg']);
 		}
 		
 		return $arrData;
 	}
 	
 	protected function uploadAFile_($sFilename,$arrUploadoption=array()){
-		if(isset($_FILES[$sFilename])){
+		$arrOptionData=$GLOBALS['_cache_']['shop_option'];
+		$arrShopgoodsimgsizes=explode('|',$arrOptionData['shopgoods_imgsize']);
+		$arrShopgoodsthumbimgsizes=explode('|',$arrOptionData['shopgoods_thumbimgsize']);
+	
+		if(empty($sFilename) || isset($_FILES[$sFilename])){
 			try{
 				$arrData=array();
 				
 				$arrDefaultUploadoption=array(
+					'upload_allowed_type'=>'jpg|jpeg|gif|bmp|png',
 					'upload_path'=>NEEDFORBUG_PATH.'/data/upload/app/shop/shopgoods',
 					'upload_create_thumb'=>1,
 					'flash_inputname'=>'shopgoodsimg',
-					'upload_thumb_size'=>'350,550|350,550',
-					'upload_thumb'=>'thumb350_,thumb550_',
+					'upload_thumb_size'=>$arrShopgoodsthumbimgsizes[0].','.$arrShopgoodsthumbimgsizes[0].'|'.$arrShopgoodsthumbimgsizes[1].','.$arrShopgoodsthumbimgsizes[1],
+					'upload_thumb'=>'thumb'.$arrShopgoodsthumbimgsizes[0].'_,thumb'.$arrShopgoodsimgsizes[0].'_',
+					'upload_single'=>1,
 				);
 				
 				$arrUploadoption=array_merge($arrDefaultUploadoption,$arrUploadoption);
 
-				$arrUploadinfo=Upload_Extend::uploadFlash(true,true,false,$arrUploadoption);
-				$arrUploadinfo=$arrUploadinfo[0];
+				if($arrUploadoption['upload_single']==1){
+					$arrUploadinfos=Upload_Extend::uploadFlash(true,true,false,$arrUploadoption);
+				}else{
+					$arrUploadinfos=Upload_Extend::uploadNormal(true,false,$arrUploadoption);
+				}
 
-				$arrData['shopgoods_originalimg']=str_replace(G::tidyPath(NEEDFORBUG_PATH.'/data/upload/app/shop/shopgoods').'/','',G::tidyPath($arrUploadinfo['savepath'])).'/'.$arrUploadinfo['savename'];
-				
-				if($arrUploadoption['upload_create_thumb']==1){
-					$arrData['shopgoods_img']=str_replace(G::tidyPath(NEEDFORBUG_PATH.'/data/upload/app/shop/shopgoods').'/','',G::tidyPath($arrUploadinfo['thumbpath'])).'/thumb550_'.$arrUploadinfo['savename'];
-					
-					if(strpos($arrUploadoption['upload_thumb'],',')){
-						$arrData['shopgoods_thumb']=str_replace(G::tidyPath(NEEDFORBUG_PATH.'/data/upload/app/shop/shopgoods').'/','',G::tidyPath($arrUploadinfo['thumbpath'])).'/thumb350_'.$arrUploadinfo['savename'];
+				if(is_array($arrUploadinfos)){
+					foreach($arrUploadinfos as $nKey=>$arrUploadinfo){
+						$arrData[$nKey]['shopgoods_originalimg']=str_replace(G::tidyPath(NEEDFORBUG_PATH.'/data/upload/app/shop/shopgoods').'/','',G::tidyPath($arrUploadinfo['savepath'])).'/'.$arrUploadinfo['savename'];
+			
+						if($arrUploadoption['upload_create_thumb']==1){
+							$arrData[$nKey]['shopgoods_img']=str_replace(G::tidyPath(NEEDFORBUG_PATH.'/data/upload/app/shop/shopgoods').'/','',G::tidyPath($arrUploadinfo['thumbpath'])).'/thumb'.$arrShopgoodsimgsizes[0].'_'.$arrUploadinfo['savename'];
+							
+							if(strpos($arrUploadoption['upload_thumb'],',')){
+								$arrData[$nKey]['shopgoods_thumb']=str_replace(G::tidyPath(NEEDFORBUG_PATH.'/data/upload/app/shop/shopgoods').'/','',G::tidyPath($arrUploadinfo['thumbpath'])).'/thumb'.$arrShopgoodsthumbimgsizes[0].'_'.$arrUploadinfo['savename'];
+							}
+						}
 					}
 				}
-	
+				
+				if($arrUploadoption['upload_single']==1){
+					$arrData=$arrData[0];
+				}
+
 				return $arrData;
 			}catch(Exception $e){
 				$this->E($e->getMessage());
@@ -140,6 +238,26 @@ class ShopgoodsController extends InitController{
 			$oModel->shopgoods_originalimg=$arrUploaddata['shopgoodsimg']['shopgoods_originalimg'];
 			$oModel->shopgoods_thumb=$arrUploaddata['shopgoodsimg']['shopgoods_thumb'];
 			$oModel->shopgoods_img=$arrUploaddata['shopgoodsimg']['shopgoods_img'];
+		}
+
+		if(isset($arrUploaddata['shopgalleryimg'])){
+			if(is_array($arrUploaddata['shopgalleryimg'])){
+				foreach($arrUploaddata['shopgalleryimg'] as $arrUploadgallerydata){
+					$arrSavedata=array(
+						'shopgoods_id'=>$oModel->shopgoods_id,
+						'shopgoodsgallery_url'=>$arrUploadgallerydata['shopgoods_img'],
+						'shopgoodsgallery_thumburl'=>$arrUploadgallerydata['shopgoods_thumb'],
+						'shopgoodsgallery_imgoriginal'=>$arrUploadgallerydata['shopgoods_originalimg'],
+					);
+
+					$oShopgoodsgallery=new ShopgoodsgalleryModel($arrSavedata);
+					$oShopgoodsgallery->save(0);
+
+					if($oShopgoodsgallery->isError()){
+						$this->E($oShopgoodsgallery->getErrorMessage());
+					}
+				}
+			}
 		}
 	}
 

@@ -1,5 +1,13 @@
 <!--<include file="public+header" />-->
 
+<!--{script}-->
+function option(){
+	$("#submit_button").attr("disabled", "disabled");
+	$("#submit_button").val( 'update...' );
+	$("#submit_button").attr("disabled", false);
+}
+<!--{/script}-->
+
 	<section class="secondary_bar">
 		<div class="breadcrumbs_container">
 			<article class="breadcrumbs"><a href="<!--{:Dyhb::U('public/fmain')}-->"><!--<lang package='Template/Default/Common'>-->主页<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a class="current"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商城设置<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a href="javascript:void(0);" onclick="adminctrlmenuAdd('<!--{:__SELF__}-->','<!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商城设置<!--</lang>-->')" title="<!--<lang package='Template/Default/Common'>-->添加到快捷导航<!--</lang>-->">[+]</a></article>
@@ -7,11 +15,16 @@
 	</section>
 
 	<section id="main" class="column">
-		<!--<include file="Admin_Extend::template('shop','shopoption/menu')" />-->
-
 		<article class="module width_full">
-			<form action="<!--{:Dyhb::U('option/update_option')}-->" method="post" onsubmit="return option();">
+			<header><h3 class="tabs_involved"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商城设置<!--</lang>--></h3>
+				<ul class="tabs">
+					<li class="active"><a href="<!--{:Admin_Extend::base()}-->"><!--<lang package='Template/Default/Common'>-->应用入口<!--</lang>--></a></li>
+				</ul>
+			</header>
+			<form action="<!--{:Dyhb::U('app/config?id='.$nId.'&action=update_option')}-->" method="post" onsubmit="return option();">
 				<div class="module_content">
+					<!--<include file="Admin_Extend::template('shop','shopoption/menu')" />-->
+
 					<fieldset>
 						<label for="shop_name"><!--<lang package='Template/Default/Option'>-->商城名称<!--</lang>--></label>
 						<input type="text" name="options[shop_name]" id="shop_name" size="40" value="<!--{$arrOptions['shop_name']}-->"/>
@@ -21,6 +34,21 @@
 						<label for="shop_description"><!--<lang package='Template/Default/Option'>-->商城描述<!--</lang>--></label>
 						<input type="text" name="options[shop_description]" id="shop_description" size="40" value="<!--{$arrOptions['shop_description']}-->"/>
 						<div class="description"><!--<lang package='Template/Default/Option'>-->网站描述，将显示在浏览器窗口标题等位置<!--</lang>--></div>
+					</fieldset>
+					<fieldset>
+						<label for="shop_serviceqq"><!--<lang package='Template/Default/Option'>-->客服QQ号码<!--</lang>--></label>
+						<input type="text" name="options[shop_serviceqq]" id="shop_serviceqq" size="40" value="<!--{$arrOptions['shop_serviceqq']}-->"/>
+						<div class="description"><!--<lang package='Template/Default/Option'>-->这里将显示网站的QQ联系方式<!--</lang>--></div>
+					</fieldset>
+					<fieldset>
+						<label for="shop_servicephone"><!--<lang package='Template/Default/Option'>-->客服电话号码<!--</lang>--></label>
+						<input type="text" name="options[shop_servicephone]" id="shop_servicephone" size="40" value="<!--{$arrOptions['shop_servicephone']}-->"/>
+						<div class="description"><!--<lang package='Template/Default/Option'>-->这里将显示网站的电话联系方式<!--</lang>--></div>
+					</fieldset>
+					<fieldset>
+						<label for="shop_fixedtelephone"><!--<lang package='Template/Default/Option'>-->客服固定电话号码<!--</lang>--></label>
+						<input type="text" name="options[shop_fixedtelephone]" id="shop_fixedtelephone" size="40" value="<!--{$arrOptions['shop_fixedtelephone']}-->"/>
+						<div class="description"><!--<lang package='Template/Default/Option'>-->这里将显示网站的电话联系方式<!--</lang>--></div>
 					</fieldset>
 					<fieldset>
 						<label for="shop_closestatus"><!--<lang package='Template/Default/Option'>-->是否关闭网站<!--</lang>--></label>
@@ -37,16 +65,6 @@
 						<label for="shop_notice"><!--<lang package='Template/Default/Option'>-->商城公告<!--</lang>--></label>
 						<textarea name="options[shop_notice]" rows="5"><!--{$arrOptions['shop_notice']}--></textarea>
 						<div class="description"><!--<lang package='Template/Default/Option'>-->首页公告<!--</lang>--></div>
-					</fieldset>
-					<fieldset>
-						<label for="shop_serviceqq"><!--<lang package='Template/Default/Option'>--> 客服QQ号码<!--</lang>--></label>
-						<input type="text" name="options[shop_serviceqq]" id="shop_serviceqq" size="40" value="<!--{$arrOptions['shop_serviceqq']}-->"/>
-						<div class="description"><!--<lang package='Template/Default/Option'>-->出现在首页的网站介绍中<!--</lang>--></div>
-					</fieldset>
-					<fieldset>
-						<label for="shop_servicephone"><!--<lang package='Template/Default/Option'>--> 客服电话号码<!--</lang>--></label>
-						<input type="text" name="options[shop_servicephone]" id="shop_servicephone" size="40" value="<!--{$arrOptions['shop_servicephone']}-->"/>
-						<div class="description"><!--<lang package='Template/Default/Option'>-->出现在首页的网站介绍中<!--</lang>--></div>
 					</fieldset>
 				</div>
 				<footer>
