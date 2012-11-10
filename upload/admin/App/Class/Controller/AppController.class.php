@@ -50,6 +50,7 @@ class AppController extends InitController{
 			// 查找模块
 			if(empty($sController)){
 				$sController=ucfirst($arrAppModel['app_identifier']).'mainController';
+				$_GET['controller']=strtolower($arrAppModel['app_identifier']).'main';
 			}else{
 				$sController=ucfirst($sController).'Controller';
 			}
