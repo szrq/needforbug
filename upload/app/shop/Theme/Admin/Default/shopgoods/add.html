@@ -127,6 +127,24 @@ function customThumb(checked){
 							</fieldset>
 						</div>
 						<div id="tab4" class="nfb_tabcontent">
+							<!--{if is_array($arrUploadgallerys)}-->
+							<fieldset>
+								<label for="shopgoods_promoteprice"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->已上传商品相册图片<!--</lang>--></label>
+								<p style="padding-left:8px;">
+									<!--<foreach for=arrUploadgallerys value=oUploadgallery>-->
+									<div id="gallery_<!--{$oUploadgallery['shopgoodsgallery_id']}-->" style="float:left; text-align:center; border: 1px solid #DADADA; margin: 4px; padding:4px;">
+										[<a href="javascript:void(0);" onclick="deleteGallery(<!--{$oUploadgallery['shopgoodsgallery_id']}-->);"><img src="<!--{:__TMPLPUB__}-->/Images/no.gif"/></a>]<br />
+										<a href="<!--{:Admin_Extend::index(array('controller'=>'shopgoods','action'=>'showimg','imgurl'=>$oUploadgallery['shopgoodsgallery_thumburl']))}-->" target="_blank">
+											<img src="<!--{:Shop_Extend::getShopgoodspath($oUploadgallery['shopgoodsgallery_thumburl'])}-->" width="100" height="100" border="0" />
+										</a><br />
+										<p><input title="商品相册图片名字" type="text" value="" size="15" name="galleryname[<!--{$oUploadgallery['shopgoodsgallery_id']}-->]" /></p>
+										<p><input title="商品相册图片描述" type="text" value="" size="15" name="gallerydescription[<!--{$oUploadgallery['shopgoodsgallery_id']}-->]" /></p>
+									</div>
+									<!--</foreach>-->
+								</p>
+								<div class="clear description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->这里可以对已经上传的商品相册图片进行管理<!--</lang>--></div>
+							</fieldset>
+							<!--{/if}-->
 							<fieldset>
 								<label for="shopgoods_promoteprice"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->上传商品相册图片<!--</lang>--></label>
 								<p><input name="shopgoodsgallery[]" type="file"></p>
@@ -137,6 +155,7 @@ function customThumb(checked){
 								<p><input name="shopgoodsgallery[]" type="file"></p>
 								<p><input name="shopgoodsgallery[]" type="file"></p>
 								<p><input name="shopgoodsgallery[]" type="file"></p>
+								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->通过这个上传新的商品相册图片<!--</lang>--></div>
 							</fieldset>
 						</div>
 					</div>

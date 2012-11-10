@@ -102,8 +102,31 @@ class ShopgoodsController extends InitController{
 		}
 		
 		$this->_arrUploaddata=$arrUploaddata;
+		
+		// 更新已经上传相册的信息
+		$this->update_galleryinfo_();
 
 		parent::update('shopgoods',$nId);
+	}
+	
+	protected function update_galleryinfo_(){
+		if(isset($_POST['gallerydescription'])){
+			$arrGallerydescriptions=G::getGpc('gallerydescription','P');
+			
+			if(is_array($arrGallerydescriptions)){
+				foreach($arrGallerydescriptions as $nKey=>$arrGallerydescription){
+					$oShopgoodsgallery=ShopgoodsgalleryModel::F('shopgoodsgallery_id=?',$nKey)->getOne();
+					if(!empty($oShopgoodsgallery['shopgoodsgallery_id'])){
+						$oShopgoodsgallery->shopgoodsgallery_description;
+						$oShopgoodsgallery->save(0,'update');
+						
+						if($oShopgoodsgallery->isError()){
+							$this->E($oShopgoodsgallery->getErrorMessage());
+						}
+					}
+				}
+			}
+		}
 	}
 
 	protected function shopgoodsgallery_(){
