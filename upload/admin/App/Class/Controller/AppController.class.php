@@ -57,6 +57,7 @@ class AppController extends InitController{
 			// 查找方法
 			if(empty($sAction)){
 				$sAction='index';
+				$_GET['action']='index';
 			}
 			
 			$sControllerPath=NEEDFORBUG_PATH.'/app/'.$arrAppModel['app_identifier'].'/App/Class/Controller/Admin/'.$sController.'_.php';
