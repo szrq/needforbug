@@ -389,12 +389,12 @@ class UploadFile{
 		}
 
 		if(!$this->checkType($arrFile['type'])){// 检查文件Mime类型
-			$this->_sError=Dyhb::L('上传文件MIME类型不允许！','__DYHB__@NetDyhb');
+			$this->_sError=Dyhb::L('上传文件MIME类型不允许！','__DYHB__@NetDyhb').'<br/>'.$arrFile['type'];
 			return false;
 		}
 
 		if(!$this->checkExt($arrFile['extension'])){// 检查文件类型
-			$this->_sError=Dyhb::L('上传文件类型不允许!','__DYHB__@NetDyhb');
+			$this->_sError=Dyhb::L('上传文件类型不允许!','__DYHB__@NetDyhb').'<br/>'.$arrFile['extension'];
 			return false;
 		}
 
