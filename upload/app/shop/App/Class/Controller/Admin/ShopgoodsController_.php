@@ -43,6 +43,8 @@ class ShopgoodsController extends InitController{
 		$this->assign('arrOptionData',$arrOptionData);
 		$this->assign('arrShopgoodsimgsizes',$arrShopgoodsimgsizes);
 		$this->assign('arrShopgoodsthumbimgsizes',$arrShopgoodsthumbimgsizes);
+		
+		$this->shopgoodstype_();
 	}
 
 	public function get_shopcategorytree_(){
@@ -65,8 +67,9 @@ class ShopgoodsController extends InitController{
 
 		// 读取商品相册图片
 		$arrUploadgallerys=ShopgoodsgalleryModel::F('shopgoods_id=?',intval(G::getGpc('value','G')))->getAll();
-
 		$this->assign('arrUploadgallerys',$arrUploadgallerys);
+		
+		$this->shopgoodstype_();
 	}
 
 	public function edit($sMode=null,$nId=null,$bDidplay=true){
@@ -112,12 +115,14 @@ class ShopgoodsController extends InitController{
 	protected function update_galleryinfo_(){
 		if(isset($_POST['gallerydescription'])){
 			$arrGallerydescriptions=G::getGpc('gallerydescription','P');
+			$arrGallerynames=G::getGpc('galleryname','P');
 			
 			if(is_array($arrGallerydescriptions)){
-				foreach($arrGallerydescriptions as $nKey=>$arrGallerydescription){
+				foreach($arrGallerydescriptions as $nKey=>$sGallerydescription){
 					$oShopgoodsgallery=ShopgoodsgalleryModel::F('shopgoodsgallery_id=?',$nKey)->getOne();
 					if(!empty($oShopgoodsgallery['shopgoodsgallery_id'])){
-						$oShopgoodsgallery->shopgoodsgallery_description;
+						$oShopgoodsgallery->shopgoodsgallery_description=$sGallerydescription;
+						$oShopgoodsgallery->shopgoodsgallery_name=$arrGallerynames[$nKey];
 						$oShopgoodsgallery->save(0,'update');
 						
 						if($oShopgoodsgallery->isError()){
@@ -237,6 +242,8 @@ class ShopgoodsController extends InitController{
 								$arrData[$nKey]['shopgoods_thumb']=str_replace(G::tidyPath(NEEDFORBUG_PATH.'/data/upload/app/shop/shopgoods').'/','',G::tidyPath($arrUploadinfo['thumbpath'])).'/thumb'.$arrShopgoodsthumbimgsizes[0].'_'.$arrUploadinfo['savename'];
 							}
 						}
+						
+						$arrData[$nKey]['shopgoods_name']=$arrUploadinfo['name'];
 					}
 				}
 				
@@ -270,6 +277,7 @@ class ShopgoodsController extends InitController{
 						'shopgoodsgallery_url'=>$arrUploadgallerydata['shopgoods_img'],
 						'shopgoodsgallery_thumburl'=>$arrUploadgallerydata['shopgoods_thumb'],
 						'shopgoodsgallery_imgoriginal'=>$arrUploadgallerydata['shopgoods_originalimg'],
+						'shopgoodsgallery_name'=>$arrUploadgallerydata['shopgoods_name'],
 					);
 
 					$oShopgoodsgallery=new ShopgoodsgalleryModel($arrSavedata);
@@ -303,6 +311,36 @@ class ShopgoodsController extends InitController{
 		$this->assign('sImgurl',$sImgurl);
 		
 		$this->display(Admin_Extend::template('shop','shopgoods/showimg'));
+	}
+	
+	public function delete_gallery(){
+		$nGalleryid=intval(G::getGpc('value','G'));
+		
+		if(empty($nGalleryid)){
+			$this->E('你没有指定待删除商品图片ID');
+		}
+		
+		$oShopgoodsgallery=ShopgoodsgalleryModel::F('shopgoodsgallery_id=?',$nGalleryid)->getOne();
+		if(empty($oShopgoodsgallery['shopgoodsgallery_id'])){
+			$this->E('你要删除商品图片不存在');
+		}
+		
+		$sShopgoodsgalleryUrl=NEEDFORBUG_PATH.'/data/upload/app/shop/shopgoods/';
+		foreach(array('shopgoodsgallery_url','shopgoodsgallery_thumburl','shopgoodsgallery_imgoriginal') as $sValue){
+			if(is_file($sShopgoodsgalleryUrl.$sValue)){
+				@unlink($sShopgoodsgalleryUrl.$sValue);
+			}
+		}
+		
+		$oShopgoodsgallery->destroy();
+		
+		$this->A(array('id'=>$nGalleryid),'删除商品图片成功');
+	}
+	
+	protected function shopgoodstype_(){
+		$arrShopgoodstypes=ShopgoodstypeModel::F()->getAll();
+		
+		$this->assign('arrShopgoodstypes',$arrShopgoodstypes);
 	}
 
 	/*public function dateline($sType='Y',$oValue=false){
