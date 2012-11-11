@@ -38,17 +38,17 @@ function option(){
 					<fieldset>
 						<label for="shop_serviceqq"><!--<lang package='Template/Default/Option'>-->客服QQ号码<!--</lang>--></label>
 						<input type="text" name="options[shop_serviceqq]" id="shop_serviceqq" size="40" value="<!--{$arrOptions['shop_serviceqq']}-->"/>
-						<div class="description"><!--<lang package='Template/Default/Option'>-->这里将显示网站的QQ联系方式<!--</lang>--></div>
+						<div class="description"><!--<lang package='Template/Default/Option'>-->网站底部将显示网站的QQ联系方式<!--</lang>--></div>
 					</fieldset>
 					<fieldset>
 						<label for="shop_servicephone"><!--<lang package='Template/Default/Option'>-->客服电话号码<!--</lang>--></label>
 						<input type="text" name="options[shop_servicephone]" id="shop_servicephone" size="40" value="<!--{$arrOptions['shop_servicephone']}-->"/>
-						<div class="description"><!--<lang package='Template/Default/Option'>-->这里将显示网站的电话联系方式<!--</lang>--></div>
+						<div class="description"><!--<lang package='Template/Default/Option'>-->网站底部将显示网站的电话联系方式<!--</lang>--></div>
 					</fieldset>
 					<fieldset>
 						<label for="shop_fixedtelephone"><!--<lang package='Template/Default/Option'>-->客服固定电话号码<!--</lang>--></label>
 						<input type="text" name="options[shop_fixedtelephone]" id="shop_fixedtelephone" size="40" value="<!--{$arrOptions['shop_fixedtelephone']}-->"/>
-						<div class="description"><!--<lang package='Template/Default/Option'>-->这里将显示网站的电话联系方式<!--</lang>--></div>
+						<div class="description"><!--<lang package='Template/Default/Option'>-->网站底部将显示网站的电话联系方式<!--</lang>--></div>
 					</fieldset>
 					<fieldset>
 						<label for="shop_closestatus"><!--<lang package='Template/Default/Option'>-->是否关闭网站<!--</lang>--></label>
@@ -85,7 +85,7 @@ function option(){
 					<fieldset>
 						<label for="shop_creditname"><!--<lang package='Template/Default/Option'>-->消费积分名<!--</lang>--></label>
 						<input type="text" name="options[shop_creditname]" id="shop_creditname" size="40" value="<!--{$arrOptions['shop_creditname']}-->"/>
-						<div class="description"><!--<lang package='Template/Default/Option'>-->消费积分名<!--</lang>--></div>
+						<div class="description"><!--<lang package='Template/Default/Option'>-->商城消费积分名称，如：金币、淘币<!--</lang>--></div>
 					</fieldset>
 					<fieldset>
 						<label for="shop_currencyform"><!--<lang package='Template/Default/Option'>-->货币格式<!--</lang>--></label>
@@ -108,59 +108,59 @@ function option(){
 						<input type="radio" id="" name="options[shop_commentrequest]" value="1" <!--{if $arrOptions['shop_commentrequest']==1}-->checked="checked"<!--{/if}--> /><!--<lang package='Template/Default/Common'>-->登录<!--</lang>-->
 						<input type="radio" id="" name="options[shop_commentrequest]" value="2" <!--{if $arrOptions['shop_commentrequest']==2}-->checked="checked"<!--{/if}--> /><!--<lang package='Template/Default/Common'>-->有买过商品的行为<!--</lang>-->
 						<input type="radio" id="" name="options[shop_commentrequest]" value="3" <!--{if $arrOptions['shop_commentrequest']==3}-->checked="checked"<!--{/if}--> /><!--<lang package='Template/Default/Common'>-->买过此商品的<!--</lang>-->
-						<div class="description"><!--<lang package='Template/Default/Option'>-->开启该功能后，若有新的订单，则会自动提醒营销人员<!--</lang>--></div>
+						<div class="description"><!--<lang package='Template/Default/Option'>-->只有满足条件的用户才能进行对商品的评论<!--</lang>--></div>
 					</fieldset>
 					<fieldset>
 						<label for="shop_startcommentcheck"><!--<lang package='Template/Default/Option'>-->开启用户评论审核<!--</lang>--></label>
 						<input type="radio" id="shop_startcommentcheck" name="options[shop_startcommentcheck]" value="1" <!--{if $arrOptions['shop_startcommentcheck']==1}-->checked="checked"<!--{/if}-->/><!--<lang package='Template/Default/Common'>-->是<!--</lang>-->
 						<input type="radio" id="" name="options[shop_startcommentcheck]" value="0" <!--{if $arrOptions['shop_startcommentcheck']==0}-->checked="checked"<!--{/if}--> /><!--<lang package='Template/Default/Common'>-->否<!--</lang>-->
-						<div class="description"><!--<lang package='Template/Default/Option'>-->开启该功能后，若有新的订单，则会自动提醒营销人员<!--</lang>--></div>
+						<div class="description"><!--<lang package='Template/Default/Option'>-->审核通过的评论才会在网上显示，否则只有评论顾客和管理员看到<!--</lang>--></div>
 					</fieldset>
 					<fieldset>
 						<label for="shop_startmessageboard"><!--<lang package='Template/Default/Option'>-->启用留言板功能<!--</lang>--></label>
 						<input type="radio" id="shop_startmessageboard" name="options[shop_startmessageboard]" value="1" <!--{if $arrOptions['shop_startmessageboard']==1}-->checked="checked"<!--{/if}-->/><!--<lang package='Template/Default/Common'>-->是<!--</lang>-->
 						<input type="radio" id="" name="options[shop_startmessageboard]" value="0" <!--{if $arrOptions['shop_startmessageboard']==0}-->checked="checked"<!--{/if}--> /><!--<lang package='Template/Default/Common'>-->否<!--</lang>-->
-						<div class="description"><!--<lang package='Template/Default/Option'>-->开启该功能后，若有新的订单，则会自动提醒营销人员<!--</lang>--></div>
+						<div class="description"><!--<lang package='Template/Default/Option'>-->顾客可以通过留言板留言<!--</lang>--></div>
 					</fieldset>
 					<fieldset>
 						<label for="shop_startmessagecheck"><!--<lang package='Template/Default/Option'>-->开启用户留言审核<!--</lang>--></label>
 						<input type="radio" id="shop_startmessagecheck" name="options[shop_startmessagecheck]" value="1" <!--{if $arrOptions['shop_startmessagecheck']==1}-->checked="checked"<!--{/if}-->/><!--<lang package='Template/Default/Common'>-->是<!--</lang>-->
 						<input type="radio" id="" name="options[shop_startmessagecheck]" value="0" <!--{if $arrOptions['shop_startmessagecheck']==0}-->checked="checked"<!--{/if}--> /><!--<lang package='Template/Default/Common'>-->否<!--</lang>-->
-						<div class="description"><!--<lang package='Template/Default/Option'>-->开启该功能后，若有新的订单，则会自动提醒营销人员<!--</lang>--></div>
+						<div class="description"><!--<lang package='Template/Default/Option'>-->审核通过的留言才会在网上显示，否则只有留言顾客和管理员看到<!--</lang>--></div>
 					</fieldset>
 					<fieldset>
 						<label for="shop_registeremailcheck"><!--<lang package='Template/Default/Option'>-->用户注册发送邮件验证<!--</lang>--></label>
 						<input type="radio" id="shop_registeremailcheck" name="options[shop_registeremailcheck]" value="1" <!--{if $arrOptions['shop_registeremailcheck']==1}-->checked="checked"<!--{/if}-->/><!--<lang package='Template/Default/Common'>-->是<!--</lang>-->
 						<input type="radio" id="" name="options[shop_registeremailcheck]" value="0" <!--{if $arrOptions['shop_registeremailcheck']==0}-->checked="checked"<!--{/if}--> /><!--<lang package='Template/Default/Common'>-->否<!--</lang>-->
-						<div class="description"><!--<lang package='Template/Default/Option'>-->开启该功能后，若有新的订单，则会自动提醒营销人员<!--</lang>--></div>
+						<div class="description"><!--<lang package='Template/Default/Option'>-->用户信息确认<!--</lang>--></div>
 					</fieldset>
 					<fieldset>
 						<label for="shop_registercredit"><!--<lang package='Template/Default/Option'>-->会员注册赠送积分<!--</lang>--></label>
 						<input type="text" name="options[shop_registercredit]" id="shop_registercredit" size="40" value="<!--{$arrOptions['shop_registercredit']}-->"/>
-						<div class="description"><!--<lang package='Template/Default/Option'>-->首页提示的搜索关键字<!--</lang>--></div>
+						<div class="description"><!--<lang package='Template/Default/Option'>-->用户初始化积分<!--</lang>--></div>
 					</fieldset>					
 					<fieldset>
 						<label for="shop_commentnum"><!--<lang package='Template/Default/Option'>-->显示评论数量<!--</lang>--></label>
 						<input type="text" name="options[shop_commentnum]" id="shop_commentnum" size="40" value="<!--{$arrOptions['shop_commentnum']}-->"/>
-						<div class="description"><!--<lang package='Template/Default/Option'>-->首页提示的搜索关键字<!--</lang>--></div>
+						<div class="description"><!--<lang package='Template/Default/Option'>-->商品评论显示的条数<!--</lang>--></div>
 					</fieldset>
 					<fieldset>
 						<label for="shop_articlenum"><!--<lang package='Template/Default/Option'>-->文章显示数量<!--</lang>--></label>
 						<input type="text" name="options[shop_articlenum]" id="shop_articlenum" size="40" value="<!--{$arrOptions['shop_articlenum']}-->"/>
-						<div class="description"><!--<lang package='Template/Default/Option'>-->首页提示的搜索关键字<!--</lang>--></div>
+						<div class="description"><!--<lang package='Template/Default/Option'>-->文章显示的条数<!--</lang>--></div>
 					</fieldset>
 					<fieldset>
 						<label for="shop_pagestyle"><!--<lang package='Template/Default/Option'>-->分页样式<!--</lang>--></label>
 						<input type="radio" id="shop_pagestyle" name="options[shop_pagestyle]" value="1" <!--{if $arrOptions['shop_pagestyle']==1}-->checked="checked"<!--{/if}-->/><!--<lang package='Template/Default/Common'>-->经典<!--</lang>-->
 						<input type="radio" id="" name="options[shop_pagestyle]" value="0" <!--{if $arrOptions['shop_pagestyle']==0}-->checked="checked"<!--{/if}--> /><!--<lang package='Template/Default/Common'>-->普通<!--</lang>-->
-						<div class="description"><!--<lang package='Template/Default/Option'>-->开启该功能后，若有新的订单，则会自动提醒营销人员<!--</lang>--></div>
+						<div class="description"><!--<lang package='Template/Default/Option'>-->分页样式<!--</lang>--></div>
 					</fieldset>
 					<fieldset>
 						<label for="shop_goodsshowstyle"><!--<lang package='Template/Default/Option'>-->商品分类页显示方式<!--</lang>--></label>
 						<input type="radio" id="shop_goodsshowstyle" name="options[shop_goodsshowstyle]" value="0" <!--{if $arrOptions['shop_goodsshowstyle']==0}-->checked="checked"<!--{/if}-->/><!--<lang package='Template/Default/Common'>-->表格<!--</lang>-->
 						<input type="radio" id="" name="options[shop_goodsshowstyle]" value="1" <!--{if $arrOptions['shop_goodsshowstyle']==1}-->checked="checked"<!--{/if}--> /><!--<lang package='Template/Default/Common'>-->列表<!--</lang>-->
 						<input type="radio" id="" name="options[shop_goodsshowstyle]" value="2" <!--{if $arrOptions['shop_goodsshowstyle']==2}-->checked="checked"<!--{/if}--> /><!--<lang package='Template/Default/Common'>-->文本<!--</lang>-->
-						<div class="description"><!--<lang package='Template/Default/Option'>-->开启该功能后，若有新的订单，则会自动提醒营销人员<!--</lang>--></div>
+						<div class="description"><!--<lang package='Template/Default/Option'>-->商品分类页显示的方式<!--</lang>--></div>
 					</fieldset>
 				</div>
 				<footer>

@@ -22,6 +22,7 @@ return array(
 'fbfeda2c01f49a7aae34b788cc73eea2'=>"物流管理",
 '102b3746b3ff7854f3c2408dccd61339'=>"营销推广",
 '41827176dd82c215dc0c2bc57cfb5761'=>"统计工具",
+'f435708a59edb82e6f368cb29895ee38'=>"文章管理",
 )
 
 ?>
