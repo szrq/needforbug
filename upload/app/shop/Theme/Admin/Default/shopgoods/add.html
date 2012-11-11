@@ -3,23 +3,65 @@
 <script type="text/javascript" src="<!--{:__PUBLIC__}-->/js/calendar/datepicker/WdatePicker.js"></script>
 
 <!--{:Core_Extend::editorInclude()}-->
+<!--{:Core_Extend::emotion()}-->
 
 <!--{script}-->
 $(document).ready(function() {
 	$("#shopgoods_tab ul").idTabs();
 	editor=loadEditor('shopgoods_description');
+	$('a.face-icon').showEmotion({input:editor});
+	<!--{if isset( $oValue ) && $oValue['shopgoodstype_id']}-->
+	getShopattributeForm(<!--{$oValue['shopgoods_id']}-->,0);
+	<!--{/if}-->
 });
 
 function checkShopgoods(){
-	$("#submit_button").attr("disabled", "disabled");
-	$("#submit_button").val( '<!--<if condition="isset( $_GET['value'] )">-->update<!--<else/>-->add<!--</if>-->...' );
-
 	if(!$('#shopgoods_name').val()){
 		needforbugAlert('商品名字不能为空','',3);
-		$("#submit_button").val( '<!--<if condition="isset( $_GET['value'] )">-->更新<!--<else/>-->发布<!--</if>-->' );
-		$("#submit_button").attr("disabled", false);
 		return false;
 	}
+}
+
+function customThumb(checked){
+	document.forms['shopgoodsAdd'].elements['shopgoodsthumbimg'].disabled = checked;
+}
+
+function deleteGallery(nId){
+	needforbugConfirm('确实要永久删除商品相册图片吗？',function(){
+		Dyhb.AjaxSend(D.U('app/config?action=delete_gallery'),'id=<!--{$_GET['id']}-->&ajax=1'+'&value='+nId+'&controller=shopgoods','',completeDelete);
+	});
+}
+
+function completeDelete(data,status){
+	if(status==1){
+		$('#gallery_'+data.id).remove();
+	};
+}
+
+function insertShopgoodsdescriptionattachment(nAttachmentid){
+	insertAttachment(editor,nAttachmentid);
+}
+
+function insertShopgoodsdescriptionmusic(sContent){
+	insertMusic(editor,sContent);
+}
+
+function insertShopgoodsdescriptionvideo(sContent){
+	insertVideo(editor,sContent);
+}
+
+function getShopattributeForm(nShopgoodsid,nReturnmessage){
+	if(typeof(nReturnmessage)==='undefined'){
+		nReturnmessage=1;
+	}
+	
+	var nShopgoodstype=$('#shopgoodstype_id').val();
+	
+	Dyhb.AjaxSend(D.U('app/config?action=get_attribute&return_message='+nReturnmessage),'id=<!--{$_GET['id']}-->&ajax=1'+'&shopgoods_id='+nShopgoodsid+'&controller=shopgoods&shopgoodstype_id='+nShopgoodstype,'',function(data,status){
+		if(status==1){
+			$('#shopattribute_box').html(data.content);
+		}
+	});
 }
 <!--{/script}-->
 
@@ -48,7 +90,7 @@ function checkShopgoods(){
 			</header>
 			<form action="<!--<if condition="isset( $_GET['value'] )" >--><!--{:Admin_Extend::update(array
 ('controller'=>'shopgoods'))}--><!--<else/>--><!--{:Admin_Extend::insert(array
-('controller'=>'shopgoods'))}--><!--</if>-->" method="post" id="shopgoodsAdd" enctype="multipart/form-data" onsubmit="return checkShopgoods();">
+('controller'=>'shopgoods'))}--><!--</if>-->" method="post" id="shopgoodsAdd" name="shopgoodsAdd" enctype="multipart/form-data" onsubmit="return checkShopgoods();">
 				<div class="module_content">
 					<div id="shopgoods_tab" class="nfb_tab">
 						<ul class="nfb_tabtitle">
@@ -97,26 +139,91 @@ function checkShopgoods(){
 							<fieldset>
 								<label for="shopgoodsimg"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->上传商品图片<!--</lang>--></label>
 								<input type="file" name="shopgoodsimg" id="shopgoodsimg" size="40" value=""/>
-								<br /><input type="text" size="40" value="External URL" style="color:#aaa;" onfocus="if (this.value == 'External URL'){this.value='http://';this.style.color='#000';}" name="shopgoodsimgurl"/>
-								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->填写了商品外部URL，那么系统将不会上传文件<!--</lang>--></div>
+								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品图片可以生成商品缩略图片<!--</lang>-->
+									<!--<if condition="isset( $oValue ) && !empty($oValue['shopgoods_img'])">-->
+									<div>推荐大小<!--{$arrOptionData['shopgoods_imgsize']}-->（<a href="<!--{:Admin_Extend::base(array('controller'=>'shopoption','action'=>'shopgoods_img'))}-->">设置尺寸</a>&nbsp;|&nbsp;<a href="<!--{:Shop_Extend::getShopgoodspath($oValue['shopgoods_originalimg'])}-->" target="_blank">查看原始高清大图</a>）<br/>
+										<a href="<!--{:Admin_Extend::index(array('controller'=>'shopgoods','action'=>'showimg','imgurl'=>$oValue['shopgoods_img']))}-->" target="_blank" title="查看全图"><img width="<!--{$arrShopgoodsimgsizes[0]}-->" height="<!--{$arrShopgoodsimgsizes[1]}-->" src="<!--{:Shop_Extend::getShopgoodspath($oValue['shopgoods_img'])}-->" border="0"></a>
+									</div>
+									<!--</if>-->
+								</div>
 							</fieldset>
 							<fieldset>
 								<label for="shopgoodsthumbimg"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->上传商品缩略图片<!--</lang>--></label>
-								<input type="file" name="shopgoodsthumbimg" id="shopgoodsthumbimg" size="40" value=""/>
-								<br /><input type="text" size="40" value="External URL" style="color:#aaa;" onfocus="if (this.value == 'External URL'){this.value='http://';this.style.color='#000';}" name="shopgoodsthumbimgurl"/>
-								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->填写了商品缩略图外部URL，那么系统将不会上传文件<!--</lang>--></div>
+								<input type="file" name="shopgoodsthumbimg" id="shopgoodsthumbimg" size="40" value="" disabled="true"/><br/>
+								<span style="margin-left:8px;"><input id="customthumb" name="customthumb" checked="true" value="1" onclick="customThumb(this.checked)" type="checkbox">自动生成商品缩略图</span>
+								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品缩略图片可以由商品图片生产,也可以由自己上传<!--</lang>-->
+									<!--<if condition="isset( $oValue ) && !empty($oValue['shopgoods_thumb'])">-->
+									<div>推荐大小<!--{$arrOptionData['shopgoods_thumbimgsize']}-->（<a href="<!--{:Admin_Extend::base(array('controller'=>'shopoption','action'=>'shopgoods_img'))}-->">设置尺寸</a>&nbsp;|&nbsp;<a href="<!--{:Shop_Extend::getShopgoodspath($oValue['shopgoods_originalimg'])}-->" target="_blank">查看原始高清大图</a>）<br/>
+										<a href="<!--{:Admin_Extend::index(array('controller'=>'shopgoods','action'=>'showimg','imgurl'=>$oValue['shopgoods_thumb']))}-->" target="_blank" title="查看全图"><img width="<!--{$arrShopgoodsthumbimgsizes[0]}-->" height="<!--{$arrShopgoodsthumbimgsizes[1]}-->" src="<!--{:Shop_Extend::getShopgoodspath($oValue['shopgoods_thumb'])}-->" border="0"></a>
+									</div>
+									<!--</if>-->
+								</div>
 							</fieldset>
 						</div>
-						<div id="tab2" class="nfb_tabcontent">Tab 3 is always last!</div>
+						<div id="tab2" class="nfb_tabcontent">
+							<fieldset>
+								<label for="shopgoodstype_id"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品类型<!--</lang>--></label>
+								<p style="padding-left:8px;">
+									<select name="shopgoodstype_id" id="shopgoodstype_id" onchange="getShopattributeForm(<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_id}--><!--<else/>-->0<!--</if>-->);">
+									<option value="0">请选择商品类型</option>
+									<!--<foreach for=arrShopgoodstypes value=oShopgoodstype>-->
+									<option value="<!--{$oShopgoodstype['shopgoodstype_id']}-->" <!--{if isset( $oValue ) && $oShopgoodstype['shopgoodstype_id']==$oValue['shopgoodstype_id']}-->selected<!--{/if}-->><!--{$oShopgoodstype['shopgoodstype_name']}--></option>
+									<!--</foreach>-->
+									</select>
+								</p>
+								<div class="clear description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->选择商品类型,这样就可以填写商品属性值<!--</lang>--></div>
+							</fieldset>
+							<div id="shopattribute_box">
+							</div>
+						</div>
 						<div id="tab3" class="nfb_tabcontent">
 							<fieldset>
 								<label for="shopgoods_description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品详细描述<!--</lang>--></label>
-								<p style="padding-left:10px;"><textarea name="shopgoods_description" id="shopgoods_description" style="width:90%;height:400px;visibility:hidden;"><!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_description}--><!--</if>--></textarea></p>
+								<div id="shopgoodsdescription-media-box" class="common-media-box">
+									<a href="javascript:void(0);" class="face-icon icon_add_face" >表情</a> 
+									<a href="javascript:void(0);" onclick="globalAddattachment('insertShopgoodsdescriptionattachment');" class="icon_add_img">媒体</a>
+									<a href="javascript:void(0);" onclick="addVideo('insertShopgoodsdescriptionvideo');" class="icon_add_video" >视频</a>
+									<a href="javascript:void(0);" onclick="addMusic('insertShopgoodsdescriptionmusic');" class="icon_add_music">音乐</a>
+								</div>
+								<p style="padding-left:10px;">
+									<textarea name="shopgoods_description" id="shopgoods_description" style="width:90%;height:400px;visibility:hidden;"><!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_description}--><!--</if>--></textarea>
+								</p>
 								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品的详细内容，商品详细描述可以增加用户对商品的购买兴趣<!--</lang>--><br/>
 								<!--<lang package='Template/Default/Common'>-->系统变量替换: {site_name} 网站标题,{site_description} 网站描述,{site_url} 站点信息,{time} 当前时间,{user_name} 登录用户,{user_nikename} 登录用户昵称,{admin_email} 系统管理员邮箱<!--</lang>--></div>
 							</fieldset>
 						</div>
-						<div id="tab4" class="nfb_tabcontent">Tab 3 is always last!</div>
+						<div id="tab4" class="nfb_tabcontent">
+							<!--{if isset($arrUploadgallerys) && is_array($arrUploadgallerys)}-->
+							<fieldset>
+								<label for="shopgoods_promoteprice"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->已上传商品相册图片<!--</lang>--></label>
+								<p style="padding-left:8px;">
+									<!--<foreach for=arrUploadgallerys value=oUploadgallery>-->
+									<div id="gallery_<!--{$oUploadgallery['shopgoodsgallery_id']}-->" style="float:left; text-align:center; border: 1px solid #DADADA; margin: 4px; padding:4px;">
+										[<a href="javascript:void(0);" onclick="deleteGallery(<!--{$oUploadgallery['shopgoodsgallery_id']}-->);"><img src="<!--{:__TMPLPUB__}-->/Images/no.gif"/></a>]<br />
+										<a href="<!--{:Admin_Extend::index(array('controller'=>'shopgoods','action'=>'showimg','imgurl'=>$oUploadgallery['shopgoodsgallery_thumburl']))}-->" target="_blank">
+											<img src="<!--{:Shop_Extend::getShopgoodspath($oUploadgallery['shopgoodsgallery_thumburl'])}-->" width="100" height="100" border="0" />
+										</a><br />
+										<p><input title="商品相册图片名字" type="text" value="<!--{$oUploadgallery['shopgoodsgallery_name']}-->" size="15" name="galleryname[<!--{$oUploadgallery['shopgoodsgallery_id']}-->]" /></p>
+										<p><input title="商品相册图片描述" type="text" value="<!--{$oUploadgallery['shopgoodsgallery_description']}-->" size="15" name="gallerydescription[<!--{$oUploadgallery['shopgoodsgallery_id']}-->]" /></p>
+									</div>
+									<!--</foreach>-->
+								</p>
+								<div class="clear description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->这里可以对已经上传的商品相册图片进行管理<!--</lang>--></div>
+							</fieldset>
+							<!--{/if}-->
+							<fieldset>
+								<label for="shopgoods_promoteprice"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->上传商品相册图片<!--</lang>--></label>
+								<p><input name="shopgoodsgallery[]" type="file"></p>
+								<p><input name="shopgoodsgallery[]" type="file"></p>
+								<p><input name="shopgoodsgallery[]" type="file"></p>
+								<p><input name="shopgoodsgallery[]" type="file"></p>
+								<p><input name="shopgoodsgallery[]" type="file"></p>
+								<p><input name="shopgoodsgallery[]" type="file"></p>
+								<p><input name="shopgoodsgallery[]" type="file"></p>
+								<p><input name="shopgoodsgallery[]" type="file"></p>
+								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->通过这个上传新的商品相册图片<!--</lang>--></div>
+							</fieldset>
+						</div>
 					</div>
 				</div>
 				<footer>

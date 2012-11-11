@@ -155,11 +155,11 @@ class UploadFile{
 				$sRealFilename=strripos($sRealFilename,'.')?G::subString($sRealFilename,0,strrpos($sRealFilename,'.')):$sRealFilename;
 
 				for($nI=0,$nLen=count($arrThumbWidth);$nI<$nLen;$nI++){
-					$sThumbname=$sThumbPath.'/'.$arrThumbPrefix[$nI].$sRealFilename.$arrThumbSuffix[$nI].'.'.$arrFile['extension'];
+					$sThumbname=$sThumbPath.'/'.(isset($arrThumbPrefix[$nI])?$arrThumbPrefix[$nI]:$arrThumbPrefix[0]).$sRealFilename.(isset($arrThumbSuffix[$nI])?$arrThumbSuffix[$nI]:$arrThumbSuffix[0]).'.'.$arrFile['extension'];
 					if($this->_bThumbFixed===true){
-						Image::thumb($sFilename,$sThumbname,'',$arrThumbWidth[$nI],$arrThumbHeight[$nI],true,true);
+						Image::thumb($sFilename,$sThumbname,'',(isset($arrThumbWidth[$nI])?$arrThumbWidth[$nI]:$arrThumbWidth[0]),(isset($arrThumbHeight[$nI])?$arrThumbHeight[$nI]:$arrThumbHeight[0]),true,true);
 					}else{
-						Image::thumb($sFilename,$sThumbname,'',$arrThumbWidth[$nI],$arrThumbHeight[$nI],true);
+						Image::thumb($sFilename,$sThumbname,'',(isset($arrThumbWidth[$nI])?$arrThumbWidth[$nI]:$arrThumbWidth[0]),(isset($arrThumbHeight[$nI])?$arrThumbHeight[$nI]:$arrThumbHeight[0]),true);
 					}
 				}
 
@@ -389,12 +389,12 @@ class UploadFile{
 		}
 
 		if(!$this->checkType($arrFile['type'])){// 检查文件Mime类型
-			$this->_sError=Dyhb::L('上传文件MIME类型不允许！','__DYHB__@NetDyhb');
+			$this->_sError=Dyhb::L('上传文件MIME类型不允许！','__DYHB__@NetDyhb').'<br/>'.$arrFile['type'];
 			return false;
 		}
 
 		if(!$this->checkExt($arrFile['extension'])){// 检查文件类型
-			$this->_sError=Dyhb::L('上传文件类型不允许!','__DYHB__@NetDyhb');
+			$this->_sError=Dyhb::L('上传文件类型不允许!','__DYHB__@NetDyhb').'<br/>'.$arrFile['extension'];
 			return false;
 		}
 

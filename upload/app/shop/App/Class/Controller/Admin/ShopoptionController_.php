@@ -16,36 +16,43 @@ class ShopoptionController extends InitController{
 			//$arrMap['user_id']=$nUid;
 		//}
 	}
-
-	public function index($sModel=null,$bDisplay=true){
-		Core_Extend::loadCache("shop_option");
-		
-		$arrOptionData=$GLOBALS['_cache_']['shop_option'];
-		
-		$this->assign("nId",intval(G::getGpc("id",'G')));
-		$this->assign('arrOptions',$arrOptionData);
-		$this->display(Admin_Extend::template('shop','shopoptioninfo/index'));
-	}
-
-	public function basic(){
-		Core_Extend::loadCache("shop_option");
-		
-		$arrOptionData=$GLOBALS['_cache_']['shop_option'];
-		
-		$this->assign("nId",intval(G::getGpc("id",'G')));
-		$this->assign('arrOptions',$arrOptionData);
-		$this->display(Admin_Extend::template('shop','shopoptioninfo/index'));
-	}
 	
-	public function show(){
+	public function index($sModel=null,$bDisplay=true){
+		$this->get_option_();
+
+		$this->display(Admin_Extend::template('shop','shopoption/index'));
+	}
+
+	public function shopgoods_img(){
+		$this->get_option_();
+
+		$this->display(Admin_Extend::template('shop','shopoption/shopgoodsimg'));
+	}
+
+	protected function get_option_(){
 		Core_Extend::loadCache("shop_option");
-		
 		$arrOptionData=$GLOBALS['_cache_']['shop_option'];
 		
 		$this->assign("nId",intval(G::getGpc("id",'G')));
 		$this->assign('arrOptions',$arrOptionData);
-		$this->display(Admin_Extend::template('shop','shopoptioninfo/index'));
 	}
+
+	public function update_option(){
+		$arrOptions=G::getGpc('options','P');
+
+		foreach($arrOptions as $sKey=>$val){
+			$val=trim($val);
+			
+			$oOptionModel=ShopoptionModel::F('shopoption_name=?',$sKey)->getOne();
+			$oOptionModel->shopoption_value=G::html($val);
+			$oOptionModel->save(0,'update');
+		}
+
+		ShopCache_Extend::updateCache("option");
+
+		$this->S(Dyhb::L('配置更新成功','__APP_ADMIN_LANG__@Controller/Shopoption'));
+	}
+
 	/*public function dateline($sType='Y',$oValue=false){
 		$sDate='';
 		if($oValue===false){

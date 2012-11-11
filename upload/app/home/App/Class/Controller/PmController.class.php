@@ -288,6 +288,9 @@ class PmController extends InitController{
 			case 'system':
 				return '公共短消息';
 				break;
+			default:
+				return '私人短消息';
+				break;
 		}
 	}
 

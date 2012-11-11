@@ -36,6 +36,10 @@ class UploadFileForUploadify extends UploadFile{
 
 		$arrFileInfo=array();
 		$bIsUpload=false;
+
+		if(!isset($_FILES[$this->_sUploadifyDataName])){
+			Dyhb::E(sprintf('File input name %s not exists',$this->_sUploadifyDataName));
+		}
 		$arrFile=$_FILES[$this->_sUploadifyDataName];
 		if(!empty($arrFile['name'])){
 			$this->_sLastInput=$arrFile['name'];

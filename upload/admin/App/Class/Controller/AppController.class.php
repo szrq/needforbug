@@ -50,6 +50,7 @@ class AppController extends InitController{
 			// 查找模块
 			if(empty($sController)){
 				$sController=ucfirst($arrAppModel['app_identifier']).'mainController';
+				$_GET['controller']=strtolower($arrAppModel['app_identifier']).'main';
 			}else{
 				$sController=ucfirst($sController).'Controller';
 			}
@@ -57,6 +58,7 @@ class AppController extends InitController{
 			// 查找方法
 			if(empty($sAction)){
 				$sAction='index';
+				$_GET['action']='index';
 			}
 			
 			$sControllerPath=NEEDFORBUG_PATH.'/app/'.$arrAppModel['app_identifier'].'/App/Class/Controller/Admin/'.$sController.'_.php';

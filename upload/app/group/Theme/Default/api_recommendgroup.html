@@ -1,7 +1,7 @@
 <!--<foreach for=arrGroups value=oGroup>-->
 <li>
 	<a href="<!--{:Group_Extend::getGroupurl($oGroup)}-->" class="grouplist_pic">
-		<img src="<!--{:Group_Extend::getGroupIcon($oGroup['group_icon'])}-->" alt="<!--{$oGroup['group_nikename']}-->" width="48" height="48" />
+		<img src="<!--{:Group_Extend::getGroupIcon($oGroup['group_icon'])}-->" alt="<!--{$oGroup['group_nikename']}-->" width="48" height="48" class="thumbnail"/>
 	</a>
 	<div class="grouplist_txt">
 		<h3><a href="<!--{:Group_Extend::getGroupurl($oGroup)}-->" ><!--{$oGroup['group_nikename']}--></a></h3>
