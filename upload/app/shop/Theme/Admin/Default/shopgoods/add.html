@@ -56,13 +56,12 @@ function getShopattributeForm(nShopgoodsid,nReturnmessage){
 	}
 	
 	var nShopgoodstype=$('#shopgoodstype_id').val();
-	if(nShopgoodsid>0){
-		Dyhb.AjaxSend(D.U('app/config?action=get_attribute&return_message='+nReturnmessage),'id=<!--{$_GET['id']}-->&ajax=1'+'&shopgoods_id='+nShopgoodsid+'&controller=shopgoods&shopgoodstype_id='+nShopgoodstype,'',function(data,status){
-			if(status==1){
-				$('#shopattribute_box').html(data.content);
-			}
-		});
-	}
+	
+	Dyhb.AjaxSend(D.U('app/config?action=get_attribute&return_message='+nReturnmessage),'id=<!--{$_GET['id']}-->&ajax=1'+'&shopgoods_id='+nShopgoodsid+'&controller=shopgoods&shopgoodstype_id='+nShopgoodstype,'',function(data,status){
+		if(status==1){
+			$('#shopattribute_box').html(data.content);
+		}
+	});
 }
 <!--{/script}-->
 
@@ -194,7 +193,7 @@ function getShopattributeForm(nShopgoodsid,nReturnmessage){
 							</fieldset>
 						</div>
 						<div id="tab4" class="nfb_tabcontent">
-							<!--{if is_array($arrUploadgallerys)}-->
+							<!--{if isset($arrUploadgallerys) && is_array($arrUploadgallerys)}-->
 							<fieldset>
 								<label for="shopgoods_promoteprice"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->已上传商品相册图片<!--</lang>--></label>
 								<p style="padding-left:8px;">

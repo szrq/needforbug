@@ -24,7 +24,7 @@ class Image{
 		}
 	}
 
-	static public function thumb($sImage,$sThumbName,$sType='',$nMaxWidth=200,$nMaxHeight=50,$bInterlace=true,$bFixed=false){
+	static public function thumb($sImage,$sThumbName,$sType='',$nMaxWidth=200,$nMaxHeight=50,$bInterlace=true,$bFixed=false,$nQuality=100){
 		// 获取原图信息
 		$arrInfo=self::getImageInfo($sImage);
 
@@ -80,7 +80,7 @@ class Image{
 			}
 
 			$sImageFun='image'.($sType=='jpg'?'jpeg':$sType);// 生成图片
-			$sImageFun($oThumbImg,$sThumbName);
+			$sImageFun($oThumbImg,$sThumbName,$nQuality);
 			imagedestroy($oThumbImg);
 			imagedestroy($oSrcImg);
 
