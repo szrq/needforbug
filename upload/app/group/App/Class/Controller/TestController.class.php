@@ -50,4 +50,7 @@ class TestController extends InitController{
 	public function index13(){
 		$this->display('test+index13');
 	}
+	public function index14(){
+		$this->display('test+index14');
+	}
 		}
