@@ -342,6 +342,63 @@ class ShopgoodsController extends InitController{
 		
 		$this->assign('arrShopgoodstypes',$arrShopgoodstypes);
 	}
+	
+	public function get_attribute(){
+		$nShopgoodsid=intval(G::getGpc('shopgoods_id','G'));
+		$nShopgoodstypeid=intval(G::getGpc('shopgoodstype_id','G'));
+		
+		// 判断商品是否存在
+		$oShopgoods=ShopgoodsModel::F('shopgoods_id=?',$nShopgoodsid)->getOne();
+		if(empty($oShopgoods['shopgoods_id'])){
+			$this->E('你请求的商品不存在');
+		}
+		
+		$arrData=array();
+		if($nShopgoodstypeid<1){
+			$arrData['content']='';
+		}
+		
+		$oShopgoodstype=ShopgoodstypeModel::F('shopgoodstype_id=?',$nShopgoodstypeid)->getOne();
+		if(empty($oShopgoodstype['shopgoodstype_id'])){
+			$this->E('你请求的商品类型不存在');
+		}
+		
+		$arrShopattributes=ShopattributeModel::F('shopgoodstype_id=?',$nShopgoodstypeid)->getAll();
+		if(!is_array($arrShopattributes)){
+			$arrData['content']='';
+		}
+		
+		$this->assign('arrShopattributes',$arrShopattributes);
+		$sAttributecontent=$this->display(Admin_Extend::template('shop','shopgoods/attribute'),'','text/html',true);
+		$arrData['content']=$sAttributecontent;
+	
+		$this->A($arrData,'加载商品属性成功');
+	}
+	
+	public function parser_select($sValue){
+		$arrData=array();
+		
+		$arrValue=explode("\n",$sValue);
+		if(is_array($arrValue)){
+			foreach($arrValue as $sKey=>$sOption){
+				$sOption=trim($sOption);
+			
+				if(strpos($sOption,'=')===FALSE){
+					$sKey=$sOption;
+				}else{
+					$arrTemp=explode('=',$sOption);
+					$sKey=trim($arrTemp[0]);
+					$sOption=trim($arrTemp[1]);
+				}
+				
+				$sKey=htmlspecialchars($sKey);
+				
+				$arrData[$sKey]=$sOption;
+			}
+		}
+		
+		return $arrData;
+	}
 
 	/*public function dateline($sType='Y',$oValue=false){
 		$sDate='';

@@ -1,0 +1,43 @@
+<script type="text/javascript" src="<!--{:__PUBLIC__}-->/js/bigcolorpicker/js/jquery.bigcolorpicker.min.js"></script>
+<!--<load file="<!--{:__PUBLIC__}-->/js/bigcolorpicker/css/jquery.bigcolorpicker.css" />-->
+
+<!--{script}-->
+$(function(){
+	$("img[f='color-img']").bigColorpicker(function(el,color){
+		var id=$(el).attr("data-target");
+		$("#"+id).val(color);
+		$("#"+id).css({"color":color});
+	});
+});
+<!--{/script}-->
+
+			<!--<foreach for=arrShopattributes key=nKey value=oShopattribute>-->
+			<fieldset>
+				<label for=""><!--{$oShopattribute['shopattribute_name']}--></label>
+				<input name="shopattributeid_list[]" value="<!--{$oShopattribute['shopattribute_id']}-->" type="hidden">
+				<!--{if in_array($oShopattribute['shopattribute_inputtype'],array('number','text'))}-->
+				<input name="shopattributevalue_list[]" value="" size="40" type="text">
+				<!--{elseif $oShopattribute['shopattribute_inputtype']=='text'}-->
+				<input name="shopattributevalue_list[]" value="" size="40" type="text">
+				<!--{elseif $oShopattribute['shopattribute_inputtype']=='textarea'}-->
+				<textarea name="shopattributevalue_list[]" cols="70" rows="5"></textarea>
+				<!--{elseif $oShopattribute['shopattribute_inputtype']=='radio'}-->
+				<p style="padding-left:8px;">
+					<input type="radio" name="shopattributevalue_list[]" value="1"/><!--<lang package='Template/Default/Common'>-->是<!--</lang>-->&nbsp;
+					<input type="radio" name="shopattributevalue_list[]" value="0" checked="checked"/><!--<lang package='Template/Default/Common'>-->否<!--</lang>-->
+				</p>
+				<!--{elseif $oShopattribute['shopattribute_inputtype']=='color'}-->
+				<p style="padding-left:8px;">
+					<input class="left" type="text" name="shopattributevalue_list[]" id="shopattributevalue_<!--{$oShopattribute['shopattribute_id']}-->" size="40" value="" style="color:;"/>
+					<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="shopattributevalue_<!--{$oShopattribute['shopattribute_id']}-->"/>
+				</p>
+				<!--{elseif in_array($oShopattribute['shopattribute_inputtype'],array('select','selects'))}-->
+				<select name="shopattributevalue_list" <!--{if $oShopattribute['shopattribute_inputtype']=='selects'}-->multiple="multiple" size="10" style="height:120px;"<!--{/if}-->>
+					<!--{~$arrSelectoption=$TheController->parser_select($oShopattribute['shopattribute_values'])}-->
+					<!--<foreach for=arrSelectoption key=sK value=sSelectoption>-->
+					<option value="<!--{$sK}-->"><!--{$sSelectoption}--></option>
+					<!--</foreach>-->
+				</select>
+				<!--{/if}-->
+			</fieldset>
+			<!--</foreach>-->

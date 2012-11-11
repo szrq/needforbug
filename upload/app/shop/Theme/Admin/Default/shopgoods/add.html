@@ -46,6 +46,18 @@ function insertShopgoodsdescriptionmusic(sContent){
 function insertShopgoodsdescriptionvideo(sContent){
 	insertVideo(editor,sContent);
 }
+
+function getShopattributeForm(nShopgoodsid){
+	var nShopgoodstype=$('#shopgoodstype_id').val();
+
+	if(nShopgoodsid>0){
+		Dyhb.AjaxSend(D.U('app/config?action=get_attribute'),'id=<!--{$_GET['id']}-->&ajax=1'+'&shopgoods_id='+nShopgoodsid+'&controller=shopgoods&shopgoodstype_id='+nShopgoodstype,'',function(data,status){
+			if(status==1){
+				$('#shopattribute_box').html(data.content);
+			}
+		});
+	}
+}
 <!--{/script}-->
 
 	<section class="secondary_bar">
@@ -147,7 +159,7 @@ function insertShopgoodsdescriptionvideo(sContent){
 							<fieldset>
 								<label for="shopgoodstype_id"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品类型<!--</lang>--></label>
 								<p style="padding-left:8px;">
-									<select name="goods_type" onchange="getAttrList(38)">
+									<select name="shopgoodstype_id" id="shopgoodstype_id" onchange="getShopattributeForm(<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_id}--><!--<else/>-->0<!--</if>-->);">
 									<option value="0">请选择商品类型</option>
 									<!--<foreach for=arrShopgoodstypes value=oShopgoodstype>-->
 									<option value="<!--{$oShopgoodstype['shopgoodstype_id']}-->"><!--{$oShopgoodstype['shopgoodstype_name']}--></option>
@@ -156,6 +168,8 @@ function insertShopgoodsdescriptionvideo(sContent){
 								</p>
 								<div class="clear description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->选择商品类型,这样就可以填写商品属性值<!--</lang>--></div>
 							</fieldset>
+							<div id="shopattribute_box">
+							</div>
 						</div>
 						<div id="tab3" class="nfb_tabcontent">
 							<fieldset>
