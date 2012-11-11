@@ -32,7 +32,8 @@ $(function(){
 					<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="shopattributevalue_<!--{$oShopattribute['shopattribute_id']}-->"/>
 				</p>
 				<!--{elseif in_array($oShopattribute['shopattribute_inputtype'],array('select','selects'))}-->
-				<select name="shopattributevalue_list" <!--{if $oShopattribute['shopattribute_inputtype']=='selects'}-->multiple="multiple" size="10" style="height:120px;"<!--{/if}-->>
+				<select name="shopattributevalue_list[]" <!--{if $oShopattribute['shopattribute_inputtype']=='selects'}-->multiple="multiple" size="10" style="height:120px;"<!--{/if}-->>
+					<option value="" selected>请选择</>
 					<!--{~$arrSelectoption=$TheController->parser_select($oShopattribute['shopattribute_values'])}-->
 					<!--<foreach for=arrSelectoption key=sK value=sSelectoption>-->
 					<option value="<!--{$sK}-->"><!--{$sSelectoption}--></option>

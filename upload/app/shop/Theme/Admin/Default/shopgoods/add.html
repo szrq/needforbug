@@ -10,6 +10,9 @@ $(document).ready(function() {
 	$("#shopgoods_tab ul").idTabs();
 	editor=loadEditor('shopgoods_description');
 	$('a.face-icon').showEmotion({input:editor});
+	<!--{if isset( $oValue ) && $oValue['shopgoodstype_id']}-->
+	getShopattributeForm(<!--{$oValue['shopgoods_id']}-->,0);
+	<!--{/if}-->
 });
 
 function checkShopgoods(){
@@ -47,11 +50,14 @@ function insertShopgoodsdescriptionvideo(sContent){
 	insertVideo(editor,sContent);
 }
 
-function getShopattributeForm(nShopgoodsid){
+function getShopattributeForm(nShopgoodsid,nReturnmessage){
+	if(typeof(nReturnmessage)==='undefined'){
+		nReturnmessage=1;
+	}
+	
 	var nShopgoodstype=$('#shopgoodstype_id').val();
-
 	if(nShopgoodsid>0){
-		Dyhb.AjaxSend(D.U('app/config?action=get_attribute'),'id=<!--{$_GET['id']}-->&ajax=1'+'&shopgoods_id='+nShopgoodsid+'&controller=shopgoods&shopgoodstype_id='+nShopgoodstype,'',function(data,status){
+		Dyhb.AjaxSend(D.U('app/config?action=get_attribute&return_message='+nReturnmessage),'id=<!--{$_GET['id']}-->&ajax=1'+'&shopgoods_id='+nShopgoodsid+'&controller=shopgoods&shopgoodstype_id='+nShopgoodstype,'',function(data,status){
 			if(status==1){
 				$('#shopattribute_box').html(data.content);
 			}
@@ -162,7 +168,7 @@ function getShopattributeForm(nShopgoodsid){
 									<select name="shopgoodstype_id" id="shopgoodstype_id" onchange="getShopattributeForm(<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_id}--><!--<else/>-->0<!--</if>-->);">
 									<option value="0">请选择商品类型</option>
 									<!--<foreach for=arrShopgoodstypes value=oShopgoodstype>-->
-									<option value="<!--{$oShopgoodstype['shopgoodstype_id']}-->"><!--{$oShopgoodstype['shopgoodstype_name']}--></option>
+									<option value="<!--{$oShopgoodstype['shopgoodstype_id']}-->" <!--{if isset( $oValue ) && $oShopgoodstype['shopgoodstype_id']==$oValue['shopgoodstype_id']}-->selected<!--{/if}-->><!--{$oShopgoodstype['shopgoodstype_name']}--></option>
 									<!--</foreach>-->
 									</select>
 								</p>
