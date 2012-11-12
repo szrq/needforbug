@@ -55,7 +55,7 @@ class InitController extends Controller{
 				$arrMap[$sField]=$_REQUEST[$sField];
 			}
 		}
-
+		
 		return $arrMap;
 	}
 
