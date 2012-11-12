@@ -10,6 +10,9 @@ require(NEEDFORBUG_PATH.'/source/function/Core_Extend.class.php');
 /** 导入公用模型 */
 Dyhb::import(NEEDFORBUG_PATH.'/source/model');
 
+/** 导入公用控制器 */
+Dyhb::import(NEEDFORBUG_PATH.'/source/controller');
+
 /** 定义应用的语言包 */
 define('__APP_ADMIN_LANG__',NEEDFORBUG_PATH.'/app/'.APP_NAME.'/App/Lang/Admin');
 
