@@ -123,12 +123,17 @@ class ShopgoodsController extends InitController{
 
 		if(!empty($arrShopattributeidlist)){
 			foreach($arrShopattributeidlist as $nKey=>$nShopattributeid){
-				$oShopattributevalue=ShopattributevalueModel::F('shopattributevalue_id=? AND shopgoods_id=?',$nShopattributeid,$nShopgoodsid)->getOne();
+				$oShopattributevalue=ShopattributevalueModel::F('shopattribute_id=? AND shopgoods_id=?',$nShopattributeid,$nShopgoodsid)->getOne();
 				if(empty($oShopattributevalue['shopattributevalue_id'])){
 					$oShopattributevalue=new ShopattributevalueModel();
 				}
 
-				$sShopattributevalue=isset($arrShopattributevaluelist[$nKey])?$arrShopattributevaluelist[$nKey]:'';
+				$sShopattributevalue=isset($arrShopattributevaluelist[$nShopattributeid])?$arrShopattributevaluelist[$nShopattributeid]:'';
+				
+				if(is_array($sShopattributevalue)){
+					$sShopattributevalue=serialize($sShopattributevalue);
+				}
+
 				$oShopattributevalue->shopattribute_value=trim($sShopattributevalue);
 				$oShopattributevalue->shopgoods_id=$nShopgoodsid;
 				$oShopattributevalue->shopattribute_id=$nShopattributeid;
@@ -326,8 +331,9 @@ class ShopgoodsController extends InitController{
 	}
 
 	protected function aInsert($nId=null){
-		//$oGroup=Dyhb::instance('GroupModel');
-		//$oGroup->afterInsert($nId,intval(G::getGpc('group_categoryid','P')));
+		
+		// 更新商品属性值
+		$this->update_attributevalue_($nId);
 	}
 
 	protected function strtotime_(){
@@ -383,10 +389,10 @@ class ShopgoodsController extends InitController{
 		$nReturnmessage=intval(G::getGpc('return_message','G'));
 		
 		// 判断商品是否存在
-		$oShopgoods=ShopgoodsModel::F('shopgoods_id=?',$nShopgoodsid)->getOne();
-		if(empty($oShopgoods['shopgoods_id'])){
-			$this->E('你请求的商品不存在');
-		}
+		//$oShopgoods=ShopgoodsModel::F('shopgoods_id=?',$nShopgoodsid)->getOne();
+		//if(empty($oShopgoods['shopgoods_id'])){
+			//$this->E('你请求的商品不存在');
+		//}
 		
 		$arrData=array();
 		if($nShopgoodstypeid<1){
@@ -406,10 +412,12 @@ class ShopgoodsController extends InitController{
 				// 读取属性值
 				$arrShopattributevalueData=array();
 
-				$arrShopattributevalues=ShopattributevalueModel::F('shopattributevalue_id=? AND shopgoods_id',$nShopgoodstypeid,$nShopgoodsid)->getAll();
-				if(is_array($arrShopattributevalues)){
-					foreach($arrShopattributevalues as $oShopattributevalue){
-						$arrShopattributevalueData[$oShopattributevalue['shopattributevalue_id']]=$oShopattributevalue;
+				if($nShopgoodsid>0){
+					$arrShopattributevalues=ShopattributevalueModel::F('shopgoods_id',$nShopgoodsid)->getAll();
+					if(is_array($arrShopattributevalues)){
+						foreach($arrShopattributevalues as $oShopattributevalue){
+							$arrShopattributevalueData[$oShopattributevalue['shopattribute_id']]=$oShopattributevalue;
+						}
 					}
 				}
 
@@ -421,6 +429,25 @@ class ShopgoodsController extends InitController{
 		}
 	
 		$this->A($arrData,'加载商品属性成功',1,$nReturnmessage==1?1:0);
+	}
+	
+	public function get_attributevalue($arrShopattributevalueData,$nShopattributeid,$nShopattributeinputtype){
+		$sShopattributevalue='';
+
+		if(isset($arrShopattributevalueData[$nShopattributeid])){
+			$oShopattributevalue=$arrShopattributevalueData[$nShopattributeid];
+			$sShopattributevalue=$oShopattributevalue->shopattribute_value;
+		}
+		
+		if($nShopattributeinputtype=='number'){
+			$sShopattributevalue=intval($sShopattributevalue);
+		}
+		
+		if($nShopattributeinputtype=='selects'){
+			$sShopattributevalue=unserialize($sShopattributevalue);
+		}
+
+		return $sShopattributevalue;
 	}
 	
 	public function parser_select($sValue){
