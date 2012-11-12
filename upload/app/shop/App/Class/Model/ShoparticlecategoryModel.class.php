@@ -24,5 +24,20 @@ class ShoparticlecategoryModel extends Model{
 	static function M(){
 		return ModelMeta::instance(__CLASS__);
 	}
+	
+	public function getShoparticlecategory(){
+		return self::F()->order('shoparticlecategory_id ASC,shoparticlecategory_sort DESC')->all()->query();
+	}
+	
+	public function getShoparticlecategoryTree(){
+		$arrShoparticlecategorys=$this->getShoparticlecategory();
+	
+		$oShoparticlecategoryTree=new TreeCategory();
+		foreach($arrShoparticlecategorys as $oCategory){
+			$oShoparticlecategoryTree->setNode($oCategory->shoparticlecategory_id,$oCategory->shoparticlecategory_parentid,$oCategory->shoparticlecategory_name);
+		}
+	
+		return $oShoparticlecategoryTree;
+	}
 
 }
