@@ -66,7 +66,7 @@ class ShopgoodsController extends InitController{
 		$this->bAdd_();
 
 		// 读取商品相册图片
-		$arrUploadgallerys=ShopgoodsgalleryModel::F('shopgoods_id=?',intval(G::getGpc('value','G')))->getAll();
+		$arrUploadgallerys=ShopgoodsgalleryModel::F('shopgoods_id=?',intval(G::getGpc('value','G')))->order('shopgoodsgallery_id DESC')->getAll();
 		$this->assign('arrUploadgallerys',$arrUploadgallerys);
 		
 		$this->shopgoodstype_();
@@ -257,7 +257,7 @@ class ShopgoodsController extends InitController{
 					'upload_path'=>NEEDFORBUG_PATH.'/data/upload/app/shop/shopgoods',
 					'upload_create_thumb'=>1,
 					'flash_inputname'=>'shopgoodsimg',
-					'upload_thumb_size'=>$arrShopgoodsthumbimgsizes[0].','.$arrShopgoodsthumbimgsizes[0].'|'.$arrShopgoodsthumbimgsizes[1].','.$arrShopgoodsthumbimgsizes[1],
+					'upload_thumb_size'=>$arrShopgoodsthumbimgsizes[0].','.$arrShopgoodsimgsizes[0].'|'.$arrShopgoodsthumbimgsizes[1].','.$arrShopgoodsimgsizes[1],
 					'upload_thumb'=>'thumb'.$arrShopgoodsthumbimgsizes[0].'_,thumb'.$arrShopgoodsimgsizes[0].'_',
 					'upload_single'=>1,
 				);
