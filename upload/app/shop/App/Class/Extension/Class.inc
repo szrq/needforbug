@@ -1,1 +1,1 @@
-a:2:{s:16:"ShopCache_Extend";s:26:"ShopCache_Extend.class.php";s:11:"Shop_Extend";s:21:"Shop_Extend.class.php";}
+a:3:{s:16:"ShopCache_Extend";s:26:"ShopCache_Extend.class.php";s:16:"Shopgoods_Extend";s:26:"Shopgoods_Extend.class.php";s:11:"Shop_Extend";s:21:"Shop_Extend.class.php";}

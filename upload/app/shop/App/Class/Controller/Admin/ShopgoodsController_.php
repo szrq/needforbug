@@ -388,12 +388,6 @@ class ShopgoodsController extends InitController{
 		$nShopgoodstypeid=intval(G::getGpc('shopgoodstype_id','G'));
 		$nReturnmessage=intval(G::getGpc('return_message','G'));
 		
-		// 判断商品是否存在
-		//$oShopgoods=ShopgoodsModel::F('shopgoods_id=?',$nShopgoodsid)->getOne();
-		//if(empty($oShopgoods['shopgoods_id'])){
-			//$this->E('你请求的商品不存在');
-		//}
-		
 		$arrData=array();
 		if($nShopgoodstypeid<1){
 			$arrData['content']='';
@@ -413,7 +407,7 @@ class ShopgoodsController extends InitController{
 				$arrShopattributevalueData=array();
 
 				if($nShopgoodsid>0){
-					$arrShopattributevalues=ShopattributevalueModel::F('shopgoods_id',$nShopgoodsid)->getAll();
+					$arrShopattributevalues=ShopattributevalueModel::F('shopgoods_id=?',$nShopgoodsid)->getAll();
 					if(is_array($arrShopattributevalues)){
 						foreach($arrShopattributevalues as $oShopattributevalue){
 							$arrShopattributevalueData[$oShopattributevalue['shopattribute_id']]=$oShopattributevalue;
@@ -429,50 +423,6 @@ class ShopgoodsController extends InitController{
 		}
 	
 		$this->A($arrData,'加载商品属性成功',1,$nReturnmessage==1?1:0);
-	}
-	
-	public function get_attributevalue($arrShopattributevalueData,$nShopattributeid,$nShopattributeinputtype){
-		$sShopattributevalue='';
-
-		if(isset($arrShopattributevalueData[$nShopattributeid])){
-			$oShopattributevalue=$arrShopattributevalueData[$nShopattributeid];
-			$sShopattributevalue=$oShopattributevalue->shopattribute_value;
-		}
-		
-		if($nShopattributeinputtype=='number'){
-			$sShopattributevalue=intval($sShopattributevalue);
-		}
-		
-		if($nShopattributeinputtype=='selects'){
-			$sShopattributevalue=unserialize($sShopattributevalue);
-		}
-
-		return $sShopattributevalue;
-	}
-	
-	public function parser_select($sValue){
-		$arrData=array();
-		
-		$arrValue=explode("\n",$sValue);
-		if(is_array($arrValue)){
-			foreach($arrValue as $sKey=>$sOption){
-				$sOption=trim($sOption);
-			
-				if(strpos($sOption,'=')===FALSE){
-					$sKey=$sOption;
-				}else{
-					$arrTemp=explode('=',$sOption);
-					$sKey=trim($arrTemp[0]);
-					$sOption=trim($arrTemp[1]);
-				}
-				
-				$sKey=htmlspecialchars($sKey);
-				
-				$arrData[$sKey]=$sOption;
-			}
-		}
-		
-		return $arrData;
 	}
 
 	/*public function dateline($sType='Y',$oValue=false){
