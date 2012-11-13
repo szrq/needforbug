@@ -107,6 +107,11 @@ function getShopattributeForm(nShopgoodsid,nReturnmessage){
 								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品名字最大字符为120<!--</lang>--></div>
 							</fieldset>
 							<fieldset>
+								<label for="shopgoods_sn"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品货号<!--</lang>--></label>
+								<input type="text" name="shopgoods_sn" id="shopgoods_sn" size="40" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_sn}--><!--</if>-->"/>
+								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->如果不输入商品货号，系统将自动创建商品货号<!--</lang>--></div>
+							</fieldset>
+							<fieldset>
 								<label for="shopgoods_name"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品分类<!--</lang>--><span class="require-field">*</span></label>
 								<select name="shopcategory_id" id="shopcategory_id" >
 									<option value="0">- <!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->请选择分类<!--</lang>--> -</option>
@@ -142,8 +147,8 @@ function getShopattributeForm(nShopgoodsid,nReturnmessage){
 								<input type="file" name="shopgoodsimg" id="shopgoodsimg" size="40" value=""/>
 								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品图片可以生成商品缩略图片<!--</lang>-->
 									<!--<if condition="isset( $oValue ) && !empty($oValue['shopgoods_img'])">-->
-									<div>推荐大小<!--{$arrOptionData['shopgoods_imgsize']}-->（<a href="<!--{:Admin_Extend::base(array('controller'=>'shopoption','action'=>'shopgoods_img'))}-->">设置尺寸</a>&nbsp;|&nbsp;<a href="<!--{:Shop_Extend::getShopgoodspath($oValue['shopgoods_originalimg'])}-->" target="_blank">查看原始高清大图</a>）<br/>
-										<a href="<!--{:Admin_Extend::index(array('controller'=>'shopgoods','action'=>'showimg','imgurl'=>$oValue['shopgoods_img']))}-->" target="_blank" title="查看全图"><img width="<!--{$arrShopgoodsimgsizes[0]}-->" height="<!--{$arrShopgoodsimgsizes[1]}-->" src="<!--{:Shop_Extend::getShopgoodspath($oValue['shopgoods_img'])}-->" border="0"></a>
+									<div>推荐大小<!--{$arrOptionData['shopgoods_imgsize']}-->（<a href="<!--{:Admin_Extend::base(array('controller'=>'shopoption','action'=>'shopgoods_img'))}-->">设置尺寸</a>&nbsp;|&nbsp;<a href="<!--{:Shopgoods_Extend::getShopgoodspath($oValue['shopgoods_originalimg'])}-->" target="_blank">查看原始高清大图</a>）<br/>
+										<a href="<!--{:Admin_Extend::index(array('controller'=>'shopgoods','action'=>'showimg','imgurl'=>$oValue['shopgoods_img']))}-->" target="_blank" title="查看全图"><img width="<!--{$arrShopgoodsimgsizes[0]}-->" height="<!--{$arrShopgoodsimgsizes[1]}-->" src="<!--{:Shopgoods_Extend::getShopgoodspath($oValue['shopgoods_img'])}-->" border="0"></a>
 									</div>
 									<!--</if>-->
 								</div>
@@ -154,8 +159,8 @@ function getShopattributeForm(nShopgoodsid,nReturnmessage){
 								<span style="margin-left:8px;"><input id="customthumb" name="customthumb" checked="true" value="1" onclick="customThumb(this.checked)" type="checkbox">自动生成商品缩略图</span>
 								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品缩略图片可以由商品图片生产,也可以由自己上传<!--</lang>-->
 									<!--<if condition="isset( $oValue ) && !empty($oValue['shopgoods_thumb'])">-->
-									<div>推荐大小<!--{$arrOptionData['shopgoods_thumbimgsize']}-->（<a href="<!--{:Admin_Extend::base(array('controller'=>'shopoption','action'=>'shopgoods_img'))}-->">设置尺寸</a>&nbsp;|&nbsp;<a href="<!--{:Shop_Extend::getShopgoodspath($oValue['shopgoods_originalimg'])}-->" target="_blank">查看原始高清大图</a>）<br/>
-										<a href="<!--{:Admin_Extend::index(array('controller'=>'shopgoods','action'=>'showimg','imgurl'=>$oValue['shopgoods_thumb']))}-->" target="_blank" title="查看全图"><img width="<!--{$arrShopgoodsthumbimgsizes[0]}-->" height="<!--{$arrShopgoodsthumbimgsizes[1]}-->" src="<!--{:Shop_Extend::getShopgoodspath($oValue['shopgoods_thumb'])}-->" border="0"></a>
+									<div>推荐大小<!--{$arrOptionData['shopgoods_thumbimgsize']}-->（<a href="<!--{:Admin_Extend::base(array('controller'=>'shopoption','action'=>'shopgoods_img'))}-->">设置尺寸</a>&nbsp;|&nbsp;<a href="<!--{:Shopgoods_Extend::getShopgoodspath($oValue['shopgoods_originalimg'])}-->" target="_blank">查看原始高清大图</a>）<br/>
+										<a href="<!--{:Admin_Extend::index(array('controller'=>'shopgoods','action'=>'showimg','imgurl'=>$oValue['shopgoods_thumb']))}-->" target="_blank" title="查看全图"><img width="<!--{$arrShopgoodsthumbimgsizes[0]}-->" height="<!--{$arrShopgoodsthumbimgsizes[1]}-->" src="<!--{:Shopgoods_Extend::getShopgoodspath($oValue['shopgoods_thumb'])}-->" border="0"></a>
 									</div>
 									<!--</if>-->
 								</div>
@@ -264,7 +269,7 @@ function getShopattributeForm(nShopgoodsid,nReturnmessage){
 									<div id="gallery_<!--{$oUploadgallery['shopgoodsgallery_id']}-->" style="float:left; text-align:center; border: 1px solid #DADADA; margin: 4px; padding:4px;">
 										[<a href="javascript:void(0);" onclick="deleteGallery(<!--{$oUploadgallery['shopgoodsgallery_id']}-->);"><img src="<!--{:__TMPLPUB__}-->/Images/no.gif"/></a>]<br />
 										<a href="<!--{:Admin_Extend::index(array('controller'=>'shopgoods','action'=>'showimg','imgurl'=>$oUploadgallery['shopgoodsgallery_thumburl']))}-->" target="_blank">
-											<img src="<!--{:Shop_Extend::getShopgoodspath($oUploadgallery['shopgoodsgallery_thumburl'])}-->" width="100" height="100" border="0" />
+											<img src="<!--{:Shopgoods_Extend::getShopgoodspath($oUploadgallery['shopgoodsgallery_thumburl'])}-->" width="100" height="100" border="0" />
 										</a><br />
 										<p><input title="商品相册图片名字" type="text" value="<!--{$oUploadgallery['shopgoodsgallery_name']}-->" size="15" name="galleryname[<!--{$oUploadgallery['shopgoodsgallery_id']}-->]" /></p>
 										<p><input title="商品相册图片描述" type="text" value="<!--{$oUploadgallery['shopgoodsgallery_description']}-->" size="15" name="gallerydescription[<!--{$oUploadgallery['shopgoodsgallery_id']}-->]" /></p>

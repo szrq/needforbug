@@ -6,6 +6,10 @@
 
 class Shopgoods_Extend{
 
+	public static function getShopgoodspath($sImgpath){
+		return __ROOT__.'/data/upload/app/shop/shopgoods/'.$sImgpath;
+	}
+
 	static public function getAttributevalue($arrShopattributevalueData,$nShopattributeid,$nShopattributeinputtype){
 		$sShopattributevalue='';
 

@@ -140,8 +140,8 @@ function commentComplete(data,status){
 				<div class="tab-content" style="padding-bottom:9px;">
 					<!--<foreach for=arrShopgoodsgallerysDatas key=nShopgoodsgalleryKey value=arrShopgoodsgalleryData>-->
 					<div class="tab-pane <!--{if $nShopgoodsgalleryKey==0}-->active<!--{/if}-->" id="tab_<!--{$nShopgoodsgalleryKey}-->">
-						<p><a href="<!--{:Shop_Extend::getShopgoodspath($arrShopgoodsgalleryData['imgoriginal'])}-->">
-								<img class="zxx_zoom_image" id="shopgoodsgallerymglass_<!--{$nShopgoodsgalleryKey}-->" src="<!--{:Shop_Extend::getShopgoodspath($arrShopgoodsgalleryData['imageurl'])}-->" alt="" height="350" width="100%">
+						<p><a href="<!--{:Shopgoods_Extend::getShopgoodspath($arrShopgoodsgalleryData['imgoriginal'])}-->">
+								<img class="zxx_zoom_image" id="shopgoodsgallerymglass_<!--{$nShopgoodsgalleryKey}-->" src="<!--{:Shopgoods_Extend::getShopgoodspath($arrShopgoodsgalleryData['imageurl'])}-->" alt="" height="350" width="100%">
 							</a>
 						</p>
 					</div>
@@ -151,7 +151,7 @@ function commentComplete(data,status){
 					<ul class="nav nav-tabs">
 						<!--<foreach for=arrShopgoodsgallerysDatas key=nShopgoodsgalleryKey value=arrShopgoodsgalleryData>-->
 						<li <!--{if $nShopgoodsgalleryKey==0}-->class="active"<!--{/if}-->>
-							<a href="#tab_<!--{$nShopgoodsgalleryKey}-->" data-toggle="tab"><img src="<!--{:Shop_Extend::getShopgoodspath($arrShopgoodsgalleryData['thumburl'])}-->" alt="" width="60" height="60"></a>
+							<a href="#tab_<!--{$nShopgoodsgalleryKey}-->" data-toggle="tab"><img src="<!--{:Shopgoods_Extend::getShopgoodspath($arrShopgoodsgalleryData['thumburl'])}-->" alt="" width="60" height="60"></a>
 						</li>
 						<!--</foreach>-->
 					</ul>
@@ -159,18 +159,70 @@ function commentComplete(data,status){
 				<!--{/if}-->
 			</div>
 			<div class="span5">
-				<h3 style="font-size:25px; margin-bottom:15px"><!--{$oShopgoods['shopgoods_name']}--></h3>
-				<p>
-					<h4 class="left">本站价</h4><span style="font-size:30px;color:red;">¥<!--{$oShopgoods['shopgoods_shopprice']}--></span>
-				</p>
-				<p>
-					<h4 class="left">市场价</h4><span style="font-size:13px;text-decoration:line-through; vertical-align: middle；">¥<!--{$oShopgoods['shopgoods_price']}--></span>
-				</p>
-				<p>已售：1件<p>
-				<p>付款方式：支付宝|网银</p>
-				<p><h3>购买<button class="btn dropdown-toggle" data-toggle="dropdown">1<span class="caret"></span></button>件</h3></p>
-				<p><button class="btn btn-inverse" href="#">加入购物车</button>&nbsp;
-					<button class="btn btn-inverse" href="#">直接购买</button></p>
+				<form action="<!--{:Dyhb::U('shop://shopcart/add')}-->" method="post" name="shopgoodsbuy_form" id="shopgoodsbuy_form">
+					<div class="clear">
+						<h3><!--{$oShopgoods['shopgoods_name']}--></h3>
+					</div>
+					<table class="table">
+						<tbody>
+							<tr>
+								<td>商品货号：</td>
+								<td><!--{$oShopgoods['shopgoods_sn']}--></td>
+								<td>商品库存：</td>
+								<td><!--{$oShopgoods['shopgoods_number']}--></td>
+							</tr>
+							<tr>
+								<td>商品品牌：</td>
+								<td>无</td>
+								<td>商品重量：</td>
+								<td><!--{$oShopgoods['shopgoods_weight']}-->千克</td>
+							</tr>
+							<tr>
+								<td>上架时间：</td>
+								<td><!--{$oShopgoods['create_dateline']|date='Y-m-d',**}--></td>
+								<td>商品点击数：</td>
+								<td><!--{$oShopgoods['shopgoods_views']}--></td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<strong>市场价格：</strong><font class="market">￥<!--{$oShopgoods['shopgoods_price']}-->元</font><br>
+									<strong>本店售价：</strong><font class="shop" id="">￥<!--{$oShopgoods['shopgoods_shopprice']}-->元</font>
+								</td>
+								<td colspan="2">
+									<strong>用户评价：</strong>
+									<p>用户评论星级平均数（待做）</p>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<strong>购买数量：</strong>
+									<input name="number" id="number" value="1" size="4" style="border:1px solid #ccc;width:50px;" type="text" readonly="true">
+								</td>
+								<td colspan="2">
+									<strong>购买此商品可使用：</strong><font class="f4">xxx 积分</font>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									已售：1件
+								</td>
+								<td colspan="2">
+									付款方式：支付宝|网银
+								</td>
+							</tr>
+							<tr>
+								<td colspan="4">
+									<input type="hidden" name="shopgoods_id" value="<!--{$oShopgoods['shopgoods_id']}-->">
+									<input type="hidden" name="shopgoods_shopprice" value="<!--{$oShopgoods['shopgoods_shopprice']}-->">
+									<input type="hidden" name="shopgoods_name" value="<!--{$oShopgoods['shopgoods_name']}-->">
+									<p><button class="btn btn-inverse" href="#">加入购物车</button>&nbsp;
+										<button class="btn btn-inverse" href="#">直接购买</button>
+									</p>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</form>
 			</div>
 		</div>
 	</div>
@@ -187,7 +239,7 @@ function commentComplete(data,status){
 		<div id="myTabContent" class="tab-content">
 			<div class="tab-pane fade in active" id="shopgoodstab_1">
 				<div class="row">
-					<div class="span4">
+					<div class="span7">
 						<!--{if is_array($arrShopattributevaluesData) && !empty($arrShopattributevaluesData)}-->
 						<h4>书画信息</h4>
 						<p><ul>
@@ -198,14 +250,12 @@ function commentComplete(data,status){
 						</p>
 						<!--{/if}-->
 					</div>
-					<div class="span4">
+					<div class="span5">
 						<h4>物流费用</h4>
 						<p>费用情况：买家承担运费，产品根据地区、重量计费，我们会第一时间安排快递发货，如有疑问请咨询在线客服。</p>
 						<hr/>
 						<h4>配送周期</h4>
-						<p>发货周期：发货周期为2个工作日左右，如有断货情况我们会及时与您联系。偶尔因天气、路况等因素造成货物延误还请买家给予多多理解！</p>
-					</div>
-					<div class="span4">
+						<p>发货周期：发货周期为2个工作日左右，如有断货情况我们会及时与您联系。偶尔因天气、路况等因素造成货物延误还请买家给予多多理解！</p><hr/>
 						<h4>保养说明</h4>
 						<p>保养说明：请勿将书画放置在潮湿的环境下，请保持通风干燥。</p>
 						<hr/>
@@ -233,7 +283,7 @@ function commentComplete(data,status){
 						<textarea class="input-xlarge" id="shopgoodscomment_content" name="shopgoodscomment_content" rows="3" style="width:90%;height:90px;"></textarea>
 						<span class="help-block">请文明用语，切勿发布政治言论</span>
 						<!--{if $GLOBALS['___login___']!==false}-->
-						<input type="hidden" name="user_name" value="<!--{$GLOBALS['___login___']['user_name']}-->" />
+						<input type="hidden" name="shopgoodscomment_username" value="<!--{$GLOBALS['___login___']['user_name']}-->" />
 						<!--{/if}-->
 						<input type="hidden" name="shopgoods_id" value="<!--{$oShopgoods['shopgoods_id']}-->" />
 						<input type="hidden" name="ajax" value="1" />
