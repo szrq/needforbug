@@ -72,6 +72,7 @@ return array(
 '220bd142f904e60d92a50f114baa93ef'=>"仅商家可见",
 'e9de2936d0c20ce02183f2baadddaadc'=>"商品货号",
 'c9f65d92cd9fddb5ecb3905e6605b141'=>"如果不输入商品货号，系统将自动创建商品货号",
+'8082c3fd9be8628ae0ed7cf52fd7e8c0'=>"艺术家作品描述",
 )
 
 ?>

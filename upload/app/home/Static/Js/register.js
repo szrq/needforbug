@@ -5,10 +5,10 @@
 function registerSubmit(){
 	$("#register_submit").attr("disabled", "disabled");
 	$("#register_submit").val('add...');
-	Dyhb.AjaxSubmit('register_form',Dyhb.U('home://public/register_user'),'',complete); 
+	Dyhb.AjaxSubmit('register_form',Dyhb.U('home://public/register_user'),'',registerComplete);
 };
 
-function complete(data,status){
+function registerComplete(data,status){
 	$("#register_submit").attr("disabled", false);
 	$("#register_submit").val(D.L('注册','Js/Register_Js'));
 	if(status==1){

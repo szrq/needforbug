@@ -128,7 +128,11 @@ class Cart{
 	public function countPrice(){
 		$arrCarts=$this->_arrCarts=$this->view();
 
-		$arrData=array();
+		$arrData=array(
+			'goods_price'=>0,
+			'goods_count'=>0
+		);
+
 		$nI=0;
 		if(is_array($arrCarts['goods_id'])){
 			foreach($arrCarts['goods_id'] as $nKey=>$nVal){
