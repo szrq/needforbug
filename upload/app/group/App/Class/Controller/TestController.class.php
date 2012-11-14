@@ -62,4 +62,4 @@ class TestController extends InitController{
 	public function index17(){
 		$this->display('test+index17');
 	}
-		}
+}

@@ -1,0 +1,98 @@
+<!--<include file="public+header">-->
+
+<!--{:Core_Extend::editorInclude()}-->
+
+<!--{script}-->
+$(function(){
+	editor=loadEditor('blog_content');
+});
+
+function add(){
+	if( $('#value').val()!='' && $('#value').val()!==null){
+		update();
+		return;
+	}
+	$("#submit_button").attr("disabled", "disabled");
+	$("#submit_button").val( 'add...' );
+	$('#blog_content').val(editor.html());
+	Dyhb.AjaxSubmit('blogAdd','<!--{:Admin_Extend::insert(array('controller'=>'blog'))}-->','',complete);
+}
+
+function update(){
+	$("#submit_button").attr("disabled", "disabled");
+	$("#submit_button").val( 'update...' );
+	$('#blog_content').val(editor.html());
+	Dyhb.AjaxSubmit('blogAdd','<!--{:Admin_Extend::update(array('controller'=>'blog'))}-->','',function(){ 
+		$("#submit_button").attr("disabled", false);
+		$("#submit_button").val( '<!--<lang package='Template/Default/Common'>-->更新<!--</lang>-->' ); 
+	});
+}
+
+function complete(data,status){
+	$("#submit_button").attr("disabled", false);
+	$("#submit_button").val( '<!--<lang package='Template/Default/Common'>-->发布<!--</lang>-->' );
+	if(status==1){
+		location.href=D.U('app/config?controller=blog&action=edit&id=<!--{$_GET['id']}-->&value='+data.blog_id);
+	}
+}
+<!--{/script}-->
+
+	<section class="secondary_bar">
+		<div class="breadcrumbs_container">
+			<article class="breadcrumbs"><a href="<!--{:Dyhb::U('public/fmain')}-->"><!--<lang package='Template/Default/Common'>-->主页<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a class="current"><!--<if condition="isset( $_GET['value'] )">--><!--<lang package='__APP_ADMIN_LANG__@Template/Blog'>-->编辑博文<!--</lang>--><!--<else/>--><!--<lang package='__APP_ADMIN_LANG__@Template/Blog'>-->添加博文<!--</lang>--><!--</if>--></a> <div class="breadcrumb_divider"></div> <a href="javascript:void(0);" onclick="adminctrlmenuAdd('<!--{:__SELF__}-->','<!--<if condition="isset( $_GET['value'] )">--><!--<lang package='__APP_ADMIN_LANG__@Template/Blog'>-->编辑博文<!--</lang>-->_<!--{$_GET['value']}--><!--<else/>--><!--<lang package='__APP_ADMIN_LANG__@Template/Blog'>-->添加博文<!--</lang>--><!--</if>-->')" title="<!--<lang package='Template/Default/Common'>-->添加到快捷导航<!--</lang>-->">[+]</a></article>
+		</div>
+	</section>
+
+	<section id="main" class="column">
+		<article class="module width_full">
+			<header><h3><!--<lang package='Template/Default/Common'>-->操作提示<!--</lang>--></h3></header>
+			<div class="module_content">
+				<ul>
+				</ul>
+			</div>
+		</article>
+
+		<article class="module width_full">
+			<header><h3 class="tabs_involved"><!--<if condition="isset( $_GET['value'] )">--><!--<lang package='__APP_ADMIN_LANG__@Template/Blog'>-->编辑博文<!--</lang>--><!--<else/>--><!--<lang package='__APP_ADMIN_LANG__@Template/Blog'>-->添加博文<!--</lang>--><!--</if>--></h3>
+				<ul class="tabs">
+					<li class="active"><a href="<!--{:Admin_Extend::index(array('controller'=>'blog'))}-->"><!--<lang package='__APP_ADMIN_LANG__@Template/Blog'>-->博文列表<!--</lang>--></a></li>
+					<li><a href="<!--{:Admin_Extend::base()}-->"><!--<lang package='Template/Default/Common'>-->应用入口<!--</lang>--></a></li>
+				</ul>
+			</header>
+			<form action="<!--<if condition="isset( $_GET['value'] )" >--><!--{:Admin_Extend::update(array('controller'=>'blog'))}--><!--<else/>--><!--{:Admin_Extend::insert(array('controller'=>'blog'))}--><!--</if>-->" method="post" id="blogAdd">
+				<div class="module_content">
+					<fieldset>
+						<label for="blog_title"><!--<lang package='__APP_ADMIN_LANG__@Template/Blog'>-->博客标题<!--</lang>--></label>
+						<input type="text" name="blog_title" id="blog_title" size="40" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:blog_title}--><!--</if>-->"/>
+						<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Blog'>-->博文标题不能为空,且最大长度为300字符<!--</lang>--></div>
+					</fieldset>
+					<fieldset>
+						<label for="blog_content"><!--<lang package='__APP_ADMIN_LANG__@Template/Blog'>-->博文内容<!--</lang>--></label>
+						<p style="padding-left:10px;"><textarea name="blog_content" id="blog_content" style="width:800px;height:400px;visibility:hidden;"><!--<if condition="isset( $oValue )">--><!--{$oValue:blog_content}--><!--</if>--></textarea></p>
+						<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Blog'>-->博客内容不能为空<!--</lang>--></div>
+					</fieldset>
+					<fieldset>
+						<label for="blog_title"><!--<lang package='__APP_ADMIN_LANG__@Template/Blog'>-->发布时间<!--</lang>--></label>
+						<p><span class="left"><input class="left" name="newyear" type="text" value="<!--{$TheController->dateline('Y',isset($oValue)?$oValue^false)}-->" maxlength="4" style="width:30px">年</span>
+							<span class="left"><input class="left" name="newmonth" type="text" value="<!--{$TheController->dateline('m',isset($oValue)?$oValue^false)}-->" maxlength="2" style="width:20px"> 月</span>
+							<span class="left"><input class="left" name="newday" type="text" value="<!--{$TheController->dateline('d',isset($oValue)?$oValue^false)}-->" maxlength="2" style="width:20px"> 日</span>
+							<span class="left"><input  class="left" name="newhour" type="text" value="<!--{$TheController->dateline('H',isset($oValue)?$oValue^false)}-->" maxlength="2" style="width:20px"> 时</span>
+							<span class="left"><input class="left" name="newmin" type="text" value="<!--{$TheController->dateline('i',isset($oValue)?$oValue^false)}-->" maxlength="2" style="width:20px"> 分</span>
+							<span class="left"><input class="left" name="newsec" type="text" value="<!--{$TheController->dateline('s',isset($oValue)?$oValue^false)}-->" maxlength="2" style="width:20px"> 秒</span>
+						</p>
+						<div class="clear"></div>
+						<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Blog'>-->你可以根据你的需要修改博文发布时间<!--</lang>--></div>
+					</fieldset>
+				</div>
+				<footer>
+					<div class="submit_link">
+						<input type="hidden" name="ajax" value="1">
+						<input type="hidden" name="value" id="value" value="<!--<if condition="isset( $_GET['value'] )">--><!--{$_GET['value']}--><!--</if>-->"/>
+						<input type="button" id="submit_button" onclick="<!--<if condition="isset( $oValue )">-->update()<!--<else/>-->add()<!--</if>-->" value="<!--<if condition="isset( $oValue )">--><!--<lang package='Template/Default/Common'>-->更新<!--</lang>--><!--<else/>--><!--<lang package='Template/Default/Common'>-->发布<!--</lang>--><!--</if>-->" class="alt_btn">
+						&nbsp;<input type="reset" value="<!--<lang package='Template/Default/Common'>-->重置<!--</lang>-->">
+					</div>
+				</footer>
+			</form>
+		</article>
+
+<!--<include file="public+footer">-->

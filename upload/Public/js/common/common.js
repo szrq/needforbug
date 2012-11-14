@@ -588,3 +588,35 @@ function deleteFriend(friendid,fan){
 		});
 	});
 }
+
+/** URL && Email格式检测 */
+function checkUrl(sUrl){
+	var strRegex="^((https|http|ftp|rtsp|mms)?://)"
+		+ "?(([0-9a-z_!~*'().&=+$%-]+:)?[0-9a-zA-Z_!~*'().&=+$%-]+@)?"
+		+ "(([0-9]{1,3}\.){3}[0-9]{1,3}"
+		+ "|"
+		+ "([0-9a-zA-Z_!~*'()-]+\.)*"
+		+ "([0-9a-zA-Z][0-9a-zA-Z-]{0,61})?[0-9a-z]\."
+		+ "[a-zA-Z]{2,6})"
+		+ "(:[0-9]{1,4})?"
+		+ "((/?)|"
+		+ "(/[0-9a-zA-Z_!~*'().;?:@&=+$,%#-]+)+/?)$";
+
+	var re=new RegExp(strRegex);
+
+	if(re.test(sUrl)){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+function checkEmail(sEmail){
+	var emailRegExp=new RegExp("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
+	
+	if(!emailRegExp.test(sEmail)||sEmail.indexOf('.')==-1){
+		return false;
+	}else{
+		return true;
+	}
+}

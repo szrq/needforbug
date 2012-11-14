@@ -1,0 +1,99 @@
+<!--<include file="public+header" />-->
+
+	<section class="secondary_bar">
+		<div class="breadcrumbs_container">
+			<article class="breadcrumbs"><a href="<!--{:Dyhb::U('public/fmain')}-->"><!--<lang package='Template/Default/Common'>-->主页<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a class="current"><!--<lang package='__APP_ADMIN_LANG__@Template/Blog'>-->博客<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a href="javascript:void(0);" onclick="adminctrlmenuAdd('<!--{:__SELF__}-->','<!--<lang package='__APP_ADMIN_LANG__@Template/Blog'>-->博客<!--</lang>-->')" title="<!--<lang package='Template/Default/Common'>-->添加到快捷导航<!--</lang>-->">[+]</a></article>
+		</div>
+	</section>
+
+	<section id="main" class="column">
+		<article class="module width_full">
+			<header><h3><!--<lang package='Template/Default/Common'>-->操作提示<!--</lang>--></h3></header>
+			<div class="module_content">
+				<ul>
+					<li><!--<lang package='__APP_ADMIN_LANG__@Template/Blog'>-->在这里可以对博客进行在线管理<!--</lang>--></li>
+				</ul>
+			</div>
+		</article>
+		<article class="module width_full">
+			<div class="module_content">
+				<div class="left operate" >
+					<input type="button" name="add" value="<!--<lang package='Template/Default/Common'>-->新增<!--</lang>-->" onclick="addApp('<!--{$_GET['id']}-->','blog')" class="alt_btn">&nbsp;
+					<input type="button" name="edit" value="<!--<lang package='Template/Default/Common'>-->编辑<!--</lang>-->" onclick="editApp('<!--{$_GET['id']}-->','blog')" class="alt_btn">&nbsp;
+					<input type="button" name="delete" value="<!--<lang package='Template/Default/Common'>-->删除<!--</lang>-->" onclick="foreverdelApp('<!--{$_GET['id']}-->','blog')" class="alt_btn">
+				</div>
+				<form method='get' action="<!--{:Dyhb::U( 'app/config')}-->" class="quick_search">
+					<input type="hidden" name="c" value="<!--{:MODULE_NAME}-->"/>
+					<input type="hidden" name="a" value="<!--{:ACTION_NAME}-->"/>
+					<input type="hidden" name="id" value="<!--{$_GET['id']}-->"/>
+					<input type="hidden" name="controller" value="blog"/>
+					<input type="text" name="blog_title" title="<!--<lang package='__APP_ADMIN_LANG__@Template/Blog'>-->博客标题<!--</lang>-->">
+					&nbsp;<input type="submit" id="" value="<!--<lang package='Template/Default/Common'>-->查询<!--</lang>-->" onclick="" class="alt_btn">
+				</form>
+			</div>
+		</article>
+		
+		<article class="module width_full">
+			<header><h3 class="tabs_involved"><!--<lang package='__APP_ADMIN_LANG__@Template/Blog'>-->博客<!--</lang>--></h3>
+				<ul class="tabs">
+					<li><a href="<!--{:Admin_Extend::base(array('controller'=>'blog'))}-->"><!--<lang package='__APP_ADMIN_LANG__@Template/Blog'>-->博文列表<!--</lang>--></a></li>
+					<li class="active"><a href="<!--{:Admin_Extend::base()}-->"><!--<lang package='Template/Default/Common'>-->应用入口<!--</lang>--></a></li>
+				</ul>
+			</header>
+			<div class="module_content">
+				<table class="tablesorter" cellspacing="0" id="checkList"> 
+					<thead> 
+						<tr> 
+							<th><input type="checkbox" onclick="checkAll('checkList')"></th> 
+							<th><a href="<!--{:Admin_Extend::soryBy('blog_id',$sSortByUrl,array('controller'=>'blog'))}-->" <!--{:Admin_Extend::sortField('blog_id')}-->><!--<lang package='Template/Default/Common'>-->编号<!--</lang>--></a></th> 
+								<th><a href="<!--{:Admin_Extend::soryBy('blog_title',$sSortByUrl,array('controller'=>'blog'))}-->" <!--{:Admin_Extend::sortField('blog_title')}-->><!--<lang package='__APP_ADMIN_LANG__@Template/Blog'>-->标题<!--</lang>--></a></th>
+								<th><a href="<!--{:Admin_Extend::soryBy('blogcategory_id',$sSortByUrl,array('controller'=>'blog'))}-->" <!--{:Admin_Extend::sortField('blogcategory_id')}-->><!--<lang package='__APP_ADMIN_LANG__@Template/Blog'>-->分类<!--</lang>--></a></th>
+								<th><a href="<!--{:Admin_Extend::soryBy('user_id',$sSortByUrl,array('controller'=>'blog'))}-->" <!--{:Admin_Extend::sortField('user_id')}-->><!--<lang package='__APP_ADMIN_LANG__@Template/Blog'>-->作者<!--</lang>--></a></th>
+								<th><a href="<!--{:Admin_Extend::soryBy('blog_comments',$sSortByUrl,array('controller'=>'blog'))}-->" <!--{:Admin_Extend::sortField('blog_comments')}-->><!--<lang package='__APP_ADMIN_LANG__@Template/Blog'>-->评论<!--</lang>--></a></th>
+								<th><a href="<!--{:Admin_Extend::soryBy('blog_dateline',$sSortByUrl,array('controller'=>'blog'))}-->" <!--{:Admin_Extend::sortField('blog_dateline')}-->><!--<lang package='Template/Default/Common'>-->时间<!--</lang>--></a></th>
+								<th><!--<lang package='Template/Default/Common'>-->操作<!--</lang>--></th>
+						</tr> 
+					</thead> 
+					<tbody> 
+						<!--<foreach for=oList>-->
+						<tr>
+							<td><input type="checkbox" name="key" value="<!--{$value:blog_id}-->"></td>
+							<td><!--{$value:blog_id}--></td>
+							<td><a href="<!--{:Admin_Extend::edit(array('controller'=>'blog','value'=>$value['blog_id']))}-->"><!--{$value:blog_title}--></a>
+								<div class="row-actions">
+									<span class='edit'><a href="<!--{:Admin_Extend::edit(array('controller'=>'blog','value'=>$value['blog_id']))}-->"><!--<lang package='Template/Default/Common'>-->编辑<!--</lang>--></a>|</span>
+									<span class='delete'><a href="javascript:foreverdelApp('<!--{$_GET['id']}-->','blog','<!--{$value:blog_id}-->');"><!--<lang package='Template/Default/Common'>-->删除<!--</lang>--></a></span>
+									</span>
+								</div>
+							</td>
+							<td><!--{$value:blogcategory_id}--></td>
+							<td><a  href="<!--{:Admin_Extend::base(array('controller'=>'blog','action'=>'index','uid'=>$value['user_id']))}-->"><!--{$value:user:user_name}--></a></td>
+							<td><!--{$value:blog_comments}--></td>
+							<td><!--{$value:blog_dateline|date='Y-m-d H:i:s',**}--></td>
+							<td>
+								<a href="<!--{:Admin_Extend::edit(array('controller'=>'blog','value'=>$value['blog_id']))}-->"><input type="image" src="<!--{:__TMPLPUB__}-->/Images/icn_edit.png" title="<!--<lang package='Template/Default/Common'>-->编辑<!--</lang>-->"></a>
+							</td>
+						</tr>
+						<!--</foreach>-->
+					</tbody> 
+				</table>
+			</div>
+		</article>
+
+		<article class="module width_full">
+			<div class="module_content">
+				<!--{$sPageNavbar}-->
+			</div>
+		</article>
+
+		<article class="module width_full">
+			<div class="module_content">
+				<div class="operate" >
+					<input type="button" name="add" value="<!--<lang package='Template/Default/Common'>-->新增<!--</lang>-->" onclick="addApp('<!--{$_GET['id']}-->','blog')" class="alt_btn">&nbsp;
+					<input type="button" name="edit" value="<!--<lang package='Template/Default/Common'>-->编辑<!--</lang>-->" onclick="editApp('<!--{$_GET['id']}-->','blog')" class="alt_btn">&nbsp;
+					<input type="button" name="delete" value="<!--<lang package='Template/Default/Common'>-->删除<!--</lang>-->" onclick="foreverdelApp('<!--{$_GET['id']}-->','blog')" class="alt_btn">
+				</div>
+			</div>
+		</article>
+
+<!--<include file="public+footer">-->

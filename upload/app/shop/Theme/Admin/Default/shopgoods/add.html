@@ -95,15 +95,21 @@ function getShopattributeForm(nShopgoodsid,nReturnmessage){
 					<div id="shopgoods_tab" class="nfb_tab">
 						<ul class="nfb_tabtitle">
 							<li><a href="#tab1">基本信息</a></li>
-							<li><a href="#tab2">商品属性</a></li>
-							<li><a href="#tab3">商品描述</a></li>
-							<li><a href="#tab4">商品相册</a></li>
+							<li><a href="#tab2">其它信息</a></li>
+							<li><a href="#tab3">商品属性</a></li>
+							<li><a href="#tab4">商品描述</a></li>
+							<li><a href="#tab5">商品相册</a></li>
 						</ul>
 						<div id="tab1" class="nfb_tabcontent">
 							<fieldset>
 								<label for="shopgoods_name"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品名字<!--</lang>--><span class="require-field">*</span></label>
 								<input type="text" name="shopgoods_name" id="shopgoods_name" size="40" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_name}--><!--</if>-->"/>
 								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品名字最大字符为120<!--</lang>--></div>
+							</fieldset>
+							<fieldset>
+								<label for="shopgoods_sn"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品货号<!--</lang>--></label>
+								<input type="text" name="shopgoods_sn" id="shopgoods_sn" size="40" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_sn}--><!--</if>-->"/>
+								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->如果不输入商品货号，系统将自动创建商品货号<!--</lang>--></div>
 							</fieldset>
 							<fieldset>
 								<label for="shopgoods_name"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品分类<!--</lang>--><span class="require-field">*</span></label>
@@ -141,8 +147,8 @@ function getShopattributeForm(nShopgoodsid,nReturnmessage){
 								<input type="file" name="shopgoodsimg" id="shopgoodsimg" size="40" value=""/>
 								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品图片可以生成商品缩略图片<!--</lang>-->
 									<!--<if condition="isset( $oValue ) && !empty($oValue['shopgoods_img'])">-->
-									<div>推荐大小<!--{$arrOptionData['shopgoods_imgsize']}-->（<a href="<!--{:Admin_Extend::base(array('controller'=>'shopoption','action'=>'shopgoods_img'))}-->">设置尺寸</a>&nbsp;|&nbsp;<a href="<!--{:Shop_Extend::getShopgoodspath($oValue['shopgoods_originalimg'])}-->" target="_blank">查看原始高清大图</a>）<br/>
-										<a href="<!--{:Admin_Extend::index(array('controller'=>'shopgoods','action'=>'showimg','imgurl'=>$oValue['shopgoods_img']))}-->" target="_blank" title="查看全图"><img width="<!--{$arrShopgoodsimgsizes[0]}-->" height="<!--{$arrShopgoodsimgsizes[1]}-->" src="<!--{:Shop_Extend::getShopgoodspath($oValue['shopgoods_img'])}-->" border="0"></a>
+									<div>推荐大小<!--{$arrOptionData['shopgoods_imgsize']}-->（<a href="<!--{:Admin_Extend::base(array('controller'=>'shopoption','action'=>'shopgoods_img'))}-->">设置尺寸</a>&nbsp;|&nbsp;<a href="<!--{:Shopgoods_Extend::getShopgoodspath($oValue['shopgoods_originalimg'])}-->" target="_blank">查看原始高清大图</a>）<br/>
+										<a href="<!--{:Admin_Extend::index(array('controller'=>'shopgoods','action'=>'showimg','imgurl'=>$oValue['shopgoods_img']))}-->" target="_blank" title="查看全图"><img width="<!--{$arrShopgoodsimgsizes[0]}-->" height="<!--{$arrShopgoodsimgsizes[1]}-->" src="<!--{:Shopgoods_Extend::getShopgoodspath($oValue['shopgoods_img'])}-->" border="0"></a>
 									</div>
 									<!--</if>-->
 								</div>
@@ -153,14 +159,76 @@ function getShopattributeForm(nShopgoodsid,nReturnmessage){
 								<span style="margin-left:8px;"><input id="customthumb" name="customthumb" checked="true" value="1" onclick="customThumb(this.checked)" type="checkbox">自动生成商品缩略图</span>
 								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品缩略图片可以由商品图片生产,也可以由自己上传<!--</lang>-->
 									<!--<if condition="isset( $oValue ) && !empty($oValue['shopgoods_thumb'])">-->
-									<div>推荐大小<!--{$arrOptionData['shopgoods_thumbimgsize']}-->（<a href="<!--{:Admin_Extend::base(array('controller'=>'shopoption','action'=>'shopgoods_img'))}-->">设置尺寸</a>&nbsp;|&nbsp;<a href="<!--{:Shop_Extend::getShopgoodspath($oValue['shopgoods_originalimg'])}-->" target="_blank">查看原始高清大图</a>）<br/>
-										<a href="<!--{:Admin_Extend::index(array('controller'=>'shopgoods','action'=>'showimg','imgurl'=>$oValue['shopgoods_thumb']))}-->" target="_blank" title="查看全图"><img width="<!--{$arrShopgoodsthumbimgsizes[0]}-->" height="<!--{$arrShopgoodsthumbimgsizes[1]}-->" src="<!--{:Shop_Extend::getShopgoodspath($oValue['shopgoods_thumb'])}-->" border="0"></a>
+									<div>推荐大小<!--{$arrOptionData['shopgoods_thumbimgsize']}-->（<a href="<!--{:Admin_Extend::base(array('controller'=>'shopoption','action'=>'shopgoods_img'))}-->">设置尺寸</a>&nbsp;|&nbsp;<a href="<!--{:Shopgoods_Extend::getShopgoodspath($oValue['shopgoods_originalimg'])}-->" target="_blank">查看原始高清大图</a>）<br/>
+										<a href="<!--{:Admin_Extend::index(array('controller'=>'shopgoods','action'=>'showimg','imgurl'=>$oValue['shopgoods_thumb']))}-->" target="_blank" title="查看全图"><img width="<!--{$arrShopgoodsthumbimgsizes[0]}-->" height="<!--{$arrShopgoodsthumbimgsizes[1]}-->" src="<!--{:Shopgoods_Extend::getShopgoodspath($oValue['shopgoods_thumb'])}-->" border="0"></a>
 									</div>
 									<!--</if>-->
 								</div>
 							</fieldset>
 						</div>
 						<div id="tab2" class="nfb_tabcontent">
+							<fieldset>
+								<label for="shopgoods_weight"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品重量<!--</lang>--></label>
+								<p><input type="text" class="left" name="shopgoods_weight" id="shopgoods_weight" size="40" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_weight}--><!--</if>-->" style="width:150px;"/>
+									<select name="weightunit" style="width:150px;">
+										<option value="1" selected="selected">千克</option>
+										<option value="0.001">克</option>
+									</select>
+								</p>
+							</fieldset>
+							<fieldset>
+								<label for="shopgoods_number"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品库存数量<!--</lang>--></label>
+								<input type="text" name="shopgoods_number" id="shopgoods_number" size="40" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_number}--><!--</if>-->"/>
+								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->请确保商品库存数量不要大于现实仓库中的商品数量<!--</lang>--></div>
+							</fieldset>
+							<fieldset>
+								<label for="shopgoods_warnnumber"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品库存警告数量<!--</lang>--></label>
+								<input type="text" name="shopgoods_warnnumber" id="shopgoods_warnnumber" size="40" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_warnnumber}--><!--</if>-->"/>
+								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品库存小于这个值，程序会通知管理员<!--</lang>--></div>
+							</fieldset>
+							<fieldset>
+								<label for="shopgoods_isbest"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->加入商品推荐<!--</lang>--></label>
+								<p style="padding-left:8px;">
+									<input name="shopgoods_isbest" value="1" type="checkbox" <!--<if condition="isset( $oValue ) && $oValue['shopgoods_isbest']==1">-->checked="checked"<!--</if>-->>精品 
+									<input name="shopgoods_isnew" value="1" type="checkbox" <!--<if condition="isset( $oValue ) && $oValue['shopgoods_isnew']==1">-->checked="checked"<!--</if>-->>新品 
+									<input name="shopgoods_ishot" value="1" type="checkbox" <!--<if condition="isset( $oValue ) && $oValue['shopgoods_ishot']==1">-->checked="checked"<!--</if>-->>热销
+								</p>
+							</fieldset>
+							<fieldset>
+								<label for="shopgoods_isonsale"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品上架<!--</lang>--></label>
+								<p style="padding-left:8px;">
+									<input name="shopgoods_isonsale" value="1" <!--<if condition="!isset( $oValue ) || $oValue['shopgoods_isonsale']==1">-->checked="checked"<!--</if>--> type="checkbox"> 打勾表示允许销售，否则不允许销售
+								</p>
+							</fieldset>
+							<fieldset>
+								<label for="shopgoods_isalonesale"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->能作为普通商品销售<!--</lang>--></label>
+								<p style="padding-left:8px;">
+									<input name="shopgoods_isalonesale" value="1" <!--<if condition="!isset( $oValue ) || $oValue['shopgoods_isalonesale']==1">-->checked="checked"<!--</if>--> type="checkbox"> 打勾表示能作为普通商品销售，否则只能作为配件或赠品销售
+								</p>
+							</fieldset>
+							<fieldset>
+								<label for="shopgoods_isshipping"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->是否为免运费商品<!--</lang>--></label>
+								<p style="padding-left:8px;">
+									<input name="shopgoods_isshipping" value="1" <!--<if condition="isset( $oValue ) && $oValue['shopgoods_isshipping']==1">-->checked="checked"<!--</if>--> type="checkbox"> 打勾表示此商品不会产生运费花销，否则按照正常运费计算
+								</p>
+							</fieldset>
+							<fieldset>
+								<label for="shopgoods_keywords"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品关键字<!--</lang>--></label>
+								<input type="text" name="shopgoods_keywords" id="shopgoods_keywords" size="40" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_keywords}--><!--</if>-->"/>
+								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品关键字主要用于搜素引擎优化，用英文分号或者空格隔开<!--</lang>--></div>
+							</fieldset>
+							<fieldset>
+								<label for="shopgoods_brief"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品简短描述<!--</lang>--></label>
+								<textarea name="shopgoods_brief" id="shopgoods_brief" cols="40" rows="3"><!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_brief}--><!--</if>--></textarea>
+								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品简短描述主要用于搜素引擎优化，可以吸引用户访问<!--</lang>--></div>
+							</fieldset>
+							<fieldset>
+								<label for="shopgoods_sellerremark"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品备注<!--</lang>--></label>
+								<textarea name="shopgoods_sellerremark" id="shopgoods_sellerremark" cols="40" rows="3"><!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_sellerremark}--><!--</if>--></textarea>
+								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->仅商家可见<!--</lang>--></div>
+							</fieldset>
+						</div>
+						<div id="tab3" class="nfb_tabcontent">
 							<fieldset>
 								<label for="shopgoodstype_id"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品类型<!--</lang>--></label>
 								<p style="padding-left:8px;">
@@ -176,7 +244,7 @@ function getShopattributeForm(nShopgoodsid,nReturnmessage){
 							<div id="shopattribute_box">
 							</div>
 						</div>
-						<div id="tab3" class="nfb_tabcontent">
+						<div id="tab4" class="nfb_tabcontent">
 							<fieldset>
 								<label for="shopgoods_description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品详细描述<!--</lang>--></label>
 								<div id="shopgoodsdescription-media-box" class="common-media-box">
@@ -192,7 +260,7 @@ function getShopattributeForm(nShopgoodsid,nReturnmessage){
 								<!--<lang package='Template/Default/Common'>-->系统变量替换: {site_name} 网站标题,{site_description} 网站描述,{site_url} 站点信息,{time} 当前时间,{user_name} 登录用户,{user_nikename} 登录用户昵称,{admin_email} 系统管理员邮箱<!--</lang>--></div>
 							</fieldset>
 						</div>
-						<div id="tab4" class="nfb_tabcontent">
+						<div id="tab5" class="nfb_tabcontent">
 							<!--{if isset($arrUploadgallerys) && is_array($arrUploadgallerys)}-->
 							<fieldset>
 								<label for="shopgoods_promoteprice"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->已上传商品相册图片<!--</lang>--></label>
@@ -201,7 +269,7 @@ function getShopattributeForm(nShopgoodsid,nReturnmessage){
 									<div id="gallery_<!--{$oUploadgallery['shopgoodsgallery_id']}-->" style="float:left; text-align:center; border: 1px solid #DADADA; margin: 4px; padding:4px;">
 										[<a href="javascript:void(0);" onclick="deleteGallery(<!--{$oUploadgallery['shopgoodsgallery_id']}-->);"><img src="<!--{:__TMPLPUB__}-->/Images/no.gif"/></a>]<br />
 										<a href="<!--{:Admin_Extend::index(array('controller'=>'shopgoods','action'=>'showimg','imgurl'=>$oUploadgallery['shopgoodsgallery_thumburl']))}-->" target="_blank">
-											<img src="<!--{:Shop_Extend::getShopgoodspath($oUploadgallery['shopgoodsgallery_thumburl'])}-->" width="100" height="100" border="0" />
+											<img src="<!--{:Shopgoods_Extend::getShopgoodspath($oUploadgallery['shopgoodsgallery_thumburl'])}-->" width="100" height="100" border="0" />
 										</a><br />
 										<p><input title="商品相册图片名字" type="text" value="<!--{$oUploadgallery['shopgoodsgallery_name']}-->" size="15" name="galleryname[<!--{$oUploadgallery['shopgoodsgallery_id']}-->]" /></p>
 										<p><input title="商品相册图片描述" type="text" value="<!--{$oUploadgallery['shopgoodsgallery_description']}-->" size="15" name="gallerydescription[<!--{$oUploadgallery['shopgoodsgallery_id']}-->]" /></p>

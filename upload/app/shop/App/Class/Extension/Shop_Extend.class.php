@@ -6,8 +6,4 @@
 
 class Shop_Extend{
 
-	public static function getShopgoodspath($sImgpath){
-		return __ROOT__.'/data/upload/app/shop/shopgoods/'.$sImgpath;
-	}
-
 }

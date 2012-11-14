@@ -45,7 +45,7 @@ class AttachmentdownloadController extends InitController{
 			}
 		}
 		
-		$this->S('下载成功',3);
+		$this->S('下载成功',1);
 	}
 
 }

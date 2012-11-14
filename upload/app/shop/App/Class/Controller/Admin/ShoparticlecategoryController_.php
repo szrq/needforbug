@@ -18,7 +18,7 @@ class ShoparticlecategoryController extends InitController{
 	}
 	
 	public function index($sModel=null,$bDisplay=true){
-		//$this->get_option_();
+		parent::index('shoparticlecategory',false);
 		
 		$this->display(Admin_Extend::template('shop','shoparticlecategory/index'));
 	}
@@ -39,6 +39,26 @@ class ShoparticlecategoryController extends InitController{
 		$nId=G::getGpc('value');
 		
 		parent::insert('shoparticlecategory',$nId);
+	}
+	
+	public function bEdit_(){
+		$this->bAdd_();
+
+		$arrUploadgallerys=ShopgoodsgalleryModel::F('shopgoods_id=?',intval(G::getGpc('value','G')))->order('shopgoodsgallery_id DESC')->getAll();
+		$this->assign('arrUploadgallerys',$arrUploadgallerys);
+		
+		$this->shopgoodstype_();
+	}
+	
+	public function edit($sMode=null,$nId=null,$bDidplay=true){
+		$nId=intval(G::getGpc('value','G'));
+
+		$this->bEdit_();
+		
+		$this->get_shoparticlecategorytree_();
+		
+		parent::edit('shoparticlecategory',$nId,false);
+		$this->display(Admin_Extend::template('shop','shoparticlecategory/add'));
 	}
 	/*public function shopgoods_img(){
 		$this->get_option_();

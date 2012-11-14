@@ -12,7 +12,7 @@ $(function(){
 <!--{/script}-->
 
 			<!--<foreach for=arrShopattributes key=nKey value=oShopattribute>-->
-			<!--{~$sShopattributevalue=$TheController->get_attributevalue($arrShopattributevalueData,$oShopattribute['shopattribute_id'],$oShopattribute['shopattribute_inputtype'])}-->
+			<!--{~$sShopattributevalue=Shopgoods_Extend::getAttributevalue($arrShopattributevalueData,$oShopattribute['shopattribute_id'],$oShopattribute['shopattribute_inputtype'])}-->
 			<fieldset>
 				<label for=""><!--{$oShopattribute['shopattribute_name']}--><span style="margin-left:5px;">(<!--{$oShopattribute['shopattribute_inputtype']}-->)</span></label>
 				<input name="shopattributeid_list[]" value="<!--{$oShopattribute['shopattribute_id']}-->" type="hidden">
@@ -31,7 +31,7 @@ $(function(){
 					<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="shopattributevalue_<!--{$oShopattribute['shopattribute_id']}-->"/>
 				</p>
 				<!--{elseif in_array($oShopattribute['shopattribute_inputtype'],array('select','selects'))}-->
-				<!--{~$arrSelectoption=$TheController->parser_select($oShopattribute['shopattribute_values'])}-->
+				<!--{~$arrSelectoption=Shopgoods_Extend::parserSelect($oShopattribute['shopattribute_values'])}-->
 				<select name="shopattributevalue_list[<!--{$oShopattribute['shopattribute_id']}-->]<!--{if $oShopattribute['shopattribute_inputtype']=='selects'}-->[]<!--{/if}-->" <!--{if $oShopattribute['shopattribute_inputtype']=='selects'}-->multiple="multiple" size="<!--{$arrSelectoption|count}-->" style="height:120px;"<!--{/if}-->>
 					<option>-请选择-</option>
 					<!--<foreach for=arrSelectoption key=sK value=sSelectoption>-->

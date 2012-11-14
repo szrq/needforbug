@@ -45,11 +45,52 @@ class ShopgoodsController extends InitController{
 				);
 			}
 		}
-		//G::dump($arrShopgoodsgallerysDatas);
-		$this->assign('oShopgoods',$oShopgoods);
-		$this->assign('arrShopgoodsgallerysDatas',$arrShopgoodsgallerysDatas);
 		
+		$this->assign('arrShopgoodsgallerysDatas',$arrShopgoodsgallerysDatas);
+
+		// 商品属性及其值
+		$arrShopattributevaluesData=Shopgoods_Extend::getShopattributevalue($oShopgoods);
+		$this->assign('arrShopattributevaluesData',$arrShopattributevaluesData);
+
+		// 读取商品评价
+		$arrWhere=array(
+			'shopgoodscomment_status'=>1,
+			'shopgoods_id'=>$nId,
+		);
+
+		$nCommentpage=intval(G::getGpc('comment_page','G'));
+		if($nCommentpage<1){
+			$nCommentpage=1;
+		}
+
+		$nTotalRecord=ShopgoodscommentModel::F()->where($arrWhere)->all()->getCounts();
+		$oPage=Page::RUN($nTotalRecord,10,$nCommentpage);
+		$arrShopgoodscomments=ShopgoodscommentModel::F()->where($arrWhere)->order('create_dateline DESC')->limit($oPage->returnPageStart(),10)->getAll();
+
+		$this->assign('arrShopgoodscomments',$arrShopgoodscomments);
+		$this->assign('sPageNavbar',$oPage->P('paginationcomment'.'@pagenav','span','current','disabled','comment_page'));
+		$this->assign('nTotalShopgoodscomment',$nTotalRecord);
+
+		$this->assign('oShopgoods',$oShopgoods);
+
 		$this->display('shopgoods+view');
+	}
+
+	public function add_comment(){
+		$oShopgoodscomment=new ShopgoodscommentModel();
+		$oShopgoodscomment->save(0);
+
+		if($oShopgoodscomment->isError()){
+			$this->E($oShopgoodscomment->getErrorMessage());
+		}
+
+		$arrData=$oShopgoodscomment->toArray();
+		$arrData['space']=Dyhb::U('home://space@?id='.$arrData['user_id']);
+		$arrData['avatar']=Core_Extend::avatar($arrData['user_id'],'small');
+		$arrData['create_dateline']=Core_Extend::timeFormat($arrData['create_dateline']);
+		$arrData['shopgoodscomment_content']=nl2br($arrData['shopgoodscomment_content']);
+	
+		$this->A($arrData,'发布商品评论成功');
 	}
 
 }
