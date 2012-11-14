@@ -83,8 +83,14 @@ class ShopgoodsController extends InitController{
 		if($oShopgoodscomment->isError()){
 			$this->E($oShopgoodscomment->getErrorMessage());
 		}
+
+		$arrData=$oShopgoodscomment->toArray();
+		$arrData['space']=Dyhb::U('home://space@?id='.$arrData['user_id']);
+		$arrData['avatar']=Core_Extend::avatar($arrData['user_id'],'small');
+		$arrData['create_dateline']=Core_Extend::timeFormat($arrData['create_dateline']);
+		$arrData['shopgoodscomment_content']=nl2br($arrData['shopgoodscomment_content']);
 	
-		$this->S('发布商品评论成功');
+		$this->A($arrData,'发布商品评论成功');
 	}
 
 }

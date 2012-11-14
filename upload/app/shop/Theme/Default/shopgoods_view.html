@@ -88,8 +88,32 @@ function sendShopgoodscomment(){
 function commentComplete(data,status){
 	$("#comment-submit").attr("disabled", false);
 	$("#comment-submit").val('发表评论');
+
 	if(status==1){
-		
+		$('#shopgoodscomment_content').val('');
+
+		var sComment=
+		'<tr>'+
+			'<td style="width:48px;">'+
+				'<a name="comment-'+data.shopgoodscomment_id+'"></a>'+
+				'<div style="text-align:center;">'+
+					'<a href="'+data.space+'"><img src="'+data.avatar+'" width="48px" height="48px" class="thumbnail" /></a>'+
+				'</div>'+
+			'</td>'+
+			'<td><h5><a href="'+data.space+'">'+data.shopgoodscomment_username+'</a>&nbsp于&nbsp;'+data.create_dateline+'&nbsp;<!--<lang package='__COMMON_LANG__@Template/Common'>-->发布<!--</lang>-->&nbsp;<span id="shopgoodscommentstar_'+data.shopgoodscomment_id+'"></span></h5>'+
+				'<div class="shopgoodscomment-content">'+
+					data.shopgoodscomment_content+
+				'</div>'+
+			'</td>'+
+		'</tr>';
+		$('#shopgoodsviewcommentlist_foreach').prepend(sComment);
+
+		$('#shopgoodscommentstar_'+data.shopgoodscomment_id).raty({
+			path      : '<!--{:__PUBLIC__}-->/js/jquery/raty/img/',
+			score : data.shopgoodscomment_rank,
+			half  : false,
+			readOnly   : true
+		});
 	}
 }
 <!--{/script}-->
@@ -117,7 +141,7 @@ function commentComplete(data,status){
 					<!--<foreach for=arrShopgoodsgallerysDatas key=nShopgoodsgalleryKey value=arrShopgoodsgalleryData>-->
 					<div class="tab-pane <!--{if $nShopgoodsgalleryKey==0}-->active<!--{/if}-->" id="tab_<!--{$nShopgoodsgalleryKey}-->">
 						<p><a href="<!--{:Shop_Extend::getShopgoodspath($arrShopgoodsgalleryData['imgoriginal'])}-->">
-								<img class="zxx_zoom_image" id="shopgoodsgallerymglass_<!--{$nShopgoodsgalleryKey}-->" src="<!--{:Shop_Extend::getShopgoodspath($arrShopgoodsgalleryData['imageurl'])}-->" alt=""  height="350" width="100%">
+								<img class="zxx_zoom_image" id="shopgoodsgallerymglass_<!--{$nShopgoodsgalleryKey}-->" src="<!--{:Shop_Extend::getShopgoodspath($arrShopgoodsgalleryData['imageurl'])}-->" alt="" height="350" width="100%">
 							</a>
 						</p>
 					</div>
@@ -127,7 +151,7 @@ function commentComplete(data,status){
 					<ul class="nav nav-tabs">
 						<!--<foreach for=arrShopgoodsgallerysDatas key=nShopgoodsgalleryKey value=arrShopgoodsgalleryData>-->
 						<li <!--{if $nShopgoodsgalleryKey==0}-->class="active"<!--{/if}-->>
-							<a href="#tab_<!--{$nShopgoodsgalleryKey}-->" data-toggle="tab"><img src="<!--{:Shop_Extend::getShopgoodspath($arrShopgoodsgalleryData['thumburl'])}-->" alt="" width="80" height="70"></a>
+							<a href="#tab_<!--{$nShopgoodsgalleryKey}-->" data-toggle="tab"><img src="<!--{:Shop_Extend::getShopgoodspath($arrShopgoodsgalleryData['thumburl'])}-->" alt="" width="60" height="60"></a>
 						</li>
 						<!--</foreach>-->
 					</ul>
@@ -136,25 +160,32 @@ function commentComplete(data,status){
 			</div>
 			<div class="span5">
 				<h3 style="font-size:25px; margin-bottom:15px"><!--{$oShopgoods['shopgoods_name']}--></h3>
-				<p></p>
+				<p>
+					<h4 class="left">本站价</h4><span style="font-size:30px;color:red;">¥<!--{$oShopgoods['shopgoods_shopprice']}--></span>
+				</p>
+				<p>
+					<h4 class="left">市场价</h4><span style="font-size:13px;text-decoration:line-through; vertical-align: middle；">¥<!--{$oShopgoods['shopgoods_price']}--></span>
+				</p>
+				<p>已售：1件<p>
+				<p>付款方式：支付宝|网银</p>
+				<p><h3>购买<button class="btn dropdown-toggle" data-toggle="dropdown">1<span class="caret"></span></button>件</h3></p>
+				<p><button class="btn btn-inverse" href="#">加入购物车</button>&nbsp;
+					<button class="btn btn-inverse" href="#">直接购买</button></p>
 			</div>
 		</div>
 	</div>
 	
 	<div class="span12" style="margin-top:5px">
 		<ul id="myTab" class="nav nav-tabs">
-			<li class="active"><a href="#home" data-toggle="tab">书画参数</a></li>
-			<li><a href="#profile" data-toggle="tab">书画评价</a></li>
-			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-				<ul class="dropdown-menu">
-					<li><a href="#dropdown1" data-toggle="tab">@fat</a></li>
-					<li><a href="#dropdown2" data-toggle="tab">@mdo</a></li>
-				</ul>
-			</li>
+			<li class="active"><a href="#shopgoodstab_1" data-toggle="tab">书画参数</a></li>
+			<li><a href="#shopgoodstab_2" data-toggle="tab">书画评价</a></li>
+			<li><a href="#shopgoodstab_3" data-toggle="tab">购买记录</a></li>
+			<li><a href="#shopgoodstab_4" data-toggle="tab">商品资讯</a></li>
+			<li><a href="#shopgoodstab_5" data-toggle="tab">售后服务</a></li>
+			<li><a href="#shopgoodstab_6" data-toggle="tab">常见问题</a></li>
 		</ul>
 		<div id="myTabContent" class="tab-content">
-			<div class="tab-pane fade in active" id="home">
+			<div class="tab-pane fade in active" id="shopgoodstab_1">
 				<div class="row">
 					<div class="span4">
 						<!--{if is_array($arrShopattributevaluesData) && !empty($arrShopattributevaluesData)}-->
@@ -188,7 +219,7 @@ function commentComplete(data,status){
 					</div>
 				</div>
 			</div>
-			<div class="tab-pane fade" id="profile">
+			<div class="tab-pane fade" id="shopgoodstab_2">
 				<p><h3>商品评价</h3>
 					<form name="shopgoods-commentform" id="shopgoods-commentform" method="post" action="<!--{:Dyhb::U('shop://shopgoods/add_comment')}-->">
 						<label>商品评级</label>
@@ -213,12 +244,12 @@ function commentComplete(data,status){
 					<div id="shopgoodsviewcomment_box">
 						<a name="comments"></a>
 						<h3>总评论数(<!--{$nTotalShopgoodscomment}-->)</h3>
-						<div class="shopgoodsviewcommentlist_box">
-							<div id="shopgoodscommentlistheader"></div>
-							<div id="loadingshopgoodscomments" class="loadinghomefreshchildcomments"><span>加载中...</span></div>
-							<!--{if is_array($arrShopgoodscomments)}-->
+						<div id="shopgoodscommentlistheader"></div>
+						<div id="loadingshopgoodscomments" class="loadinghomefreshchildcomments"><span>加载中...</span></div>
+						<div id="shopgoodsviewcommentlist_box" class="shopgoodsviewcommentlist_box">
 							<table class="table">
-								<tbody>
+								<tbody id="shopgoodsviewcommentlist_foreach">
+									<!--{if is_array($arrShopgoodscomments)}-->
 									<!--<foreach for=arrShopgoodscomments value=oShopgoodscomment>-->
 									<tr>
 										<td style="width:48px;">
@@ -248,24 +279,88 @@ function commentComplete(data,status){
 										</td>
 									</tr>
 									<!--</foreach>-->
+									<!--{d*else}-->
+									<tr>
+										<td><p>暂时没有发现任何评论</p></td>
+									</tr>
+									<!--{/if}-->
 								</tbody>
 							</table>
-							<!--{d*else}-->
-							<p>暂时没有发现任何评论</p>
-							<!--{/if}-->
 						</div>
+
 						<hr/>
-						<div id="paginationcommentbox">
+						<div id="paginationcomment_box">
 							<!--{$sPageNavbar}-->
 						</div>
 					</div>
 				</p>
 			</div>
-			<div class="tab-pane fade" id="dropdown1">
-				<p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
+			<div class="tab-pane fade" id="shopgoodstab_3">
+				<p>购买记录</p>
 			</div>
-			<div class="tab-pane fade" id="dropdown2">
-				<p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan, sartorial keffiyeh echo park vegan.</p>
+			<div class="tab-pane fade" id="shopgoodstab_4">
+				<p>购买之前，如有问题，请向我们咨询。<a href="" class="btn btn-success">立刻资讯</a></p>
+			</div>
+			<div class="tab-pane fade" id="shopgoodstab_5">
+				<p>退货和流程</p>
+			</div>
+			<div class="tab-pane fade" id="shopgoodstab_6">
+				<p>常见问题待做</p>
+			</div>
+		</div>
+	</div>
+
+	<div class="span12">
+		<div class="row">
+			<div class="span3" style="margin-top:20px">
+				<img style="margin-top:10px" src="<!--{:__PUBLIC__}-->/images2/260&180.jpg" alt="" width="260" height="260">
+				<img style="margin-top:20px" src="<!--{:__PUBLIC__}-->/images2/260&180.jpg" alt="" width="260" height="260">
+			</div>
+			<div class="span3" style="margin-top:70px; text-align:center">
+				<h1 style="font-size:50px; margin-top:10px">藏家关注的</h1>
+				<h6 style="margin-top:20px">书法韵味凝于笔端，意境发自内心，每个字渗透着张力，沉淀着脱帖的功底。临、脱之间，活跃于纸上的文字，疏朗清劲，庄严相济，恰到好处贯穿了书法流畅飞扬的品质。</h6>
+				<h6>纵横涂抹任飞腾,</h6>
+				<h6>万里江山助我行.</h6>
+				<h6>意韵线条心造就,</h6>
+				<h6>铺云荡月总关情.</h6>
+				<h6>书法是一种独特的艺术形式，因其独特的笔墨神韵，注定了这门艺术古往今来，久盛不衰。书法是线条的艺术，是一个充满线条矛盾的有机统一的和谐世界。一切美的均来自心灵的源泉，没有心灵的映射是无所谓美的。一位外国的思想家曾说：一片自然风景，是一个心灵的境界。中国大画家石涛说：“山川便予代，山川而言也……山川与予神，遇而迹化也。”意思是说，艺术家以心灵映射万家，代山川而立言。他所表现的是主观的生命情调与客观的自然景象交融互渗，成就一个鸢飞鱼跃、活泼玲珑，渊然而深的灵境，这灵境就是构成艺术之所以为艺术的意境。书法这一古老的传统艺术在世界艺术之林中独擅一格，放射着奇异夺目的光彩。</h6>
+				<h6>朱和羹《临池心解》中说：“吾更谓执笔如枪法，左右前后，偏锋正锋，必随势转之，一气贯注，操纵在心，时亦微带侧意，运掉更灵。”这段话很值得我们回味的，若拘泥以中锋为定法，一味持之以正，则势必不能达到圆活自然的变化。总之，执笔之法，但取适意，不可好奇，这样才能使笔力行到</h6>
+			</div>
+			<div class="span6" style="margin-top:70px">
+				<img src="<!--{:__PUBLIC__}-->/images2/260&180.jpg" alt="" width="560" height="560">
+			</div>
+		</div>
+	</div>
+
+	<div class="span12" style="margin-top:30px">
+		<h3>购买该书画的人还购买过</h3>
+		<p>xxx</p>
+	</div>
+
+	<div class="span12" class="row well " style="margin-top:50px;">
+		<hr/>
+		<div class="row">
+			<div class="span2" >
+				<h3>作者简介</h3>
+				<p><small>关于我们</p>
+				<p></small></p>
+			</div>
+			<div class="span2" >
+				<h3>无理由退货</h3>
+				<h6>送货方式：在付款后将在1-2个工作日内发货
+				<br>退货告知：此款产品为限量书画，无退换货</br></h6>
+			</div>
+			<div class="span2" >
+				<h3>担保交易</h3>
+			</div>
+			<div class="span2" >
+				<h3>书画原创</h3>
+			</div>
+			<div class="span2" >
+				<h3>关注我们</h3>
+			</div>
+			<div class="span2" >
+				<h3>友情链接</h3>
 			</div>
 		</div>
 	</div>

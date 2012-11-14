@@ -95,9 +95,10 @@ function getShopattributeForm(nShopgoodsid,nReturnmessage){
 					<div id="shopgoods_tab" class="nfb_tab">
 						<ul class="nfb_tabtitle">
 							<li><a href="#tab1">基本信息</a></li>
-							<li><a href="#tab2">商品属性</a></li>
-							<li><a href="#tab3">商品描述</a></li>
-							<li><a href="#tab4">商品相册</a></li>
+							<li><a href="#tab2">其它信息</a></li>
+							<li><a href="#tab3">商品属性</a></li>
+							<li><a href="#tab4">商品描述</a></li>
+							<li><a href="#tab5">商品相册</a></li>
 						</ul>
 						<div id="tab1" class="nfb_tabcontent">
 							<fieldset>
@@ -162,6 +163,68 @@ function getShopattributeForm(nShopgoodsid,nReturnmessage){
 						</div>
 						<div id="tab2" class="nfb_tabcontent">
 							<fieldset>
+								<label for="shopgoods_weight"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品重量<!--</lang>--></label>
+								<p><input type="text" class="left" name="shopgoods_weight" id="shopgoods_weight" size="40" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_weight}--><!--</if>-->" style="width:150px;"/>
+									<select name="weightunit" style="width:150px;">
+										<option value="1" selected="selected">千克</option>
+										<option value="0.001">克</option>
+									</select>
+								</p>
+							</fieldset>
+							<fieldset>
+								<label for="shopgoods_number"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品库存数量<!--</lang>--></label>
+								<input type="text" name="shopgoods_number" id="shopgoods_number" size="40" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_number}--><!--</if>-->"/>
+								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->请确保商品库存数量不要大于现实仓库中的商品数量<!--</lang>--></div>
+							</fieldset>
+							<fieldset>
+								<label for="shopgoods_warnnumber"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品库存警告数量<!--</lang>--></label>
+								<input type="text" name="shopgoods_warnnumber" id="shopgoods_warnnumber" size="40" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_warnnumber}--><!--</if>-->"/>
+								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品库存小于这个值，程序会通知管理员<!--</lang>--></div>
+							</fieldset>
+							<fieldset>
+								<label for="shopgoods_isbest"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->加入商品推荐<!--</lang>--></label>
+								<p style="padding-left:8px;">
+									<input name="shopgoods_isbest" value="1" type="checkbox" <!--<if condition="isset( $oValue ) && $oValue['shopgoods_isbest']==1">-->checked="checked"<!--</if>-->>精品 
+									<input name="shopgoods_isnew" value="1" type="checkbox" <!--<if condition="isset( $oValue ) && $oValue['shopgoods_isnew']==1">-->checked="checked"<!--</if>-->>新品 
+									<input name="shopgoods_ishot" value="1" type="checkbox" <!--<if condition="isset( $oValue ) && $oValue['shopgoods_ishot']==1">-->checked="checked"<!--</if>-->>热销
+								</p>
+							</fieldset>
+							<fieldset>
+								<label for="shopgoods_isonsale"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品上架<!--</lang>--></label>
+								<p style="padding-left:8px;">
+									<input name="shopgoods_isonsale" value="1" <!--<if condition="!isset( $oValue ) || $oValue['shopgoods_isonsale']==1">-->checked="checked"<!--</if>--> type="checkbox"> 打勾表示允许销售，否则不允许销售
+								</p>
+							</fieldset>
+							<fieldset>
+								<label for="shopgoods_isalonesale"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->能作为普通商品销售<!--</lang>--></label>
+								<p style="padding-left:8px;">
+									<input name="shopgoods_isalonesale" value="1" <!--<if condition="!isset( $oValue ) || $oValue['shopgoods_isalonesale']==1">-->checked="checked"<!--</if>--> type="checkbox"> 打勾表示能作为普通商品销售，否则只能作为配件或赠品销售
+								</p>
+							</fieldset>
+							<fieldset>
+								<label for="shopgoods_isshipping"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->是否为免运费商品<!--</lang>--></label>
+								<p style="padding-left:8px;">
+									<input name="shopgoods_isshipping" value="1" <!--<if condition="isset( $oValue ) && $oValue['shopgoods_isshipping']==1">-->checked="checked"<!--</if>--> type="checkbox"> 打勾表示此商品不会产生运费花销，否则按照正常运费计算
+								</p>
+							</fieldset>
+							<fieldset>
+								<label for="shopgoods_keywords"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品关键字<!--</lang>--></label>
+								<input type="text" name="shopgoods_keywords" id="shopgoods_keywords" size="40" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_keywords}--><!--</if>-->"/>
+								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品关键字主要用于搜素引擎优化，用英文分号或者空格隔开<!--</lang>--></div>
+							</fieldset>
+							<fieldset>
+								<label for="shopgoods_brief"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品简短描述<!--</lang>--></label>
+								<textarea name="shopgoods_brief" id="shopgoods_brief" cols="40" rows="3"><!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_brief}--><!--</if>--></textarea>
+								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品简短描述主要用于搜素引擎优化，可以吸引用户访问<!--</lang>--></div>
+							</fieldset>
+							<fieldset>
+								<label for="shopgoods_sellerremark"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品备注<!--</lang>--></label>
+								<textarea name="shopgoods_sellerremark" id="shopgoods_sellerremark" cols="40" rows="3"><!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_sellerremark}--><!--</if>--></textarea>
+								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->仅商家可见<!--</lang>--></div>
+							</fieldset>
+						</div>
+						<div id="tab3" class="nfb_tabcontent">
+							<fieldset>
 								<label for="shopgoodstype_id"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品类型<!--</lang>--></label>
 								<p style="padding-left:8px;">
 									<select name="shopgoodstype_id" id="shopgoodstype_id" onchange="getShopattributeForm(<!--<if condition="isset( $oValue )">--><!--{$oValue:shopgoods_id}--><!--<else/>-->0<!--</if>-->);">
@@ -176,7 +239,7 @@ function getShopattributeForm(nShopgoodsid,nReturnmessage){
 							<div id="shopattribute_box">
 							</div>
 						</div>
-						<div id="tab3" class="nfb_tabcontent">
+						<div id="tab4" class="nfb_tabcontent">
 							<fieldset>
 								<label for="shopgoods_description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->商品详细描述<!--</lang>--></label>
 								<div id="shopgoodsdescription-media-box" class="common-media-box">
@@ -192,7 +255,7 @@ function getShopattributeForm(nShopgoodsid,nReturnmessage){
 								<!--<lang package='Template/Default/Common'>-->系统变量替换: {site_name} 网站标题,{site_description} 网站描述,{site_url} 站点信息,{time} 当前时间,{user_name} 登录用户,{user_nikename} 登录用户昵称,{admin_email} 系统管理员邮箱<!--</lang>--></div>
 							</fieldset>
 						</div>
-						<div id="tab4" class="nfb_tabcontent">
+						<div id="tab5" class="nfb_tabcontent">
 							<!--{if isset($arrUploadgallerys) && is_array($arrUploadgallerys)}-->
 							<fieldset>
 								<label for="shopgoods_promoteprice"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->已上传商品相册图片<!--</lang>--></label>
