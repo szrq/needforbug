@@ -2,7 +2,7 @@
 
 	<section class="secondary_bar">
 		<div class="breadcrumbs_container">
-			<article class="breadcrumbs"><a href="<!--{:Dyhb::U('public/fmain')}-->"><!--<lang package='Template/Default/Common'>-->主页<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a class="current"><!--<lang package='__APP_ADMIN_LANG__@Template/shoparticlecategory'>-->文章列表<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a href="javascript:void(0);" onclick="adminctrlmenuAdd('<!--{:__SELF__}-->','<!--<lang package='__APP_ADMIN_LANG__@Template/shoparticlecategory'>-->文章列表<!--</lang>-->')" title="<!--<lang package='Template/Default/Common'>-->添加到快捷导航<!--</lang>-->">[+]</a></article>
+			<article class="breadcrumbs"><a href="<!--{:Dyhb::U('public/fmain')}-->"><!--<lang package='Template/Default/Common'>-->主页<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a class="current"><!--<lang package='__APP_ADMIN_LANG__@Template/shoparticlecategory'>-->文章分类列表<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a href="javascript:void(0);" onclick="adminctrlmenuAdd('<!--{:__SELF__}-->','<!--<lang package='__APP_ADMIN_LANG__@Template/shoparticlecategory'>-->文章分类列表<!--</lang>-->')" title="<!--<lang package='Template/Default/Common'>-->添加到快捷导航<!--</lang>-->">[+]</a></article>
 		</div>
 	</section>
 
@@ -24,7 +24,7 @@
 				<div class="left operate" >
 					<input type="button" name="add" value="<!--<lang package='Template/Default/Common'>-->新增<!--</lang>-->" onclick="addApp('<!--{$_GET['id']}-->','shoparticlecategory')" class="alt_btn">&nbsp;
 					<input type="button" name="edit" value="<!--<lang package='Template/Default/Common'>-->编辑<!--</lang>-->" onclick="editApp('<!--{$_GET['id']}-->','shoparticlecategory')" class="alt_btn">&nbsp;
-					<input type="button" name="delete" value="<!--<lang package='Template/Default/Common'>-->删除<!--</lang>-->" onclick="foreverdelApp('<!--{$_GET['id']}-->','shoparticlecategory')" class="alt_btn">
+					<input type="button" name="delete" value="<!--<lang package='Template/Default/Common'>-->删除<!--</lang>-->" onclick="foreverdel('<!--{$_GET['id']}-->','<!--{}-->','shoparticlecategory')" class="alt_btn">
 				</div>
 				<form method='get' action="<!--{:Dyhb::U( 'app/config')}-->" class="quick_search">
 					<input type="hidden" name="c" value="<!--{:MODULE_NAME}-->"/>
