@@ -130,7 +130,7 @@ function checkAll(str){
 	}
 }
 
-function showDistrict(sContainer,oElems,nTotallevel,nChangelevel,sContainertype){
+function showDistrict(sContainer,oElems,nTotallevel,nChangelevel,sContainertype,sDistrictPrefix){
 	var getdid=function(oElem){
 		var op=oElem.options[oElem.selectedIndex];
 		return op['did'] || op.getAttribute('did') || '0';
@@ -141,7 +141,7 @@ function showDistrict(sContainer,oElems,nTotallevel,nChangelevel,sContainertype)
 	var nDid=nChangelevel>=3 && oElems[2] && document.getElementById(oElems[2])?getdid(document.getElementById(oElems[2])):0;
 	var nCoid=nChangelevel>=4 && oElems[3] && document.getElementById(oElems[3])?getdid(document.getElementById(oElems[3])):0;
 
-	var sUrl=Dyhb.U('home://misc/district?container='+sContainer+'&containertype='+sContainertype+
+	var sUrl=Dyhb.U('home://misc/district?container='+sContainer+'&containertype='+sContainertype+'&districtprefix='+sDistrictPrefix+
 			'&province='+oElems[0]+'&city='+oElems[1]+'&district='+oElems[2]+'&community='+oElems[3]+
 			'&pid='+nPid+'&cid='+nCid+'&did='+nDid+'&coid='+nCoid+'&level='+nTotallevel+'&handlekey='+sContainer);
 	

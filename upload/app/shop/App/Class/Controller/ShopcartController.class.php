@@ -7,6 +7,19 @@
 class ShopcartController extends InitController{
 	
 	public function index(){
+		$arrData=$this->getShopcartdata_();
+		
+		$arrShopcartsData=$arrData[0];
+		$this->assign('arrShopcartsData',$arrShopcartsData);
+
+		// 计算商品总价格
+		$arrShopcartsTotal=$arrData[1];
+		$this->assign('arrShopcartsTotal',$arrShopcartsTotal);
+
+		$this->display('shopcart+index');
+	}
+
+	protected function getShopcartdata_(){
 		$oCart=Dyhb::instance('Cart');
 		$arrCarts=$oCart->view();
 
@@ -33,13 +46,11 @@ class ShopcartController extends InitController{
 			}
 		}
 
-		$this->assign('arrShopcartsData',$arrShopcartsData);
-
 		// 计算商品总价格
+		$arrCarts=$oCart->view();
 		$arrShopcartsTotal=$oCart->countPrice();
-		$this->assign('arrShopcartsTotal',$arrShopcartsTotal);
 
-		$this->display('shopcart+index');
+		return array($arrShopcartsData,$arrShopcartsTotal);
 	}
 	
 	public function add(){
@@ -124,16 +135,69 @@ class ShopcartController extends InitController{
 	public function checkout(){
 		// 商品结算
 		$nNotlogin=intval(G::getGpc('notlogin','G'));
+		$sStep=trim(G::getGpc('step','P'));
 
 		if($nNotlogin==1){
 			Dyhb::cookie('___notlogin___',1);
 		}
 
+		$nNotlogin=Dyhb::cookie('___notlogin___');
+
 		if($nNotlogin!=1 && $GLOBALS['___login___']===FALSE){
 			$this->U('shop://shopcart/login');
 		}else{
-			// 跳转到配货地址
-			$this->U('shop://shopcart/consignee');
+			if($sStep=='consignee'){
+				$arrData=$this->getShopcartdata_();
+		
+				$arrShopcartsData=$arrData[0];
+				$this->assign('arrShopcartsData',$arrShopcartsData);
+
+				// 计算商品总价格
+				$arrShopcartsTotal=$arrData[1];
+				$this->assign('arrShopcartsTotal',$arrShopcartsTotal);
+
+				if(empty($arrShopcartsData)){
+					$this->E('购物车为空，无法结算');
+				}
+				
+				// 这里保存配送地址
+				$arrShopaddressData=array();
+				$arrShopaddressData['shopaddress_province']=trim(G::getGpc('shopaddressprovince','P'));
+				$arrShopaddressData['shopaddress_city']=trim(G::getGpc('shopaddresscity','P'));
+				$arrShopaddressData['shopaddress_district']=trim(G::getGpc('shopaddressdist','P'));
+				$arrShopaddressData['shopaddress_community']=trim(G::getGpc('shopaddresscommunity','P'));
+
+				$arrShopaddressData['shopaddress_handaddress']=trim(G::getGpc('shopaddress_handaddress','P'));
+				$arrShopaddressData['shopaddress_consignee']=trim(G::getGpc('shopaddress_consignee','P'));
+
+				$arrShopaddressData['shopaddress_email']=trim(G::getGpc('shopaddress_email','P'));
+				$arrShopaddressData['shopaddress_address']=trim(G::getGpc('shopaddress_address','P'));
+
+				$arrShopaddressData['shopaddress_zipcode']=intval(G::getGpc('shopaddress_zipcode','P'));
+				$arrShopaddressData['shopaddress_tel']=trim(G::getGpc('shopaddress_tel','P'));
+				$arrShopaddressData['shopaddress_mobile']=trim(G::getGpc('shopaddress_mobile','P'));
+				$arrShopaddressData['shopaddress_signbuilding']=trim(G::getGpc('shopaddress_signbuilding','P'));
+
+				$arrShopaddressData['shopaddress_besttime']=trim(G::getGpc('shopaddress_besttime','P'));
+
+				$arrShopaddressData['shopaddress_id']=intval(G::getGpc('shopaddress_id','P'));
+			
+
+				if(isset($_POST['shopaddress_consignee'])){
+					// 使用cookie临时保存数据
+					Dyhb::cookie('___shopaddress___',$arrShopaddressData);
+				}
+
+				$arrShopaddressData=Dyhb::cookie('___shopaddress___');
+
+				$this->assign('arrShopaddressData',$arrShopaddressData);
+
+				$this->display('shopcart+checkout');
+			}else{
+
+				// 跳转到配货地址
+				$this->U('shop://shopcart/consignee');
+			}
 		}
 	}
 
@@ -144,7 +208,6 @@ class ShopcartController extends InitController{
 		$this->assign('nRememberTime',$GLOBALS['_option_']['remember_time']);
 		$this->assign('arrBindeds',$GLOBALS['_cache_']['sociatype']);
 
-		
 		$this->display('shopcart+login');
 	}
 
@@ -156,6 +219,12 @@ class ShopcartController extends InitController{
 		$this->assign('sDirthDistrict',Profile_Extend::getDistrict(array(),'shopaddress',true,''));
 
 		$this->display('shopcart+consignee');
+	}
+
+	public function indb(){
+		if($GLOBALS['___login___']===false){
+			$this->E('你没有登录无法保存购物车');
+		}
 	}
 
 }

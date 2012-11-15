@@ -12,6 +12,10 @@ function deleteCart(nGoodsid){
 		location.href=D.U('shop://shopcart/delete?id='+nGoodsid);
 	});
 }
+
+function cartIndb(){
+	location.href=D.U('shop://shopcart/indb');
+}
 <!--{/script}-->
 
 <div class="row">
@@ -60,6 +64,9 @@ function deleteCart(nGoodsid){
 						<div class="span4" style="text-align:right;">
 							<input value="清空购物车" class="btn" onclick="clearCart();" type="button">&nbsp;
 							<input name="submit" class="btn" value="更新购物车" type="submit">
+							<!--{if $GLOBALS['___login___']!==false}-->
+							&nbsp;<input value="保存购物车" class="btn" onclick="cartIndb();" type="button">
+							<!--{/if}-->
 						</div>
 					</div>
 				</form>
