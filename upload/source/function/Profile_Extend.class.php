@@ -6,19 +6,26 @@
 
 class Profile_Extend{
 	
-	static public function getDistrict($arrSpace=array(),$sDistrictName='birth',$bDisplayModify=true){
+	static public function getDistrict($arrSpace=array(),$sDistrictName='birth',$bDisplayModify=true,$sDistrictPrefix='userprofile_',$bUserprofile=true){
 		$arrValues=array(0,0,0,0);
 		$arrElems=array($sDistrictName.'province',$sDistrictName.'city',$sDistrictName.'dist',$sDistrictName.'community');
 
-		if($bDisplayModify===false || !empty($arrSpace['userprofile_'.$sDistrictName.'province'])){
-			$sHtml=self::profileShow('userprofile_'.$sDistrictName.'city',$arrSpace);
-			
+		if($bDisplayModify===false || !empty($arrSpace[$sDistrictPrefix.$sDistrictName.'province'])){
+			if($bUserprofile===true){
+				$sHtml=self::profileShow($sDistrictPrefix.$sDistrictName.'city',$arrSpace);
+			}else{
+				$sHtml=$arrSpace[$sDistrictPrefix.$sDistrictName.'province']
+					.(!empty($arrSpace[$sDistrictPrefix.$sDistrictName.'city'])?' '.$arrSpace[$sDistrictPrefix.$sDistrictName.'city']:'')
+					.(!empty($arrSpace[$sDistrictPrefix.$sDistrictName.'dist'])?' '.$arrSpace[$sDistrictPrefix.$sDistrictName.'dist']:'')
+					.(!empty($arrSpace[$sDistrictPrefix.$sDistrictName.'community'])?' '.$arrSpace[$sDistrictPrefix.$sDistrictName.'community']:'');
+			}
+
 			if($bDisplayModify===true){
 				$sHtml.='&nbsp;(<a href="javascript:;" onclick="showDistrict(\''.$sDistrictName.'districtbox\',[\''.$sDistrictName.'province\',\''.$sDistrictName.'city\',\''.$sDistrictName.'dist\',\''.$sDistrictName.'community\'],4,\'\',\''.$sDistrictName.'\'); return false;">'.Dyhb::L('修改','__COMMON_LANG__@Function/Profile_Extend').'</a>)';
 				$sHtml.= '<p id="'.$sDistrictName.'districtbox"></p>';
 			}
 		}else{
-			$sHtml='<p id="'.$sDistrictName.'districtbox">'.self::showDistrict($arrValues,$arrElems,$sDistrictName.'districtbox',1,$sDistrictName).'</p>';
+			$sHtml='<p id="'.$sDistrictName.'districtbox">'.self::showDistrict($arrValues,$arrElems,$sDistrictName.'districtbox',1,$sDistrictName,$sDistrictPrefix).'</p>';
 		}
 
 		return $sHtml;
@@ -52,7 +59,7 @@ class Profile_Extend{
 		}
 	}
 
-	static public function showDistrict($arrValues,$arrElems=array(),$sContainer='districtbox',$nShowlevel=null,$sContainertype='birth'){
+	static public function showDistrict($arrValues,$arrElems=array(),$sContainer='districtbox',$nShowlevel=null,$sContainertype='birth',$sDistrictPrefix='userprofile_'){
 		$sHtml='';
 
 		if(!preg_match("/^[A-Za-z0-9_]+$/",$sContainer)){
@@ -102,7 +109,7 @@ class Profile_Extend{
 
 			if(!empty($arrOptions[$nLevel])){
 				$sJscall="showDistrict('{$sContainer}',['{$arrElems[0]}','{$arrElems[1]}','{$arrElems[2]}','{$arrElems[3]}'],{$nShowlevel},{$nLevel},'{$sContainertype}')";
-				$sHtml.='<select name="userprofile_'.$arrElems[$nI].'" id="'.$arrElems[$nI].'" onchange="'.$sJscall.'">';
+				$sHtml.='<select name="'.$sDistrictPrefix.$arrElems[$nI].'" id="'.$arrElems[$nI].'" onchange="'.$sJscall.'">';
 				$sHtml.='<option value="">'.self::getDistrictType($nLevel).'</option>';
 				foreach($arrOptions[$nLevel] as $arrOption){
 					$sSelected=$arrOption[0]==$arrValues[$nI]?' selected="selected"':'';
