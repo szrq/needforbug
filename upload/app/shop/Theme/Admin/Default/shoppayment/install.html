@@ -33,6 +33,36 @@
 						<label for="shoppayment_description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shoppayment'>-->支付方式描述<!--</lang>--></label>
 						<textarea name="shoppayment_description" id="shoppayment_description" rows="5"><!--{$arrPaymentData['shoppayment_description']}--></textarea>
 					</fieldset>
+					<!--{if isset($arrPaymentData['shoppayment_config']) && is_array($arrPaymentData['shoppayment_config'])}-->
+					<!--<foreach for="arrPaymentData['shoppayment_config']" key=sKey value=arrPaymentoption>-->
+					<fieldset>
+						<label for=""><!--{$arrPaymentoption['title']}--><span style="margin-left:5px;">(<!--{$arrPaymentoption['name']}-->)</span></label>
+						<!--{if in_array($arrPaymentoption['type'],array('number','text'))}-->
+						<input name="shoppayment_option[<!--{$arrPaymentoption['type']}-->]" value="<!--{if $arrPaymentoption['type']=='number'}--><!--{$arrPaymentoption['value']|intval}--><!--{d*else}--><!--{$arrPaymentoption['value']}--><!--{/if}-->" size="40" type="text">
+						<!--{elseif $arrPaymentoption['type']=='textarea'}-->
+						<textarea name="shoppayment_option[<!--{$arrPaymentoption['type']}-->]" cols="70" rows="5"><!--{$arrPaymentoption['value']}--></textarea>
+						<!--{elseif $arrPaymentoption['type']=='radio'}-->
+						<p style="padding-left:8px;">
+							<input type="radio" name="shoppayment_option[<!--{$arrPaymentoption['type']}-->]" value="1" <!--{if $arrPaymentoption['value']}-->checked="checked"<!--{/if}-->/><!--<lang package='Template/Default/Common'>-->是<!--</lang>-->&nbsp;
+							<input type="radio" name="shoppayment_option[<!--{$arrPaymentoption['type']}-->]" value="0" <!--{if !$arrPaymentoption['value']}-->checked="checked"<!--{/if}-->/><!--<lang package='Template/Default/Common'>-->否<!--</lang>-->
+						</p>
+						<!--{elseif $arrPaymentoption['type']=='color'}-->
+						<p style="padding-left:8px;">
+							<input class="left" type="text"  name="shoppayment_option[<!--{$arrPaymentoption['type']}-->]" id="shoppaymentoption_<!--{$arrPaymentoption['code']}-->" size="40" value="<!--{$arrPaymentoption['value']}-->" style="color:<!--{$arrPaymentoption['value']}-->;"/>
+							<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="shoppaymentoption_<!--{$arrPaymentoption['code']}-->"/>
+						</p>
+						<!--{elseif in_array($arrPaymentoption['type'],array('select','selects'))}-->
+						<!--{~$arrShoppaymentoptionvalue=$arrPaymentoption['inputoption']?$arrPaymentoption['inputoption']:array()}-->
+						<select name="shoppayment_option[<!--{$arrPaymentoption['type']}-->]<!--{if $arrPaymentoption['type']=='selects'}-->[]<!--{/if}-->" <!--{if $arrPaymentoption['type']=='selects'}-->multiple="multiple" size="<!--{$arrShoppaymentoptionvalue|count}-->" style="height:120px;"<!--{/if}-->>
+							<option>-请选择-</option>
+							<!--<foreach for=arrShoppaymentoptionvalue key=sK value=sShoppaymentoptionvalue>-->
+							<option value="<!--{$sK}-->" <!--{if ( $arrPaymentoption['type']=='select' && $arrPaymentoption['value']==$sK) || ($arrPaymentoption['type']=='selects' && in_array($sK,$arrPaymentoption['value']))}-->selected<!--{/if}-->><!--{$sShoppaymentoptionvalue}--></option>
+							<!--</foreach>-->
+						</select>
+						<!--{/if}-->
+					</fieldset>
+					<!--</foreach>-->
+					<!--{/if}-->
 					<fieldset>
 						<label for="shoppayment_fee"><!--<lang package='__APP_ADMIN_LANG__@Template/Shoppayment'>-->支付手续费用<!--</lang>--></label>
 						<input type="text" name="shoppayment_fee" id="shoppayment_fee" size="40" value="<!--{$arrPaymentData['shoppayment_fee']}-->"/>

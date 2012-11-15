@@ -35,12 +35,12 @@ return array(
 	// 配置信息
 	'shoppayment_config'=>array(
 		array('name'=>'alipay_account','title'=>'支付宝帐户','type'=>'text','value'=>''),
-		array('name'=>'alipay_key','title'='交易安全校验码','type'=>'text','value'=>''),
+		array('name'=>'alipay_key','title'=>'交易安全校验码','type'=>'text','value'=>''),
 		array('name'=>'alipay_partner','title'=>'合作者身份ID','type'=>'text','value'=>''),
 		//array('name'=>'alipay_real_method','type'=>'select','value'=>'0'),
 		//array('name'=>'alipay_virtual_method','type'=>'select','value'=>'0'),
 		//array('name'=>'is_instant','type'=>'select','value'=>'0'),
-		array('name'=>'alipay_pay_method','title'=>'选择接口类型','description'=>'请选择您最后一次跟支付宝签订的协议里面说明的接口类型','type'=>'select','value'=>'','inputoption'=>array(0=>'使用标准双接口',1=>'使用担保交易接口',2=>'使用即时到帐交易接口')),
+		array('name'=>'alipay_pay_method','title'=>'选择接口类型','description'=>'请选择您最后一次跟支付宝签订的协议里面说明的接口类型','type'=>'select','value'=>array(),'inputoption'=>array(0=>'使用标准双接口',1=>'使用担保交易接口',2=>'使用即时到帐交易接口')),
 	),
 
 );
