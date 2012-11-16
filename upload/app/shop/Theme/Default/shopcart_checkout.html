@@ -81,6 +81,29 @@
 
 	<div class="span12" style="margin-top:10px;">
 		<h3>支付方式</h3>
+		<!--{if $arrShoppayments}-->
+		<table class="table" id="paymentTable" align="center" bgcolor="#dddddd" border="0" cellpadding="5" cellspacing="1" width="99%">
+			<tbody>
+				<tr>
+					<th bgcolor="#ffffff" width="5%">&nbsp;</th>
+					<th bgcolor="#ffffff" width="20%">名称</th>
+					<th bgcolor="#ffffff">订购描述</th>
+					<th bgcolor="#ffffff" width="15%">手续费</th>
+				</tr>
+				<!--<foreach for=arrShoppayments value=oShoppayment>-->
+				<tr>
+					<td bgcolor="#ffffff" valign="top">
+					<input name="payment" value="<!--{$oShoppayment['shoppayment_id']}-->" iscod="0" onclick="selectPayment(this)" type="radio"></td>
+					<td bgcolor="#ffffff" valign="top"><strong><!--{$oShoppayment['shoppayment_name']}--></strong></td>
+					<td bgcolor="#ffffff" valign="top"><!--{$oShoppayment['shoppayment_description']}--></td>
+					<td align="right" bgcolor="#ffffff" valign="top">￥<!--{$oShoppayment['shoppayment_fee']}-->元</td>
+				</tr>
+				<!--</foreach>-->
+			</tbody>
+		</table>
+		<!--{d*else}-->
+		<p>网站还没有提供任何支付方式，请联系客户人员咨询</p>
+		<!--{/if}-->
 	</div>
 
 	<div class="span12" style="margin-top:10px;">

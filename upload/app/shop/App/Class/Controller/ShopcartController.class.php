@@ -192,6 +192,10 @@ class ShopcartController extends InitController{
 
 				$this->assign('arrShopaddressData',$arrShopaddressData);
 
+				// 获取支付方式
+				$arrShoppayments=ShoppaymentModel::F('shoppayment_status=?',1)->getAll();
+				$this->assign('arrShoppayments',$arrShoppayments);
+
 				$this->display('shopcart+checkout');
 			}else{
 
