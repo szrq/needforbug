@@ -11,7 +11,7 @@ class App{
 
 	static private function init_(){
 		// 初始化
-		header('DoYouHaoBaby-Framework | '.DYHB_VERSION);
+		// header('DoYouHaoBaby-Framework | '.DYHB_VERSION); - Apache Internal Server Error 500
 		session_start();
 
 		// 移除自动转义
