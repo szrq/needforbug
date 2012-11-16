@@ -1,13 +1,13 @@
 <?php
 /* [NeedForBug!] (C)Dianniu From 2010.
-   商品支付方式控制器($)*/
+   商品配送方式控制器($)*/
 
 !defined('DYHB_PATH') && exit;
 
 /** 导入商城模型 */
 Dyhb::import(NEEDFORBUG_PATH.'/app/shop/App/Class/Model');
 
-class ShoppaymentController extends InitController{
+class ShopshippingController extends InitController{
 
 	public function filter_(&$arrMap){
 		//$arrMap['group_name']=array('like','%'.G::getGpc('group_name').'%');
@@ -33,15 +33,30 @@ class ShoppaymentController extends InitController{
 	}
 
 	public function index($sModel=null,$bDisplay=true){
+		// 数据库中记录数量
+		$arrShopshippinglist=array();
+
+		$arrShippings=ShopshippingModel::F()->order('shoppayment_order DESC')->getAll();
+		if(is_array($arrPayments)){
+			foreach($arrPayments as $oPayment){
+				$arrPlaylist[$oPayment['shoppayment_code']]=$oPayment;
+			}
+		}
+
+		$arrWarningmessage=array();
+
+	}
+
+	/*public function index($sModel=null,$bDisplay=true){
 		//parent::index('shoppayment',false);
 
 		// 数据库中记录数量
-		$arrPaymentlist=array();
+		$arrPaylist=array();
 
 		$arrPayments=ShoppaymentModel::F()->order('shoppayment_order DESC')->getAll();
 		if(is_array($arrPayments)){
 			foreach($arrPayments as $oPayment){
-				$arrPaymentlist[$oPayment['shoppayment_code']]=$oPayment;
+				$arrPlaylist[$oPayment['shoppayment_code']]=$oPayment;
 			}
 		}
 
@@ -65,8 +80,8 @@ class ShoppaymentController extends InitController{
 
 					$arrPaymentlistData[$sPaymentcode]=(array)(include $sConfigfile);
 
-					if(isset($arrPaymentlist[$sPaymentcode])){
-						$arrPaymentlistData[$sPaymentcode]=array_merge($arrPaymentlistData[$sPaymentcode],$arrPaymentlist[$sPaymentcode]->toArray());
+					if(isset($arrPlaylist[$sPaymentcode])){
+						$arrPaymentlistData[$sPaymentcode]=array_merge($arrPaymentlistData[$sPaymentcode],$arrPlaylist[$sPaymentcode]->toArray());
 						$arrPaymentlistData[$sPaymentcode]['install']='1';
 					}else{
 						if(!isset($arrPaymentlistData[$sPaymentcode]['shoppayment_fee'])){
@@ -79,7 +94,6 @@ class ShoppaymentController extends InitController{
 		}
 
 		$this->assign('arrPaymentlistData',$arrPaymentlistData);
-		$this->assign('arrWarningmessage',$arrWarningmessage);
 
 		$this->display(Admin_Extend::template('shop','shoppayment/index'));
 	}
@@ -204,5 +218,6 @@ class ShoppaymentController extends InitController{
 
 			return $sPaymentoptionvalue;
 		}
-	}
+	}*/
+
 }
