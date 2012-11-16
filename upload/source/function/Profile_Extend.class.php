@@ -21,7 +21,7 @@ class Profile_Extend{
 			}
 
 			if($bDisplayModify===true){
-				$sHtml.='&nbsp;(<a href="javascript:;" onclick="showDistrict(\''.$sDistrictName.'districtbox\',[\''.$sDistrictName.'province\',\''.$sDistrictName.'city\',\''.$sDistrictName.'dist\',\''.$sDistrictName.'community\'],4,\'\',\''.$sDistrictName.'\'); return false;">'.Dyhb::L('修改','__COMMON_LANG__@Function/Profile_Extend').'</a>)';
+				$sHtml.='&nbsp;(<a href="javascript:;" onclick="showDistrict(\''.$sDistrictName.'districtbox\',[\''.$sDistrictName.'province\',\''.$sDistrictName.'city\',\''.$sDistrictName.'dist\',\''.$sDistrictName.'community\'],4,\'\',\''.$sDistrictName.'\',\''.$sDistrictPrefix.'\'); return false;">'.Dyhb::L('修改','__COMMON_LANG__@Function/Profile_Extend').'</a>)';
 				$sHtml.= '<p id="'.$sDistrictName.'districtbox"></p>';
 			}
 		}else{
@@ -108,7 +108,7 @@ class Profile_Extend{
 			$nLevel=$nI+1;
 
 			if(!empty($arrOptions[$nLevel])){
-				$sJscall="showDistrict('{$sContainer}',['{$arrElems[0]}','{$arrElems[1]}','{$arrElems[2]}','{$arrElems[3]}'],{$nShowlevel},{$nLevel},'{$sContainertype}')";
+				$sJscall="showDistrict('{$sContainer}',['{$arrElems[0]}','{$arrElems[1]}','{$arrElems[2]}','{$arrElems[3]}'],{$nShowlevel},{$nLevel},'{$sContainertype}','{$sDistrictPrefix}')";
 				$sHtml.='<select name="'.$sDistrictPrefix.$arrElems[$nI].'" id="'.$arrElems[$nI].'" onchange="'.$sJscall.'">';
 				$sHtml.='<option value="">'.self::getDistrictType($nLevel).'</option>';
 				foreach($arrOptions[$nLevel] as $arrOption){

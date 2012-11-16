@@ -33,7 +33,7 @@ $(function(){
 				<!--{elseif in_array($oShopattribute['shopattribute_inputtype'],array('select','selects'))}-->
 				<!--{~$arrSelectoption=Shopgoods_Extend::parserSelect($oShopattribute['shopattribute_values'])}-->
 				<select name="shopattributevalue_list[<!--{$oShopattribute['shopattribute_id']}-->]<!--{if $oShopattribute['shopattribute_inputtype']=='selects'}-->[]<!--{/if}-->" <!--{if $oShopattribute['shopattribute_inputtype']=='selects'}-->multiple="multiple" size="<!--{$arrSelectoption|count}-->" style="height:120px;"<!--{/if}-->>
-					<option>-请选择-</option>
+					<option value=''>-请选择-</option>
 					<!--<foreach for=arrSelectoption key=sK value=sSelectoption>-->
 					<option value="<!--{$sK}-->" <!--{if ( $oShopattribute['shopattribute_inputtype']=='select' && $sShopattributevalue==$sK) || ($oShopattribute['shopattribute_inputtype']=='selects' && in_array($sK,$sShopattributevalue))}-->selected<!--{/if}-->><!--{$sSelectoption}--></option>
 					<!--</foreach>-->

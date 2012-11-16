@@ -1,0 +1,85 @@
+<!--<include file="header" />-->
+
+<!--{script}-->
+
+<!--{/script}-->
+
+<div class="row">
+	<!--<include file="menu" />-->
+
+	<div class="span12" style="text-align:left;margin-top:20px;">
+		<ul class="breadcrumb">
+			<li><a href="#">首页</a> <span class="divider">/</span></li>
+			<li class="active">配送人地址</li>
+		</ul>
+	</div>
+
+	<div class="span12" style="margin-top:10px;">
+		<div class="row">
+			<div class="span12">
+				<h3>配送人地址</h3>
+				<form action="<!--{:Dyhb::U('shop://shopcart/checkout')}-->" method="post" name="theForm" id="theForm">
+					<div class="flowBox">
+						<h6><span>收货人信息</span></h6>
+						<table align="center" bgcolor="#dddddd" border="0" cellpadding="5" cellspacing="1" width="99%">
+							<tbody>
+								<tr>
+									<td bgcolor="#ffffff">配送区域:</td>
+									<td colspan="3" bgcolor="#ffffff">
+										<!--{$sDirthDistrict}-->
+										(必填) 
+									</td>
+								</tr>
+								<tr>
+									<td bgcolor="#ffffff">配送区域(手工):</td>
+									<td colspan="3" bgcolor="#ffffff">
+										<input name="shopaddress_handaddress" id="shopaddress_handaddress" value="" type="text">
+										(这里填写了，那么上面的联动将失效) 
+									</td>
+								</tr>
+								<tr>
+									<td bgcolor="#ffffff">收货人姓名:</td>
+									<td bgcolor="#ffffff"><input name="shopaddress_consignee" id="shopaddress_consignee" value="" type="text">
+									(必填) </td>
+									<td bgcolor="#ffffff">电子邮件地址:</td>
+									<td bgcolor="#ffffff"><input name="shopaddress_email" id="shopaddress_email" value="" type="text">
+									(必填)</td>
+								</tr>
+								<tr>
+									<td bgcolor="#ffffff">详细地址:</td>
+									<td bgcolor="#ffffff"><input name="shopaddress_address" id="shopaddress_address" value="" type="text">
+									(必填)</td>
+									<td bgcolor="#ffffff">邮政编码:</td>
+									<td bgcolor="#ffffff"><input name="shopaddress_zipcode" id="shopaddress_zipcode" value="" type="text"></td>
+								</tr>
+								<tr>
+									<td bgcolor="#ffffff">电话:</td>
+									<td bgcolor="#ffffff"><input name="shopaddress_tel" id="shopaddress_tel" value="" type="text">
+									(必填)</td>
+									<td bgcolor="#ffffff">手机:</td>
+									<td bgcolor="#ffffff"><input name="shopaddress_mobile" id="shopaddress_mobile" value="" type="text"></td>
+								</tr>
+								<tr>
+									<td bgcolor="#ffffff">标志建筑:</td>
+									<td bgcolor="#ffffff"><input name="shopaddress_signbuilding" id="shopaddress_signbuilding" value="" type="text"></td>
+									<td bgcolor="#ffffff">最佳送货时间:</td>
+									<td bgcolor="#ffffff"><input name="shopaddress_besttime" id="shopaddress_besttime" value="" type="text"></td>
+								</tr>
+								<tr>
+									<td colspan="4" align="center" bgcolor="#ffffff">
+										<input name="step" value="consignee" type="hidden">
+										<input name="submit" class="btn btn-success" value="配送至这个地址" type="submit">
+										<input name=" shopaddress_id" value="" type="hidden">
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<!--<include file="Core_Extend::template('footer')" />-->
