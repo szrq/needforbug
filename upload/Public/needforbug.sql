@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2012 年 11 月 16 日 09:05
+-- 生成日期: 2012 年 11 月 16 日 11:26
 -- 服务器版本: 5.5.22
 -- PHP 版本: 5.4.0
 
@@ -3130,7 +3130,8 @@ CREATE TABLE IF NOT EXISTS `needforbug_session` (
 --
 
 INSERT INTO `needforbug_session` (`session_hash`, `session_auth_key`, `user_id`) VALUES
-('954699', '075581ce275e2e6cd42f109f5fed5491', 1);
+('954699', '075581ce275e2e6cd42f109f5fed5491', 0),
+('9A2B96', '64f8da1a17230ea069485310fe62235f', 0);
 
 -- --------------------------------------------------------
 
@@ -3248,7 +3249,6 @@ CREATE TABLE IF NOT EXISTS `needforbug_shoparticle` (
   `shoparticle_type` tinyint(1) unsigned NOT NULL DEFAULT '2' COMMENT '文章类型',
   `shoparticle_status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '文章状态',
   `create_dateline` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
-  `shoparticle_link` varchar(255) NOT NULL DEFAULT '' COMMENT '文件衔接，不为空将直接跳转',
   `shoparticle_description` varchar(255) DEFAULT NULL COMMENT '文章描述',
   `shoparticle_in` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否为系统内置，内置将不能删除',
   PRIMARY KEY (`shoparticle_id`),
@@ -3262,13 +3262,13 @@ CREATE TABLE IF NOT EXISTS `needforbug_shoparticle` (
 -- 转存表中的数据 `needforbug_shoparticle`
 --
 
-INSERT INTO `needforbug_shoparticle` (`shoparticle_id`, `shoparticlecategory_id`, `shoparticle_title`, `shoparticle_content`, `shoparticle_username`, `user_id`, `shoparticle_useremail`, `shoparticle_keywords`, `shoparticle_type`, `shoparticle_status`, `create_dateline`, `shoparticle_link`, `shoparticle_description`, `shoparticle_in`) VALUES
-(1, 2, '免责条款', '免责条款', '', 0, '', '', 0, 1, 1351359953, '', NULL, 1),
-(2, 2, '隐私保护', '隐私保护', '', 0, '', '', 0, 1, 1351359953, '', NULL, 1),
-(3, 2, '咨询热点', '咨询热点', '', 0, '', '', 0, 1, 1351359953, '', NULL, 1),
-(4, 2, '联系我们', '联系我们', '', 0, '', '', 0, 1, 1351359953, '', NULL, 1),
-(5, 2, '公司简介', '公司简介', '', 0, '', '', 0, 1, 1351359953, '', NULL, 1),
-(6, -1, '用户协议', '用户协议', '', 0, '', '', 0, 1, 1351359953, '', NULL, 1);
+INSERT INTO `needforbug_shoparticle` (`shoparticle_id`, `shoparticlecategory_id`, `shoparticle_title`, `shoparticle_content`, `shoparticle_username`, `user_id`, `shoparticle_useremail`, `shoparticle_keywords`, `shoparticle_type`, `shoparticle_status`, `create_dateline`, `shoparticle_description`, `shoparticle_in`) VALUES
+(1, 2, '免责条款', '免责条款', '', 0, '', '', 0, 1, 1351359953, NULL, 1),
+(2, 2, '隐私保护', '隐私保护', '', 0, '', '', 0, 1, 1351359953, NULL, 1),
+(3, 2, '咨询热点', '咨询热点', '', 0, '', '', 0, 1, 1351359953, NULL, 1),
+(4, 2, '联系我们', '联系我们', '', 0, '', '', 0, 1, 1351359953, NULL, 1),
+(5, 2, '公司简介', '公司简介', '', 0, '', '', 0, 1, 1351359953, NULL, 1),
+(6, -1, '用户协议', '用户协议', '', 0, '', '', 0, 1, 1351359953, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -3283,6 +3283,7 @@ CREATE TABLE IF NOT EXISTS `needforbug_shoparticlecategory` (
   `shoparticlecategory_description` varchar(255) NOT NULL DEFAULT '' COMMENT '文件分类描述',
   `shoparticlecategory_sort` smallint(6) unsigned NOT NULL DEFAULT '50' COMMENT '文章分类排序',
   `shoparticlecategory_parentid` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '文件分类父级ID',
+  `shoparticlecategory_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '文章分类状态',
   `create_dateline` int(10) NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`shoparticlecategory_id`),
   KEY `create_dateline` (`create_dateline`),
