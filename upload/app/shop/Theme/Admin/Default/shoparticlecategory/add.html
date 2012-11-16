@@ -12,6 +12,12 @@ function checkShoparticlecategory(){
 		return false;
 	}
 }
+function checkShoparticlecategoryparentid(id){
+	if($('#shoparticlecategory_parentid').val()==id){
+		needforbugAlert('上级分类不能为自己','',3);
+		return false;
+	}
+}
 <!--{/script}-->
 
 	<section class="secondary_bar">
@@ -39,7 +45,7 @@ function checkShoparticlecategory(){
 			</header>
 			<form action="<!--<if condition="isset( $_GET['value'] )" >--><!--{:Admin_Extend::update(array
 ('controller'=>'shoparticlecategory'))}--><!--<else/>--><!--{:Admin_Extend::insert(array
-('controller'=>'shoparticlecategory'))}--><!--</if>-->" method="post" id="shoparticlecategoryAdd" name="shoparticlecategoryAdd" enctype="multipart/form-data" onsubmit="return checkShoparticlecategory();">
+('controller'=>'shoparticlecategory'))}--><!--</if>-->" method="post" id="shoparticlecategoryAdd" name="shoparticlecategoryAdd" enctype="multipart/form-data" <!--<if condition="isset( $_GET['value'] )" >-->onsubmit="return checkShoparticlecategoryparentid(<!--{$oValue:shoparticlecategory_id}-->);"<!--<else/>-->onsubmit="return checkShoparticlecategory();"<!--</if>-->>
 				<div class="module_content">
 					<div id="shoparticlecategory_tab" class="nfb_tab">
 							<fieldset>
@@ -53,7 +59,7 @@ function checkShoparticlecategory(){
 									<option value="0">- <!--<lang package='__APP_ADMIN_LANG__@Template/shoparticlecategory'>-->顶级分类<!--</lang>--> -</option>
 									<!--{~$arrShopcategory = $oShoparticlecategoryTree->getChilds()}-->
 									<!--<foreach for=arrShopcategory value=nCId>-->
-									<option value="<!--{$nCId}-->" <!--<if condition="isset( $oValue ) && $nCId == $oValue:shoparticlecategory_id">-->selected<!--</if>--> >|<!--{$oShoparticlecategoryTree:getLayer( $nCId, '--' )}--><!--{$oShoparticlecategoryTree:getValue( $nCId )}--></option>
+									<option value="<!--{$nCId}-->" <!--<if condition="isset( $oValue ) && $nCId == $oValue:shoparticlecategory_parentid">-->selected<!--</if>--> >|<!--{$oShoparticlecategoryTree:getLayer( $nCId, '--' )}--><!--{$oShoparticlecategoryTree:getValue( $nCId )}--></option>
 									<!--</foreach>-->
 								</select>
 								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/shoparticlecategory'>-->商品分类是最要的商品检索条件,请认真填写<!--</lang>--></div>
