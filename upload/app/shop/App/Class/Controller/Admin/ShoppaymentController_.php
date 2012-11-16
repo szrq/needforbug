@@ -38,7 +38,7 @@ class ShoppaymentController extends InitController{
 		// 数据库中记录数量
 		$arrPaylist=array();
 
-		$arrPayments=ShoppaymentModel::F('shoppayment_status=?',1)->order('shoppayment_order DESC')->getAll();
+		$arrPayments=ShoppaymentModel::F()->order('shoppayment_order DESC')->getAll();
 		if(is_array($arrPayments)){
 			foreach($arrPayments as $oPayment){
 				$arrPlaylist[$oPayment['shoppayment_code']]=$oPayment;
@@ -110,8 +110,98 @@ class ShoppaymentController extends InitController{
 
 			$this->assign('arrPaymentData',$arrPaymentData);
 
-			$this->display(Admin_Extend::template('shop','shoppayment/install'));
+			$this->display(Admin_Extend::template('shop','shoppayment/add'));
 		}
 	}
+	
+	public function insert($sModel=null,$nId=null){
+		// 安装支付方式
+		
+		// 检查一些参数
+		
+		$oShoppayment=new ShoppaymentModel();
+		$oShoppayment->shoppayment_config=serialize(G::getGpc('shoppayment_option','P'));
+		$oShoppayment->save(0);
+		
+		if($oShoppayment->isError()){
+			$this->E($oShoppayment->getErrorMessage());
+		}
+		
+		$this->assign('__JumpUrl__',Admin_Extend::base(array('controller'=>'shoppayment')));
+		
+		$this->S('安装支付方式成功');
+	}
+	
+	public function foreverdelete($sModel=null,$sId=null){
+		$sId=G::getGpc('value');
+		
+		
+		parent::foreverdelete('shoppayment',$sId);
+	}
 
+	public function forbid($sModel=null,$sId=null,$bApp=false){
+		$nId=intval(G::getGpc('value','G'));
+
+		parent::forbid('shoppayment',$nId,true);
+	}
+
+	public function resume($sModel=null,$sId=null,$bApp=false){
+		$nId=intval(G::getGpc('value','G'));
+
+		parent::resume('shoppayment',$nId,true);
+	}
+	
+	public function edit($sMode=null,$nId=null,$bDidplay=true){
+		$nId=intval(G::getGpc('value','G'));
+
+		if(empty($nId)){
+			$this->E('你没有指定要安装支付方式');
+		}
+
+		// 查询是否已经安装了支付方式
+		$oShoppayment=ShoppaymentModel::F('shoppayment_id=?',$nId)->getOne();
+		if(empty($oShoppayment['shoppayment_id'])){
+			$this->E('待编辑的支付方式不存在');
+		}
+		
+		$sParmentpath=NEEDFORBUG_PATH.'/app/shop/App/Class/Extension/Payment';
+
+		$sConfigfile=$sParmentpath.'/'.$oShoppayment['shoppayment_code'].'/Config.php';
+		if(!is_file($sConfigfile)){
+			$this->E(sprintf('支付方式 %s 配置文件不存在',$sPaymentdir));
+		}else{
+			$arrPaymentData=(array)(include $sConfigfile);
+			
+			$arrShoppayment=$oShoppayment->toArray();
+			$arrShoppaymentValue=unserialize($arrShoppayment['shoppayment_config']);
+			unset($arrShoppayment['shoppayment_config']);
+			
+			$arrPaymentData=array_merge($arrPaymentData,$arrShoppayment);
+
+			$this->assign('arrPaymentData',$arrPaymentData);
+			$this->assign('arrShoppaymentValue',$arrShoppaymentValue);
+		
+			$this->display(Admin_Extend::template('shop','shoppayment/add'));
+		}
+	}
+	
+	public function get_shoppaymentvalue($arrPaymentoption,$arrShoppaymentValue){
+		$sPaymentoptionvalue='';
+		
+		if(G::getGpc('value','G')){
+			return isset($arrShoppaymentValue[$arrPaymentoption['name']])?$arrShoppaymentValue[$arrPaymentoption['name']]:'';
+		}else{
+			$sPaymentoptionvalue=$arrPaymentoption['value'];
+
+			if($arrPaymentoption['type']=='number'){
+				$sPaymentoptionvalue=intval($sPaymentoptionvalue);
+			}
+
+			if(in_array($arrPaymentoption['type'],array('select','selects'))){
+				$sPaymentoptionvalue=$arrPaymentoption['inputoption']?$arrPaymentoption['inputoption']:array();
+			}
+
+			return $sPaymentoptionvalue;
+		}
+	}
 }

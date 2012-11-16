@@ -2,7 +2,7 @@
 
 	<section class="secondary_bar">
 		<div class="breadcrumbs_container">
-			<article class="breadcrumbs"><a href="<!--{:Dyhb::U('public/fmain')}-->"><!--<lang package='Template/Default/Common'>-->主页<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a class="current"><!--<lang package='__APP_ADMIN_LANG__@Template/Shoppayment'>-->安装支付方式<!--</lang>--><!--</if>--></a> <div class="breadcrumb_divider"></div> <a href="javascript:void(0);" onclick="adminctrlmenuAdd('<!--{:__SELF__}-->','<!--<lang package='__APP_ADMIN_LANG__@Template/Shoppayment'>-->安装支付方式<!--</lang>-->')" title="<!--<lang package='Template/Default/Common'>-->添加到快捷导航<!--</lang>-->">[+]</a></article>
+			<article class="breadcrumbs"><a href="<!--{:Dyhb::U('public/fmain')}-->"><!--<lang package='Template/Default/Common'>-->主页<!--</lang>--></a> <div class="breadcrumb_divider"></div> <a class="current"><!--<if condition="isset( $_GET['value'] )">--><!--<lang package='__APP_ADMIN_LANG__@Template/Shoppayment'>-->编辑支付方式<!--</lang>--><!--<else/>--><!--<lang package='__APP_ADMIN_LANG__@Template/Shoppayment'>-->安装支付方式<!--</lang>--><!--</if>--></a> <div class="breadcrumb_divider"></div> <a href="javascript:void(0);" onclick="adminctrlmenuAdd('<!--{:__SELF__}-->','<!--<if condition="isset( $_GET['value'] )">--><!--<lang package='__APP_ADMIN_LANG__@Template/Shoppayment'>-->编辑支付方式<!--</lang>--><!--<else/>--><!--<lang package='__APP_ADMIN_LANG__@Template/Shoppayment'>-->安装支付方式<!--</lang>--><!--</if>-->')" title="<!--<lang package='Template/Default/Common'>-->添加到快捷导航<!--</lang>-->">[+]</a></article>
 		</div>
 	</section>
 
@@ -17,13 +17,15 @@
 		</article>
 
 		<article class="module width_full">
-			<header><h3 class="tabs_involved"><!--<lang package='__APP_ADMIN_LANG__@Template/Shoppayment'>-->安装支付方式<!--</lang>--></h3>
+			<header><h3 class="tabs_involved"><!--<if condition="isset( $_GET['value'] )">--><!--<lang package='__APP_ADMIN_LANG__@Template/Shoppayment'>-->编辑支付方式<!--</lang>--><!--<else/>--><!--<lang package='__APP_ADMIN_LANG__@Template/Shoppayment'>-->安装支付方式<!--</lang>--><!--</if>--></h3>
 				<ul class="tabs">
 					<li class="active"><a href="<!--{:Admin_Extend::index(array('controller'=>'shoppayment'))}-->"><!--<lang package='__APP_ADMIN_LANG__@Template/Shoppayment'>-->支付方式列表<!--</lang>--></a></li>
 					<li><a href="<!--{:Admin_Extend::base()}-->"><!--<lang package='Template/Default/Common'>-->应用入口<!--</lang>--></a></li>
 				</ul>
 			</header>
-			<form action="<!--{:Admin_Extend::insert(array('controller'=>'shoppayment'))}-->" method="post" id="shoppaymentAdd">
+			<form action="<!--<if condition="isset( $_GET['value'] )" >--><!--{:Admin_Extend::update(array
+('controller'=>'shoppayment'))}--><!--<else/>--><!--{:Admin_Extend::insert(array
+('controller'=>'shoppayment'))}--><!--</if>-->" method="post" id="shoppaymentAdd">
 				<div class="module_content">
 					<fieldset>
 						<label for="shoppayment_name"><!--<lang package='__APP_ADMIN_LANG__@Template/Shoppayment'>-->支付方式名字<!--</lang>--></label>
@@ -35,28 +37,30 @@
 					</fieldset>
 					<!--{if isset($arrPaymentData['shoppayment_config']) && is_array($arrPaymentData['shoppayment_config'])}-->
 					<!--<foreach for="arrPaymentData['shoppayment_config']" key=sKey value=arrPaymentoption>-->
+					<!--{~$arrShoppaymentValue=isset($arrShoppaymentValue)?$arrShoppaymentValue:array()}-->
+					<!--{~$sShoppaymentoptionValue=$TheController->get_shoppaymentvalue($arrPaymentoption,$arrShoppaymentValue)}-->
 					<fieldset>
 						<label for=""><!--{$arrPaymentoption['title']}--><span style="margin-left:5px;">(<!--{$arrPaymentoption['name']}-->)</span></label>
 						<!--{if in_array($arrPaymentoption['type'],array('number','text'))}-->
-						<input name="shoppayment_option[<!--{$arrPaymentoption['type']}-->]" value="<!--{if $arrPaymentoption['type']=='number'}--><!--{$arrPaymentoption['value']|intval}--><!--{d*else}--><!--{$arrPaymentoption['value']}--><!--{/if}-->" size="40" type="text">
+						<input name="shoppayment_option[<!--{$arrPaymentoption['name']}-->]" value="<!--{$sShoppaymentoptionValue}-->" size="40" type="text">
 						<!--{elseif $arrPaymentoption['type']=='textarea'}-->
-						<textarea name="shoppayment_option[<!--{$arrPaymentoption['type']}-->]" cols="70" rows="5"><!--{$arrPaymentoption['value']}--></textarea>
+						<textarea name="shoppayment_option[<!--{$arrPaymentoption['name']}-->]" cols="70" rows="5"><!--{$sShoppaymentoptionValue}--></textarea>
 						<!--{elseif $arrPaymentoption['type']=='radio'}-->
 						<p style="padding-left:8px;">
-							<input type="radio" name="shoppayment_option[<!--{$arrPaymentoption['type']}-->]" value="1" <!--{if $arrPaymentoption['value']}-->checked="checked"<!--{/if}-->/><!--<lang package='Template/Default/Common'>-->是<!--</lang>-->&nbsp;
-							<input type="radio" name="shoppayment_option[<!--{$arrPaymentoption['type']}-->]" value="0" <!--{if !$arrPaymentoption['value']}-->checked="checked"<!--{/if}-->/><!--<lang package='Template/Default/Common'>-->否<!--</lang>-->
+							<input type="radio" name="shoppayment_option[<!--{$arrPaymentoption['name']}-->]" value="1" <!--{if $sShoppaymentoptionValue}-->checked="checked"<!--{/if}-->/><!--<lang package='Template/Default/Common'>-->是<!--</lang>-->&nbsp;
+							<input type="radio" name="shoppayment_option[<!--{$arrPaymentoption['name']}-->]" value="0" <!--{if !$sShoppaymentoptionValue}-->checked="checked"<!--{/if}-->/><!--<lang package='Template/Default/Common'>-->否<!--</lang>-->
 						</p>
 						<!--{elseif $arrPaymentoption['type']=='color'}-->
 						<p style="padding-left:8px;">
-							<input class="left" type="text"  name="shoppayment_option[<!--{$arrPaymentoption['type']}-->]" id="shoppaymentoption_<!--{$arrPaymentoption['code']}-->" size="40" value="<!--{$arrPaymentoption['value']}-->" style="color:<!--{$arrPaymentoption['value']}-->;"/>
+							<input class="left" type="text"  name="shoppayment_option[<!--{$arrPaymentoption['name']}-->]" id="shoppaymentoption_<!--{$arrPaymentoption['code']}-->" size="40" value="<!--{$sShoppaymentoptionValue}-->" style="color:<!--{$sShoppaymentoptionValue}-->;"/>
 							<img src='<!--{:__PUBLIC__}-->/images/common/ico_color.gif' align='absmiddle' border='0' f="color-img" data-target="shoppaymentoption_<!--{$arrPaymentoption['code']}-->"/>
 						</p>
 						<!--{elseif in_array($arrPaymentoption['type'],array('select','selects'))}-->
 						<!--{~$arrShoppaymentoptionvalue=$arrPaymentoption['inputoption']?$arrPaymentoption['inputoption']:array()}-->
-						<select name="shoppayment_option[<!--{$arrPaymentoption['type']}-->]<!--{if $arrPaymentoption['type']=='selects'}-->[]<!--{/if}-->" <!--{if $arrPaymentoption['type']=='selects'}-->multiple="multiple" size="<!--{$arrShoppaymentoptionvalue|count}-->" style="height:120px;"<!--{/if}-->>
-							<option>-请选择-</option>
+						<select name="shoppayment_option[<!--{$arrPaymentoption['name']}-->]<!--{if $arrPaymentoption['type']=='selects'}-->[]<!--{/if}-->" <!--{if $arrPaymentoption['type']=='selects'}-->multiple="multiple" size="<!--{$arrShoppaymentoptionvalue|count}-->" style="height:120px;"<!--{/if}-->>
+							<option value=''>-请选择-</option>
 							<!--<foreach for=arrShoppaymentoptionvalue key=sK value=sShoppaymentoptionvalue>-->
-							<option value="<!--{$sK}-->" <!--{if ( $arrPaymentoption['type']=='select' && $arrPaymentoption['value']==$sK) || ($arrPaymentoption['type']=='selects' && in_array($sK,$arrPaymentoption['value']))}-->selected<!--{/if}-->><!--{$sShoppaymentoptionvalue}--></option>
+							<option value="<!--{$sK}-->" <!--{if ( $arrPaymentoption['type']=='select' && $sShoppaymentoptionValue==$sK) || ($arrPaymentoption['type']=='selects' && in_array($sK,$sShoppaymentoptionValue))}-->selected<!--{/if}-->><!--{$sShoppaymentoptionvalue}--></option>
 							<!--</foreach>-->
 						</select>
 						<!--{/if}-->
@@ -78,7 +82,11 @@
 				</div>
 				<footer>
 					<div class="submit_link">
-						<input type="submit" id="submit_button" value="<!--<lang package='Template/Default/Common'>-->发布<!--</lang>-->" class="alt_btn">
+						<input type="hidden" name="value" id="value" value="<!--<if condition="isset( $_GET['value'] )">--><!--{$_GET['value']}--><!--</if>-->"/>
+						<input type="hidden" name="shoppayment_code" value="<!--{$arrPaymentData['shoppayment_code']}-->">
+						<input type="hidden" name="shoppayment_iscod" value="<!--{$arrPaymentData['shoppayment_iscod']}-->">
+						<input type="hidden" name="shoppayment_isonline" value="<!--{$arrPaymentData['shoppayment_isonline']}-->">
+						<input type="submit" id="submit_button" value="<!--<if condition="isset( $oValue )">--><!--<lang package='Template/Default/Common'>-->更新<!--</lang>--><!--<else/>--><!--<lang package='Template/Default/Common'>-->发布<!--</lang>--><!--</if>-->" class="alt_btn">
 						&nbsp;<input type="reset" value="<!--<lang package='Template/Default/Common'>-->重置<!--</lang>-->">
 					</div>
 				</footer>
