@@ -6,14 +6,16 @@
 <!--{:Core_Extend::emotion()}-->
 
 <!--{script}-->
+	$(document).ready(function(){
+		editor=loadEditor('shoparticle_content');
+		$('a.face-icon').showEmotion({input:editor});
+	});
 function checkshoparticle(){
 	if(!$('#shoparticle_title').val()){
-		needforbugAlert('分类名称不能为空','',3);
+		needforbugAlert('文章标题不能为空','',3);
 		return false;
-	}
-}
-function checkshoparticleparentid(id){
-	if($('#shoparticlecategory_id').val()==''){
+	}	
+	if($('#shoparticlecategory_id').val()==0){
 		needforbugAlert('请选择文章分类','',3);
 		return false;
 	}
@@ -45,7 +47,7 @@ function checkshoparticleparentid(id){
 			</header>
 			<form action="<!--<if condition="isset( $_GET['value'] )" >--><!--{:Admin_Extend::update(array
 ('controller'=>'shoparticle'))}--><!--<else/>--><!--{:Admin_Extend::insert(array
-('controller'=>'shoparticle'))}--><!--</if>-->" method="post" id="shoparticleAdd" name="shoparticleAdd" enctype="multipart/form-data" <!--<if condition="isset( $_GET['value'] )" >-->onsubmit="return checkshoparticleparentid(<!--{$oValue:shoparticlecategory_id}-->);"<!--<else/>-->onsubmit="return checkshoparticle();"<!--</if>-->>
+('controller'=>'shoparticle'))}--><!--</if>-->" method="post" id="shoparticleAdd" name="shoparticleAdd" enctype="multipart/form-data" onsubmit="return checkshoparticle();">
 				<div class="module_content">
 					<div id="shoparticle_tab" class="nfb_tab">
 							<fieldset>
@@ -69,19 +71,33 @@ function checkshoparticleparentid(id){
 								<input type="text" name="shoparticle_keywords" id="shoparticle_keywords" size="40" value="<!--<if condition="isset( $oValue )">--><!--{$oValue:shoparticle_keywords}--><!--<else/>--><!--</if>-->"/>
 							</fieldset>
 							<fieldset>
+								<label for="shoparticle_content"><!--<lang package='__APP_ADMIN_LANG__@Template/shoparticle'>-->文章内容<!--</lang>--></label>
+								<div id="shoparticlecontent-media-box" class="common-media-box">
+									<a href="javascript:void(0);" class="face-icon icon_add_face" >表情</a> 
+									<a href="javascript:void(0);" onclick="globalAddattachment('insertshoparticlecontentattachment');" class="icon_add_img">媒体</a>
+									<a href="javascript:void(0);" onclick="addVideo('insertshoparticlecontentvideo');" class="icon_add_video" >视频</a>
+									<a href="javascript:void(0);" onclick="addMusic('insertshoparticlecontentmusic');" class="icon_add_music">音乐</a>
+								</div>
+								<p style="padding-left:10px;">
+									<textarea name="shoparticle_content" id="shoparticle_content" style="width:90%;height:400px;visibility:hidden;"><!--<if condition="isset( $oValue )">--><!--{$oValue:shoparticle_content}--><!--</if>--></textarea>
+								</p>
+								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/shoparticle'>-->文章内容<!--</lang>--><br/>
+								<!--<lang package='Template/Default/Common'>-->系统变量替换: {site_name} 网站标题,{site_description} 网站描述,{site_url} 站点信息,{time} 当前时间,{user_name} 登录用户,{user_nikename} 登录用户昵称,{admin_email} 系统管理员邮箱<!--</lang>--></div>
+							</fieldset>
+							<fieldset>
 								<label for="shoparticle_description"><!--<lang package='__APP_ADMIN_LANG__@Template/shoparticle'>-->描述<!--</lang>--></label>
 								<textarea name="shoparticle_description" id="shoparticle_description" rows="5"><!--<if condition="isset( $oValue)">--><!--{$oValue:shoparticle_description}--><!--<else/>--><!--</if>--></textarea>
 							</fieldset>
 							<fieldset>
 								<label for="shoparticle_status"><!--<lang package='__APP_ADMIN_LANG__@Template/shoparticle'>-->是否显示<!--</lang>--><span class="require-field"></span></label>
-								<input type="radio" name="shoparticle_status" id="shoparticle_status" value="1" checked="checked" />是
-								<input type="radio" name="shoparticle_status" id="" value="0"/>否
+								<input type="radio" name="shoparticle_status" id="shoparticle_status" value="1" <!--<if condition="!isset($oValue) || $oValue:shoparticle_status==1">-->checked="checked"<!--</if>--> />是
+								<input type="radio" name="shoparticle_status" id="" value="0" <!--<if condition="isset( $oValue) && $oValue:shoparticle_status==0">-->checked="checked"<!--</if>--> />否
 								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/shoparticle'>-->文章是否在前台显示<!--</lang>--></div>
 							</fieldset>
 							<fieldset>
 								<label for="shoparticle_in"><!--<lang package='__APP_ADMIN_LANG__@Template/shoparticle'>-->是否是系统内置文章<!--</lang>--><span class="require-field"></span></label>
-								<input type="radio" name="shoparticle_in" id="shoparticle_status" value="1"  />是
-								<input type="radio" name="shoparticle_in" id="" value="0" checked="checked"/>否
+								<input type="radio" name="shoparticle_in" id="shoparticle_status" value="1" <!--<if condition="isset($oValue) && $oValue:shoparticle_in==1">-->checked="checked"<!--</if>--> />是
+								<input type="radio" name="shoparticle_in" id="" value="0" <!--<if condition="!isset( $oValue) || $oValue:shoparticle_in==0">-->checked="checked"<!--</if>--> />否
 								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/shoparticle'>-->系统内置文章将无法删除<!--</lang>--></div>
 							</fieldset>
 					</div>

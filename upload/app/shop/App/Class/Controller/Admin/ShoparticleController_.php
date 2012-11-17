@@ -41,6 +41,16 @@ class ShoparticleController extends InitController{
 		parent::insert('shoparticle',$nId);
 	}
 	
+	public function AInsertObject_($oModel){
+		$nFid=G::getGpc('shoparticlecategory_id','P');
+		
+		$oShoparticlecategory=ShoparticlecategoryModel::F('shoparticlecategory_id=?',$nFid)->getOne();
+		$oModel->user_id=$GLOBALS['___login___']['user_id'];
+		$oModel->shoparticle_username=$GLOBALS['___login___']['user_name'];
+		$oModel->shoparticle_useremail=$GLOBALS['___login___']['user_email'];
+		$oModel->shoparticle_type=$oShoparticlecategory->shoparticlecategory_name;
+	}
+	
 	public function edit($sMode=null,$nId=null,$bDidplay=true){
 		$nId=intval(G::getGpc('value','G'));
 		
