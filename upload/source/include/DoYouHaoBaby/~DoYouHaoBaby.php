@@ -452,7 +452,7 @@ class Dyhb{
 					}
 				}
 				$sStr=substr($sStr,0,-1);
-				$sUrl=__APP__.($GLOBALS['_commonConfig_']['DEFAULT_APP']!=$sApp?$sDepr.'app'.$sDepr.$sApp:'').$sDepr.$sRoute.$sStr;
+				$sUrl=(__APP__!=='/'?__APP__:'').($GLOBALS['_commonConfig_']['DEFAULT_APP']!=$sApp?$sDepr.'app'.$sDepr.$sApp:'').$sDepr.$sRoute.$sStr;
 			}else{
 				$sStr=$sDepr;
 				if(is_array($arrParams)){
@@ -461,7 +461,7 @@ class Dyhb{
 					}
 				}
 				$sStr=substr($sStr,0,-1);
-				$sUrl=__APP__.($GLOBALS['_commonConfig_']['DEFAULT_APP']!=$sApp?$sDepr.'app'.$sDepr.$sApp:'').$sDepr.$sModule.$sDepr.$sAction.$sStr;
+				$sUrl=(__APP__!=='/'?__APP__:'').($GLOBALS['_commonConfig_']['DEFAULT_APP']!=$sApp?$sDepr.'app'.$sDepr.$sApp:'').$sDepr.$sModule.$sDepr.$sAction.$sStr;
 			}
 			if($bSuffix && $GLOBALS['_commonConfig_']['URL_HTML_SUFFIX']){
 				$sUrl.=$GLOBALS['_commonConfig_']['URL_HTML_SUFFIX'];
@@ -475,9 +475,9 @@ class Dyhb{
 			}
 			$sStr=rtrim($sStr,'&');
 			if(empty($sRoute)){
-				$sUrl=__APP__.($GLOBALS['_commonConfig_']['DEFAULT_APP']!=$sApp?'?app='.$sApp.'&':'?').'c='.$sModule.'&a='.$sAction.($sStr?'&'.$sStr:'');
+				$sUrl=(__APP__!=='/'?__APP__:'').($GLOBALS['_commonConfig_']['DEFAULT_APP']!=$sApp?'?app='.$sApp.'&':'?').'c='.$sModule.'&a='.$sAction.($sStr?'&'.$sStr:'');
 			}else{
-				$sUrl=__APP__.($GLOBALS['_commonConfig_']['DEFAULT_APP']!=$sApp?'?app='.$sApp.'&':'?').($sRoute?'r='.$sRoute:'').($sStr?'&'.$sStr:'');
+				$sUrl=(__APP__!=='/'?__APP__:'').($GLOBALS['_commonConfig_']['DEFAULT_APP']!=$sApp?'?app='.$sApp.'&':'?').($sRoute?'r='.$sRoute:'').($sStr?'&'.$sStr:'');
 			}
 		}
 		$sUrl=$GLOBALS['_commonConfig_']['URL_DOMAIN'].$sUrl;
@@ -9337,8 +9337,8 @@ class Url{
 		$nUrlModel=$GLOBALS['_commonConfig_']['URL_MODEL'];
 		if($GLOBALS['_commonConfig_']['URL_MODEL']===URL_REWRITE){// 如果为重写模式
 			$sUrl=dirname(_PHP_FILE_);
-			if($sUrl=='/' || $sUrl=='\\'){
-				$sUrl='';
+			if($sUrl=='\\'){
+				$sUrl='/';
 			}
 			define('PHP_FILE',$sUrl);
 		}elseif($GLOBALS['_commonConfig_']['URL_MODEL']===URL_COMPAT){

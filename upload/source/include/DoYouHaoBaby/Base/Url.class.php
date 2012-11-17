@@ -123,8 +123,8 @@ class Url{
 
 		if($GLOBALS['_commonConfig_']['URL_MODEL']===URL_REWRITE){// 如果为重写模式
 			$sUrl=dirname(_PHP_FILE_);
-			if($sUrl=='/' || $sUrl=='\\'){
-				$sUrl='';
+			if($sUrl=='\\'){
+				$sUrl='/';
 			}
 			define('PHP_FILE',$sUrl);
 		}elseif($GLOBALS['_commonConfig_']['URL_MODEL']===URL_COMPAT){
