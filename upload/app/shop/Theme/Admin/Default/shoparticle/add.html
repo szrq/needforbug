@@ -15,7 +15,7 @@ function checkshoparticle(){
 		needforbugAlert('文章标题不能为空','',3);
 		return false;
 	}	
-	if($('#shoparticlecategory_id').val()==0){
+	else if($('#shoparticlecategory_id').val()==0){
 		needforbugAlert('请选择文章分类','',3);
 		return false;
 	}

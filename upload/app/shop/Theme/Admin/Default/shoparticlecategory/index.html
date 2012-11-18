@@ -14,7 +14,6 @@
 			<div class="module_content">
 				<ul>
 					<li><!--<lang package='__APP_ADMIN_LANG__@Template/shoparticlecategory'>-->这里将展示网站目前所有的文章信息<!--</lang>--></li>
-					<li><!--<lang package='__APP_ADMIN_LANG__@Template/shoparticlecategory'>-->分类状态为0表示分类不在前台显示<!--</lang>--></li>
 				</ul>
 			</div>
 		</article>
@@ -31,7 +30,7 @@
 					<input type="hidden" name="a" value="<!--{:ACTION_NAME}-->"/>
 					<input type="hidden" name="id" value="<!--{$_GET['id']}-->"/>
 					<input type="hidden" name="controller" value="shoparticlecategory"/>
-					<input type="text" name="shoparticlecategory_name" title="<!--<lang package='__APP_ADMIN_LANG__@Template/shoparticlecategory'>-->分类名<!--</lang>-->">
+					<input type="text" name="shoparticlecategory_name" title="<!--<lang package='__APP_ADMIN_LANG__@Template/shoparticlecategory'>-->分类名称<!--</lang>-->">
 					&nbsp;<input type="submit" id="" value="<!--<lang package='Template/Default/Common'>-->查询<!--</lang>-->" onclick="" class="alt_btn">
 				</form>
 			</div>
@@ -49,8 +48,9 @@
 						<tr> 
 						<th><input type="checkbox" onclick="checkAll('checkList')"></th> 
 						<th><a href="<!--{:Admin_Extend::soryBy('shoparticlecategory_id',$sSortByUrl,array('controller'=>'shoparticlecategory'))}-->" <!--{:Admin_Extend::sortField('shoparticlecategory_id')}-->><!--<lang package='Template/Default/Common'>-->编号<!--</lang>--></a></th> 
-						<th><a href="<!--{:Admin_Extend::soryBy('shoparticlecategory_name',$sSortByUrl,array('controller'=>'shoparticlecategory'))}-->" <!--{:Admin_Extend::sortField('shoparticlecategory_name')}-->><!--<lang package='__APP_ADMIN_LANG__@Template/shoparticlecategory'>-->文章分类名<!--</lang>--></a></th>
-						<th><a href="<!--{:Admin_Extend::soryBy('shoparticlecategory_description',$sSortByUrl,array('controller'=>'shoparticlecategory'))}-->" <!--{:Admin_Extend::sortField('shoparticlecategory_price')}-->><!--<lang package='__APP_ADMIN_LANG__@Template/shoparticlecategory'>-->分类描述<!--</lang>--></a></th>
+						<th><a href="<!--{:Admin_Extend::soryBy('shoparticlecategory_name',$sSortByUrl,array('controller'=>'shoparticlecategory'))}-->" <!--{:Admin_Extend::sortField('shoparticlecategory_name')}-->><!--<lang package='__APP_ADMIN_LANG__@Template/shoparticlecategory'>-->文章分类名称<!--</lang>--></a></th>
+						<th><a href="<!--{:Admin_Extend::soryBy('shoparticlecategory_description',$sSortByUrl,array('controller'=>'shoparticlecategory'))}-->" <!--{:Admin_Extend::sortField('shoparticlecategory_description')}-->><!--<lang package='__APP_ADMIN_LANG__@Template/shoparticlecategory'>-->分类描述<!--</lang>--></a></th>
+						<th><a href="<!--{:Admin_Extend::soryBy('shoparticlecategory_status',$sSortByUrl,array('controller'=>'shoparticlecategory'))}-->" <!--{:Admin_Extend::sortField('shoparticlecategory_status')}-->><!--<lang package='__APP_ADMIN_LANG__@Template/shoparticlecategory'>-->显示状态<!--</lang>--></a></th>
 						<th><a href="<!--{:Admin_Extend::soryBy('create_dateline',$sSortByUrl,array('controller'=>'shoparticlecategory'))}-->" <!--{:Admin_Extend::sortField('create_dateline')}-->><!--<lang package='Template/Default/Common'>-->添加时间<!--</lang>--></a></th>
 						<th><!--<lang package='Template/Default/Common'>-->操作<!--</lang>--></th>
 						</tr> 
@@ -67,6 +67,7 @@
 								</div>
 							</td>
 							<td><!--{$value:shoparticlecategory_description}--></td>
+							<td><img src="<!--{:__TMPLPUB__}-->/Images/<!--{if $value:shoparticlecategory_status==1}-->yes<!--{d*else}-->no<!--{/if}-->.gif"/></td>
 							<td><!--{$value:create_dateline|date='Y-m-d H:i:s',**}--></td>
 							<td>
 								<!--<if condition="$value:shoparticlecategory_status eq 1" >--><a href="javascript:forbidApp('<!--{$_GET['id']}-->','shoparticlecategory','<!--{$value:shoparticlecategory_id}-->');"><input type="image" src="<!--{:__TMPLPUB__}-->/Images/icn_trash.png" title="<!--<lang package='Template/Default/Common'>-->禁用<!--</lang>-->"></a><!--<else/>-->
