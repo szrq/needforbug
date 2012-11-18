@@ -34,7 +34,7 @@
 					<thead> 
 						<tr> 
 						<th><!--<lang package='__APP_ADMIN_LANG__@Template/Shoppayment'>-->支付方式名称<!--</lang>--></th>
-						<th><!--<lang package='__APP_ADMIN_LANG__@Template/Shoppayment'>-->支付方式描述<!--</lang>--></th>
+						<th width="350px"><!--<lang package='__APP_ADMIN_LANG__@Template/Shoppayment'>-->支付方式描述<!--</lang>--></th>
 						<th><!--<lang package='__APP_ADMIN_LANG__@Template/Shoppayment'>-->插件版本<!--</lang>--></th>
 						<th><!--<lang package='__APP_ADMIN_LANG__@Template/Shoppayment'>-->插件作者<!--</lang>--></th>
 						<th><!--<lang package='__APP_ADMIN_LANG__@Template/Shoppayment'>-->费用<!--</lang>--></th>
@@ -51,7 +51,7 @@
 							<td><!--{$value['shoppayment_version']}--></td>
 							<td><!--{if $value['shoppayment_authorurl']}--><a href="<!--{$value['shoppayment_authorurl']}-->"><!--{$value['shoppayment_author']}--></a><!--{d*else}--><!--{$value['shoppayment_author']}--><!--{/if}--></td>
 							<td><!--{$value['shoppayment_fee']}--></td>
-							<td><!--{if $value['install']=='1'}--><!--{$value['shoppayment_order']}--><!--{/if}--></td>
+							<td><!--{if $value['install']=='1'}--><!--{$value['shoppayment_sort']}--><!--{/if}--></td>
 							<td><!--{if $value['install']=='1'}--><img src="<!--{:__TMPLPUB__}-->/Images/<!--{if $value['shoppayment_status']=='1'}-->yes<!--{d*else}-->no<!--{/if}-->.gif"/><!--{/if}--></td>
 							<td><!--{if $value['install']=='1'}-->
 								<!--<if condition="$value['shoppayment_status'] eq 1" >--><a href="javascript:forbidApp('<!--{$_GET['id']}-->','shoppayment','<!--{$value['shoppayment_id']}-->');"><input type="image" src="<!--{:__TMPLPUB__}-->/Images/icn_trash.png" title="<!--<lang package='Template/Default/Common'>-->禁用<!--</lang>-->"></a><!--<else/>-->

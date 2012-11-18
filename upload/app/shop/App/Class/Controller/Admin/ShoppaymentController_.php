@@ -38,7 +38,7 @@ class ShoppaymentController extends InitController{
 		// 数据库中记录数量
 		$arrPaymentlist=array();
 
-		$arrPayments=ShoppaymentModel::F()->order('shoppayment_order DESC')->getAll();
+		$arrPayments=ShoppaymentModel::F()->order('shoppayment_sort DESC')->getAll();
 		if(is_array($arrPayments)){
 			foreach($arrPayments as $oPayment){
 				$arrPaymentlist[$oPayment['shoppayment_code']]=$oPayment;
@@ -58,7 +58,7 @@ class ShoppaymentController extends InitController{
 				$sConfigfile=$sParmentpath.'/'.$sPaymentdir.'/Config.php';
 
 				if(!is_file($sConfigfile)){
-					$arrWarningmessage[]=sprintf('支付方式 %s 配置文件不存在',$sPaymentdir);
+					$arrWarningmessage[]=sprintf('支付方式 %s 配置文件不存在',$sConfigfile);
 					continue;
 				}else{
 					$sPaymentcode=$sPaymentdir;
@@ -102,7 +102,7 @@ class ShoppaymentController extends InitController{
 
 		$sConfigfile=$sParmentpath.'/'.$sCode.'/Config.php';
 		if(!is_file($sConfigfile)){
-			$this->E(sprintf('支付方式 %s 配置文件不存在',$sPaymentdir));
+			$this->E(sprintf('支付方式 %s 配置文件不存在',$sConfigfile));
 		}else{
 			$arrPaymentData=(array)(include $sConfigfile);
 			if(!isset($arrPaymentData['shoppayment_fee'])){
@@ -156,7 +156,7 @@ class ShoppaymentController extends InitController{
 		$nId=intval(G::getGpc('value','G'));
 
 		if(empty($nId)){
-			$this->E('你没有指定要安装支付方式');
+			$this->E('你没有指定要编辑支付方式');
 		}
 
 		// 查询是否已经安装了支付方式
@@ -169,7 +169,7 @@ class ShoppaymentController extends InitController{
 
 		$sConfigfile=$sParmentpath.'/'.$oShoppayment['shoppayment_code'].'/Config.php';
 		if(!is_file($sConfigfile)){
-			$this->E(sprintf('支付方式 %s 配置文件不存在',$sPaymentdir));
+			$this->E(sprintf('支付方式 %s 配置文件不存在',$sConfigfile));
 		}else{
 			$arrPaymentData=(array)(include $sConfigfile);
 			
