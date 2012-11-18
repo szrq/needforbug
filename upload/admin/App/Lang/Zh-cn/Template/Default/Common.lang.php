@@ -71,6 +71,7 @@ return array(
 'b339aa87104709397ba68e7ebbc6e5ba'=>"表格",
 '3712972d84adf48acbd6ad24b4d75ad0'=>"列表",
 '97d07614380da93d257f9fbf81aa56fb'=>"文本",
+'64fcc62c9fe13c26822f14b90296473e'=>"发表时间",
 )
 
 ?>

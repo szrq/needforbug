@@ -23,7 +23,35 @@ if(isset($_GET['app'])){
 	$sAppName=strtolower(str_replace(array('/','\\'),'',strip_tags(urldecode($_GET['app']))));
 }else{
 	if(!empty($_SERVER['PATH_INFO'])){
-		$arrPathinfos=explode('/',trim($_SERVER['PATH_INFO'],'/'));
+		$sPathinfo=$_SERVER['PATH_INFO'];
+	}else{
+		$sPhpfile='';
+		if(substr(PHP_SAPI,0,3)=='cgi'){
+			$arrTemp=explode('.php',$_SERVER["PHP_SELF"]);// CGI/FASTCGI模式下
+			$sPhpfile=rtrim(str_replace($_SERVER["HTTP_HOST"],'',$arrTemp[0].'.php'),'/');
+		}else{
+			$sPhpfile=rtrim($_SERVER["SCRIPT_NAME"],'/');
+		}
+
+		if(!isset($_SERVER['REQUEST_URI'])){
+			$_SERVER['REQUEST_URI']=$_SERVER['PHP_SELF'];
+			if(isset($_SERVER['QUERY_STRING'])){
+				$_SERVER['REQUEST_URI'].='?'.$_SERVER['QUERY_STRING'];
+			}
+		}
+
+		$sRequesturi=str_replace('index.php/','',$_SERVER['REQUEST_URI']);
+		$sPhpfile=str_replace('index.php','',$sPhpfile);
+		
+		if($sPhpfile=='/'){
+			$sPathinfo=ltrim($sRequesturi,'/');
+		}else{
+			$sPathinfo=str_replace($sPhpfile,'',$sRequesturi);
+		}
+	}
+
+	if(!empty($sPathinfo)){
+		$arrPathinfos=explode('/',trim($sPathinfo,'/'));
 
 		if(isset($arrPathinfos[1]) && $arrPathinfos[0]=='app'){
 			$sAppName=$arrPathinfos[1];

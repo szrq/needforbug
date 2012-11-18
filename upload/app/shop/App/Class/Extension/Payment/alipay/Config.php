@@ -14,6 +14,9 @@ return array(
 	// 支付描述
 	'shoppayment_description'=>'支付宝网站(www.alipay.com) 是国内先进的网上支付平台。<br/>支付宝收款接口：在线即可开通，<font color="red"><b>零预付，免年费</b></font>，单笔阶梯费率，无流量限制。<br/><a href="'.__ROOT__.'/index.php?app=shop&c=misc&a=payment&type=alipay" target="_blank"><strong>立即在线申请</strong></a>',
 
+	// 产品官方网址
+	'shoppayment_website'=>'http://www.alipay.com',
+
 	// 是否支持货到付款
 	'shoppayment_iscod'=>'0',
 
@@ -25,9 +28,6 @@ return array(
 
 	// 作者URL
 	'shoppayment_authorurl'=>'http://dianniu.net',
-
-	// 网址
-	'shoppayment_website'=>'http://www.alipay.com',
 
 	// 版本号
 	'shoppayment_version'=>'1.0',
