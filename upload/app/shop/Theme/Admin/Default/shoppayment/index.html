@@ -46,7 +46,7 @@
 					<tbody> 
 						<!--<foreach for=arrPaymentlistData>-->
 						<tr>
-							<td><!--{$value['shoppayment_name']}--></td>
+							<td><!--{if !empty($value['shoppayment_website'])}--><a href="<!--{$value['shoppayment_website']}-->" target="_blank"><!--{$value['shoppayment_name']}--></a><!--{d*else}--><!--{$value['shoppayment_name']}--><!--{/if}--></td>
 							<td><!--{$value['shoppayment_description']}--></td>
 							<td><!--{$value['shoppayment_version']}--></td>
 							<td><!--{if $value['shoppayment_authorurl']}--><a href="<!--{$value['shoppayment_authorurl']}-->"><!--{$value['shoppayment_author']}--></a><!--{d*else}--><!--{$value['shoppayment_author']}--><!--{/if}--></td>
