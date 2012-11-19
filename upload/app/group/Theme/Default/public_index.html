@@ -224,18 +224,22 @@
 					<div class="group_sidebar_item">
 						<h2 class="box_title">热门帖子</h2>
 						<ul class="grouphottopic_titles">
-							<!--<foreach for=arrGrouptopic value=oGrouptopic>-->
+							<!--{if is_array($arrGrouphottopics)}-->
+							<!--<foreach for=arrGrouphottopics value=oGrouphottopic>-->
 							<li>
-								<h3><a href="<!--{:Dyhb::U('group://topic@?id='.$oGrouptopic->grouptopic_id)}-->" target="_blank" ><!--{$oGrouptopic->grouptopic_title|G+subString=0,20}--></a></h3>
-								<span class="grouphottopic_commentnum"><!--{$oGrouptopic->grouptopic_comments}--></span>
+								<h3><a href="<!--{:Dyhb::U('group://topic@?id='.$oGrouphottopic->grouptopic_id)}-->" target="_blank" ><!--{$oGrouphottopic->grouptopic_title|G+subString=0,20}--></a></h3>
+								<span class="grouphottopic_commentnum"><!--{$oGrouphottopic->grouptopic_comments}--></span>
 								<!--<p class="grouphottopic_userinfo">
-									<span class="left">来自：<a title="<!--{$oGrouptopic->grouptopic_username}-->" target="_blank" href="<!--{:Dyhb::U('home://space@?id='.$oGrouptopic->user_id)}-->" class="bind_hover_card" bm_user_id="<!--{$oGrouptopic['user_id']}-->"><!--{$oGrouptopic->grouptopic_username}--></a>&nbsp;<!--{$oGrouptopic->grouptopiccategory->grouptopiccategory_name}-->
+									<span class="left">来自：<a title="<!--{$oGrouphottopic->grouptopic_username}-->" target="_blank" href="<!--{:Dyhb::U('home://space@?id='.$oGrouphottopic->user_id)}-->" class="bind_hover_card" bm_user_id="<!--{$oGrouphottopic['user_id']}-->"><!--{$oGrouphottopic->grouptopic_username}--></a>&nbsp;<!--{$oGrouphottopic->grouptopiccategory->grouptopiccategory_name}-->
 									<!--</span>
 								</p>-->
-								<span style="width:100%;" class="grouphottopic_commentnum">来自：<a title="<!--{$oGrouptopic->grouptopic_username}-->" target="_blank" href="<!--{:Dyhb::U('home://space@?id='.$oGrouptopic->user_id)}-->" style="color:#999999;" class="bind_hover_card" bm_user_id="<!--{$oGrouptopic['user_id']}-->"><!--{$oGrouptopic->grouptopic_username}--></a>&nbsp;<!--{$oGrouptopic->grouptopiccategory->grouptopiccategory_name}-->
+								<span style="width:100%;" class="grouphottopic_commentnum">来自：<a title="<!--{$oGrouphottopic->grouptopic_username}-->" target="_blank" href="<!--{:Dyhb::U('home://space@?id='.$oGrouphottopic->user_id)}-->" style="color:#999999;" class="bind_hover_card" bm_user_id="<!--{$oGrouphottopic['user_id']}-->"><!--{$oGrouphottopic->grouptopic_username}--></a>&nbsp;<!--{$oGrouphottopic->grouptopiccategory->grouptopiccategory_name}-->
 								</span>
 							</li>
 							<!--</foreach>-->
+							<!--{d*else}-->
+							<li>暂时没有发现任何帖子&nbsp;<a href="<!--{:Dyhb::U('group://public/group')}-->">我要发布</a></li>
+							<!--{/if}-->
 						</ul>
 					</div>
 					<!--

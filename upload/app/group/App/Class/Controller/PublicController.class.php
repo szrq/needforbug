@@ -9,6 +9,7 @@ class PublicController extends InitController{
 	public function index(){
 		Core_Extend::loadCache('sociatype');
 
+		// 新帖列表
 		$sType=G::getGpc('type','G');
 		if(empty($sType)){
 			$sType='create_dateline';
@@ -32,8 +33,19 @@ class PublicController extends InitController{
 		$this->assign('arrGrouptopics',$arrGrouptopics);
 		$this->assign('sPageNavbar',$oPage->P('pagination','li','active'));
 
-		$arrGrouptopic=GrouptopicModel::F()->order('grouptopic_comments DESC')->top(5)->get();
-		$this->assign('arrGrouptopic',$arrGrouptopic);
+		// 热门帖子
+		$nGrouphottopicdate=$GLOBALS['_cache_']['group_option']['group_hottopic_date'];
+		if($nGrouphottopicdate<3600){
+			$nGrouphottopicdate=3600;
+		}
+
+		$nGrouphottopicnum=$GLOBALS['_cache_']['group_option']['group_hottopic_num'];
+		if($nGrouphottopicnum<1){
+			$nGrouphottopicnum=1;
+		}
+		
+		$arrGrouphottopics=GrouptopicModel::F('create_dateline>?',CURRENT_TIMESTAMP-$nGrouphottopicdate)->order('grouptopic_comments DESC')->top($nGrouphottopicnum)->get();
+		$this->assign('arrGrouphottopics',$arrGrouphottopics);
 
 		$this->assign('nDisplaySeccode',$GLOBALS['_option_']['seccode_login_status']);
 		$this->assign('nRememberTime',$GLOBALS['_option_']['remember_time']);

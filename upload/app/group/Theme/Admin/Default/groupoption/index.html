@@ -52,6 +52,23 @@ function option(){
 						<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Groupoption'>-->这里是进入小组后对应的帖子列表分页数量<!--</lang>-->
 						</div>
 					</fieldset>
+					<fieldset>
+						<label for="group_hottopic_date"><!--<lang package='__APP_ADMIN_LANG__@Template/Groupoption'>-->群组热门帖子调用时间<!--</lang>--></label>
+						<select name="options[group_hottopic_date]" id="group_hottopic_date">
+							<option value="3600" <!--{if $arrOptions['group_hottopic_date']==3600}-->selected<!--{/if}-->><!--<lang package='__COMMON_LANG__@Common'>-->一小时<!--</lang>--></option>
+							<option value="86400" <!--{if $arrOptions['group_hottopic_date']==86400}-->selected<!--{/if}-->><!--<lang package='__COMMON_LANG__@Common'>-->一天<!--</lang>--></option>
+							<option value="604800" <!--{if $arrOptions['group_hottopic_date']==604800}-->selected<!--{/if}-->><!--<lang package='__COMMON_LANG__@Common'>-->一星期<!--</lang>--></option>
+							<option value="2592000" <!--{if $arrOptions['group_hottopic_date']==2592000}-->selected<!--{/if}-->><!--<lang package='__COMMON_LANG__@Common'>-->一月<!--</lang>--></option>
+							<option value="31536000" <!--{if $arrOptions['group_hottopic_date']==31536000}-->selected<!--{/if}-->><!--<lang package='__COMMON_LANG__@Common'>-->一年<!--</lang>--></option>
+						</select>
+						<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Groupoption'>-->这里的时间为热门帖子调用时间，如果为一星期，那么热门帖子只会从当前一个星期中取出<!--</lang>--></div>
+					</fieldset>
+					<fieldset>
+						<label for="group_hottopic_num"><!--<lang package='__APP_ADMIN_LANG__@Template/Groupoption'>-->群组首页热门帖子数量<!--</lang>--></label>
+						<input type="text" name="options[group_hottopic_num]" id="group_hottopic_num" size="60" value="<!--{$arrOptions['group_hottopic_num']}-->"/>
+						<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Groupoption'>-->热门帖子可以提高会员互动性，跟随流行热门话题<!--</lang>-->
+						</div>
+					</fieldset>
 				</div>
 				<footer>
 					<div class="submit_link">
