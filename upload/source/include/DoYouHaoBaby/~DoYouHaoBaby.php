@@ -9596,7 +9596,7 @@ class Router{
 			$sPathInfo=&$_SERVER['PATH_INFO'];
 			$arrPaths=explode($GLOBALS['_commonConfig_']['URL_PATHINFO_DEPR'],trim($sPathInfo,'/'));
 			
-			if($arrPaths[0]=='app'){
+			if(isset($arrPaths[0]) && $arrPaths[0]=='app'){
 				array_shift($arrPaths);
 				$_GET['app']=array_shift($arrPaths);
 			}
@@ -9637,7 +9637,7 @@ class Router{
 		$sDepr=$GLOBALS['_commonConfig_']['URL_PATHINFO_DEPR'];
 		$sRegx=trim($sPathInfo,'/');
 		$arrPaths=array_filter(explode($sDepr,trim(str_ireplace(strtolower($sRouteName),'',$sRegx),$sDepr)));
-		if($arrPaths[0]=='app'){
+		if(isset($arrPaths[0]) && $arrPaths[0]=='app'){
 			array_shift($arrPaths);
 			$arrVar['app']=array_shift($arrPaths);
 		}
