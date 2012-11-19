@@ -16,7 +16,7 @@ Tags: admin, light
 ================================*/
 [CURSCRIPT=@media,home::ucenter::index]
 .common-media-box{margin:8px 0 8px 0px;}
-.icon_add_face,.icon_add_topic,.icon_add_img,.icon_add_video,.icon_add_music{background-image: url('{IMG_DIR}/homefresh_icon.png');background-repeat:no-repeat;width: 22px;height: 22px;padding:4px 0px 4px 20px;line-height:22px;margin-right:5px;}
+.icon_add_face,.icon_add_topic,.icon_add_img,.icon_add_video,.icon_add_music{background-image: url('{__ROOT__}/Public/images/common/homefresh_icon.png');background-repeat:no-repeat;width: 22px;height: 22px;padding:4px 0px 4px 20px;line-height:22px;margin-right:5px;}
 .icon_add_face{background-position: 0px 2px;}
 .icon_add_topic{background-position: 0px -21px;}
 .icon_add_img{background-position: 0px -47px;}
@@ -98,7 +98,7 @@ Tags: admin, light
 ================================*/
 [CURSCRIPT=home::public::index]
 .home_topiclist_box .num {color: #999999;line-height: 18px;text-align: center;width: 140px;text-align:center;}
-.home_topiclist_box .num span {background: none repeat scroll 0 0 #fbf6f6;-webkit-border-radius:3px 3px 3px 3px;-moz-border-radius:3px 3px 3px 3px;border-radius: 3px 3px 3px 3px;display: block;float: right;height: 36px;margin: 0 0 0 10px;overflow: hidden;padding: 4px 0;width: 54px;}
+.home_topiclist_box .num span {background: none repeat scroll 0 0 #f3f1f1;-webkit-border-radius:3px 3px 3px 3px;-moz-border-radius:3px 3px 3px 3px;border-radius: 3px 3px 3px 3px;display: block;float: right;height: 36px;margin: 0 0 0 10px;overflow: hidden;padding: 4px 0;width: 54px;}
 .home_topiclist_box .num em {display: block;font-weight: 700;}
 .home_topiclist_box .info,.info a {color: #999999;}
 .home_topiclist_box .info span {margin-right: 10px;}
