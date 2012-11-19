@@ -31,7 +31,7 @@ class GroupmainController extends InitController{
 			$oOptionModel->save(0,'update');
 		}
 
-		GroupCache_Extend::updateCache("option");
+		GroupCache_Extend::updateCacheOption();
 
 		$this->S(Dyhb::L('配置更新成功','__APP_ADMIN_LANG__@Controller/Groupoption'));
 	}

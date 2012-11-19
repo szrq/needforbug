@@ -24,11 +24,11 @@ function getnewtopic(num){
 	$('#home_topiclist_box').html(sHtml);
 }
 
-function gethottopic(num,cutnum){
+function gethottopic(num,cutnum,nDate){
 	$('#home_hottopiclist_box').html("<img src='<!--{:__PUBLIC__}-->/images/common/ajax/loading.gif'/>");
 	
 	var sHtml = $.ajax({
-		url: D.U('group://api/hot_topic?num='+num+'&cnum='+cutnum),
+		url: D.U('group://api/hot_topic?num='+num+'&cnum='+cutnum+'&date='+nDate),
 		async: false
 	}).responseText;
 
@@ -48,7 +48,7 @@ function getrecommendgroup(num,cutnum){
 
 $(document).ready(function(){
 	getnewtopic(<!--{$GLOBALS['_option_']['home_newtopic_num']}-->);
-	gethottopic('<!--{$GLOBALS['_option_']['home_hottopic_num']}-->',18);
+	gethottopic('<!--{$GLOBALS['_option_']['home_hottopic_num']}-->',18,'<!--{$GLOBALS['_option_']['home_hottopic_date']}-->');
 	getrecommendgroup('<!--{$GLOBALS['_option_']['home_recommendgroup_num']}-->',15);
 	$('.homefresh-content').listEmotion();
 });

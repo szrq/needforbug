@@ -7,6 +7,7 @@
 <div class="row">
 	<!--<include file="menu" />-->
 
+	
 	<div class="span12" style="text-align:left;margin-top:20px;">
 		<ul class="breadcrumb">
 			<li><a href="#">首页</a> <span class="divider">/</span></li>
@@ -14,169 +15,206 @@
 		</ul>
 	</div>
 
-	<div class="span12" style="margin-top:10px;">
-		<h3>商品列表</h3>
-		<table class="table">
-			<thead>
-				<tr>
-					<th>作品</th>
-					<th>购买件数</th>
-					<th>购买价格</th>
-				</tr>
-			</thead>
-			<tbody>
-				<!--<foreach for=arrShopcartsData value=arrShopcart>-->
-				<tr>
-					<td><a href="<!--{:Dyhb::U('shop://goods@?id='.$arrShopcart['goods_id'])}-->"><!--{$arrShopcart['goods_name']}--></a><br/>
-						<img src="<!--{$arrShopcart['goods_img']}-->" alt="" width="120" height="120">
-					</td>
-					<td><input type="text" name="shopcartcount[<!--{$arrShopcart['goods_id']}-->]" value="<!--{$arrShopcart['goods_count']}-->" style="width:50px;"></td>
-					<td><!--{$arrShopcart['goods_price']}--></td>
-				</tr>
-				<!--</foreach>-->
-			</tbody>
-		</table>
-		<div class="row">
-			<div class="span12">
-				购物车中商品数量为 <!--{$arrShopcartsTotal['goods_count']}-->，购物金额小计 ￥<!--{$arrShopcartsTotal['goods_price']}-->
+	<form action="<!--{:Dyhb::U('shop://shopcart/done')}-->" method="post" name="theForm" id="theForm">
+		<div class="span12" style="margin-top:10px;">
+			<h3>商品列表</h3>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>作品</th>
+						<th>购买件数</th>
+						<th>购买价格</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!--<foreach for=arrShopcartsData value=arrShopcart>-->
+					<tr>
+						<td><a href="<!--{:Dyhb::U('shop://goods@?id='.$arrShopcart['goods_id'])}-->"><!--{$arrShopcart['goods_name']}--></a><br/>
+							<img src="<!--{$arrShopcart['goods_img']}-->" alt="" width="120" height="120">
+						</td>
+						<td><input type="text" name="shopcartcount[<!--{$arrShopcart['goods_id']}-->]" value="<!--{$arrShopcart['goods_count']}-->" style="width:50px;"></td>
+						<td><!--{$arrShopcart['goods_price']}--></td>
+					</tr>
+					<!--</foreach>-->
+				</tbody>
+			</table>
+			<div class="row">
+				<div class="span12">
+					购物车中商品数量为 <!--{$arrShopcartsTotal['goods_count']}-->，购物金额小计 ￥<!--{$arrShopcartsTotal['goods_price']}-->
+				</div>
 			</div>
 		</div>
-	</div>
 
-	<div class="span12" style="margin-top:10px;">
-		<h3>收货人信息</h3>
-		<table class="table" align="center" bgcolor="#dddddd" border="0" cellpadding="5" cellspacing="1" width="99%">
-			<tbody>
-				<tr>
-					<td bgcolor="#ffffff">收货人姓名:</td>
-					<td bgcolor="#ffffff"><!--{$arrShopaddressData['shopaddress_consignee']}--></td>
-					<td bgcolor="#ffffff">电子邮件地址:</td>
-					<td bgcolor="#ffffff"><!--{$arrShopaddressData['shopaddress_email']}--></td>
-				</tr>
-			   <tr>
-					<td bgcolor="#ffffff">详细地址:</td>
-					<td bgcolor="#ffffff"><!--{$arrShopaddressData['shopaddress_address']}--></td>
-					<td bgcolor="#ffffff">邮政编码:</td>
-					<td bgcolor="#ffffff"><!--{$arrShopaddressData['shopaddress_zipcode']}--></td>
-				</tr>
-				<tr>
-					<td bgcolor="#ffffff">电话:</td>
-					<td bgcolor="#ffffff"><!--{$arrShopaddressData['shopaddress_tel']}--></td>
-					<td bgcolor="#ffffff">手机:</td>
-					<td bgcolor="#ffffff"><!--{$arrShopaddressData['shopaddress_mobile']}--></td>
-				</tr>
-				<tr>
-					<td bgcolor="#ffffff">标志建筑:</td>
-					<td bgcolor="#ffffff"><!--{$arrShopaddressData['shopaddress_signbuilding']}--></td>
-					<td bgcolor="#ffffff">最佳送货时间:</td>
-					<td bgcolor="#ffffff"><!--{$arrShopaddressData['shopaddress_besttime']}--></td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+		<div class="span12" style="margin-top:10px;">
+			<h3>收货人信息</h3>
+			<table class="table" align="center" bgcolor="#dddddd" border="0" cellpadding="5" cellspacing="1" width="99%">
+				<tbody>
+					<tr>
+						<td bgcolor="#ffffff">收货人姓名:</td>
+						<td bgcolor="#ffffff"><!--{$arrShopaddressData['shopaddress_consignee']}--></td>
+						<td bgcolor="#ffffff">电子邮件地址:</td>
+						<td bgcolor="#ffffff"><!--{$arrShopaddressData['shopaddress_email']}--></td>
+					</tr>
+				   <tr>
+						<td bgcolor="#ffffff">详细地址:</td>
+						<td bgcolor="#ffffff"><!--{$arrShopaddressData['shopaddress_address']}--></td>
+						<td bgcolor="#ffffff">邮政编码:</td>
+						<td bgcolor="#ffffff"><!--{$arrShopaddressData['shopaddress_zipcode']}--></td>
+					</tr>
+					<tr>
+						<td bgcolor="#ffffff">电话:</td>
+						<td bgcolor="#ffffff"><!--{$arrShopaddressData['shopaddress_tel']}--></td>
+						<td bgcolor="#ffffff">手机:</td>
+						<td bgcolor="#ffffff"><!--{$arrShopaddressData['shopaddress_mobile']}--></td>
+					</tr>
+					<tr>
+						<td bgcolor="#ffffff">标志建筑:</td>
+						<td bgcolor="#ffffff"><!--{$arrShopaddressData['shopaddress_signbuilding']}--></td>
+						<td bgcolor="#ffffff">最佳送货时间:</td>
+						<td bgcolor="#ffffff"><!--{$arrShopaddressData['shopaddress_besttime']}--></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 
-	<div class="span12" style="margin-top:10px;">
-		<h3>配送方式</h3>
-	</div>
+		<div class="span12" style="margin-top:10px;">
+			<h3>配送方式</h3>
+			<!--{if $arrShopshippings}-->
+			<table class="table" id="paymentTable" align="center" bgcolor="#dddddd" border="0" cellpadding="5" cellspacing="1" width="99%">
+				<tbody>
+					<tr>
+						<th bgcolor="#ffffff" width="5%">&nbsp;</th>
+						<th bgcolor="#ffffff" width="25%">名称</th>
+						<th bgcolor="#ffffff">订购描述</th>
+						<th bgcolor="#ffffff" width="15%">费用</th>
+						<th bgcolor="#ffffff" width="15%">免费额度</th>
+						<th bgcolor="#ffffff" width="15%">保价费用</th>
+					</tr>
+					<!--<foreach for=arrShopshippings value=oShopshipping>-->
+					<!--{~$nShopshippingItemfee=!empty($arrShippingData['shopshipping_configure'][0]['value'])?$arrShippingData['shopshipping_configure'][0]['value']:0}-->
+					<tr>
+						<td bgcolor="#ffffff" valign="top">
+							<input name="shopshipping_id" value="<!--{$oShopshipping['shopshipping_id']}-->" shopshipping_iscod="<!--{$oShopshipping['shopshipping_iscod']}-->" shopshipping_insure="<!--{$oShopshipping['shopshipping_insure']}-->" type="radio">
+						</td>
+						<td bgcolor="#ffffff" valign="top"><strong><!--{$oShopshipping['shopshipping_name']}--></strong></td>
+						<td bgcolor="#ffffff" valign="top"><!--{$oShopshipping['shopshipping_description']}--></td>
+						<td align="right" bgcolor="#ffffff" valign="top">￥<!--{$nShopshippingItemfee}-->元</td>
+						<td align="right" bgcolor="#ffffff" valign="top">￥0.00元</td>
+						<td align="right" bgcolor="#ffffff" valign="top"><!--{if $oShopshipping['shopshipping_insure']>0}--><!--{$oShopshipping['shopshipping_insure']}--><!--{d*else}-->不支持保价<!--{/if}--></td>
+					</tr>
+					<!--</foreach>-->
+					<tr>
+						<td colspan="6" align="right" bgcolor="#ffffff">
+							<input name="need_insure" onclick="selectInsure(this.checked)" value="1" disabled="true" type="checkbox">&nbsp;配送是否需要保价
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<!--{d*else}-->
+			<p>网站还没有提供任何配送方式，请联系客户人员咨询</p>
+			<!--{/if}-->
+		</div>
 
-	<div class="span12" style="margin-top:10px;">
-		<h3>支付方式</h3>
-		<!--{if $arrShoppayments}-->
-		<table class="table" id="paymentTable" align="center" bgcolor="#dddddd" border="0" cellpadding="5" cellspacing="1" width="99%">
-			<tbody>
-				<tr>
-					<th bgcolor="#ffffff" width="5%">&nbsp;</th>
-					<th bgcolor="#ffffff" width="20%">名称</th>
-					<th bgcolor="#ffffff">订购描述</th>
-					<th bgcolor="#ffffff" width="15%">手续费</th>
-				</tr>
-				<!--<foreach for=arrShoppayments value=oShoppayment>-->
-				<tr>
-					<td bgcolor="#ffffff" valign="top">
-					<input name="payment" value="<!--{$oShoppayment['shoppayment_id']}-->" iscod="0" onclick="selectPayment(this)" type="radio"></td>
-					<td bgcolor="#ffffff" valign="top"><strong><!--{$oShoppayment['shoppayment_name']}--></strong></td>
-					<td bgcolor="#ffffff" valign="top"><!--{$oShoppayment['shoppayment_description']}--></td>
-					<td align="right" bgcolor="#ffffff" valign="top">￥<!--{$oShoppayment['shoppayment_fee']}-->元</td>
-				</tr>
-				<!--</foreach>-->
-			</tbody>
-		</table>
-		<!--{d*else}-->
-		<p>网站还没有提供任何支付方式，请联系客户人员咨询</p>
-		<!--{/if}-->
-	</div>
+		<div class="span12" style="margin-top:10px;">
+			<h3>支付方式</h3>
+			<!--{if $arrShoppayments}-->
+			<table class="table" id="paymentTable" align="center" bgcolor="#dddddd" border="0" cellpadding="5" cellspacing="1" width="99%">
+				<tbody>
+					<tr>
+						<th bgcolor="#ffffff" width="5%">&nbsp;</th>
+						<th bgcolor="#ffffff" width="20%">名称</th>
+						<th bgcolor="#ffffff">订购描述</th>
+						<th bgcolor="#ffffff" width="15%">手续费</th>
+					</tr>
+					<!--<foreach for=arrShoppayments value=oShoppayment>-->
+					<tr>
+						<td bgcolor="#ffffff" valign="top">
+							<input name="payment" value="<!--{$oShoppayment['shoppayment_id']}-->" iscod="0" onclick="selectPayment(this)" type="radio">
+						</td>
+						<td bgcolor="#ffffff" valign="top"><strong><!--{$oShoppayment['shoppayment_name']}--></strong></td>
+						<td bgcolor="#ffffff" valign="top"><!--{$oShoppayment['shoppayment_description']}--></td>
+						<td align="right" bgcolor="#ffffff" valign="top">￥<!--{$oShoppayment['shoppayment_fee']}-->元</td>
+					</tr>
+					<!--</foreach>-->
+				</tbody>
+			</table>
+			<!--{d*else}-->
+			<p>网站还没有提供任何支付方式，请联系客户人员咨询</p>
+			<!--{/if}-->
+		</div>
 
-	<div class="span12" style="margin-top:10px;">
-		<h3>商品包装</h3>
-		<table id="packTable" align="center" bgcolor="#dddddd" border="0" cellpadding="5" cellspacing="1" width="99%">
-			<tbody>
-				<tr>
-					<th scope="col" bgcolor="#ffffff" width="5%">&nbsp;</th>
-					<th scope="col" bgcolor="#ffffff" width="35%">名称</th>
-					<th scope="col" bgcolor="#ffffff" width="22%">价格</th>
-					<th scope="col" bgcolor="#ffffff" width="22%">免费额度</th>
-					<th scope="col" bgcolor="#ffffff">图片</th>
-				</tr>
-				<tr>
-					<td bgcolor="#ffffff" valign="top"><input name="pack" value="0" checked="true" onclick="selectPack(this)" type="radio"></td>
-					<td bgcolor="#ffffff" valign="top"><strong>不要包装</strong></td>
-					<td bgcolor="#ffffff" valign="top">&nbsp;</td>
-					<td bgcolor="#ffffff" valign="top">&nbsp;</td>
-					<td bgcolor="#ffffff" valign="top">&nbsp;</td>
-				</tr>
-				<tr>
-					<td bgcolor="#ffffff" valign="top"><input name="pack" value="1" onclick="selectPack(this)" type="radio">
-					</td>
-					<td bgcolor="#ffffff" valign="top"><strong>精品包装</strong></td>
-					<td align="right" bgcolor="#ffffff" valign="top">￥5.00元</td>
-					<td align="right" bgcolor="#ffffff" valign="top">￥800.00元</td>
-					<td align="center" bgcolor="#ffffff" valign="top">
-						<a href="xxxx" target="_blank" class="f6">查看</a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+		<div class="span12" style="margin-top:10px;">
+			<h3>商品包装</h3>
+			<table id="packTable" align="center" bgcolor="#dddddd" border="0" cellpadding="5" cellspacing="1" width="99%">
+				<tbody>
+					<tr>
+						<th scope="col" bgcolor="#ffffff" width="5%">&nbsp;</th>
+						<th scope="col" bgcolor="#ffffff" width="35%">名称</th>
+						<th scope="col" bgcolor="#ffffff" width="22%">价格</th>
+						<th scope="col" bgcolor="#ffffff" width="22%">免费额度</th>
+						<th scope="col" bgcolor="#ffffff">图片</th>
+					</tr>
+					<tr>
+						<td bgcolor="#ffffff" valign="top"><input name="pack" value="0" checked="true" onclick="selectPack(this)" type="radio"></td>
+						<td bgcolor="#ffffff" valign="top"><strong>不要包装</strong></td>
+						<td bgcolor="#ffffff" valign="top">&nbsp;</td>
+						<td bgcolor="#ffffff" valign="top">&nbsp;</td>
+						<td bgcolor="#ffffff" valign="top">&nbsp;</td>
+					</tr>
+					<tr>
+						<td bgcolor="#ffffff" valign="top"><input name="pack" value="1" onclick="selectPack(this)" type="radio">
+						</td>
+						<td bgcolor="#ffffff" valign="top"><strong>精品包装</strong></td>
+						<td align="right" bgcolor="#ffffff" valign="top">￥5.00元</td>
+						<td align="right" bgcolor="#ffffff" valign="top">￥800.00元</td>
+						<td align="center" bgcolor="#ffffff" valign="top">
+							<a href="xxxx" target="_blank" class="f6">查看</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 
-	<div class="span12" style="margin-top:10px;">
-		<h3>其它信息</h3>
-		<table  class="table" align="center" bgcolor="#dddddd" border="0" cellpadding="5" cellspacing="1" width="99%">
-			<tbody>
-				<tr>
-					<td bgcolor="#ffffff" valign="top"><strong>订单附言:</strong></td>
-					<td bgcolor="#ffffff"><textarea name="postscript" cols="80" rows="3" id="postscript" style="border:1px solid #ccc;"></textarea></td>
-				</tr>
-				<tr>
-					<td bgcolor="#ffffff"><strong>缺货处理:</strong></td>
-					<td bgcolor="#ffffff">
-						<input name="how_oos" value="0" checked="checked" onclick="" type="radio">等待所有商品备齐后再发&nbsp;&nbsp;
-						<input name="how_oos" value="1" onclick="" type="radio">取消订单&nbsp;&nbsp;
-						<input name="how_oos" value="2" onclick="" type="radio">与店主协商
-					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+		<div class="span12" style="margin-top:10px;">
+			<h3>其它信息</h3>
+			<table  class="table" align="center" bgcolor="#dddddd" border="0" cellpadding="5" cellspacing="1" width="99%">
+				<tbody>
+					<tr>
+						<td bgcolor="#ffffff" valign="top"><strong>订单附言:</strong></td>
+						<td bgcolor="#ffffff"><textarea name="shoporderinfo_postscript" cols="80" rows="3" id="shoporderinfo_postscript" style="border:1px solid #ccc;"></textarea></td>
+					</tr>
+					<tr>
+						<td bgcolor="#ffffff"><strong>缺货处理:</strong></td>
+						<td bgcolor="#ffffff">
+							<input name="how_oos" value="0" checked="checked" onclick="" type="radio">等待所有商品备齐后再发&nbsp;&nbsp;
+							<input name="how_oos" value="1" onclick="" type="radio">取消订单&nbsp;&nbsp;
+							<input name="how_oos" value="2" onclick="" type="radio">与店主协商
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 
-	<div class="span12" style="margin-top:10px;">
-		<h3>费用总计</h3>
-		<table class="table" align="center" bgcolor="#dddddd" border="0" cellpadding="5" cellspacing="1" width="99%">
-			<tbody>
-				<tr>
-					<td align="right" bgcolor="#ffffff">商品总价: <font>￥<!--{$arrShopcartsTotal['goods_price']}-->元</font></td>
-				</tr>
-				<tr>
-					<td align="right" bgcolor="#ffffff"> 应付款金额: <font>￥<!--{$arrShopcartsTotal['goods_price']}-->元</font></td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+		<div class="span12" style="margin-top:10px;">
+			<h3>费用总计</h3>
+			<table class="table" align="center" bgcolor="#dddddd" border="0" cellpadding="5" cellspacing="1" width="99%">
+				<tbody>
+					<tr>
+						<td align="right" bgcolor="#ffffff">商品总价: <font>￥<!--{$arrShopcartsTotal['goods_price']}-->元</font></td>
+					</tr>
+					<tr>
+						<td align="right" bgcolor="#ffffff"> 应付款金额: <font>￥<!--{$arrShopcartsTotal['goods_price']}-->元</font></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 
-	<div class="span12" style="margin-top:10px;text-align:center;">
-		<input type="hidden" name="needpay" value="<!--{$arrShopcartsTotal['goods_price']}-->">
-		<input type="submit" value="提交订单" class="btn btn-large btn-success">
-	</div>
+		<div class="span12" style="margin-top:10px;text-align:center;">
+			<input type="hidden" name="needpay" value="<!--{$arrShopcartsTotal['goods_price']}-->">
+			<input type="submit" value="提交订单" class="btn btn-large btn-success">
+		</div>
+	</form>
 
 </div>
 
-<!--<include file="Core_Extend::template('footer')" />-->
+<!--<include file="footer" />-->

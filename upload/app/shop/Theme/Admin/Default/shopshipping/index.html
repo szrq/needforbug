@@ -47,7 +47,7 @@
 					<tbody> 
 						<!--<foreach for=arrShippinglistData>-->
 						<tr>
-							<td><!--{$value['shopshipping_name']}--></td>
+							<td><!--{if !empty($value['shopshipping_website'])}--><a href="<!--{$value['shopshipping_website']}-->" target="_blank"><!--{$value['shopshipping_name']}--></a><!--{d*else}--><!--{$value['shopshipping_name']}--><!--{/if}--></td>
 							<td><!--{$value['shopshipping_description']}--></td>
 							<td><!--{$value['shopshipping_insure']}--></td>
 							<td><img src="<!--{:__TMPLPUB__}-->/Images/<!--<if condition="$value['shopshipping_iscod'] eq 1" >-->yes<!--<else/>-->no<!--</if>-->.gif"/></td>

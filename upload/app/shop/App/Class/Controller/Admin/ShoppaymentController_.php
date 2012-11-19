@@ -133,6 +133,16 @@ class ShoppaymentController extends InitController{
 		$this->S('安装支付方式成功');
 	}
 	
+	public function update($sModel=null,$nId=null){
+		$nId=G::getGpc('value');
+
+		parent::update('shoppayment',$nId);
+	}
+	
+	public function AUpdateObject_($oModel){
+		$oModel->shoppayment_config=serialize(G::getGpc('shoppayment_option','P'));
+	}
+	
 	public function foreverdelete($sModel=null,$sId=null){
 		$sId=G::getGpc('value');
 		
@@ -205,4 +215,5 @@ class ShoppaymentController extends InitController{
 			return $sPaymentoptionvalue;
 		}
 	}
+
 }

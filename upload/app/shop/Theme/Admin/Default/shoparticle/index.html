@@ -14,7 +14,6 @@
 			<div class="module_content">
 				<ul>
 					<li><!--<lang package='__APP_ADMIN_LANG__@Template/shoparticle'>-->这里将展示网站目前所有的文章<!--</lang>--></li>
-					<li><!--<lang package='__APP_ADMIN_LANG__@Template/shoparticle'>-->文章状态为0表示分类不在前台显示<!--</lang>--></li>
 				</ul>
 			</div>
 		</article>
@@ -31,7 +30,7 @@
 					<input type="hidden" name="a" value="<!--{:ACTION_NAME}-->"/>
 					<input type="hidden" name="id" value="<!--{$_GET['id']}-->"/>
 					<input type="hidden" name="controller" value="shoparticle"/>
-					<input type="text" name="shoparticle_username" title="<!--<lang package='__APP_ADMIN_LANG__@Template/shoparticle'>-->分类名<!--</lang>-->">
+					<input type="text" name="shoparticle_title" title="<!--<lang package='__APP_ADMIN_LANG__@Template/shoparticle'>-->文章标题<!--</lang>-->">
 					&nbsp;<input type="submit" id="" value="<!--<lang package='Template/Default/Common'>-->查询<!--</lang>-->" onclick="" class="alt_btn">
 				</form>
 			</div>
@@ -51,7 +50,7 @@
 						<th><a href="<!--{:Admin_Extend::soryBy('shoparticle_id',$sSortByUrl,array('controller'=>'shoparticle'))}-->" <!--{:Admin_Extend::sortField('shoparticle_id')}-->><!--<lang package='Template/Default/Common'>-->编号<!--</lang>--></a></th> 
 						<th><a href="<!--{:Admin_Extend::soryBy('shoparticle_username',$sSortByUrl,array('controller'=>'shoparticle'))}-->" <!--{:Admin_Extend::sortField('shoparticle_username')}-->><!--<lang package='__APP_ADMIN_LANG__@Template/shoparticle'>-->文章作者<!--</lang>--></a></th>
 						<th><a href="<!--{:Admin_Extend::soryBy('shoparticle_title',$sSortByUrl,array('controller'=>'shoparticle'))}-->" <!--{:Admin_Extend::sortField('shoparticle_title')}-->><!--<lang package='__APP_ADMIN_LANG__@Template/shoparticle'>-->文章标题<!--</lang>--></a></th>
-						<th><a href="<!--{:Admin_Extend::soryBy('shoparticle_type',$sSortByUrl,array('controller'=>'shoparticle'))}-->" <!--{:Admin_Extend::sortField('shoparticle_type')}-->><!--<lang package='__APP_ADMIN_LANG__@Template/shoparticle'>-->文章类型<!--</lang>--></a></th>
+						<th><a href="<!--{:Admin_Extend::soryBy('shoparticlecategory_id',$sSortByUrl,array('controller'=>'shoparticle'))}-->" <!--{:Admin_Extend::sortField('shoparticlecategory_id')}-->><!--<lang package='__APP_ADMIN_LANG__@Template/shoparticle'>-->文章分类<!--</lang>--></a></th>
 						<th><a href="<!--{:Admin_Extend::soryBy('shoparticle_status',$sSortByUrl,array('controller'=>'shoparticle'))}-->" <!--{:Admin_Extend::sortField('shoparticle_status')}-->><!--<lang package='__APP_ADMIN_LANG__@Template/shoparticle'>-->显示状态<!--</lang>--></a></th>
 						<th><a href="<!--{:Admin_Extend::soryBy('create_dateline',$sSortByUrl,array('controller'=>'shoparticle'))}-->" <!--{:Admin_Extend::sortField('create_dateline')}-->><!--<lang package='Template/Default/Common'>-->发表时间<!--</lang>--></a></th>
 						<th><!--<lang package='Template/Default/Common'>-->操作<!--</lang>--></th>
@@ -69,8 +68,8 @@
 									<span class='delete'><a href="javascript:foreverdelApp('<!--{$_GET['id']}-->','shoparticle','<!--{$value:shoparticle_id}-->');"><!--<lang package='Template/Default/Common'>-->删除<!--</lang>--></a></span>
 								</div>
 							</td>
-							<td><!--{$value:shoparticle_type}--></td>
-							<td><!--{$value:shoparticle_status}--></td>
+							<td><!--{$value->shoparticlecategory->shoparticlecategory_name}--></td>
+							<td><img src="<!--{:__TMPLPUB__}-->/Images/<!--{if $value:shoparticle_status==1}-->yes<!--{d*else}-->no<!--{/if}-->.gif"/></td>
 							<td><!--{$value:create_dateline|date='Y-m-d H:i:s',**}--></td>
 							<td>
 								<!--<if condition="$value:shoparticle_status eq 1" >--><a href="javascript:forbidApp('<!--{$_GET['id']}-->','shoparticle','<!--{$value:shoparticle_id}-->');"><input type="image" src="<!--{:__TMPLPUB__}-->/Images/icn_trash.png" title="<!--<lang package='Template/Default/Common'>-->禁用<!--</lang>-->"></a><!--<else/>-->
