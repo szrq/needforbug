@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2012 年 11 月 18 日 10:26
+-- 生成日期: 2012 年 11 月 19 日 02:05
 -- 服务器版本: 5.5.22
 -- PHP 版本: 5.4.0
 
@@ -3133,7 +3133,7 @@ CREATE TABLE IF NOT EXISTS `needforbug_session` (
 --
 
 INSERT INTO `needforbug_session` (`session_hash`, `session_auth_key`, `user_id`) VALUES
-('F9FaE9', '075581ce275e2e6cd42f109f5fed5491', 1);
+('F9FaE9', '075581ce275e2e6cd42f109f5fed5491', 0);
 
 -- --------------------------------------------------------
 
@@ -3257,19 +3257,23 @@ CREATE TABLE IF NOT EXISTS `needforbug_shoparticle` (
   KEY `create_dateline` (`create_dateline`),
   KEY `shoparticle_status` (`shoparticle_status`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
 
 --
 -- 转存表中的数据 `needforbug_shoparticle`
 --
 
 INSERT INTO `needforbug_shoparticle` (`shoparticle_id`, `shoparticlecategory_id`, `shoparticle_title`, `shoparticle_content`, `shoparticle_username`, `user_id`, `shoparticle_useremail`, `shoparticle_keywords`, `shoparticle_status`, `create_dateline`, `shoparticle_description`, `shoparticle_in`) VALUES
-(1, 2, '免责条款', '免责条款', '', 0, '', '', 1, 1351359953, NULL, 1),
-(2, 2, '隐私保护', '隐私保护', '', 0, '', '', 1, 1351359953, NULL, 1),
-(3, 2, '咨询热点', '咨询热点', '', 0, '', '', 1, 1351359953, NULL, 1),
-(4, 2, '联系我们', '联系我们', '', 0, '', '', 1, 1351359953, NULL, 1),
-(5, 2, '公司简介', '公司简介', '', 0, '', '', 1, 1351359953, NULL, 1),
-(6, -1, '用户协议', '用户协议', '', 0, '', '', 1, 1351359953, NULL, 1);
+(1, 3, '免责条款', '免责条款', 'admin', 1, 'xiaoniuge@dianniu.net', '', 1, 1351359953, '', 1),
+(2, 3, '隐私保护', '隐私保护', 'admin', 1, 'xiaoniuge@dianniu.net', '', 1, 1351359953, '', 1),
+(3, 7, '咨询热点', '咨询热点', 'admin', 1, 'xiaoniuge@dianniu.net', '', 1, 1351359953, '', 1),
+(4, 7, '联系我们', '联系我们', 'admin', 1, 'xiaoniuge@dianniu.net', '', 1, 1351359953, '', 1),
+(5, 7, '公司简介', '公司简介', 'admin', 1, 'xiaoniuge@dianniu.net', '', 1, 1351359953, '', 1),
+(6, 3, '联系客服', '用户协议', 'admin', 1, 'xiaoniuge@dianniu.net', '', 0, 1351359953, '', 1),
+(7, 3, '购物流程', '<div class="exp-content-block exp-content-block-1" style="white-space:normal;font-family:arial, 宋体, sans-serif;font-size:14px;line-height:21px;background-color:#FFFFFF;">\r\n	<div class="exp-content-body" style="text-align:justify;">\r\n		<div class="exp-content-listblock" style="padding:0px 10px;margin-top:15px;">\r\n			<div class="content-listblock-text">\r\n				<p style="margin-top:6px;margin-bottom:6px;padding:0px;line-height:24px;">\r\n					<strong>淘宝网购物</strong>已成为现代很多人购物的选择了，对于一些<strong>网购新手</strong>来说还是比较陌生的，下面就为大家带来<strong>淘宝网新手购物指南</strong>，一起看看吧！\r\n				</p>\r\n				<p style="margin-top:6px;margin-bottom:6px;padding:0px;line-height:24px;">\r\n					<br />\r\n				</p>\r\n				<p style="margin-top:6px;margin-bottom:6px;padding:0px;line-height:24px;">\r\n					<br />\r\n				</p>\r\n				<p style="margin-top:6px;margin-bottom:6px;padding:0px;line-height:24px;">\r\n					<br />\r\n				</p>\r\n			</div>\r\n			<div class="content-listblock-media" style="text-align:center;">\r\n				<div class="content-listblock-image">\r\n					<img class="exp-image-default" alt="淘宝网新手购物指南" src="http://hiphotos.baidu.com/exp/pic/item/c8ab0bce36d3d539805d3c743a87e950342ab0e1.jpg" style="border:1.5px solid #FFFFFF;" /> \r\n				</div>\r\n			</div>\r\n		</div>\r\n	</div>\r\n</div>\r\n<div class="exp-content-block exp-content-block-2" style="white-space:normal;font-family:arial, 宋体, sans-serif;font-size:14px;line-height:21px;background-color:#FFFFFF;">\r\n	<h2 class="exp-content-head" style="margin:15px 10px 10px;padding:0px;font-size:16px;font-family:''microsoft yahei'';height:30px;line-height:30px;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#DCEAED;">\r\n		工具/原料\r\n	</h2>\r\n	<div class="exp-content-body" style="text-align:justify;">\r\n		<ul class="exp-content-unorderlist" style="margin:0px;padding:0px 10px;list-style:none;clear:both;">\r\n			<li class="exp-content-list list-item-1" style="background-image:url(http://img.baidu.com/img/iknow/exp/editor/ullist.gif);background-attachment:scroll;background-color:transparent;margin:auto !important;padding:0px 0px 0px 15px !important;float:none !important;background-position:0px 4px;background-repeat:no-repeat no-repeat;">\r\n				<div class="content-list-text">\r\n					<p style="margin-top:6px;margin-bottom:6px;padding:0px;line-height:24px;">\r\n						淘宝网\r\n					</p>\r\n				</div>\r\n			</li>\r\n			<li class="exp-content-list list-item-2" style="background-image:url(http://img.baidu.com/img/iknow/exp/editor/ullist.gif);background-attachment:scroll;background-color:transparent;margin:auto !important;padding:0px 0px 0px 15px !important;float:none !important;background-position:0px 4px;background-repeat:no-repeat no-repeat;">\r\n				<div class="content-list-text">\r\n					<p style="margin-top:6px;margin-bottom:6px;padding:0px;line-height:24px;">\r\n						购物\r\n					</p>\r\n				</div>\r\n			</li>\r\n		</ul>\r\n	</div>\r\n</div>\r\n<div class="exp-content-block exp-content-block-3" style="white-space:normal;font-family:arial, 宋体, sans-serif;font-size:14px;line-height:21px;background-color:#FFFFFF;">\r\n	<h2 class="exp-content-head" style="margin:15px 10px 10px;padding:0px;font-size:16px;font-family:''microsoft yahei'';height:30px;line-height:30px;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#DCEAED;">\r\n		步骤/方法\r\n	</h2>\r\n	<div class="exp-content-body" style="text-align:justify;">\r\n		<ol class="exp-conent-orderlist" style="margin:0px;padding:0px 10px;list-style:none;clear:both;">\r\n			<li class="exp-content-list list-item-1" style="margin:0px;background-image:url(http://img.baidu.com/img/iknow/exp/editor/icon_list_item_1.gif);min-height:20px;height:auto;zoom:1;padding:1px 0px 22px 35px !important;background-position:0px 3px;background-repeat:no-repeat no-repeat;">\r\n				<div class="content-list-text">\r\n					<p style="margin-top:6px;margin-bottom:6px;padding:0px;line-height:24px;">\r\n						<strong>指南1、</strong>购物前先注册淘宝帐号和支付宝帐号，开通网上银行，注册支付宝帐号，激活后就可以使用支付宝在淘宝网上购物了。\r\n					</p>\r\n				</div>\r\n			</li>\r\n			<li class="exp-content-list list-item-2" style="margin:0px;background-image:url(http://img.baidu.com/img/iknow/exp/editor/icon_list_item_2.gif);min-height:20px;height:auto;zoom:1;padding:1px 0px 22px 35px !important;background-position:0px 3px;background-repeat:no-repeat no-repeat;">\r\n				<div class="content-list-text">\r\n					<p style="margin-top:6px;margin-bottom:6px;padding:0px;line-height:24px;">\r\n						<strong>指南2</strong>、在淘宝网首页按类目选择或者直接搜索自己喜欢的商品，点击进入卖家店铺，综合卖家信用、商品质量、价格、运费等因素，选择你挑中的商品。\r\n					</p>\r\n				</div>\r\n			</li>\r\n			<li class="exp-content-list list-item-3" style="margin:0px;background-image:url(http://img.baidu.com/img/iknow/exp/editor/icon_list_item_3.gif);min-height:20px;height:auto;zoom:1;padding:1px 0px 22px 35px !important;background-position:0px 3px;background-repeat:no-repeat no-repeat;">\r\n				<div class="content-list-text">\r\n					<p style="margin-top:6px;margin-bottom:6px;padding:0px;line-height:24px;">\r\n						<strong>指南3</strong>、选中商品后不要急于放进购物车，先联系卖家了解更多的商品信息，确认是否有货和商品的品质等细节，此外还可以跟卖家商谈优惠，尽量把价格压低。\r\n					</p>\r\n				</div>\r\n			</li>\r\n			<li class="exp-content-list list-item-4" style="margin:0px;background-image:url(http://img.baidu.com/img/iknow/exp/editor/icon_list_item_4.gif);min-height:20px;height:auto;zoom:1;padding:1px 0px 22px 35px !important;background-position:0px 3px;background-repeat:no-repeat no-repeat;">\r\n				<div class="content-list-text">\r\n					<p style="margin-top:6px;margin-bottom:6px;padding:0px;line-height:24px;">\r\n						<strong>指南4</strong>、确定好要购买了就点击放进购物车或者立即购买，转到填写收货信息的页面，填写姓名电话地址，并确认无误。确认付款输入支付密码，付款到支付宝之后就可以等待卖家发货。\r\n					</p>\r\n				</div>\r\n			</li>\r\n			<li class="exp-content-list list-item-5" style="margin:0px;background-image:url(http://img.baidu.com/img/iknow/exp/editor/icon_list_item_5.gif);min-height:20px;height:auto;zoom:1;padding:1px 0px 22px 35px !important;background-position:0px 3px;background-repeat:no-repeat no-repeat;">\r\n				<div class="content-list-text">\r\n					<p style="margin-top:6px;margin-bottom:6px;padding:0px;line-height:24px;">\r\n						<strong>指南5、</strong>卖家发货后在“我的淘宝”里面有相关信息及快递运单号，可自行跟踪商品的信息。收到货后登陆确认收货，再根据产品质量给予评价。\r\n					</p>\r\n				</div>\r\n			</li>\r\n			<li class="exp-content-list list-item-6" style="margin:0px;background-image:url(http://img.baidu.com/img/iknow/exp/editor/icon_list_item_6.gif);min-height:20px;height:auto;zoom:1;padding:1px 0px 22px 35px !important;background-position:0px 3px;background-repeat:no-repeat no-repeat;">\r\n				<div class="content-list-text">\r\n					<p style="margin-top:6px;margin-bottom:6px;padding:0px;line-height:24px;">\r\n						<strong>指南6</strong>、如果商品质量有问题可以先不确认收货，直接找卖家沟通，协议看退货还是更换，假如卖家以种种理由推脱，可以向淘宝网客服投诉或申请仲裁。\r\n					</p>\r\n				</div>\r\n			</li>\r\n		</ol>\r\n	</div>\r\n</div>\r\n<span style="white-space:normal;"></span>', 'admin', 1, 'xiaoniuge@dianniu.net', '', 1, 1353204881, '', 0),
+(8, 3, '会员注册', '', 'admin', 1, 'xiaoniuge@dianniu.net', '', 1, 1353228712, '', 0),
+(9, 3, '藏家申请', '', 'admin', 1, 'xiaoniuge@dianniu.net', '', 1, 1353228731, '', 0),
+(10, 3, '常见问题', '', 'admin', 1, 'xiaoniuge@dianniu.net', '', 1, 1353228757, '', 0);
 
 -- --------------------------------------------------------
 
@@ -3289,7 +3293,19 @@ CREATE TABLE IF NOT EXISTS `needforbug_shoparticlecategory` (
   PRIMARY KEY (`shoparticlecategory_id`),
   KEY `create_dateline` (`create_dateline`),
   KEY `shoparticlecategory_sort` (`shoparticlecategory_sort`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+
+--
+-- 转存表中的数据 `needforbug_shoparticlecategory`
+--
+
+INSERT INTO `needforbug_shoparticlecategory` (`shoparticlecategory_id`, `shoparticlecategory_name`, `shoparticlecategory_keywords`, `shoparticlecategory_description`, `shoparticlecategory_sort`, `shoparticlecategory_parentid`, `shoparticlecategory_status`, `create_dateline`) VALUES
+(1, '系统分类', '', '系统保留分类', 0, 0, 1, 1353201168),
+(2, '网站帮助', '', '网店帮助分类', 0, 1, 1, 1353201280),
+(3, '购物指南', '', '', 0, 2, 1, 1353201328),
+(4, '书画知识', '', '书法、绘画常识', 0, 2, 1, 1353201446),
+(5, '配送与支付', '', '商品配送、支付帮助', 0, 2, 1, 1353201509),
+(6, '服务保证', '', '', 0, 2, 1, 1353201529);
 
 -- --------------------------------------------------------
 

@@ -200,7 +200,9 @@ class Image2Local extends UploadFile{
 				$arrFile['module']=MODULE_NAME;
 
 				if($this->_bAutoCheck){// 自动检查附件
-					if(!$this->check($arrFile)){return "<img{$arrMatches[1]}src=\"{$arrMatches[2]}\"{$arrMatches[3]}>";}// 验证错误直接返回原图
+					if(!$this->check($arrFile)){// 验证错误直接返回原图
+						return "<img{$arrMatches[1]}src=\"{$arrMatches[2]}\"{$arrMatches[3]}>";
+					}
 				}
 
 				if(!$this->save($arrFile,$sImgData)){// 保存远程文件
