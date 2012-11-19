@@ -41,6 +41,17 @@ function option(){
 						<div class="description"><!--<lang package='Template/Default/Option'>-->热门帖子可以展现最具火爆性的信息<!--</lang>--></div>
 					</fieldset>
 					<fieldset>
+						<label for="home_hottopic_date"><!--<lang package='Template/Default/Registeroption'>-->首页热门帖子调用时间<!--</lang>--></label>
+						<select name="options[home_hottopic_date]" id="home_hottopic_date">
+							<option value="3600" <!--{if $arrOptions['home_hottopic_date']==3600}-->selected<!--{/if}-->><!--<lang package='__COMMON_LANG__@Common'>-->一小时<!--</lang>--></option>
+							<option value="86400" <!--{if $arrOptions['home_hottopic_date']==86400}-->selected<!--{/if}-->><!--<lang package='__COMMON_LANG__@Common'>-->一天<!--</lang>--></option>
+							<option value="604800" <!--{if $arrOptions['home_hottopic_date']==604800}-->selected<!--{/if}-->><!--<lang package='__COMMON_LANG__@Common'>-->一星期<!--</lang>--></option>
+							<option value="2592000" <!--{if $arrOptions['home_hottopic_date']==2592000}-->selected<!--{/if}-->><!--<lang package='__COMMON_LANG__@Common'>-->一月<!--</lang>--></option>
+							<option value="31536000" <!--{if $arrOptions['home_hottopic_date']==31536000}-->selected<!--{/if}-->><!--<lang package='__COMMON_LANG__@Common'>-->一年<!--</lang>--></option>
+						</select>
+						<div class="description"><!--<lang package='Template/Default/Registeroption'>-->这里的时间为热门帖子调用时间，如果为一星期，那么热门帖子只会从当前一个星期中取出<!--</lang>--></div>
+					</fieldset>
+					<fieldset>
 						<label for="home_recommendgroup_num"><!--<lang package='Template/Default/Option'>-->首页推荐小组数量<!--</lang>--></label>
 						<input type="text" name="options[home_recommendgroup_num]" id="home_recommendgroup_num" size="40" value="<!--{$arrOptions['home_recommendgroup_num']}-->"/>
 						<div class="description"><!--<lang package='Template/Default/Option'>-->将系统推荐的小组放置在首页,可以更好地吸收会员<!--</lang>--></div>

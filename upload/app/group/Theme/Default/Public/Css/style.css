@@ -54,7 +54,7 @@ Description: Group应用模块CSS
 .grouptopiccomment_quickmessage{margin-bottom:0px;width:70%;height:50px;}
 .grouptopiccomment_reply{display:none;line-height:32px;}
 .grouptopiccomment_btn{margin:8px;padding-top:1px;padding-bottom:1px;}
-.signature{background:url({IMG_DIR}/signature.png) 0 0 no-repeat;padding:25px 0 20px;max-height:200px;}
+.signature{background:url("{__ROOT__}/Public/images/common/signature.png") 0 0 no-repeat;padding:25px 0 20px;max-height:200px;}
 .edit_log{color:#cccccc;margin-top:8px;}
 
 .clear:after,.clearfix:after{content:".";display:none;height:0;clear:both;visibility:hidden;}

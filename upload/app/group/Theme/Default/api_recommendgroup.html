@@ -1,3 +1,4 @@
+<!--{if is_array($arrGroups)}-->
 <!--<foreach for=arrGroups value=oGroup>-->
 <li>
 	<a href="<!--{:Group_Extend::getGroupurl($oGroup)}-->" class="grouplist_pic">
@@ -10,3 +11,6 @@
 	</div>
 </li>
 <!--</foreach>-->
+<!--{d*else}-->
+<li>暂时没有发现任何推荐小组&nbsp;<a href="<!--{:Dyhb::U('group://public/group')}-->">查看小组</a></li>
+<!--{/if}-->
