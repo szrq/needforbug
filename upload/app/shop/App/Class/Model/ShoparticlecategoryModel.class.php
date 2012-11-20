@@ -11,6 +11,7 @@ class ShoparticlecategoryModel extends Model{
 			'table_name'=>'shoparticlecategory',
 			'props'=>array(
 				'shoparticlecategory_id'=>array('readonly'=>true),
+				'shoparticle'=>array(Db::HAS_MANY=>'ShoparticleModel','source_key'=>'shoparticlecategory_id','target_key'=>'shoparticlecategory_id'),
 			),
 			'attr_protected'=>'shoparticlecategory_id',
 		);

@@ -1,0 +1,41 @@
+<!--<include file="header" />-->
+
+<!--{script}-->
+
+<!--{/script}-->
+
+<!--{style}-->
+.help {border:1px solid #f1f1f1;}
+.help ul{list-style-type:none;border-top:1px solid #f1f1f1;margin:0px;}
+.help ul li {padding-left:18px;}
+.help ul li:first-child {background-color:#f1f1f1;}
+.help ul:first-child {border-bottom:1px solid #f1f1f1; }
+<!--{/style}-->
+
+<div class="row">
+	<!--<include file="menu" />-->
+
+	<div class="span12" style="text-align:left;margin-top:20px;">
+		<ul class="breadcrumb">
+			<li><a href="#">首页</a> <span class="divider">/</span></li>
+			<li>帮助中心</li>
+		</ul>
+	</div>
+
+	<div class="span2 help">
+		<!--<foreach for=arrShoparticlecategory value=oShoparticlecategory>-->
+			<ul>
+			<li><h4><!--{$oShoparticlecategory->shoparticlecategory_name}--></h4></li>
+				<!--{foreach $oShoparticlecategory->shoparticle $value}-->
+					 <li><a href=""><!--{$value->shoparticle_title}--></a></li>
+				<!--{/foreach}-->
+			</ul>
+		<!--</foreach>-->
+	</div>
+
+	<div class="span10">
+
+	</div>
+</div>
+
+<!--<include file="footer" />-->
