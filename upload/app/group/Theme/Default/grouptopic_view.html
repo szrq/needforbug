@@ -245,11 +245,11 @@ var nGroupid=parseInt('<!--{$oGrouptopic['group_id']}-->'),nGrouptopicid=parseIn
 										<div class="floor_userinfooperate">
 											<!--{~$nAlreadyFriendId=Core_Extend::isAlreadyFriend($oGrouptopic->user_id)}-->
 											<!--{if $nAlreadyFriendId==1 || $nAlreadyFriendId==4}-->
-											<a rel="nofollow" href="javascript:void(0);" onclick="deleteFriend(<!--{$oGrouptopic->user_id}-->);"><i class="icon-remove"></i>取消关注</a>
+											<a rel="nofollow" href="javascript:void(0);" onclick="deleteFriend(<!--{$oGrouptopic->user_id}-->);"><img src="<!--{:__PUBLIC__}-->/images/common/friend.png"/></i>取消关注</a>
 											<!--{d*else}-->
-											<a rel="nofollow" href="javascript:void(0);" onclick="addFriend(<!--{$oGrouptopic->user_id}-->);"><i class="icon-plus"></i>加关注</a>
+											<a rel="nofollow" href="javascript:void(0);" onclick="addFriend(<!--{$oGrouptopic->user_id}-->);"><img src="<!--{:__PUBLIC__}-->/images/common/friend.png"/>加关注</a>
 											<!--{/if}-->&nbsp;
-											<a rel="nofollow" href="javascript:void(0);" onclick="addMessage('<!--{$oGrouptopic->user_id}-->');"><i class="icon-envelope"></i>写私信</a>
+											<a rel="nofollow" href="javascript:void(0);" onclick="addMessage('<!--{$oGrouptopic->user_id}-->');"><img src="<!--{:__PUBLIC__}-->/images/common/pmto.gif"/>写私信</a>
 										</div>
 										<!--{/if}-->
 									</div>
@@ -427,11 +427,11 @@ var nGroupid=parseInt('<!--{$oGrouptopic['group_id']}-->'),nGrouptopicid=parseIn
 										<div class="floor_userinfooperate">
 											<!--{~$nAlreadyFriendId=Core_Extend::isAlreadyFriend($oComment->user_id)}-->
 											<!--{if $nAlreadyFriendId==1 || $nAlreadyFriendId==4}-->
-											<a rel="nofollow" href="javascript:void(0);" onclick="deleteFriend(<!--{$oComment->user_id}-->);"><i class="icon-remove"></i>取消关注</a>
+											<a rel="nofollow" href="javascript:void(0);" onclick="deleteFriend(<!--{$oComment->user_id}-->);"><img src="<!--{:__PUBLIC__}-->/images/common/friend.png"/>取消关注</a>
 											<!--{d*else}-->
-											<a rel="nofollow" href="javascript:void(0);" onclick="addFriend(<!--{$oComment->user_id}-->);"><i class="icon-plus"></i>加关注</a>
+											<a rel="nofollow" href="javascript:void(0);" onclick="addFriend(<!--{$oComment->user_id}-->);"><img src="<!--{:__PUBLIC__}-->/images/common/friend.png"/>加关注</a>
 											<!--{/if}-->&nbsp;
-											<a rel="nofollow" href="javascript:void(0);" onclick="addMessage('<!--{$oComment->user_id}-->');"><i class="icon-envelope"></i>写私信</a>
+											<a rel="nofollow" href="javascript:void(0);" onclick="addMessage('<!--{$oComment->user_id}-->');"><img src="<!--{:__PUBLIC__}-->/images/common/pmto.gif"/>写私信</a>
 										</div>
 										<!--{/if}-->
 									</div>

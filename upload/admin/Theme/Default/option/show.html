@@ -61,6 +61,46 @@ function option(){
 						<input type="text" name="options[home_newuser_num]" id="home_newuser_num" size="40" value="<!--{$arrOptions['home_newuser_num']}-->"/>
 						<div class="description"><!--<lang package='Template/Default/Option'>-->可以清楚地看到社区的人气不断增加,可以吸引会员加入<!--</lang>--></div>
 					</fieldset>
+					<fieldset>
+						<label for="home_followus_qq"><!--<lang package='Template/Default/Option'>-->首页关注我们QQ<!--</lang>--></label>
+						<input type="text" name="options[home_followus_qq]" id="home_followus_qq" size="40" value="<!--{$arrOptions['home_followus_qq']}-->"/>
+						<div class="description"><!--<lang package='Template/Default/Option'>-->只有QQ不为空，联系我们QQ才会显示<!--</lang>-->
+						<!--{if !empty($arrOptions['home_followus_qq'])}-->
+						<br/>
+						<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=<!--{$arrOptions['home_followus_qq']}-->&amp;site=qq&amp;menu=yes"><img src="http://wpa.qq.com/pa?p=2:<!--{$arrOptions['home_followus_qq']}-->:41" alt="<!--<lang package='Template/Default/Option'>-->点击这里给我发消息<!--</lang>-->" title="<!--<lang package='Template/Default/Option'>-->点击这里给我发消息<!--</lang>-->" border="0"></a>
+						<!--{/if}-->
+						</div>
+					</fieldset>
+					<fieldset>
+						<label for="home_followus_tqqcom"><!--<lang package='Template/Default/Option'>-->首页关注我们腾讯微博<!--</lang>--></label>
+						<input type="text" name="options[home_followus_tqqcom]" id="home_followus_tqqcom" size="40" value="<!--{$arrOptions['home_followus_tqqcom']}-->"/>
+						<div class="description"><!--<lang package='Template/Default/Option'>-->只有腾讯微博不为空，联系我们腾讯微博才会显示<!--</lang>-->
+						<!--{if !empty($arrOptions['home_followus_tqqcom'])}-->
+						<br/>
+						<a target="_blank" href="<!--{$arrOptions['home_followus_tqqcom']}-->"><img src="<!--{:__PUBLIC__}-->/images/common/followus/tqqcom.gif" border="0"></a>
+						<!--{/if}-->
+						</div>
+					</fieldset>
+					<fieldset>
+						<label for="home_followus_weibo"><!--<lang package='Template/Default/Option'>-->首页关注我们新浪微博<!--</lang>--></label>
+						<input type="text" name="options[home_followus_weibo]" id="home_followus_weibo" size="40" value="<!--{$arrOptions['home_followus_weibo']}-->"/>
+						<div class="description"><!--<lang package='Template/Default/Option'>-->只有新浪微博不为空，联系我们新浪微博才会显示<!--</lang>-->
+						<!--{if !empty($arrOptions['home_followus_weibo'])}-->
+						<br/>
+						<a target="_blank" href="<!--{$arrOptions['home_followus_weibo']}-->"><img src="<!--{:__PUBLIC__}-->/images/common/followus/weibo.gif" border="0"></a>
+						<!--{/if}-->
+						</div>
+					</fieldset>
+					<fieldset>
+						<label for="home_followus_renren"><!--<lang package='Template/Default/Option'>-->首页关注我们人人公共主页<!--</lang>--></label>
+						<input type="text" name="options[home_followus_renren]" id="home_followus_renren" size="40" value="<!--{$arrOptions['home_followus_renren']}-->"/>
+						<div class="description"><!--<lang package='Template/Default/Option'>-->只有人人公共主页不为空，联系我们人人公共主页才会显示<!--</lang>-->
+						<!--{if !empty($arrOptions['home_followus_renren'])}-->
+						<br/>
+						<a target="_blank" href="<!--{$arrOptions['home_followus_renren']}-->"><img src="<!--{:__PUBLIC__}-->/images/common/followus/renren.gif" border="0"></a>
+						<!--{/if}-->
+						</div>
+					</fieldset>
 				</div>
 				<footer>
 					<div class="submit_link">

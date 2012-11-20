@@ -46,7 +46,7 @@ class AddController extends Controller{
 
 			$arrFeeddata=array(
 				'@homefresh_link'=>'home://fresh@?id='.$oHomefresh['homefresh_id'],
-				'homefresh_message'=>Core_Extend::ubb(G::subString(strip_tags($oHomefresh['homefresh_message']),0,100)),
+				'homefresh_message'=>G::subString(strip_tags($oHomefresh['homefresh_message']),0,100),
 			);
 
 			Core_Extend::addFeed($sFeedtemplate,$arrFeeddata);

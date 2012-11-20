@@ -20,7 +20,7 @@ class FeedController extends Controller{
 		$arrFeeddatas=array();
 		if(is_array($arrFeeds)){
 			foreach($arrFeeds as $nKey=>$oFeed){
-				$arrData=unserialize($oFeed['feed_data']);
+				$arrData=@unserialize($oFeed['feed_data']);
 		
 				$arrTempdata=array();
 				if(is_array($arrData)){

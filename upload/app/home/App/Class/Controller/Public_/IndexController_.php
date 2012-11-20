@@ -29,11 +29,19 @@ class IndexController extends Controller{
 		// 取得最新用户
 		$this->get_newuser_();
 
+		// 取得最新帮助
+		$this->get_newhelp_();
+
 		$this->display('public+index');
 	}
 
 	protected function get_homefresh_(){
-		$arrHomefreshs=HomefreshModel::F()->where('homefresh_status=?',1)->order('create_dateline DESC')->limit(0,$GLOBALS['_option_']['home_newhomefresh_num'])->getAll();
+		$nHomenewhomefreshnum=intval($GLOBALS['_option_']['home_newhomefresh_num']);
+		if($nHomenewhomefreshnum<1){
+			$nHomenewhomefreshnum=1;
+		}
+		
+		$arrHomefreshs=HomefreshModel::F()->where('homefresh_status=?',1)->order('create_dateline DESC')->limit(0,$nHomenewhomefreshnum)->getAll();
 
 		$sGoodCookie=Dyhb::cookie('homefresh_goodnum');
 		$arrGoodCookie=explode(',',$sGoodCookie);
@@ -43,9 +51,25 @@ class IndexController extends Controller{
 	}
 
 	protected function get_newuser_(){
-		$arrUsers=UserModel::F()->where('user_status=?',1)->order('create_dateline DESC')->limit(0,$GLOBALS['_option_']['home_newuser_num'])->getAll();
+		$nHomenewusernum=intval($GLOBALS['_option_']['home_newuser_num']);
+		if($nHomenewusernum<1){
+			$nHomenewusernum=1;
+		}
+		
+		$arrNewusers=UserModel::F()->where('user_status=?',1)->order('create_dateline DESC')->limit(0,$nHomenewusernum)->getAll();
 
-		$this->assign('arrUsers',$arrUsers);
+		$this->assign('arrNewusers',$arrNewusers);
+	}
+
+	protected function get_newhelp_(){
+		$nHomenewhelpnum=intval($GLOBALS['_option_']['home_newhelp_num']);
+		if($nHomenewhelpnum<1){
+			$nHomenewhelpnum=1;
+		}
+
+		$arrNewhelps=HomehelpModel::F()->where('homehelp_status=?',1)->order('create_dateline DESC')->limit(0,$nHomenewhelpnum)->getAll();
+
+		$this->assign('arrNewhelps',$arrNewhelps);
 	}
 
 }

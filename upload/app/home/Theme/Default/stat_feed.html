@@ -1,5 +1,13 @@
 <!--<include file="Core_Extend::template('header')" />-->
 
+<!--{:Core_Extend::emotion()}-->
+
+<!--{script}-->
+$(function(){
+	$('.statfeed-content').listEmotion();
+});
+<!--{/script}-->
+
 		<ul class="breadcrumb">
 			<li><a href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->主页<!--</lang>-->"><i class='icon-home'></i></a>&nbsp;<span class="divider">/</span>&nbsp;</li>
 			<li><!--<lang package='Template/Stat'>-->社区广场<!--</lang>--></li>
@@ -30,7 +38,7 @@
 								<!--{/if}-->
 								<a title="<!--{$arrFeeddata['feed_username']}-->" href="<!--{:Dyhb::U('home://space@?id='.$arrFeeddata['user_id'])}-->"><!--{$arrFeeddata['feed_username']}--></a>
 							</td>
-							<td width="*"><!--{$arrFeeddata['feed_content']}--></td>
+							<td width="*" class="statfeed-content"><!--{$arrFeeddata['feed_content']|Core_Extend+ubb}--></td>
 						</tr>
 						<!--</foreach>-->
 					</tbody>
