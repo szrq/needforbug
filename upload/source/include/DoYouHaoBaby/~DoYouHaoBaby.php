@@ -408,6 +408,7 @@ class Dyhb{
 		$arrArray=parse_url($sUrl);
 		$sApp=isset($arrArray['scheme'])?$arrArray['scheme']:APP_NAME;// APP
 		$sRoute=isset($arrArray['user'])?$arrArray['user']:'';// 路由
+
 		// 分析获取模块和操作
 		if(isset($arrArray['path'])){
 			$sAction=substr($arrArray['path'],1);
@@ -2911,36 +2912,38 @@ class Model implements IModel,IModelCallback,ArrayAccess{
 			$bCheckAttrAccessible=!empty($oMeta->_arrAttrAccessible);
 			$AttrAccessible=$oMeta->_arrAttrAccessible;
 		}
-		foreach($Prop as $sPropName=>$Value){// 将数组赋值给对象属性
-			if($sNamesStyle==Db::FIELD){// 如果是字段，那么建立与元的映射，这样方便后面判断那些数据需要被写入数据库
-				if(!isset($oMeta->_arrFieldToProp[$sPropName])){// 字段到属性的映射
-					continue;
-				}
-				$sPropName=$oMeta->_arrFieldToProp[$sPropName];
-			}elseif(!isset($oMeta->_arrProp[$sPropName])){
-				continue;
-			}
-			if($bFromStorage){
-				if($oMeta->_arrProp[$sPropName]['virtual']){
-					$this->{$sPropName}=$Value;
-					if(isset($this->_arrChangedProp[$sPropName])){
-						unset($this->_arrChangedProp[$sPropName]);
-					}
-				}else{
-					$this->_arrProp[$sPropName]=is_null($Value)?NULL:$this->dbFieldtypeCheck_($sPropName,$Value);
-				}
-			}else{
-				if($bCheckAttrAccessible){
-					if(!isset($AttrAccessible[$sPropName])){
+		if(is_array($Prop)){
+			foreach($Prop as $sPropName=>$Value){// 将数组赋值给对象属性
+				if($sNamesStyle==Db::FIELD){// 如果是字段，那么建立与元的映射，这样方便后面判断那些数据需要被写入数据库
+					if(!isset($oMeta->_arrFieldToProp[$sPropName])){// 字段到属性的映射
 						continue;
 					}
-				}elseif(isset($oMeta->_arrAttrProtected[$sPropName])){
+					$sPropName=$oMeta->_arrFieldToProp[$sPropName];
+				}elseif(!isset($oMeta->_arrProp[$sPropName])){
 					continue;
 				}
-				if($bIignoreReadonly){
-					$this->changePropForce($sPropName,$Value);
+				if($bFromStorage){
+					if($oMeta->_arrProp[$sPropName]['virtual']){
+						$this->{$sPropName}=$Value;
+						if(isset($this->_arrChangedProp[$sPropName])){
+							unset($this->_arrChangedProp[$sPropName]);
+						}
+					}else{
+						$this->_arrProp[$sPropName]=is_null($Value)?NULL:$this->dbFieldtypeCheck_($sPropName,$Value);
+					}
 				}else{
-					$this->{$sPropName}=$Value;
+					if($bCheckAttrAccessible){
+						if(!isset($AttrAccessible[$sPropName])){
+							continue;
+						}
+					}elseif(isset($oMeta->_arrAttrProtected[$sPropName])){
+						continue;
+					}
+					if($bIignoreReadonly){
+						$this->changePropForce($sPropName,$Value);
+					}else{
+						$this->{$sPropName}=$Value;
+					}
 				}
 			}
 		}
@@ -2955,7 +2958,7 @@ class Model implements IModel,IModelCallback,ArrayAccess{
 		}
 		$arrConfig=self::$_arrMeta[$this->_sClassName]->_arrProp[$sPropName];
 		// 如果指定了属性的 getter，则通过 getter 方法来获得属性值
-		if (!empty($arrConfig['getter'])){
+		if(!empty($arrConfig['getter'])){
 			list($callback,$arrCustomParameters)=$arrConfig['getter'];
 			if(!is_array($callback)){
 				$callback=array($this,$callback);

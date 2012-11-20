@@ -135,7 +135,6 @@ class ShopcartController extends InitController{
 	public function checkout(){
 		// 商品结算
 		$nNotlogin=intval(G::getGpc('notlogin','G'));
-		$sStep=trim(G::getGpc('step','P'));
 
 		if($nNotlogin==1){
 			Dyhb::cookie('___notlogin___',1);
@@ -146,50 +145,22 @@ class ShopcartController extends InitController{
 		if($nNotlogin!=1 && $GLOBALS['___login___']===FALSE){
 			$this->U('shop://shopcart/login');
 		}else{
-			if($sStep=='consignee'){
-				$arrData=$this->getShopcartdata_();
-		
-				$arrShopcartsData=$arrData[0];
-				$this->assign('arrShopcartsData',$arrShopcartsData);
-
-				// 计算商品总价格
-				$arrShopcartsTotal=$arrData[1];
-				$this->assign('arrShopcartsTotal',$arrShopcartsTotal);
-
-				if(empty($arrShopcartsData)){
-					$this->E('购物车为空，无法结算');
-				}
-				
-				// 这里保存配送地址
-				$arrShopaddressData=array();
-				$arrShopaddressData['shopaddress_province']=trim(G::getGpc('shopaddressprovince','P'));
-				$arrShopaddressData['shopaddress_city']=trim(G::getGpc('shopaddresscity','P'));
-				$arrShopaddressData['shopaddress_district']=trim(G::getGpc('shopaddressdist','P'));
-				$arrShopaddressData['shopaddress_community']=trim(G::getGpc('shopaddresscommunity','P'));
-
-				$arrShopaddressData['shopaddress_handaddress']=trim(G::getGpc('shopaddress_handaddress','P'));
-				$arrShopaddressData['shopaddress_consignee']=trim(G::getGpc('shopaddress_consignee','P'));
-
-				$arrShopaddressData['shopaddress_email']=trim(G::getGpc('shopaddress_email','P'));
-				$arrShopaddressData['shopaddress_address']=trim(G::getGpc('shopaddress_address','P'));
-
-				$arrShopaddressData['shopaddress_zipcode']=intval(G::getGpc('shopaddress_zipcode','P'));
-				$arrShopaddressData['shopaddress_tel']=trim(G::getGpc('shopaddress_tel','P'));
-				$arrShopaddressData['shopaddress_mobile']=trim(G::getGpc('shopaddress_mobile','P'));
-				$arrShopaddressData['shopaddress_signbuilding']=trim(G::getGpc('shopaddress_signbuilding','P'));
-
-				$arrShopaddressData['shopaddress_besttime']=trim(G::getGpc('shopaddress_besttime','P'));
-
-				$arrShopaddressData['shopaddress_id']=intval(G::getGpc('shopaddress_id','P'));
+			$arrData=$this->getShopcartdata_();
 			
+			$arrShopcartsData=$arrData[0];
+			$this->assign('arrShopcartsData',$arrShopcartsData);
 
-				if(isset($_POST['shopaddress_consignee'])){
-					// 使用cookie临时保存数据
-					Dyhb::cookie('___shopaddress___',$arrShopaddressData);
-				}
+			// 计算商品总价格
+			$arrShopcartsTotal=$arrData[1];
+			$this->assign('arrShopcartsTotal',$arrShopcartsTotal);
 
+			if(empty($arrShopcartsData)){
+				$this->E('购物车为空，无法结算');
+			}
+		
+			$nShopconsignee=Dyhb::cookie('___shopconsignee___');
+			if($nShopconsignee==1){
 				$arrShopaddressData=Dyhb::cookie('___shopaddress___');
-
 				$this->assign('arrShopaddressData',$arrShopaddressData);
 
 				// 获取支付方式
@@ -202,11 +173,44 @@ class ShopcartController extends InitController{
 
 				$this->display('shopcart+checkout');
 			}else{
-
 				// 跳转到配货地址
 				$this->U('shop://shopcart/consignee');
 			}
 		}
+	}
+
+	public function save_consignee(){
+		// 这里保存配送地址
+		$arrShopaddressData=array();
+		$arrShopaddressData['shopaddress_province']=trim(G::getGpc('shopaddressprovince','P'));
+		$arrShopaddressData['shopaddress_city']=trim(G::getGpc('shopaddresscity','P'));
+		$arrShopaddressData['shopaddress_district']=trim(G::getGpc('shopaddressdist','P'));
+		$arrShopaddressData['shopaddress_community']=trim(G::getGpc('shopaddresscommunity','P'));
+
+		$arrShopaddressData['shopaddress_handaddress']=trim(G::getGpc('shopaddress_handaddress','P'));
+		$arrShopaddressData['shopaddress_consignee']=trim(G::getGpc('shopaddress_consignee','P'));
+
+		$arrShopaddressData['shopaddress_email']=trim(G::getGpc('shopaddress_email','P'));
+		$arrShopaddressData['shopaddress_address']=trim(G::getGpc('shopaddress_address','P'));
+
+		$arrShopaddressData['shopaddress_zipcode']=intval(G::getGpc('shopaddress_zipcode','P'));
+		$arrShopaddressData['shopaddress_tel']=trim(G::getGpc('shopaddress_tel','P'));
+		$arrShopaddressData['shopaddress_mobile']=trim(G::getGpc('shopaddress_mobile','P'));
+		$arrShopaddressData['shopaddress_signbuilding']=trim(G::getGpc('shopaddress_signbuilding','P'));
+
+		$arrShopaddressData['shopaddress_besttime']=trim(G::getGpc('shopaddress_besttime','P'));
+
+		$arrShopaddressData['shopaddress_id']=intval(G::getGpc('shopaddress_id','P'));
+	
+
+		if(isset($_POST['shopaddress_consignee'])){
+			// 使用cookie临时保存数据
+			Dyhb::cookie('___shopaddress___',$arrShopaddressData);
+		}
+
+		Dyhb::cookie('___shopconsignee___',1);
+
+		$this->U('shop://shopcart/checkout');
 	}
 
 	public function login(){
@@ -271,6 +275,7 @@ class ShopcartController extends InitController{
 
 		// 生成商品订单入库信息
 		$_POST['shoporderinfo_postscript']=isset($_POST['shoporderinfo_postscript'])?htmlspecialchars($_POST['shoporderinfo_postscript']):'';
+		$_POST['shoporderinfo_howoos']=isset($_POST['shoporderinfo_howoos'])?intval($_POST['shoporderinfo_howoos']):0;
 		
 		$arrShoporderinfo=array();
 		
@@ -304,31 +309,69 @@ class ShopcartController extends InitController{
 
 		$arrShoporderinfo['shoporderinfo_shippingname']=$oShopshipping['shopshipping_name'];
 
+		// 取得支付方式
+		$nShoppaymentid=intval(G::getGpc('shoppayment_id','P'));
+		if(empty($nShoppaymentid)){
+			$this->E('你没有选择任何支付方式');
+		}
 
+		$oShoppayment=ShoppaymentModel::F('shoppayment_id=? AND shoppayment_status=1',$nShoppaymentid)->getOne();
+		if(empty($oShoppayment['shoppayment_id'])){
+			$this->E('你选择的支付方式不存在或者尚未启用');
+		}
 
+		$arrShoporderinfo['shoporderinfo_paymentname']=$oShoppayment['shoppayment_name'];
 
-		G::dump($arrShoporderinfo);
-		G::dump($arrShopaddressData);
 
 		// 商品价格
+		$arrShoporderinfo['shoporderinfo_goodsamount']=$arrShopcartsTotal['goods_price'];
 
-		// 配送方式
+		// 配送费用
+		$arrShoporderinfo['shoporderinfo_shippingfee']=0;
+		$arrShoporderinfo['shoporderinfo_insurefee']=0;
 
-		// 支付方式
+		// 支付费用
+		$arrShoporderinfo['shoporderinfo_payfee']=0;
+
+		// 包装费用
+		$arrShoporderinfo['shoporderinfo_packfee']=0;
+
+
 
 		// 商品订单入库
+		$oShoporderinfo=new ShoporderinfoModel();
+		$oShoporderinfo->changeProp($arrShoporderinfo);
+		$oShoporderinfo->save(0,'update');
+
+		if($oShoporderinfo->isError()){
+			$this->E($oShoporderinfo->getErrorMessage());
+		}
+
+		// 支付按钮
+		require(APP_PATH.'/App/Class/Extension/Payment/'.strtolower($oShoppayment['shoppayment_code']).'/'.ucfirst($oShoppayment['shoppayment_code']).'_.php');
+			
+		$oShoppaymentapi=Dyhb::instance(ucfirst($oShoppayment['shoppayment_code']).'_Payment');
+		$sShoppaymentReturnhtml=$oShoppaymentapi->paymentCode($oShoppayment,$oShoporderinfo);
 
 		// 商品库存变更
 
 		// 清理购物车等等
 
-		// 支付日记
+		// 支付记录
 
 		// 显示当前订单号
 
 		// 如果在线支付，提供在线支付的按钮
 
 		// 订单结束
+
+
+		$this->assign('oShoporderinfo',$oShoporderinfo);
+		$this->assign('oShopshipping',$oShopshipping);
+		$this->assign('oShoppayment',$oShoppayment);
+		$this->assign('sShoppaymentReturnhtml',$sShoppaymentReturnhtml);
+
+		$this->display('shopcart+done');
 	}
 
 }

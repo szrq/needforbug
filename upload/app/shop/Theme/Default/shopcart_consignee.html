@@ -18,7 +18,7 @@
 		<div class="row">
 			<div class="span12">
 				<h3>配送人地址</h3>
-				<form action="<!--{:Dyhb::U('shop://shopcart/checkout')}-->" method="post" name="theForm" id="theForm">
+				<form action="<!--{:Dyhb::U('shop://shopcart/save_consignee')}-->" method="post" name="theForm" id="theForm">
 					<div class="flowBox">
 						<h6><span>收货人信息</span></h6>
 						<table align="center" bgcolor="#dddddd" border="0" cellpadding="5" cellspacing="1" width="99%">
@@ -67,7 +67,6 @@
 								</tr>
 								<tr>
 									<td colspan="4" align="center" bgcolor="#ffffff">
-										<input name="step" value="consignee" type="hidden">
 										<input name="submit" class="btn btn-success" value="配送至这个地址" type="submit">
 										<input name=" shopaddress_id" value="" type="hidden">
 									</td>

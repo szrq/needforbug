@@ -12,7 +12,7 @@ return array(
 	'shoppayment_name'=>'支付宝',
 
 	// 支付描述
-	'shoppayment_description'=>'支付宝网站(www.alipay.com) 是国内先进的网上支付平台。<br/>支付宝收款接口：在线即可开通，<font color="red"><b>零预付，免年费</b></font>，单笔阶梯费率，无流量限制。<br/><a href="'.__ROOT__.'/index.php?app=shop&c=misc&a=payment&type=alipay" target="_blank"><strong>立即在线申请</strong></a>',
+	'shoppayment_description'=>'支付宝网站(www.alipay.com) 是国内先进的网上支付平台。<br/>支付宝收款接口：在线即可开通，<font color="red"><b>零预付，免年费</b></font>，单笔阶梯费率，无流量限制。<br/><a href="http://needforbug.dianniu.net/payment.php?type=alipay" target="_blank"><strong>立即在线申请</strong></a>',
 
 	// 产品官方网址
 	'shoppayment_website'=>'http://www.alipay.com',

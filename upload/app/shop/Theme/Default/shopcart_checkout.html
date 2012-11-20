@@ -129,7 +129,7 @@
 					<!--<foreach for=arrShoppayments value=oShoppayment>-->
 					<tr>
 						<td bgcolor="#ffffff" valign="top">
-							<input name="payment" value="<!--{$oShoppayment['shoppayment_id']}-->" iscod="0" onclick="selectPayment(this)" type="radio">
+							<input name="shoppayment_id" value="<!--{$oShoppayment['shoppayment_id']}-->" iscod="0" onclick="selectPayment(this)" type="radio">
 						</td>
 						<td bgcolor="#ffffff" valign="top"><strong><!--{$oShoppayment['shoppayment_name']}--></strong></td>
 						<td bgcolor="#ffffff" valign="top"><!--{$oShoppayment['shoppayment_description']}--></td>
@@ -186,9 +186,9 @@
 					<tr>
 						<td bgcolor="#ffffff"><strong>缺货处理:</strong></td>
 						<td bgcolor="#ffffff">
-							<input name="how_oos" value="0" checked="checked" onclick="" type="radio">等待所有商品备齐后再发&nbsp;&nbsp;
-							<input name="how_oos" value="1" onclick="" type="radio">取消订单&nbsp;&nbsp;
-							<input name="how_oos" value="2" onclick="" type="radio">与店主协商
+							<input name="shoporderinfo_howoos" value="0" checked="checked" onclick="" type="radio">等待所有商品备齐后再发&nbsp;&nbsp;
+							<input name="shoporderinfo_howoos" value="1" onclick="" type="radio">取消订单&nbsp;&nbsp;
+							<input name="shoporderinfo_howoos" value="2" onclick="" type="radio">与店主协商
 						</td>
 					</tr>
 				</tbody>
