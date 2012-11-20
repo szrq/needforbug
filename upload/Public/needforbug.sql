@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2012 年 11 月 19 日 11:22
+-- 生成日期: 2012 年 11 月 20 日 10:39
 -- 服务器版本: 5.5.22
 -- PHP 版本: 5.4.0
 
@@ -1564,7 +1564,7 @@ INSERT INTO `needforbug_homehelp` (`homehelp_id`, `homehelp_title`, `homehelp_co
 (2, '我必须要注册吗？', '<span style="color:#444444;font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;">这取决于管理员如何设置 {site_name} 的用户组权限选项，您甚至有可能必须在注册成正式用户后后才能浏览网站。当然，在通常情况下，您至少应该是正式用户才能发新帖和回复已有帖子。请先</span><span style="color:#444444;font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;">免费注册成为我们的新用户！&nbsp;</span><br style="word-wrap:break-word;color:#444444;font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;" />\n<br style="word-wrap:break-word;color:#444444;font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;" />\n<span style="color:#444444;font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;">强烈建议您注册，这样会得到很多以游客身份无法实现的功能。</span>', 1, 1, 1340163725, 1340213377, 1, 'admin', 1, 'admin', 2),
 (3, '我如何登录网站？', '<span style="color:#444444;font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;">如果您已经注册成为该论坛的会员，哪么您只要通过访问页面右上的</span><a href="http://bbs.emlog.net/logging.php?action=login" target="_blank" style="word-wrap:break-word;text-decoration:none;color:#000000;font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;">登录</a><span style="color:#444444;font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;">，进入登陆界面填写正确的用户名和密码，点击“登录”即可完成登陆如果您还未注册请点击这里。</span><br style="word-wrap:break-word;color:#444444;font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;" />\n<br style="word-wrap:break-word;color:#444444;font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;" />\n<span style="color:#444444;font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;">如果需要保持登录，请选择相应的 Cookie 时间，在此时间范围内您可以不必输入密码而保持上次的登录状态。</span>', 1, 1, 1340164011, 1340213385, 1, 'admin', 1, 'admin', 2),
 (4, '忘记我的登录密码，怎么办？', '', 1, 1, 1340164050, 1340213393, 1, 'admin', 1, 'admin', 9),
-(5, '我如何使用个性化头像', '<span style="color:#444444;font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;">在</span><span style="font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;">头部</span><span style="color:#444444;font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;">有一个“修改头像”的选项，可以使用自定义的头像。</span>', 1, 1, 1340164159, 1340213404, 1, 'admin', 1, 'admin', 4),
+(5, '我如何使用个性化头像', '<span style="color:#444444;font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;">在</span><span style="font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;">头部</span><span style="color:#444444;font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;">有一个“修改头像”的选项，可以使用自定义的头像。</span>', 1, 1, 1340164159, 1340213404, 1, 'admin', 1, 'admin', 5),
 (6, '我如何修改登录密码', '<span style="color:#444444;font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;">在</span><span style="font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;">基本信息中</span><span style="color:#444444;font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;">，填写“旧密码”，“新密码”，“确认新密码”。点击“提交”，即可修改。</span>', 1, 1, 1340164237, 1343443978, 1, 'admin', 1, 'admin', 22),
 (7, '我如何使用个性化签名和昵称', '<span style="color:#444444;font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;">在</span><span style="font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;">个人资料中</span><span style="color:#444444;font-family:Verdana, Helvetica, Arial, sans-serif;font-size:14px;line-height:19px;text-align:left;white-space:normal;background-color:#FFFFFF;">，有一个“昵称”和“个人签名”的选项，可以在此设置。</span>', 1, 1, 1340164280, 1343444041, 1, 'admin', 1, 'admin', 27),
 (8, '我如何使用“会员”功能', '<ul>\n	<li>\n		<span style="white-space:nowrap;">须首先登录，没有用户名的请先注册；</span> \n	</li>\n	<li>\n		<span style="white-space:nowrap;">登录之后在论坛的左上方会出现一个“个人中心”的超级链接，点击这个链接之后就可进入到有关于您的信息。</span> \n	</li>\n</ul>', 2, 1, 1340164420, 1343444036, 1, 'admin', 1, 'admin', 45),
@@ -1776,7 +1776,7 @@ CREATE TABLE IF NOT EXISTS `needforbug_loginlog` (
   KEY `user_id` (`user_id`),
   KEY `create_dateline` (`create_dateline`),
   KEY `loginlog_status` (`loginlog_status`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=619 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=620 ;
 
 --
 -- 转存表中的数据 `needforbug_loginlog`
@@ -2384,7 +2384,8 @@ INSERT INTO `needforbug_loginlog` (`loginlog_id`, `user_id`, `create_dateline`, 
 (615, 0, 1353311131, 0, 'admin', '0.0.0.0', 0, 'admin'),
 (616, 1, 1353311135, 0, 'admin', '0.0.0.0', 1, 'admin'),
 (617, 0, 1353320422, 0, 'xiaonigue', '0.0.0.0', 0, 'admin'),
-(618, 1, 1353320429, 0, 'admin', '0.0.0.0', 1, 'admin');
+(618, 1, 1353320429, 0, 'admin', '0.0.0.0', 1, 'admin'),
+(619, 1, 1353395783, 0, 'admin', '0.0.0.0', 1, 'admin');
 
 -- --------------------------------------------------------
 
@@ -3156,7 +3157,7 @@ CREATE TABLE IF NOT EXISTS `needforbug_session` (
 --
 
 INSERT INTO `needforbug_session` (`session_hash`, `session_auth_key`, `user_id`) VALUES
-('aC6feB', '075581ce275e2e6cd42f109f5fed5491', 1);
+('9c1c9a', '075581ce275e2e6cd42f109f5fed5491', 1);
 
 -- --------------------------------------------------------
 
@@ -3697,7 +3698,7 @@ CREATE TABLE IF NOT EXISTS `needforbug_shopgoodscomment` (
   KEY `shopgoodscomment_parentid` (`shopgoodscomment_parentid`),
   KEY `create_dateline` (`create_dateline`),
   KEY `shopgoods_id` (`shopgoods_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=36 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=37 ;
 
 --
 -- 转存表中的数据 `needforbug_shopgoodscomment`
@@ -3738,7 +3739,8 @@ INSERT INTO `needforbug_shopgoodscomment` (`shopgoodscomment_id`, `shopgoods_id`
 (32, 8, '', '', '', '', 3, 1353219621, '0.0.0.0', 1, 0, 0),
 (33, 8, '', '', '', '', 3, 1353219622, '0.0.0.0', 1, 0, 0),
 (34, 8, '', '', '', '', 3, 1353219623, '0.0.0.0', 1, 0, 0),
-(35, 8, '', '', '', '', 3, 1353219624, '0.0.0.0', 1, 0, 0);
+(35, 8, '', '', '', '', 3, 1353219624, '0.0.0.0', 1, 0, 0),
+(36, 8, '', '', '', '', 3, 1353374872, '0.0.0.0', 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -3967,7 +3969,7 @@ CREATE TABLE IF NOT EXISTS `needforbug_shoporderinfo` (
   `shoporderinfo_tax` decimal(10,2) NOT NULL COMMENT '发票税额',
   `shoporderinfo_isseparate` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0未分成或等待分成;1已分成;2取消分成',
   `shoporderinfo_parentid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '父级ID',
-  `shoporderinfo_discount` decimal(10,2) NOT NULL COMMENT '订单号',
+  `shoporderinfo_discount` decimal(10,2) NOT NULL COMMENT '折扣',
   PRIMARY KEY (`shoporderinfo_id`),
   UNIQUE KEY `shoporderinfo_sn` (`shoporderinfo_sn`),
   KEY `user_id` (`user_id`),
@@ -4038,7 +4040,7 @@ CREATE TABLE IF NOT EXISTS `needforbug_shoppayment` (
 --
 
 INSERT INTO `needforbug_shoppayment` (`shoppayment_id`, `shoppayment_code`, `shoppayment_name`, `shoppayment_fee`, `shoppayment_description`, `shoppayment_sort`, `shoppayment_config`, `shoppayment_status`, `shoppayment_iscod`, `shoppayment_isonline`) VALUES
-(4, 'alipay', '支付宝', '0', '支付宝网站(www.alipay.com) 是国内先进的网上支付平台。<br/>支付宝收款接口：在线即可开通，<font color="red"><b>零预付，免年费</b></font>，单笔阶梯费率，无流量限制。<br/><a href="/needforbug/upload/index.php?app=shop&c=misc&a=payment&type=alipay" target="_blank"><strong>立即在线申请</strong></a>', 0, 'a:4:{s:14:"alipay_account";s:4:"dsf5";s:10:"alipay_key";s:14:"ffffffffffffff";s:14:"alipay_partner";s:11:"fffffffffff";s:17:"alipay_pay_method";s:1:"0";}', 1, 0, 1);
+(4, 'alipay', '支付宝', '0', '支付宝网站(www.alipay.com) 是国内先进的网上支付平台。<br/>支付宝收款接口：在线即可开通，<font color="red"><b>零预付，免年费</b></font>，单笔阶梯费率，无流量限制。<br/><a href="/needforbug/upload/index.php?app=shop&c=misc&a=payment&type=alipay" target="_blank"><strong>立即在线申请</strong></a>', 0, 'a:4:{s:14:"alipay_account";s:4:"dsf5";s:10:"alipay_key";s:14:"ffffffffffffff";s:14:"alipay_partner";s:11:"fffffffffff";s:17:"alipay_pay_method";s:1:"2";}', 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -4456,7 +4458,7 @@ CREATE TABLE IF NOT EXISTS `needforbug_user` (
 --
 
 INSERT INTO `needforbug_user` (`user_id`, `user_name`, `user_nikename`, `user_password`, `user_registerip`, `user_lastlogintime`, `user_lastloginip`, `user_logincount`, `user_email`, `user_remark`, `user_sign`, `create_dateline`, `update_dateline`, `user_status`, `user_random`, `user_temppassword`, `user_extendstyle`) VALUES
-(1, 'admin', '', '1d77f42511b2500bfcdc9dcb0066e040', '127.0.0.1', 1353320429, '::1', 830, 'xiaoniuge@dianniu.net', '', '每一天都是新的,欢迎大家光临我们的心空间，世界之巅，唯我读准。', 1333281705, 1353320429, 1, '035c41', '', '0'),
+(1, 'admin', '', '785d0bf6fa6f3960b0090b4af0d20fce', '127.0.0.1', 1353395783, '::1', 831, 'xiaoniuge@dianniu.net', '', '每一天都是新的,欢迎大家光临我们的心空间，世界之巅，唯我读准。', 1333281705, 1353395783, 1, 'a46924', '', '0'),
 (6, 'xiaomage', '小马哥', '5f88f0998ea9017b28290a9232b9a7ec', '::1', 1352347371, '::1', 23, '635750556@qqqq.com', '', '', 1338557883, 1352347371, 1, 'e64d5F', '', 't5'),
 (7, 'test', '123456', '3e50575fc4fd27791d9fd242961a4f3d', '::1', NULL, NULL, 0, 'log1990@1262.com', NULL, '', 1340625011, 1340625011, 1, '845f16', '', ''),
 (8, 'test2', 'dsfsdf', '150160def89ecc78ba8bcbdf1426c534', '::1', NULL, NULL, 0, 'lgo11@ss.com', NULL, '', 1340625061, 1340625061, 1, '020Be2', '', ''),

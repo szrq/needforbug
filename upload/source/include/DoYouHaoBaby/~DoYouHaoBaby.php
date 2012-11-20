@@ -408,6 +408,7 @@ class Dyhb{
 		$arrArray=parse_url($sUrl);
 		$sApp=isset($arrArray['scheme'])?$arrArray['scheme']:APP_NAME;// APP
 		$sRoute=isset($arrArray['user'])?$arrArray['user']:'';// 路由
+
 		// 分析获取模块和操作
 		if(isset($arrArray['path'])){
 			$sAction=substr($arrArray['path'],1);
