@@ -1,7 +1,7 @@
 <!--<include file="Core_Extend::template('cheader')" />-->
 
 <!--{style}-->
-.nav-collapse .nav li{width:146px;}
+.nav-collapse .nav li{width:15%;}
 .nav-collapse .nav .dropdown .dropdown-menu li{width:100%;text-align:left;}
 .navbar-inner {
 -webkit-box-shadow:none;
@@ -12,61 +12,61 @@
 
 <div id="wrapper">
 	<div id="header">
-		<div class="container" >
-			<div class="navbar navbar-fixed-top" >
-				<div class="navbar-inner" >
-					<div class="span12" style="text-align:center;">
-						<div class="container-fluid">
-							<div class="nav-collapse">
-								<ul class="nav">
-									<li class="active"><a href="<!--{:Dyhb::U('home://public/index')}-->">首页</a></li>
-									<li><a href="#">艺术家</a></li>
-									<li><a href="#about">阿文</a></li>
-									<li><a href="<!--{:Dyhb::U('group://public/index')}-->">社区</a></li>
-									<li><a href="#about">共育蓓蕾</a></li>
-									<li class="dropdown">
-										<!--{if $GLOBALS['___login___']===false}-->
-										<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);">未登录&nbsp;<b class="caret"></b></a>
-										<ul class="dropdown-menu">
-											<li><a href="<!--{:Dyhb::U('shop://shopcart/index')}-->">查看购物车</a></li>
-											<li class="divider"></li>
-											<li><a href="<!--{:Dyhb::U('home://public/login')}-->">用户登录</a></li>
-											<li><a href="<!--{:Dyhb::U('home://public/register')}-->">用户注册</a></li>
-										</ul>
-										<!--{d*else}-->
-										<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);">
-											<!--{if $GLOBALS['___login___']['socia_login']===true}-->
-											<img src="<!--{$GLOBALS['___login___']['socia']['logo']}-->"/>&nbsp;
-											<!--{$GLOBALS['___login___']['socia']['sociauser_name']}-->
-											<!--{d*else}-->
-											<i class="icon-user"></i>&nbsp;
-											<!--{if $GLOBALS['___login___']['user_nikename']}-->
-												<!--{$GLOBALS['___login___']['user_nikename']}-->
-											<!--{d*else}-->
-												<!--{$GLOBALS['___login___']['user_name']}-->
-											<!--{/if}-->
-											<!--{/if}-->
-											<span class="caret"></span>
-										</a>
-										<ul class="dropdown-menu">
-											<li><a href="<!--{:Dyhb::U('shop://shopcart/index')}-->">查看购物车</a></li>
-											<li class="divider"></li>
-											<!--{if Core_Extend+isAdmin()}-->
-											<li><a href="<!--{:__ROOT__}-->/admin.php" target="_blank">管理中心</a></li>
-											<!--{/if}-->
-											<li><a href="<!--{:Dyhb::U('home://ucenter/index')}-->">个人中心</a></li>
-											<li class="divider"></li>
-											<li><a href="<!--{:Dyhb::U('home://public/logout')}-->">注销</a></li>
-										</ul>
-										<!--{/if}-->
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		<div class="navbar-inner">
+			<div class="navbar">
+				<div class="container-fluid">
+					<ul class="nav">
+						<li style="width:100px;"><a href="<!--{:__APP__}-->">首页</a></li>
+						<li style="width:150px;"><a href="#">艺术家</a></li>
+						<li style="width:150px;"><a href="#about">阿文</a></li>
+						<li style="width:150px;"><a href="<!--{:Dyhb::U('group://public/index')}-->">社区</a></li>
+						<li style="width:150px;"><a href="#about">共育蓓蕾</a></li>
+					</ul>
+					<ul class="nav pull-right">
+						<li class="dropdown">
+							<!--{if $GLOBALS['___login___']===false}-->
+							<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);">未登录&nbsp;<b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="<!--{:Dyhb::U('home://public/login')}-->">用户登录</a></li>
+								<li class="divider"></li>
+								<li><a href="<!--{:Dyhb::U('home://public/register')}-->">用户注册</a></li>
+							</ul>
+							<!--{d*else}-->
+							<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);">
+								<!--{if $GLOBALS['___login___']['socia_login']===true}-->
+								<img src="<!--{$GLOBALS['___login___']['socia']['logo']}-->"/>&nbsp;
+								<!--{$GLOBALS['___login___']['socia']['sociauser_name']}-->
+								<!--{d*else}-->
+								<i class="icon-user"></i>&nbsp;
+								<!--{if $GLOBALS['___login___']['user_nikename']}-->
+								<!--{$GLOBALS['___login___']['user_nikename']}-->
+								<!--{d*else}-->
+								<!--{$GLOBALS['___login___']['user_name']}-->
+								<!--{/if}-->
+								<!--{/if}-->
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<!--{if Core_Extend+isAdmin()}-->
+								<li><a href="<!--{:__ROOT__}-->/admin.php" target="_blank">管理中心</a></li>
+								<!--{/if}-->
+								<li><a href="<!--{:Dyhb::U('home://ucenter/index')}-->">个人中心</a></li>
+								<li class="divider"></li>
+								<li><a href="#buttonGroups">已买到的宝贝</a></li>
+								<li><a href="#buttonDropdowns">我的藏品</a></li>
+								<li><a href="#buttonDropdowns">我的藏友</a></li>
+								<li><a href="#buttonDropdowns">编辑资料</a></li>
+								<li><a href="<!--{:Dyhb::U('home://public/logout')}-->">注销</a></li>
+							</ul>
+							<!--{/if}-->
+						</li>
+					</ul>
+					<ul class="nav pull-right">
+						<li><a href="#about"><i class="icon-shopping-cart"></i>我的购物车</a></li>
+					</ul>
+				</div><!--/container-fluid-->
+			</div><!--/navbar-inner-->
+		</div><!--/navbar-->
 	</div>
 
 	<div id="content" style="margin-top:50px;">
