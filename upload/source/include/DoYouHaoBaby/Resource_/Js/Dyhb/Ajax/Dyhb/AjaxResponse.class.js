@@ -75,8 +75,8 @@ Dyhb.Ajax.Dyhb.AjaxResponse=function(oRequest,sTarget,Response,sTips){
 		}
 	}
 
-	/* 提示信息停留5秒 */
-	if(Dyhb.Ajax.Dyhb.ShowTip){
+	/* 提示信息停留 Dyhb.Ajax.Dyhb.Display 秒 */
+	if(Dyhb.Ajax.Dyhb.Display && Dyhb.Ajax.Dyhb.ShowTip && Dyhb.Ajax.Dyhb.Info!=undefined && Dyhb.Ajax.Dyhb.Info!=''){
 		setTimeout(function(){sTarget.style.display="none";},Dyhb.Ajax.Dyhb.Display*1000);
 	}
 };
