@@ -2,14 +2,34 @@
 
 <!--{script}-->
 
+	$(document).ready(
+	function(){
+		$('.collapse').collapse({
+			toggle: true
+		});
+	$("").on('hidden', function () {
+		alert("dd");
+	});
+	});
+
+function getArticleContent(id){
+	var sParament='ajax=1&id='+id;
+	Dyhb.AjaxSend('<!--{:Dyhb::U('shop://shoparticle/getarticle')}-->',sParament,'',function(data,status){
+		if(status==1){
+			$("#articletitle").html(data.title);
+			$("#articlecontent").html(data.content);
+		}
+	});
+}
 <!--{/script}-->
 
 <!--{style}-->
 .help {border:1px solid #f1f1f1;}
-.help ul{list-style-type:none;border-top:1px solid #f1f1f1;margin:0px;}
+.help ul{list-style-type:none;margin:0px;}
 .help ul li {padding-left:18px;}
-.help ul li:first-child {background-color:#f1f1f1;}
-.help ul:first-child {border-bottom:1px solid #f1f1f1; }
+.help h4 {background-color:#f1f1f1;padding-left:12px;}
+.help h4:hover{cursor:pointer;}
+.help h4 i{float:right;margin-right:20px;}
 <!--{/style}-->
 
 <div class="row">
@@ -22,19 +42,25 @@
 		</ul>
 	</div>
 
-	<div class="span2 help">
+	<div class="span2">
+		<div class="help">
 		<!--<foreach for=arrShoparticlecategory value=oShoparticlecategory>-->
-			<ul>
-			<li><h4><!--{$oShoparticlecategory->shoparticlecategory_name}--></h4></li>
-				<!--{foreach $oShoparticlecategory->shoparticle $value}-->
-					 <li><a href=""><!--{$value->shoparticle_title}--></a></li>
-				<!--{/foreach}-->
-			</ul>
+			<h4><a data-toggle="collapse" data-target="#collapseTwo<!--{$oShoparticlecategory->shoparticlecategory_id}-->" ><!--{$oShoparticlecategory->shoparticlecategory_name}--><i class="icon-plus"></i></a></h4>
+			<div id="collapseTwo<!--{$oShoparticlecategory->shoparticlecategory_id}-->" class="collapse in">
+				<ul>
+					<!--{foreach $oShoparticlecategory->shoparticle $value}-->
+						 <li><a href="javascript:void(0);" onclick="getArticleContent(<!--{$value->shoparticle_id}-->)"><!--{$value->shoparticle_title}--></a></li>
+					<!--{/foreach}-->
+					
+				</ul>
+			</div>
 		<!--</foreach>-->
+		</div>
 	</div>
 
 	<div class="span10">
-
+		<div id="articletitle"></div>
+		<div id="articlecontent"></div>
 	</div>
 </div>
 
