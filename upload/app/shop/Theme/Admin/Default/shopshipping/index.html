@@ -59,6 +59,7 @@
 								<!--<if condition="$value['shopshipping_status'] eq 1" >--><a href="javascript:forbidApp('<!--{$_GET['id']}-->','shopshipping','<!--{$value['shopshipping_id']}-->');"><input type="image" src="<!--{:__TMPLPUB__}-->/Images/icn_trash.png" title="<!--<lang package='Template/Default/Common'>-->禁用<!--</lang>-->"></a><!--<else/>-->
 								<a href="javascript:resumeApp('<!--{$_GET['id']}-->','shopshipping','<!--{$value['shopshipping_id']}-->');"><input type="image" src="<!--{:__TMPLPUB__}-->/Images/icn_jump_back.png" title="<!--<lang package='Template/Default/Common'>-->恢复<!--</lang>-->"></a><!--</if>-->&nbsp;
 								<a href="javascript:void(0);" onclick="foreverdelApp('<!--{$_GET['id']}-->','shopshipping','<!--{$value['shopshipping_id']}-->');">卸载</a>&nbsp;
+								<a href="<!--{:Admin_Extend::base(array('controller'=>'shopshippingarea','action'=>'index','sid'=>$value['shopshipping_id']))}-->">配送区域</a>&nbsp;
 								<a href="<!--{:Admin_Extend::base(array('controller'=>'shopshipping','action'=>'edit','value'=>$value['shopshipping_id']))}-->">编辑</a>
 								<!--{d*else}-->
 								<a href="<!--{:Admin_Extend::base(array('controller'=>'shopshipping','action'=>'install','code'=>$value['shopshipping_code']))}-->">安装</a>

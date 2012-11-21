@@ -341,10 +341,48 @@ class ShopcartController extends InitController{
 		// 商品订单入库
 		$oShoporderinfo=new ShoporderinfoModel();
 		$oShoporderinfo->changeProp($arrShoporderinfo);
-		$oShoporderinfo->save(0,'update');
+		$oShoporderinfo->save(0);
 
 		if($oShoporderinfo->isError()){
 			$this->E($oShoporderinfo->getErrorMessage());
+		}
+
+		// 订单商品入库
+		//G::dump($arrShopcartsData);
+		if(!empty($arrShopcartsData)){
+			foreach($arrShopcartsData as $arrShopcart){
+				// 
+				$oShopgoods=ShopgoodsModel::F('shopgoods_id=?',$arrShopcart['goods_id'])->getOne();
+				if(empty($oShopgoods['shopgoods_id'])){
+					$this->E('购物车中的商品不存在');
+				}
+
+				$oShopordergoods=new ShopordergoodsModel();
+				$oShopordergoods->shoporderinfo_id=$oShoporderinfo->shoporderinfo_id;
+				$oShopordergoods->shopgoods_id=$arrShopcart['goods_id'];
+				$oShopordergoods->shopordergoods_goodsname=$oShopgoods->shopgoods_name;
+				$oShopordergoods->shopordergoods_goodssn=$oShopgoods->shopgoods_sn;
+				$oShopordergoods->shopordergoods_goodsnumber=$oShopgoods->shopgoods_number;
+				$oShopordergoods->shopordergoods_price=$oShopgoods->shopgoods_price;
+				$oShopordergoods->shopordergoods_shopprice=$oShopgoods->shopgoods_shopprice;
+				$oShopordergoods->shopordergoods_isreal=$oShopgoods->shopgoods_isreal;
+				$oShopordergoods->shopordergoods_parentid=$oShopgoods->shopgoods_parentid;
+				$oShopordergoods->save(0);
+
+				if($oShopordergoods->isError()){
+					$this->E($oShopordergoods->getErrorMessage());
+				}
+			}
+		}
+
+		// 支付日志
+		$oShoppaylog=new ShoppaylogModel();
+		$oShoppaylog->shoporderinfo_id=$oShoporderinfo['shoporderinfo_id'];
+		$oShoppaylog->shoppaylog_orderamount=$oShoporderinfo['shoporderinfo_orderamount'];
+		$oShoppaylog->save(0);
+
+		if($oShoppaylog->isError()){
+			$this->E($oShoppaylog->getErrorMessage());
 		}
 
 		// 支付按钮
