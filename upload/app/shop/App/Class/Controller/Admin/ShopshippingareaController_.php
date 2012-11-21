@@ -14,12 +14,23 @@ class ShopshippingareaController extends InitController{
 		if(empty($nShopshippingid)){
 			$this->E('你没有指定配送方方式');
 		}
+
+		$oShopshipping=ShopshippingModel::F('shopshipping_id=?',$nShopshippingid)->getOne();
+		if(empty($oShopshipping['shopshipping_id'])){
+			$this->E('你指定的配送方式不存在');
+		}
+		
+		$this->assign('oShopshipping',$oShopshipping);
 	}
 
 	public function index($sModel=null,$bDisplay=true){
 		parent::index('shopshippingarea',false);
 
 		$this->display(Admin_Extend::template('shop','shopshippingarea/index'));
+	}
+
+	public function add(){
+		$this->display(Admin_Extend::template('shop','shopshippingarea/add'));
 	}
 	
 }
