@@ -1,15 +1,19 @@
 <!--<include file="header" />-->
 
 <!--{script}-->
-
 	$(document).ready(
 	function(){
 		$('.collapse').collapse({
 			toggle: true
 		});
-	$("").on('hidden', function () {
-		alert("dd");
-	});
+		$(".collapse").on('hidden', function (){
+			currentid='#i'+$(this).attr('id');
+			$(currentid).removeClass().addClass('icon-plus');
+		});
+		$(".collapse").on('show', function (){
+			currentid='#i'+$(this).attr('id');
+			$(currentid).removeClass().addClass('icon-minus');
+		});
 	});
 
 function getArticleContent(id){
@@ -25,11 +29,12 @@ function getArticleContent(id){
 
 <!--{style}-->
 .help {border:1px solid #f1f1f1;}
-.help ul{list-style-type:none;margin:0px;}
+.help ul {list-style-type:none;margin:0px;}
 .help ul li {padding-left:18px;}
-.help h4 {background-color:#f1f1f1;padding-left:12px;}
-.help h4:hover{cursor:pointer;}
-.help h4 i{float:right;margin-right:20px;}
+.help h4 {background-color:;padding-left:12px;}
+.help h4 a {text-decoration: none;}
+.help h4:hover {cursor:pointer;}
+.help h4 i {float:right;margin-right:10px;border:1px solid #f1f1f1;}
 <!--{/style}-->
 
 <div class="row">
@@ -45,13 +50,12 @@ function getArticleContent(id){
 	<div class="span2">
 		<div class="help">
 		<!--<foreach for=arrShoparticlecategory value=oShoparticlecategory>-->
-			<h4><a data-toggle="collapse" data-target="#collapseTwo<!--{$oShoparticlecategory->shoparticlecategory_id}-->" ><!--{$oShoparticlecategory->shoparticlecategory_name}--><i class="icon-plus"></i></a></h4>
-			<div id="collapseTwo<!--{$oShoparticlecategory->shoparticlecategory_id}-->" class="collapse in">
+			<h4><a data-toggle="collapse" data-target="#collapseTwo<!--{$oShoparticlecategory->shoparticlecategory_id}-->" ><!--{$oShoparticlecategory->shoparticlecategory_name}--><i id="icollapseTwo<!--{$oShoparticlecategory->shoparticlecategory_id}-->" class="icon-minus"></i></a></h4>
+			<div id="collapseTwo<!--{$oShoparticlecategory->shoparticlecategory_id}-->" class="collapse">
 				<ul>
 					<!--{foreach $oShoparticlecategory->shoparticle $value}-->
 						 <li><a href="javascript:void(0);" onclick="getArticleContent(<!--{$value->shoparticle_id}-->)"><!--{$value->shoparticle_title}--></a></li>
 					<!--{/foreach}-->
-					
 				</ul>
 			</div>
 		<!--</foreach>-->
@@ -59,8 +63,8 @@ function getArticleContent(id){
 	</div>
 
 	<div class="span10">
-		<div id="articletitle"></div>
-		<div id="articlecontent"></div>
+		<div style="text-align:center;"><h2 id="articletitle"></h2></div>
+		<div><div id="articlecontent"></div></div>
 	</div>
 </div>
 
