@@ -12,7 +12,14 @@ class ShoparticleController extends InitController{
 		$this->assign('arrShoparticlecategory',$arrShoparticlecategory);
 		$this->display('shoparticle+index');
 	}
-	
+
+	public function help(){
+		$arrShoparticlecategory=ShoparticlecategoryModel::F()->getAll();
+
+		$this->assign('arrShoparticlecategory',$arrShoparticlecategory);
+		$this->display('shoparticle+help');
+	}
+
 	public function getarticle(){
 		$nId=intval(G::getGpc('id','G'));
 
