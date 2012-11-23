@@ -399,7 +399,16 @@ function ajaxLogin(){
 		async: false
 	}).responseText;
 
-	oEditNewajaxlogin=needforbugAlert(sHtml,'用户登录','','','',600,200);
+	needforbugAlert(sHtml,'用户登录','','','',600,200);
+}
+
+function ajaxRegister(refer){
+	var sHtml = $.ajax({
+		url: D.U('home://public/register?inajax=1'+(refer?'&refer='+encodeURIComponent(refer):'')),
+		async: false
+	}).responseText;
+
+	needforbugAlert(sHtml,'用户注册','','','',600,200);
 }
 
 /** 播放器 */
