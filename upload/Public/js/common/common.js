@@ -393,6 +393,24 @@ function showSocialogin(){
 	$('#socailogin_more').toggle('fast');
 }
 
+function ajaxLogin(){
+	var sHtml = $.ajax({
+		url: D.U('home://public/login?inajax=1'),
+		async: false
+	}).responseText;
+
+	needforbugAlert(sHtml,'用户登录','','','',600,200);
+}
+
+function ajaxRegister(refer){
+	var sHtml = $.ajax({
+		url: D.U('home://public/register?inajax=1'+(refer?'&refer='+encodeURIComponent(refer):'')),
+		async: false
+	}).responseText;
+
+	needforbugAlert(sHtml,'用户注册','','','',600,200);
+}
+
 /** 播放器 */
 function playmedia(strID,strType,strURL,intWidth,intHeight,sBgColor){
 	var objDiv=document.getElementById(strID);

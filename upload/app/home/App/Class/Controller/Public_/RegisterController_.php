@@ -10,6 +10,9 @@ Dyhb::import(NEEDFORBUG_PATH.'/source/extension/socialization');
 class RegisterController extends Controller{
 
 	public function index(){
+		$nInajax=intval(G::getGpc('inajax','G'));
+		$sRefer=trim(G::getGpc('refer','G'));
+		
 		if($GLOBALS['___login___']!==false){
 			$this->assign('__JumpUrl__',__APP__);
 			$this->E(Dyhb::L('你已经登录','Controller/Public'));
@@ -20,8 +23,13 @@ class RegisterController extends Controller{
 		}
 
 		$this->assign('nDisplaySeccode',$GLOBALS['_option_']['seccode_register_status']);
+		$this->assign('sRefer',$sRefer);
 
-		$this->display('public+register');
+		if($nInajax==1){
+			$this->display('public+ajaxregister');
+		}else{
+			$this->display('public+register');
+		}
 	}
 
 	public function register_title_(){
@@ -59,6 +67,8 @@ class RegisterController extends Controller{
 	}
 
 	public function register_user(){
+		$sRefer=trim(G::getGpc('refer','P'));
+		
 		if($GLOBALS['___login___']!==false){
 			$this->E(Dyhb::L('你已经登录会员,不能重复注册','Controller/Public'));
 		}
@@ -125,9 +135,17 @@ class RegisterController extends Controller{
 			$oUserprofile->user_id=$oUser->user_id;
 			$oUserprofile->save(0);
 
+			if($oUserprofile->isError()){
+				$oUserprofile->getErrorMessage();
+			}
+
 			$oUserCount=new UsercountModel();
 			$oUserCount->user_id=$oUser->user_id;
 			$oUserCount->save(0);
+
+			if($oUserCount->isError()){
+				$oUserCount->getErrorMessage();
+			}
 
 			$this->cache_site_();
 
@@ -151,8 +169,19 @@ class RegisterController extends Controller{
 
 				exit();
 			}
+			
+			if($sRefer==1 && !empty($_SERVER['HTTP_REFERER'])){
+				$sJumpUrl=$_SERVER['HTTP_REFERER'];
+			}elseif($sRefer){
+				$sJumpUrl=$sRefer;
+			}else{
+				$sJumpUrl=Dyhb::U('home://public/login');
+			}
 
-			$this->A($oUser->toArray(),Dyhb::L('注册成功','Controller/Public'),1);
+			$arrData=$oUser->toArray();
+			$arrData['jumpurl']=$sJumpUrl;
+
+			$this->A($arrData,Dyhb::L('注册成功','Controller/Public'),1);
 		}
 	}
 
