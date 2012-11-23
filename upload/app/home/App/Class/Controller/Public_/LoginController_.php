@@ -10,6 +10,8 @@ Dyhb::import(NEEDFORBUG_PATH.'/source/extension/socialization');
 class LoginController extends Controller{
 
 	public function index(){
+		$nInajax=intval(G::getGpc('inajax','G'));
+		
 		if($GLOBALS['___login___']!==false){
 			$this->assign('__JumpUrl__',__APP__);
 			$this->E(Dyhb::L('你已经登录','Controller/Public'));
@@ -21,7 +23,11 @@ class LoginController extends Controller{
 		$this->assign('nRememberTime',$GLOBALS['_option_']['remember_time']);
 		$this->assign('arrBindeds',$GLOBALS['_cache_']['sociatype']);
 
-		$this->display('public+login');
+		if($nInajax==1){
+			$this->display('public+ajaxlogin');
+		}else{
+			$this->display('public+login');
+		}
 	}
 
 	public function login_title_(){
@@ -158,6 +164,8 @@ class LoginController extends Controller{
 	}
 
 	public function logout(){
+		$nRefer=intval(G::getGpc('refer','G'));
+		
 		if(UserModel::M()->isLogin()){
 			$arrUserData=$GLOBALS['___login___'];
 			if(!isset($arrUserData['session_auth_key'])){
@@ -173,8 +181,14 @@ class LoginController extends Controller{
 			Dyhb::cookie("_socia_access_token_",NULL,-1);
 			Dyhb::cookie('_socia_openid_',NULL,-1);
 			Dyhb::cookie('_socia_state_',NULL,-1);
+
+			if($nRefer==1 && !empty($_SERVER['HTTP_REFERER'])){
+				$sJumpUrl=$_SERVER['HTTP_REFERER'];
+			}else{
+				$sJumpUrl=Dyhb::U('home://public/login');
+			}
 	
-			$this->assign("__JumpUrl__",Dyhb::U('home://public/login'));
+			$this->assign("__JumpUrl__",$sJumpUrl);
 			$this->S(Dyhb::L('登出成功','Controller/Public'));
 		}else{
 			$this->E(Dyhb::L('已经登出','Controller/Public'));

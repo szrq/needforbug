@@ -393,6 +393,15 @@ function showSocialogin(){
 	$('#socailogin_more').toggle('fast');
 }
 
+function ajaxLogin(){
+	var sHtml = $.ajax({
+		url: D.U('home://public/login?inajax=1'),
+		async: false
+	}).responseText;
+
+	oEditNewajaxlogin=needforbugAlert(sHtml,'用户登录','','','',600,200);
+}
+
 /** 播放器 */
 function playmedia(strID,strType,strURL,intWidth,intHeight,sBgColor){
 	var objDiv=document.getElementById(strID);

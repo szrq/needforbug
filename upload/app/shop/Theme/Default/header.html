@@ -27,7 +27,7 @@
 							<!--{if $GLOBALS['___login___']===false}-->
 							<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);">未登录&nbsp;<b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<li><a href="<!--{:Dyhb::U('home://public/login')}-->">用户登录</a></li>
+								<li><a onclick="ajaxLogin();" href="javascript:void(0);">用户登录</a></li>
 								<li class="divider"></li>
 								<li><a href="<!--{:Dyhb::U('home://public/register')}-->">用户注册</a></li>
 							</ul>
@@ -56,7 +56,7 @@
 								<li><a href="#buttonDropdowns">我的藏品</a></li>
 								<li><a href="#buttonDropdowns">我的藏友</a></li>
 								<li><a href="#buttonDropdowns">编辑资料</a></li>
-								<li><a href="<!--{:Dyhb::U('home://public/logout')}-->">注销</a></li>
+								<li><a href="<!--{:Dyhb::U('home://public/logout?refer=1')}-->">注销</a></li>
 							</ul>
 							<!--{/if}-->
 						</li>
