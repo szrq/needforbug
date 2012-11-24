@@ -7,6 +7,29 @@
 class PublicController extends InitController{
 
 	public function index(){
+		$nCid=intval(G::getGpc('cid','G'));
+
+		$arrWhere=array();
+		if($nCid){
+			$oGroupcategory=GroupcategoryModel::F('groupcategory_id=?',$nCid)->getOne();
+			if(empty($oGroupcategory['groupcategory_id'])){
+				$this->U('group://public/index');
+			}
+
+			$this->assign('oGroupcategory',$oGroupcategory);
+			$arrWhere['groupcategory_parentid']=$nCid;
+		}else{
+			$arrWhere['groupcategory_parentid']=0;
+		}
+		
+		$arrGroupcategorys=GroupcategoryModel::F()->where($arrWhere)->getAll();
+
+		$this->assign('arrGroupcategorys',$arrGroupcategorys);
+
+		$this->display('public+index');
+	}
+
+	public function newtopic(){
 		Core_Extend::loadCache('sociatype');
 
 		// 新帖列表
@@ -51,14 +74,7 @@ class PublicController extends InitController{
 		$this->assign('nRememberTime',$GLOBALS['_option_']['remember_time']);
 		$this->assign('arrBindeds',$GLOBALS['_cache_']['sociatype']);
 
-		$this->display('public+index');
-	}
-
-	public function group(){
-		$arrGroupcategorys=GroupcategoryModel::F('groupcategory_parentid=?',0)->getAll();
-		$this->assign('arrGroupcategorys',$arrGroupcategorys);
-
-		$this->display('public+group');
+		$this->display('public+newtopic');
 	}
 
 	public function add(){
