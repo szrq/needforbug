@@ -19,7 +19,7 @@
 				<li <!--{if MODULE_NAME==='shopgoods' && ACTION_NAME==='dateview'}-->class="active"<!--{/if}-->><a style="margin-left:32px;" href="<!--{:Dyhb::U('shop://shopgoods/dateview')}-->">限时抢购</a></li>
 				<li <!--{if MODULE_NAME==='shopgoods' && ACTION_NAME==='original'}-->class="active"<!--{/if}-->><a style="margin-left:32px;" href="<!--{:Dyhb::U('shop://shopgoods/original')}-->">原创</a></li>
 				<li <!--{if MODULE_NAME==='shopgoods' && ACTION_NAME==='like'}-->class="active"<!--{/if}-->><a style="margin-left:32px;" href="<!--{:Dyhb::U('shop://shopgoods/like')}-->">大家喜欢</a></li>
-				<li><a style="margin-left:32px;"href="#">更多分类</a></li>
+				<li><a style="margin-left:32px;" onclick="ajaxShopgoods();" href="javascript:void(0);">更多分类</a></li>
 			</ul>
 		</div>
 	</div>
