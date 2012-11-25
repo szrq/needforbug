@@ -6,19 +6,19 @@
 
 class ShopgoodsController extends InitController{
 
-	public function index(){
+	public function play(){
 		$sType=trim(G::getGpc('type','G'));
 
 		if($sType=='buy'){
-			$this->display('shopgoods+buy');
+			$this->display('shopgoods+playbuy');
 		}elseif($sType=='order'){
-			$this->display('shopgoods+order');
+			$this->display('shopgoods+playorder');
 		}elseif($sType=='sold'){
-			$this->display('shopgoods+sold');
+			$this->display('shopgoods+playsold');
 		}elseif($sType=='favorite'){
-			$this->display('shopgoods+favorite');
+			$this->display('shopgoods+playfavorite');
 		}else{
-			$this->display('shopgoods+index');
+			$this->display('shopgoods+playindex');
 		}
 	}
 
@@ -27,9 +27,25 @@ class ShopgoodsController extends InitController{
 
 		$this->assign('sOrdersn',$sOrdersn);
 		
-		$this->display('shopgoods+addorder');
+		$this->display('shopgoods+playaddorder');
 	}
-	
+
+	public function hot(){
+		$this->display('shopgoods+hot');
+	}
+
+	public function dateview(){
+		$this->display('shopgoods+dateview');
+	}
+
+	public function original(){
+		$this->display('shopgoods+original');
+	}
+
+	public function like(){
+		$this->display('shopgoods+like');
+	}
+
 	public function view(){
 		$nId=intval(G::getGpc('id','G'));
 		
