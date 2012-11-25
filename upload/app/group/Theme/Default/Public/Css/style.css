@@ -91,7 +91,7 @@ Description: Group应用模块CSS
 /**===============================
            首页模块列表
 ================================*/
-[CURSCRIPT=group::public::index]
+[CURSCRIPT=group::public::newtopic]
 .publicmodule_list li{line-height:26px;height:26px;overflow:hidden;}
 .publicmodule_list_sort ul{background:url({__ROOT__}/app/group/Theme/Default/Public/Images/sort.png) 0 7px no-repeat;}
 .publicmodule_list_sort ul li{padding-left:20px;}
@@ -101,7 +101,7 @@ Description: Group应用模块CSS
 /**===============================
            帖子列表
 ================================*/
-[CURSCRIPT=group::public::index,group::group::show]
+[CURSCRIPT=group::public::newtopic,group::group::show]
 .topic_list_box .num {color: #999999;line-height: 18px;text-align: center;width: 140px;text-align:center;}
 .topic_list_box .num span {background: none repeat scroll 0 0 #f3f1f1;-webkit-border-radius:3px 3px 3px 3px;-moz-border-radius:3px 3px 3px 3px;border-radius: 3px 3px 3px 3px;display: block;float: right;height: 36px;margin: 0 0 0 10px;overflow: hidden;padding: 4px 0;width: 54px;}
 .topic_list_box .num em {display: block;font-weight: 700;}
@@ -118,7 +118,7 @@ Description: Group应用模块CSS
 /**===============================
            标签列表
 ================================*/
-[CURSCRIPT=group::public::index]
+[CURSCRIPT=group::public::newtopic]
 .tags_hot{padding:15px 0;}
 .tags_hot h2{font-size:14px;margin-bottom:15px;}
 .tags_hot li{float:left;margin:0 5px 5px 0;}
@@ -130,7 +130,7 @@ Description: Group应用模块CSS
 /**===============================
            热门帖子列表
 ================================*/
-[CURSCRIPT=group::public::index]
+[CURSCRIPT=group::public::newtopic]
 .grouphottopic_titles {word-wrap: break-word;}
 .grouphottopic_titles li {border-bottom: 1px dashed #CCCCCC;color: #999999;overflow: hidden;padding: 6px 0;}
 .grouphottopic_titles h3 {color: #666666;float: left;font-size:12px;margin:0;font-weight:normal;}
@@ -142,7 +142,7 @@ Description: Group应用模块CSS
 /**===============================
            热门帖子列表
 ================================*/
-[CURSCRIPT=group::public::index]
+[CURSCRIPT=group::public::newtopic]
 .group_sidebar_userinfo{
 	padding:15px 0 0;
 }
@@ -151,7 +151,7 @@ Description: Group应用模块CSS
 /**===============================
            小组列表
 ================================*/
-[CURSCRIPT=group::public::group]
+[CURSCRIPT=group::public::index]
 .grouplist_header{ color:#555555;font-weight:bold;padding: 7px 14px;margin: 0 0 18px;background-color: #dddddd;-webkit-border-radius: 3px 3px 0px 0px;-moz-border-radius: 3px 3px 0px 0px;border-radius: 3px 3px 0px 0px;}
 .grouplist_groupname{color: #555555;}
 .grouplist_groupname a {text-decoration:none;color:#000;}

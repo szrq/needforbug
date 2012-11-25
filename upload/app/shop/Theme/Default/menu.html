@@ -3,11 +3,12 @@
 	.p1{margin-top:20px;}
 	.p1 a{font-size:11px;padding:5px 15px;margin:auto;}
 	.p1 a:hover{background:#ddd;color:#000000; }
+	.p1 a.shopgoods_current{background:#ddd;color:#000000;}
 	<!--{/style}-->
 
 	<div class="span12" style="text-align:center;margin-bottom:5px;">
 		<div class="p0">
-			<a href="<!--{:Dyhb::U('shop://public/index')}-->" title="返回商城首页"><img src="<!--{:__UTHEMEPUB__}-->/images/标志.gif" alt="" width="300px" height="83px"></a>
+			<a href="<!--{:Dyhb::U('shop://public/index')}-->" title="返回商城首页"><img src="<!--{:__UTHEMEPUB__}-->/images/标志.gif" alt="" width="300" height="83"></a>
 		</div>
 	</div>
 	
@@ -36,10 +37,10 @@
 
 	<div class="span12" style="text-align:center;margin-bottom:5px;">
 		<div class="p1">
-			<h6><a href="#">可买</a>
-				<a style="margin-left:32px;" href="#">可订</a>
-				<a style="margin-left:32px;" href="#">已售</a>
-				<a style="margin-left:32px;" href="#">推荐收藏</a>
+			<h6><a <!--{if MODULE_NAME==='shopgoods' && ACTION_NAME==='index' && G+getGpc('type')=='buy'}-->class="shopgoods_current"<!--{/if}--> href="<!--{:Dyhb::U('shop://shopgoods/index?type=buy')}-->">可买</a>
+				<a <!--{if MODULE_NAME==='shopgoods' && ACTION_NAME==='index' && G+getGpc('type')=='order'}-->class="shopgoods_current"<!--{/if}--> style="margin-left:32px;" href="<!--{:Dyhb::U('shop://shopgoods/index?type=order')}-->">可订</a>
+				<a <!--{if MODULE_NAME==='shopgoods' && ACTION_NAME==='index' && G+getGpc('type')=='sold'}-->class="shopgoods_current"<!--{/if}--> style="margin-left:32px;" href="<!--{:Dyhb::U('shop://shopgoods/index?type=sold')}-->">已售</a>
+				<a <!--{if MODULE_NAME==='shopgoods' && ACTION_NAME==='index' && G+getGpc('type')=='favorite'}-->class="shopgoods_current"<!--{/if}--> style="margin-left:32px;" href="<!--{:Dyhb::U('shop://shopgoods/index?type=favorite')}-->">推荐收藏</a>
 			</h6>
 		</div>
 	</div>
