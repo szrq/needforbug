@@ -785,8 +785,10 @@ NEEDFORBUG;
 			if(is_dir(NEEDFORBUG_PATH.'/ucontent/theme/Default/Public/Style/'.$sCurrentT.'/bgextend')){
 				$arrBgimgPath=array();
 				$arrFiles=G::listDir(NEEDFORBUG_PATH.'/ucontent/theme/Default/Public/Style/'.$sCurrentT.'/bgextend',false,true);
-				foreach($arrFiles as &$sFile){
-					$arrBgimgPath[]='"'.__ROOT__.'/ucontent/theme/Default/Public/Style/'.$sCurrentT.'/bgextend/'.$sFile.'"';
+				if(is_array($arrFiles)){
+					foreach($arrFiles as &$sFile){
+						$arrBgimgPath[]='"'.__ROOT__.'/ucontent/theme/Default/Public/Style/'.$sCurrentT.'/bgextend/'.$sFile.'"';
+					}
 				}
 				$arrBgimgPath[]='"'.__ROOT__.'/ucontent/theme/Default/Public/Style/'.$sCurrentT.'/bgimg.jpg'.'"';
 
@@ -803,8 +805,10 @@ NEEDFORBUG;
 			if(is_dir(NEEDFORBUG_PATH.'/ucontent/theme/Default/Public/Images/bgextend')){
 				$arrBgimgPath='';
 				$arrFiles=G::listDir(NEEDFORBUG_PATH.'/ucontent/theme/Default/Public/Images/bgextend',false,true);
-				foreach($arrFiles as &$sFile){
-					$arrBgimgPath[]='"'.__ROOT__.'/ucontent/theme/Default/Public/Images/bgextend/'.$sFile.'"';
+				if(is_array($arrFiles)){
+					foreach($arrFiles as &$sFile){
+						$arrBgimgPath[]='"'.__ROOT__.'/ucontent/theme/Default/Public/Images/bgextend/'.$sFile.'"';
+					}
 				}
 
 				$sScriptCss.="<script type=\"text/javascript\">";

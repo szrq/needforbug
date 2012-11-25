@@ -42,7 +42,7 @@
 								<!--<foreach for=arrTop>-->
 								<li class="span2">
 									<div class="thumbnail">
-										<img src="<!--{:__PUBLIC__}-->/images2/260&180.jpg" alt="" width="100%">
+										<img src="<!--{:__PUBLIC__}-->/images2/260&180.jpg" alt="" width="100%" height="160">
 										<div class="caption">
 											<h5>清明上河图(<!--{$value}-->)</h5>
 											<p>￥1000</p>
@@ -58,7 +58,7 @@
 							<ul class="thumbnails">
 								<li class="span2">
 									<div class="thumbnail">
-										<img src="<!--{:__PUBLIC__}-->/images2/260&180.jpg" alt="" width="100%">
+										<img src="<!--{:__PUBLIC__}-->/images2/260&180.jpg" alt="" width="100%" height="160">
 										<div class="caption">
 											<h5>清明上河图(22)</h5>
 											<p>￥1000</p>
@@ -73,7 +73,7 @@
 							<ul class="thumbnails">
 								<li class="span2">
 									<div class="thumbnail">
-										<img src="<!--{:__PUBLIC__}-->/images2/260&180.jpg" alt="" width="100%">
+										<img src="<!--{:__PUBLIC__}-->/images2/260&180.jpg" alt="" width="100%" height="160">
 										<div class="caption">
 											<h5>清明上河图(23)</h5>
 											<p>￥1000</p>
@@ -87,15 +87,15 @@
 			</div>
 		</div>
 		<div class="span4">
-			<h3>商城公告</h3>
+			<h3>商城公告&nbsp;<a href="#" title="更多公告"><i class="icon-th-list"></i></a></h3>
 			<p>
 				<ul class="unstyled news">
-					<!--{~$arrNew=array(1,2,3,4,5,6,7,8,9)}-->
+					<!--{~$arrNew=array(1,2,3,4,5,6,7,8,9,10,11,12)}-->
 					<!--<foreach for=arrNew>-->
 					<li>
 						<div class="row">
-							<span class="span3"><a href="">国庆放假通知(<!--{$value}-->)</a></span>
-							<span class="span1">2012-08-34</span>
+							<span class="span2"><a href="">国庆放假通知(<!--{$value}-->)</a></span>
+							<span class="span2" style="text-align:right;">2012-08-34</span>
 						</div>
 					</li>
 					<!--</foreach>-->
@@ -111,7 +111,7 @@
 					<!--<foreach for=arrValue>-->
 					<li class="span3">
 						<div class="thumbnail">
-							<img src="<!--{:__PUBLIC__}-->/images2/260&180.jpg" alt="" width="100%">
+							<img src="<!--{:__PUBLIC__}-->/images2/260&180.jpg" alt="" width="100%" height="260">
 							<div class="caption">
 								<h5>清明上河图(<!--{$value}-->)</h5>
 								<p>￥1000</p>
@@ -123,89 +123,53 @@
 			</p>
 		</div>
 
-		<div class="span12"style="margin-top:30px">
+		<div class="span12">
 			<h3>最新原创</h3> 
 			<div class="row">
 				<div class="span6">
-					<img src="<!--{:__PUBLIC__}-->/images2/550&280.jpg" alt="" width="100%" height="620">
+					<img src="<!--{:__PUBLIC__}-->/images2/550&280.jpg" alt="" width="100%" height="570">
 				</div>
 				<div class="span6">
-					<p><img src="<!--{:__PUBLIC__}-->/images2/550&280.jpg" alt="" width="100%" height="250"></p>
 					<div class="row">
-						<div class="span2">
-						<img src="<!--{:__PUBLIC__}-->/images2/550&280.jpg" alt="" width="100%"height="360">
+						<div class="span3">
+							<img src="<!--{:__PUBLIC__}-->/images2/550&280.jpg" alt="" width="100%" height="270">
 						</div>
-						<div class="span2">
-						<img src="<!--{:__PUBLIC__}-->/images2/550&280.jpg" alt="" width="100%" height="360">
+						<div class="span3">
+							<img src="<!--{:__PUBLIC__}-->/images2/550&280.jpg" alt="" width="100%" height="270">
 						</div>
-						<div class="span1">
-						<img src="<!--{:__PUBLIC__}-->/images2/550&280.jpg" alt="" width="100%" height="360">
+					</div>
+					<div class="row" style="margin-top:30px;">
+						<div class="span3">
+							<img src="<!--{:__PUBLIC__}-->/images2/550&280.jpg" alt="" width="100%" height="270">
+						</div>
+						<div class="span3">
+							<img src="<!--{:__PUBLIC__}-->/images2/550&280.jpg" alt="" width="100%" height="270">
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
+		<div class="span12" style="margin-top:30px;">
+			<h3>即将上市</h3>
+			<p>
+				<ul class="thumbnails">
+					<!--{~$arrValue=array(1,2,3,4,5,6)}-->
+					<!--<foreach for=arrValue>-->
+					<li class="span2">
+						<div class="thumbnail">
+							<img src="<!--{:__PUBLIC__}-->/images2/260&180.jpg" alt="" width="100%" height="160">
+							<div class="caption">
+								<h5>清明上河图</h5>
+								<p>￥1000</p>
+							</div>
+						</div>
+					</li>
+					<!--</foreach>-->
+				</ul>
+			</p>
+		</div>
 
-   <div class="span12" style="margin-top:30px">
-	            <h3>即将上市</h3> <p>
-            <ul class="thumbnails">
-        <li class="span2">
-          <div class="thumbnail">
-            <img src="<!--{:__PUBLIC__}-->/images2/260&180.jpg" alt="">
-            <div class="caption">
-              <h5>清明上河图</h5>
-              <p>￥1000</p>
-            </div>
-          </div>
-        </li>
-        <li class="span2">
-          <div class="thumbnail">
-            <img src="<!--{:__PUBLIC__}-->/images2/260&180.jpg" alt="">
-            <div class="caption">
-              <h5>清明上河图</h5>
-              <p>￥1000</p>
-            </div>
-          </div>
-        </li>
-		        <li class="span2">
-          <div class="thumbnail">
-            <img src="<!--{:__PUBLIC__}-->/images2/260&180.jpg" alt="">
-            <div class="caption">
-              <h5>清明上河图</h5>
-              <p>￥1000</p>
-            </div>
-          </div>
-        </li>
-		        <li class="span2">
-          <div class="thumbnail">
-            <img src="<!--{:__PUBLIC__}-->/images2/260&180.jpg" alt="">
-            <div class="caption">
-              <h5>清明上河图</h5>
-              <p>￥1000</p>
-            </div>
-          </div>
-        </li>        <li class="span2">
-          <div class="thumbnail">
-            <img src="<!--{:__PUBLIC__}-->/images2/260&180.jpg" alt="">
-            <div class="caption">
-              <h5>清明上河图</h5>
-              <p>￥1000</p>
-            </div>
-          </div>
-        </li>
-		        <li class="span2">
-          <div class="thumbnail">
-            <img src="<!--{:__PUBLIC__}-->/images2/260&180.jpg" alt="">
-            <div class="caption">
-              <h5>清明上河图</h5>
-              <p>￥1000</p>
-            </div>
-          </div>
-        </li>
-		</ul>
-    </p>
-  </div>
 </div>
 
 <!--<include file="footer" />-->

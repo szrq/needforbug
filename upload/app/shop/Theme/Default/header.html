@@ -16,8 +16,15 @@
 			<div class="navbar">
 				<div class="container-fluid">
 					<ul class="nav">
-						<li style="width:100px;"><a href="<!--{:__APP__}-->">首页</a></li>
-						<li style="width:110px;"><a href="#">艺术家</a></li>
+						<li style="width:100px;" class="dropdown <!--{if MODULE_NAME==='public' && ACTION_NAME==='index'}-->active<!--{/if}-->">
+							<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);">首页&nbsp;<b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="<!--{:Dyhb::U('shop://public/index')}-->">商城首页</a></li>
+								<li class="divider"></li>
+								<li><a href="<!--{:Dyhb::U('home://public/index')}-->">首页</a></li>
+							</ul>
+						</li>
+						<li style="width:110px;" <!--{if MODULE_NAME==='shopartist'}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('shop://shopartist/index')}-->">艺术家</a></li>
 						<li style="width:110px;"><a href="#about">阿文</a></li>
 						<li style="width:110px;"><a href="<!--{:Dyhb::U('group://public/index')}-->">社区</a></li>
 						<li style="width:110px;"><a href="#about">共育蓓蕾</a></li>
@@ -63,14 +70,14 @@
 						</li>
 					</ul>
 					<ul class="nav pull-right">
-						<li><a href="<!--{:Dyhb::U('shop://shopcart/index')}-->"><i class="icon-shopping-cart"></i>我的购物车</a></li>
+						<li <!--{if MODULE_NAME==='shopcart' && ACTION_NAME==='index'}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('shop://shopcart/index')}-->"><i class="icon-shopping-cart"></i>我的购物车</a></li>
 					</ul>
 				</div><!--/container-fluid-->
 			</div><!--/navbar-inner-->
 		</div><!--/navbar-->
 	</div>
 
-	<div id="content" style="margin-top:50px;">
+	<div id="content" style="margin-top:25px;">
 		<div class="container">
 			<div class="row">
 				<div class="span12">

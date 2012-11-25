@@ -5,8 +5,8 @@
 !defined('DYHB_PATH') && exit;
 
 return array(
-	'public::index'=>'userhome',
-	'public::group',
+	'public::newtopic'=>'userhome',
+	'public::index',
 	'group::show',
 	'grouptopic::view'=>'media',
 	'grouptopic::reply'=>'media',
