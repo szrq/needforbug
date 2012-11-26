@@ -12,7 +12,7 @@
 				<div class="span8">
 					<p><!--{~$arrFooterNavs=$GLOBALS['_cache_']['nav']['footer']}-->
 					<!--<foreach for=arrFooterNavs value=arrFooterNav>-->
-					<a <!--{$arrFooterNav['style']}--> title="<!--{$arrFooterNav['description']}-->" href="<!--{$arrFooterNav['link']}-->" <!--{$arrFooterNav['target']}-->>
+					<a <!--{$arrFooterNav['style']}--> title="<!--{$arrFooterNav['description']}-->" href="<!--{$arrFooterNav['link']}-->" <!--{$arrFooterNav['target']}--> <!--{if $arrFooterNav['app']===APP_NAME}-->class="active"<!--{/if}-->>
 						<!--{$arrFooterNav['title']}-->
 					</a>
 					<span class="pipe">|</span>

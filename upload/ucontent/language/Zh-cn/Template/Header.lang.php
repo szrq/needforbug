@@ -17,6 +17,7 @@ return array(
 '5ac1e42b6f9f5023bca426a1bddbae4c'=>"短消息",
 'f09b1233cace4c9ed006366a821f2af1'=>"数据加载中",
 'f7871b7ba53411ef40a72b7287e91dac'=>"用户动态",
+'42ddc62228bde29a075f2de4837c9f87'=>"个人空间",
 )
 
 ?>

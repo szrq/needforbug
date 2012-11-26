@@ -47,6 +47,7 @@ class UpdateCacheNav{
 					'link'=>self::getNavUrl_($oNav),
 					'style'=>self::getColorAndStyle_($oNav),
 					'target'=>self::getTarget_($oNav),
+					'app'=>self::getApp_($oNav),
 				);
 
 				// 查询子菜单
@@ -61,6 +62,7 @@ class UpdateCacheNav{
 						'link'=>self::getNavUrl_($oNavSub),
 						'style'=>self::getColorAndStyle_($oNavSub),
 						'target'=>self::getTarget_($oNavSub),
+						'app'=>self::getApp_($oNavSub),
 					);
 				}
 			}
@@ -165,6 +167,16 @@ class UpdateCacheNav{
 
 	static private function getDescription_($oNav){
 		return ($oNav['nav_title']?$oNav['nav_title']:$oNav['nav_name']);
+	}
+
+	static public function getApp_($oNav){
+		$sApp='';
+		
+		if(strpos($oNav['nav_url'],'://')){
+			$sApp=G::subString($oNav['nav_url'],0,strpos($oNav['nav_url'],'://'));
+		}
+
+		return $sApp;
 	}
 
 }
