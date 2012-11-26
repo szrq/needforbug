@@ -22,6 +22,15 @@ define('NEEDFORBUG_PATH',getcwd());
 if(isset($_GET['app'])){
 	$sAppName=strtolower(str_replace(array('/','\\'),'',strip_tags(urldecode($_GET['app']))));
 }else{
+	// 默认应用
+	if(is_file(NEEDFORBUG_PATH.'/config/Config.inc.php')){
+		$arrConfigs=(array)(include(NEEDFORBUG_PATH.'/config/Config.inc.php'));
+		$sDefaultAppname=isset($arrConfigs['DEFAULT_APP'])?$arrConfigs['DEFAULT_APP']:'home';
+		unset($arrConfigs);
+	}else{
+		$sDefaultAppname='home';
+	}
+	
 	if(!empty($_SERVER['PATH_INFO'])){
 		$sPathinfo=$_SERVER['PATH_INFO'];
 	}else{
@@ -56,10 +65,10 @@ if(isset($_GET['app'])){
 		if(isset($arrPathinfos[1]) && $arrPathinfos[0]=='app'){
 			$sAppName=$arrPathinfos[1];
 		}else{
-			$sAppName='home';
+			$sAppName=$sDefaultAppname;
 		}
 	}else{
-		$sAppName='home';
+		$sAppName=$sDefaultAppname;
 	}
 }
 

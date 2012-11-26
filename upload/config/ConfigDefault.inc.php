@@ -68,4 +68,7 @@ return array(
 	'FRONT_LANGUAGE_DIR'=>'Zh-cn',
 	'ADMIN_LANGUAGE_DIR'=>'Zh-cn',
 	'LANG_SWITCH'=>TRUE,//前台专用，后台自动重写为TRUE
+
+	// 默认应用
+	'DEFAULT_APP'=>'home',
 );
