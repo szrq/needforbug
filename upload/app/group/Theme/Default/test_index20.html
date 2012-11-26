@@ -29,6 +29,7 @@
 			<li><a href="#E" data-toggle="tab">编辑资料</a></li>
 			<li><a href="#F" data-toggle="tab">消息中心</a></li>
 			<li><a href="#G" data-toggle="tab">我的购物车</a></li>
+			<li><a href="#H" data-toggle="tab">我的专辑</a></li>
 		</ul>
 		<div class="tab-pane active" id="A">
 		<div class="row">
@@ -160,20 +161,7 @@
 			</p>
 			<p style="text-align:right"><a href="">换一组</a> <a href="">更多</a></p>
 
-			<h3 style="margin-top:30px">最近来访</h3>
-			<p>
-				<div class="row">
-				<!--{d*for $i=1;$i<5;$i++}-->
-					<div class="span1" style="text-align:center">
-						<img src="<!--{:__PUBLIC__}-->/images2/u137_normal.png" alt="" height="50" width="50">
-					<div>
-						<h5 style="text-align:center"><a href="">马德权</a></h5>
-						<button class="btn btn-small" >关注TA</button>
-					</div>
-					</div>
-				<!--{/d*for}-->
-				</div>
-			</p>
+
 			<h3 style="margin-top:30px">关注我的藏友</h3>
 			<p>
 				<div class="row">
@@ -366,7 +354,7 @@
 								<td>100</td>
 								<td>432</td>
 								<td>2010-01-09</td>
-								<td>2012-01-09</td>
+								<td><button class="btn btn-small" >马上购买</button></td>
 							  </tr>
 							</tbody>
 						  </table>
@@ -392,7 +380,7 @@
 								<td>100</td>
 								<td>432</td>
 								<td>2010-01-09</td>
-								<td>2012-01-09</td>
+								<td><button class="btn btn-small" >马上购买</button></td>
 							  </tr>
 							  <tr>
 								<td><img src="<!--{:__PUBLIC__}-->/images2/120&80.jpg" alt="" height="50" width="50">清明上河图</td>
@@ -450,7 +438,7 @@
 								<td>100</td>
 								<td>432</td>
 								<td>2010-01-09</td>
-								<td>2012-01-09</td>
+								<td><button class="btn btn-small" >马上购买</button></td>
 							  </tr>
 							</tbody>
 						  </table>
@@ -580,7 +568,7 @@
 							<p>
 								<h3><b>编辑个人资料</b></h3>
 								<hr/>
-								<form class="form-horizontal">
+									<form class="form-horizontal">
 										<fieldset>
 											<div class="control-group">
 											<label class="control-label" for="focusedInput">姓名</label>
@@ -596,19 +584,11 @@
 											<input class="input-xlarge focused" id="focusedInput" type="text" value="请填写生日">
 											</div>
 											</div>
-									<form class="form-horizontal">
-										<fieldset>
-											<div class="control-group">
-											<label class="control-label" for="focusedInput">居住地</label>
-											<div class="controls">
-											<input class="input-xlarge focused" id="focusedInput" type="text" value="请填写居住地">
-											</div>
-											</div>
-								<form>
-									<label>个性签名(如何看待书法）</label>
-									<textarea class="input-xlarge" id="textarea" rows="3" style="width:98%;height:90px;"></textarea>
-									<p><button type="submit" class="btn">确定</button></p>
-								</form>
+									<form>
+										<label>个性签名(如何看待书法）</label>
+										<textarea class="input-xlarge" id="textarea" rows="3" style="width:98%;height:90px;"></textarea>
+										<p><button type="submit" class="btn">确定</button></p>
+									</form>
 							</p>
 					</p>
 				</div>
@@ -899,7 +879,6 @@
 		<div class="tab-pane active" id="G">
 		<p>
 		<h3>购物车</h3>
-
 				  <table class="table">
 					<thead>
 					  <tr>
@@ -939,6 +918,44 @@
 				</p>
 		</p>
 	</div>
+
+
+		<div class="tab-pane active" id="H">
+			<p>
+				<div class="tabbable tabs-left">
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#lAwodezhuanji" data-toggle="tab">我的专辑</a></li>
+						<li><a href="#lBwodezhuanji" data-toggle="tab">关注我藏友的专辑</a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="lAwodezhuanji">
+							<p>
+							<div class="row">
+									<!--{d*for $i=1;$i<15;$i++}-->
+										<div class="span4" style="margin-bottom:30px; text-align:center">
+										<div class="row">
+											<div class="span2" >
+											<img src="<!--{:__PUBLIC__}-->/images2/120&80.jpg" alt="" height="180" width="180">
+											</div>
+											<div class="span2" >
+												<p>我感兴趣的隶书</h5>
+												<p>好友:书法爱好者</p>
+												<p>作品数量:9</p>
+											</p>
+											</div>
+										</div>
+										</div>
+									<!--{/d*for}-->
+							</div>
+							</p>
+						</div>
+						<div class="tab-pane" id="lBwodezhuanji">
+							<p>共0个相册</p>
+						</div>
+					</div>
+				</div> <!-- /tabbable -->
+			</p>
+		</div>
 
 	</div>
 	</div> 
