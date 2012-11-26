@@ -10,4 +10,12 @@ class ShopartistController extends InitController{
 		$this->display('shopartist+index');
 	}
 
+	public function lists(){
+		$this->display('shopartist+lists');
+	}
+
+	public function show(){
+		$this->display('shopartist+view');
+	}
+
 }
