@@ -7,8 +7,6 @@
 #articlesearch .search{text-align:right;border:0px;}
 #articlesearch input {margin:0px;}
 <!--{/style}-->
-<div class="row">
-	<!--<include file="menu" />-->
 
 	<div class="span12" style="text-align:left;margin-top:20px;">
 		<ul class="breadcrumb">
@@ -26,7 +24,7 @@
 						<tr>
 							<td colspan="3" class="search">
 							<input class="span3" id="appendedInputButton" size="16" type="text" name="string" placeholder="输入文章标题" />
-							<input type="hidden" name="sid" value="<!--{$oShoparticlecategory->shoparticlecategory_id}-->"/>
+							<input type="hidden" name="sid" value="<!--{$oShoparticlecategory->shoparticlecategory_id}-->"/>&nbsp;
 							<input class="btn" type="submit" value="文章搜索" />
 							</td>
 						</tr>
@@ -47,6 +45,5 @@
 			</div>
 		<!--{/if}-->
 	</div>
-</div>
 
 <!--<include file="footer" />-->
