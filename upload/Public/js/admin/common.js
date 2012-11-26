@@ -33,7 +33,7 @@ function getSelectValues(){
 }
 
 // 添加方法
-function add(){
+function add(sMore){
 	window.location.href=D.U('add'+(sMore?'?'+sMore:''));
 }
 

@@ -19,6 +19,25 @@
 					</li>
 				</ul>
 			</div>
+			<form action="<!--{:Dyhb::U('app/update_option')}-->" method="post" id="appOption">
+				<div class="module_content">
+					<fieldset>
+						<label for="default_app"><!--<lang package='Template/Default/App'>-->默认应用设置<!--</lang>--></label>
+						<select name="options[default_app]" id="default_app">
+							<!--<foreach for=oList>-->
+							<option value="<!--{$value:app_identifier}-->" <!--{if $sDefaultAppname==$value['app_identifier']}-->selected<!--{/if}-->><!--{$value:app_name}-->(<!--{$value:app_identifier}-->)</option>
+							<!--</foreach>-->
+						</select>
+						<div class="description"><!--<lang package='Template/Default/App'>-->你可以根据网站的不同运营重点设置默认应用<!--</lang>--></div>
+					</fieldset>
+				</div>
+				<footer>
+					<div class="submit_link">
+						<input type="submit" id="submit_button"  value="<!--<lang package='Template/Default/Common'>-->发布<!--</lang>-->" class="alt_btn">
+						&nbsp;<input type="reset" value="<!--<lang package='Template/Default/Common'>-->重置<!--</lang>-->">
+					</div>
+				</footer>
+			</form>
 		</article>
 		
 		<article class="module width_full">
@@ -96,7 +115,7 @@
 								<!--{/if}-->
 							</td>
 						</tr>
-					<!--</foreach>-->
+						<!--</foreach>-->
 					</tbody>
 				</table>
 			</div>

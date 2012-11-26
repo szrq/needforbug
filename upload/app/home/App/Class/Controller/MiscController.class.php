@@ -38,4 +38,8 @@ class MiscController extends InitController{
 		Core_Extend::doControllerAction('Misc@Avatar','index');
 	}
 
+	public function dialogstyle(){
+		Core_Extend::doControllerAction('Misc@Dialogstyle','index');
+	}
+
 }

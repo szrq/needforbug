@@ -6,6 +6,35 @@
 
 class AppController extends InitController{
 	
+	public function bIndex_(){
+		$arrOptionData=$GLOBALS['_option_'];
+		
+		// 默认应用
+		if(is_file(NEEDFORBUG_PATH.'/config/Config.inc.php')){
+			$arrConfigs=(array)(include(NEEDFORBUG_PATH.'/config/Config.inc.php'));
+			$sDefaultAppname=isset($arrConfigs['DEFAULT_APP'])?$arrConfigs['DEFAULT_APP']:'home';
+			unset($arrConfigs);
+		}else{
+			$sDefaultAppname=$arrOptionData['default_app'];
+		}
+
+		$this->assign('sDefaultAppname',$sDefaultAppname);
+	}
+
+	public function update_option(){Dyhb::L('框架全局惯性配置文件 %s 不存在','Controller/App',null,5);
+		if($_POST['options']['default_app']!=$GLOBALS['_option_']['default_app']){
+			$sAppGlobaldefaultconfigFile=NEEDFORBUG_PATH.'/config/Config.inc.php';
+			if(!is_file($sAppGlobaldefaultconfigFile)){
+				$this->E(Dyhb::L('框架全局惯性配置文件 %s 不存在','Controller/App',null,$sAppGlobaldefaultconfigFile));
+			}
+
+			Core_Extend::changeAppconfig('DEFAULT_APP',$_POST['options']['default_app']);
+		}
+
+		$oOptionController=new OptionController();
+		$oOptionController->update_option();
+	}
+	
 	public function AInsertObject_($oModel){
 		$oModel->filterAppindentifier();
 

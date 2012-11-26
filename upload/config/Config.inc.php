@@ -47,6 +47,6 @@
   'ADMIN_LANG_DIR' => 'Zh-cn',
   'FRONT_LANG_DIR' => 'Zh-cn',
   'LANG_SWITCH' => true,
-  'DEFAULT_APP'=>'shop',
+  'DEFAULT_APP' => 'home',
 )
 ?>

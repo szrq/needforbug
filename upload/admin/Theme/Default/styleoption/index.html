@@ -68,6 +68,43 @@ function option(){
 						<input type="radio" id="" name="options[bgextend_repeat]" value="no-repeat" <!--{if $arrOptions['bgextend_repeat']=='no-repeat'}-->checked="checked"<!--{/if}--> /><!--<lang package='Template/Default/Styleoption'>-->不重复<!--</lang>-->
 						<div class="description"><!--<lang package='Template/Default/Styleoption'>-->你可以根据扩展背景的类型选择相应背景重复方式<!--</lang>--></div>
 					</fieldset>
+					<fieldset>
+						<label for="admin_dialog_style"><!--<lang package='Template/Default/Styleoption'>-->网站后台对话框皮肤<!--</lang>--></label>
+						<select name="options[admin_dialog_style]" id="admin_dialog_style">
+							<option value="default" <!--{if $arrOptions['admin_dialog_style']=='default'}-->selected<!--{/if}-->>default</option>
+							<option value="aero" <!--{if $arrOptions['admin_dialog_style']=='aero'}-->selected<!--{/if}-->>aero</option>
+							<option value="chrome" <!--{if $arrOptions['admin_dialog_style']=='chrome'}-->selected<!--{/if}-->>chrome</option>
+							<option value="opera" <!--{if $arrOptions['admin_dialog_style']=='opera'}-->selected<!--{/if}-->>opera</option>
+							<option value="simple" <!--{if $arrOptions['admin_dialog_style']=='simple'}-->selected<!--{/if}-->>simple</option>
+							<option value="idialog" <!--{if $arrOptions['admin_dialog_style']=='idialog'}-->selected<!--{/if}-->>idialog</option>
+							<option value="twitter" <!--{if $arrOptions['admin_dialog_style']=='twitter'}-->selected<!--{/if}-->>twitter</option>
+							<option value="blue" <!--{if $arrOptions['admin_dialog_style']=='blue'}-->selected<!--{/if}-->>blue</option>
+							<option value="black" <!--{if $arrOptions['admin_dialog_style']=='black'}-->selected<!--{/if}-->>black</option>
+							<option value="green" <!--{if $arrOptions['admin_dialog_style']=='green'}-->selected<!--{/if}-->>green</option>
+						</select>
+						<div class="description"><!--<lang package='Template/Default/Styleoption'>-->网站后台专用对话框皮肤<!--</lang>--><br/>
+							<a href="javascript:void(0);" onclick="needforbugAlert('后台皮肤测试效果','',3);">后台皮肤测试效果</a>
+						</div>
+					</fieldset>
+					<fieldset>
+						<label for="front_dialog_style"><!--<lang package='Template/Default/Styleoption'>-->网站前台对话框皮肤<!--</lang>--></label>
+						<select name="options[front_dialog_style]" id="front_dialog_style">
+							<option value="default" <!--{if $arrOptions['front_dialog_style']=='default'}-->selected<!--{/if}-->>default</option>
+							<option value="aero" <!--{if $arrOptions['front_dialog_style']=='aero'}-->selected<!--{/if}-->>aero</option>
+							<option value="chrome" <!--{if $arrOptions['front_dialog_style']=='chrome'}-->selected<!--{/if}-->>chrome</option>
+							<option value="opera" <!--{if $arrOptions['front_dialog_style']=='opera'}-->selected<!--{/if}-->>opera</option>
+							<option value="simple" <!--{if $arrOptions['front_dialog_style']=='simple'}-->selected<!--{/if}-->>simple</option>
+							<option value="idialog" <!--{if $arrOptions['front_dialog_style']=='idialog'}-->selected<!--{/if}-->>idialog</option>
+							<option value="twitter" <!--{if $arrOptions['front_dialog_style']=='twitter'}-->selected<!--{/if}-->>twitter</option>
+							<option value="blue" <!--{if $arrOptions['front_dialog_style']=='blue'}-->selected<!--{/if}-->>blue</option>
+							<option value="black" <!--{if $arrOptions['front_dialog_style']=='black'}-->selected<!--{/if}-->>black</option>
+							<option value="green" <!--{if $arrOptions['front_dialog_style']=='green'}-->selected<!--{/if}-->>green</option>
+						</select>
+						<div class="description"><!--<lang package='Template/Default/Styleoption'>-->网站前台专用对话框皮肤<!--</lang>-->
+							<br/>
+							<iframe id="frontdialogstyle_frame" frameborder="0" src="<!--{:__ROOT__}-->/index.php?app=home&c=misc&a=dialogstyle" width="400" height="150"></iframe>
+						</div>
+					</fieldset>
 				</div>
 				<footer>
 					<div class="submit_link">
