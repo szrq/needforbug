@@ -1,0 +1,48 @@
+<!--<include file="header" />-->
+
+<!--{script}-->
+
+<!--{/script}-->
+<!--{style}-->
+#feedbackform td label{text-align:right;}
+#feedbackform td {border:0px;}
+#feedbackform{margin-top:150px;}
+<!--{/style}-->
+<div class="row">
+	<!--<include file="menu" />-->
+
+	<div class="span12" style="text-align:left;margin-top:20px;">
+		<ul class="breadcrumb">
+			<li><a href="#">首页</a> <span class="divider">/</span></li>
+			<li><a href="#">帮助中心</a> <span class="divider">/</span></li>
+			<li><!--{$oShoparticle->shoparticle_title}--></li>
+		</ul>
+	</div>
+
+	<div class="span12">
+		<div id="feedbackguide"><!--{$oShoparticle->shoparticle_content}--></div>
+		<div>
+			<form action="" method="" name="feedbackform" id="feedbackform">
+				<table class="table" width="100%">
+					<tr>
+						<td width="30%"><label for="title" >用户名：</label></td>
+						<td width="70%"><input type="text" name="title" id="title"></td>
+					</tr>
+					<tr>
+						<td><label for="email" >邮箱：</label></td>
+						<td><input type="text" name="email" id="email"></td>
+					</tr>
+					<tr>
+						<td><label for="content" >反馈内容：</label></td>
+						<td><textarea name="content" id="content" rows="5" cols="250"></textarea></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="submit" name="" value="提交"/><input type="reset" name="" value="取消"/></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!--<include file="footer" />-->

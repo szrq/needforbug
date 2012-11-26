@@ -41,6 +41,18 @@ class ShoparticlecategoryController extends InitController{
 		parent::insert('shoparticlecategory',$nId);
 	}
 	
+	public function AInsertObject_($oModel){
+		$nId=intval(G::getGpc('shoparticlecategory_parentid'));
+		
+		if(!empty($nId)){
+			$oArticalecategory=ShoparticlecategoryModel::F('shoparticlecategory_id=?',$nId)->getOne();
+			if(!empty($oArticalecategory->shoparticlecategory_id)){
+				$oModel->shoparticlecategory_type=$oArticalecategory->shoparticlecategory_type;
+			}else{
+				$oModel->shoparticlecategory_type=1;/*默认为普通分类*/
+			}
+		}
+	}
 	public function edit($sMode=null,$nId=null,$bDidplay=true){
 		$nId=intval(G::getGpc('value','G'));
 		
