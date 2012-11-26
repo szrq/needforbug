@@ -37,9 +37,6 @@ function getArticleContent(id){
 .help h4 i {float:right;margin-right:10px;border:1px solid #f1f1f1;}
 <!--{/style}-->
 
-<div class="row">
-	<!--<include file="menu" />-->
-
 	<div class="span12" style="text-align:left;margin-top:20px;">
 		<ul class="breadcrumb">
 			<li><a href="#">首页</a> <span class="divider">/</span></li>
@@ -47,25 +44,27 @@ function getArticleContent(id){
 		</ul>
 	</div>
 
-	<div class="span2">
-		<div class="help">
-		<!--<foreach for=arrShoparticlecategory value=oShoparticlecategory>-->
-			<h4><a data-toggle="collapse" data-target="#collapseTwo<!--{$oShoparticlecategory->shoparticlecategory_id}-->" ><!--{$oShoparticlecategory->shoparticlecategory_name}--><i id="icollapseTwo<!--{$oShoparticlecategory->shoparticlecategory_id}-->" class="icon-minus"></i></a></h4>
-			<div id="collapseTwo<!--{$oShoparticlecategory->shoparticlecategory_id}-->" class="collapse">
-				<ul>
-					<!--{foreach $oShoparticlecategory->shoparticle $value}-->
-						 <li><a href="javascript:void(0);" onclick="getArticleContent(<!--{$value->shoparticle_id}-->)"><!--{$value->shoparticle_title}--></a></li>
-					<!--{/foreach}-->
-				</ul>
+	<div class="span12">
+		<div class="row">
+			<div class="span2">
+				<div class="help">
+				<!--<foreach for=arrShoparticlecategory value=oShoparticlecategory>-->
+					<h4><a data-toggle="collapse" data-target="#collapseTwo<!--{$oShoparticlecategory->shoparticlecategory_id}-->" ><!--{$oShoparticlecategory->shoparticlecategory_name}--><i id="icollapseTwo<!--{$oShoparticlecategory->shoparticlecategory_id}-->" class="icon-minus"></i></a></h4>
+					<div id="collapseTwo<!--{$oShoparticlecategory->shoparticlecategory_id}-->" class="collapse">
+						<ul>
+							<!--{foreach $oShoparticlecategory->shoparticle $value}-->
+								 <li><a href="javascript:void(0);" onclick="getArticleContent(<!--{$value->shoparticle_id}-->)"><!--{$value->shoparticle_title}--></a></li>
+							<!--{/foreach}-->
+						</ul>
+					</div>
+				<!--</foreach>-->
+				</div>
 			</div>
-		<!--</foreach>-->
+			<div class="span10">
+				<div style="text-align:center;"><h2 id="articletitle"></h2></div>
+				<div><div id="articlecontent"></div></div>
+			</div>
 		</div>
 	</div>
-
-	<div class="span10">
-		<div style="text-align:center;"><h2 id="articletitle"></h2></div>
-		<div><div id="articlecontent"></div></div>
-	</div>
-</div>
 
 <!--<include file="footer" />-->
