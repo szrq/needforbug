@@ -6,9 +6,9 @@
 	<copyright><![CDATA[Dianniu]]></copyright>
 	<data>
 		<identifier><![CDATA[home]]></identifier>
-		<name><![CDATA[个人中心]]></name>
+		<name><![CDATA[个人空间]]></name>
 		<version><![CDATA[1.0]]></version>
-		<description><![CDATA[个人中心应用]]></description>
+		<description><![CDATA[个人空间应用]]></description>
 		<url><![CDATA[http://doyouhaobaby.net]]></url>
 		<email><![CDATA[admin@doyouhaobaby.net]]></email>
 		<author><![CDATA[Dianniu Team]]></author>
@@ -17,6 +17,6 @@
 		<isinstall><![CDATA[1]]></isinstall>
 		<isuninstall><![CDATA[1]]></isuninstall>
 		<issystem><![CDATA[1]]></issystem>
-		<isappnav><![CDATA[0]]></isappnav>
+		<isappnav><![CDATA[1]]></isappnav>
 	</data>
 </root>
