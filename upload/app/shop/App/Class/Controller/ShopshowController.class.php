@@ -10,4 +10,12 @@ class ShopshowController extends InitController{
 		$this->display('shopshow+index');
 	}
 
+	public function lists(){
+		$this->display('shopshow+lists');
+	}
+
+	public function show(){
+		$this->display('shopshow+show');
+	}
+
 }

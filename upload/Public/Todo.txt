@@ -29,17 +29,8 @@ http://localhost/needforbug/upload/index.php/app/group/test/index9 商城公告�
 http://localhost/needforbug/upload/index.php/app/group/test/index21 商城公告列表
 http://localhost/needforbug/upload/index.php/app/group/test/index22 帮助中心
 
-http://localhost/needforbug/upload/index.php/app/group/test/index23 在线展览
-
-http://localhost/needforbug/upload/index.php/app/group/test/index24 商品查找
-
-http://localhost/needforbug/upload/index.php/app/group/test/index25 商品资讯
-
 http://localhost/needforbug/upload/index.php/app/group/test/index26 藏家资料
 
-http://localhost/needforbug/upload/index.php/app/group/test/index27 全部展览
-
-http://localhost/needforbug/upload/index.php/app/group/test/index28 展览显示
 
 http://localhost/needforbug/upload/index.php/app/group/test/index18 订单确认页
 
