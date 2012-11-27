@@ -64,7 +64,7 @@
 								<!--{if Core_Extend+isAdmin()}-->
 								<li><a href="<!--{:__ROOT__}-->/admin.php" target="_blank">管理中心</a></li>
 								<!--{/if}-->
-								<li><a href="<!--{:Dyhb::U('home://ucenter/index')}-->">个人中心</a></li>
+								<li><a href="<!--{:Dyhb::U('shop://shopucenter/index')}-->">个人中心</a></li>
 								<li class="divider"></li>
 								<li><a href="#buttonGroups">已买到的宝贝</a></li>
 								<li><a href="#buttonDropdowns">我的藏品</a></li>
@@ -98,6 +98,7 @@
 			</div>
 
 			<div class="row">
+				<!--{if MODULE_NAME!=='shopucenter'}-->
 				<div class="span12" style="text-align:center;margin-bottom:5px;">
 					<div class="p0">
 						<a href="<!--{:Dyhb::U('shop://public/index')}-->" title="返回商城首页"><img src="<!--{:__PUBLIC__}-->/images2/标志.gif" alt="" width="300" height="83"></a>
@@ -145,3 +146,4 @@
 						</h6>
 					</div>
 				</div>
+				<!--{/if}-->

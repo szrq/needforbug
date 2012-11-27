@@ -33,8 +33,7 @@ http://localhost/needforbug/upload/index.php/app/group/test/index26 藏家资料
 
 
 http://localhost/needforbug/upload/index.php/app/group/test/index18 订单确认页
-
 http://localhost/needforbug/upload/index.php/app/group/test/index19 订单登录确认
 
-疑问：http://localhost/needforbug/upload/index.php/app/shop/shopartist/show/id/8
+20集
 
