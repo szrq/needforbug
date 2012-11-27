@@ -44,7 +44,7 @@
 							<!--{/if}-->
 							<!--{~$arrHeaderNavs=$GLOBALS['_cache_']['nav']['header']}-->
 							<!--<foreach for=arrHeaderNavs value=arrHeaderNav>-->
-							<a <!--{$arrHeaderNav['style']}--> title="<!--{$arrHeaderNav['description']}-->" href="<!--{$arrHeaderNav['link']}-->" <!--{$arrHeaderNav['target']}-->>
+							<a <!--{$arrHeaderNav['style']}--> title="<!--{$arrHeaderNav['description']}-->" href="<!--{$arrHeaderNav['link']}-->" <!--{$arrHeaderNav['target']}--> <!--{if $arrHeaderNav['app']===APP_NAME}-->class="headernav_active"<!--{/if}-->>
 								<!--{$arrHeaderNav['title']}-->
 							</a>&nbsp;
 							<!--</foreach>-->
@@ -79,30 +79,37 @@
 		<div class="navbar-inner">
 			<div class="navbar">
 				<div class="container-fluid">
-					<a class="brand" href="<!--{:__APP__}-->" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->首页<!--</lang>-->"><!--<lang package='__COMMON_LANG__@Template/Common'>-->首页<!--</lang>--></a>
 					<ul class="nav">
+						<li class="dropdown <!--{if APP_NAME===$GLOBALS['_option_']['default_app'] && MODULE_NAME==='public' && ACTION_NAME=='index'}-->active<!--{/if}-->">
+							<a href="javascript:void(0);" class="dropdown-toggle brand" data-toggle="dropdown" title="<!--<lang package='__COMMON_LANG__@Template/Common'>-->首页<!--</lang>-->"><!--<lang package='__COMMON_LANG__@Template/Common'>-->首页<!--</lang>-->&nbsp;<b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="<!--{:__APP__}-->"><!--<lang package='__COMMON_LANG__@Template/Common'>-->首页<!--</lang>--></a></li>
+								<li class="divider"></li>
+								<li><a href="<!--{:Dyhb::U('home://public/index')}-->"><!--<lang package='__COMMON_LANG__@Template/Header'>-->个人空间<!--</lang>--></a></li>
+							</ul>
+						</li>
 						<!--{~$arrMainNavs=$GLOBALS['_cache_']['nav']['main']}-->
 						<!--<foreach for=arrMainNavs value=arrMainNav>-->
 						<!--{if $arrMainNav['sub']}-->
-						<li class="dropdown">
+						<li class="dropdown <!--{if $arrMainNav['app']===APP_NAME}-->active<!--{/if}-->">
 							<a <!--{$arrMainNav['style']}--> title="<!--{$arrMainNav['description']}-->" href="javascript:void(0);" <!--{$arrMainNav['target']}--> class="dropdown-toggle" data-toggle="dropdown">
-								<!--{$arrMainNav['title']}--> <b class="caret"></b>
+								<!--{$arrMainNav['title']}-->&nbsp;<b class="caret"></b>
 							</a>
 							<ul class="dropdown-menu">
-								<li>
+								<li <!--{if $arrMainNav['app']===APP_NAME}-->class="active"<!--{/if}-->>
 									<a <!--{$arrMainNav['style']}--> title="<!--{$arrMainNav['description']}-->" href="<!--{$arrMainNav['link']}-->" <!--{$arrMainNav['target']}-->><!--{$arrMainNav['title']}--></a>
 								</li>
 								<li class="divider"></li>
 								<!--{~$arrMainSubNavs=$arrMainNav['sub']}-->
 								<!--<foreach for=arrMainSubNavs value=arrMainSubNav>-->
-								<li>
+								<li <!--{if $arrMainSubNav['app']===APP_NAME}-->class="active"<!--{/if}-->>
 									<a <!--{$arrMainSubNav['style']}--> title="<!--{$arrMainSubNav['description']}-->" href="<!--{$arrMainSubNav['link']}-->" <!--{$arrMainSubNav['target']}-->><!--{$arrMainSubNav['title']}--></a>
 								</li>
 								<!--</foreach>-->
 							</ul>
 						</li>
 						<!--{d*else}-->
-						<li>
+						<li <!--{if $arrMainNav['app']===APP_NAME}-->class="active"<!--{/if}-->>
 							<a <!--{$arrMainNav['style']}--> title="<!--{$arrMainNav['description']}-->" href="<!--{$arrMainNav['link']}-->" <!--{$arrMainNav['target']}-->><!--{$arrMainNav['title']}--></a>
 						</li>
 						<!--{/if}-->
@@ -149,7 +156,7 @@
 
 					<ul class="nav pull-right">
 						<li class="dropdown <!--{if MODULE_NAME==='stat'}-->active<!--{/if}-->">
-							<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><!--<lang package='__COMMON_LANG__@Template/Header'>-->社区广场<!--</lang>--> <b class="caret"></b></a>
+							<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><!--<lang package='__COMMON_LANG__@Template/Header'>-->社区广场<!--</lang>-->&nbsp;<b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<li><a href="<!--{:Dyhb::U('home://stat/index')}-->"><!--<lang package='__COMMON_LANG__@Template/Header'>-->基本概况<!--</lang>--></a></li>
 								<li><a href="<!--{:Dyhb::U('home://stat/userlist')}-->"><!--<lang package='__COMMON_LANG__@Template/Header'>-->会员列表<!--</lang>--></a></li>

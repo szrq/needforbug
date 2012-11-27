@@ -46,6 +46,10 @@ class ShopgoodsController extends InitController{
 		$this->display('shopgoods+like');
 	}
 
+	public function category(){
+		$this->display('shopgoods+category');
+	}
+
 	public function view(){
 		$nId=intval(G::getGpc('id','G'));
 		

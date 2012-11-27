@@ -27,14 +27,14 @@
 							<ul class="dropdown-menu">
 								<li><a href="<!--{:Dyhb::U('shop://public/index')}-->">商城首页</a></li>
 								<li class="divider"></li>
-								<li><a href="<!--{:Dyhb::U('home://public/index')}-->">首页</a></li>
+								<li><a href="<!--{:Dyhb::U('home://public/index')}-->">个人空间</a></li>
 							</ul>
 						</li>
 						<li style="width:110px;" <!--{if MODULE_NAME==='shopartist'}-->class="active"<!--{/if}-->><a href="<!--{:Dyhb::U('shop://shopartist/index')}-->">艺术家</a></li>
-						<li style="width:110px;"><a href="#about">阿文</a></li>
+						<li style="width:110px;"><a href="<!--{:Dyhb::U('shop://shopgoods/category')}-->">阿文</a></li>
 						<li style="width:110px;"><a href="<!--{:Dyhb::U('group://public/index')}-->">社区</a></li>
-						<li style="width:110px;"><a href="#about">共育蓓蕾</a></li>
-						<li style="width:110px;"><a href="#about">在线展览</a></li>
+						<li style="width:110px;"><a href="<!--{:Dyhb::U('shop://shopedu/index')}-->">共育蓓蕾</a></li>
+						<li style="width:110px;"><a href="<!--{:Dyhb::U('shop://shopshow/index')}-->">在线展览</a></li>
 					</ul>
 					<ul class="nav pull-right">
 						<li class="dropdown">
@@ -100,7 +100,7 @@
 			<div class="row">
 				<div class="span12" style="text-align:center;margin-bottom:5px;">
 					<div class="p0">
-						<a href="<!--{:Dyhb::U('shop://public/index')}-->" title="返回商城首页"><img src="<!--{:__UTHEMEPUB__}-->/images/标志.gif" alt="" width="300" height="83"></a>
+						<a href="<!--{:Dyhb::U('shop://public/index')}-->" title="返回商城首页"><img src="<!--{:__PUBLIC__}-->/images2/标志.gif" alt="" width="300" height="83"></a>
 					</div>
 				</div>
 				
@@ -111,12 +111,12 @@
 							<li <!--{if MODULE_NAME==='shopgoods' && ACTION_NAME==='dateview'}-->class="active"<!--{/if}-->><a style="margin-left:32px;" href="<!--{:Dyhb::U('shop://shopgoods/dateview')}-->">限时抢购</a></li>
 							<li <!--{if MODULE_NAME==='shopgoods' && ACTION_NAME==='original'}-->class="active"<!--{/if}-->><a style="margin-left:32px;" href="<!--{:Dyhb::U('shop://shopgoods/original')}-->">原创</a></li>
 							<li <!--{if MODULE_NAME==='shopgoods' && ACTION_NAME==='like'}-->class="active"<!--{/if}-->><a style="margin-left:32px;" href="<!--{:Dyhb::U('shop://shopgoods/like')}-->">大家喜欢</a></li>
-							<li style="margin-left:32px;" class="dropdown">
+							<li style="margin-left:32px;" class="dropdown <!--{if MODULE_NAME==='shopgoods' && ACTION_NAME==='category'}-->active<!--{/if}-->">
 								<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);">官方专辑<b class="caret"></b></a>
 								<ul class="dropdown-menu" style="text-align:left;">
-									<li><a href="#">书画</a></li>
-									<li><a href="#">美术</a></li>
-									<li><a href="#">阿拉伯文</a></li>
+									<li><a href="<!--{:Dyhb::U('shop://shopgoods/category')}-->">书画</a></li>
+									<li><a href="<!--{:Dyhb::U('shop://shopgoods/category')}-->">美术</a></li>
+									<li><a href="<!--{:Dyhb::U('shop://shopgoods/category')}-->">阿拉伯文</a></li>
 								</ul>
 							</li>
 						</ul>
@@ -124,14 +124,16 @@
 				</div>
 
 				<div class="span12" style="text-align:center;margin-bottom:5px;">
-					<div class="control-group margin:auto;">
-						<div class="controls">
-							<div class="input-append">
-								<input class="span2" id="appendedInputButton" size="16" type="text">
-								<button class="btn" type="button">搜索吧!</button>
+					<form method="post" action="<!--{:Dyhb::U('shop://shopgoodssearch/index')}-->">
+						<div class="control-group margin:auto;">
+							<div class="controls">
+								<div class="input-append">
+									<input class="span2 search-query" id="appendedInputButton" size="16" type="text">
+									<button class="btn" type="submit" placeholder="Search">搜索吧!</button>
+								</div>
 							</div>
 						</div>
-					</div>
+					</form>
 				</div>
 
 				<div class="span12" style="text-align:center;margin-bottom:5px;">
