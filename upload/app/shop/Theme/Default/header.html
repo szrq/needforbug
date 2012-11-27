@@ -111,12 +111,12 @@
 							<li <!--{if MODULE_NAME==='shopgoods' && ACTION_NAME==='dateview'}-->class="active"<!--{/if}-->><a style="margin-left:32px;" href="<!--{:Dyhb::U('shop://shopgoods/dateview')}-->">限时抢购</a></li>
 							<li <!--{if MODULE_NAME==='shopgoods' && ACTION_NAME==='original'}-->class="active"<!--{/if}-->><a style="margin-left:32px;" href="<!--{:Dyhb::U('shop://shopgoods/original')}-->">原创</a></li>
 							<li <!--{if MODULE_NAME==='shopgoods' && ACTION_NAME==='like'}-->class="active"<!--{/if}-->><a style="margin-left:32px;" href="<!--{:Dyhb::U('shop://shopgoods/like')}-->">大家喜欢</a></li>
-							<li style="margin-left:32px;" class="dropdown">
+							<li style="margin-left:32px;" class="dropdown <!--{if MODULE_NAME==='shopgoods' && ACTION_NAME==='category'}-->active<!--{/if}-->">
 								<a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);">官方专辑<b class="caret"></b></a>
 								<ul class="dropdown-menu" style="text-align:left;">
-									<li><a href="#">书画</a></li>
-									<li><a href="#">美术</a></li>
-									<li><a href="#">阿拉伯文</a></li>
+									<li><a href="<!--{:Dyhb::U('shop://shopgoods/category')}-->">书画</a></li>
+									<li><a href="<!--{:Dyhb::U('shop://shopgoods/category')}-->">美术</a></li>
+									<li><a href="<!--{:Dyhb::U('shop://shopgoods/category')}-->">阿拉伯文</a></li>
 								</ul>
 							</li>
 						</ul>
