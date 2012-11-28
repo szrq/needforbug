@@ -6,4 +6,11 @@
 
 class InitController extends GlobalinitController{
 
+	public function init__(){
+		parent::init__();
+
+		Core_Extend::loadCache('shop_article');
+
+	}
+
 }

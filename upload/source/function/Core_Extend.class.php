@@ -225,7 +225,7 @@ class Core_Extend{
 		if(!isset($bIsFilecache)){
 			$bIsFilecache=$GLOBALS['_commonConfig_']['RUNTIME_CACHE_BACKEND']=='FileCache';
 			$bAllowMem=self::memory('check');
-		}
+		};
 
 		$arrData=array();
 		$CacheNames=is_array($CacheNames)?$CacheNames:array($CacheNames);
