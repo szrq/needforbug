@@ -48,7 +48,7 @@ class ShopoptionController extends InitController{
 			$oOptionModel->save(0,'update');
 		}
 
-		ShopCache_Extend::updateCache("option");
+		ShopCache_Extend::updateCacheOption();
 
 		$this->S(Dyhb::L('配置更新成功','__APP_ADMIN_LANG__@Controller/Shopoption'));
 	}
