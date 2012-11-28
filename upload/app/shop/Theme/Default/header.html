@@ -153,7 +153,7 @@ padding-left: 0px;
 				<div class="span12" style="text-align:center;margin-bottom:5px;">
 					<div class="p1">
 						<h6><a <!--{if MODULE_NAME==='shopgoods' && ACTION_NAME==='play' && G+getGpc('type')=='buy'}-->class="shopgoods_current"<!--{/if}--> href="<!--{:Dyhb::U('shop://shopgoods/play?type=buy')}-->">可买</a>
-							<a <!--{if MODULE_NAME==='shopgoods' && ACTION_NAME==='play' && G+getGpc('type')=='order'}-->class="shopgoods_current"<!--{/if}--> style="margin-left:32px;" href="<!--{:Dyhb::U('shop://shopgoods/play?type=order')}-->">可订</a>
+							<a <!--{if MODULE_NAME==='shopgoods' && ((ACTION_NAME==='play' && G+getGpc('type')=='order') || ACTION_NAME==='add_order')}-->class="shopgoods_current"<!--{/if}--> style="margin-left:32px;" href="<!--{:Dyhb::U('shop://shopgoods/play?type=order')}-->">可订</a>
 							<a <!--{if MODULE_NAME==='shopgoods' && ACTION_NAME==='play' && G+getGpc('type')=='sold'}-->class="shopgoods_current"<!--{/if}--> style="margin-left:32px;" href="<!--{:Dyhb::U('shop://shopgoods/play?type=sold')}-->">已售</a>
 							<a <!--{if MODULE_NAME==='shopgoods' && ACTION_NAME==='play' && G+getGpc('type')=='favorite'}-->class="shopgoods_current"<!--{/if}--> style="margin-left:32px;" href="<!--{:Dyhb::U('shop://shopgoods/play?type=favorite')}-->">推荐收藏</a>
 						</h6>
