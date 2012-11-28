@@ -132,14 +132,13 @@ class ShopcartController extends InitController{
 		$this->S('删除购物车中的商品成功');
 	}
 
+	public function notlogin(){
+		Dyhb::cookie('___notlogin___',1);
+
+		$this->U('shop://shopcart/checkout');
+	}
+
 	public function checkout(){
-		// 商品结算
-		$nNotlogin=intval(G::getGpc('notlogin','G'));
-
-		if($nNotlogin==1){
-			Dyhb::cookie('___notlogin___',1);
-		}
-
 		$nNotlogin=Dyhb::cookie('___notlogin___');
 
 		if($nNotlogin!=1 && $GLOBALS['___login___']===FALSE){
@@ -157,25 +156,22 @@ class ShopcartController extends InitController{
 			if(empty($arrShopcartsData)){
 				$this->E('购物车为空，无法结算');
 			}
+
 		
-			$nShopconsignee=Dyhb::cookie('___shopconsignee___');
-			if($nShopconsignee==1){
-				$arrShopaddressData=Dyhb::cookie('___shopaddress___');
-				$this->assign('arrShopaddressData',$arrShopaddressData);
+			//$arrShopaddressData=Dyhb::cookie('___shopaddress___');
+			//$this->assign('arrShopaddressData',$arrShopaddressData);
 
-				// 获取支付方式
-				$arrShoppayments=ShoppaymentModel::F('shoppayment_status=?',1)->getAll();
-				$this->assign('arrShoppayments',$arrShoppayments);
-				
-				// 获取配送方式
-				$arrShopshippings=ShopshippingModel::F('shopshipping_status=?',1)->getAll();
-				$this->assign('arrShopshippings',$arrShopshippings);
+			// 获取支付方式
+			$arrShoppayments=ShoppaymentModel::F('shoppayment_status=?',1)->getAll();
+			$this->assign('arrShoppayments',$arrShoppayments);
+			
+			// 获取配送方式
+			$arrShopshippings=ShopshippingModel::F('shopshipping_status=?',1)->getAll();
+			$this->assign('arrShopshippings',$arrShopshippings);
 
-				$this->display('shopcart+checkout');
-			}else{
-				// 跳转到配货地址
-				$this->U('shop://shopcart/consignee');
-			}
+			$this->assign('nNotlogin',$nNotlogin);
+
+			$this->display('shopcart+checkout');
 		}
 	}
 
@@ -410,6 +406,16 @@ class ShopcartController extends InitController{
 		$this->assign('sShoppaymentReturnhtml',$sShoppaymentReturnhtml);
 
 		$this->display('shopcart+done');
+	}
+
+	public function clearnotlogin(){
+		Dyhb::cookie('___notlogin___',null,-1);
+
+		$this->S('清除不登录直接购买状态');
+	}
+
+	public function shopaddress(){
+		echo 'Hello world!';
 	}
 
 }

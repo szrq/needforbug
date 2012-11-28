@@ -1,27 +1,7 @@
 <!--<include file="header" />-->
 
 <!--{script}-->
-function addShopaddress(){
-	var sHtml = $.ajax({
-		url: D.U('shop://shopcart/shopaddress'),
-		async: false
-	}).responseText;
 
-	oEditNewshopaddress=needforbugAlert(sHtml,'配送地址','',addShopaddressok,'',500,100);
-}
-
-function addShopaddressok(){
-	/*Dyhb.AjaxSubmit('sendpmform',D.U('home://pm/sendpm'),'result',function(data,status){
-		if(status==1){
-			$('#pm_subject').val('');
-			$('#pm_message').val('');
-			return true;
-		}else{
-			return false;
-		}
-	});*/
-	return false;
-}
 <!--{/script}-->
 	
 	<div class="span12" style="text-align:left;margin-top:20px;">
@@ -31,66 +11,8 @@ function addShopaddressok(){
 		</ul>
 	</div>
 
-	<!--<include file="shopcart+menu" />-->
-
-	<!--{if $nNotlogin==1}-->
-	<div class="span12" style="margin-top:20px;">
-		<p class="alert">亲爱的用户，你已经启用【不登录直接购买】模式<span class="pipe">|</span><a href="<!--{:Dyhb::U('shop://shopcart/clearnotlogin')}-->">清除状态</a></p>
-	</div>
-	<!--{/if}-->
-
-	<div class="span12" style="margin-top:20px;">
-		<h3>收货人联系方式</h3>
-		<hr/>
-		<div class="row" style="margin-top:20px;">
-			<div class="span3">&nbsp</div>
-			<div class="span9">
-				<a href="javascript:void(0);" onclick="addShopaddress();" class="btn"><i class="icon-plus"></i>&nbsp;新增配送地址</a>
-			</div>
-		</div>
-		<!--{if $GLOBALS['___login___']===false}-->
-		<div class="row" style="margin-top:20px;">
-			<div class="span3">&nbsp</div>
-			<div class="span5" style="text-align:center">
-				<form class="form-horizontal">
-					<fieldset>
-						<div class="control-group">
-							<label class="control-label" for="focusedInput">收货人姓名</label>
-							<div class="controls">
-								<input class="input-xlarge focused" id="focusedInput" type="text" value="请填写收货人姓名">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="focusedInput">收货人电话</label>
-							<div class="controls">
-								<input class="input-xlarge focused" id="focusedInput" type="text" value="请填写收货人电话">
-							</div>
-						</div>
-						<div class="control-group" >
-							<label class="control-label" for="focusedInput">收货人详细地址</label>
-							<div class="controls">
-								<input class="input-xlarge focused" id="focusedInput" type="text" value="请填写收货人详细地址">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="focusedInput">邮编</label>
-							<div class="controls">
-								<input class="input-xlarge focused" id="focusedInput" type="text" value="请填写邮编">
-							</div>
-						</div>
-						<p style="margin-top:30px">
-							<button class="btn btn-inverse" href="#">保存收货人信息</button>&nbsp;
-							<button class="btn btn-inverse" href="#">重置</button>
-						</p>
-				</fieldset>
-			</div>
-			<div class="span4">&nbsp</div>
-		</div>
-		<!--{/if}-->
-	</div>
-
 	<form action="<!--{:Dyhb::U('shop://shopcart/done')}-->" method="post" name="theForm" id="theForm">
-		<div class="span12" style="margin-top:20px;">
+		<div class="span12" style="margin-top:10px;">
 			<h3>商品列表</h3>
 			<table class="table">
 				<thead>
@@ -121,6 +43,34 @@ function addShopaddressok(){
 
 		<div class="span12" style="margin-top:10px;">
 			<h3>收货人信息</h3>
+			<table class="table" align="center" bgcolor="#dddddd" border="0" cellpadding="5" cellspacing="1" width="99%">
+				<tbody>
+					<tr>
+						<td bgcolor="#ffffff">收货人姓名:</td>
+						<td bgcolor="#ffffff"><!--{$arrShopaddressData['shopaddress_consignee']}--></td>
+						<td bgcolor="#ffffff">电子邮件地址:</td>
+						<td bgcolor="#ffffff"><!--{$arrShopaddressData['shopaddress_email']}--></td>
+					</tr>
+				   <tr>
+						<td bgcolor="#ffffff">详细地址:</td>
+						<td bgcolor="#ffffff"><!--{$arrShopaddressData['shopaddress_address']}--></td>
+						<td bgcolor="#ffffff">邮政编码:</td>
+						<td bgcolor="#ffffff"><!--{$arrShopaddressData['shopaddress_zipcode']}--></td>
+					</tr>
+					<tr>
+						<td bgcolor="#ffffff">电话:</td>
+						<td bgcolor="#ffffff"><!--{$arrShopaddressData['shopaddress_tel']}--></td>
+						<td bgcolor="#ffffff">手机:</td>
+						<td bgcolor="#ffffff"><!--{$arrShopaddressData['shopaddress_mobile']}--></td>
+					</tr>
+					<tr>
+						<td bgcolor="#ffffff">标志建筑:</td>
+						<td bgcolor="#ffffff"><!--{$arrShopaddressData['shopaddress_signbuilding']}--></td>
+						<td bgcolor="#ffffff">最佳送货时间:</td>
+						<td bgcolor="#ffffff"><!--{$arrShopaddressData['shopaddress_besttime']}--></td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 
 		<div class="span12" style="margin-top:10px;">

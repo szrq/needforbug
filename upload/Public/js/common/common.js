@@ -233,7 +233,7 @@ function goTop(acceleration,time){
  
 	// 如果距离不为零, 继续调用迭代本函数
 	if(x>0 || y>0){
-		var invokeFunction="goTop("+acceleration+", "+time+")";
+		var invokeFunction="goTop("+acceleration+","+time+")";
 		window.setTimeout(invokeFunction,time);
 	}
 }
