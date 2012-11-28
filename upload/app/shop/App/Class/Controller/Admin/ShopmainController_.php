@@ -12,8 +12,5 @@ class ShopmainController extends InitController{
 	public function index($sModel=null,$bDisplay=true){
 		$this->display(Admin_Extend::template('shop','shopmain/index'));
 	}
-	
-	public function update_option(){
-		echo 'Hello world!';
-	}
+
 }
