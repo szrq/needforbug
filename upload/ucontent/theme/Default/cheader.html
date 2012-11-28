@@ -37,6 +37,10 @@
 		});
 	});
 	<!--{/script}-->
+	<!--{~$sAppjsPath=APP_PATH.'/Static/Js/'.APP_NAME.'.js'}-->
+	<!--{if is_file($sAppjsPath)}-->
+	<script src="<!--{:__APPPUB__}-->/Js/<!--{:APP_NAME}-->.js"></script>
+	<!--{/if}-->
 	<!--<load file="<!--{:__PUBLIC__}-->/js/artdialog/skins/<!--{$GLOBALS['_option_']['front_dialog_style']}-->.css" />-->
 	<script type="text/javascript" src="<!--{:__PUBLIC__}-->/js/artdialog/jquery.artDialog.min.js"></script>
 	<script type="text/javascript" src="<!--{:__PUBLIC__}-->/js/artdialog/artDialog.plugins.min.js"></script>

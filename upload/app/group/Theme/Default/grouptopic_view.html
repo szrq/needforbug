@@ -27,7 +27,11 @@ $(function(){
 		});
 	});
 	
-	$('.grouptopiccomment_message').autoResize({
+	<!--{if $GLOBALS['___login___']!==false}-->
+	editor=loadEditorThin('grouptopiccomment_message');
+	$('a.face-icon').showEmotion({input:editor});
+	
+	$('.grouptopiccomment_quickmessage').autoResize({
 		onResize:function(){
 			$(this).css({opacity:0.8});
 		},
@@ -38,16 +42,21 @@ $(function(){
 		extraSpace:0,
 		min:'80px'
 	});
-
+	<!--{/if}-->
+	
 	$("#grouptopiccomment_quickmessage").focus(function(){
 		$("#grouptopiccomment_reply").css("display","block");
 	});
 
-	editor=loadEditorThin('grouptopiccomment_message');
-
-	$('a.face-icon').showEmotion({input:editor});
 	$('.grouptopiccontent_box').listEmotion();
 });
+
+function login_handle(data,status){
+	if(status==1){
+		sUrl='<!--{:Dyhb::U('group://topic@?id='.$oGrouptopic['grouptopic_id'])}-->';
+		setTimeout("window.location=sUrl;",1000);
+	}
+}
 
 function closeQuickreplay(){
 	$("#grouptopiccomment_reply").css("display","none");
@@ -287,7 +296,16 @@ var nGroupid=parseInt('<!--{$oGrouptopic['group_id']}-->'),nGrouptopicid=parseIn
 								<td class="floor_bottom floor_grouptopictd2" valign="bottom">
 									<div class="floor_quickreply">
 										<h4 style="font-size:13px;">快速回复</h4>
+										<!--{if $GLOBALS['___login___']!==false}-->
 										<textarea class="grouptopiccomment_quickmessage" name="grouptopiccomment_content" id="grouptopiccomment_quickmessage" placeholder="我也说两句" rows="2" cols="10"></textarea>
+										<!--{d*else}-->
+										<div style="background:#F5F5F5;padding:5px;">
+											<div style="border:solid 1px #DDDDDD;background:#fff; text-align:center;padding:25px 0;width:70%;">
+												<a onclick="ajaxLogin();" href="javascript:void(0);">登录</a> | 
+												<a href="<!--{:Dyhb::U('home://public/register')}-->">用户注册</a>
+											</div>
+										</div>
+										<!--{/if}-->
 									</div>
 									<div class="grouptopiccomment_reply none" id="grouptopiccomment_reply">
 										<button onclick="addGrouptopiccommentquick();" class="btn btn-success grouptopiccomment_btn">回复</button>
@@ -494,6 +512,7 @@ var nGroupid=parseInt('<!--{$oGrouptopic['group_id']}-->'),nGrouptopicid=parseIn
 							</td>
 							<td class="floor_right">
 								<form method="post" name="grouptopiccomment_form" id="grouptopiccomment_form" class="grouptopiccomment_form">
+									<!--{if $GLOBALS['___login___']!==false}-->
 									<textarea class="input-xlarge" name="grouptopiccomment_message" id="grouptopiccomment_message" rows="8" style="width:100%;"></textarea>
 									<div id="grouptopiccomment-media-box" class="common-media-box none">
 										<a href="javascript:void(0);" class="face-icon icon_add_face" >表情</a>
@@ -501,11 +520,21 @@ var nGroupid=parseInt('<!--{$oGrouptopic['group_id']}-->'),nGrouptopicid=parseIn
 										<a href="javascript:void(0);" onclick="addVideo('insertGrouptopicvideo');" class="icon_add_video" >视频</a>
 										<a href="javascript:void(0);" onclick="addMusic('insertGrouptopicmusic');" class="icon_add_music">音乐</a>
 									</div>
+									<!--{d*else}-->
+									<div style="background:#F5F5F5;padding:10px;">
+										<div style="border:solid 1px #DDDDDD;background:#fff; text-align:center;padding:45px 0">
+											<a onclick="ajaxLogin();" href="javascript:void(0);">登录</a> | 
+											<a href="<!--{:Dyhb::U('home://public/register')}-->">用户注册</a>
+										</div>
+									</div>
+									<!--{/if}-->
 									<div class="form-actions">
 										<input type="hidden" name="ajax" value="1">
 										<input type="hidden" name="tid" value="<!--{$oGrouptopic->grouptopic_id}-->">
-										<input id="submit_button" onclick="addGrouptopiccomment();" type="button" class="btn btn-middle btn-success" style="margin-left:0px;" value="发布">&nbsp;
-										<a href="javascript:void(0);" onclick="showMedia();">媒体</a>
+										<input id="submit_button" onclick="addGrouptopiccomment();" type="button" class="btn btn-middle btn-success" style="margin-left:0px;" value="发布" <!--{if $GLOBALS['___login___']===false}-->disabled="true"<!--{/if}-->>
+										<!--{if $GLOBALS['___login___']!==false}-->
+										&nbsp;<a href="javascript:void(0);" onclick="showMedia();">媒体</a>
+										<!--{/if}-->
 										<span class="pipe">|</span>
 										<a href="<!--{:Dyhb::U('group://grouptopic/reply?id='.$oGrouptopic->grouptopic_id)}-->" >进入高级模式&gt;&gt;</a>
 									</div>
