@@ -32,7 +32,7 @@
   'GUEST_AUTH_ON' => false,
   'GUEST_AUTH_ID' => 0,
   'RBAC_ERROR_PAGE' => '',
-  'TIME_ZONE' => 'Zulu',
+  'TIME_ZONE' => 'Asia/Shanghai',
   'TEMPLATE_TAG_NOTE' => true,
   'APP_DEVELOP' => 0,
   'FRONT_TPL_DIR' => 'Zhong',
