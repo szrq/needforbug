@@ -168,6 +168,7 @@ class App{
 
 		define('TEMPLATE_NAME',$sTemplateSet);
 		define('TEMPLATE_PATH',APP_TEMPLATE_PATH.'/'.TEMPLATE_NAME);
+		define('TEMPLATE_PATH_DEFAULT',APP_TEMPLATE_PATH.'/Default');
 
 		if(!is_dir(TEMPLATE_PATH)){
 			$sTemplatePath=APP_TEMPLATE_PATH.'/Default';
@@ -211,6 +212,7 @@ class App{
 		define('LANG_NAME',$sLangSet);
 		Lang::setCurrentLang($sLangSet);
 		define('LANG_PATH',APP_LANG_PATH.'/'.LANG_NAME);
+		define('LANG_PATH_DEFAULT',APP_LANG_PATH.'/'.ucfirst(strtolower($GLOBALS['_commonConfig_']['LANG'])));
 
 		return;
 	}
@@ -234,12 +236,14 @@ class App{
 
 		// 项目资源目录
 		define('__TMPL__',__THEME__.'/'.TEMPLATE_NAME);
+		define('__TMPL__DEFAULT__',__THEME__.'/Default');
 
 		// 网站公共文件目录
 		define('__PUBLIC__',__ROOT__.'/Public');
 
 		// 项目公共文件目录
 		define('__TMPLPUB__',__TMPL__.'/Public');
+		define('__TMPLPUB__DEFAULT__',__TMPL__DEFAULT__.'/Public');
 
 		// 框架一个特殊的模块定义
 		define('MODULE_NAME2',$GLOBALS['_commonConfig_']['TMPL_MODULE_ACTION_DEPR']=='/' && MODULE_NAME==='public'?'Public':MODULE_NAME);
