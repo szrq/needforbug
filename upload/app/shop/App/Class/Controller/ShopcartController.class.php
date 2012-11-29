@@ -168,8 +168,30 @@ class ShopcartController extends InitController{
 			// 获取配送方式
 			$arrShopshippings=ShopshippingModel::F('shopshipping_status=?',1)->getAll();
 			$this->assign('arrShopshippings',$arrShopshippings);
+			$this->assign('nShopshippingid',4);
 
 			$this->assign('nNotlogin',$nNotlogin);
+
+			// 用户已有配送地址
+			$arrShopaddressDatas=array();
+
+			if($GLOBALS['___login___']!==false){
+				// 从数据库中读取用户的配送地址
+			}else{
+				// 如果为不直接登录则，使用cookie临时保存的数据
+				$arrShopaddressCookiedata=Dyhb::cookie('___shopaddress___');
+				if(!empty($arrShopaddressCookiedata)){
+					// 处理配送地址
+					$sShopaddressto=$this->get_shopaddressto_($arrShopaddressCookiedata);
+					$arrShopaddressCookiedata['shopaddressto']=$sShopaddressto;
+					$arrShopaddressCookiedata['selected']=1;
+					$arrShopaddressCookiedata['default']=1;
+
+					$arrShopaddressDatas[]=$arrShopaddressCookiedata;
+				}
+			}
+
+			$this->assign('arrShopaddressDatas',$arrShopaddressDatas);
 
 			$this->display('shopcart+checkout');
 		}
@@ -178,10 +200,13 @@ class ShopcartController extends InitController{
 	public function save_consignee(){
 		// 这里保存配送地址
 		$arrShopaddressData=array();
-		$arrShopaddressData['shopaddress_province']=trim(G::getGpc('shopaddressprovince','P'));
-		$arrShopaddressData['shopaddress_city']=trim(G::getGpc('shopaddresscity','P'));
-		$arrShopaddressData['shopaddress_district']=trim(G::getGpc('shopaddressdist','P'));
-		$arrShopaddressData['shopaddress_community']=trim(G::getGpc('shopaddresscommunity','P'));
+
+		$arrShopaddressCookiedata=Dyhb::cookie('___shopaddress___');
+
+		$arrShopaddressData['shopaddress_province']=$this->get_shopaddressdistrict_('province',$arrShopaddressCookiedata);
+		$arrShopaddressData['shopaddress_city']=$this->get_shopaddressdistrict_('city',$arrShopaddressCookiedata);
+		$arrShopaddressData['shopaddress_district']=$this->get_shopaddressdistrict_('district',$arrShopaddressCookiedata);
+		$arrShopaddressData['shopaddress_community']=$this->get_shopaddressdistrict_('community',$arrShopaddressCookiedata);
 
 		$arrShopaddressData['shopaddress_handaddress']=trim(G::getGpc('shopaddress_handaddress','P'));
 		$arrShopaddressData['shopaddress_consignee']=trim(G::getGpc('shopaddress_consignee','P'));
@@ -196,37 +221,37 @@ class ShopcartController extends InitController{
 
 		$arrShopaddressData['shopaddress_besttime']=trim(G::getGpc('shopaddress_besttime','P'));
 
-		$arrShopaddressData['shopaddress_id']=intval(G::getGpc('shopaddress_id','P'));
-	
-
-		if(isset($_POST['shopaddress_consignee'])){
-			// 使用cookie临时保存数据
-			Dyhb::cookie('___shopaddress___',$arrShopaddressData);
+		if(isset($_POST['shopaddress_id']) && !empty($_POST['shopaddress_id'])){
+			$arrShopaddressData['shopaddress_id']=intval(G::getGpc('shopaddress_id','P'));
+		}else{
+			$arrShopaddressData['shopaddress_id']='default';
 		}
 
-		Dyhb::cookie('___shopconsignee___',1);
+		// 使用cookie临时保存数据
+		Dyhb::cookie('___shopaddress___',$arrShopaddressData);
+		
+		// 处理配送地址
+		$sShopaddressto=$this->get_shopaddressto_($arrShopaddressData);
+		$arrShopaddressData['shopaddressto']=$sShopaddressto;
 
 		$this->A($arrShopaddressData,'地址保存成功',1);
 	}
 
 	public function login(){
-		// 登陆相关
-		Core_Extend::loadCache('sociatype');
-		$this->assign('nDisplaySeccode',$GLOBALS['_option_']['seccode_login_status']);
-		$this->assign('nRememberTime',$GLOBALS['_option_']['remember_time']);
-		$this->assign('arrBindeds',$GLOBALS['_cache_']['sociatype']);
+		$nNotlogin=Dyhb::cookie('___notlogin___');
+		
+		if($nNotlogin==1 || $GLOBALS['___login___']!==FALSE){
+			$this->assign('__JumpUrl__',Dyhb::U('shop://shopcart/checkout'));
+			$this->S('你已经登录了或者启用不登陆直接购买模式');
+		}else{
+			// 登陆相关
+			Core_Extend::loadCache('sociatype');
+			$this->assign('nDisplaySeccode',$GLOBALS['_option_']['seccode_login_status']);
+			$this->assign('nRememberTime',$GLOBALS['_option_']['remember_time']);
+			$this->assign('arrBindeds',$GLOBALS['_cache_']['sociatype']);
 
-		$this->display('shopcart+login');
-	}
-
-	public function consignee(){
-		// 配货地址
-
-		require_once(Core_Extend::includeFile('function/Profile_Extend'));
-
-		$this->assign('sDirthDistrict',Profile_Extend::getDistrict(array(),'shopaddress',true,''));
-
-		$this->display('shopcart+consignee');
+			$this->display('shopcart+login');
+		}
 	}
 
 	public function indb(){
@@ -415,11 +440,46 @@ class ShopcartController extends InitController{
 	}
 
 	public function shopaddress(){
+		$arrShopaddressData=Dyhb::cookie('___shopaddress___');
+		
+		$arrDistrictdata=array();
+		foreach(array('province','city','district','community') as $sDistrict){
+			if(!empty($arrShopaddressData['shopaddress_'.$sDistrict])){
+				$arrDistrictdata['shopaddress'.$sDistrict]=$arrShopaddressData['shopaddress_'.$sDistrict];
+			}
+		}
+
 		// 配货地址
 		require_once(Core_Extend::includeFile('function/Profile_Extend'));
-		$this->assign('sDirthDistrict',Profile_Extend::getDistrict(array(),'shopaddress',true,''));
+		$this->assign('sDirthDistrict',Profile_Extend::getDistrict($arrDistrictdata,'shopaddress',true,'',false));
+
+		$this->assign('arrShopaddressData',$arrShopaddressData);
 
 		$this->display('shopcart+address');
+	}
+
+	protected function get_shopaddressdistrict_($sName,$arrCookiedata){
+		if(isset($_POST['shopaddress'.$sName])){
+			$sDistrict=trim(G::getGpc('shopaddress'.$sName,'P'));
+		}else{
+			$sDistrict=!empty($arrCookiedata['shopaddress_'.$sName])?$arrCookiedata['shopaddress_'.$sName]:'';
+		}
+
+		return $sDistrict;
+	}
+
+	protected function get_shopaddressto_($arrShopaddressData){
+		// 处理配送地址
+		if(!empty($arrShopaddressData['shopaddress_handaddress'])){
+			$sShopaddressto=$arrShopaddressData['shopaddress_handaddress'];
+		}else{
+			$sShopaddressto=$arrShopaddressData['shopaddress_province'].' '.
+							(!empty($arrShopaddressData['shopaddress_city'])?$arrShopaddressData['shopaddress_city'].' ':'').
+							(!empty($arrShopaddressData['shopaddress_district'])?$arrShopaddressData['shopaddress_district'].' ':'').
+							(!empty($arrShopaddressData['shopaddress_community'])?$arrShopaddressData['shopaddress_community'].' ':'');
+		}
+
+		return $sShopaddressto;
 	}
 
 }

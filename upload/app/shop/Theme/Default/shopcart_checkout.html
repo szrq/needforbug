@@ -34,14 +34,37 @@ function saveshopaddressComplete(data,status){
 	if(status==1){
 		oEditNewshopaddress.close();
 
+		var sShopaddress='<td><span class="shopaddress-tip">寄送至</span></td>'+
+						'<td><input name="shopaddress_id" value="'+data.shopaddress_id+'" checked="checked" type="radio"></td>'+
+						'<td><label>'+data.shopaddressto+data.shopaddress_address+' ('+data.shopaddress_consignee+' 收)&nbsp;<em>'+data.shopaddress_mobile+'</em></label><td>'+
+						'<td><em class="shopaddress-default" style="display:none;">默认地址</em></td>'+
+						'<td><a href="" style="display:none;">设置为默认收货地址</a></td>';
+		
+		if($('#shopaddressid_'+data.shopaddress_id).length>0){
+			$('#shopaddressid_'+data.shopaddress_id).html(sShopaddress);
+		}else{
+			sShopaddress=
+				'<tr class="shopaddress-selected" id="shopaddressid_'+data.shopaddress_id+'">'+
+					sShopaddress+
+				'</tr>';
 
+			$('#shopaddress-list').prepend(sShopaddress);
+		}
+
+		if($('#shopaddress-none').length>0){
+			$('#shopaddress-none').remove();
+		}
 	}
+}
+
+function showShoppaymentdescription(id){
+	$('#'+id).toggle('fast');
 }
 <!--{/script}-->
 
 <!--{style}-->
 .shopaddress-table{
-	  width: 100%;
+	width: 100%;
 }
 
 .shopaddress-table th,
@@ -84,134 +107,166 @@ function saveshopaddressComplete(data,status){
 	</div>
 	<!--{/if}-->
 
-	<div class="span12" style="margin-top:20px;">
-		<h3>收货人联系方式</h3>
-		<p>
-			<table class="shopaddress-table" border="0">
-				<thead>
-					<tr>
-						<th width="60"></th>
-						<th width="30">选择</th>
-						<th colspan="4">寄送信息</th>
-					</tr>
-				</thead>
-				<tbody id="shopaddress-list">
-					<tr class="shopaddress-selected">
-						<td><span class="shopaddress-tip">寄送至</span></td>
-						<td><input name="shopaddress_id" value="" checked="checked" type="radio"></td>
-						<td><label>四川省 自贡市 自流井区 四川省自贡市四川理工学院汇南校区英语2008级4班 (张早春 收)&nbsp;<em>15692918912</em></label>
-						<td>
-						<td><em class="shopaddress-default" style="">默认地址</em></td>
-						<td><a href="" style="display: none;">设置为默认收货地址</a></td>
-					</tr>
-				</tbody>
-			</table>
-		</p>
-		<div class="row" style="margin-top:20px;">
-			<div class="span3">&nbsp</div>
-			<div class="span9">
-				<a href="javascript:void(0);" onclick="addShopaddress();" class="btn"><i class="icon-plus"></i>&nbsp;新增配送地址</a>
-			</div>
-		</div>
-	</div>
-
-	<form action="<!--{:Dyhb::U('shop://shopcart/done')}-->" method="post" name="theForm" id="theForm">
+	<form action="<!--{:Dyhb::U('shop://shopcart/done')}-->" method="post" name="shoporderinfoForm" id="shoporderinfoForm">
 		<div class="span12" style="margin-top:20px;">
-			<h3>商品列表</h3>
-			<table class="table">
-				<thead>
-					<tr>
-						<th>作品</th>
-						<th>购买件数</th>
-						<th>购买价格</th>
-					</tr>
-				</thead>
-				<tbody>
-					<!--<foreach for=arrShopcartsData value=arrShopcart>-->
-					<tr>
-						<td><a href="<!--{:Dyhb::U('shop://goods@?id='.$arrShopcart['goods_id'])}-->"><!--{$arrShopcart['goods_name']}--></a><br/>
-							<img src="<!--{$arrShopcart['goods_img']}-->" alt="" width="120" height="120">
-						</td>
-						<td><input type="text" name="shopcartcount[<!--{$arrShopcart['goods_id']}-->]" value="<!--{$arrShopcart['goods_count']}-->" style="width:50px;"></td>
-						<td><!--{$arrShopcart['goods_price']}--></td>
-					</tr>
-					<!--</foreach>-->
-				</tbody>
-			</table>
-			<div class="row">
-				<div class="span12">
-					购物车中商品数量为 <!--{$arrShopcartsTotal['goods_count']}-->，购物金额小计 ￥<!--{$arrShopcartsTotal['goods_price']}-->
+			<h3>收货人联系方式</h3>
+			<hr/>
+			<p>
+				<table class="shopaddress-table" border="0">
+					<thead>
+						<tr>
+							<th width="60">选择</th>
+							<th width="30"></th>
+							<th colspan="4">寄送信息</th>
+						</tr>
+					</thead>
+					<tbody id="shopaddress-list">
+						<!--{if !empty($arrShopaddressDatas)}-->
+						<!--<foreach for=arrShopaddressDatas value=arrShopaddress>-->
+						<tr class="<!--{if !empty($arrShopaddress['selected'])}-->shopaddress-selected<!--{/if}-->" id="shopaddressid_<!--{$arrShopaddress['shopaddress_id']}-->">
+							<td><span class="shopaddress-tip">寄送至</span></td>
+							<td><input name="shopaddress_id" value="<!--{$arrShopaddress['shopaddress_id']}-->" <!--{if !empty($arrShopaddress['selected'])}-->checked="checked"<!--{/if}--> type="radio"></td>
+							<td><label><!--{$arrShopaddress['shopaddressto']}--> (<!--{$arrShopaddress['shopaddress_consignee']}--> 收)&nbsp;<em><!--{$arrShopaddress['shopaddress_mobile']}--></em></label>
+							<td>
+							<td><em class="shopaddress-default" style="<!--{if $arrShopaddress['default']!='1'}-->display: none;<!--{/if}-->">默认地址</em></td>
+							<td><a href="" style="display: none;">设置为默认收货地址</a></td>
+						</tr>
+						<!--</foreach>-->
+						<!--{d*else}-->
+						<tr id="shopaddress-none">
+							<td colspan="6">暂时没有任何配送地址，请点击下面的按钮新增一个</td>
+						</tr>
+						<!--{/if}-->
+					</tbody>
+				</table>
+			</p>
+			<div class="row" style="margin-top:20px;">
+				<div class="span3">&nbsp</div>
+				<div class="span9">
+					<a href="javascript:void(0);" onclick="addShopaddress();" class="btn"><i class="icon-plus"></i>&nbsp;新增配送地址</a>
 				</div>
 			</div>
 		</div>
 
-		<div class="span12" style="margin-top:10px;">
-			<h3>收货人信息</h3>
+		<div class="span12" style="margin-top:30px;">
+			<h3>购物车商品列表</h3>
+			<p>
+				<table class="table">
+					<thead>
+						<tr>
+							<th width="65">作品</th>
+							<td></th>
+							<th>购买件数</th>
+							<th>购买价格</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!--<foreach for=arrShopcartsData value=arrShopcart>-->
+						<tr>
+							<td>
+								<img src="<!--{$arrShopcart['goods_img']}-->" alt="" width="60" height="60" class="thumbnail">
+							</td>
+							<td><a href="<!--{:Dyhb::U('shop://goods@?id='.$arrShopcart['goods_id'])}-->" target="_blank"><!--{$arrShopcart['goods_name']}--></a></td>
+							<td><input type="text" name="shopcartcount[<!--{$arrShopcart['goods_id']}-->]" value="<!--{$arrShopcart['goods_count']}-->" style="width:50px;"></td>
+							<td><!--{$arrShopcart['goods_price']}--></td>
+						</tr>
+						<!--</foreach>-->
+					</tbody>
+				</table>
+			</p>
+			<div class="row">
+				<div class="span12">
+					购物车中商品数量为 <span style="color:red;font-size:15px;font-weight:bold;line-height:15px;"><!--{$arrShopcartsTotal['goods_count']}--></span>，购物金额小计 <span style="color:red;font-size:25px;font-weight:bold;line-height:25px;">￥<!--{$arrShopcartsTotal['goods_price']}--></span>
+				</div>
+			</div>
 		</div>
 
-		<div class="span12" style="margin-top:10px;">
-			<h3>配送方式</h3>
-			<!--{if $arrShopshippings}-->
-			<table class="table" id="paymentTable" align="center" bgcolor="#dddddd" border="0" cellpadding="5" cellspacing="1" width="99%">
-				<tbody>
-					<tr>
-						<th bgcolor="#ffffff" width="5%">&nbsp;</th>
-						<th bgcolor="#ffffff" width="25%">名称</th>
-						<th bgcolor="#ffffff">订购描述</th>
-						<th bgcolor="#ffffff" width="15%">费用</th>
-						<th bgcolor="#ffffff" width="15%">免费额度</th>
-						<th bgcolor="#ffffff" width="15%">保价费用</th>
-					</tr>
-					<!--<foreach for=arrShopshippings value=oShopshipping>-->
-					<!--{~$nShopshippingItemfee=!empty($arrShippingData['shopshipping_configure'][0]['value'])?$arrShippingData['shopshipping_configure'][0]['value']:0}-->
-					<tr>
-						<td bgcolor="#ffffff" valign="top">
-							<input name="shopshipping_id" value="<!--{$oShopshipping['shopshipping_id']}-->" shopshipping_iscod="<!--{$oShopshipping['shopshipping_iscod']}-->" shopshipping_insure="<!--{$oShopshipping['shopshipping_insure']}-->" type="radio">
-						</td>
-						<td bgcolor="#ffffff" valign="top"><strong><!--{$oShopshipping['shopshipping_name']}--></strong></td>
-						<td bgcolor="#ffffff" valign="top"><!--{$oShopshipping['shopshipping_description']}--></td>
-						<td align="right" bgcolor="#ffffff" valign="top">￥<!--{$nShopshippingItemfee}-->元</td>
-						<td align="right" bgcolor="#ffffff" valign="top">￥0.00元</td>
-						<td align="right" bgcolor="#ffffff" valign="top"><!--{if $oShopshipping['shopshipping_insure']>0}--><!--{$oShopshipping['shopshipping_insure']}--><!--{d*else}-->不支持保价<!--{/if}--></td>
-					</tr>
+		<div class="span12" style="margin-top:30px;">
+			<h3>支付方式</h3>
+			<hr/>
+			<!--{if $arrShoppayments}-->
+			<p>
+				<ul class="thumbnails">
+					<!--<foreach for=arrShoppayments value=oShoppayment>-->
+					<li class="span6">
+						<div class="thumbnail" style="padding:15px 10px;">
+							<h4><input name="shoppayment_id" value="<!--{$oShoppayment['shoppayment_id']}-->" type="radio" <!--{if 
+							$oShoppayment['shoppayment_id']==$nShopshippingid}-->checked="checked"<!--{/if}-->>&nbsp;&nbsp;<!--{$oShoppayment['shoppayment_name']}-->&nbsp;<i class="icon-eye-open" href="javascript:void(0);" onclick="showShoppaymentdescription('shoppaymentdescription_<!--{$oShoppayment['shoppayment_id']}-->');"></i></h4>
+							<p id="shoppaymentdescription_<!--{$oShoppayment['shoppayment_id']}-->" style="margin:10px 0px 5px 0px;background:#eeeeee;-webkit-border-radius: 6px;-moz-border-radius: 6px;border-radius: 6px;padding:20px 10px;display:none;"><!--{$oShoppayment['shoppayment_description']}--></p>
+							<p style="margin-top:10px;">手续费&nbsp;(<span style="color:red;font-size:13px;font-weight:bold;line-height:13px;">￥<!--{$oShoppayment['shoppayment_fee']}--></span>)</p>
+						</div>
+					</li>
 					<!--</foreach>-->
-					<tr>
-						<td colspan="6" align="right" bgcolor="#ffffff">
-							<input name="need_insure" onclick="selectInsure(this.checked)" value="1" disabled="true" type="checkbox">&nbsp;配送是否需要保价
-						</td>
-					</tr>
-				</tbody>
-			</table>
+				</ul>
+			</p>
 			<!--{d*else}-->
-			<p>网站还没有提供任何配送方式，请联系客户人员咨询</p>
+			<p>网站还没有提供任何支付方式，请联系客户人员咨询</p>
 			<!--{/if}-->
 		</div>
 
-		<div class="span12" style="margin-top:10px;">
-			<h3>支付方式</h3>
-			<!--{if $arrShoppayments}-->
-			<table class="table" id="paymentTable" align="center" bgcolor="#dddddd" border="0" cellpadding="5" cellspacing="1" width="99%">
-				<tbody>
-					<tr>
-						<th bgcolor="#ffffff" width="5%">&nbsp;</th>
-						<th bgcolor="#ffffff" width="20%">名称</th>
-						<th bgcolor="#ffffff">订购描述</th>
-						<th bgcolor="#ffffff" width="15%">手续费</th>
-					</tr>
-					<!--<foreach for=arrShoppayments value=oShoppayment>-->
-					<tr>
-						<td bgcolor="#ffffff" valign="top">
-							<input name="shoppayment_id" value="<!--{$oShoppayment['shoppayment_id']}-->" iscod="0" onclick="selectPayment(this)" type="radio">
-						</td>
-						<td bgcolor="#ffffff" valign="top"><strong><!--{$oShoppayment['shoppayment_name']}--></strong></td>
-						<td bgcolor="#ffffff" valign="top"><!--{$oShoppayment['shoppayment_description']}--></td>
-						<td align="right" bgcolor="#ffffff" valign="top">￥<!--{$oShoppayment['shoppayment_fee']}-->元</td>
-					</tr>
+		<div class="span12" style="margin-top:30px;">
+			<h3>配送方式</h3>
+			<hr/>
+			<!--{if $arrShopshippings}-->
+			<p>
+				<div class="row">
+					<!--<foreach for=arrShopshippings value=oShopshipping>-->
+					<!--{~$nShopshippingItemfee=!empty($arrShippingData['shopshipping_configure'][0]['value'])?$arrShippingData['shopshipping_configure'][0]['value']:0}-->
+					<div class="span6">
+						<h4><input name="shopshipping_id" value="<!--{$oShopshipping['shopshipping_id']}-->" type="radio">&nbsp;&nbsp;<!--{$oShopshipping['shopshipping_name']}--></h4>
+						<p style="margin:10px 0px 5px 0px;background:#eeeeee;-webkit-border-radius: 6px;-moz-border-radius: 6px;border-radius: 6px;padding:20px 10px;"><!--{$oShopshipping['shopshipping_description']|G+subString=0,30}-->...</p>
+						<p id="shopshippingdescription_<!--{$oShopshipping['shopshipping_id']}-->" style="margin:10px 0px 5px 0px;background:#eeeeee;-webkit-border-radius: 6px;-moz-border-radius: 6px;border-radius: 6px;padding:20px 10px;display:none;"><!--{$oShopshipping['shopshipping_description']}--></p>
+						<p style="margin-top:10px;">费用&nbsp;<span style="color:red;font-size:13px;font-weight:bold;line-height:13px;">￥<!--{$nShopshippingItemfee}--></span>
+							<span class="pipe">|</span>
+							免费额度&nbsp;<span style="color:red;font-size:13px;font-weight:bold;line-height:13px;">￥0.00</span>
+							<span class="pipe">|</span>
+							保价费用&nbsp;<span style="color:red;font-size:13px;font-weight:bold;line-height:13px;"><!--{if $oShopshipping['shopshipping_insure']>0}--><!--{$oShopshipping['shopshipping_insure']}--><!--{d*else}-->不支持保价<!--{/if}--></span>
+						</p>
+					</div>
+					<div class="span6">
+						<h4><input name="shopshipping_id" value="<!--{$oShopshipping['shopshipping_id']}-->" type="radio">&nbsp;&nbsp;<!--{$oShopshipping['shopshipping_name']}--></h4>
+						<p id="shopshippingdescription_<!--{$oShopshipping['shopshipping_id']}-->" style="margin:10px 0px 5px 0px;background:#eeeeee;-webkit-border-radius: 6px;-moz-border-radius: 6px;border-radius: 6px;padding:20px 10px;display:none;"><!--{$oShopshipping['shopshipping_description']}--></p>
+						<p><a class="btn" href="#">View details &raquo;</a></p>
+					</div>
 					<!--</foreach>-->
-				</tbody>
-			</table>
+				</div>
+				
+				<table class="table" id="shippingTable">
+					<thead>
+						<tr>
+							<th width="5%">名称</th>
+							<th width="75%"></th>
+							<th width="20%">配送费用</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!--<foreach for=arrShopshippings value=oShopshipping>-->
+						<!--{~$nShopshippingItemfee=!empty($arrShippingData['shopshipping_configure'][0]['value'])?$arrShippingData['shopshipping_configure'][0]['value']:0}-->
+						<tr>
+							<td valign="top">
+								<input name="shopshipping_id" value="<!--{$oShopshipping['shopshipping_id']}-->" type="radio">
+							</td>
+							<td valign="top"><strong><!--{$oShopshipping['shopshipping_name']}--></strong>&nbsp;<i class="icon-eye-open" href="javascript:void(0);" onclick="showShoppaymentdescription('shopshippingdescription_<!--{$oShopshipping['shopshipping_id']}-->');"></i>
+								<br/>
+								<p id="shopshippingdescription_<!--{$oShopshipping['shopshipping_id']}-->" style="margin:10px 0px 5px 0px;background:#eeeeee;-webkit-border-radius: 6px;-moz-border-radius: 6px;border-radius: 6px;padding:20px 10px;display:none;"><!--{$oShopshipping['shopshipping_description']}--></p>
+							</td>
+							<td align="right" valign="top">
+								费用&nbsp;<span style="color:red;font-size:15px;font-weight:bold;line-height:15px;">￥<!--{$nShopshippingItemfee}--></span><br/>
+								免费额度&nbsp;<span style="color:red;font-size:15px;font-weight:bold;line-height:15px;">￥0.00</span><br/>
+								保价费用&nbsp;<span style="color:red;font-size:15px;font-weight:bold;line-height:15px;"><!--{if $oShopshipping['shopshipping_insure']>0}--><!--{$oShopshipping['shopshipping_insure']}--><!--{d*else}-->不支持保价<!--{/if}--></span>
+							</td>
+						</tr>
+						<!--</foreach>-->
+						<tr>
+							<td colspan="6" align="right" style="text-align:right;">
+								<input name="need_insure" value="1" disabled="true" type="checkbox">&nbsp;配送是否需要保价
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</p>
 			<!--{d*else}-->
-			<p>网站还没有提供任何支付方式，请联系客户人员咨询</p>
+			<p>网站还没有提供任何配送方式，请联系客户人员咨询</p>
 			<!--{/if}-->
 		</div>
 

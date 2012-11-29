@@ -45,8 +45,8 @@ function cartIndb(){
 						<tbody>
 							<!--<foreach for=arrShopcartsData value=arrShopcart>-->
 							<tr>
-								<td style="width:120px;"><img src="<!--{$arrShopcart['goods_img']}-->" alt="" width="120" height="120"></td>
-								<td><a href="<!--{:Dyhb::U('shop://goods@?id='.$arrShopcart['goods_id'])}-->"><!--{$arrShopcart['goods_name']}--></a></td>
+								<td style="width:120px;"><img src="<!--{$arrShopcart['goods_img']}-->" alt="" width="120" height="120" class="thumbnail"></td>
+								<td><a href="<!--{:Dyhb::U('shop://goods@?id='.$arrShopcart['goods_id'])}-->" target="_blank"><!--{$arrShopcart['goods_name']}--></a></td>
 								<td><input type="text" name="shopcartcount[<!--{$arrShopcart['goods_id']}-->]" value="<!--{$arrShopcart['goods_count']}-->" style="width:50px;"></td>
 								<td><!--{$arrShopcart['goods_price']}--></td>
 								<th><a href="javascript:void(0);" onclick="deleteCart('<!--{$arrShopcart['goods_id']}-->');">删除</a></th>
