@@ -206,7 +206,7 @@ class ShopcartController extends InitController{
 
 		Dyhb::cookie('___shopconsignee___',1);
 
-		$this->U('shop://shopcart/checkout');
+		$this->A($arrShopaddressData,'地址保存成功',1);
 	}
 
 	public function login(){
@@ -415,7 +415,11 @@ class ShopcartController extends InitController{
 	}
 
 	public function shopaddress(){
-		echo 'Hello world!';
+		// 配货地址
+		require_once(Core_Extend::includeFile('function/Profile_Extend'));
+		$this->assign('sDirthDistrict',Profile_Extend::getDistrict(array(),'shopaddress',true,''));
+
+		$this->display('shopcart+address');
 	}
 
 }

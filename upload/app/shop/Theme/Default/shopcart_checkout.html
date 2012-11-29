@@ -11,18 +11,63 @@ function addShopaddress(){
 }
 
 function addShopaddressok(){
-	/*Dyhb.AjaxSubmit('sendpmform',D.U('home://pm/sendpm'),'result',function(data,status){
-		if(status==1){
-			$('#pm_subject').val('');
-			$('#pm_message').val('');
-			return true;
-		}else{
-			return false;
-		}
-	});*/
+	needforbugConfirm('你确定关闭配送地址管理器?',function(){
+		oEditNewshopaddress.close();
+		return true;
+	},function(){
+		return true;
+	});
 	return false;
 }
+
+function saveShopaddress(){
+	$("#submit_button").attr("disabled", "disabled");
+	$("#submit_button").val( 'add...' );
+
+	Dyhb.AjaxSubmit('shopcartaddressForm','<!--{:Dyhb::U('shop://shopcart/save_consignee')}-->','',saveshopaddressComplete);
+}
+
+function saveshopaddressComplete(data,status){
+	$("#submit_button").attr("disabled", false);
+	$("#submit_button").val( '保存收件人地址' );
+
+	if(status==1){
+		oEditNewshopaddress.close();
+
+
+	}
+}
 <!--{/script}-->
+
+<!--{style}-->
+.shopaddress-table{
+	  width: 100%;
+}
+
+.shopaddress-table th,
+.shopaddress-table td {
+  padding: 8px;
+  line-height: 18px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.shopaddress-table td {
+	padding:10px 5px 5px 5px;
+}
+
+.shopaddress-tip{
+	background: url("<!--{:__TMPLPUB__DEFAULT__}-->/Images/shopaddress_tip.gif") no-repeat scroll 0 0 transparent;
+	padding: 4px 0 0px 20px;
+	width: 15px;
+	color: #FF5500;
+	font-weight:bold;
+}
+.shopaddress-selected{
+    background-color: #FFF5CC;
+    border: 1px solid #FFE580;
+}
+<!--{/style}-->
 	
 	<div class="span12" style="text-align:left;margin-top:20px;">
 		<ul class="breadcrumb">
@@ -41,52 +86,33 @@ function addShopaddressok(){
 
 	<div class="span12" style="margin-top:20px;">
 		<h3>收货人联系方式</h3>
-		<hr/>
+		<p>
+			<table class="shopaddress-table" border="0">
+				<thead>
+					<tr>
+						<th width="60"></th>
+						<th width="30">选择</th>
+						<th colspan="4">寄送信息</th>
+					</tr>
+				</thead>
+				<tbody id="shopaddress-list">
+					<tr class="shopaddress-selected">
+						<td><span class="shopaddress-tip">寄送至</span></td>
+						<td><input name="shopaddress_id" value="" checked="checked" type="radio"></td>
+						<td><label>四川省 自贡市 自流井区 四川省自贡市四川理工学院汇南校区英语2008级4班 (张早春 收)&nbsp;<em>15692918912</em></label>
+						<td>
+						<td><em class="shopaddress-default" style="">默认地址</em></td>
+						<td><a href="" style="display: none;">设置为默认收货地址</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</p>
 		<div class="row" style="margin-top:20px;">
 			<div class="span3">&nbsp</div>
 			<div class="span9">
 				<a href="javascript:void(0);" onclick="addShopaddress();" class="btn"><i class="icon-plus"></i>&nbsp;新增配送地址</a>
 			</div>
 		</div>
-		<!--{if $GLOBALS['___login___']===false}-->
-		<div class="row" style="margin-top:20px;">
-			<div class="span3">&nbsp</div>
-			<div class="span5" style="text-align:center">
-				<form class="form-horizontal">
-					<fieldset>
-						<div class="control-group">
-							<label class="control-label" for="focusedInput">收货人姓名</label>
-							<div class="controls">
-								<input class="input-xlarge focused" id="focusedInput" type="text" value="请填写收货人姓名">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="focusedInput">收货人电话</label>
-							<div class="controls">
-								<input class="input-xlarge focused" id="focusedInput" type="text" value="请填写收货人电话">
-							</div>
-						</div>
-						<div class="control-group" >
-							<label class="control-label" for="focusedInput">收货人详细地址</label>
-							<div class="controls">
-								<input class="input-xlarge focused" id="focusedInput" type="text" value="请填写收货人详细地址">
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="focusedInput">邮编</label>
-							<div class="controls">
-								<input class="input-xlarge focused" id="focusedInput" type="text" value="请填写邮编">
-							</div>
-						</div>
-						<p style="margin-top:30px">
-							<button class="btn btn-inverse" href="#">保存收货人信息</button>&nbsp;
-							<button class="btn btn-inverse" href="#">重置</button>
-						</p>
-				</fieldset>
-			</div>
-			<div class="span4">&nbsp</div>
-		</div>
-		<!--{/if}-->
 	</div>
 
 	<form action="<!--{:Dyhb::U('shop://shopcart/done')}-->" method="post" name="theForm" id="theForm">

@@ -32,7 +32,7 @@ class AddtopicController extends Controller{
 		}
 
 
-		$sUrl=Dyhb::U('group://grouptopic/view?id='.$oGrouptopic['grouptopic_id']);
+		$sUrl=Dyhb::U('group://topic@?id='.$oGrouptopic['grouptopic_id']);
 
 		$this->A(array('url'=>$sUrl),'发布帖子成功',1);
 	}
