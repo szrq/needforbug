@@ -153,6 +153,8 @@ class ShopcartController extends InitController{
 			$arrShopcartsTotal=$arrData[1];
 			$this->assign('arrShopcartsTotal',$arrShopcartsTotal);
 
+			$this->assign('__JumpUrl__',Dyhb::U('shop://public/index'));
+
 			if(empty($arrShopcartsData)){
 				$this->E('购物车为空，无法结算');
 			}
@@ -267,6 +269,8 @@ class ShopcartController extends InitController{
 		//G::dump($_POST);
 
 		// 订单入库
+
+		$this->assign('__JumpUrl__',Dyhb::U('shop://public/index'));
 
 		// 读取并且检查购物车中的商品
 		$arrShopcarTempdata=$this->getShopcartdata_();
