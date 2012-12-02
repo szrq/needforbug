@@ -25,6 +25,11 @@ class ShopgoodsController extends InitController{
 		$this->display(Admin_Extend::template('shop','shopgoods/index'));
 	}
 
+	protected function get_maxuploadsize_(){
+		$this->assign('nUploadMaxFilesize',ini_get('upload_max_filesize'));
+		$this->assign('nUploadSize',Core_Extend::getUploadSize());
+	}
+
 	public function add(){
 		$this->bAdd_();
 
@@ -45,6 +50,8 @@ class ShopgoodsController extends InitController{
 		$this->assign('arrShopgoodsthumbimgsizes',$arrShopgoodsthumbimgsizes);
 		
 		$this->shopgoodstype_();
+
+		$this->get_maxuploadsize_();
 	}
 
 	public function get_shopcategorytree_(){
@@ -59,6 +66,24 @@ class ShopgoodsController extends InitController{
 
 		$this->strtotime_();
 
+		$arrUploaddata=array();
+
+		// 商品图片上传
+		$arrUploadgoodsimgdata=$this->shopgoodsimg_();
+
+		// 商品相册图片上传
+		$arrUploadgallerydata=$this->shopgoodsgallery_();
+		
+		if(!empty($arrUploadgoodsimgdata)){
+			$arrUploaddata['shopgoodsimg']=$arrUploadgoodsimgdata;
+		}
+
+		if(!empty($arrUploadgallerydata)){
+			$arrUploaddata['shopgalleryimg']=$arrUploadgallerydata;
+		}
+		
+		$this->_arrUploaddata=$arrUploaddata;
+
 		parent::insert('shopgoods',$nId);
 	}
 
@@ -70,6 +95,8 @@ class ShopgoodsController extends InitController{
 		$this->assign('arrUploadgallerys',$arrUploadgallerys);
 		
 		$this->shopgoodstype_();
+
+		$this->get_maxuploadsize_();
 	}
 
 	public function edit($sMode=null,$nId=null,$bDidplay=true){
@@ -330,8 +357,11 @@ class ShopgoodsController extends InitController{
 		}
 	}
 
+	public function AInsertObject_($oModel){
+		$this->AUpdateObject_($oModel);
+	}
+
 	protected function aInsert($nId=null){
-		
 		// 更新商品属性值
 		$this->update_attributevalue_($nId);
 	}
