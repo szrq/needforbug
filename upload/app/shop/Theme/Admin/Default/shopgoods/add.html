@@ -201,12 +201,6 @@ function getShopattributeForm(nShopgoodsid,nReturnmessage){
 								</p>
 							</fieldset>
 							<fieldset>
-								<label for="shopgoods_isalonesale"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->能作为普通商品销售<!--</lang>--></label>
-								<p style="padding-left:8px;">
-									<input name="shopgoods_isalonesale" value="1" <!--<if condition="!isset( $oValue ) || $oValue['shopgoods_isalonesale']==1">-->checked="checked"<!--</if>--> type="checkbox"> 打勾表示能作为普通商品销售，否则只能作为配件或赠品销售
-								</p>
-							</fieldset>
-							<fieldset>
 								<label for="shopgoods_isshipping"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopgoods'>-->是否为免运费商品<!--</lang>--></label>
 								<p style="padding-left:8px;">
 									<input name="shopgoods_isshipping" value="1" <!--<if condition="isset( $oValue ) && $oValue['shopgoods_isshipping']==1">-->checked="checked"<!--</if>--> type="checkbox"> 打勾表示此商品不会产生运费花销，否则按照正常运费计算

@@ -391,7 +391,6 @@ class ShopcartController extends InitController{
 				$oShopordergoods->shopordergoods_price=$oShopgoods->shopgoods_price;
 				$oShopordergoods->shopordergoods_shopprice=$oShopgoods->shopgoods_shopprice;
 				$oShopordergoods->shopordergoods_isreal=$oShopgoods->shopgoods_isreal;
-				$oShopordergoods->shopordergoods_parentid=$oShopgoods->shopgoods_parentid;
 				$oShopordergoods->save(0);
 
 				if($oShopordergoods->isError()){
