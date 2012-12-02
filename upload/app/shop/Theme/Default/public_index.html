@@ -84,15 +84,14 @@
 		</div>
 	</div>
 	<div class="span4">
-		<h3>商城公告&nbsp;<a href="#" title="更多公告"><i class="icon-th-list"></i></a></h3>
+		<h3>商城公告&nbsp;<a href="<!--{:Dyhb::U('shop://shopnotice/noticelist')}-->" title="更多公告"><i class="icon-th-list"></i></a></h3>
 		<p>
 			<ul class="unstyled news">
-				<!--{~$arrNew=array(1,2,3,4,5,6,7,8,9,10,11,12)}-->
-				<!--<foreach for=arrNew>-->
+				<!--<foreach for=arrNew value=oNew>-->
 				<li>
 					<div class="row">
-						<span class="span2"><a href="">国庆放假通知(<!--{$value}-->)</a></span>
-						<span class="span2" style="text-align:right;">2012-08-34</span>
+						<span class="span3"><a href="<!--{:Dyhb::U('shop://shopnotice/index?tid='.$oNew->shoparticle_id)}-->"><!--{$oNew->shoparticle_title}--></a></span>
+						<span style="text-align:right;width:80px;"><!--{$oNew->create_dateline|Core_Extend+timeFormat}--></span>
 					</div>
 				</li>
 				<!--</foreach>-->
