@@ -35,14 +35,13 @@
 				<div class="tab-pane active" id="tab1">
 					<p>
 						<ul class="thumbnails">
-							<!--{~$arrTop=array(1,2,3,4)}-->
-							<!--<foreach for=arrTop>-->
+							<!--<foreach for=arrPopularshopgoods value=oShopgoods>-->
 							<li class="span2">
 								<div class="thumbnail">
-									<img src="<!--{:__PUBLIC__}-->/images2/260&180.jpg" alt="" width="100%" height="160">
+									<img src="<!--{$oShopgoods->shopgoods_thumb|Shopgoods_Extend+getShopgoodspath}-->" alt="" width="100%" height="160">
 									<div class="caption">
-										<h5>清明上河图(<!--{$value}-->)</h5>
-										<p>￥1000</p>
+										<h5><!--{$oShopgoods->shopgoods_name}--></h5>
+										<p><!--{$oShopgoods->shopgoods_price}--></p>
 									</div>
 								</div>
 							</li>
@@ -53,30 +52,34 @@
 				<div class="tab-pane" id="tab2">
 					<p>
 						<ul class="thumbnails">
+							<!--<foreach for=arrHandwritingshopgoods value=oShopgoods>-->
 							<li class="span2">
 								<div class="thumbnail">
-									<img src="<!--{:__PUBLIC__}-->/images2/260&180.jpg" alt="" width="100%" height="160">
+									<img src="<!--{$oShopgoods->shopgoods_thumb|Shopgoods_Extend+getShopgoodspath}-->" alt="" width="100%" height="160">
 									<div class="caption">
-										<h5>清明上河图(22)</h5>
-										<p>￥1000</p>
+										<h5><!--{$oShopgoods->shopgoods_name}--></h5>
+										<p><!--{$oShopgoods->shopgoods_price}--></p>
 									</div>
 								</div>
 							</li>
+							<!--</foreach>-->
 						</ul>
 					</p>
 				</div>
 				<div class="tab-pane" id="tab3">
 					<p>
 						<ul class="thumbnails">
+							<!--<foreach for=arrpictureshopgoods value=oShopgoods>-->
 							<li class="span2">
 								<div class="thumbnail">
-									<img src="<!--{:__PUBLIC__}-->/images2/260&180.jpg" alt="" width="100%" height="160">
+									<img src="<!--{$oShopgoods->shopgoods_thumb|Shopgoods_Extend+getShopgoodspath}-->" alt="" width="100%" height="160">
 									<div class="caption">
-										<h5>清明上河图(23)</h5>
-										<p>￥1000</p>
+										<h5><!--{$oShopgoods->shopgoods_name}--></h5>
+										<p><!--{$oShopgoods->shopgoods_price}--></p>
 									</div>
 								</div>
 							</li>
+							<!--</foreach>-->
 						</ul>
 					</p>
 				</div>
