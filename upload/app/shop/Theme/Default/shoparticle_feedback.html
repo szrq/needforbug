@@ -20,24 +20,25 @@
 	<div class="span12">
 		<div id="feedbackguide"><!--{$oShoparticle->shoparticle_content}--></div>
 		<div>
-			<form action="" method="" name="feedbackform" id="feedbackform">
+			<form action="<!--{:Dyhb::U('shop://shoparticle/addfeedback')}-->" method="post" name="feedbackform" id="feedbackform">
 				<table class="table" width="100%">
 					<tr>
-						<td width="30%"><label for="title" >用户名：</label></td>
-						<td width="70%"><input type="text" name="title" id="title"></td>
+						<td width="30%"><label for="username" >用户名：</label></td>
+						<td width="70%"><input type="text" name="username" id="username" value="<!--{if isset($GLOBALS['___login___'])}--><!--{$GLOBALS['___login___']['user_name']}--><!--{/if}-->"></td>
 					</tr>
 					<tr>
 						<td><label for="email" >邮箱：</label></td>
-						<td><input type="text" name="email" id="email"></td>
+						<td><input type="text" name="email" id="email"  value="<!--{if isset($GLOBALS['___login___'])}--><!--{$GLOBALS['___login___']['user_email']}--><!--{/if}-->"></td>
 					</tr>
 					<tr>
 						<td><label for="content" >反馈内容：</label></td>
-						<td><textarea name="content" id="content" rows="5" cols="250"></textarea></td>
+						<td><textarea name="content" id="content" style="width:500px;height:150px;"></textarea></td>
 					</tr>
 					<tr>
-						<td colspan="2">
-							<input type="submit" name="" value="提交" class="btn"/>&nbsp;
-							<input type="reset" name="" value="取消" class="btn"/>
+						<td></td>
+						<td>
+							<input type="submit" value="提交" class="btn"/>&nbsp;
+							<input type="reset" value="取消" class="btn"/>
 						</td>
 					</tr>
 				</table>

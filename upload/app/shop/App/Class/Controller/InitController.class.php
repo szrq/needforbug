@@ -8,9 +8,8 @@ class InitController extends GlobalinitController{
 
 	public function init__(){
 		parent::init__();
-
+		ShopCache_Extend::updateCacheArticle();
 		Core_Extend::loadCache('shop_article');
-
 	}
 
 }

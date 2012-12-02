@@ -56,6 +56,9 @@ class ShoparticlecategoryController extends InitController{
 	public function edit($sMode=null,$nId=null,$bDidplay=true){
 		$nId=intval(G::getGpc('value','G'));
 		
+		if(empty($nId)){
+			$this->E('请选择你要编辑的分类');
+		}
 		$this->get_shoparticlecategorytree_();
 		
 		parent::edit('shoparticlecategory',$nId,false);
@@ -65,13 +68,22 @@ class ShoparticlecategoryController extends InitController{
 	public function update($sModel = NULL, $nId = NULL){
 		$nId=intval(G::getGpc('value'));
 		
+		if(empty($nId)){
+			$this->E('请选择你要更新的分类');
+		}
+
 		parent::update('shoparticlecategory',$nId);
 	}
 	
 	public function foreverdelete($sModel=null,$sId=null){
-		$sId=G::getGpc('value');
-		
-		parent::foreverdelete('shoparticlecategory',$sId);
+		$nId=G::getGpc('value');
+
+		if(empty($nId)){
+			$this->E('请选择你要删除的分类');
+		}else if($nId>0 && $nId<=6){
+			$this->E('无法删除系统保留分类');
+		}
+		parent::foreverdelete('shoparticlecategory',$nId);
 	}
 	/*public function shopgoods_img(){
 		$this->get_option_();
