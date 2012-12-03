@@ -49,6 +49,9 @@ a.content-tab:link,a.content-tab-active:link{ text-decoration:none; }
 .nfb_tab .nfb_tabtitle a {display:block;padding:6px 10px;text-decoration:none!important;margin:1px;margin-left:0;font-size:12px;color:#588C98!important;background:#DFEAF2;}
 .nfb_tab .nfb_tabtitle a:hover {color:#FFF;background:#C2E4EB;}
 .nfb_tab .nfb_tabtitle a.selected {margin-bottom:0;color:#000;background:#C2E4EB;border-bottom:1px solid #fff;cursor:default;}
+.nfb_tab .nfb_tabtitlebox {border-bottom:2px dashed #fff;background:#fff url('../Images/tabtitle_bg.png') repeat-x;padding:5px 15px 0px 15px;height:30px;}
+.nfb_tab .nfb_tabtitlebox a {border-top:2px solid #FFF;border-left:1px solid #FFF;border-right:1px solid #FFF;border-bottom:1px dashed #FFF;}
+.nfb_tab .nfb_tabtitlebox a.selected {border-bottom:1px dashed #dcfae2;}
 .nfb_tab .nfb_tabcontent {display:none;padding:5px 0px 8px 0px;*padding-top:3px;*margin-top:-15px;clear:left;}
 
 /**===============================

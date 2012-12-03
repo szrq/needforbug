@@ -30,12 +30,14 @@ function option(){
 					<!--<include file="Admin_Extend::template('shop','shopoption/menu')" />-->
 
 					<div id="shopoption_tab" class="nfb_tab">
-						<ul class="nfb_tabtitle">
-							<li><a href="#tab1">基本</a></li>
-							<li><a href="#tab2">评论</a></li>
-							<li><a href="#tab3">商品</a></li>
-							<li><a href="#tab4">显示</a></li>
-						</ul>
+						<div class="nfb_tabtitlebox">
+							<ul class="nfb_tabtitle">
+								<li><a href="#tab1">基本</a></li>
+								<li><a href="#tab2">评论</a></li>
+								<li><a href="#tab3">商品</a></li>
+								<li><a href="#tab4">显示</a></li>
+							</ul>
+						</div>
 						<div id="tab1" class="nfb_tabcontent">
 							<fieldset>
 								<label for="shop_name"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopoption'>-->商城名称<!--</lang>--></label>
@@ -76,7 +78,7 @@ function option(){
 							<fieldset>
 								<label for="shop_notice"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopoption'>-->商城公告<!--</lang>--></label>
 								<textarea name="options[shop_notice]" rows="5"><!--{$arrOptions['shop_notice']}--></textarea>
-								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopoption'>-->首页公告<!--</lang>--></div>
+								<div class="description"><!--<lang package='__APP_ADMIN_LANG__@Template/Shopoption'>-->出现在商城首页的公告<!--</lang>--></div>
 							</fieldset>
 						</div>
 						<div id="tab2" class="nfb_tabcontent">
