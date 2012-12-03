@@ -121,6 +121,8 @@ class ShopgoodsController extends InitController{
 	}
 
 	public function add_comment(){
+		$nShopgoodsid=intval(G::getGpc('shopgoods_id','P'));
+		
 		$oShopgoodscomment=new ShopgoodscommentModel();
 		$oShopgoodscomment->save(0);
 
@@ -133,6 +135,9 @@ class ShopgoodsController extends InitController{
 		$arrData['avatar']=Core_Extend::avatar($arrData['user_id'],'small');
 		$arrData['create_dateline']=Core_Extend::timeFormat($arrData['create_dateline']);
 		$arrData['shopgoodscomment_content']=nl2br($arrData['shopgoodscomment_content']);
+
+		// 评论数量
+		$arrData['totalnum']=ShopgoodscommentModel::F('shopgoodscomment_status=1 AND shopgoods_id=?',$nShopgoodsid)->all()->getCounts();
 	
 		$this->A($arrData,'发布商品评论成功');
 	}

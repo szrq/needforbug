@@ -110,6 +110,8 @@ function commentComplete(data,status){
 		if($('#shopgoodscomment-none').length>0){
 			$('#shopgoodscomment-none').remove();
 		}
+
+		$('#shopgoodscomment_totalnum').text(data.totalnum);
 	}
 }
 <!--{/script}-->
@@ -245,7 +247,7 @@ function commentComplete(data,status){
 							</form>
 							<div id="shopgoodsviewcomment_box">
 								<a name="comments"></a>
-								<h3>总评论数(<!--{$nTotalShopgoodscomment}-->)</h3>
+								<h3>总评论数(<span id="shopgoodscomment_totalnum"><!--{$nTotalShopgoodscomment}--></span>)</h3>
 								<div id="shopgoodscommentlistheader"></div>
 								<div id="loadingshopgoodscomments" class="loadinghomefreshchildcomments"><span>加载中...</span></div>
 								<div id="shopgoodsviewcommentlist_box" class="shopgoodsviewcommentlist_box">
