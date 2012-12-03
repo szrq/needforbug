@@ -347,7 +347,6 @@ class ShopcartController extends InitController{
 
 		$arrShoporderinfo['shoporderinfo_paymentname']=$oShoppayment['shoppayment_name'];
 
-
 		// 商品价格
 		$arrShoporderinfo['shoporderinfo_goodsamount']=$arrShopcartsTotal['goods_price'];
 
@@ -357,11 +356,6 @@ class ShopcartController extends InitController{
 
 		// 支付费用
 		$arrShoporderinfo['shoporderinfo_payfee']=0;
-
-		// 包装费用
-		$arrShoporderinfo['shoporderinfo_packfee']=0;
-
-
 
 		// 商品订单入库
 		$oShoporderinfo=new ShoporderinfoModel();
