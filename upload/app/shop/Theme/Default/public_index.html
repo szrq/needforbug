@@ -92,10 +92,8 @@
 			<ul class="unstyled news">
 				<!--<foreach for=arrNew value=oNew>-->
 				<li>
-					<div class="row">
-						<span class="span3"><a href="<!--{:Dyhb::U('shop://shopnotice/index?tid='.$oNew->shoparticle_id)}-->"><!--{$oNew->shoparticle_title}--></a></span>
-						<span style="text-align:right;width:80px;"><!--{$oNew->create_dateline|Core_Extend+timeFormat}--></span>
-					</div>
+					<span class="left"><a href="<!--{:Dyhb::U('shop://shopnotice/index?tid='.$oNew->shoparticle_id)}-->"><!--{$oNew->shoparticle_title|G+subString=0,16}--></a></span>
+					<span class="right"><!--{$oNew->create_dateline|Core_Extend+timeFormat}--></span>
 				</li>
 				<!--</foreach>-->
 			</ul>
