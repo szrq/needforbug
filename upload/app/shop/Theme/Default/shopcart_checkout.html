@@ -171,7 +171,7 @@ function shoporderinfoSubmit(){
 								<img src="<!--{$arrShopcart['goods_img']}-->" alt="" width="60" height="60" class="thumbnail">
 							</td>
 							<td><a href="<!--{:Dyhb::U('shop://goods@?id='.$arrShopcart['goods_id'])}-->" target="_blank"><!--{$arrShopcart['goods_name']}--></a></td>
-							<td><input type="text" name="shopcartcount[<!--{$arrShopcart['goods_id']}-->]" value="<!--{$arrShopcart['goods_count']}-->" style="width:50px;"></td>
+							<td><!--{$arrShopcart['goods_count']}--></td>
 							<td><!--{$arrShopcart['goods_price']}--></td>
 						</tr>
 						<!--</foreach>-->
