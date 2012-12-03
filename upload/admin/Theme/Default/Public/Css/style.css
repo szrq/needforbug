@@ -238,7 +238,7 @@ a.big-button:hover{text-decoration:none;color:#000;}
 #pagenav a {color: #77BACE;background:#f5f5f5;border: #dedfde 1px solid; padding:2px 6px 2px 6px; margin-right: 3px; text-decoration: none;-moz-border-radius: 2px;-khtml-border-radius: 2px;-webkit-border-radius: 2px;border-radius: 2px;}
 #pagenav a:hover {color: #fff; background-image: none; background-color: #77BACE;border: #000 1px solid;}
 #pagenav a:active {color: #fff; background-image: none; background-color: #77BACE;border: #000 1px solid;}
-#pagenav span.current {font-weight: bold;color: #77BACE;background-color: #eee; border: #77BACE 2px solid;padding:2px 6px 2px 6px; margin-right: 3px; -moz-border-radius: 2px;-khtml-border-radius: 2px;-webkit-border-radius: 2px;border-radius: 2px;}
+#pagenav span.current {font-weight: bold;color: #77BACE;background-color: #eee; border: #77BACE 1px solid;padding:2px 6px 2px 6px; margin-right: 3px; -moz-border-radius: 2px;-khtml-border-radius: 2px;-webkit-border-radius: 2px;border-radius: 2px;}
 #pagenav span.disabled {color: #77BACE; background-color: #f5f5f5; border: #eee 1px solid;padding:2px 6px 2px 6px;margin-right: 3px; -moz-border-radius: 2px;-khtml-border-radius: 2px;-webkit-border-radius: 2px;border-radius: 2px;}
 
 /**===============================
