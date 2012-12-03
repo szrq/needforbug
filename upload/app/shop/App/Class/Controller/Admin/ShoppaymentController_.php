@@ -10,31 +10,9 @@ Dyhb::import(NEEDFORBUG_PATH.'/app/shop/App/Class/Model');
 class ShoppaymentController extends InitController{
 
 	public function filter_(&$arrMap){
-		//$arrMap['group_name']=array('like','%'.G::getGpc('group_name').'%');
-		
-		// 取得分类父亲ID
-		/*$nPid=intval(G::getGpc('pid','G'));
-		if(empty($nPid)){
-			$nPid=0;
-		}
-		$arrMap['shopcategory_parentid']=$nPid;
-		
-		if($nPid>0){
-			$oParentShopcategory=ShopcategoryModel::F('shopcategory_id=?',$nPid)->getOne();
-			if(!empty($oParentShopcategory['shopcategory_id'])){
-				$this->assign('oParentShopcategory',$oParentShopcategory);
-			}
-		}*/
-		
-		//$nUid=intval(G::getGpc('uid','G'));
-		//if($nUid){
-			//$arrMap['user_id']=$nUid;
-		//}
 	}
 
 	public function index($sModel=null,$bDisplay=true){
-		//parent::index('shoppayment',false);
-
 		// 数据库中记录数量
 		$arrPaymentlist=array();
 
@@ -116,10 +94,6 @@ class ShoppaymentController extends InitController{
 	}
 	
 	public function insert($sModel=null,$nId=null){
-		// 安装支付方式
-		
-		// 检查一些参数
-		
 		$oShoppayment=new ShoppaymentModel();
 		$oShoppayment->shoppayment_config=serialize(G::getGpc('shoppayment_option','P'));
 		$oShoppayment->save(0);
