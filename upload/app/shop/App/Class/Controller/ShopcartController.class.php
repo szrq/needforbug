@@ -294,7 +294,7 @@ class ShopcartController extends InitController{
 		// 收货人信息
 		$arrShopaddressData=Dyhb::cookie('___shopaddress___');
 		if(empty($arrShopaddressData['shopaddress_consignee'])){
-			$this->assign('__JumpUrl__',Dyhb::U('shop://shopcart/consignee'));
+			$this->assign('__JumpUrl__',Dyhb::U('shop://shopcart/checkout'));
 			$this->E('收货人信息不完整');
 		}
 
