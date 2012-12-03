@@ -10,7 +10,8 @@ Dyhb::import(NEEDFORBUG_PATH.'/app/shop/App/Class/Model');
 class ShopattributeController extends InitController{
 
 	public function filter_(&$arrMap){
-		$nShopgoodstype=intval(G::getGpc('tid','G'));
+		// 类型
+		$nShopgoodstype=intval(G::getGpc('tid'));
 		if(empty($nShopgoodstype)){
 			$this->E('商品类型不能为空');
 		}
@@ -24,6 +25,9 @@ class ShopattributeController extends InitController{
 		$this->assign('oShopgoodstype',$oShopgoodstype);
 		
 		$arrMap['shopgoodstype_id']=$nShopgoodstype;
+
+		// 模糊查找
+		$arrMap['shopattribute_name']=array('like',"%".G::getGpc('shopattribute_name')."%");
 	}
 
 	public function index($sModel=null,$bDisplay=true){

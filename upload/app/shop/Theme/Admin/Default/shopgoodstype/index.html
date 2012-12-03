@@ -66,7 +66,7 @@
 									<span class='delete'><a href="javascript:foreverdelApp('<!--{$_GET['id']}-->','shopgoodstype','<!--{$value:shopgoodstype_id}-->');"><!--<lang package='Template/Default/Common'>-->删除<!--</lang>--></a></span>
 								</div>
 							</td>
-							<td>x</td>
+							<td><a href="<!--{:Admin_Extend::base(array('controller'=>'shopattribute','tid'=>$value['shopgoodstype_id']))}-->"><!--{$TheController:get_attributenum($value['shopgoodstype_id'])}--></a></td>
 							<td><!--{$value:create_dateline|date='Y-m-d H:i:s',**}--></td>
 							<td><img src="<!--{:__TMPLPUB__}-->/Images/<!--<if condition="$value:shopgoodstype_status eq 1" >-->yes<!--<else/>-->no<!--</if>-->.gif"/></td>
 							<td>

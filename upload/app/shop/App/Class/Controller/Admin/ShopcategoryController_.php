@@ -11,7 +11,7 @@ class ShopcategoryController extends InitController{
 
 	public function filter_(&$arrMap){
 		// 取得分类父亲ID
-		$nPid=intval(G::getGpc('pid','G'));
+		$nPid=intval(G::getGpc('pid'));
 		if(empty($nPid)){
 			$nPid=0;
 		}
@@ -23,6 +23,11 @@ class ShopcategoryController extends InitController{
 				$this->assign('oParentShopcategory',$oParentShopcategory);
 			}
 		}
+
+		$this->assign('nPid',$nPid);
+
+		// 商品分类
+		$arrMap['shopcategory_name']=array('like',"%".G::getGpc('shopcategory_name')."%");
 	}
 
 	public function index($sModel=null,$bDisplay=true){

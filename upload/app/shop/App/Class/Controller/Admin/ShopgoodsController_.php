@@ -12,6 +12,7 @@ class ShopgoodsController extends InitController{
 	protected $_arrUploaddata=array();
 
 	public function filter_(&$arrMap){
+		$arrMap['shopgoods_name']=array('like',"%".G::getGpc('shopgoods_name')."%");
 	}
 
 	public function index($sModel=null,$bDisplay=true){

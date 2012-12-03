@@ -10,6 +10,7 @@ Dyhb::import(NEEDFORBUG_PATH.'/app/shop/App/Class/Model');
 class ShoparticleController extends InitController{
 
 	public function filter_(&$arrMap){
+		$arrMap['shoparticle_title']=array('like',"%".G::getGpc('shoparticle_title')."%");
 	}
 	
 	public function index($sModel=null,$bDisplay=true){

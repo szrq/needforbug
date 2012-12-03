@@ -10,6 +10,7 @@ Dyhb::import(NEEDFORBUG_PATH.'/app/shop/App/Class/Model');
 class ShoparticlecategoryController extends InitController{
 
 	public function filter_(&$arrMap){
+		$arrMap['shoparticlecategory_name']=array('like',"%".G::getGpc('shoparticlecategory_name')."%");
 	}
 	
 	public function index($sModel=null,$bDisplay=true){
@@ -78,6 +79,7 @@ class ShoparticlecategoryController extends InitController{
 		}else if($nId>0 && $nId<=6){
 			$this->E('无法删除系统保留分类');
 		}
+
 		parent::foreverdelete('shoparticlecategory',$nId);
 	}
 

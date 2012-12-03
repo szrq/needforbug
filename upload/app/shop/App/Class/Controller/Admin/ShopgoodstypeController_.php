@@ -10,6 +10,7 @@ Dyhb::import(NEEDFORBUG_PATH.'/app/shop/App/Class/Model');
 class ShopgoodstypeController extends InitController{
 
 	public function filter_(&$arrMap){
+		$arrMap['shopgoodstype_name']=array('like',"%".G::getGpc('shopgoodstype_name')."%");
 	}
 
 	public function index($sModel=null,$bDisplay=true){
@@ -39,6 +40,10 @@ class ShopgoodstypeController extends InitController{
 		$nId=G::getGpc('value');
 	
 		parent::update('shopgoodstype',$nId);
+	}
+
+	public function get_attributenum($nShopgoodstypeid){
+		return ShopattributeModel::F('shopgoodstype_id=?',$nShopgoodstypeid)->all()->getCounts();
 	}
 
 }
