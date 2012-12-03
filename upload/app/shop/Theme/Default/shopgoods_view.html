@@ -218,7 +218,16 @@ function commentComplete(data,status){
 								</p>
 								<span class="help-block">请给商品投上你认为的星级</span>
 								<label>留言内容</label>
+								<!--{if $GLOBALS['___login___']===false}-->
+								<div style="background:#F5F5F5;padding:10px;">
+									<div style="border:solid 1px #DDDDDD;background:#fff; text-align:center;padding:40px 0">
+										<a onclick="ajaxLogin();" href="javascript:void(0);">登录</a> | 
+										<a href="<!--{:Dyhb::U('shop://goods@?id='.$oShopgoods['shopgoods_id'])}-->">用户注册</a>
+									</div>
+								</div>
+								<!--{d*else}-->
 								<textarea class="input-xlarge" id="shopgoodscomment_content" name="shopgoodscomment_content" rows="3" style="width:98%;height:90px;"></textarea>
+								<!--{/if}-->
 								<span class="help-block">请文明用语，切勿发布政治言论</span>
 								<!--{if $GLOBALS['___login___']!==false}-->
 								<input type="hidden" name="shopgoodscomment_username" value="<!--{$GLOBALS['___login___']['user_name']}-->" />
@@ -227,7 +236,7 @@ function commentComplete(data,status){
 								<input type="hidden" name="ajax" value="1" />
 								<input type="hidden" name="shopgoodscomment_parentid" id="shopgoodscomment_parentid" value="0">
 								<div>
-									<button id="comment-submit" style="margin:auto;" type="button" class="btn" onclick="sendShopgoodscomment();">发表评论</button>
+									<button id="comment-submit" style="margin:auto;" type="button" class="btn btn-success" <!--{if $GLOBALS['___login___']===false}-->disabled="true"<!--{/if}--> onclick="sendShopgoodscomment();">发表评论</button>
 								</div>
 							</form>
 							<div id="shopgoodsviewcomment_box">
