@@ -106,6 +106,10 @@ function commentComplete(data,status){
 			half  : false,
 			readOnly   : true
 		});
+		
+		if($('#shopgoodscomment-none').length>0){
+			$('#shopgoodscomment-none').remove();
+		}
 	}
 }
 <!--{/script}-->
@@ -278,7 +282,7 @@ function commentComplete(data,status){
 											</tr>
 											<!--</foreach>-->
 											<!--{d*else}-->
-											<tr>
+											<tr id="shopgoodscomment-none">
 												<td><p>暂时没有发现任何评论</p></td>
 											</tr>
 											<!--{/if}-->
