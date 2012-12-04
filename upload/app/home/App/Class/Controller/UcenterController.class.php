@@ -23,23 +23,23 @@ class UcenterController extends InitController{
 	}
 
 	public function view(){
-		Core_Extend::doControllerAction('Ucenter@Homefresh','view');
+		Core_Extend::doControllerAction('Ucenter@Homefresh/View','index');
 	}
 
 	public function homefreshtopic(){
-		Core_Extend::doControllerAction('Ucenter@Homefresh','topic');
+		Core_Extend::doControllerAction('Ucenter@Homefresh/Topic','index');
 	}
 
 	public function add_homefreshcomment(){
-		Core_Extend::doControllerAction('Ucenter@Homefresh','add_comment');
+		Core_Extend::doControllerAction('Ucenter@Homefresh/Addcomment','index');
 	}
 
 	public function update_homefreshgoodnum(){
-		Core_Extend::doControllerAction('Ucenter@Homefresh','update_goodnum');
+		Core_Extend::doControllerAction('Ucenter@Homefresh/Updategoodnum','index');
 	}	
 	
 	public function audit_homefreshcomment(){
-		Core_Extend::doControllerAction('Ucenter@Homefresh','audit');
+		Core_Extend::doControllerAction('Ucenter@Homefresh/Audit','index');
 	}
 	
 }

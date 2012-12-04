@@ -61,7 +61,7 @@ class AddController extends Controller{
 
 			$this->cache_site_();
 
-			$arrHomefreshData['homefresh_count']=$this->get_myhomefreshnum();
+			$arrHomefreshData['homefresh_count']=Homefresh_Extend::getMyhomefreshnum($GLOBALS['___login___']['user_id']);
 			
 			$this->A($arrHomefreshData,Dyhb::L('添加新鲜事成功','Controller/Homefresh'),1);
 		}
@@ -72,11 +72,6 @@ class AddController extends Controller{
 			require_once(Core_Extend::includeFile('function/Cache_Extend'));
 		}
 		Cache_Extend::updateCache("site");
-	}
-
-	protected function get_myhomefreshnum(){
-		$oHomefresh=Dyhb::instance('HomefreshModel');
-		return $oHomefresh->getHomefreshnumByUserid($GLOBALS['___login___']['user_id']);
 	}
 
 }

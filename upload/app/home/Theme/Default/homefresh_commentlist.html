@@ -32,7 +32,7 @@
 												<!--{/if}-->
 												<!--{/if}-->
 												<br/>
-												<!--{~$arrHomefreshchildcommentData=$TheController->get_newchildcomment($oHomefresh['homefresh_id'],$oHomefreshcommentList['homefreshcomment_id'],$oHomefresh['user_id'],true,intval(G::getGpc('commentpage_'.$oHomefreshcommentList['homefreshcomment_id'],'G')))}-->
+												<!--{~$arrHomefreshchildcommentData=Homefresh_Extend::getNewchildcomment($oHomefresh['homefresh_id'],$oHomefreshcommentList['homefreshcomment_id'],$oHomefresh['user_id'],true,intval(G::getGpc('commentpage_'.$oHomefreshcommentList['homefreshcomment_id'],'G')))}-->
 												<div id="homefreshchildcommentlistheader_<!--{$oHomefreshcommentList['homefreshcomment_id']}-->"></div>
 												<!--{script}-->
 												homefreshcommentAjaxpage('<!--{$oHomefreshcommentList['homefreshcomment_id']}-->');

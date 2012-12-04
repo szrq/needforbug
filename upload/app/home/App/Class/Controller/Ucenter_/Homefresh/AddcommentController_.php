@@ -1,120 +1,12 @@
 <?php
 /* [NeedForBug!] (C)Dianniu From 2010.
-   用户新鲜事控制器($)*/
+   添加评论($)*/
 
 !defined('DYHB_PATH') && exit;
 
-class HomefreshController extends InitController{
+class AddcommentController extends Controller{
 
-	public function topic(){
-		$this->display('homefresh+topic');
-	}
-
-	protected function get_myhomefreshnum(){
-		$oHomefresh=Dyhb::instance('HomefreshModel');
-		return $oHomefresh->getHomefreshnumByUserid($GLOBALS['___login___']['user_id']);
-	}
-
-	public function view(){
-		$nId=intval(G::getGpc('id','G'));
-
-		if(empty($nId)){
-			$this->E(Dyhb::L('你没有指定要阅读的新鲜事','Controller/Homefresh'));
-		}
-
-		$oHomefresh=HomefreshModel::F('homefresh_id=? AND homefresh_status=1',$nId)->getOne();
-		if(empty($oHomefresh['homefresh_id'])){
-			$this->E(Dyhb::L('新鲜事不存在或者被屏蔽了','Controller/Homefresh'));
-		}
-
-		$arrOptionData=$GLOBALS['_cache_']['home_option'];
-
-		// 判断邮件等外部地址过来的查找评论地址
-		$nIsolationCommentid=intval(G::getGpc('isolation_commentid','G'));
-		if($nIsolationCommentid){
-			$result=HomefreshcommentModel::getCommenturlByid($nIsolationCommentid);
-			if($result===false){
-				$this->E('该条评论已被删除、屏蔽或者尚未通过审核');
-			}
-
-			G::urlGoTo($result);
-			exit();
-		}
-
-		$oHomefresh->homefresh_viewnum=$oHomefresh->homefresh_viewnum+1;
-		$oHomefresh->save(0,'update');
-
-		if($oHomefresh->isError()){
-			$this->E($oHomefresh->getErrorMessage());
-		}
-
-		$sHomefreshtitle=$oHomefresh->homefresh_title?$oHomefresh->homefresh_title:G::subString(strip_tags($oHomefresh['homefresh_message']),0,$arrOptionData['homefreshtitle_substring_num']);
-
-		// 读取评论列表
-		$arrWhere=array();
-		$arrWhere['homefreshcomment_parentid']=0;
-		$arrWhere['homefreshcomment_status']=1;
-		$arrWhere['homefresh_id']=$nId;
-
-		if($GLOBALS['___login___']['user_id']!=$oHomefresh['user_id']){
-			$arrWhere['homefreshcomment_auditpass']=1;
-			$this->assign('bAuditpass',false);
-		}else{
-			$this->assign('bAuditpass',true);
-		}
-
-		$this->_oHomefresh=$oHomefresh;
-
-		$nTotalRecord=HomefreshcommentModel::F()->where($arrWhere)->all()->getCounts();
-		$oPage=Page::RUN($nTotalRecord,$arrOptionData['homefreshcomment_list_num'],G::getGpc('page','G'));
-		$arrHomefreshcommentLists=HomefreshcommentModel::F()->where($arrWhere)->all()->order('`create_dateline` DESC')->limit($oPage->returnPageStart(),$arrOptionData['homefreshcomment_list_num'])->getAll();
-
-		// 用户和积分
-		$oUserInfo=$oHomefresh->user;
-		$nUserscore=$oUserInfo->usercount->usercount_extendcredit1;
-		$arrRatinginfo=UserModel::getUserrating($nUserscore,false);
-		$this->assign('oUserInfo',$oUserInfo);
-		$this->assign('arrRatinginfo',$arrRatinginfo);
-		$this->assign('nUserscore',$nUserscore);
-
-		// 取得个人主页
-		$oUserprofile=UserprofileModel::F('user_id=?',$GLOBALS['___login___']['user_id'])->getOne();
-		$this->_sHomefreshtitle=$sHomefreshtitle;
-
-		// 我的新鲜事数量
-		$nMyhomefreshnum=$this->get_myhomefreshnum();
-
-		$this->assign('oHomefresh',$oHomefresh);
-		$this->assign('sHomefreshtitle',$sHomefreshtitle);
-		$this->assign('nTotalHomefreshcomment',$nTotalRecord);
-		$this->assign('sPageNavbar',$oPage->P('pagination','li','active'));
-		$this->assign('arrHomefreshcommentLists',$arrHomefreshcommentLists);
-		$this->assign('sUsersite',$oUserprofile['userprofile_site']);
-		$this->assign('nDisplaySeccode',$GLOBALS['_cache_']['home_option']['seccode_comment_status']);
-		$this->assign('nMyhomefreshnum',$nMyhomefreshnum);
-
-		$this->display('homefresh+view');
-	}
-
-	public $_oHomefresh=null;
-
-	public function view_title_(){
-		return $this->_sHomefreshtitle;
-	}
-
-	public function view_keywords_(){
-		return $this->view_title_();
-	}
-
-	public function view_description_(){
-		if(G::getGpc('page','G')>1){
-			return $this->view_title_();
-		}else{
-			return $this->_oHomefresh['homefresh_message'];
-		}
-	}
-
-	public function add_comment(){
+	public function index(){
 		$arrOptions=$GLOBALS['_cache_']['home_option'];
 
 		if($arrOptions['close_comment_feature']==1){
@@ -312,40 +204,13 @@ class HomefreshController extends InitController{
 		$this->A($arrCommentData,Dyhb::L('添加新鲜事评论成功','Controller/Homefresh'),1);
 	}
 
-	public function audit(){
-		$nId=intval(G::getGpc('id','G'));
-		$nStatus=intval(G::getGpc('status','G'));
-
-		$oHomefreshcomment=HomefreshcommentModel::F('homefreshcomment_id=? AND homefreshcomment_status=1',$nId)->getOne();
-		if(empty($oHomefreshcomment['homefreshcomment_id'])){
-			$this->E(Dyhb::L('待操作的评论不存在或者已被系统屏蔽','Controller/Homefresh'));
-		}
-
-		$oHomefreshcomment->homefreshcomment_auditpass=$nStatus;
-		$oHomefreshcomment->save(0,'update');
-
-		if($oHomefreshcomment->isError()){
-			$this->E($oHomefreshcomment->getErrorMessage());
-		}
-
-		// 更新评论数量
-		$oHomefresh=Dyhb::instance('HomefreshModel');
-		$oHomefresh->updateHomefreshcommentnum($oHomefreshcomment['homefresh_id']);
-
-		if($oHomefresh->isError()){
-			$oHomefresh->getErrorMessage();
-		}
-
-		$this->S(Dyhb::L('评论操作成功','Controller/Homefresh'));
-	}
-
-	public function send_cookie($oCommentModel){
+	protected function send_cookie($oCommentModel){
 		Dyhb::cookie('the_comment_name',$oCommentModel->homefreshcomment_name,86400);
 		Dyhb::cookie('the_comment_url',$oCommentModel->homefreshcomment_url,86400);
 		Dyhb::cookie('the_comment_email',$oCommentModel->homefreshcomment_email,86400);
 	}
 
-	public function comment_sendmail($oCommentModel){
+	protected function comment_sendmail($oCommentModel){
 		$bSendMail=$bSendMailAdmin=$bSendMailAuthor=false;
 
 		// 是否发送邮件
@@ -387,7 +252,7 @@ class HomefreshController extends InitController{
 		return;
 	}
 
-	public function send_a_email($oMailConnect,$sEmailTo,$sEmailSubject,$sEmailMessage){
+	protected function send_a_email($oMailConnect,$sEmailTo,$sEmailSubject,$sEmailMessage){
 		$oMail=Dyhb::instance('MailModel');
 		$oMail->sendAEmail($oMailConnect,$sEmailTo,$sEmailSubject,$sEmailMessage,'home');
 		if($oMail->isError()){
@@ -395,11 +260,11 @@ class HomefreshController extends InitController{
 		}
 	}
 
-	public function get_email_to_admin_subject($oCommentModel){
+	protected function get_email_to_admin_subject($oCommentModel){
 		return Dyhb::L('你的朋友【%s】在您的网站（%s）留言了！','Controller/Homefresh',null,$oCommentModel->homefreshcomment_name,$GLOBALS['_option_']['site_name']);
 	}
 
-	public function get_email_to_admin_message($oCommentModel,$oMailConnect){
+	protected function get_email_to_admin_message($oCommentModel,$oMailConnect){
 		$sLine=$this->get_mail_line($oMailConnect);
 
 		$sMessage=$this->get_email_to_admin_subject($oCommentModel)."{$sLine}";
@@ -428,11 +293,11 @@ class HomefreshController extends InitController{
 		return $sMessage;
 	}
 
-	public function get_email_to_author_subject($oCommentModel){
+	protected function get_email_to_author_subject($oCommentModel){
 		return Dyhb::L("我的朋友：【%s】您在博客（%s）发表的评论被回复了！",'Controller/Homefresh',null,$oCommentModel->homefreshcomment_name,$GLOBALS['_option_']['site_name']);
 	}
 
-	public function get_email_to_author_message($oCommentModel,$oCommentNew,$oMailSend){
+	protected function get_email_to_author_message($oCommentModel,$oCommentNew,$oMailSend){
 		$sLine=$this->get_mail_line($oMailSend);
 
 		$sMessage=$this->get_email_to_author_subject($oCommentModel).$sLine;
@@ -465,89 +330,15 @@ class HomefreshController extends InitController{
 		return $sMessage;
 	}
 
-	public function get_mail_line($oMailConnect){
+	protected function get_mail_line($oMailConnect){
 		return $oMailConnect->getIsHtml()===true?'<br/>':"\r\n";
 	}
-
-	public function update_goodnum(){
-		$nId=intval(G::getGpc('id','G'));
-
-		// 判断是否已经存在
-		$cookieValue=Dyhb::cookie('homefresh_goodnum');
-		$cookieValue=explode(',',$cookieValue);
-		if(in_array($nId,$cookieValue)){
-			$this->E(Dyhb::L('你已经赞了','Controller/Homefresh'),1);
-		}
-
-		// 更新赞
-		$oHomefresh=HomefreshModel::F('homefresh_id=?',$nId)->getOne();
-		if(empty($oHomefresh->homefresh_id)){
-			$this->E(Dyhb::L('你赞成的新鲜事不存在','Controller/Homefresh'));
-		}
-
-		$oHomefresh->homefresh_goodnum=$oHomefresh->homefresh_goodnum+1;
-		$oHomefresh->save(0,'update');
-		if($oHomefresh->isError()){
-			$this->E($oHomefresh->getErrorMessage());
-		}
-
-		// 发送新的COOKIE
-		$cookieValue[]=$nId;
-		$cookieValue=implode(',',$cookieValue);
-		Dyhb::cookie('homefresh_goodnum',$cookieValue);
-
-		$arrData['num']=$oHomefresh->homefresh_goodnum;
-
-		$this->A($arrData,Dyhb::L('赞','Controller/Homefresh').'+1',1,1);
-	}
-
+	
 	protected function cache_site_(){
 		if(!Dyhb::classExists('Cache_Extend')){
 			require_once(Core_Extend::includeFile('function/Cache_Extend'));
 		}
 		Cache_Extend::updateCache("site");
-	}
-
-	public function get_newcomment($nId,$nUserid){
-		if($GLOBALS['___login___']['user_id']!=$nUserid){
-			$sHomefreshcommentAuditpass=' AND homefreshcomment_auditpass=1 ';
-		}else{
-			$sHomefreshcommentAuditpass='';
-		}
-		
-		return HomefreshcommentModel::F(
-				'homefresh_id=? AND homefreshcomment_status=1 '.$sHomefreshcommentAuditpass.' AND homefreshcomment_parentid=0',$nId
-			)->limit(0,$GLOBALS['_cache_']['home_option']['homefreshcomment_limit_num'])->order('homefreshcomment_id DESC')->getAll();
-	}
-
-	public function get_newchildcomment($nId,$nCommentid,$nUserid,$bAll=false,$nCommentpage=1){
-		if($GLOBALS['___login___']['user_id']!=$nUserid){
-			$sHomefreshcommentAuditpass=' AND homefreshcomment_auditpass=1 ';
-		}else{
-			$sHomefreshcommentAuditpass='';
-		}
-		
-		$oHomefreshcommentSelect=HomefreshcommentModel::F(
-				'homefresh_id=? AND homefreshcomment_status=1 '.$sHomefreshcommentAuditpass.' AND homefreshcomment_parentid=?',$nId,$nCommentid
-			)->order('homefreshcomment_id DESC');
-
-		if($bAll===true){
-			if($nCommentpage<1){
-				$nCommentpage=1;
-			}
-
-			$nTotalHomefreshcommentNum=$oHomefreshcommentSelect->All()->getCounts();
-
-			$oPage=Page::RUN($nTotalHomefreshcommentNum,$GLOBALS['_cache_']['home_option']['homefreshchildcomment_list_num'],$nCommentpage,false);
-
-			$arrHomefreshcomments=HomefreshcommentModel::F(
-				'homefresh_id=? AND homefreshcomment_status=1 '.$sHomefreshcommentAuditpass.' AND homefreshcomment_parentid=?',$nId,$nCommentid
-				)->order('homefreshcomment_id DESC')->limit($oPage->returnPageStart(),$GLOBALS['_cache_']['home_option']['homefreshchildcomment_list_num'])->getAll();
-
-			return array($arrHomefreshcomments,$oPage->P('pagination_'.$nCommentid.'@pagenav','span','current','disabled','commentpage_'.$nCommentid),$nTotalHomefreshcommentNum<$GLOBALS['_cache_']['home_option']['homefreshchildcomment_list_num']?false:true);
-		}else{
-			return $oHomefreshcommentSelect->limit(0,$GLOBALS['_cache_']['home_option']['homefreshchildcomment_limit_num'])->getAll();
-		}
 	}
 
 }

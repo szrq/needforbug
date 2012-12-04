@@ -91,7 +91,7 @@
 		<p>
 			<ul class="unstyled news">
 				<!--<foreach for=arrNew value=oNew>-->
-				<li>
+				<li style="clear:both;">
 					<span class="left"><a href="<!--{:Dyhb::U('shop://shopnotice/index?tid='.$oNew->shoparticle_id)}-->"><!--{$oNew->shoparticle_title|G+subString=0,16}--></a></span>
 					<span class="right"><!--{$oNew->create_dateline|Core_Extend+timeFormat}--></span>
 				</li>
