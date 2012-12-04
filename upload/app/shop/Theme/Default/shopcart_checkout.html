@@ -214,18 +214,26 @@ function shoporderinfoSubmit(){
 			<!--{if $arrShopshippings}-->
 			<p>
 				<div class="row">
-					<!--<foreach for=arrShopshippings value=oShopshipping>-->
-					<!--{~$nShopshippingItemfee=!empty($arrShippingData['shopshipping_configure'][0]['value'])?$arrShippingData['shopshipping_configure'][0]['value']:0}-->
+					<!--<foreach for=arrShopshippings value=arrShopshipping>-->
 					<div class="span6">
-						<h4><input name="shopshipping_id" value="<!--{$oShopshipping['shopshipping_id']}-->" type="radio">&nbsp;&nbsp;<!--{$oShopshipping['shopshipping_name']}--></h4>
-						<p style="margin:10px 0px 5px 0px;background:#eeeeee;-webkit-border-radius: 6px;-moz-border-radius: 6px;border-radius: 6px;padding:20px 10px;"><!--{$oShopshipping['shopshipping_description']|G+subString=0,25}-->...
-						&nbsp;<i class="icon-eye-open" href="javascript:void(0);" onclick="showShoppaymentdescription('shopshippingdescription_<!--{$oShopshipping['shopshipping_id']}-->');"></i></p>
-						<p id="shopshippingdescription_<!--{$oShopshipping['shopshipping_id']}-->" style="margin:10px 0px 5px 0px;background:#eeeeee;-webkit-border-radius: 6px;-moz-border-radius: 6px;border-radius: 6px;padding:20px 10px;display:none;"><!--{$oShopshipping['shopshipping_description']}--></p>
-						<p style="margin-top:10px;">费用&nbsp;<span style="color:red;font-size:13px;font-weight:bold;line-height:13px;">￥<!--{$nShopshippingItemfee}--></span>
+						<h4><input name="shopshipping_id" value="<!--{$arrShopshipping['shopshipping_id']}-->" type="radio">&nbsp;&nbsp;<!--{$arrShopshipping['shopshipping_name']}--></h4>
+						<p style="margin:10px 0px 5px 0px;background:#eeeeee;-webkit-border-radius: 6px;-moz-border-radius: 6px;border-radius: 6px;padding:20px 10px;"><!--{$arrShopshipping['shopshipping_description']|G+subString=0,25}-->...
+						&nbsp;<i class="icon-eye-open" href="javascript:void(0);" onclick="showShoppaymentdescription('shopshippingdescription_<!--{$arrShopshipping['shopshipping_id']}-->');"></i></p>
+						<p id="shopshippingdescription_<!--{$arrShopshipping['shopshipping_id']}-->" style="margin:10px 0px 5px 0px;background:#eeeeee;-webkit-border-radius: 6px;-moz-border-radius: 6px;border-radius: 6px;padding:20px 10px;display:none;"><!--{$arrShopshipping['shopshipping_description']}--></p>
+						<p style="margin-top:10px;">
+							<!--{if !empty($arrShopshipping['shopshipping_configure'])}-->
+							<!--{~$arrShopshippingconfigures=$arrShopshipping['shopshipping_configure']}-->
+							<!--<foreach for=arrShopshippingconfigures value=arrShopshippingconfigure>-->
+							<a href="javascript:void(0);" title="<!--{$arrShopshippingconfigure['description']}-->"><!--{$arrShopshippingconfigure['title']}--></a>&nbsp;<span style="color:red;font-size:13px;font-weight:bold;line-height:13px;">￥<!--{$arrShopshippingconfigure['value']}--></span>
+							<!--{if count($arrShopshippingconfigures)-1!==$key}-->
 							<span class="pipe">|</span>
+							<!--{/if}-->
+							<!--</foreach>-->
+							<hr/>
+							<!--{/if}-->
 							免费额度&nbsp;<span style="color:red;font-size:13px;font-weight:bold;line-height:13px;">￥0.00</span>
 							<span class="pipe">|</span>
-							保价费用&nbsp;<span style="color:red;font-size:13px;font-weight:bold;line-height:13px;"><!--{if $oShopshipping['shopshipping_insure']>0}--><!--{$oShopshipping['shopshipping_insure']}--><!--{d*else}-->不支持保价<!--{/if}--></span>
+							保价费用&nbsp;<span style="color:red;font-size:13px;font-weight:bold;line-height:13px;"><!--{if $arrShopshipping['shopshipping_insure']>0}--><!--{$arrShopshipping['shopshipping_insure']}--><!--{d*else}-->不支持保价<!--{/if}--></span>
 						</p>
 					</div>
 					<!--</foreach>-->

@@ -25,4 +25,14 @@ class ShoporderinfoModel extends Model{
 		return ModelMeta::instance(__CLASS__);
 	}
 
+	public function insertShoporderinfo($arrShoporderinfo){
+		$oShoporderinfo=new self();
+		$oShoporderinfo->changeProp($arrShoporderinfo);
+		$oShoporderinfo->save(0);
+
+		if($oShoporderinfo->isError()){
+			$this->setErrorMessage($oShoporderinfo->getErrorMessage());
+		}
+	}
+
 }

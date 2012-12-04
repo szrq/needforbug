@@ -28,6 +28,16 @@ class ShopordergoodsModel extends Model{
 		return ModelMeta::instance(__CLASS__);
 	}
 
+	public function insertShopordergoods($arrShopordergoods){
+		$oShopordergoods=new self();
+		$oShopordergoods->changeProp($arrShopordergoods);
+		$oShopordergoods->save(0);
+
+		if($oShopordergoods->isError()){
+			$this->serErrorMessage($oShopordergoods->getErrorMessage());
+		}
+	}
+
 	protected function userId(){
 		$nUserId=intval(G::getGpc('user_id'));
 		return $nUserId>0?$nUserId:0;

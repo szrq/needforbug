@@ -27,4 +27,41 @@ class Shoppayment_Extend{
 		}
 	}
 
+	static public function getShippinglistData(){
+		// 已安装的配送方式
+		$arrShippinglist=array();
+
+		$arrShippings=ShopshippingModel::F('shopshipping_status=?',1)->order('shopshipping_sort DESC')->getAll();
+		if(is_array($arrShippings)){
+			foreach($arrShippings as $oShipping){
+				$arrShippinglist[$oShipping['shopshipping_code']]=$oShipping;
+			}
+		}
+		
+		// 读取配送方式数据
+		$arrShippinglistData=array();
+
+		$sShippingpath=NEEDFORBUG_PATH.'/app/shop/App/Class/Extension/Shipping';
+		$arrShippingdir=G::listDir($sShippingpath);
+		if(is_array($arrShippingdir)){
+			foreach($arrShippingdir as $sShippingdir){
+				$sConfigfile=$sShippingpath.'/'.$sShippingdir.'/Config.php';
+
+				if(!is_file($sConfigfile)){
+					continue;
+				}else{
+					$sShippingcode=$sShippingdir;
+
+					$arrShippinglistData[$sShippingcode]=(array)(include $sConfigfile);
+
+					if(isset($arrShippinglist[$sShippingcode])){
+						$arrShippinglistData[$sShippingcode]=array_merge($arrShippinglistData[$sShippingcode],$arrShippinglist[$sShippingcode]->toArray());
+					}
+				}
+			}
+		}
+
+		return $arrShippinglistData;
+	}
+
 }

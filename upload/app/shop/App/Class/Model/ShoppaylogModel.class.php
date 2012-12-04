@@ -25,4 +25,15 @@ class ShoppaylogModel extends Model{
 		return ModelMeta::instance(__CLASS__);
 	}
 
+	public function insertShoppaylog($nShoporderinfoid,$nShoporderinfoorderamount){
+		$oShoppaylog=new self();
+		$oShoppaylog->shoporderinfo_id=$nShoporderinfoid;
+		$oShoppaylog->shoppaylog_orderamount=$nShoporderinfoorderamount;
+		$oShoppaylog->save(0);
+
+		if($oShoppaylog->isError()){
+			$this->setErrorMessage($oShoppaylog->getErrorMessage());
+		}
+	}
+
 }
