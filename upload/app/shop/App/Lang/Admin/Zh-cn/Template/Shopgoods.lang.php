@@ -77,6 +77,7 @@ return array(
 '7dc0c8da4ab8caee7bc20f143f00b422'=>"当前最大上传尺寸",
 '5d047abdc82dc7f671af9071ce4d7cfd'=>"服务器最大上传值",
 'dcb1ab3c35bbe8138364067d8b66ad08'=>"请注意最好不要超过这个值，否则不会有任何效果",
+'ae2bb6a02e2530242bf900ab9c3d5cc9'=>"即将上市",
 )
 
 ?>

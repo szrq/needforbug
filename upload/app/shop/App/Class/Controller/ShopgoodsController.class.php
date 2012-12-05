@@ -31,6 +31,17 @@ class ShopgoodsController extends InitController{
 	}
 
 	public function hot(){
+		
+		$arrWhere=array();
+		$arrWhere['shopgoods_ishot']=1;
+		$arrwhere['shopgoods_status']=0;
+		$nEverynum=12;
+		$nCount=ShopgoodsModel::F("shopgoods_status=0 AND shopgoods_ishot=1")->getCounts();
+		$oPage=Page::RUN($nCount,$nEverynum,G::getGpc('page','G'));
+		$arrShopgoods=ShopgoodsModel::F()->where($arrWhere)->limit($oPage->returnPageStart(),$nEverynum)->getAll();
+
+		$this->assign('arrShopgoods',$arrShopgoods);
+		$this->assign('sPageNavbar',$oPage->P('pagination','li','active'));
 		$this->display('shopgoods+hot');
 	}
 

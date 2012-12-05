@@ -12,6 +12,9 @@ class PublicController extends InitController{
 		$this->populargoodslist();
 		$this->handwritinglist();
 		$this->picturelist();
+		$this->bestgoodslist();
+		$this->originalgoodslist();
+		$this->upcominglist();
 		$this->display('public+index');
 	}
 
@@ -23,18 +26,37 @@ class PublicController extends InitController{
 
 	public function populargoodslist(){
 	
-		$arrPopularshopgoods=ShopgoodsModel::F()->order('shopgoods_views DESC,create_dateline DESC')->limit(0,4)->getAll();
+		$arrPopularshopgoods=ShopgoodsModel::F('shopgoods_status=0')->order('shopgoods_views DESC,create_dateline DESC')->limit(0,4)->getAll();
 		$this->assign('arrPopularshopgoods',$arrPopularshopgoods);
 	}
 	
 	public function handwritinglist(){
 
-		$arrHandwritingshopgoods=ShopgoodsModel::F('shopcategory_id=?',2)->order('shopgoods_views DESC,create_dateline DESC')->limit(0,4)->getAll();
+		$arrHandwritingshopgoods=ShopgoodsModel::F('shopcategory_id=? AND shopgoods_status=0',2)->order('shopgoods_views DESC,create_dateline DESC')->limit(0,4)->getAll();
 		$this->assign('arrHandwritingshopgoods',$arrHandwritingshopgoods);
 	}
+
 	public function picturelist(){
 
-		$arrpictureshopgoods=ShopgoodsModel::F('shopcategory_id=?',8)->order('shopgoods_views DESC,create_dateline DESC')->limit(0,4)->getAll();
+		$arrpictureshopgoods=ShopgoodsModel::F('shopcategory_id=? AND shopgoods_status=0',8)->order('shopgoods_views DESC,create_dateline DESC')->limit(0,4)->getAll();
 		$this->assign('arrpictureshopgoods',$arrpictureshopgoods);
+	}
+
+	public function bestgoodslist(){
+	
+		$arrBestshopgoods=ShopgoodsModel::F('shopgoods_isbest=? AND shopgoods_status=0',1)->order('create_dateline DESC')->limit(0,4)->getAll();
+		$this->assign('arrBestshopgoods',$arrBestshopgoods);
+	}
+
+	public function originalgoodslist(){
+	
+		$arrOriginalshopgoods=ShopgoodsModel::F('shopgoods_status=0')->order('create_dateline DESC')->limit(0,5)->getAll();
+		$this->assign('arrOriginalshopgoods',$arrOriginalshopgoods);
+	}
+
+	public function upcominglist(){
+
+		$arrUpcomingshopgoods=ShopgoodsModel::F('shopgoods_isupcoming=? AND shopgoods_status=0',1)->order('create_dateline DESC')->limit(0,6)->getAll();
+		$this->assign('arrUpcomingshopgoods',$arrUpcomingshopgoods);
 	}
 }
