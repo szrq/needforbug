@@ -25,3 +25,20 @@ shoporderinfo_parentid
 shopagency_id 订单办事处ID
 
 shoporderinfo_discount折扣
+
+==============
+
+shoporderinfo_goodsamount
+商品总金额
+shoporderinfo_shippingfee
+商品配送费用
+shoporderinfo_insurefee
+保价费用
+shoporderinfo_payfee
+支付费用
+shoporderinfo_moneypaid
+已付费用
+shoporderinfo_moneypaid
+用户设定余额和用户可用余额最小值
+shoporderinfo_orderamount
+应付款余额
