@@ -63,7 +63,7 @@ class Alipay_Payment{
 		$sSign=substr($sSign,0,-1).$arrShoppaymentconfig['alipay_key'];
 		$sUrl='https://www.alipay.com/cooperate/gateway.do?'.$sParam.'&sign='.md5($sSign).'&sign_type=MD5';
 		
-		$sReturnhtml='<div style="text-align:center"><input type="button" class="btn btn-button" onclick="window.open(\''.$sUrl.'\')" value="'.'立即使用支付宝支付'.'" /></div>';
+		$sReturnhtml='<div style="text-align:center"><input type="button" class="btn btn-button" onclick="window.open(\''.$sUrl.'\')" value="'.'立即使用支付宝支付'.'"/></div>';
 
 		return $sReturnhtml;
 	}
@@ -93,7 +93,7 @@ class Alipay_Payment{
 		if(!empty($_GET)){
 			foreach($_GET AS $sKey=>$sVal){
 				if($sKey!='sign' && $sKey!='sign_type' && $sKey!='code'){
-					$sSign.= "{$sKey}={$sVal}&";
+					$sSign.="{$sKey}={$sVal}&";
 				}
 			}
 		}
@@ -104,13 +104,13 @@ class Alipay_Payment{
 		}
 
 		if($_GET['trade_status']=='WAIT_SELLER_SEND_GOODS'){
-			order_paid($nShopordersn,2);
+			//Shoporder_Extend::orderPaid($nShopordersn,2);
 			return true;
 		}elseif($_GET['trade_status']=='TRADE_FINISHED'){
-			order_paid($nShopordersn);
+			//Shoporder_Extend::orderPaid($nShopordersn);
 			return true;
 		}elseif ($_GET['trade_status']=='TRADE_SUCCESS'){
-			order_paid($nShopordersn,2);
+			//Shoporder_Extend::orderPaid($nShopordersn,2);
 			return true;
 		}else{
 			return false;

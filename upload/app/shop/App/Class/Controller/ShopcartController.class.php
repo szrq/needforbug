@@ -7,7 +7,7 @@
 class ShopcartController extends InitController{
 	
 	public function index(){
-		$arrData=$this->getShopcartdata_();
+		$arrData=Shoporder_Extend::getShopcartdata();
 		$arrShopcartsData=$arrData[0];
 		$arrShopcartsTotal=$arrData[1];
 		
