@@ -1,1 +1,1 @@
-a:1:{s:20:"GlobalinitController";s:30:"GlobalinitController.class.php";}
+a:2:{s:21:"GlobalchildController";s:31:"GlobalchildController.class.php";s:20:"GlobalinitController";s:30:"GlobalinitController.class.php";}

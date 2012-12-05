@@ -165,10 +165,10 @@ class Core_Extend{
 		return $arrAvatarInfo;
 	}
 
-	static public function doControllerAction($sPath,$sAction){
+	static public function doControllerAction($sPath,$sAction,$oParentcontroller=null){
 		require_once(Core_Extend::includeController($sPath,$sClassController));
 
-		$oClass=new $sClassController();
+		$oClass=new $sClassController($oParentcontroller);
 		$oClass->{$sAction}();
 	}
 	
