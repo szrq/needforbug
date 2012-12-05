@@ -9,6 +9,8 @@ class GlobalchildController extends Controller{
 	public $_oParentcontroller=null;
 	
 	public function __construct($oParentcontroller=null){
+		parent::__construct();
+		
 		$this->_oParentcontroller=$oParentcontroller;
 	}
 

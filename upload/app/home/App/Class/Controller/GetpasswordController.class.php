@@ -7,7 +7,7 @@
 class GetpasswordController extends InitController{
 
 	public function index(){
-		Core_Extend::doControllerAction('Getpassword@Index','index');
+		Core_Extend::doControllerAction('Getpassword@Index','index',$this);
 	}
 
 	public function email(){
