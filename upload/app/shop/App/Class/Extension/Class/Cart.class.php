@@ -11,7 +11,7 @@ class Cart{
 	protected $_nExpires=86400;
 	protected $_sCookiename='nfbcart_cookie';
 	
-	public function __construct($nGoodid=0,$sGoodsname='',$sGoodsprice=0,$nGoodscount=0,$nExpires=null,$sCookiename=null){
+	public function __construct($nGoodid=0,$sGoodsname='',$arrGoodsprice=array(0,0,0,0,0,0,0,0),$nGoodscount=0,$nExpires=null,$sCookiename=null){
 		if(!is_null($nExpires)){
 			$this->_nExpires=$nExpires;
 		}
@@ -21,11 +21,11 @@ class Cart{
 		}
 
 		if(is_numeric($nGoodid) && $nGoodid>0){
-			$this->addCart($nGoodid,$sGoodsname,$sGoodsprice,$nGoodscount);
+			$this->addCart($nGoodid,$sGoodsname,$arrGoodsprice,$nGoodscount);
 		}
 	}
 
-	public function addCart($nGoodid,$sGoodsname,$sGoodsprice,$nGoodscount){
+	public function addCart($nGoodid,$sGoodsname,$arrGoodsprice,$nGoodscount){
 		$this->_arrCarts=$this->view();
 		
 		if($this->checkItem($nGoodid)){
@@ -35,17 +35,17 @@ class Cart{
 
 		$this->_arrCarts['goods_id'][$nGoodid]=$nGoodid;
 		$this->_arrCarts['goods_name'][$nGoodid]=$sGoodsname;
-		$this->_arrCarts['goods_price'][$nGoodid]=$sGoodsprice;
+		$this->_arrCarts['goods_price'][$nGoodid]=$arrGoodsprice;
 		$this->_arrCarts['goods_count'][$nGoodid]=$nGoodscount;
 
 		$this->save();
 	}
 
-	public function editPrice($nGoodid,$sGoodsprice){
+	public function editPrice($nGoodid,$arrGoodsprice){
 		if($this->checkItem($nGoodid)){
 			$this->_arrCarts=$this->view();
 			$arrCarts=&$this->_arrCarts;
-			$arrCarts['goods_price'][$nGoodid]=$sGoodsprice;
+			$arrCarts['goods_price'][$nGoodid]=$arrGoodsprice;
 
 			$this->save();
 		}
@@ -129,16 +129,29 @@ class Cart{
 		$arrCarts=$this->_arrCarts=$this->view();
 
 		$arrData=array(
-			'goods_price'=>0,
+			'goods_price0'=>0,
+			'goods_price1'=>0,
+			'goods_price2'=>0,
+			'goods_price3'=>0,
+			'goods_price4'=>0,
+			'goods_price5'=>0,
+			'goods_price6'=>0,
+			'goods_price7'=>0,
 			'goods_count'=>0
 		);
 
 		$nI=0;
 		if(is_array($arrCarts['goods_id'])){
 			foreach($arrCarts['goods_id'] as $nKey=>$nVal){
-				$arrData['goods_price']+=$arrCarts['goods_price'][$nKey]*$arrCarts['goods_count'][$nKey];
+				for($nM=0;$nM++;$nM<8){
+					if(isset($arrCarts['goods_price'][$nKey]) && is_array($arrCarts['goods_price'][$nKey]) && array_key_exists($nM,$arrCarts['goods_price'][$nKey])){
+						$arrData['goods_count'.$nM]+=$arrCarts['goods_price'][$nKey][$nM]*$arrCarts['goods_count'][$nKey];
+					}else{
+						$arrData['goods_count'.$nM]+=$arrCarts['goods_price'][$nKey][$nM]*$arrCarts['goods_count'][$nKey];
+					}
+				}
+
 				$arrData['goods_count']+=$arrCarts['goods_count'][$nKey];
-				$nI++;
 			}
 		}
 

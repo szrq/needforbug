@@ -287,7 +287,20 @@ class ShopcartController extends InitController{
 		$arrShoporderinfo['shoporderinfo_paymentname']=$oShoppayment['shoppayment_name'];
 
 		// 商品价格
-		$arrShoporderinfo['shoporderinfo_goodsamount']=$arrShopcartsTotal['goods_price'];
+		//($arrShoporderinfo,$cart_goods);
+		
+		G::dump($arrShopcartsData);
+
+		$arrTotalprice=Shoporder_Extend::orderinfoFee($arrShoporderinfo);
+		//$order['bonus']        = $total['bonus'];
+		//$order['goods_amount'] = $total['goods_price'];
+		//$order['discount']     = $total['discount'];
+		//$order['surplus']      = $total['surplus'];
+		//$order['tax']          = $total['tax'];
+
+		//$arrShoporderinfo['shoporderinfo_goodsamount']=$arrShopcartsTotal['goods_price'];
+
+		exit();
 
 		// 配送费用
 		$arrShoporderinfo['shoporderinfo_shippingfee']=0;

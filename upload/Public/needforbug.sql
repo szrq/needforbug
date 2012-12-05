@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2012 年 12 月 05 日 05:04
+-- 生成日期: 2012 年 12 月 05 日 05:13
 -- 服务器版本: 5.5.22
 -- PHP 版本: 5.4.0
 
@@ -3881,7 +3881,6 @@ CREATE TABLE IF NOT EXISTS `needforbug_shoporderinfo` (
   `shoporderinfo_invoiceno` varchar(255) NOT NULL DEFAULT '' COMMENT '发票编号，发货时填写',
   `shoporderinfo_tobuyer` varchar(255) NOT NULL DEFAULT '' COMMENT '商家给客户的留言',
   `shoporderinfo_payremark` varchar(255) NOT NULL DEFAULT '' COMMENT '付款备注',
-  `shopagency_id` smallint(6) unsigned NOT NULL COMMENT '该笔订单被指派给的办事处的id',
   `shoporderinfo_invtype` varchar(60) NOT NULL COMMENT '发票类型,用户页面选择',
   `shoporderinfo_tax` decimal(10,2) NOT NULL COMMENT '发票税额',
   `shoporderinfo_isseparate` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0未分成或等待分成;1已分成;2取消分成',
@@ -3891,10 +3890,7 @@ CREATE TABLE IF NOT EXISTS `needforbug_shoporderinfo` (
   KEY `user_id` (`user_id`),
   KEY `create_dateline` (`create_dateline`),
   KEY `shoporderinfo_status` (`shoporderinfo_status`),
-  KEY `shoporderinfo_paystatus` (`shoporderinfo_paystatus`),
   KEY `shopshipping_id` (`shopshipping_id`),
-  KEY `shoporderinfo_shippingstatus` (`shoporderinfo_shippingstatus`),
-  KEY `shopagency_id` (`shopagency_id`),
   KEY `shoppay_id` (`shoppayment_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
