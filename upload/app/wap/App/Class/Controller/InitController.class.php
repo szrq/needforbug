@@ -11,11 +11,11 @@ class InitController extends Controller{
 	public function init__(){
 		parent::init__();
 
-		if(preg_match('/(mozilla|m3gate|winwap|openwave)/i',$_SERVER['HTTP_USER_AGENT'])){
-			G::urlGoTo(__ROOT__.'/index.php');
-		}
+		//if(preg_match('/(mozilla|m3gate|winwap|openwave)/i',$_SERVER['HTTP_USER_AGENT'])){
+			//G::urlGoTo(__ROOT__.'/index.php');
+		//}
 
-		header("Content-type: text/vnd.wap.wml; charset=utf-8");
+		//header("Content-type: text/vnd.wap.wml; charset=utf-8");
 
 		// 配置&登陆信息
 		Core_Extend::loadCache('option');
