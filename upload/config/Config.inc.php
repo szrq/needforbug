@@ -1,7 +1,7 @@
 <?php
  /* DoYouHaoBaby Framework Config File,Do not to modify this file! */ 
  return array (
-  'DB_PASSWORD' => '4582686',
+  'DB_PASSWORD' => '123456',
   'DB_PREFIX' => 'needforbug_',
   'DB_NAME' => 'needforbug',
   'DB_CACHE_FIELDS' => true,
